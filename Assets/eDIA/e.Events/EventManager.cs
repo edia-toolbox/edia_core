@@ -1,0 +1,206 @@
+﻿// #####################################################################################################
+/*
+ *  Project name  : VReha
+ *  Author		  : Jeroen
+ *  Description	  : Event manager handling global events
+ *  Version		  : 0
+ */
+// #####################################################################################################
+
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+// ==============================================================================================================================================
+namespace eDIA {
+
+	//main parameters package definition to send along an event. 
+	public class eParam {
+		// Empty constructor
+		/// <summary>Default empty </summary>
+		public eParam () { }
+
+	#region Basic parameters
+
+		//# Floats
+		public float floatP;
+		public float[] floatPs;
+
+		/// <summary>Pass on a float</summary>
+		public eParam (float _float) {
+			floatP = _float;
+		}
+
+		public float GetFloat () {
+			return floatP;
+		}
+
+		/// <summary>Pass on value array 'new float[] { value01, value02, .. }' </summary>
+		public eParam (float[] _floats) {
+			floatPs = _floats;
+		}
+
+		public float[] GetFloats () {
+			return floatPs;
+		}
+
+		//# Strings
+		public string stringP;
+		public string[] stringPs;
+
+		public eParam (string _string) {
+			stringP = _string;
+		}
+
+		public string GetString () {
+			return stringP;
+		}
+
+		/// <summary>Pass on value array "new string[] { value01, value02, .. }" </summary>
+		public eParam (string[] _strings) {
+			stringPs = _strings;
+		}
+		public string[] GetStrings () {
+			return stringPs;
+		}
+
+		//# Ints
+		public int intP;
+		public int[] intPs;
+
+		public eParam (int _int) {
+			intP = _int;
+		}
+
+		public int GetInt () {
+			return intP;
+		}
+
+		/// <summary>Pass on value array "new int[] { value01, value02, .. }" </summary>
+		public eParam (int[] _ints) {
+			intPs = _ints;
+		}
+
+		public int[] GetInts () {
+			return intPs;
+		}
+
+		public int GetIntAt (int _index) {
+			return intPs[_index];
+		}
+
+		//# Bools
+		public bool boolP;
+		public bool[] boolPs;
+
+		public eParam (bool _bool) {
+			boolP = _bool;
+		}
+
+		public bool GetBool () {
+			return boolP;
+		}
+
+		/// <summary>Pass on value array "new bool[] { value01, value02, .. }" </summary>
+		public eParam (bool[] _boolPs) {
+			boolPs = _boolPs;
+		}
+
+		public bool[] GetBools () {
+			return boolPs;
+		}
+		
+		//# Vector3
+		public Vector3 vector3P;
+		public Vector3[] vector3Ps;
+
+		public eParam (Vector3 _vector3) {
+			vector3P = _vector3;
+		}
+
+		public Vector3 GetVector3 () {
+			return vector3P;
+		}
+
+		//# Object container
+		public object objectP;
+
+		public eParam (object _objectP) {
+			objectP = _objectP;
+		}
+
+		public object GetObject () {
+			return objectP;
+		}
+
+		//# Transform container
+		public Transform transformP;
+
+		public eParam (Transform _transformP) {
+			transformP = _transformP;
+		}
+
+		public Transform GetTransform () {
+			return transformP;
+		}
+	}
+
+	#endregion
+
+	// ==============================================================================================================================================
+
+	[System.Serializable]
+	public class EventManager {
+		private static Dictionary<string, Action<eParam>> eventDictionary = new Dictionary<string, Action<eParam>> ();
+
+		public static bool showLog = false;
+
+		public static void StartListening (string eventName, Action<eParam> listener) {
+			Action<eParam> thisEvent;
+
+			if (eventDictionary.TryGetValue (eventName, out thisEvent)) {
+				//Add more event to the existing one
+				thisEvent += listener;
+
+				//Update the Dictionary
+				eventDictionary[eventName] = thisEvent;
+			} else {
+				//Add event to the Dictionary for the first time
+				thisEvent += listener;
+				eventDictionary.Add (eventName, thisEvent);
+			}
+
+			if (showLog)
+				UnityEngine.Debug.Log("added listener:" + eventName);
+		}
+
+		public static void StopListening (string eventName, Action<eParam> listener) {
+			//if (eventManager == null) return;
+			Action<eParam> thisEvent;
+
+			if (eventDictionary.TryGetValue (eventName, out thisEvent)) {
+				//Remove event from the existing one
+				thisEvent -= listener;
+
+				//Update the Dictionary
+				eventDictionary.Remove(eventName);
+
+				if (showLog)
+					UnityEngine.Debug.Log("Stopped listener:" + eventName);
+			}
+		}
+
+		public static void TriggerEvent (string eventName, eParam eventParam) {
+			Action<eParam> thisEvent = null;
+
+			if (eventDictionary.TryGetValue (eventName, out thisEvent)) {
+				thisEvent.Invoke (eventParam);
+				if (showLog)
+					Debug.Log ("EVENT >> " + eventName);
+			} else {
+				Debug.Log("No listener for:" + eventName);
+			}
+		}
+	}
+}
