@@ -1,0 +1,21 @@
+DEV NOTES
+-----------------------
+
+* Add package URP to this project. 
+Issues with the assets? 
+Test conversion separate first.
+
+* When the SystemManger is not used, the XRrig tries to find the `MainCamera`, `RightController`, `LeftController` by tag. 
+But: Does the tag definitions get synced with GIT ? 
+Is there maybe a more 'safe' way of doing this? 
+
+* UXF tries to check all kind of things before building the project. Some are in the way as we don't care about DynamoDB at this point for instance. 
+So I edited the scripts a bit in order to let it build.
+
+* [ eDIA ] XR
+Our [eDIA]XR is not just a rig, it is the base of the whole app. It holds the singleton for systemmanager, the mainmenu, input handlers, xr input system mapping, sceneloading and more.
+In order to use it, just put the [eDIA]INIT prefab in a scene, NOT the [eDIA]XR prefab itself!!.
+
+[ UXF adjustments ]
+* Commented out all content of the OnProcessScene method in /UXF/Scripts/Etc/Editor/UXFBuildPreprocessor.cs
+* Deleted /UXF/Scripts/DataHandling/WebAWSDynamoDB.cs as the ILCPP get's confused on that one for some reason
