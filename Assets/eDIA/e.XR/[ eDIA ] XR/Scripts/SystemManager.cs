@@ -57,12 +57,17 @@ public class SystemManager : MonoBehaviour {
 		transform.rotation = newTransform.rotation;
 	}
 
+	/// <summary>
+	/// 
+	/// </summary>
 	void DisableXRrig () {
 		XRrig_MainCamera.transform.parent.transform.localPosition = new Vector3(0, 1.675f, 0);
 		XRrig_RightController.GetComponent<XRInteractorLineVisual>().enabled = false;
 		XRrig_LeftController.GetComponent<XRInteractorLineVisual>().enabled = false;
 
-		//TODO: Hide hand meshes 
+		// Hide hands
+		XRrig_RightController.GetComponentInChildren<SkinnedMeshRenderer>(true).enabled = false;
+		XRrig_LeftController.GetComponentInChildren<SkinnedMeshRenderer>(true).enabled = false;
 	}
 
 #region MISC	
