@@ -7,11 +7,14 @@
 		{"type":"strings","key":"personNames","value":"Anton, Bert, Anja"}
 	],
 	"blockInstructions":[
-		{"type":"string","key":"1","value":"Some introduction text"}
+		{"type":"string","key":"1","value":"Watch the cube and press the button"}
 	],
 	"breakAfter":[2],
-	"trialSequenceKeys":["SomeKey", "AnotherKey"],
+	"trialSequenceKeys":["block_num","direction","color"],
 	"trialSequenceValues":[
-		{"values":["SomeValue","SomeOtherValue"]}
+		{"values":["1","1","#FFFFFF"]},
+		{"values":["1","-1","#FF34FF"]},
+		{"values":["1","-1","#11FF87"]},
+		{"values":["1","1","#00EEFF"]}
 	]
 }

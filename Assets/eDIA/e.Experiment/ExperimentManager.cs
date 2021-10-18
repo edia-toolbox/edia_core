@@ -135,7 +135,7 @@ namespace eDIA {
 		}
 
 		string LoadDefaultConfig () {
-        		var jsonTextFile = Resources.Load<TextAsset>("DefaultSessionConfigJSON");
+        		var jsonTextFile = Resources.Load<TextAsset>("DemoSessionConfigJSON");
 			return jsonTextFile.ToString();
 		}
 
