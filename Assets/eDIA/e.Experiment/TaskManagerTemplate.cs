@@ -123,6 +123,26 @@ namespace TASKNAME {
 		}
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
+#region SESSION START / END
+		
+		// Every Experiment must has a START and an END event!!
+		// Use these to show an introduction at the start and a thank-you or score overview in the end. 
+
+		/// <summary>Called from Experiment manager</summary>
+		public override void OnSessionStart() {
+			base.OnSessionStart();
+
+			// Show Intro
+			// System awaits 'EvProceed' event automaticcaly to proceed to first trial. 
+		}
+
+		/// <summary>Called from Experiment manager</summary>
+		public override void OnSessionEnd () {
+			base.OnSessionEnd();
+
+		}
+
+#endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region BREAK
 
 		// If there is a BREAK in the experiment, these methods get called

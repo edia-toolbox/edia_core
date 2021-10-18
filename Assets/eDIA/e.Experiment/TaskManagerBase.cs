@@ -80,11 +80,13 @@ using eDIA;
 		void OnSessionBeginUXF() {
 			AddToLog("OnSessionBeginUXF");
 			inSession = true;
+			OnSessionStart();
 		}
 
 		/// <summary>Called from UXF session. </summary>
 		void OnPreSessionEndUXF() {
 			AddToLog("OnPreSessionEndUXF");
+			OnSessionEnd(); // call our own session ending
 		}
 
 		/// <summary>Called from UXF session. </summary>
@@ -107,6 +109,18 @@ using eDIA;
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region eDIA EXPERIMENT EVENT HANDLERS
+
+		/// <summary>Hook up to OnSessionStart event</summary>
+		public virtual void OnSessionStart() {
+			AddToLog("Session Start: Intro");
+			//! System awaits 'EvProceed' event automaticcaly to proceed to first trial. 
+		}
+
+		/// <summary>Hook up to Experiment OnExperimentEnd event</summary>
+		public virtual void OnSessionEnd() {
+			AddToLog("Session end: Outro");
+			//! System awaits 'EvProceed' event automaticcaly to proceed to first trial.
+		}
 
 		/// <summary>Hook up to Experiment OnSessionBreak event</summary>
 		public virtual void OnSessionBreak() {

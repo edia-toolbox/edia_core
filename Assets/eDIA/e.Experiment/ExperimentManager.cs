@@ -96,6 +96,14 @@ namespace eDIA {
 		public class TrialEvent 	: UnityEvent<Trial>{}
 
 		[SerializeField] 
+		[Header("Fired when session STARTS")]
+		public DefaultEvent onSessionStart;
+		
+		[SerializeField] 
+		[Header("Fired when session ENDS")]
+		public DefaultEvent onSessionEnd;
+
+		[SerializeField] 
 		[Header("Fired when session break STARTS")]
 		public DefaultEvent onSessionBreak;
 		
@@ -227,15 +235,30 @@ namespace eDIA {
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region UXF EVENT HANDLERS 
 
+		/// <summary>Start of the UXF session. </summary>
 		void OnSessionBeginUXF() {
 			AddToLog("OnSessionBeginUXF");
+			EventManager.StartListening("EvProceed", OnEvStartFirstTrial);
+		}
+
+		/// <summary>Called from user input. </summary>
+		void OnEvStartFirstTrial (eParam e) {
+			EventManager.StopListening("EvProceed", OnEvStartFirstTrial);
 			Session.instance.Invoke("BeginNextTrial", 0.5f);
 		}
 
 		/// <summary>Called from UXF session. </summary>
 		void OnPreSessionEndUXF() {
 			AddToLog("OnPreSessionEndUXF");
+			EventManager.StartListening("EvProceed", OnEvFinaliseSession);
 		}
+
+		/// <summary>Called from user input. </summary>
+		void OnEvFinaliseSession (eParam e) {
+			EventManager.StopListening("EvProceed", OnEvFinaliseSession);
+			Session.instance.End();
+		}
+
 
 		/// <summary>Called from UXF session. </summary>
 		void OnSessionEndUXF() {
@@ -268,15 +291,23 @@ namespace eDIA {
 		/// <summary>Called from UXF session. </summary>
 		void OnTrialEndUXF(Trial endedTrial) {
 			AddToLog("OnTrialEndUXF");
+			// Are we ending?
 			if (Session.instance.isEnding)
 				return;
 
+			// More trial left to do?
 			if (Session.instance.CurrentBlock.lastTrial != Session.instance.CurrentTrial) {
 				Session.instance.BeginNextTrialSafe();
 				return;
 			}
 
 			AddToLog("Reached last trial in block " + Session.instance.currentBlockNum);
+			
+			// Last trial of the session?
+			if (Session.instance.CurrentBlock.lastTrial == Session.instance.CurrentTrial) {
+				Session.instance.preSessionEnd.Invoke(Session.instance);
+				return;
+			}
 			
 			// Do we take a break or jump to next block?
 			if (experimentConfig.breakAfter.Contains(Session.instance.currentBlockNum)) 

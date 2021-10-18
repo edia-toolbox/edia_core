@@ -175,19 +175,47 @@ namespace TASKNAME {
 
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
+#region SESSION START / END
+		
+		// Every Experiment must has a START and an END event!!
+		// Use these to show an introduction at the start and a thank-you or score overview in the end. 
+		
+		/// <summary>Called from Experiment manager</summary>
+		public override void OnSessionStart() {
+			base.OnSessionStart();
+
+			// Show Intro
+			// System awaits 'EvProceed' event automaticcaly to proceed to first trial. 
+
+			Debug.Log("Welcome to the experiment, please click button A to continue");
+		}
+
+		/// <summary>Called from Experiment manager</summary>
+		public override void OnSessionEnd () {
+			base.OnSessionEnd();
+
+			// Show Outro
+			// System awaits 'EvProceed' event automaticcaly to proceed to finalizing session. 
+
+			Debug.Log("Thank you for participating in the experiment, please click button A to end this session");
+
+		}
+
+#endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region BREAK
 
 		// If there is a BREAK in the experiment, these methods get called
 		public override void OnSessionBreak() {
 			base.OnSessionBreak();
 
+			Debug.Log("Take a short break");
 		}
 
 		public override void OnSessionResume () {
 			base.OnSessionResume();
 
+			Debug.Log("Resuming experiment");
 		}
-
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region BLOCK INTRODUCTION
@@ -199,6 +227,7 @@ namespace TASKNAME {
 		public override void OnBlockIntroduction() {
 			base.OnBlockIntroduction();
 
+			Debug.Log(ExperimentManager.Instance.experimentConfig.GetBlockIntroduction(Session.instance.currentBlockNum));
 		}
 
 		/// <summary>Hook up to Experiment OnSessionResume event</summary>
