@@ -71,11 +71,18 @@ namespace eDIA {
 			}
 		}	
 
-		// The config instance that holds current experimental configuration
-		// [HideInInspector]
+
+		// Local JSON configutation file
+		[Header("Experiment Settings")]
+		[Tooltip("Reference a local JSON config file here")]
+		public TextAsset experimentConfigJSON;
+		
+		/// The config instance that holds current experimental configuration
+		[HideInInspector]
 		public ExperimentConfig experimentConfig;
 
 		// Helper to inject introductions before next block starts
+		[Space(20)]
 		int activeBlockUXF = 0;
 
 		// Events
@@ -103,7 +110,6 @@ namespace eDIA {
 		[SerializeField] 
 		[Header("Fired when introduction is done")]
 		public TrialEvent onBlockContinue;
-
 
 		// UXF related
 		Dictionary<string, object> participantDetails   = new Dictionary<string, object>();
@@ -134,8 +140,11 @@ namespace eDIA {
 			SetExperimentConfig( e == null ? LoadDefaultConfig () : e.GetString() );
 		}
 
+		/// <summary>Load the default JSON configuration locally</summary>
+		/// <returns>JSON string</returns>
 		string LoadDefaultConfig () {
-        		var jsonTextFile = Resources.Load<TextAsset>("DemoSessionConfigJSON");
+        		// var jsonTextFile = Resources.Load<TextAsset>("DemoSessionConfigJSON");
+			var jsonTextFile = experimentConfigJSON;
 			return jsonTextFile.ToString();
 		}
 
