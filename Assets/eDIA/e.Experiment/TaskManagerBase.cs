@@ -112,14 +112,14 @@ using eDIA;
 
 		/// <summary>Hook up to OnSessionStart event</summary>
 		public virtual void OnSessionStart() {
-			AddToLog("Session Start: Intro");
+			AddToLog("SessionStart: Show Intro");
 			//! System awaits 'EvProceed' event automaticcaly to proceed to first trial. 
 		}
 
 		/// <summary>Hook up to Experiment OnExperimentEnd event</summary>
 		public virtual void OnSessionEnd() {
-			AddToLog("Session end: Outro");
-			//! System awaits 'EvProceed' event automaticcaly to proceed to first trial.
+			AddToLog("SessionEnd: Show Outro");
+			//! System awaits 'EvProceed' event automaticcaly to proceed to finalising session.
 		}
 
 		/// <summary>Hook up to Experiment OnSessionBreak event</summary>

@@ -95,13 +95,13 @@ namespace eDIA {
 		[System.Serializable]
 		public class TrialEvent 	: UnityEvent<Trial>{}
 
-		[SerializeField] 
-		[Header("Fired when session STARTS")]
-		public DefaultEvent onSessionStart;
+		// [SerializeField] 
+		// [Header("Fired when session STARTS")]
+		// public DefaultEvent onSessionStart;
 		
-		[SerializeField] 
-		[Header("Fired when session ENDS")]
-		public DefaultEvent onSessionEnd;
+		// [SerializeField] 
+		// [Header("Fired when session ENDS")]
+		// public DefaultEvent onSessionEnd;
 
 		[SerializeField] 
 		[Header("Fired when session break STARTS")]
@@ -288,9 +288,10 @@ namespace eDIA {
 
 		}
 
-		/// <summary>Called from UXF session. </summary>
+		/// <summary>Called from UXF session. Checks if to call NextTrial, should start a BREAK before next Block, or End the Session </summary>
 		void OnTrialEndUXF(Trial endedTrial) {
 			AddToLog("OnTrialEndUXF");
+			
 			// Are we ending?
 			if (Session.instance.isEnding)
 				return;
@@ -304,7 +305,8 @@ namespace eDIA {
 			AddToLog("Reached last trial in block " + Session.instance.currentBlockNum);
 			
 			// Last trial of the session?
-			if (Session.instance.CurrentBlock.lastTrial == Session.instance.CurrentTrial) {
+			if (Session.instance.LastTrial == Session.instance.CurrentTrial) {
+				AddToLog("Reached end of trials ");
 				Session.instance.preSessionEnd.Invoke(Session.instance);
 				return;
 			}
@@ -317,20 +319,20 @@ namespace eDIA {
 			}
 		}
 
-		/// <summary>Called from this manager. </summary>
+		/// <summary>Called from this manager. Invokes onSessionBreak event and starts listener to EvProceed event</summary>
 		void SessionBreak () {
 			AddToLog("SessionBreak");
 			EventManager.StartListening("EvProceed", SessionResume);
 			onSessionBreak.Invoke();
 		}
 
-		/// <summary>Called from this manager. </summary>
+		/// <summary>Called from EvProceed event. Stops listener, invokes onSessionResume event and calls UXF BeginNextTrial. </summary>
 		void SessionResume (eParam e) {
 			EventManager.StopListening("EvProceed", SessionResume);
 			onSessionResume.Invoke();
 			AddToLog("SessionResume");
 
-			Session.instance.Invoke("BeginNextTrialSafe", 1f);
+			Session.instance.Invoke("BeginNextTrialSafe", 0.5f);
 		}
 
 		/// <summary>Called from this manager. </summary>

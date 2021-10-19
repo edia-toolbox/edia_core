@@ -187,7 +187,7 @@ namespace TASKNAME {
 			// Show Intro
 			// System awaits 'EvProceed' event automaticcaly to proceed to first trial. 
 
-			Debug.Log("Welcome to the experiment, please click button A to continue");
+			Debug.Log("<color=#ffffff> >>> Welcome to the experiment, please click button A to continue </color>");
 		}
 
 		/// <summary>Called from Experiment manager</summary>
@@ -197,7 +197,7 @@ namespace TASKNAME {
 			// Show Outro
 			// System awaits 'EvProceed' event automaticcaly to proceed to finalizing session. 
 
-			Debug.Log("Thank you for participating in the experiment, please click button A to end this session");
+			Debug.Log("<color=#ffffff> >>> Thank you for participating in the experiment, please click button A to end this session </color>");
 
 		}
 
@@ -208,13 +208,13 @@ namespace TASKNAME {
 		public override void OnSessionBreak() {
 			base.OnSessionBreak();
 
-			Debug.Log("Take a short break");
+			Debug.Log("<color=#ffffff> >>> Take a short break </color>");
 		}
 
 		public override void OnSessionResume () {
 			base.OnSessionResume();
 
-			Debug.Log("Resuming experiment");
+			Debug.Log("<color=#ffffff> >>> Resuming experiment </color>");
 		}
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
@@ -227,7 +227,7 @@ namespace TASKNAME {
 		public override void OnBlockIntroduction() {
 			base.OnBlockIntroduction();
 
-			Debug.Log(ExperimentManager.Instance.experimentConfig.GetBlockIntroduction(Session.instance.currentBlockNum));
+			Debug.Log("<color=#ffffff> >>> "+ ExperimentManager.Instance.experimentConfig.GetBlockIntroduction(Session.instance.currentBlockNum) + "</color>");
 		}
 
 		/// <summary>Hook up to Experiment OnSessionResume event</summary>
