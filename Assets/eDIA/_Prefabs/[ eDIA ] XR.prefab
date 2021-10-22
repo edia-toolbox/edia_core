@@ -1,5 +1,37 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &1654406923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 119296242425747660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 1
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
 --- !u!114 &528385661891494432
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46,6 +78,38 @@ Transform:
   m_Father: {fileID: 2895498609272378037}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1910990498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1604908819791427328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 1
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
 --- !u!1 &2895498607649813565
 GameObject:
   m_ObjectHideFlags: 0
@@ -1272,7 +1336,7 @@ PrefabInstance:
     - target: {fileID: 3350495041512227793, guid: 855907b17848de04d9c8dd92687e9b89,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4497733412479578711, guid: 855907b17848de04d9c8dd92687e9b89,
         type: 3}
@@ -1282,7 +1346,7 @@ PrefabInstance:
     - target: {fileID: 6601601471580599509, guid: 855907b17848de04d9c8dd92687e9b89,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 855907b17848de04d9c8dd92687e9b89, type: 3}
@@ -1301,6 +1365,12 @@ GameObject:
 --- !u!20 &119296242425747663 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 2992980498975579544, guid: 855907b17848de04d9c8dd92687e9b89,
+    type: 3}
+  m_PrefabInstance: {fileID: 2895498609414833495}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1604908819791427328 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4497733412479578711, guid: 855907b17848de04d9c8dd92687e9b89,
     type: 3}
   m_PrefabInstance: {fileID: 2895498609414833495}
   m_PrefabAsset: {fileID: 0}
