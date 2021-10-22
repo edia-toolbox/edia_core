@@ -149,8 +149,8 @@ using eDIA;
 		}
 
 		/// <summary>Called from Experiment manager</summary>
-		public override void OnSessionEnd () {
-			base.OnSessionEnd();
+		public override void OnSessionEnding () {
+			base.OnSessionEnding();
 
 		}
 

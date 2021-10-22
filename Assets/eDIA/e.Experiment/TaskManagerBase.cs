@@ -85,7 +85,7 @@ namespace eDIA {
 		/// <summary>Called from UXF session. </summary>
 		void OnPreSessionEndUXF() {
 			AddToLog("OnPreSessionEndUXF");
-			OnSessionEnd(); // call our own session ending
+			OnSessionEnding(); // call our own session ending
 		}
 
 		/// <summary>Called from UXF session. </summary>
@@ -116,7 +116,7 @@ namespace eDIA {
 		}
 
 		/// <summary>Hook up to Experiment OnExperimentEnd event</summary>
-		public virtual void OnSessionEnd() {
+		public virtual void OnSessionEnding() {
 			AddToLog("SessionEnd: Show Outro");
 			//! System awaits 'EvProceed' event automaticcaly to proceed to finalising session.
 		}

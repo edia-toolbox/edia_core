@@ -76,6 +76,9 @@ using eDIA;
 			base.OnSessionEndUXF();
 
 			// Add actions to do when session has ended, like showing message to the user
+
+			EventManager.TriggerEvent("EvShowMessage", new eParam("Session ended, logfiles saved"));
+
 		}
 
 
@@ -127,6 +130,7 @@ using eDIA;
 			}
 
 			EventManager.StartListening("EvProceed", OnEvProceed); //! Continues to the next step
+			EventManager.TriggerEvent("EvShowMessage", new eParam("Click button to continue"));
 		}
 
 		/// <summary>Stop moving, change color</summary>
@@ -184,17 +188,17 @@ using eDIA;
 			// Show Intro
 			// System awaits 'EvProceed' event automaticcaly to proceed to first trial. 
 
-			Debug.Log("<color=#ffffff> >>> Welcome to the experiment, please click button A to continue </color>");
+			EventManager.TriggerEvent("EvShowMessage", new eParam("Welcome to the experiment, please click button to continue"));
 		}
 
 		/// <summary>Called from Experiment manager</summary>
-		public override void OnSessionEnd () {
-			base.OnSessionEnd();
+		public override void OnSessionEnding () {
+			base.OnSessionEnding();
 
 			// Show Outro
 			// System awaits 'EvProceed' event automaticcaly to proceed to finalizing session. 
 
-			Debug.Log("<color=#ffffff> >>> Thank you for participating in the experiment, please click button A to end this session </color>");
+			EventManager.TriggerEvent("EvShowMessage", new eParam("Thank you for participating in the experiment, please click button to end this session"));
 
 		}
 
@@ -206,12 +210,15 @@ using eDIA;
 			base.OnSessionBreak();
 
 			Debug.Log("<color=#ffffff> >>> Take a short break </color>");
+			EventManager.TriggerEvent("EvShowMessage", new eParam("Take a short break, \nClick button to continue"));
+			
 		}
 
 		public override void OnSessionResume () {
 			base.OnSessionResume();
 
 			Debug.Log("<color=#ffffff> >>> Resuming experiment </color>");
+			EventManager.TriggerEvent("EvShowMessage", new eParam("Resuming experiment"));
 		}
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
@@ -224,6 +231,7 @@ using eDIA;
 		public override void OnBlockIntroduction() {
 			base.OnBlockIntroduction();
 
+			EventManager.TriggerEvent("EvShowMessage", new eParam(  ExperimentManager.Instance.experimentConfig.GetBlockIntroduction(Session.instance.currentBlockNum) ));
 			Debug.Log("<color=#ffffff> >>> "+ ExperimentManager.Instance.experimentConfig.GetBlockIntroduction(Session.instance.currentBlockNum) + "</color>");
 		}
 
