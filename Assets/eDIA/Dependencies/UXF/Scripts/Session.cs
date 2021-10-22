@@ -35,9 +35,9 @@ namespace UXF
         public bool endAfterLastTrial = false;
         
         /// <summary>
-        /// If enabled, you do not need to reference this session component in a public field, you can simply call "Session.instance".
+        /// If enabled, you do not need to reference this session component in a public field, you can simply call "Session.instance". This object will be destroyed if another session component is the main instance.
         /// </summary>
-        [Tooltip("If enabled, you do not need to reference this session component in a public field, you can simply call \"Session.instance\".")]
+        [Tooltip("If enabled, you do not need to reference this session component in a public field, you can simply call \"Session.instance\". This object will be destroyed if another session component is the main instance.")]
         public bool setAsMainInstance = true;
 
         /// <summary>
@@ -224,7 +224,7 @@ namespace UXF
         /// <summary>
         /// Stores combined list of headers for the behavioural output.
         /// </summary>
-        public List<string> Headers { get { return baseHeaders.Concat(settingsToLog).Concat(customHeaders).ToList(); } }
+        public List<string> Headers { get { return baseHeaders.Concat(settingsToLog).Concat(customHeaders).Distinct().ToList(); } }
 
         /// <summary>
         /// Dictionary of objects for datapoints collected via the UI, or otherwise.
@@ -257,7 +257,15 @@ namespace UXF
         /// </summary>
         void Awake()
         {
-            if (setAsMainInstance) instance = this;
+            if (setAsMainInstance)
+            {
+                if (instance != null && !ReferenceEquals(instance, this))
+                {
+                    DestroyImmediate(this.gameObject);
+                    return;
+                }
+                instance = this;
+            }
             if (dontDestroyOnLoadNewScene && Application.isPlaying) DontDestroyOnLoad(gameObject);            
             if (endAfterLastTrial) onTrialEnd.AddListener(EndIfLastTrial);
         }
@@ -336,7 +344,7 @@ namespace UXF
         /// <returns></returns>
         public Block CreateBlock(int numberOfTrials)
         {
-            if (numberOfTrials > 0)
+            if (numberOfTrials >= 0)
                 return new Block((uint)numberOfTrials, this);
             else
                 throw new Exception("Invalid number of trials supplied");
@@ -468,24 +476,21 @@ namespace UXF
         /// <returns></returns>
         Trial GetLastTrial()
         {
-            Block lastBlock;
-            try
-            {
-                lastBlock = blocks[blocks.Count - 1];
-            }
-            catch (ArgumentOutOfRangeException)
-            {
-                throw new NoSuchTrialException("There is no last trial because no blocks have been created!");
-            }
+            if (blocks.Count == 0) throw new NoSuchTrialException("There is no last trial because no blocks have been created!");
             
-            try
+            Block lastValidBlock;
+            int i = blocks.Count - 1;
+            while (i >= 0)
             {
-                return lastBlock.trials[lastBlock.trials.Count - 1];
+                lastValidBlock = blocks[i];
+                if (lastValidBlock.trials.Count > 0)
+                {
+                    return lastValidBlock.trials[lastValidBlock.trials.Count - 1];
+                }
+                i--;
             }
-            catch (ArgumentOutOfRangeException)
-            {
-                throw new NoSuchTrialException("There is no last trial. No trials exist in the last block.");
-            }
+
+            throw new NoSuchTrialException("There is no last trial, blocks are present but they are all empty.");
         }
 
         /// <summary>

@@ -80,7 +80,7 @@ MonoBehaviour:
   dataHandlers:
   - {fileID: 6301449615104170796}
   - {fileID: 4298776666381973480}
-  - {fileID: 0}
+  - {fileID: 1999034067558573094}
   - {fileID: 1311505219725777297}
 --- !u!114 &114155219626309100
 MonoBehaviour:
@@ -3348,13 +3348,14 @@ GameObject:
   m_Component:
   - component: {fileID: 8852542294692818627}
   - component: {fileID: 7764886235925662733}
+  - component: {fileID: 1999034067558573094}
   m_Layer: 0
   m_Name: Web AWS DynamoDB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8852542294692818627
 Transform:
   m_ObjectHideFlags: 0
@@ -3376,7 +3377,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3518763724201751693}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6e99fcc263e0faa43b398ccdce90eb56, type: 3}
   m_Name: 
@@ -3384,6 +3385,22 @@ MonoBehaviour:
   comment: This Data Handler will upload the session's data to an AWS DynamoDB database,
     if configured correctly. This is only compatible with Web-based studies, but
     allows for fully remote data collection.
+--- !u!114 &1999034067558573094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3518763724201751693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09592b9eae60ee242bf6043521f6f9d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  active: 0
+  endSessionWhenTryCloseTab: 1
+  collectBrowserInfo: 1
+  credentials: {fileID: 0}
 --- !u!1 &3681515423267968892
 GameObject:
   m_ObjectHideFlags: 0
@@ -8936,6 +8953,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 2897568975779925013}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2896031059644693069 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1969525990930008, guid: 9e81924d28cd0d849a13e5abce816d3a,
+    type: 3}
+  m_PrefabInstance: {fileID: 2897568975779925013}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &3110759810348992417 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 224502893949471668, guid: 9e81924d28cd0d849a13e5abce816d3a,
+    type: 3}
+  m_PrefabInstance: {fileID: 2897568975779925013}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &6789253931344208075 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8506875127483083998, guid: 9e81924d28cd0d849a13e5abce816d3a,
@@ -8948,18 +8977,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e62d33c83c20a154a95029aefc30368d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!224 &3110759810348992417 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 224502893949471668, guid: 9e81924d28cd0d849a13e5abce816d3a,
-    type: 3}
-  m_PrefabInstance: {fileID: 2897568975779925013}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &2896031059644693069 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1969525990930008, guid: 9e81924d28cd0d849a13e5abce816d3a,
-    type: 3}
-  m_PrefabInstance: {fileID: 2897568975779925013}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4835438972542875796
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9092,21 +9109,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 15c278d5156bae1489e9a38ad279bee2, type: 3}
---- !u!224 &4612929069887686480 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 224762906418741188, guid: 15c278d5156bae1489e9a38ad279bee2,
-    type: 3}
-  m_PrefabInstance: {fileID: 4835438972542875796}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &4834968701760316578 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1033861776628790, guid: 15c278d5156bae1489e9a38ad279bee2,
-    type: 3}
-  m_PrefabInstance: {fileID: 4835438972542875796}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &4687239340321207026 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 150454391267887718, guid: 15c278d5156bae1489e9a38ad279bee2,
+    type: 3}
+  m_PrefabInstance: {fileID: 4835438972542875796}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &4612929069887686480 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 224762906418741188, guid: 15c278d5156bae1489e9a38ad279bee2,
     type: 3}
   m_PrefabInstance: {fileID: 4835438972542875796}
   m_PrefabAsset: {fileID: 0}
@@ -9122,6 +9133,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e62d33c83c20a154a95029aefc30368d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &4834968701760316578 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1033861776628790, guid: 15c278d5156bae1489e9a38ad279bee2,
+    type: 3}
+  m_PrefabInstance: {fileID: 4835438972542875796}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7877310278013525382
 PrefabInstance:
   m_ObjectHideFlags: 0

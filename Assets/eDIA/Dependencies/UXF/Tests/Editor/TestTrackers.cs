@@ -24,6 +24,7 @@ namespace UXF.Tests
             gameObject = new GameObject();
             fileSaver = gameObject.AddComponent<FileSaver>();
             sessionLogger = gameObject.AddComponent<SessionLogger>();
+            if (Session.instance != null) GameObject.DestroyImmediate(Session.instance.gameObject);
             session = gameObject.AddComponent<Session>();
 
             sessionLogger.AttachReferences(
@@ -34,7 +35,7 @@ namespace UXF.Tests
 
             sessionLogger.Initialise();
             
-            fileSaver.storagePath = "example_output";
+            fileSaver.StoragePath = "example_output";
             fileSaver.verboseDebug = true;
 
             string experimentName = "unit_test";

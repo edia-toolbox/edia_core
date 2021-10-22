@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UXF;
 using System; // needed for <action> 
-using eDIA;
+// using eDIA;
 
-// namespace MPI {
-	// TASK CONTROL
+namespace eDIA {
 
 	public class TaskManagerBase : MonoBehaviour {
 
@@ -218,4 +217,4 @@ using eDIA;
 #endregion	// -------------------------------------------------------------------------------------------------------------------------------
 		
 	}
-// }
+}

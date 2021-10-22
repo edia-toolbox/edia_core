@@ -5,21 +5,18 @@ using UXF;
 using eDIA;
 
 /*
-
 	This is a DEMO script for a very simple task.
 	All main functionalities to run the Experiment, UXF and Trial statemachine are in TaskManagerBase so no need to worry about that.
 
-	To start your own TaskManager for you experiment task: 
+	To start your own TaskManager for your experiment task: 
 
-	0. Copy/Paste the e._StartScene/DemoScene and to your own TASK folder
-	1. Copy/Paste the e.Experiment/TaskManagerTemplate to your own TASK folder
+	1. Copy/Paste the complete 'DemoTask' folder from /eDIA/Samples to the /Assets/ folder in your project
 	2. Rename the script file and class to your Taskname
 	3. Switch the inspector to 'debug' mode (3 dots right topcorner)
-	4. Replace 'TaskManagerDemo' with your TaskManager script and switch inspector back again
+	4. Find [ SYSTEM ] > [ EXP ] gameobject and replace 'TaskManagerDemo' script entry in the inspector with your TaskManager script and switch inspector mode back again
+
 
 */
-
-namespace TASKNAME {
 
 	// USER TASK CONTROL
 	public class TaskManagerDemo : TaskManagerBase {
@@ -238,4 +235,3 @@ namespace TASKNAME {
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 	}
-}

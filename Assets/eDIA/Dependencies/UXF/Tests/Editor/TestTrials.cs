@@ -26,6 +26,7 @@ namespace UXF.Tests
             gameObject = new GameObject();
             fileSaver = gameObject.AddComponent<FileSaver>();
             sessionLogger = gameObject.AddComponent<SessionLogger>();
+			if (Session.instance != null) GameObject.DestroyImmediate(Session.instance.gameObject);
             session = gameObject.AddComponent<Session>();
 
             session.dataHandlers = new DataHandler[]{ fileSaver };
@@ -35,7 +36,7 @@ namespace UXF.Tests
             );
 
             sessionLogger.Initialise();
-            fileSaver.storagePath = "example_output";
+            fileSaver.StoragePath = "example_output";
             fileSaver.verboseDebug = true;
 
             session.Begin(experimentName, ppid);
@@ -96,6 +97,20 @@ namespace UXF.Tests
             session.GetBlock(1).trials[1].Begin();
             Finish(); // check we dont throw an error
         }
+
+        [Test]
+        public void BeginTrialBeforeBeginSession()
+        {
+            gameObject = new GameObject();
+			if (Session.instance != null) GameObject.DestroyImmediate(Session.instance.gameObject);
+            session = gameObject.AddComponent<Session>();
+
+			// generate trials
+			session.CreateBlock(1);
+
+            Assert.Throws<InvalidOperationException>(() => session.FirstTrial.Begin());
+        }
+
 
         [Test]
         public void WriteCommas()

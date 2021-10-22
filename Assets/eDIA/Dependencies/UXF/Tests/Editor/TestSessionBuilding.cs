@@ -17,6 +17,7 @@ namespace UXF.Tests
 		public void SetUp()
 		{
 			gameObject = new GameObject();
+            if (Session.instance != null) GameObject.DestroyImmediate(Session.instance.gameObject);
 			session = gameObject.AddComponent<Session>();			
 		}
 
@@ -160,8 +161,42 @@ namespace UXF.Tests
 			Block block1 = session.CreateBlock(10);
 			Block block2 = session.CreateBlock(10);
 
-			Assert.AreEqual(block1.trials[0], session.FirstTrial);
-			Assert.AreEqual(block2.trials[9], session.LastTrial);
+			Assert.AreEqual(block1.GetRelativeTrial(1), session.FirstTrial);
+			Assert.AreEqual(block2.GetRelativeTrial(10), session.LastTrial);
+
+			// reset blocks
+            session.blocks = new List<Block>();
+		}
+
+
+		[Test]
+		public void GetLastTrialWhenLastBlockEmpty()
+		{
+			Block block1 = session.CreateBlock(10);
+			Block block2 = session.CreateBlock();
+
+			Assert.AreEqual(session.LastTrial, block1.GetRelativeTrial(10));
+
+			// reset blocks
+            session.blocks = new List<Block>();
+		}
+		
+		[Test]
+		public void GetLastTrialWhenNoTrials()
+		{
+			Block block1 = session.CreateBlock();
+			Block block2 = session.CreateBlock();
+
+			Assert.Throws<NoSuchTrialException>(() => { var a = session.LastTrial; } );
+
+			// reset blocks
+            session.blocks = new List<Block>();
+		}
+
+		[Test]
+		public void GetLastTrialWhenNoBlocks()
+		{
+			Assert.Throws<NoSuchTrialException>(() => { var a = session.LastTrial; } );
 
 			// reset blocks
             session.blocks = new List<Block>();

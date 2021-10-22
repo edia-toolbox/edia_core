@@ -4,7 +4,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using eDIA;
 
 //! Experimental to see if this 'hooking into events' in the inspector helps for decoupling
 [System.Serializable]
@@ -29,6 +28,13 @@ namespace eDIA {
 	public class NetworkComManager : MonoBehaviour
 	{
 		// public TextMeshProUGUI connectionStatus;
+		/*
+
+		#######################################################################################################################
+		####
+		#### 		Commented out as we don't' have decided on the proper networking asset to use for communications
+		####
+		#######################################################################################################################
 
 		[SerializeField] 
 		[Header("Fired when connection is made or lost to the manager")]
@@ -113,34 +119,7 @@ namespace eDIA {
 
 		// ==============================================================================================================================================
 
-		#region  NETWORK
-
-		//! NOt doing this approach anymore, take the one from mimVMT
-		//! App places networkpackages in a queueu, and waits on confirmation before sending the next package
-
-		// IEnumerator NetworkStatusChecker()
-		// {
-		// 	while (true)
-		// 	{
-		// 		yield return new WaitForSeconds(0.1f);
-
-		// 		if (isConnected == true && FMNetworkManager.instance.Client.IsConnected == false) // was connected, not anymore
-		// 		{
-		// 			Debug.Log("CONNECTION LOST");
-		// 			onConnected.Invoke(false, "CONNECTION LOST");
-		// 		}
-
-		// 		if (!isConnected && FMNetworkManager.instance.Client.IsConnected == true) // was not connected, now we are
-		// 		{
-		// 			Debug.Log("CONNECTED TO MANAGER");
-		// 			onConnected.Invoke(true, "CONNECTED TO " + FMNetworkManager.instance.Client.ServerIP);
-		// 			ConnectionMade();
-		// 		}
-
-		// 		isConnected = FMNetworkManager.instance.Client.IsConnected;
-		// 	}
-		// }
-
+		
 		public void ConnectionMade()
 		{
 			SendHello();
@@ -419,20 +398,6 @@ namespace eDIA {
 		}
 
 		// TODO Should not be in a networkcom manager
-		// void ChangeCamView(Camera _newCam)
-		// {
-		// 	if (_newCam == camSpec)
-		// 	{
-		// 		camSpec.enabled = true;
-		// 	} else camSpec.enabled = false;
-
-		// 	gameViewEncoder.RenderCam = _newCam;
-
-		// 	AddToConsole("Set active cam to " + _newCam.name);
-		// 	SendResultMsg("OK", "Streaming " + _newCam.name);
-		// }
-
-		// TODO Should not be in a networkcom manager
 		// public void SendScreenShot ()
 		// {
 		// 	camUser.enabled = true;
@@ -492,5 +457,7 @@ namespace eDIA {
 		}
 
 		#endregion
+
+		*/
 	}
 }

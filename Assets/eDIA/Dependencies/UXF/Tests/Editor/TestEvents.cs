@@ -37,12 +37,13 @@ namespace UXF.Tests
             gameObject = new GameObject();
             fileSaver = gameObject.AddComponent<FileSaver>();
             sessionLogger = gameObject.AddComponent<SessionLogger>();
+            if (Session.instance != null) GameObject.DestroyImmediate(Session.instance.gameObject);
             session = gameObject.AddComponent<Session>();
 
             sessionLogger.AttachReferences(
                 session
             );
-            fileSaver.storagePath = "example_output";
+            fileSaver.StoragePath = "example_output";
 
             session.onSessionEnd.AddListener(UseSession);
 
