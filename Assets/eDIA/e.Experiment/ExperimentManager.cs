@@ -38,7 +38,7 @@ namespace eDIA {
 		public class TrialSequenceValuesContainer {
 			public List<TrialSequenceValues> trialSequenceValues = new List<TrialSequenceValues>();
 		}
-
+ 
 		/// <summary> Main container to store sessions config in, either from disk, editor or network </summary>
 		[System.Serializable]
 		public class ExperimentConfig {
@@ -94,14 +94,6 @@ namespace eDIA {
 
 		[System.Serializable]
 		public class TrialEvent 	: UnityEvent<Trial>{}
-
-		// [SerializeField] 
-		// [Header("Fired when session STARTS")]
-		// public DefaultEvent onSessionStart;
-		
-		// [SerializeField] 
-		// [Header("Fired when session ENDS")]
-		// public DefaultEvent onSessionEnd;
 
 		[SerializeField] 
 		[Header("Fired when session break STARTS")]
