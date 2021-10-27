@@ -1,13 +1,5 @@
 {
   "dependencies": {
-    "com.tobii.xr.sdk": {
-      "version": "file:TobiiXRSDK_3.0.0.178",
-      "depth": 0,
-      "source": "embedded",
-      "dependencies": {
-        "com.unity.xr.management": "3.2.16"
-      }
-    },
     "com.unity.ext.nunit": {
       "version": "1.0.6",
       "depth": 1,
@@ -131,15 +123,16 @@
       }
     },
     "com.unity.xr.interaction.toolkit": {
-      "version": "1.0.0-pre.6",
+      "version": "1.0.0-pre.8",
       "depth": 0,
       "source": "registry",
       "dependencies": {
         "com.unity.inputsystem": "1.0.2",
         "com.unity.ugui": "1.0.0",
+        "com.unity.xr.legacyinputhelpers": "2.1.7",
         "com.unity.modules.audio": "1.0.0",
         "com.unity.modules.imgui": "1.0.0",
-        "com.unity.xr.legacyinputhelpers": "2.1.7"
+        "com.unity.modules.physics": "1.0.0"
       },
       "url": "https://packages.unity.com"
     },
@@ -175,17 +168,6 @@
         "com.unity.ugui": "1.0.0"
       },
       "url": "https://packages.unity.com"
-    },
-    "com.unity.xr.picoxr": {
-      "version": "file:PicoXR_Platform_SDK-1.2.3_B55",
-      "depth": 0,
-      "source": "embedded",
-      "dependencies": {
-        "com.unity.xr.management": "3.2.16",
-        "com.unity.ugui": "1.0.0",
-        "com.unity.subsystemregistration": "1.0.6",
-        "com.unity.xr.interaction.toolkit": "0.9.4-preview"
-      }
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",
