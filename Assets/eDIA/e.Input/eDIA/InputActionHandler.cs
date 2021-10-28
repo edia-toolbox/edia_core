@@ -17,9 +17,8 @@ namespace eDIA {
 
 		InputAction actionMenu 		= null;
 		InputAction actionProceed 	= null;
-
-		// TODO: Do we gather experiment level actions in this main InputActionHandler?
 		InputAction actionStartExperiment 	= null;
+		InputAction actionPauseExperiment 	= null;
 		//! Add new InputActions here
 
 		void Awake() {
@@ -30,6 +29,7 @@ namespace eDIA {
 			if (actionMenu != null) 	actionMenu.performed -= menuPerformed;
 			if (actionProceed != null) 	actionProceed.performed -= proceedPerformed;
 			if (actionStartExperiment != null) 	actionStartExperiment.performed -= actionStartExperimentPerformed;
+			if (actionPauseExperiment != null) 	actionPauseExperiment.performed -= actionPauseExperimentPerformed;
 			//! Add new InputActions listeners here
 		}
 
@@ -41,6 +41,7 @@ namespace eDIA {
 				actionMenu 			= actionmap.FindAction("Menu", true);
 				actionProceed 		= actionmap.FindAction("Proceed", true);
 				actionStartExperiment 	= actionmap.FindAction("StartExperiment", true);
+				actionPauseExperiment	= actionmap.FindAction("Pause", true);
 				//! Add new InputActions here
 			}
 			catch (Exception e) {
@@ -51,6 +52,7 @@ namespace eDIA {
 			actionMenu.performed 	+= menuPerformed;
 			actionProceed.performed += proceedPerformed;
 			actionStartExperiment.performed += actionStartExperimentPerformed;
+			actionPauseExperiment.performed += actionPauseExperimentPerformed;
 			//! Add new InputActions listeners here
 
 			return true;
@@ -90,6 +92,9 @@ namespace eDIA {
 			EventManager.TriggerEvent("EvStartExperiment", null); // Convert it into our eventmanager system
 		}
 
+		public void actionPauseExperimentPerformed (InputAction.CallbackContext context) {
+			EventManager.TriggerEvent("EvPauseExperiment", null); // Convert it into our eventmanager system
+		}
 
 	#endregion // -------------------------------------------------------------------------------------------------------------------------------
 

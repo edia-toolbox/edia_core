@@ -114,14 +114,17 @@ namespace eDIA {
 		// UXF related
 		Dictionary<string, object> participantDetails   = new Dictionary<string, object>();
 		UXF.Settings currentUXFSessionSettings = new Settings();
+		
+		public bool isPauseRequested = false;
 
 
-#endregion // -------------------------------------------------------------------------------------------------------------------------------
-#region MONO METHODS
+		#endregion // -------------------------------------------------------------------------------------------------------------------------------
+		#region MONO METHODS
 
 		void Awake() {
 			EventManager.StartListening("EvSetExperimentConfig", OnEvSetExperimentConfig);
 			EventManager.StartListening("EvStartExperiment", OnEvStartExperiment);
+			EventManager.StartListening("EvPauseExperiment", OnEvPauseExperiment);
 		}
 		
 		void Start() {
@@ -131,10 +134,12 @@ namespace eDIA {
 		void OnDestroy() {
 			EventManager.StopListening("EvSetExperimentConfig", OnEvSetExperimentConfig);
 			EventManager.StopListening("EvStartExperiment", OnEvStartExperiment);
+			EventManager.StopListening("EvPauseExperiment", OnEvPauseExperiment);
 		}
 
-#endregion // -------------------------------------------------------------------------------------------------------------------------------
-#region EXPERIMENT INFO
+
+		#endregion // -------------------------------------------------------------------------------------------------------------------------------
+		#region EXPERIMENT INFO
 
 		void OnEvSetExperimentConfig( eParam e) {
 			SetExperimentConfig( e == null ? LoadDefaultConfig () : e.GetString() );
@@ -189,7 +194,6 @@ namespace eDIA {
 					break;
 					case "float":
 					break;
-					
 				}
 			}
 		}
@@ -211,7 +215,7 @@ namespace eDIA {
 			EventManager.StopListening("EvStartExperiment", OnEvStartExperiment);
 			StartExperiment ();
 		}
-		
+
 		/// <summary>Starts the experiment</summary>
 		public void StartExperiment () {
 			Session.instance.Begin( 
@@ -221,8 +225,15 @@ namespace eDIA {
 				participantDetails, 
 				currentUXFSessionSettings
 			); 
-
 		}
+
+		
+		void OnEvPauseExperiment(eParam obj)
+		{
+			Debug.Log("Pause Experiment called");
+			isPauseRequested = true;
+		}
+
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region UXF EVENT HANDLERS 
@@ -287,6 +298,15 @@ namespace eDIA {
 			// Are we ending?
 			if (Session.instance.isEnding)
 				return;
+			
+			// Is there a PAUSE requested?
+			if (isPauseRequested) {
+				isPauseRequested = false;
+				Debug.Log(">> EXTRA BREAK <<");
+				endedTrial.SaveText("break", endedTrial.number.ToString());
+				SessionBreak();
+				return;
+			}
 
 			// More trial left to do?
 			if (Session.instance.CurrentBlock.lastTrial != Session.instance.CurrentTrial) {
@@ -302,7 +322,7 @@ namespace eDIA {
 				Session.instance.preSessionEnd.Invoke(Session.instance);
 				return;
 			}
-			
+
 			// Do we take a break or jump to next block?
 			if (experimentConfig.breakAfter.Contains(Session.instance.currentBlockNum)) 
 				SessionBreak();
