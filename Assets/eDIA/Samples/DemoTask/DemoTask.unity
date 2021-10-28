@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028355, g: 0.22571374, b: 0.30692255, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -335,6 +335,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 157141866}
     m_Modifications:
+    - target: {fileID: 119296242425747661, guid: 1cfd8201e5913a241bab0b428ceb22e7,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2895498609272378035, guid: 1cfd8201e5913a241bab0b428ceb22e7,
         type: 3}
       propertyPath: m_Name
@@ -952,6 +957,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 154e85fc65001864c864dd1e88f2d5eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fpsText: {fileID: 0}
+  updateInterval: 0.5
+  accum: 0
+  frames: 0
+  timeLeft: 0
+  strFps: 
 --- !u!223 &1187922863
 Canvas:
   m_ObjectHideFlags: 0
