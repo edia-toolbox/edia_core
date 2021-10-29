@@ -23,13 +23,14 @@ namespace eDIA {
 #region Mono methods
 
 		public virtual void Awake() {
+			// Listen to even that XR rig is set up
 			EventManager.StartListening("EvFoundXRrigReferences", OnEvFoundXRrigReferences);
-
+			EventManager.StartListening("EvSessionBreak", OnEvSessionBreak);
 			GetXRrigReferences();
 		}
 
 		public virtual void OnEnable() {
-			// Listen to even that XR rig is set up
+
 		}
 
 		public virtual void Start() {
@@ -121,7 +122,11 @@ namespace eDIA {
 			//! System awaits 'EvProceed' event automaticcaly to proceed to finalising session.
 		}
 
-		/// <summary>Hook up to Experiment OnSessionBreak event</summary>
+		/// <summary>OnEvSessionBreak event listener</summary>
+		public void OnEvSessionBreak(eParam e) {
+			OnSessionBreak();
+		}
+
 		public virtual void OnSessionBreak() {
 			AddToLog("Break START");
 		}

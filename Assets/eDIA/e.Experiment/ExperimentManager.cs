@@ -71,7 +71,6 @@ namespace eDIA {
 			}
 		}	
 
-
 		// Local JSON configutation file
 		[Header("Experiment Settings")]
 		[Tooltip("Reference a local JSON config file here")]
@@ -81,9 +80,10 @@ namespace eDIA {
 		[HideInInspector]
 		public ExperimentConfig experimentConfig;
 
-		// Helper to inject introductions before next block starts
+		// Helpers
 		[Space(20)]
 		int activeBlockUXF = 0;
+		bool isPauseRequested = false;
 
 		// Events
 		[System.Serializable]
@@ -114,9 +114,7 @@ namespace eDIA {
 		// UXF related
 		Dictionary<string, object> participantDetails   = new Dictionary<string, object>();
 		UXF.Settings currentUXFSessionSettings = new Settings();
-		
-		public bool isPauseRequested = false;
-
+		UXF.UXFDataTable executionOrderLog = new UXF.UXFDataTable("start_time", "executed"); 
 
 		#endregion // -------------------------------------------------------------------------------------------------------------------------------
 		#region MONO METHODS
@@ -148,7 +146,6 @@ namespace eDIA {
 		/// <summary>Load the default JSON configuration locally</summary>
 		/// <returns>JSON string</returns>
 		string LoadDefaultConfig () {
-        		// var jsonTextFile = Resources.Load<TextAsset>("DemoSessionConfigJSON");
 			var jsonTextFile = experimentConfigJSON;
 			return jsonTextFile.ToString();
 		}
@@ -227,10 +224,10 @@ namespace eDIA {
 			); 
 		}
 
-		
-		void OnEvPauseExperiment(eParam obj)
+		/// <summary>Sets the PauseExperiment flag to true and logs the call for an extra break</summary>
+		void OnEvPauseExperiment(eParam e)
 		{
-			Debug.Log("Pause Experiment called");
+			AddToExecutionOrderLog("BreakInjectionMoment");
 			isPauseRequested = true;
 		}
 
@@ -241,6 +238,7 @@ namespace eDIA {
 		/// <summary>Start of the UXF session. </summary>
 		void OnSessionBeginUXF() {
 			AddToLog("OnSessionBeginUXF");
+			AddToExecutionOrderLog("OnSessionBegin");
 			EventManager.StartListening("EvProceed", OnEvStartFirstTrial);
 		}
 
@@ -259,9 +257,9 @@ namespace eDIA {
 		/// <summary>Called from user input. </summary>
 		void OnEvFinaliseSession (eParam e) {
 			EventManager.StopListening("EvProceed", OnEvFinaliseSession);
+			UXF.Session.instance.SaveDataTable(executionOrderLog, "executionOrder");
 			Session.instance.End();
 		}
-
 
 		/// <summary>Called from UXF session. </summary>
 		void OnSessionEndUXF() {
@@ -271,7 +269,7 @@ namespace eDIA {
 		/// <summary>Called from UXF session. Begin setting things up for the trial that is about to start </summary>
 		void OnTrialBeginUXF(Trial trial) {
 			AddToLog("OnTrialBeginUXF");
-			AddToLog ("Block: " + Session.instance.currentBlockNum + " Trial:" + Session.instance.currentTrialNum); 
+			AddToExecutionOrderLog("OnTrialBegin");
 
 			bool showIntroduction = false;
 
@@ -294,21 +292,21 @@ namespace eDIA {
 		/// <summary>Called from UXF session. Checks if to call NextTrial, should start a BREAK before next Block, or End the Session </summary>
 		void OnTrialEndUXF(Trial endedTrial) {
 			AddToLog("OnTrialEndUXF");
+			AddToExecutionOrderLog("OnTrialEnd");
 			
 			// Are we ending?
 			if (Session.instance.isEnding)
 				return;
 			
-			// Is there a PAUSE requested?
+			// Is there a PAUSE requested right now?
 			if (isPauseRequested) {
 				isPauseRequested = false;
-				Debug.Log(">> EXTRA BREAK <<");
-				endedTrial.SaveText("break", endedTrial.number.ToString());
+				AddToExecutionOrderLog("Injected SessionBreak");
 				SessionBreak();
 				return;
 			}
 
-			// More trial left to do?
+			// Reached last trial in a block?
 			if (Session.instance.CurrentBlock.lastTrial != Session.instance.CurrentTrial) {
 				Session.instance.BeginNextTrialSafe();
 				return;
@@ -316,7 +314,7 @@ namespace eDIA {
 
 			AddToLog("Reached last trial in block " + Session.instance.currentBlockNum);
 			
-			// Last trial of the session?
+			// Is this then the last trial of the session?
 			if (Session.instance.LastTrial == Session.instance.CurrentTrial) {
 				AddToLog("Reached end of trials ");
 				Session.instance.preSessionEnd.Invoke(Session.instance);
@@ -334,13 +332,16 @@ namespace eDIA {
 		/// <summary>Called from this manager. Invokes onSessionBreak event and starts listener to EvProceed event</summary>
 		void SessionBreak () {
 			AddToLog("SessionBreak");
+			AddToExecutionOrderLog("SessionBreak");
 			EventManager.StartListening("EvProceed", SessionResume);
+			EventManager.TriggerEvent("EvSessionBreak", null);
 			onSessionBreak.Invoke();
 		}
 
 		/// <summary>Called from EvProceed event. Stops listener, invokes onSessionResume event and calls UXF BeginNextTrial. </summary>
 		void SessionResume (eParam e) {
 			EventManager.StopListening("EvProceed", SessionResume);
+			AddToExecutionOrderLog("SessionResume");
 			onSessionResume.Invoke();
 			AddToLog("SessionResume");
 
@@ -350,6 +351,7 @@ namespace eDIA {
 		/// <summary>Called from this manager. </summary>
 		void BlockIntroduction () {
 			AddToLog("BlockIntroduction");
+			AddToExecutionOrderLog("BlockIntroduction");
 			EventManager.StartListening("EvProceed", BlockResume);
 			onBlockIntroduction.Invoke();
 		}
@@ -357,6 +359,7 @@ namespace eDIA {
 		/// <summary>Called from this manager. </summary>
 		void BlockResume (eParam e) {
 			EventManager.StopListening("EvProceed", BlockResume);
+			AddToExecutionOrderLog("BlockResume");
 			onBlockContinue.Invoke(Session.instance.CurrentTrial);
 			AddToLog("BlockResume");
 		}
@@ -392,6 +395,12 @@ namespace eDIA {
 
 #endregion	// -------------------------------------------------------------------------------------------------------------------------------
 #region MISC	
+		private void AddToExecutionOrderLog (string description) {
+			UXF.UXFDataRow newRow = new UXFDataRow();
+			newRow.Add(("start_time", Time.time)); // Log timestamp
+			newRow.Add(("executed", description)); 
+			executionOrderLog.AddCompleteRow(newRow);
+		}
 
 		private void AddToLog(string _msg) {
 			if (showLog)

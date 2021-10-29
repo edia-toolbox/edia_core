@@ -159,8 +159,8 @@ using eDIA;
 
 		// If there is a BREAK in the experiment, these methods get called
 
-		public override void OnSessionBreak() {
-			base.OnSessionBreak();
+		public override void OnEvSessionBreak() {
+			base.OnEvSessionBreak();
 
 		}
 
