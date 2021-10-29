@@ -25,7 +25,13 @@ namespace eDIA {
 		public virtual void Awake() {
 			// Listen to even that XR rig is set up
 			EventManager.StartListening("EvFoundXRrigReferences", OnEvFoundXRrigReferences);
-			EventManager.StartListening("EvSessionBreak", OnEvSessionBreak);
+			
+			// Set up sequence listeners
+			EventManager.StartListening("EvSessionBreak", 		OnEvSessionBreak);
+			EventManager.StartListening("EvSessionResume", 		OnEvSessionResume);
+			EventManager.StartListening("EvBlockIntroduction", 	OnEvBlockIntroduction);
+			EventManager.StartListening("EvTrialBegin", 		OnEvTrialBegin);
+
 			GetXRrigReferences();
 		}
 
@@ -95,60 +101,73 @@ namespace eDIA {
 			inSession = false;
 		}
 
-		/// <summary>Called from UXF session. Begin setting things up for the trial that is about to start </summary>
-		public void OnTrialBegin(Trial trial) {
-			AddToLog("OnTrialBegin");
-			StartTrial(trial);
-		}
-
-		/// <summary>Called from UXF session. </summary>
-		void OnTrialEndUXF(Trial endedTrial) {
-			AddToLog("OnTrialEndUXF");
-			OnTrialEnd(endedTrial); // call TASK related method to be able to overwrite for presenting result or something
-		}
+		// /// <summary>Called from UXF session. </summary>
+		// void OnTrialEndUXF(Trial endedTrial) {
+		// 	AddToLog("OnTrialEndUXF");
+		// 	OnTrialEnd(endedTrial); // call TASK related method to be able to overwrite for presenting result or something
+		// }
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region eDIA EXPERIMENT EVENT HANDLERS
 
 		/// <summary>Hook up to OnSessionStart event</summary>
 		public virtual void OnSessionStart() {
-			AddToLog("SessionStart: Show Intro");
+			// Intentially empty
 			//! System awaits 'EvProceed' event automaticcaly to proceed to first trial. 
 		}
 
 		/// <summary>Hook up to Experiment OnExperimentEnd event</summary>
 		public virtual void OnSessionEnding() {
-			AddToLog("SessionEnd: Show Outro");
+			// Intentially empty
 			//! System awaits 'EvProceed' event automaticcaly to proceed to finalising session.
 		}
 
 		/// <summary>OnEvSessionBreak event listener</summary>
-		public void OnEvSessionBreak(eParam e) {
+		void OnEvSessionBreak(eParam e) {
+			AddToLog("Break START");
 			OnSessionBreak();
 		}
 
+		/// <summary> Overridable OnEvSessionBreak</summary>
 		public virtual void OnSessionBreak() {
-			AddToLog("Break START");
+			// Intentially empty
 		}
 
-		/// <summary>Hook up to Experiment OnSessionResume event</summary>
-		public virtual void OnSessionResume () {
-			AddToLog("Break END");
+		/// <summary>OnEvSessionResume event listener</summary>
+		void OnEvSessionResume (eParam e) {
+			AddToLog("Session Resume");
+			OnSessionResume();
 		}
 
-		/// <summary>Hook up to Experiment OnSessionBreak event</summary>
-		public virtual void OnBlockIntroduction() {
+		/// <summary> Overridable OnSessionResume method</summary>
+		public virtual void OnSessionResume() {
+			// Intentially empty
+		}
+
+		/// <summary>OnEvBlockIntroduction event listener</summary>
+		void OnEvBlockIntroduction (eParam e) {
 			AddToLog("Block introduction START");
+			OnBlockIntroduction();
 		}
 
-		/// <summary>Hook up to Experiment OnSessionResume event</summary>
-		public virtual void OnBlockContinue (Trial trial) {
-			AddToLog("Block Continue");
-			OnTrialBegin(trial);
+		/// <summary>Overridable OnBlockIntroduction</summary>
+		public virtual void OnBlockIntroduction() {
+			// Intentially empty
+		}
+
+		void OnEvTrialBegin (eParam e) {
+			AddToLog("Trial Begin:" + Session.instance.currentTrialNum);
+			StartTrial();
+		}
+
+		/// <summary>Overridable OnBlockContinue</summary>
+		public virtual void OnBlockResume () {
+			// Intentially empty
 		}
 
 		public virtual void OnEvProceed (eParam e) {
 			EventManager.StopListening("EvProceed", OnEvProceed);
+			Debug.Log("OnEvProceed");
 			NextStep();
 		}
 
@@ -170,13 +189,12 @@ namespace eDIA {
 
 		[SerializeField][HideInInspector]
 		public List<TrialStep> trialSequence = new List<TrialStep>();
-		[HideInInspector]
+		// [HideInInspector]
 		public int currentStep = -1;
 
 		private bool inSession = false;
 
-		/// <summary>Called from incoming UXF event</summary>
-		void StartTrial(Trial trial) {
+		void StartTrial() {
 			AddToLog("StartTrial");
 			ResetTrial();
 
@@ -190,10 +208,10 @@ namespace eDIA {
 			Session.instance.EndCurrentTrial(); // tells UXF to end this trial and fire the event that follows
 		}
 
-		/// <summary>04 > Presenting results of ended trial. Called from this UXF method. </summary>
-		public virtual void OnTrialEnd(Trial endedTrial) {
-			AddToLog("OnTrialEnd");
-		}
+		/// <summary>Called from this UXF method. </summary>
+		// public virtual void OnTrialEnd(Trial endedTrial) {
+		// 	AddToLog("OnTrialEnd");
+		// }
 
 		public virtual void ResetTrial() {
 			currentStep = -1;
@@ -205,8 +223,10 @@ namespace eDIA {
 
 			currentStep++;
 
-			if (currentStep < trialSequence.Count)
+			if (currentStep < trialSequence.Count) {
+				Debug.Log("currentstep:" + currentStep);
 				trialSequence[currentStep].methodToCall.Invoke();
+			}
 			else EndTrial();
 		}
 

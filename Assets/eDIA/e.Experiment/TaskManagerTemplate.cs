@@ -159,13 +159,11 @@ using eDIA;
 
 		// If there is a BREAK in the experiment, these methods get called
 
-		public override void OnEvSessionBreak() {
-			base.OnEvSessionBreak();
+		public override void OnSessionBreak() {
 
 		}
 
 		public override void OnSessionResume () {
-			base.OnSessionResume();
 
 		}
 
@@ -176,15 +174,15 @@ using eDIA;
 		// If there is a INTRODUCTION at the start at some block, these methods get called
 		// Use ExperimentManager.Instance.experimentConfig.GetBlockIntroduction(Session.instance.currentBlockNum) to get the text.
 		
-		/// <summary>Hook up to Experiment OnSessionBreak event</summary>
+		/// <summary>Called when the block introduction starts</summary>
 		public override void OnBlockIntroduction() {
 			base.OnBlockIntroduction();
 
 		}
 
-		/// <summary>Hook up to Experiment OnSessionResume event</summary>
-		public override void OnBlockContinue (Trial trial) {
-			base.OnBlockContinue(trial);
+		/// <summary>Called when block resumes</summary>
+		public override void OnBlockResume () {
+			base.OnBlockResume();
 
 		}
 

@@ -85,6 +85,7 @@ namespace eDIA {
 		}
 
 		public void proceedPerformed (InputAction.CallbackContext context) {
+			Debug.Log("proceedPerformed");
 			EventManager.TriggerEvent("EvProceed", null); // Convert it into our eventmanager system
 		}
 

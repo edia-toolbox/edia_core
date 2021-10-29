@@ -118,7 +118,9 @@ using eDIA;
 			theCube.gameObject.SetActive(true);
 			theCube.transform.position = new Vector3(0, XRrig_MainCamera.position.y, theCube.transform.position.z);
 
-			Invoke("NextStepFromUserOrSceneOrButtonOrTimerOrWhatever", 1f);
+			// Debug.Log("Huh");
+			NextStepFromUserOrSceneOrButtonOrTimerOrWhatever();
+			// Invoke("NextStepFromUserOrSceneOrButtonOrTimerOrWhatever", 1f);
 		}
 		
 		/// <summary>Move cube, wait on user input</summary>
@@ -159,6 +161,7 @@ using eDIA;
 
 		/// <summary>Call this from your code to proceed to the next step</summary>
 		public void NextStepFromUserOrSceneOrButtonOrTimerOrWhatever() {
+			Debug.Log("NextStepFromUserOrSceneOrButtonOrTimerOrWhatever");
 			NextStep();
 		}
 
@@ -167,7 +170,8 @@ using eDIA;
 		/// <summary>Moves the cube up or down depending on the setting `direction` in the trial settings.</summary>
 		IEnumerator MoveCube () {
 			float increment = Session.instance.CurrentTrial.settings.GetInt("direction") == 1 ? 0.001f : -0.001f;
-			
+			Debug.Log("MoveCube started");
+
 			while (true) {
 				theCube.transform.Translate(new Vector3(0, increment ,0), Space.World);
 				yield return new WaitForEndOfFrame();
@@ -178,13 +182,11 @@ using eDIA;
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region SESSION START / END
 		
-		// Every Experiment must has a START and an END event!!
+		// Every Experiment has a START and an END event!!
 		// Use these to show an introduction at the start and a thank-you or score overview in the end. 
 		
 		/// <summary>Called from Experiment manager</summary>
 		public override void OnSessionStart() {
-			base.OnSessionStart();
-
 			// Show Intro
 			// System awaits 'EvProceed' event automaticcaly to proceed to first trial. 
 
@@ -193,13 +195,10 @@ using eDIA;
 
 		/// <summary>Called from Experiment manager</summary>
 		public override void OnSessionEnding () {
-			base.OnSessionEnding();
-
 			// Show Outro
 			// System awaits 'EvProceed' event automaticcaly to proceed to finalizing session. 
 
 			EventManager.TriggerEvent("EvShowMessage", new eParam("Thank you for participating in the experiment, please click button to end this session"));
-
 		}
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
@@ -207,16 +206,12 @@ using eDIA;
 
 		// If there is a BREAK in the experiment, these methods get called
 		public override void OnSessionBreak() {
-			base.OnSessionBreak();
-
 			Debug.Log("<color=#ffffff> >>> Take a short break </color>");
 			EventManager.TriggerEvent("EvShowMessage", new eParam("Take a short break, \nClick button to continue"));
 			
 		}
 
 		public override void OnSessionResume () {
-			base.OnSessionResume();
-
 			Debug.Log("<color=#ffffff> >>> Resuming experiment </color>");
 			EventManager.TriggerEvent("EvShowMessage", new eParam("Resuming experiment"));
 		}
@@ -227,17 +222,15 @@ using eDIA;
 		// If there is a INTRODUCTION at the start at some block, these methods get called
 		// Use ExperimentManager.Instance.experimentConfig.GetBlockIntroduction(Session.instance.currentBlockNum) to get the text.
 		
-		/// <summary>Hook up to Experiment OnSessionBreak event</summary>
+		/// <summary>Called when the block introduction starts</summary>
 		public override void OnBlockIntroduction() {
-			base.OnBlockIntroduction();
 
 			EventManager.TriggerEvent("EvShowMessage", new eParam(  ExperimentManager.Instance.experimentConfig.GetBlockIntroduction(Session.instance.currentBlockNum) ));
 			Debug.Log("<color=#ffffff> >>> "+ ExperimentManager.Instance.experimentConfig.GetBlockIntroduction(Session.instance.currentBlockNum) + "</color>");
 		}
 
-		/// <summary>Hook up to Experiment OnSessionResume event</summary>
-		public override void OnBlockContinue (Trial trial) {
-			base.OnBlockContinue(trial);
+		/// <summary>Called when block resumes</summary>
+		public override void OnBlockResume () {
 
 		}
 

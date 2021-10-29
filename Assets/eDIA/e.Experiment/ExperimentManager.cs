@@ -77,39 +77,13 @@ namespace eDIA {
 		public TextAsset experimentConfigJSON;
 		
 		/// The config instance that holds current experimental configuration
-		[HideInInspector]
+		// [HideInInspector]
 		public ExperimentConfig experimentConfig;
 
 		// Helpers
 		[Space(20)]
 		int activeBlockUXF = 0;
 		bool isPauseRequested = false;
-
-		// Events
-		[System.Serializable]
-		public class DefaultEvent 	: UnityEvent{}
-
-		[System.Serializable]
-		public class StringEvent 	: UnityEvent<string>{}
-
-		[System.Serializable]
-		public class TrialEvent 	: UnityEvent<Trial>{}
-
-		[SerializeField] 
-		[Header("Fired when session break STARTS")]
-		public DefaultEvent onSessionBreak;
-		
-		[SerializeField] 
-		[Header("Fired when session break ENDS")]
-		public DefaultEvent onSessionResume;
-
-		[SerializeField] 
-		[Header("Fired when block has an introduction step")]
-		public DefaultEvent onBlockIntroduction;
-
-		[SerializeField] 
-		[Header("Fired when introduction is done")]
-		public TrialEvent onBlockContinue;
 
 		// UXF related
 		Dictionary<string, object> participantDetails   = new Dictionary<string, object>();
@@ -267,7 +241,7 @@ namespace eDIA {
 		}
 
 		/// <summary>Called from UXF session. Begin setting things up for the trial that is about to start </summary>
-		void OnTrialBeginUXF(Trial trial) {
+		void OnTrialBeginUXF(Trial newTrial) {
 			AddToLog("OnTrialBeginUXF");
 			AddToExecutionOrderLog("OnTrialBegin");
 
@@ -284,8 +258,11 @@ namespace eDIA {
 			// Inject introduction step or continue UXF sequence
 			if (showIntroduction)
 				BlockIntroduction ();
-			else 
-				onBlockContinue.Invoke(Session.instance.CurrentTrial);
+			else {
+				// object uxfTrialHolder = trial;
+				EventManager.TriggerEvent("EvTrialBegin", null);
+			}
+				// onBlockContinue.Invoke(Session.instance.CurrentTrial);
 
 		}
 
@@ -298,6 +275,8 @@ namespace eDIA {
 			if (Session.instance.isEnding)
 				return;
 			
+			Debug.Log("OnTrialEndUXF: not ending");
+
 			// Is there a PAUSE requested right now?
 			if (isPauseRequested) {
 				isPauseRequested = false;
@@ -306,8 +285,10 @@ namespace eDIA {
 				return;
 			}
 
+			Debug.Log("OnTrialEndUXF: no pause");
+
 			// Reached last trial in a block?
-			if (Session.instance.CurrentBlock.lastTrial != Session.instance.CurrentTrial) {
+			if (Session.instance.CurrentBlock.lastTrial != endedTrial) {
 				Session.instance.BeginNextTrialSafe();
 				return;
 			}
@@ -315,18 +296,23 @@ namespace eDIA {
 			AddToLog("Reached last trial in block " + Session.instance.currentBlockNum);
 			
 			// Is this then the last trial of the session?
-			if (Session.instance.LastTrial == Session.instance.CurrentTrial) {
+			if (Session.instance.LastTrial == endedTrial) {
 				AddToLog("Reached end of trials ");
 				Session.instance.preSessionEnd.Invoke(Session.instance);
 				return;
 			}
 
+			Debug.Log("OnTrialEndUXF: not last trial");
+
 			// Do we take a break or jump to next block?
-			if (experimentConfig.breakAfter.Contains(Session.instance.currentBlockNum)) 
+			if (experimentConfig.breakAfter.Contains(Session.instance.currentBlockNum)) {
 				SessionBreak();
-			else {
-				Session.instance.BeginNextTrialSafe();
+				return;
 			}
+			
+			// If we reach here it's just a normal trial and we continue
+			Session.instance.BeginNextTrialSafe();
+
 		}
 
 		/// <summary>Called from this manager. Invokes onSessionBreak event and starts listener to EvProceed event</summary>
@@ -335,15 +321,14 @@ namespace eDIA {
 			AddToExecutionOrderLog("SessionBreak");
 			EventManager.StartListening("EvProceed", SessionResume);
 			EventManager.TriggerEvent("EvSessionBreak", null);
-			onSessionBreak.Invoke();
 		}
 
 		/// <summary>Called from EvProceed event. Stops listener, invokes onSessionResume event and calls UXF BeginNextTrial. </summary>
 		void SessionResume (eParam e) {
-			EventManager.StopListening("EvProceed", SessionResume);
 			AddToExecutionOrderLog("SessionResume");
-			onSessionResume.Invoke();
 			AddToLog("SessionResume");
+			EventManager.StopListening("EvProceed", SessionResume);
+			EventManager.TriggerEvent("EvSessionResume", null);
 
 			Session.instance.Invoke("BeginNextTrialSafe", 0.5f);
 		}
@@ -353,15 +338,15 @@ namespace eDIA {
 			AddToLog("BlockIntroduction");
 			AddToExecutionOrderLog("BlockIntroduction");
 			EventManager.StartListening("EvProceed", BlockResume);
-			onBlockIntroduction.Invoke();
+			EventManager.TriggerEvent("EvBlockIntroduction", null);
 		}
 
 		/// <summary>Called from this manager. </summary>
 		void BlockResume (eParam e) {
-			EventManager.StopListening("EvProceed", BlockResume);
-			AddToExecutionOrderLog("BlockResume");
-			onBlockContinue.Invoke(Session.instance.CurrentTrial);
-			AddToLog("BlockResume");
+			// AddToLog("BlockResume");
+			// AddToExecutionOrderLog("BlockResume");
+			// EventManager.StopListening("EvProceed", BlockResume);
+			// EventManager.TriggerEvent("EvBlockResume",null);
 		}
 
 #endregion	// -------------------------------------------------------------------------------------------------------------------------------
@@ -374,7 +359,9 @@ namespace eDIA {
 			int currentblockNumber = 0;
 
 			foreach (TrialSequenceValues row in _trialSequenceValues) {
+				Debug.Log("Row " + row.values[0]);
 				if ((int.Parse(row.values[0])-1) != currentblockNumber) { // -1 as the JSON block_num starts at value 1
+					currentblockNumber++;
 					newBlock = Session.instance.CreateBlock();
 				}
 
