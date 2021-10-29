@@ -25,12 +25,6 @@ namespace eDIA {
 		public virtual void Awake() {
 			// Listen to even that XR rig is set up
 			EventManager.StartListening("EvFoundXRrigReferences", OnEvFoundXRrigReferences);
-			
-			// Set up sequence listeners
-			EventManager.StartListening("EvSessionBreak", 		OnEvSessionBreak);
-			EventManager.StartListening("EvSessionResume", 		OnEvSessionResume);
-			EventManager.StartListening("EvBlockIntroduction", 	OnEvBlockIntroduction);
-			EventManager.StartListening("EvTrialBegin", 		OnEvTrialBegin);
 
 			GetXRrigReferences();
 		}
@@ -40,8 +34,20 @@ namespace eDIA {
 		}
 
 		public virtual void Start() {
+			
 		}
 
+		void OnDestroy() {
+			EventManager.StopListening("EvFoundXRrigReferences", OnEvFoundXRrigReferences);
+			
+			// Set up sequence listeners
+			EventManager.StopListening("EvSessionBreak", 		OnEvSessionBreak);
+			EventManager.StopListening("EvSessionResume", 		OnEvSessionResume);
+			EventManager.StopListening("EvBlockIntroduction", 	OnEvBlockIntroduction);
+			EventManager.StopListening("EvBlockResume", 		OnEvBlockResume);
+			EventManager.StopListening("EvTrialBegin", 		OnEvTrialBegin);
+	
+		}
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region EDIA XR RIG 
@@ -85,6 +91,10 @@ namespace eDIA {
 
 		void OnSessionBeginUXF() {
 			AddToLog("OnSessionBeginUXF");
+			EventManager.StartListening("EvTrialBegin", 		OnEvTrialBegin);
+			EventManager.StartListening("EvSessionBreak", 		OnEvSessionBreak);
+			EventManager.StartListening("EvBlockIntroduction", 	OnEvBlockIntroduction);
+
 			inSession = true;
 			OnSessionStart();
 		}
@@ -101,30 +111,25 @@ namespace eDIA {
 			inSession = false;
 		}
 
-		// /// <summary>Called from UXF session. </summary>
-		// void OnTrialEndUXF(Trial endedTrial) {
-		// 	AddToLog("OnTrialEndUXF");
-		// 	OnTrialEnd(endedTrial); // call TASK related method to be able to overwrite for presenting result or something
-		// }
-
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region eDIA EXPERIMENT EVENT HANDLERS
 
 		/// <summary>Hook up to OnSessionStart event</summary>
 		public virtual void OnSessionStart() {
-			// Intentially empty
-			//! System awaits 'EvProceed' event automaticcaly to proceed to first trial. 
+
+			//! System awaits 'EvProceed' event automaticaly to proceed to first trial. 
 		}
 
 		/// <summary>Hook up to Experiment OnExperimentEnd event</summary>
 		public virtual void OnSessionEnding() {
 			// Intentially empty
-			//! System awaits 'EvProceed' event automaticcaly to proceed to finalising session.
+			//! System awaits 'EvProceed' event automaticaly to proceed to finalising session.
 		}
 
 		/// <summary>OnEvSessionBreak event listener</summary>
 		void OnEvSessionBreak(eParam e) {
 			AddToLog("Break START");
+			EventManager.StartListening("EvSessionResume", 		OnEvSessionResume);
 			OnSessionBreak();
 		}
 
@@ -136,6 +141,7 @@ namespace eDIA {
 		/// <summary>OnEvSessionResume event listener</summary>
 		void OnEvSessionResume (eParam e) {
 			AddToLog("Session Resume");
+			EventManager.StopListening("EvSessionResume", 		OnEvSessionResume);
 			OnSessionResume();
 		}
 
@@ -146,17 +152,21 @@ namespace eDIA {
 
 		/// <summary>OnEvBlockIntroduction event listener</summary>
 		void OnEvBlockIntroduction (eParam e) {
-			AddToLog("Block introduction START");
+			AddToLog("Block introduction");
+			EventManager.StartListening("EvBlockResume", 		OnEvBlockResume);
 			OnBlockIntroduction();
 		}
-
+		
 		/// <summary>Overridable OnBlockIntroduction</summary>
 		public virtual void OnBlockIntroduction() {
 			// Intentially empty
 		}
 
-		void OnEvTrialBegin (eParam e) {
-			AddToLog("Trial Begin:" + Session.instance.currentTrialNum);
+		/// <summary>OnEvBlockResume event listener</summary>
+		public void OnEvBlockResume (eParam e) {
+			AddToLog("Block Resume");
+			EventManager.StopListening("EvBlockResume", 		OnEvBlockResume);
+			OnBlockResume();
 			StartTrial();
 		}
 
@@ -164,10 +174,13 @@ namespace eDIA {
 		public virtual void OnBlockResume () {
 			// Intentially empty
 		}
+		
+		void OnEvTrialBegin (eParam e) {
+			StartTrial();
+		}
 
 		public virtual void OnEvProceed (eParam e) {
 			EventManager.StopListening("EvProceed", OnEvProceed);
-			Debug.Log("OnEvProceed");
 			NextStep();
 		}
 
@@ -224,7 +237,6 @@ namespace eDIA {
 			currentStep++;
 
 			if (currentStep < trialSequence.Count) {
-				Debug.Log("currentstep:" + currentStep);
 				trialSequence[currentStep].methodToCall.Invoke();
 			}
 			else EndTrial();

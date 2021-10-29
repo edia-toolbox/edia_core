@@ -82,7 +82,7 @@ namespace eDIA {
 
 		// Helpers
 		[Space(20)]
-		int activeBlockUXF = 0;
+		public int activeBlockUXF = 0;
 		bool isPauseRequested = false;
 
 		// UXF related
@@ -247,10 +247,9 @@ namespace eDIA {
 
 			bool showIntroduction = false;
 
-			if ((Session.instance.currentBlockNum != activeBlockUXF) && (Session.instance.currentBlockNum < Session.instance.blocks.Count)) {
+			if ((Session.instance.currentBlockNum != activeBlockUXF) && (Session.instance.currentBlockNum <= Session.instance.blocks.Count)) {
 				// Check for block introduction flag
 				showIntroduction = experimentConfig.hasBlockIntroduction(Session.instance.currentBlockNum);
-
 				// Set new activeBlockUXF value
 				activeBlockUXF = Session.instance.currentBlockNum;
 			}
@@ -259,10 +258,8 @@ namespace eDIA {
 			if (showIntroduction)
 				BlockIntroduction ();
 			else {
-				// object uxfTrialHolder = trial;
 				EventManager.TriggerEvent("EvTrialBegin", null);
 			}
-				// onBlockContinue.Invoke(Session.instance.CurrentTrial);
 
 		}
 
@@ -275,8 +272,6 @@ namespace eDIA {
 			if (Session.instance.isEnding)
 				return;
 			
-			Debug.Log("OnTrialEndUXF: not ending");
-
 			// Is there a PAUSE requested right now?
 			if (isPauseRequested) {
 				isPauseRequested = false;
@@ -285,7 +280,7 @@ namespace eDIA {
 				return;
 			}
 
-			Debug.Log("OnTrialEndUXF: no pause");
+			Debug.Log("> No pause");
 
 			// Reached last trial in a block?
 			if (Session.instance.CurrentBlock.lastTrial != endedTrial) {
@@ -293,7 +288,7 @@ namespace eDIA {
 				return;
 			}
 
-			AddToLog("Reached last trial in block " + Session.instance.currentBlockNum);
+			AddToLog("> Reached last trial in block " + Session.instance.currentBlockNum);
 			
 			// Is this then the last trial of the session?
 			if (Session.instance.LastTrial == endedTrial) {
@@ -302,7 +297,7 @@ namespace eDIA {
 				return;
 			}
 
-			Debug.Log("OnTrialEndUXF: not last trial");
+			Debug.Log("> Not sessions last trial");
 
 			// Do we take a break or jump to next block?
 			if (experimentConfig.breakAfter.Contains(Session.instance.currentBlockNum)) {
@@ -343,10 +338,10 @@ namespace eDIA {
 
 		/// <summary>Called from this manager. </summary>
 		void BlockResume (eParam e) {
-			// AddToLog("BlockResume");
-			// AddToExecutionOrderLog("BlockResume");
-			// EventManager.StopListening("EvProceed", BlockResume);
-			// EventManager.TriggerEvent("EvBlockResume",null);
+			AddToLog("BlockResume");
+			AddToExecutionOrderLog("BlockResume");
+			EventManager.StopListening("EvProceed", BlockResume);
+			EventManager.TriggerEvent("EvBlockResume",null);
 		}
 
 #endregion	// -------------------------------------------------------------------------------------------------------------------------------
@@ -359,7 +354,6 @@ namespace eDIA {
 			int currentblockNumber = 0;
 
 			foreach (TrialSequenceValues row in _trialSequenceValues) {
-				Debug.Log("Row " + row.values[0]);
 				if ((int.Parse(row.values[0])-1) != currentblockNumber) { // -1 as the JSON block_num starts at value 1
 					currentblockNumber++;
 					newBlock = Session.instance.CreateBlock();

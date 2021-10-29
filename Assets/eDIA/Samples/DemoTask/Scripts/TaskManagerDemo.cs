@@ -37,7 +37,7 @@ using eDIA;
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region OVERRIDE INHERITED METHODS
 		public override void OnEnable() {
-			base.OnEnable();
+			base.OnEnable(); //! Do not remove
 
 			// ---------------------------------------------------------------------------------------------
 			// Custom task related actions go down here ▼
@@ -55,7 +55,7 @@ using eDIA;
 		}
 
 		public override void Start() {
-			base.Start();
+			base.Start(); //! Do not remove
 
 			TaskSequenceSteps();
 
@@ -66,14 +66,14 @@ using eDIA;
 		}
 
 		public override void ResetTrial() {
-			base.ResetTrial();
+			base.ResetTrial(); //! Do not remove
 
 			// Add resetting of values for the start of a new trial here
 			// someValue = 0;
 		}
 
 		public override void OnSessionEndUXF () {
-			base.OnSessionEndUXF();
+			base.OnSessionEndUXF(); //! Do not remove
 
 			// Add actions to do when session has ended, like showing message to the user
 
@@ -118,9 +118,7 @@ using eDIA;
 			theCube.gameObject.SetActive(true);
 			theCube.transform.position = new Vector3(0, XRrig_MainCamera.position.y, theCube.transform.position.z);
 
-			// Debug.Log("Huh");
-			NextStepFromUserOrSceneOrButtonOrTimerOrWhatever();
-			// Invoke("NextStepFromUserOrSceneOrButtonOrTimerOrWhatever", 1f);
+			Invoke("NextStepFromUserOrSceneOrButtonOrTimerOrWhatever", 1f);
 		}
 		
 		/// <summary>Move cube, wait on user input</summary>
@@ -161,7 +159,6 @@ using eDIA;
 
 		/// <summary>Call this from your code to proceed to the next step</summary>
 		public void NextStepFromUserOrSceneOrButtonOrTimerOrWhatever() {
-			Debug.Log("NextStepFromUserOrSceneOrButtonOrTimerOrWhatever");
 			NextStep();
 		}
 
@@ -170,7 +167,6 @@ using eDIA;
 		/// <summary>Moves the cube up or down depending on the setting `direction` in the trial settings.</summary>
 		IEnumerator MoveCube () {
 			float increment = Session.instance.CurrentTrial.settings.GetInt("direction") == 1 ? 0.001f : -0.001f;
-			Debug.Log("MoveCube started");
 
 			while (true) {
 				theCube.transform.Translate(new Vector3(0, increment ,0), Space.World);
@@ -187,16 +183,14 @@ using eDIA;
 		
 		/// <summary>Called from Experiment manager</summary>
 		public override void OnSessionStart() {
-			// Show Intro
-			// System awaits 'EvProceed' event automaticcaly to proceed to first trial. 
+			//! System awaits 'EvProceed' event automaticcaly to proceed to first trial. 
 
 			EventManager.TriggerEvent("EvShowMessage", new eParam("Welcome to the experiment, please click button to continue"));
 		}
 
 		/// <summary>Called from Experiment manager</summary>
 		public override void OnSessionEnding () {
-			// Show Outro
-			// System awaits 'EvProceed' event automaticcaly to proceed to finalizing session. 
+			//! System awaits 'EvProceed' event automaticcaly to proceed to finalizing session. 
 
 			EventManager.TriggerEvent("EvShowMessage", new eParam("Thank you for participating in the experiment, please click button to end this session"));
 		}
@@ -206,6 +200,8 @@ using eDIA;
 
 		// If there is a BREAK in the experiment, these methods get called
 		public override void OnSessionBreak() {
+			//! System waits on 'EvProceed' event automaticaly to proceed
+
 			Debug.Log("<color=#ffffff> >>> Take a short break </color>");
 			EventManager.TriggerEvent("EvShowMessage", new eParam("Take a short break, \nClick button to continue"));
 			
@@ -224,9 +220,11 @@ using eDIA;
 		
 		/// <summary>Called when the block introduction starts</summary>
 		public override void OnBlockIntroduction() {
+			//! System waits on 'EvProceed' event automaticaly to proceed
 
 			EventManager.TriggerEvent("EvShowMessage", new eParam(  ExperimentManager.Instance.experimentConfig.GetBlockIntroduction(Session.instance.currentBlockNum) ));
 			Debug.Log("<color=#ffffff> >>> "+ ExperimentManager.Instance.experimentConfig.GetBlockIntroduction(Session.instance.currentBlockNum) + "</color>");
+		
 		}
 
 		/// <summary>Called when block resumes</summary>
