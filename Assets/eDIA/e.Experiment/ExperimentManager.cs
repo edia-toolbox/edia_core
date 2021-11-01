@@ -42,6 +42,7 @@ namespace eDIA {
 		/// <summary> Main container to store sessions config in, either from disk, editor or network </summary>
 		[System.Serializable]
 		public class ExperimentConfig {
+			public string				experiment			= string.Empty;
 			public string 				experimenter 		= string.Empty;
 			public string 				participantID 		= string.Empty;
 			public int 					sessionNumber 		= 0;
@@ -148,7 +149,10 @@ namespace eDIA {
 			if (experimentConfig.sessionSettings.Count == 0)
 				return;
 			
-			//TODO: Expand this with multiple inputs
+			// Add experimenter to settings
+			currentUXFSessionSettings.SetValue("experimenter", experimentConfig.experimenter);
+
+			// fill in the rest
 			for (int i=0;i<experimentConfig.sessionSettings.Count; i++) {
 				switch (experimentConfig.sessionSettings[i].type) {
 					case "string":
@@ -162,8 +166,10 @@ namespace eDIA {
 						currentUXFSessionSettings.SetValue(experimentConfig.sessionSettings[i].key, experimentConfig.sessionSettings[i].value == "true" ? true : false);
 					break;
 					case "int":
+						currentUXFSessionSettings.SetValue(experimentConfig.sessionSettings[i].key, experimentConfig.sessionSettings[i].value);
 					break;
 					case "float":
+						currentUXFSessionSettings.SetValue(experimentConfig.sessionSettings[i].key, experimentConfig.sessionSettings[i].value);
 					break;
 				}
 			}
@@ -190,7 +196,7 @@ namespace eDIA {
 		/// <summary>Starts the experiment</summary>
 		public void StartExperiment () {
 			Session.instance.Begin( 
-				experimentConfig.experimenter 	== string.Empty ? "N.A." : experimentConfig.experimenter, 
+				experimentConfig.experiment 		== string.Empty ? "N.A." : experimentConfig.experiment,  
 				experimentConfig.participantID 	== string.Empty ? "N.A." : experimentConfig.participantID, 
 				experimentConfig.sessionNumber, 
 				participantDetails, 
