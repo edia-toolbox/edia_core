@@ -23,7 +23,6 @@ namespace eDIA {
 		[System.Serializable]
 		public class SettingsTuple {
 			[HideInInspector]
-			public string type 	= string.Empty;
 			public string key 	= string.Empty;
 			public string value 	= string.Empty;
 		}
@@ -38,7 +37,7 @@ namespace eDIA {
 		public class TrialSequenceValuesContainer {
 			public List<TrialSequenceValues> trialSequenceValues = new List<TrialSequenceValues>();
 		}
- 
+
 		/// <summary> Main container to store sessions config in, either from disk, editor or network </summary>
 		[System.Serializable]
 		public class ExperimentConfig {
@@ -46,7 +45,7 @@ namespace eDIA {
 			public string 				experimenter 		= string.Empty;
 			public string 				participantID 		= string.Empty;
 			public int 					sessionNumber 		= 0;
-			public List<SettingsTuple> 		participantInfo 		= new List<SettingsTuple>();
+			public List<SettingsTuple>		participantInfo 		= new List<SettingsTuple>();
 			public List<SettingsTuple>		sessionSettings 		= new List<SettingsTuple>();
 			public List<SettingsTuple> 		blockInstructions 	= new List<SettingsTuple>();
 			public List<int>				breakAfter			= new List<int>(); 
@@ -78,12 +77,12 @@ namespace eDIA {
 		public TextAsset experimentConfigJSON;
 		
 		/// The config instance that holds current experimental configuration
-		// [HideInInspector]
+		[HideInInspector]
 		public ExperimentConfig experimentConfig;
 
 		// Helpers
 		[Space(20)]
-		public int activeBlockUXF = 0;
+		int activeBlockUXF = 0;
 		bool isPauseRequested = false;
 
 		// UXF related
@@ -111,8 +110,8 @@ namespace eDIA {
 		}
 
 
-		#endregion // -------------------------------------------------------------------------------------------------------------------------------
-		#region EXPERIMENT INFO
+#endregion // -------------------------------------------------------------------------------------------------------------------------------
+#region EXPERIMENT INFO
 
 		void OnEvSetExperimentConfig( eParam e) {
 			SetExperimentConfig( e == null ? LoadDefaultConfig () : e.GetString() );
@@ -129,52 +128,41 @@ namespace eDIA {
 		/// <param name="JSONstring">Full config string</param>
 		void SetExperimentConfig (string JSONstring) {
 			experimentConfig = UnityEngine.JsonUtility.FromJson<ExperimentConfig>(JSONstring == null ? LoadDefaultConfig () : JSONstring);
-			Debug.Log(UnityEngine.JsonUtility.ToJson(experimentConfig, false));
 
 			SetSessionSettings ();
 			SetParticipantDetails ();
 			SetTrialSequence ();
 
-			// Convert and add KEYS and VALUES to the UXF settings in order to be saved with the session
-			TrialSequenceValuesContainer trialSequenceValuesContainer = new TrialSequenceValuesContainer();
-			trialSequenceValuesContainer.trialSequenceValues.AddRange(experimentConfig.trialSequenceValues);
-
-			currentUXFSessionSettings.SetValue("trialSequenceKeys", experimentConfig.trialSequenceKeys);
-			currentUXFSessionSettings.SetValue("trialSequenceValues", UnityEngine.JsonUtility.ToJson(trialSequenceValuesContainer, false));
 		}
 
 		/// <summary> Set the sessionsettings to use by UXF</summary>
 		void SetSessionSettings () {
-			
-			if (experimentConfig.sessionSettings.Count == 0)
-				return;
-			
 			// Add experimenter to settings
 			currentUXFSessionSettings.SetValue("experimenter", experimentConfig.experimenter);
 
-			// fill in the rest
+			// Convert and add KEYS and VALUES to the UXF settings in order to be logged
+			TrialSequenceValuesContainer trialSequenceValuesContainer = new TrialSequenceValuesContainer();
+			trialSequenceValuesContainer.trialSequenceValues.AddRange(experimentConfig.trialSequenceValues);
+			currentUXFSessionSettings.SetValue("trialSequenceKeys", experimentConfig.trialSequenceKeys);
+			currentUXFSessionSettings.SetValue("trialSequenceValues", UnityEngine.JsonUtility.ToJson(trialSequenceValuesContainer, false));
+
+			// Are there default settings?
+			if (experimentConfig.sessionSettings.Count == 0)
+				return;
+			
+			// Add to UXF settings
 			for (int i=0;i<experimentConfig.sessionSettings.Count; i++) {
-				switch (experimentConfig.sessionSettings[i].type) {
-					case "strings":
-						List<string> stringlist = experimentConfig.sessionSettings[i].value.Split(',').ToList();
-						currentUXFSessionSettings.SetValue(experimentConfig.sessionSettings[i].key, stringlist);
-					break;
-					case "bool":
-						currentUXFSessionSettings.SetValue(experimentConfig.sessionSettings[i].key, experimentConfig.sessionSettings[i].value == "true" ? true : false);
-					break;
-					default:
-						currentUXFSessionSettings.SetValue(experimentConfig.sessionSettings[i].key, experimentConfig.sessionSettings[i].value.ToString());
-					break;
-				}
+				currentUXFSessionSettings.SetValue(experimentConfig.sessionSettings[i].key, experimentConfig.sessionSettings[i].value);
 			}
 		}
-		
-		/// <summary> Set the participant details to use by UXF</summary>
+
+		/// <summary> Set the participant details to use by UXF, if any</summary>
 		void SetParticipantDetails () {
-			if (experimentConfig.participantInfo.Count > 0) {
-				for (int i=0;i<experimentConfig.participantInfo.Count; i++) {
-					participantDetails.Add(experimentConfig.participantInfo[i].key, experimentConfig.participantInfo[i].value);
-				}
+			if (experimentConfig.participantInfo.Count == 0)
+				return;
+
+			for (int i=0;i<experimentConfig.participantInfo.Count; i++) {
+				participantDetails.Add(experimentConfig.participantInfo[i].key, experimentConfig.participantInfo[i].value);
 			}
 		}
 
@@ -280,7 +268,7 @@ namespace eDIA {
 				return;
 			}
 
-			Debug.Log("> No pause");
+			// Debug.Log("> No pause");
 
 			// Reached last trial in a block?
 			if (Session.instance.CurrentBlock.lastTrial != endedTrial) {
@@ -288,7 +276,7 @@ namespace eDIA {
 				return;
 			}
 
-			AddToLog("> Reached last trial in block " + Session.instance.currentBlockNum);
+			// AddToLog("> Reached last trial in block " + Session.instance.currentBlockNum);
 			
 			// Is this then the last trial of the session?
 			if (Session.instance.LastTrial == endedTrial) {
@@ -297,7 +285,7 @@ namespace eDIA {
 				return;
 			}
 
-			Debug.Log("> Not sessions last trial");
+			// Debug.Log("> Not sessions last trial");
 
 			// Do we take a break or jump to next block?
 			if (experimentConfig.breakAfter.Contains(Session.instance.currentBlockNum)) {

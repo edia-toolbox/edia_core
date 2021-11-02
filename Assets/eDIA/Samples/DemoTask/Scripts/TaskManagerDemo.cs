@@ -15,7 +15,6 @@ using eDIA;
 	3. Switch the inspector to 'debug' mode (3 dots right topcorner)
 	4. Find [ SYSTEM ] > [ EXP ] gameobject and replace 'TaskManagerDemo' script entry in the inspector with your TaskManager script and switch inspector mode back again
 
-
 */
 
 	// USER TASK CONTROL
@@ -46,7 +45,7 @@ using eDIA;
 		}
 		
 		public override void Awake() {
-			base.Awake(); // Tries to get the references to the MainCamera, Right/LeftController transforms
+			base.Awake(); // Tries to get the references to the MainCamera, Right/LeftController transforms //! Do not remove
 		
 			// ---------------------------------------------------------------------------------------------
 			// Custom task related actions go down here ▼
@@ -76,7 +75,6 @@ using eDIA;
 			base.OnSessionEndUXF(); //! Do not remove
 
 			// Add actions to do when session has ended, like showing message to the user
-
 			EventManager.TriggerEvent("EvShowMessage", new eParam("Session ended, logfiles saved"));
 
 		}
@@ -116,9 +114,9 @@ using eDIA;
 			AddToLog("Step:" + (currentStep + 1) +" > " + trialSequence[currentStep].title);
 
 			theCube.gameObject.SetActive(true);
-			theCube.transform.position = new Vector3(0, XRrig_MainCamera.position.y, theCube.transform.position.z);
+			theCube.transform.position = new Vector3(0, XRrig_MainCamera.position.y, taskSettings.GetFloat("distanceCube"));
 
-			Invoke("NextStepFromUserOrSceneOrButtonOrTimerOrWhatever", 1f);
+			Invoke("NextStepFromUserOrSceneOrButtonOrTimerOrWhatever", taskSettings.GetFloat("timerShowCube"));
 		}
 		
 		/// <summary>Move cube, wait on user input</summary>
@@ -154,7 +152,7 @@ using eDIA;
 		void TaskStep4() {
 			AddToLog("Step:" + (currentStep + 1) +" > " + trialSequence[currentStep].title);
 
-			Invoke("NextStepFromUserOrSceneOrButtonOrTimerOrWhatever", 2f); //! Alternative way to call a method after X seconds
+			Invoke("NextStepFromUserOrSceneOrButtonOrTimerOrWhatever", taskSettings.GetFloat("timerWait")); 
 		}
 
 		/// <summary>Call this from your code to proceed to the next step</summary>
@@ -184,14 +182,16 @@ using eDIA;
 		/// <summary>Called from Experiment manager</summary>
 		public override void OnSessionStart() {
 			//! System awaits 'EvProceed' event automaticcaly to proceed to first trial. 
-
 			EventManager.TriggerEvent("EvShowMessage", new eParam("Welcome to the experiment, please click button to continue"));
+
+			// Add additional task specific settings to the UXF logging system
+			Session.instance.settings.SetValue("timerShowCube", taskSettings.GetFloat("timerShowCube"));
+			// etc
 		}
 
 		/// <summary>Called from Experiment manager</summary>
 		public override void OnSessionEnding () {
 			//! System awaits 'EvProceed' event automaticcaly to proceed to finalizing session. 
-
 			EventManager.TriggerEvent("EvShowMessage", new eParam("Thank you for participating in the experiment, please click button to end this session"));
 		}
 
@@ -201,7 +201,6 @@ using eDIA;
 		// If there is a BREAK in the experiment, these methods get called
 		public override void OnSessionBreak() {
 			//! System waits on 'EvProceed' event automaticaly to proceed
-
 			Debug.Log("<color=#ffffff> >>> Take a short break </color>");
 			EventManager.TriggerEvent("EvShowMessage", new eParam("Take a short break, \nClick button to continue"));
 			
@@ -224,7 +223,6 @@ using eDIA;
 
 			EventManager.TriggerEvent("EvShowMessage", new eParam(  ExperimentManager.Instance.experimentConfig.GetBlockIntroduction(Session.instance.currentBlockNum) ));
 			Debug.Log("<color=#ffffff> >>> "+ ExperimentManager.Instance.experimentConfig.GetBlockIntroduction(Session.instance.currentBlockNum) + "</color>");
-		
 		}
 
 		/// <summary>Called when block resumes</summary>

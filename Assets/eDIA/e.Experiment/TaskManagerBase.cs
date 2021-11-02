@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UXF;
 using System; // needed for <action> 
-// using eDIA;
+using System.Linq;
 
 namespace eDIA {
 
@@ -14,6 +14,18 @@ namespace eDIA {
 		public bool showLog = false;
 		public Color taskColor = Color.yellow;
 
+		[Header("Task settings")]
+		[Tooltip("Reference a local JSON config file here")]
+		public TextAsset taskConfigJSON;
+		
+		[System.Serializable]
+		public class taskSettingJsonContainer { 
+			public List<string> taskSettingList = new List<string>(); 
+		}
+		
+		public taskSettingJsonContainer taskSettingsCatcher;
+		public UXF.Settings taskSettings = new Settings();
+
 		// XR RIG
 		[HideInInspector] public Transform XRrig_MainCamera 		= null;
 		[HideInInspector] public Transform XRrig_RightController	= null;
@@ -23,7 +35,7 @@ namespace eDIA {
 #region Mono methods
 
 		public virtual void Awake() {
-			// Listen to even that XR rig is set up
+			// Listen to event that XR rig is ready
 			EventManager.StartListening("EvFoundXRrigReferences", OnEvFoundXRrigReferences);
 
 			GetXRrigReferences();
@@ -34,8 +46,9 @@ namespace eDIA {
 		}
 
 		public virtual void Start() {
-			
+			SetTaskConfig(taskConfigJSON);
 		}
+
 
 		void OnDestroy() {
 			EventManager.StopListening("EvFoundXRrigReferences", OnEvFoundXRrigReferences);
@@ -53,11 +66,11 @@ namespace eDIA {
 #region EDIA XR RIG 
 
 		void GetXRrigReferences () {
-
 			eDIA.XRrigUtilities.GetXRrigReferencesAsync();
 		}
 
 		public virtual void OnEvFoundXRrigReferences (eParam e)  {
+			EventManager.StopListening("EvFoundXRrigReferences", OnEvFoundXRrigReferences);
 			AddToLog("XRrig references FOUND");
 
 			XRrig_MainCamera 		= eDIA.XRrigUtilities.GetXRcam();
@@ -65,9 +78,6 @@ namespace eDIA {
 			XRrig_LeftController	= eDIA.XRrigUtilities.GetXRcontrollerLeft();
 
 			SetXRrigTracking ();
-			
-			// remove listener to xr rig setup
-			EventManager.StopListening("EvFoundXRrigReferences", OnEvFoundXRrigReferences);
 		}
 
 		void SetXRrigTracking () {
@@ -80,6 +90,28 @@ namespace eDIA {
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region TASK UXF HELPERS
+
+		private void SetTaskConfig(TextAsset _taskConfigJSON)
+		{
+			if (_taskConfigJSON == null) {
+				AddToLog("No taskConfigFile found");
+				return;
+			}
+			// Parse JSON into a string LIST
+			taskSettingsCatcher = UnityEngine.JsonUtility.FromJson<taskSettingJsonContainer>(_taskConfigJSON.ToString());
+
+			// Workaround to parse into a UXF Dictionary 
+			foreach(string s in taskSettingsCatcher.taskSettingList) {
+				
+				string key = s.Split(':')[0];
+				string value = s.Split(':')[1];
+
+				if (value.Contains(',')) { // it's a list!
+					List<string> stringlist = value.Split(',').ToList();
+					taskSettings.SetValue(key, stringlist);	
+				} else taskSettings.SetValue(key, value);	// normal string
+			}
+		}
 
 		public void AddToTrialResults (string key, string value) {
 			// TODO: Add option to add result easily to results dict and therefor on disk
@@ -114,9 +146,21 @@ namespace eDIA {
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region eDIA EXPERIMENT EVENT HANDLERS
 
+		void OnEvTrialBegin (eParam e) {
+			StartTrial();
+		}
+
+		public virtual void OnEvProceed (eParam e) {
+			EventManager.StopListening("EvProceed", OnEvProceed);
+			NextStep();
+		}
+
+#endregion // -------------------------------------------------------------------------------------------------------------------------------
+#region SESSION START / END
+
 		/// <summary>Hook up to OnSessionStart event</summary>
 		public virtual void OnSessionStart() {
-
+			// Intentially empty
 			//! System awaits 'EvProceed' event automaticaly to proceed to first trial. 
 		}
 
@@ -125,6 +169,9 @@ namespace eDIA {
 			// Intentially empty
 			//! System awaits 'EvProceed' event automaticaly to proceed to finalising session.
 		}
+
+#endregion // -------------------------------------------------------------------------------------------------------------------------------
+#region BREAK
 
 		/// <summary>OnEvSessionBreak event listener</summary>
 		void OnEvSessionBreak(eParam e) {
@@ -150,6 +197,9 @@ namespace eDIA {
 			// Intentially empty
 		}
 
+#endregion // -------------------------------------------------------------------------------------------------------------------------------
+#region BLOCK INTRODUCTION
+
 		/// <summary>OnEvBlockIntroduction event listener</summary>
 		void OnEvBlockIntroduction (eParam e) {
 			AddToLog("Block introduction");
@@ -174,19 +224,9 @@ namespace eDIA {
 		public virtual void OnBlockResume () {
 			// Intentially empty
 		}
-		
-		void OnEvTrialBegin (eParam e) {
-			StartTrial();
-		}
-
-		public virtual void OnEvProceed (eParam e) {
-			EventManager.StopListening("EvProceed", OnEvProceed);
-			NextStep();
-		}
-
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
-#region TASK STATEMACHINE CALLS
+#region TASK STATEMACHINE
 		//? Methods controlling the current trial
 
 		[System.Serializable]
@@ -202,7 +242,7 @@ namespace eDIA {
 
 		[SerializeField][HideInInspector]
 		public List<TrialStep> trialSequence = new List<TrialStep>();
-		// [HideInInspector]
+		[HideInInspector]
 		public int currentStep = -1;
 
 		private bool inSession = false;
@@ -220,11 +260,6 @@ namespace eDIA {
 			AddToLog("Trial Steps DONE");
 			Session.instance.EndCurrentTrial(); // tells UXF to end this trial and fire the event that follows
 		}
-
-		/// <summary>Called from this UXF method. </summary>
-		// public virtual void OnTrialEnd(Trial endedTrial) {
-		// 	AddToLog("OnTrialEnd");
-		// }
 
 		public virtual void ResetTrial() {
 			currentStep = -1;
