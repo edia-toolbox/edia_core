@@ -155,9 +155,6 @@ namespace eDIA {
 			// fill in the rest
 			for (int i=0;i<experimentConfig.sessionSettings.Count; i++) {
 				switch (experimentConfig.sessionSettings[i].type) {
-					case "string":
-						currentUXFSessionSettings.SetValue(experimentConfig.sessionSettings[i].key, experimentConfig.sessionSettings[i].value.ToString());
-					break;
 					case "strings":
 						List<string> stringlist = experimentConfig.sessionSettings[i].value.Split(',').ToList();
 						currentUXFSessionSettings.SetValue(experimentConfig.sessionSettings[i].key, stringlist);
@@ -165,11 +162,8 @@ namespace eDIA {
 					case "bool":
 						currentUXFSessionSettings.SetValue(experimentConfig.sessionSettings[i].key, experimentConfig.sessionSettings[i].value == "true" ? true : false);
 					break;
-					case "int":
-						currentUXFSessionSettings.SetValue(experimentConfig.sessionSettings[i].key, experimentConfig.sessionSettings[i].value);
-					break;
-					case "float":
-						currentUXFSessionSettings.SetValue(experimentConfig.sessionSettings[i].key, experimentConfig.sessionSettings[i].value);
+					default:
+						currentUXFSessionSettings.SetValue(experimentConfig.sessionSettings[i].key, experimentConfig.sessionSettings[i].value.ToString());
 					break;
 				}
 			}
