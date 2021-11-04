@@ -71,11 +71,6 @@ namespace eDIA {
 			}
 		}	
 
-		// Local JSON configutation file
-		[Header("Experiment Settings")]
-		[Tooltip("Reference a local JSON config file here")]
-		public TextAsset experimentConfigJSON;
-		
 		/// The config instance that holds current experimental configuration
 		[HideInInspector]
 		public ExperimentConfig experimentConfig;
@@ -114,25 +109,31 @@ namespace eDIA {
 #region EXPERIMENT INFO
 
 		void OnEvSetExperimentConfig( eParam e) {
-			SetExperimentConfig( e == null ? LoadDefaultConfig () : e.GetString() );
+			SetExperimentConfig( e == null ? LoadExperimentConfigFromDisk () : e.GetString() );
 		}
 
 		/// <summary>Load the default JSON configuration locally</summary>
 		/// <returns>JSON string</returns>
-		string LoadDefaultConfig () {
-			var jsonTextFile = experimentConfigJSON;
-			return jsonTextFile.ToString();
+		string LoadExperimentConfigFromDisk () {
+			string experimentJSON = FileManager.ReadString("ExperimentConfig.json");
+
+			if (experimentJSON == "ERROR")
+				Debug.LogError("Experiment JSON not correctly loaded!");
+			
+			return experimentJSON;
+
+			// TODO: There should be a HALT option in the framework, to halt the complete application and rset back
 		}
 
 		/// <summary>Set the eDIA experiment settings with the full JSON config string</summary>
 		/// <param name="JSONstring">Full config string</param>
 		void SetExperimentConfig (string JSONstring) {
-			experimentConfig = UnityEngine.JsonUtility.FromJson<ExperimentConfig>(JSONstring == null ? LoadDefaultConfig () : JSONstring);
+			experimentConfig = UnityEngine.JsonUtility.FromJson<ExperimentConfig>(JSONstring == null ? LoadExperimentConfigFromDisk () : JSONstring);
+			// Debug.Log(UnityEngine.JsonUtility.ToJson(experimentConfig, true));
 
 			SetSessionSettings ();
 			SetParticipantDetails ();
 			SetTrialSequence ();
-
 		}
 
 		/// <summary> Set the sessionsettings to use by UXF</summary>

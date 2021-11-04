@@ -141,7 +141,7 @@ using eDIA;
 			}
 			
 			Color newCol;
-			if (ColorUtility.TryParseHtmlString(Session.instance.CurrentTrial.settings.GetString("color"), out newCol))
+			if (ColorUtility.TryParseHtmlString(taskSettings.GetStringList("cubeColors")[Session.instance.CurrentTrial.settings.GetInt("color")], out newCol))
 				theCube.GetComponent<MeshRenderer>().material.color = newCol;
 			else newCol = Color.magenta;
 

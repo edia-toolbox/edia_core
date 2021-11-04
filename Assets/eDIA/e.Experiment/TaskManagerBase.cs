@@ -14,16 +14,12 @@ namespace eDIA {
 		public bool showLog = false;
 		public Color taskColor = Color.yellow;
 
-		[Header("Task settings")]
-		[Tooltip("Reference a local JSON config file here")]
-		public TextAsset taskConfigJSON;
-		
 		[System.Serializable]
-		public class taskSettingJsonContainer { 
-			public List<string> taskSettingList = new List<string>(); 
+		public class TaskSettingsContainer { 
+			public List<ExperimentManager.SettingsTuple> taskSettings = new List<ExperimentManager.SettingsTuple>();
 		}
 		
-		public taskSettingJsonContainer taskSettingsCatcher;
+		public TaskSettingsContainer taskSettingsContainer;
 		public UXF.Settings taskSettings = new Settings();
 
 		// XR RIG
@@ -46,7 +42,7 @@ namespace eDIA {
 		}
 
 		public virtual void Start() {
-			SetTaskConfig(taskConfigJSON);
+			SetTaskConfig();
 		}
 
 
@@ -91,25 +87,28 @@ namespace eDIA {
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region TASK UXF HELPERS
 
-		private void SetTaskConfig(TextAsset _taskConfigJSON)
+		private void SetTaskConfig()
 		{
-			if (_taskConfigJSON == null) {
-				AddToLog("No taskConfigFile found");
+			// Load taskConfigFile
+			string taskConfigJSON = FileManager.ReadString("TaskConfig.json");
+
+			if (taskConfigJSON == "ERROR") {
+				Debug.LogError("Task JSON not correctly loaded!");
 				return;
+				
+				// TODO: There should be a HALT option in the framework, to halt the complete application and rset back
 			}
-			// Parse JSON into a string LIST
-			taskSettingsCatcher = UnityEngine.JsonUtility.FromJson<taskSettingJsonContainer>(_taskConfigJSON.ToString());
+
+			// Parse JSON into a container
+			taskSettingsContainer = UnityEngine.JsonUtility.FromJson<TaskSettingsContainer>(taskConfigJSON);
 
 			// Workaround to parse into a UXF Dictionary 
-			foreach(string s in taskSettingsCatcher.taskSettingList) {
+			foreach(ExperimentManager.SettingsTuple tuple in taskSettingsContainer.taskSettings) {
 				
-				string key = s.Split(':')[0];
-				string value = s.Split(':')[1];
-
-				if (value.Contains(',')) { // it's a list!
-					List<string> stringlist = value.Split(',').ToList();
-					taskSettings.SetValue(key, stringlist);	
-				} else taskSettings.SetValue(key, value);	// normal string
+				if (tuple.value.Contains(',')) { // it's a list!
+					List<string> stringlist = tuple.value.Split(',').ToList();
+					taskSettings.SetValue(tuple.key, stringlist);	
+				} else taskSettings.SetValue(tuple.key, tuple.value);	// normal string
 			}
 		}
 
