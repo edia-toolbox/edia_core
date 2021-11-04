@@ -1,37 +1,32 @@
-# Changelog
-All notable changes to this project will be documented in this file.
+﻿# Changelog
 
+All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
-- List of unreleased features to easily move them to a version down.
 
-## [1.0.0] - 2017-06-20
+## [unreleased] - 2021-11-03
+
 ### Added
-- New visual identity by [@tylerfortune8](https://github.com/tylerfortune8).
-- Version navigation.
-- Links to latest released version in previous versions.
+- Read ExperimentConfig.json and TaskConfig.json from disk
+- Splitted taskSettings into a seperate system using JSON for task related fixed settings
+- Moved more settings to JSON for external flexibility
 
 ### Changed
-- Start using "changelog" over "change log" since it's the common usage.
-- Start versioning based on the current English version at 0.3.0 to help translation authors keep things up-to-date.
+- Stimuli moving in local camera space
+- eDIA XR RIG fix (non-related to framework)
+
+### Fixed
+- Implemented Framework update manually which fixes a few big bugs
 
 ### Removed
-- Section about "changelog" vs "CHANGELOG".
+- Removed SNT and BI clutter
 
-## [0.3.0] - 2015-12-03
+## [0.1.0] - 2021-11-05
+
 ### Added
-- RU translation from [@aishek](https://github.com/aishek).
-- pt-BR translation from [@tallesl](https://github.com/tallesl).
-- es-ES translation from [@ZeliosAriex](https://github.com/ZeliosAriex).
+- Another thes to split the shit
 
-## [0.2.0] - 2015-10-06
 ### Changed
-- Remove exclusionary mentions of "open source" since this project can
-benefit both "open" and "closed" source projects equally.
-
-## [0.1.0] - 2015-10-06
-### Added
-- Answer "Should you ever rewrite a change log?".
+- Test extra line
 
