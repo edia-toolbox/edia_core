@@ -115,7 +115,7 @@ namespace eDIA {
 		/// <summary>Load the default JSON configuration locally</summary>
 		/// <returns>JSON string</returns>
 		string LoadExperimentConfigFromDisk () {
-			string experimentJSON = FileManager.ReadString("ExperimentConfig.json");
+			string experimentJSON = FileManager.ReadStringFromApplicationPath("ExperimentConfig.json");
 
 			if (experimentJSON == "ERROR")
 				Debug.LogError("Experiment JSON not correctly loaded!");

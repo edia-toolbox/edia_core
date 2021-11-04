@@ -7,14 +7,18 @@ namespace eDIA {
 
 	public static class FileManager {
 
+		public static string ReadStringFromApplicationPath (string _fileName) {
+			string path =  CorrectPath() + "/" + _fileName;
+
+			return ReadString(path);
+		}
+
 		/// <summary>Tries to read the given textbased filename.</summary>
 		/// <param _fileName="_fileName"></param>
 		/// <returns>Content of the file, or 'ERROR' when failed</returns>
 		public static string ReadString (string _fileName) {
 
-			string path =  CorrectPath() + "/" + _fileName;
-
-			StreamReader reader = new StreamReader (path);
+			StreamReader reader = new StreamReader (_fileName);
 			string result;
 
 			try {

@@ -90,7 +90,7 @@ namespace eDIA {
 		private void SetTaskConfig()
 		{
 			// Load taskConfigFile
-			string taskConfigJSON = FileManager.ReadString("TaskConfig.json");
+			string taskConfigJSON = FileManager.ReadStringFromApplicationPath("TaskConfig.json");
 
 			if (taskConfigJSON == "ERROR") {
 				Debug.LogError("Task JSON not correctly loaded!");
