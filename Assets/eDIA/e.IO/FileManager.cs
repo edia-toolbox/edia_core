@@ -35,12 +35,13 @@ namespace eDIA {
 
 		/// <summary>Saves a text file to given filename and containts given data</summary>
 		/// <param _fileName="_fileName">Name of the file</param>
-		/// <param _fileName="_data">The data that needs to be written</param>
-		public static void WriteString (string _fileName, string _data) {
+		/// <param _data="_data">The data that needs to be written</param>
+		/// <param _overwrite="_overwrite">Overwrite if filename exists.</param>
+		public static void WriteString (string _fileName, string _data, bool _overwrite) {
 
 			string path =  CorrectPath() + "/" + _fileName;
 			
-			StreamWriter writer = new StreamWriter ( path, true, Encoding.UTF8, 65536);
+			StreamWriter writer = new StreamWriter ( path, false, Encoding.UTF8, 65536);
 
 			writer.WriteLine (_data);
 

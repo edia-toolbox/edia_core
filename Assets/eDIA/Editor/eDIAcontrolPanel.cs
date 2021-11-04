@@ -105,7 +105,7 @@ namespace eDIA.EditorUtils {
 
             GUILayout.Label ("To update the changelog, hit this button", labelStyle);
             if (GUILayout.Button ("Update Changelog from CSV"))
-                // ProjectFileUtilities.UpdateChangelog ();
+                ProjectFileUtilities.UpdateChangelog ();
 
             EditorGUILayout.Separator ();
 

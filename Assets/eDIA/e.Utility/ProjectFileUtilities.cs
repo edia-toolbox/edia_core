@@ -16,16 +16,20 @@ namespace eDIA {
 		public string dev;
 	}
 
-	public class ProjectFileUtilities : MonoBehaviour {
+	public static class ProjectFileUtilities {
 
-		public List<ChangeLogEntry> logSRC = new List<ChangeLogEntry> ();
-		public List<ChangeLogEntry> logOrderedByVersion = new List<ChangeLogEntry> ();
-		public List<ChangeLogEntry> logSingleVersion = new List<ChangeLogEntry> ();
-		public List<ChangeLogEntry> logOrderedOnType = new List<ChangeLogEntry> ();
+		public static List<ChangeLogEntry> logSRC;
+		public static List<ChangeLogEntry> logOrderedByVersion;
+		public static List<ChangeLogEntry> logSingleVersion;
+		public static List<ChangeLogEntry> logOrderedOnType;
 
-		public string changeLogString = string.Empty;
+		public static string changeLogString = string.Empty;
 
-		public void UpdateChangelog () {
+		/// <summary>Converts CSV file to sorted CHANGELOG.md file</summary>
+		public static void UpdateChangelog () {
+
+			logSRC 			= new List<ChangeLogEntry> ();
+			logOrderedByVersion 	= new List<ChangeLogEntry> ();
 
 			string CSVlog = FileManager.ReadString ("ChangeLog.csv");
 			string[] rows = CSVlog.Split ('\n');
@@ -50,26 +54,27 @@ namespace eDIA {
 			// Sort on versions
 			logOrderedByVersion = logSRC.OrderByDescending (c => c.version).ToList ();
 
-			// header
+			// CHANGELOG header
 			changeLogString = string.Empty;
 			changeLogString += "# Changelog\n\nAll notable changes to this project will be documented in this file.\nThe format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),\nand this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).\n\n";
 
-			Debug.Log ("logOrderedByVersion.Count " + logOrderedByVersion.Count);
-			
+			// Add sections per version
 			while (logOrderedByVersion.Count > 0) 
 				GenerateSingleVersionEntry ();
 
-			Debug.Log ("Result:\n" + changeLogString);
-
-			FileManager.WriteString ("/../CHANGELOG.md", changeLogString);
+			// Write result to file
+			FileManager.WriteString ("/../CHANGELOG.md", changeLogString, true);
+			
+			Debug.Log ("Generated new CHANGELOG.md");
 		}
 
 		/// <summary>Loops through the sorted array and filters one version sorted by ChangeType and Date</summary>
-		public void GenerateSingleVersionEntry () {
+		public static void GenerateSingleVersionEntry () {
 
 			if (logOrderedByVersion.Count == 0)
 				return;
-
+			
+			logSingleVersion = new List<ChangeLogEntry> ();
 			string versioncheck = logOrderedByVersion[0].version;
 			bool CheckForVersion = true;
 
@@ -90,13 +95,11 @@ namespace eDIA {
 			}
 
 			// Sort the list on type and dates
+			logOrderedOnType = new List<ChangeLogEntry> ();
 			logOrderedOnType = logSingleVersion.OrderBy (c => c.type).ThenByDescending (c => c.date).ToList ();
 
-			// Clean previous list if not empty
-			logSingleVersion.Clear ();
-
 			// Add ChangeLog section for this version
-			changeLogString += "\n## [" + logOrderedOnType[0].version + "] - " + logOrderedOnType[0].date + "\n";
+			changeLogString += "\n## [" + logOrderedOnType[0].version + "] - " + logOrderedOnType[0].date;
 
 			string currentType = string.Empty;
 
@@ -111,10 +114,5 @@ namespace eDIA {
 
 			logOrderedOnType.Clear();
 		}
-
-		void Start () {
-			UpdateChangelog ();
-		}
-
 	}
 }
