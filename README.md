@@ -1,11 +1,13 @@
 # README.md
 
+![eDIA_header.png](documentation/resources/eDIA_header.png)
+
 Main eDIA framework used for developing XR based scientific experiments in the Unity3D game engine.
 
 # NOTE
 
 ⚠️ This is not the package to import into your unity project.!
-This is the source off the **eDIA framework** package. How to install that package in Unity using the package manager can be found here <insert link> 
+This is the source off the **eDIA framework** package. How to install that package in Unity using the package manager can be found here ( insert link )
 
 ## Dependencies
 
