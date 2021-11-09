@@ -1,0 +1,313 @@
+### YamlMime:ManagedReference
+items:
+- uid: eDIA.EventManager
+  commentId: T:eDIA.EventManager
+  id: EventManager
+  parent: eDIA
+  children:
+  - eDIA.EventManager.showLog
+  - eDIA.EventManager.StartListening(System.String,Action{eDIA.eParam})
+  - eDIA.EventManager.StopListening(System.String,Action{eDIA.eParam})
+  - eDIA.EventManager.TriggerEvent(System.String,eDIA.eParam)
+  langs:
+  - csharp
+  - vb
+  name: EventManager
+  nameWithType: EventManager
+  fullName: eDIA.EventManager
+  type: Class
+  source:
+    id: EventManager
+    path: ''
+    startLine: 409
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: >-
+      [Serializable]
+
+      public class EventManager
+    content.vb: >-
+      <Serializable>
+
+      Public Class EventManager
+  inheritance:
+  - System.Object
+  attributes:
+  - type: System.SerializableAttribute
+    ctor: System.SerializableAttribute.#ctor
+    arguments: []
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+- uid: eDIA.EventManager.showLog
+  commentId: F:eDIA.EventManager.showLog
+  id: showLog
+  parent: eDIA.EventManager
+  langs:
+  - csharp
+  - vb
+  name: showLog
+  nameWithType: EventManager.showLog
+  fullName: eDIA.EventManager.showLog
+  type: Field
+  source:
+    id: showLog
+    path: ''
+    startLine: 413
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public static bool showLog
+    return:
+      type: System.Boolean
+    content.vb: Public Shared showLog As Boolean
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: eDIA.EventManager.StartListening(System.String,Action{eDIA.eParam})
+  commentId: M:eDIA.EventManager.StartListening(System.String,Action{eDIA.eParam})
+  id: StartListening(System.String,Action{eDIA.eParam})
+  parent: eDIA.EventManager
+  langs:
+  - csharp
+  - vb
+  name: StartListening(String, Action<eParam>)
+  nameWithType: EventManager.StartListening(String, Action<eParam>)
+  fullName: eDIA.EventManager.StartListening(System.String, Action<eDIA.eParam>)
+  type: Method
+  source:
+    id: StartListening
+    path: ''
+    startLine: 415
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public static void StartListening(string eventName, Action<eParam> listener)
+    parameters:
+    - id: eventName
+      type: System.String
+    - id: listener
+      type: Global.Action{eDIA.eParam}
+    content.vb: Public Shared Sub StartListening(eventName As String, listener As Action(Of eParam))
+  overload: eDIA.EventManager.StartListening*
+  nameWithType.vb: EventManager.StartListening(String, Action(Of eParam))
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+  fullName.vb: eDIA.EventManager.StartListening(System.String, Action(Of eDIA.eParam))
+  name.vb: StartListening(String, Action(Of eParam))
+- uid: eDIA.EventManager.StopListening(System.String,Action{eDIA.eParam})
+  commentId: M:eDIA.EventManager.StopListening(System.String,Action{eDIA.eParam})
+  id: StopListening(System.String,Action{eDIA.eParam})
+  parent: eDIA.EventManager
+  langs:
+  - csharp
+  - vb
+  name: StopListening(String, Action<eParam>)
+  nameWithType: EventManager.StopListening(String, Action<eParam>)
+  fullName: eDIA.EventManager.StopListening(System.String, Action<eDIA.eParam>)
+  type: Method
+  source:
+    id: StopListening
+    path: ''
+    startLine: 434
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public static void StopListening(string eventName, Action<eParam> listener)
+    parameters:
+    - id: eventName
+      type: System.String
+    - id: listener
+      type: Global.Action{eDIA.eParam}
+    content.vb: Public Shared Sub StopListening(eventName As String, listener As Action(Of eParam))
+  overload: eDIA.EventManager.StopListening*
+  nameWithType.vb: EventManager.StopListening(String, Action(Of eParam))
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+  fullName.vb: eDIA.EventManager.StopListening(System.String, Action(Of eDIA.eParam))
+  name.vb: StopListening(String, Action(Of eParam))
+- uid: eDIA.EventManager.TriggerEvent(System.String,eDIA.eParam)
+  commentId: M:eDIA.EventManager.TriggerEvent(System.String,eDIA.eParam)
+  id: TriggerEvent(System.String,eDIA.eParam)
+  parent: eDIA.EventManager
+  langs:
+  - csharp
+  - vb
+  name: TriggerEvent(String, eParam)
+  nameWithType: EventManager.TriggerEvent(String, eParam)
+  fullName: eDIA.EventManager.TriggerEvent(System.String, eDIA.eParam)
+  type: Method
+  source:
+    id: TriggerEvent
+    path: ''
+    startLine: 450
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public static void TriggerEvent(string eventName, eParam eventParam)
+    parameters:
+    - id: eventName
+      type: System.String
+    - id: eventParam
+      type: eDIA.eParam
+    content.vb: Public Shared Sub TriggerEvent(eventName As String, eventParam As eParam)
+  overload: eDIA.EventManager.TriggerEvent*
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+references:
+- uid: eDIA
+  commentId: N:eDIA
+  name: eDIA
+  nameWithType: eDIA
+  fullName: eDIA
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  name: Boolean
+  nameWithType: Boolean
+  fullName: System.Boolean
+- uid: eDIA.EventManager.StartListening*
+  commentId: Overload:eDIA.EventManager.StartListening
+  name: StartListening
+  nameWithType: EventManager.StartListening
+  fullName: eDIA.EventManager.StartListening
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  name: String
+  nameWithType: String
+  fullName: System.String
+- uid: Global.Action{eDIA.eParam}
+  commentId: '!:Global.Action{eDIA.eParam}'
+  definition: Global.Action`1
+  name: Action<eParam>
+  nameWithType: Action<eParam>
+  fullName: Action<eDIA.eParam>
+  nameWithType.vb: Action(Of eParam)
+  fullName.vb: Action(Of eDIA.eParam)
+  name.vb: Action(Of eParam)
+  spec.csharp:
+  - uid: Global.Action`1
+    name: Action
+    nameWithType: Action
+    fullName: Action
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: eDIA.eParam
+    name: eParam
+    nameWithType: eParam
+    fullName: eDIA.eParam
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: Global.Action`1
+    name: Action
+    nameWithType: Action
+    fullName: Action
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: eDIA.eParam
+    name: eParam
+    nameWithType: eParam
+    fullName: eDIA.eParam
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Global.Action`1
+  isExternal: true
+  name: Action<>
+  nameWithType: Action<>
+  fullName: Action<>
+  nameWithType.vb: Action(Of )
+  fullName.vb: Action(Of )
+  name.vb: Action(Of )
+  spec.csharp:
+  - uid: Global.Action`1
+    name: Action
+    nameWithType: Action
+    fullName: Action
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: ''
+    nameWithType: ''
+    fullName: ''
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: Global.Action`1
+    name: Action
+    nameWithType: Action
+    fullName: Action
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: ''
+    nameWithType: ''
+    fullName: ''
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: eDIA.EventManager.StopListening*
+  commentId: Overload:eDIA.EventManager.StopListening
+  name: StopListening
+  nameWithType: EventManager.StopListening
+  fullName: eDIA.EventManager.StopListening
+- uid: eDIA.EventManager.TriggerEvent*
+  commentId: Overload:eDIA.EventManager.TriggerEvent
+  name: TriggerEvent
+  nameWithType: EventManager.TriggerEvent
+  fullName: eDIA.EventManager.TriggerEvent
+- uid: eDIA.eParam
+  commentId: T:eDIA.eParam
+  parent: eDIA
+  name: eParam
+  nameWithType: eParam
+  fullName: eDIA.eParam

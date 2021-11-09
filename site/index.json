@@ -1,0 +1,307 @@
+{
+  "api/eDIA.ChangeLogEntry.html": {
+    "href": "api/eDIA.ChangeLogEntry.html",
+    "title": "Class ChangeLogEntry | Edia Testproject documentation",
+    "keywords": "Class ChangeLogEntry Inheritance Object ChangeLogEntry Namespace : eDIA Assembly : cs.temp.dll.dll Syntax [Serializable] public class ChangeLogEntry Fields date Declaration public string date Field Value Type Description String description Declaration public string description Field Value Type Description String dev Declaration public string dev Field Value Type Description String type Declaration public string type Field Value Type Description String version Declaration public string version Field Value Type Description String"
+  },
+  "api/eDIA.Comment.html": {
+    "href": "api/eDIA.Comment.html",
+    "title": "Class Comment | Edia Testproject documentation",
+    "keywords": "Class Comment Inheritance Object Comment Namespace : eDIA Assembly : cs.temp.dll.dll Syntax public class Comment : MonoBehaviour Fields comment Declaration public string comment Field Value Type Description String"
+  },
+  "api/eDIA.CommentEditor.html": {
+    "href": "api/eDIA.CommentEditor.html",
+    "title": "Class CommentEditor | Edia Testproject documentation",
+    "keywords": "Class CommentEditor Inheritance Object CommentEditor Namespace : eDIA Assembly : cs.temp.dll.dll Syntax public class CommentEditor : Editor Methods OnInspectorGUI() Declaration public override void OnInspectorGUI()"
+  },
+  "api/eDIA.EditorUtils.eDIAcontrolPanel.html": {
+    "href": "api/eDIA.EditorUtils.eDIAcontrolPanel.html",
+    "title": "Class eDIAcontrolPanel | Edia Testproject documentation",
+    "keywords": "Class eDIAcontrolPanel Inheritance Object eDIAcontrolPanel Namespace : eDIA.EditorUtils Assembly : cs.temp.dll.dll Syntax public class eDIAcontrolPanel : EditorWindow Fields eDIAIcon Declaration public Texture2D eDIAIcon Field Value Type Description Texture2D forceShow Declaration public static bool forceShow Field Value Type Description Boolean Methods OnGUI() Declaration public void OnGUI()"
+  },
+  "api/eDIA.EditorUtils.html": {
+    "href": "api/eDIA.EditorUtils.html",
+    "title": "Namespace eDIA.EditorUtils | Edia Testproject documentation",
+    "keywords": "Namespace eDIA.EditorUtils Classes eDIAcontrolPanel"
+  },
+  "api/eDIA.eParam.html": {
+    "href": "api/eDIA.eParam.html",
+    "title": "Class eParam | Edia Testproject documentation",
+    "keywords": "Class eParam Inheritance Object eParam Namespace : eDIA Assembly : cs.temp.dll.dll Syntax public class eParam Constructors eParam() Default empty Declaration public eParam() eParam(Boolean) Declaration public eParam(bool _bool) Parameters Type Name Description Boolean _bool eParam(Boolean[]) Pass on value array \"new bool[] { value01, value02, .. }\" Declaration public eParam(bool[] _boolPs) Parameters Type Name Description Boolean [] _boolPs eParam(Int32) Declaration public eParam(int _int) Parameters Type Name Description Int32 _int eParam(Int32[]) Pass on value array \"new int[] { value01, value02, .. }\" Declaration public eParam(int[] _ints) Parameters Type Name Description Int32 [] _ints eParam(Object) Declaration public eParam(object _objectP) Parameters Type Name Description Object _objectP eParam(Single) Pass on a float Declaration public eParam(float _float) Parameters Type Name Description Single _float eParam(Single[]) Pass on value array 'new float[] { value01, value02, .. }' Declaration public eParam(float[] _floats) Parameters Type Name Description Single [] _floats eParam(String) Declaration public eParam(string _string) Parameters Type Name Description String _string eParam(String[]) Pass on value array \"new string[] { value01, value02, .. }\" Declaration public eParam(string[] _strings) Parameters Type Name Description String [] _strings eParam(Transform) Declaration public eParam(Transform _transformP) Parameters Type Name Description Transform _transformP eParam(Vector3) Declaration public eParam(Vector3 _vector3) Parameters Type Name Description Vector3 _vector3 Fields boolP Declaration public bool boolP Field Value Type Description Boolean boolPs Declaration public bool[] boolPs Field Value Type Description Boolean [] floatP Declaration public float floatP Field Value Type Description Single floatPs Declaration public float[] floatPs Field Value Type Description Single [] intP Declaration public int intP Field Value Type Description Int32 intPs Declaration public int[] intPs Field Value Type Description Int32 [] objectP Declaration public object objectP Field Value Type Description Object stringP Declaration public string stringP Field Value Type Description String stringPs Declaration public string[] stringPs Field Value Type Description String [] transformP Declaration public Transform transformP Field Value Type Description Transform vector3P Declaration public Vector3 vector3P Field Value Type Description Vector3 vector3Ps Declaration public Vector3[] vector3Ps Field Value Type Description Vector3 [] Methods GetBool() Declaration public bool GetBool() Returns Type Description Boolean GetBools() Declaration public bool[] GetBools() Returns Type Description Boolean [] GetFloat() Declaration public float GetFloat() Returns Type Description Single GetFloats() Declaration public float[] GetFloats() Returns Type Description Single [] GetInt() Declaration public int GetInt() Returns Type Description Int32 GetIntAt(Int32) Declaration public int GetIntAt(int _index) Parameters Type Name Description Int32 _index Returns Type Description Int32 GetInts() Declaration public int[] GetInts() Returns Type Description Int32 [] GetObject() Declaration public object GetObject() Returns Type Description Object GetString() Declaration public string GetString() Returns Type Description String GetStrings() Declaration public string[] GetStrings() Returns Type Description String [] GetTransform() Declaration public Transform GetTransform() Returns Type Description Transform GetVector3() Declaration public Vector3 GetVector3() Returns Type Description Vector3"
+  },
+  "api/eDIA.EventManager.html": {
+    "href": "api/eDIA.EventManager.html",
+    "title": "Class EventManager | Edia Testproject documentation",
+    "keywords": "Class EventManager Inheritance Object EventManager Namespace : eDIA Assembly : cs.temp.dll.dll Syntax [Serializable] public class EventManager Fields showLog Declaration public static bool showLog Field Value Type Description Boolean Methods StartListening(String, Action<eParam>) Declaration public static void StartListening(string eventName, Action<eParam> listener) Parameters Type Name Description String eventName Action < eParam > listener StopListening(String, Action<eParam>) Declaration public static void StopListening(string eventName, Action<eParam> listener) Parameters Type Name Description String eventName Action < eParam > listener TriggerEvent(String, eParam) Declaration public static void TriggerEvent(string eventName, eParam eventParam) Parameters Type Name Description String eventName eParam eventParam"
+  },
+  "api/eDIA.ExperimentManager.ExperimentConfig.html": {
+    "href": "api/eDIA.ExperimentManager.ExperimentConfig.html",
+    "title": "Class ExperimentManager.ExperimentConfig | Edia Testproject documentation",
+    "keywords": "Class ExperimentManager.ExperimentConfig Main container to store sessions config, either from disk, editor or network Inheritance Object ExperimentManager.ExperimentConfig Namespace : eDIA Assembly : cs.temp.dll.dll Syntax [Serializable] public class ExperimentConfig Fields blockInstructions Declaration public List<ExperimentManager.SettingsTuple> blockInstructions Field Value Type Description List < ExperimentManager.SettingsTuple > breakAfter Declaration public List<int> breakAfter Field Value Type Description List < Int32 > experiment Declaration public string experiment Field Value Type Description String experimenter Declaration public string experimenter Field Value Type Description String participantID Declaration public string participantID Field Value Type Description String participantInfo Declaration public List<ExperimentManager.SettingsTuple> participantInfo Field Value Type Description List < ExperimentManager.SettingsTuple > sessionNumber Declaration public int sessionNumber Field Value Type Description Int32 sessionSettings Declaration public List<ExperimentManager.SettingsTuple> sessionSettings Field Value Type Description List < ExperimentManager.SettingsTuple > trialSequenceKeys Declaration public List<string> trialSequenceKeys Field Value Type Description List < String > trialSequenceValues Declaration public List<ExperimentManager.TrialSequenceValues> trialSequenceValues Field Value Type Description List < ExperimentManager.TrialSequenceValues > Methods GetBlockIntroduction(Int32) Get the string value for blockintroduction of given blocknumber Declaration public string GetBlockIntroduction(int _blockNumber) Parameters Type Name Description Int32 _blockNumber Returns Type Description String Introduction text as string hasBlockIntroduction(Int32) Does the given block have a introduction text defined Declaration public bool hasBlockIntroduction(int _blockNumber) Parameters Type Name Description Int32 _blockNumber Returns Type Description Boolean Boolean True if any"
+  },
+  "api/eDIA.ExperimentManager.html": {
+    "href": "api/eDIA.ExperimentManager.html",
+    "title": "Class ExperimentManager | Edia Testproject documentation",
+    "keywords": "Class ExperimentManager Inheritance Object Singleton < ExperimentManager > ExperimentManager Inherited Members Singleton<ExperimentManager>.Instance Namespace : eDIA Assembly : cs.temp.dll.dll Syntax public class ExperimentManager : Singleton<ExperimentManager> Fields experimentConfig Declaration public ExperimentManager.ExperimentConfig experimentConfig Field Value Type Description ExperimentManager.ExperimentConfig showLog Declaration public bool showLog Field Value Type Description Boolean taskColor Declaration public Color taskColor Field Value Type Description Color Methods GenerateUXFSequence(List<String>, List<ExperimentManager.TrialSequenceValues>) /// Convert JSON formatted definition for the seqence into a UXF format to run in the session/// Declaration public void GenerateUXFSequence(List<string> _trialSequenceKeys, List<ExperimentManager.TrialSequenceValues> _trialSequenceValues) Parameters Type Name Description List < String > _trialSequenceKeys List < ExperimentManager.TrialSequenceValues > _trialSequenceValues StartExperiment() Starts the experiment Declaration public void StartExperiment()"
+  },
+  "api/eDIA.ExperimentManager.SettingsTuple.html": {
+    "href": "api/eDIA.ExperimentManager.SettingsTuple.html",
+    "title": "Class ExperimentManager.SettingsTuple | Edia Testproject documentation",
+    "keywords": "Class ExperimentManager.SettingsTuple Tuple of strings. Serializable in the inspector and dictionaries are not Inheritance Object ExperimentManager.SettingsTuple Namespace : eDIA Assembly : cs.temp.dll.dll Syntax [Serializable] public class SettingsTuple Fields key Declaration public string key Field Value Type Description String value Declaration public string value Field Value Type Description String"
+  },
+  "api/eDIA.ExperimentManager.TrialSequenceValues.html": {
+    "href": "api/eDIA.ExperimentManager.TrialSequenceValues.html",
+    "title": "Class ExperimentManager.TrialSequenceValues | Edia Testproject documentation",
+    "keywords": "Class ExperimentManager.TrialSequenceValues Stringlist with trial setting values Inheritance Object ExperimentManager.TrialSequenceValues Namespace : eDIA Assembly : cs.temp.dll.dll Syntax [Serializable] public class TrialSequenceValues Fields values Declaration public List<string> values Field Value Type Description List < String >"
+  },
+  "api/eDIA.ExperimentManager.TrialSequenceValuesContainer.html": {
+    "href": "api/eDIA.ExperimentManager.TrialSequenceValuesContainer.html",
+    "title": "Class ExperimentManager.TrialSequenceValuesContainer | Edia Testproject documentation",
+    "keywords": "Class ExperimentManager.TrialSequenceValuesContainer Container for (de)serializing a list to JSON Inheritance Object ExperimentManager.TrialSequenceValuesContainer Namespace : eDIA Assembly : cs.temp.dll.dll Syntax public class TrialSequenceValuesContainer Fields trialSequenceValues Declaration public List<ExperimentManager.TrialSequenceValues> trialSequenceValues Field Value Type Description List < ExperimentManager.TrialSequenceValues >"
+  },
+  "api/eDIA.FileManager.html": {
+    "href": "api/eDIA.FileManager.html",
+    "title": "Class FileManager | Edia Testproject documentation",
+    "keywords": "Class FileManager Inheritance Object FileManager Namespace : eDIA Assembly : cs.temp.dll.dll Syntax public static class FileManager Methods CreateFolder(String) Creates a folder in the application data directory Declaration public static void CreateFolder(string _folderName) Parameters Type Name Description String _folderName ReadString(String) Tries to read the given textbased filename. Declaration public static string ReadString(string _fileName) Parameters Type Name Description String _fileName Returns Type Description String Content of the file, or 'ERROR' when failed ReadStringFromApplicationPath(String) Declaration public static string ReadStringFromApplicationPath(string _fileName) Parameters Type Name Description String _fileName Returns Type Description String WriteString(String, String, Boolean) Saves a text file to given filename and containts given data Declaration public static void WriteString(string _fileName, string _data, bool _overwrite) Parameters Type Name Description String _fileName String _data Boolean _overwrite"
+  },
+  "api/eDIA.html": {
+    "href": "api/eDIA.html",
+    "title": "Namespace eDIA | Edia Testproject documentation",
+    "keywords": "Namespace eDIA Classes ChangeLogEntry Comment CommentEditor eParam EventManager ExperimentManager ExperimentManager.ExperimentConfig Main container to store sessions config, either from disk, editor or network ExperimentManager.SettingsTuple Tuple of strings. Serializable in the inspector and dictionaries are not ExperimentManager.TrialSequenceValues Stringlist with trial setting values ExperimentManager.TrialSequenceValuesContainer Container for (de)serializing a list to JSON FileManager InputActionHandler LogUtilities NetworkComManager NetworkManager ProjectFileUtilities ReadOnlyAttribute ReadOnlyDrawer This class contain custom drawer for ReadOnly attribute. TaskManagerBase TaskManagerBase.TaskSettingsContainer TaskManagerBase.TrialStep XRrigInitialiser XRrigUtilities"
+  },
+  "api/eDIA.InputActionHandler.html": {
+    "href": "api/eDIA.InputActionHandler.html",
+    "title": "Class InputActionHandler | Edia Testproject documentation",
+    "keywords": "Class InputActionHandler Inheritance Object InputActionHandler Namespace : eDIA Assembly : cs.temp.dll.dll Syntax public class InputActionHandler : MonoBehaviour Methods actionPauseExperimentPerformed(InputAction.CallbackContext) Declaration public void actionPauseExperimentPerformed(InputAction.CallbackContext context) Parameters Type Name Description InputAction.CallbackContext context actionStartExperimentPerformed(InputAction.CallbackContext) Declaration public void actionStartExperimentPerformed(InputAction.CallbackContext context) Parameters Type Name Description InputAction.CallbackContext context menuPerformed(InputAction.CallbackContext) Declaration public void menuPerformed(InputAction.CallbackContext context) Parameters Type Name Description InputAction.CallbackContext context proceedPerformed(InputAction.CallbackContext) Declaration public void proceedPerformed(InputAction.CallbackContext context) Parameters Type Name Description InputAction.CallbackContext context SetActionMapName(String) Declaration public void SetActionMapName(string mapName) Parameters Type Name Description String mapName"
+  },
+  "api/eDIA.LogUtilities.html": {
+    "href": "api/eDIA.LogUtilities.html",
+    "title": "Class LogUtilities | Edia Testproject documentation",
+    "keywords": "Class LogUtilities Inheritance Object LogUtilities Namespace : eDIA Assembly : cs.temp.dll.dll Syntax public static class LogUtilities Methods AddToLog(String, String, Color) Declaration public static void AddToLog(string message, string indicator, Color color) Parameters Type Name Description String message String indicator Color color"
+  },
+  "api/eDIA.NetworkComManager.html": {
+    "href": "api/eDIA.NetworkComManager.html",
+    "title": "Class NetworkComManager | Edia Testproject documentation",
+    "keywords": "Class NetworkComManager Inheritance Object NetworkComManager Namespace : eDIA Assembly : cs.temp.dll.dll Syntax public class NetworkComManager : MonoBehaviour"
+  },
+  "api/eDIA.NetworkManager.html": {
+    "href": "api/eDIA.NetworkManager.html",
+    "title": "Class NetworkManager | Edia Testproject documentation",
+    "keywords": "Class NetworkManager Inheritance Object NetworkManager Namespace : eDIA Assembly : cs.temp.dll.dll Syntax public class NetworkManager : MonoBehaviour"
+  },
+  "api/eDIA.ProjectFileUtilities.html": {
+    "href": "api/eDIA.ProjectFileUtilities.html",
+    "title": "Class ProjectFileUtilities | Edia Testproject documentation",
+    "keywords": "Class ProjectFileUtilities Inheritance Object ProjectFileUtilities Namespace : eDIA Assembly : cs.temp.dll.dll Syntax public static class ProjectFileUtilities Fields changeLogString Declaration public static string changeLogString Field Value Type Description String logOrderedByVersion Declaration public static List<ChangeLogEntry> logOrderedByVersion Field Value Type Description List < ChangeLogEntry > logOrderedOnType Declaration public static List<ChangeLogEntry> logOrderedOnType Field Value Type Description List < ChangeLogEntry > logSingleVersion Declaration public static List<ChangeLogEntry> logSingleVersion Field Value Type Description List < ChangeLogEntry > logSRC Declaration public static List<ChangeLogEntry> logSRC Field Value Type Description List < ChangeLogEntry > Methods GenerateSingleVersionEntry() Loops through the sorted array and filters one version sorted by ChangeType and Date Declaration public static void GenerateSingleVersionEntry() UpdateChangelog() Converts CSV file to sorted CHANGELOG.md file Declaration public static void UpdateChangelog()"
+  },
+  "api/eDIA.ReadOnlyAttribute.html": {
+    "href": "api/eDIA.ReadOnlyAttribute.html",
+    "title": "Class ReadOnlyAttribute | Edia Testproject documentation",
+    "keywords": "Class ReadOnlyAttribute Inheritance Object ReadOnlyAttribute Namespace : eDIA Assembly : cs.temp.dll.dll Syntax public class ReadOnlyAttribute : PropertyAttribute"
+  },
+  "api/eDIA.ReadOnlyDrawer.html": {
+    "href": "api/eDIA.ReadOnlyDrawer.html",
+    "title": "Class ReadOnlyDrawer | Edia Testproject documentation",
+    "keywords": "Class ReadOnlyDrawer This class contain custom drawer for ReadOnly attribute. Inheritance Object ReadOnlyDrawer Namespace : eDIA Assembly : cs.temp.dll.dll Syntax public class ReadOnlyDrawer : PropertyDrawer Methods OnGUI(Rect, SerializedProperty, GUIContent) Unity method for drawing GUI in Editor Declaration public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) Parameters Type Name Description Rect position Position. SerializedProperty property Property. GUIContent label Label."
+  },
+  "api/eDIA.TaskManagerBase.html": {
+    "href": "api/eDIA.TaskManagerBase.html",
+    "title": "Class TaskManagerBase | Edia Testproject documentation",
+    "keywords": "Class TaskManagerBase Inheritance Object TaskManagerBase Namespace : eDIA Assembly : cs.temp.dll.dll Syntax public class TaskManagerBase : MonoBehaviour Fields currentStep Declaration public int currentStep Field Value Type Description Int32 showLog Declaration public bool showLog Field Value Type Description Boolean taskColor Declaration public Color taskColor Field Value Type Description Color taskSettings Declaration public Settings taskSettings Field Value Type Description UXF.Settings taskSettingsContainer Declaration public TaskManagerBase.TaskSettingsContainer taskSettingsContainer Field Value Type Description TaskManagerBase.TaskSettingsContainer trialSequence Declaration public List<TaskManagerBase.TrialStep> trialSequence Field Value Type Description List < TaskManagerBase.TrialStep > XRrig_LeftController Declaration public Transform XRrig_LeftController Field Value Type Description Transform XRrig_MainCamera Declaration public Transform XRrig_MainCamera Field Value Type Description Transform XRrig_RightController Declaration public Transform XRrig_RightController Field Value Type Description Transform Methods AddToLog(String) Declaration public void AddToLog(string _msg) Parameters Type Name Description String _msg AddToTrialResults(String, String) Declaration public void AddToTrialResults(string key, string value) Parameters Type Name Description String key String value Awake() Declaration public virtual void Awake() NextStep() Declaration public void NextStep() OnBlockIntroduction() Overridable OnBlockIntroduction Declaration public virtual void OnBlockIntroduction() OnBlockResume() Overridable OnBlockContinue Declaration public virtual void OnBlockResume() OnEnable() Declaration public virtual void OnEnable() OnEvBlockResume(eParam) OnEvBlockResume event listener Declaration public void OnEvBlockResume(eParam e) Parameters Type Name Description eParam e OnEvFoundXRrigReferences(eParam) Declaration public virtual void OnEvFoundXRrigReferences(eParam e) Parameters Type Name Description eParam e OnEvProceed(eParam) Declaration public virtual void OnEvProceed(eParam e) Parameters Type Name Description eParam e OnSessionBreak() Overridable OnEvSessionBreak Declaration public virtual void OnSessionBreak() OnSessionEnding() Hook up to Experiment OnExperimentEnd event Declaration public virtual void OnSessionEnding() OnSessionEndUXF() Called from UXF session. Declaration public virtual void OnSessionEndUXF() OnSessionResume() Overridable OnSessionResume method Declaration public virtual void OnSessionResume() OnSessionStart() Hook up to OnSessionStart event Declaration public virtual void OnSessionStart() ResetTrial() Declaration public virtual void ResetTrial() Start() Declaration public virtual void Start()"
+  },
+  "api/eDIA.TaskManagerBase.TaskSettingsContainer.html": {
+    "href": "api/eDIA.TaskManagerBase.TaskSettingsContainer.html",
+    "title": "Class TaskManagerBase.TaskSettingsContainer | Edia Testproject documentation",
+    "keywords": "Class TaskManagerBase.TaskSettingsContainer Inheritance Object TaskManagerBase.TaskSettingsContainer Namespace : eDIA Assembly : cs.temp.dll.dll Syntax [Serializable] public class TaskSettingsContainer Fields taskSettings Declaration public List<ExperimentManager.SettingsTuple> taskSettings Field Value Type Description List < ExperimentManager.SettingsTuple >"
+  },
+  "api/eDIA.TaskManagerBase.TrialStep.html": {
+    "href": "api/eDIA.TaskManagerBase.TrialStep.html",
+    "title": "Class TaskManagerBase.TrialStep | Edia Testproject documentation",
+    "keywords": "Class TaskManagerBase.TrialStep Inheritance Object TaskManagerBase.TrialStep Namespace : eDIA Assembly : cs.temp.dll.dll Syntax [Serializable] public class TrialStep Constructors TrialStep(String, Action) Declaration public TrialStep(string title, Action methodToCall) Parameters Type Name Description String title Action methodToCall Fields methodToCall Declaration public Action methodToCall Field Value Type Description Action title Declaration public string title Field Value Type Description String"
+  },
+  "api/eDIA.XRrigInitialiser.html": {
+    "href": "api/eDIA.XRrigInitialiser.html",
+    "title": "Class XRrigInitialiser | Edia Testproject documentation",
+    "keywords": "Class XRrigInitialiser Inheritance Object XRrigInitialiser Namespace : eDIA Assembly : cs.temp.dll.dll Syntax public class XRrigInitialiser : MonoBehaviour Fields XRrigPrefab Declaration public GameObject XRrigPrefab Field Value Type Description GameObject"
+  },
+  "api/eDIA.XRrigUtilities.html": {
+    "href": "api/eDIA.XRrigUtilities.html",
+    "title": "Class XRrigUtilities | Edia Testproject documentation",
+    "keywords": "Class XRrigUtilities Inheritance Object XRrigUtilities Namespace : eDIA Assembly : cs.temp.dll.dll Syntax public static class XRrigUtilities Methods GetXRcam() Declaration public static Transform GetXRcam() Returns Type Description Transform GetXRcontrollerLeft() Gets LeftController transform from SystemManager or FindWithTag'LeftController' Declaration public static Transform GetXRcontrollerLeft() Returns Type Description Transform Transform of the LeftController or null if not found GetXRcontrollerRight() Gets RightController transform from SystemManager or FindWithTag'RightController' Declaration public static Transform GetXRcontrollerRight() Returns Type Description Transform Transform of the RightController or null if not found GetXRrigReferencesAsync() Gets XRrig references from SystemManager or FindWithTag Declaration public static async void GetXRrigReferencesAsync()"
+  },
+  "api/Global.BeginReadOnlyGroupAttribute.html": {
+    "href": "api/Global.BeginReadOnlyGroupAttribute.html",
+    "title": "Class BeginReadOnlyGroupAttribute | Edia Testproject documentation",
+    "keywords": "Class BeginReadOnlyGroupAttribute Display one or more fields as read-only in the inspector. Use EndReadOnlyGroupAttribute to close the group. Works with CustomPropertyDrawers. Inheritance Object BeginReadOnlyGroupAttribute Namespace : Global Assembly : cs.temp.dll.dll Syntax public class BeginReadOnlyGroupAttribute : PropertyAttribute See Also EndReadOnlyGroupAttribute ReadOnlyAttribute"
+  },
+  "api/Global.BeginReadOnlyGroupDrawer.html": {
+    "href": "api/Global.BeginReadOnlyGroupDrawer.html",
+    "title": "Class BeginReadOnlyGroupDrawer | Edia Testproject documentation",
+    "keywords": "Class BeginReadOnlyGroupDrawer Inheritance Object BeginReadOnlyGroupDrawer Namespace : Global Assembly : cs.temp.dll.dll Syntax public class BeginReadOnlyGroupDrawer : DecoratorDrawer Methods GetHeight() Declaration public override float GetHeight() Returns Type Description Single OnGUI(Rect) Declaration public override void OnGUI(Rect position) Parameters Type Name Description Rect position"
+  },
+  "api/Global.BoolEvent.html": {
+    "href": "api/Global.BoolEvent.html",
+    "title": "Class BoolEvent | Edia Testproject documentation",
+    "keywords": "Class BoolEvent Inheritance Object BoolEvent Namespace : Global Assembly : cs.temp.dll.dll Syntax [Serializable] public class BoolEvent : UnityEvent<bool>"
+  },
+  "api/Global.BoolStringEvent.html": {
+    "href": "api/Global.BoolStringEvent.html",
+    "title": "Class BoolStringEvent | Edia Testproject documentation",
+    "keywords": "Class BoolStringEvent Inheritance Object BoolStringEvent Namespace : Global Assembly : cs.temp.dll.dll Syntax [Serializable] public class BoolStringEvent : UnityEvent<bool, string>"
+  },
+  "api/Global.ColorChanger.html": {
+    "href": "api/Global.ColorChanger.html",
+    "title": "Class ColorChanger | Edia Testproject documentation",
+    "keywords": "Class ColorChanger Inheritance Object ColorChanger Namespace : Global Assembly : cs.temp.dll.dll Syntax public class ColorChanger : MonoBehaviour Fields greymat Declaration public Material greymat Field Value Type Description Material pinkMat Declaration public Material pinkMat Field Value Type Description Material Methods SetGrey(XRBaseInteractor) Declaration public void SetGrey(XRBaseInteractor interactor) Parameters Type Name Description XRBaseInteractor interactor SetPink(XRBaseInteractor) Declaration public void SetPink(XRBaseInteractor interactor) Parameters Type Name Description XRBaseInteractor interactor"
+  },
+  "api/Global.ComObjectEvent.html": {
+    "href": "api/Global.ComObjectEvent.html",
+    "title": "Class ComObjectEvent | Edia Testproject documentation",
+    "keywords": "Class ComObjectEvent Inheritance Object ComObjectEvent Namespace : Global Assembly : cs.temp.dll.dll Syntax [Serializable] public class ComObjectEvent : UnityEvent<object>"
+  },
+  "api/Global.DefaultEvent.html": {
+    "href": "api/Global.DefaultEvent.html",
+    "title": "Class DefaultEvent | Edia Testproject documentation",
+    "keywords": "Class DefaultEvent Inheritance Object DefaultEvent Namespace : Global Assembly : cs.temp.dll.dll Syntax [Serializable] public class DefaultEvent : UnityEvent"
+  },
+  "api/Global.EndReadOnlyGroupAttribute.html": {
+    "href": "api/Global.EndReadOnlyGroupAttribute.html",
+    "title": "Class EndReadOnlyGroupAttribute | Edia Testproject documentation",
+    "keywords": "Class EndReadOnlyGroupAttribute Use with BeginReadOnlyGroupAttribute . Close the read-only group and resume editable fields. Inheritance Object EndReadOnlyGroupAttribute Namespace : Global Assembly : cs.temp.dll.dll Syntax public class EndReadOnlyGroupAttribute : PropertyAttribute See Also BeginReadOnlyGroupAttribute ReadOnlyAttribute"
+  },
+  "api/Global.EndReadOnlyGroupDrawer.html": {
+    "href": "api/Global.EndReadOnlyGroupDrawer.html",
+    "title": "Class EndReadOnlyGroupDrawer | Edia Testproject documentation",
+    "keywords": "Class EndReadOnlyGroupDrawer Inheritance Object EndReadOnlyGroupDrawer Namespace : Global Assembly : cs.temp.dll.dll Syntax public class EndReadOnlyGroupDrawer : DecoratorDrawer Methods GetHeight() Declaration public override float GetHeight() Returns Type Description Single OnGUI(Rect) Declaration public override void OnGUI(Rect position) Parameters Type Name Description Rect position"
+  },
+  "api/Global.ExecutionOrderManager.html": {
+    "href": "api/Global.ExecutionOrderManager.html",
+    "title": "Class ExecutionOrderManager | Edia Testproject documentation",
+    "keywords": "Class ExecutionOrderManager Inheritance Object ExecutionOrderManager Namespace : Global Assembly : cs.temp.dll.dll Syntax public class ExecutionOrderManager : Editor"
+  },
+  "api/Global.Finger.html": {
+    "href": "api/Global.Finger.html",
+    "title": "Class Finger | Edia Testproject documentation",
+    "keywords": "Class Finger Inheritance Object Finger Namespace : Global Assembly : cs.temp.dll.dll Syntax public class Finger Constructors Finger(FingerType) Declaration public Finger(FingerType type) Parameters Type Name Description FingerType type Fields current Declaration public float current Field Value Type Description Single target Declaration public float target Field Value Type Description Single type Declaration public FingerType type Field Value Type Description FingerType"
+  },
+  "api/Global.FingerType.html": {
+    "href": "api/Global.FingerType.html",
+    "title": "Enum FingerType | Edia Testproject documentation",
+    "keywords": "Enum FingerType Namespace : Global Assembly : cs.temp.dll.dll Syntax public enum FingerType Fields Name Description Index Middle None Pinky Ring Thumb"
+  },
+  "api/Global.HandHider.html": {
+    "href": "api/Global.HandHider.html",
+    "title": "Class HandHider | Edia Testproject documentation",
+    "keywords": "Class HandHider Inheritance Object HandHider Namespace : Global Assembly : cs.temp.dll.dll Syntax public class HandHider : MonoBehaviour Fields handObject Declaration public GameObject handObject Field Value Type Description GameObject"
+  },
+  "api/Global.HandMeshAnimator.html": {
+    "href": "api/Global.HandMeshAnimator.html",
+    "title": "Class HandMeshAnimator | Edia Testproject documentation",
+    "keywords": "Class HandMeshAnimator Inheritance Object HandMeshAnimator Namespace : Global Assembly : cs.temp.dll.dll Syntax public class HandMeshAnimator : MonoBehaviour Fields gripReference Declaration public InputActionReference gripReference Field Value Type Description InputActionReference speed Declaration public float speed Field Value Type Description Single"
+  },
+  "api/Global.HandPhysics.html": {
+    "href": "api/Global.HandPhysics.html",
+    "title": "Class HandPhysics | Edia Testproject documentation",
+    "keywords": "Class HandPhysics Inheritance Object HandPhysics Namespace : Global Assembly : cs.temp.dll.dll Syntax public class HandPhysics : MonoBehaviour Fields smoothingAmount Declaration public float smoothingAmount Field Value Type Description Single target Declaration public Transform target Field Value Type Description Transform Methods TeleportToTarget() Declaration public void TeleportToTarget()"
+  },
+  "api/Global.html": {
+    "href": "api/Global.html",
+    "title": "Namespace Global | Edia Testproject documentation",
+    "keywords": "Namespace Global Classes BeginReadOnlyGroupAttribute Display one or more fields as read-only in the inspector. Use EndReadOnlyGroupAttribute to close the group. Works with CustomPropertyDrawers. BeginReadOnlyGroupDrawer BoolEvent BoolStringEvent ColorChanger ComObjectEvent DefaultEvent EndReadOnlyGroupAttribute Use with BeginReadOnlyGroupAttribute . Close the read-only group and resume editable fields. EndReadOnlyGroupDrawer ExecutionOrderManager Finger HandHider HandMeshAnimator HandPhysics Indicator InspectorButtonAttribute This attribute can only be applied to fields because its associated PropertyDrawer only operates on fields (either public or tagged with the [SerializeField] attribute) in the target MonoBehaviour. MainMenu MainMenu.aScene Notes OffsetGrab ReadOnlyAttribute Display a field as read-only in the inspector. CustomPropertyDrawers will not work when this attribute is used. ReadOnlyDrawer Rotate ScreenFader Singleton<T> StringEvent SystemManager TaskInputActionHandler TaskManagerDemo TaskManagerTemplate UserMessageHandler Enums FingerType"
+  },
+  "api/Global.Indicator.html": {
+    "href": "api/Global.Indicator.html",
+    "title": "Class Indicator | Edia Testproject documentation",
+    "keywords": "Class Indicator Inheritance Object Indicator Namespace : Global Assembly : cs.temp.dll.dll Syntax public class Indicator : MonoBehaviour Methods Deactivate() Declaration public void Deactivate() Hide() Declaration public void Hide() Show() Declaration public void Show()"
+  },
+  "api/Global.InspectorButtonAttribute.html": {
+    "href": "api/Global.InspectorButtonAttribute.html",
+    "title": "Class InspectorButtonAttribute | Edia Testproject documentation",
+    "keywords": "Class InspectorButtonAttribute This attribute can only be applied to fields because its associated PropertyDrawer only operates on fields (either public or tagged with the [SerializeField] attribute) in the target MonoBehaviour. Inheritance Object InspectorButtonAttribute Namespace : Global Assembly : cs.temp.dll.dll Syntax [AttributeUsage(AttributeTargets.Field)] public class InspectorButtonAttribute : PropertyAttribute Constructors InspectorButtonAttribute(String) Declaration public InspectorButtonAttribute(string MethodName) Parameters Type Name Description String MethodName Fields kDefaultButtonWidth Declaration public static float kDefaultButtonWidth Field Value Type Description Single MethodName Declaration public readonly string MethodName Field Value Type Description String Properties ButtonWidth Declaration public float ButtonWidth { get; set; } Property Value Type Description Single"
+  },
+  "api/Global.MainMenu.aScene.html": {
+    "href": "api/Global.MainMenu.aScene.html",
+    "title": "Class MainMenu.aScene | Edia Testproject documentation",
+    "keywords": "Class MainMenu.aScene Inheritance Object MainMenu.aScene Namespace : Global Assembly : cs.temp.dll.dll Syntax [Serializable] public class aScene Constructors aScene(String, String) Declaration public aScene(string _name, string _path) Parameters Type Name Description String _name String _path Fields button Declaration public Button button Field Value Type Description Button name Declaration public string name Field Value Type Description String path Declaration public string path Field Value Type Description String"
+  },
+  "api/Global.MainMenu.html": {
+    "href": "api/Global.MainMenu.html",
+    "title": "Class MainMenu | Edia Testproject documentation",
+    "keywords": "Class MainMenu Inheritance Object MainMenu Namespace : Global Assembly : cs.temp.dll.dll Syntax public class MainMenu : MonoBehaviour Fields buttonHolder Declaration public RectTransform buttonHolder Field Value Type Description RectTransform buttonPrefab Declaration public GameObject buttonPrefab Field Value Type Description GameObject isDebug Declaration public bool isDebug Field Value Type Description Boolean menuDistance Declaration public float menuDistance Field Value Type Description Single menuHolder Declaration public Transform menuHolder Field Value Type Description Transform OnLoadBegin Declaration public UnityEvent OnLoadBegin Field Value Type Description UnityEvent OnLoadEnd Declaration public UnityEvent OnLoadEnd Field Value Type Description UnityEvent overLayer Declaration public int overLayer Field Value Type Description Int32 startOpen Declaration public bool startOpen Field Value Type Description Boolean Methods OpenMenu(Boolean) Declaration public void OpenMenu(bool onOff) Parameters Type Name Description Boolean onOff"
+  },
+  "api/Global.Notes.html": {
+    "href": "api/Global.Notes.html",
+    "title": "Class Notes | Edia Testproject documentation",
+    "keywords": "Class Notes Inheritance Object Notes Namespace : Global Assembly : cs.temp.dll.dll Syntax public class Notes : MonoBehaviour Fields Note Declaration public string Note Field Value Type Description String"
+  },
+  "api/Global.OffsetGrab.html": {
+    "href": "api/Global.OffsetGrab.html",
+    "title": "Class OffsetGrab | Edia Testproject documentation",
+    "keywords": "Class OffsetGrab Inheritance Object OffsetGrab Namespace : Global Assembly : cs.temp.dll.dll Syntax public class OffsetGrab : XRGrabInteractable Methods OnSelectEntered(XRBaseInteractor) Declaration protected override void OnSelectEntered(XRBaseInteractor interactor) Parameters Type Name Description XRBaseInteractor interactor OnSelectExited(XRBaseInteractor) Declaration protected override void OnSelectExited(XRBaseInteractor interactor) Parameters Type Name Description XRBaseInteractor interactor"
+  },
+  "api/Global.ReadOnlyAttribute.html": {
+    "href": "api/Global.ReadOnlyAttribute.html",
+    "title": "Class ReadOnlyAttribute | Edia Testproject documentation",
+    "keywords": "Class ReadOnlyAttribute Display a field as read-only in the inspector. CustomPropertyDrawers will not work when this attribute is used. Inheritance Object ReadOnlyAttribute Namespace : Global Assembly : cs.temp.dll.dll Syntax public class ReadOnlyAttribute : PropertyAttribute See Also BeginReadOnlyGroupAttribute EndReadOnlyGroupAttribute"
+  },
+  "api/Global.ReadOnlyDrawer.html": {
+    "href": "api/Global.ReadOnlyDrawer.html",
+    "title": "Class ReadOnlyDrawer | Edia Testproject documentation",
+    "keywords": "Class ReadOnlyDrawer Inheritance Object ReadOnlyDrawer Namespace : Global Assembly : cs.temp.dll.dll Syntax public class ReadOnlyDrawer : PropertyDrawer Methods GetPropertyHeight(SerializedProperty, GUIContent) Declaration public override float GetPropertyHeight(SerializedProperty property, GUIContent label) Parameters Type Name Description SerializedProperty property GUIContent label Returns Type Description Single OnGUI(Rect, SerializedProperty, GUIContent) Declaration public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) Parameters Type Name Description Rect position SerializedProperty property GUIContent label"
+  },
+  "api/Global.Rotate.html": {
+    "href": "api/Global.Rotate.html",
+    "title": "Class Rotate | Edia Testproject documentation",
+    "keywords": "Class Rotate Inheritance Object Rotate Namespace : Global Assembly : cs.temp.dll.dll Syntax public class Rotate : MonoBehaviour"
+  },
+  "api/Global.ScreenFader.html": {
+    "href": "api/Global.ScreenFader.html",
+    "title": "Class ScreenFader | Edia Testproject documentation",
+    "keywords": "Class ScreenFader Inheritance Object ScreenFader Namespace : Global Assembly : cs.temp.dll.dll Syntax public class ScreenFader : MonoBehaviour Methods StartFadeIn() Declaration public Coroutine StartFadeIn() Returns Type Description Coroutine StartFadeOut() Declaration public Coroutine StartFadeOut() Returns Type Description Coroutine"
+  },
+  "api/Global.Singleton-1.html": {
+    "href": "api/Global.Singleton-1.html",
+    "title": "Class Singleton<T> | Edia Testproject documentation",
+    "keywords": "Class Singleton<T> Inheritance Object Singleton<T> ExperimentManager Namespace : Global Assembly : cs.temp.dll.dll Syntax public class Singleton<T> : MonoBehaviour where T : MonoBehaviour Type Parameters Name Description T Properties Instance Declaration public static T Instance { get; } Property Value Type Description T"
+  },
+  "api/Global.StringEvent.html": {
+    "href": "api/Global.StringEvent.html",
+    "title": "Class StringEvent | Edia Testproject documentation",
+    "keywords": "Class StringEvent Inheritance Object StringEvent Namespace : Global Assembly : cs.temp.dll.dll Syntax [Serializable] public class StringEvent : UnityEvent<string>"
+  },
+  "api/Global.SystemManager.html": {
+    "href": "api/Global.SystemManager.html",
+    "title": "Class SystemManager | Edia Testproject documentation",
+    "keywords": "Class SystemManager Inheritance Object SystemManager Namespace : Global Assembly : cs.temp.dll.dll Syntax public class SystemManager : MonoBehaviour Fields ignoreXR Declaration public bool ignoreXR Field Value Type Description Boolean instance Main system manager, provides refs to XR rig components Declaration public static SystemManager instance Field Value Type Description SystemManager mainMenuHolder Declaration public Transform mainMenuHolder Field Value Type Description Transform showLog Declaration public bool showLog Field Value Type Description Boolean taskColor Declaration public Color taskColor Field Value Type Description Color XRrig_LeftController Declaration public Transform XRrig_LeftController Field Value Type Description Transform XRrig_MainCamera Declaration public Transform XRrig_MainCamera Field Value Type Description Transform XRrig_RightController Declaration public Transform XRrig_RightController Field Value Type Description Transform Methods AddToLog(String) Declaration public void AddToLog(string _msg) Parameters Type Name Description String _msg MovePlayarea(Transform) The pivot of the playare will be set on the location of this Injector Declaration public void MovePlayarea(Transform newTransform) Parameters Type Name Description Transform newTransform"
+  },
+  "api/Global.TaskInputActionHandler.html": {
+    "href": "api/Global.TaskInputActionHandler.html",
+    "title": "Class TaskInputActionHandler | Edia Testproject documentation",
+    "keywords": "Class TaskInputActionHandler Inheritance Object TaskInputActionHandler Namespace : Global Assembly : cs.temp.dll.dll Syntax public class TaskInputActionHandler : MonoBehaviour Methods emo1performed(InputAction.CallbackContext) Declaration public void emo1performed(InputAction.CallbackContext context) Parameters Type Name Description InputAction.CallbackContext context emo2performed(InputAction.CallbackContext) Declaration public void emo2performed(InputAction.CallbackContext context) Parameters Type Name Description InputAction.CallbackContext context emo3performed(InputAction.CallbackContext) Declaration public void emo3performed(InputAction.CallbackContext context) Parameters Type Name Description InputAction.CallbackContext context emo4performed(InputAction.CallbackContext) Declaration public void emo4performed(InputAction.CallbackContext context) Parameters Type Name Description InputAction.CallbackContext context"
+  },
+  "api/Global.TaskManagerDemo.html": {
+    "href": "api/Global.TaskManagerDemo.html",
+    "title": "Class TaskManagerDemo | Edia Testproject documentation",
+    "keywords": "Class TaskManagerDemo Inheritance Object TaskManagerDemo Namespace : Global Assembly : cs.temp.dll.dll Syntax public class TaskManagerDemo : TaskManagerBase Fields theCube Declaration public GameObject theCube Field Value Type Description GameObject Methods Awake() Declaration public override void Awake() NextStepFromUserOrSceneOrButtonOrTimerOrWhatever() Call this from your code to proceed to the next step Declaration public void NextStepFromUserOrSceneOrButtonOrTimerOrWhatever() OnBlockIntroduction() Called when the block introduction starts Declaration public override void OnBlockIntroduction() OnBlockResume() Called when block resumes Declaration public override void OnBlockResume() OnEnable() Declaration public override void OnEnable() OnEvFoundXRrigReferences(eParam) Setup rig with things we need for this task. Declaration public override void OnEvFoundXRrigReferences(eParam e) Parameters Type Name Description eParam e OnSessionBreak() Declaration public override void OnSessionBreak() OnSessionEnding() Called from Experiment manager Declaration public override void OnSessionEnding() OnSessionEndUXF() Declaration public override void OnSessionEndUXF() OnSessionResume() Declaration public override void OnSessionResume() OnSessionStart() Called from Experiment manager Declaration public override void OnSessionStart() ResetTrial() Declaration public override void ResetTrial() Start() Declaration public override void Start() XRrigCleanUP() Declaration public void XRrigCleanUP()"
+  },
+  "api/Global.TaskManagerTemplate.html": {
+    "href": "api/Global.TaskManagerTemplate.html",
+    "title": "Class TaskManagerTemplate | Edia Testproject documentation",
+    "keywords": "Class TaskManagerTemplate Inheritance Object TaskManagerTemplate Namespace : Global Assembly : cs.temp.dll.dll Syntax public class TaskManagerTemplate : TaskManagerBase Methods Awake() Declaration public override void Awake() NextStepFromUserOrSceneOrButtonOrTimerOrWhatever() Call this from you code to proceed to the next step Declaration public void NextStepFromUserOrSceneOrButtonOrTimerOrWhatever() OnBlockIntroduction() Called when the block introduction starts Declaration public override void OnBlockIntroduction() OnBlockResume() Called when block resumes Declaration public override void OnBlockResume() OnEnable() Declaration public override void OnEnable() OnEvFoundXRrigReferences(eParam) Setup rig with things we need for this task. Declaration public override void OnEvFoundXRrigReferences(eParam e) Parameters Type Name Description eParam e OnSessionBreak() Declaration public override void OnSessionBreak() OnSessionEnding() Called from Experiment manager Declaration public override void OnSessionEnding() OnSessionEndUXF() Declaration public override void OnSessionEndUXF() OnSessionResume() Declaration public override void OnSessionResume() OnSessionStart() Called from Experiment manager Declaration public override void OnSessionStart() ResetTrial() Declaration public override void ResetTrial() Start() Declaration public override void Start() XRrigCleanUP() Declaration public void XRrigCleanUP()"
+  },
+  "api/Global.UserMessageHandler.html": {
+    "href": "api/Global.UserMessageHandler.html",
+    "title": "Class UserMessageHandler | Edia Testproject documentation",
+    "keywords": "Class UserMessageHandler Inheritance Object UserMessageHandler Namespace : Global Assembly : cs.temp.dll.dll Syntax public class UserMessageHandler : MonoBehaviour Fields msgField Declaration public TextMeshProUGUI msgField Field Value Type Description TextMeshProUGUI Methods OnEvShowMessage(eParam) Declaration public void OnEvShowMessage(eParam e) Parameters Type Name Description eParam e"
+  },
+  "index.html": {
+    "href": "index.html",
+    "title": "eDIA Framework documentation | Edia Testproject documentation",
+    "keywords": "eDIA Framework documentation DocFX using DocFX Guide for setting up and using the framework Installing eDIA framework Nice effect with a block and color coding . ├── Assets + ├── Documentation ├── Package ├── ProjectSettings └── README.md Limitations of the framework None whatsever But probably a few Something in a textblock inline Documentation/docfx.json { \"build\": { \"globalMetadata\": // Edit your documentation website info, see: https://dotnet.github.io/docfx/tutorial/docfx.exe_user_manual.html#322-reserved-metadata { \"_appTitle\": \"Example Unity documentation\", \"_appFooter\": \"Example Unity documentation\", \"_enableSearch\": true }, \"sitemap\": { \"baseUrl\": \"https://normanderwan.github.io/DocFxForUnity\" // The URL of your documentation website } } --- uid: Your.Namespace1 summary: Description of the Your.Namespace1 namespace. --- cp README.md Documentation/index.md docfx Documentation/docfx.json --serve"
+  },
+  "manual/examplePage.html": {
+    "href": "manual/examplePage.html",
+    "title": "Example manual page | Edia Testproject documentation",
+    "keywords": "Example manual page Some title The true miracle is not walking on water or walking in air, but simply walking on this earth. ― Thích Nhất Hạnh Listing 01 Listing 02 Listing 03 Listing 04 Old friends pass away, new friends appear. It is just like the days. An old day passes, a new day arrives. The important thing is to make it meaningful: a meaningful friend – or a meaningful day. ― Dalai Lama Some other title Latentia ante, eundem meritorum italic ! Elige in timuit templa ferrea, qui arma ligati stagnum turbant. Fraternaque aeternus, dedisse, naufragus corripiens ranas Amathunta et quod laetior culpa nec semper scorpius fuit vicem corpora ardere. Fallit in artus primordia, fratres in bold , ipsi manu and even more bold . Codeblock example methodSomething(parameter, value) { Test += text.performed; Debug.log(\"We really need to fill it in this texteditor? #vi #editor #unix #flashbacks); } Some other blabla title Another block example Quote or whatever something like that in a block with a line in the beginning. and can use a hyperlink like lets link this"
+  }
+}

@@ -1,0 +1,155 @@
+### YamlMime:ManagedReference
+items:
+- uid: Global.HandPhysics
+  commentId: T:Global.HandPhysics
+  id: HandPhysics
+  parent: Global
+  children:
+  - Global.HandPhysics.smoothingAmount
+  - Global.HandPhysics.target
+  - Global.HandPhysics.TeleportToTarget
+  langs:
+  - csharp
+  - vb
+  name: HandPhysics
+  nameWithType: HandPhysics
+  fullName: HandPhysics
+  type: Class
+  source:
+    id: HandPhysics
+    path: ''
+    startLine: 179
+  assemblies:
+  - cs.temp.dll
+  namespace: Global
+  syntax:
+    content: 'public class HandPhysics : MonoBehaviour'
+    content.vb: >-
+      Public Class HandPhysics
+          Inherits MonoBehaviour
+  inheritance:
+  - System.Object
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+- uid: Global.HandPhysics.smoothingAmount
+  commentId: F:Global.HandPhysics.smoothingAmount
+  id: smoothingAmount
+  parent: Global.HandPhysics
+  langs:
+  - csharp
+  - vb
+  name: smoothingAmount
+  nameWithType: HandPhysics.smoothingAmount
+  fullName: HandPhysics.smoothingAmount
+  type: Field
+  source:
+    id: smoothingAmount
+    path: ''
+    startLine: 181
+  assemblies:
+  - cs.temp.dll
+  namespace: Global
+  syntax:
+    content: public float smoothingAmount
+    return:
+      type: System.Single
+    content.vb: Public smoothingAmount As Single
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: Global.HandPhysics.target
+  commentId: F:Global.HandPhysics.target
+  id: target
+  parent: Global.HandPhysics
+  langs:
+  - csharp
+  - vb
+  name: target
+  nameWithType: HandPhysics.target
+  fullName: HandPhysics.target
+  type: Field
+  source:
+    id: target
+    path: ''
+    startLine: 182
+  assemblies:
+  - cs.temp.dll
+  namespace: Global
+  syntax:
+    content: public Transform target
+    return:
+      type: Global.Transform
+    content.vb: Public target As Transform
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: Global.HandPhysics.TeleportToTarget
+  commentId: M:Global.HandPhysics.TeleportToTarget
+  id: TeleportToTarget
+  parent: Global.HandPhysics
+  langs:
+  - csharp
+  - vb
+  name: TeleportToTarget()
+  nameWithType: HandPhysics.TeleportToTarget()
+  fullName: HandPhysics.TeleportToTarget()
+  type: Method
+  source:
+    id: TeleportToTarget
+    path: ''
+    startLine: 235
+  assemblies:
+  - cs.temp.dll
+  namespace: Global
+  syntax:
+    content: public void TeleportToTarget()
+    content.vb: Public Sub TeleportToTarget
+  overload: Global.HandPhysics.TeleportToTarget*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+references:
+- uid: Global
+  name: Global
+  nameWithType: Global
+  fullName: Global
+  nameWithType.vb: ''
+  fullName.vb: ''
+  name.vb: ''
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: System.Single
+  commentId: T:System.Single
+  parent: System
+  isExternal: true
+  name: Single
+  nameWithType: Single
+  fullName: System.Single
+- uid: Global.Transform
+  isExternal: true
+  name: Transform
+  nameWithType: Transform
+  fullName: Transform
+- uid: Global.HandPhysics.TeleportToTarget*
+  commentId: Overload:Global.HandPhysics.TeleportToTarget
+  name: TeleportToTarget
+  nameWithType: HandPhysics.TeleportToTarget
+  fullName: HandPhysics.TeleportToTarget

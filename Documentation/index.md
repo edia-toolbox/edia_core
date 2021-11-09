@@ -1,53 +1,59 @@
-# Index page of the documentation
+# eDIA Framework documentation
 
 > [DocFX](https://dotnet.github.io/docfx/index.html) using DocFX
 
 
-| Embedding images is possible but unclear where and how |
+
+[![eDIA Framework](resources/eDIA_header.png)](https://gitlab.gwdg.de/3dia/edia_framework)
+| Guide for setting up and using the framework  |
 |:----------------------------------:|
-| [![DocFxForUnity documentation manual](https://normanderwan.github.io/DocFxForUnity/resources/ExampleManual.png)](https://normanderwan.github.io/DocFxForUnity/manual/coniunctis.html) |
 
 
-## Setup your documentation
+## Installing eDIA framework
 
 Nice effect with a block and color coding
 
-    ```diff
-      .
-      ├── Assets
-    + ├── Documentation
-      ├── Package
-      ├── ProjectSettings
-      └── README.md
-    ```
+```diff
+  .
+  ├── Assets
++ ├── Documentation
+  ├── Package
+  ├── ProjectSettings
+  └── README.md
+```
 
-3. Something in a textblock inline `Documentation/docfx.json`
+## Limitations of the framework
 
-    ```javascript
+* None whatsever
+* But probably a few
+
+### Something in a textblock inline `Documentation/docfx.json`
+
+```javascript
+  {
+    "build": {
+      "globalMetadata": // Edit your documentation website info, see: https://dotnet.github.io/docfx/tutorial/docfx.exe_user_manual.html#322-reserved-metadata
       {
-        "build": {
-          "globalMetadata": // Edit your documentation website info, see: https://dotnet.github.io/docfx/tutorial/docfx.exe_user_manual.html#322-reserved-metadata
-          {
-            "_appTitle": "Example Unity documentation",
-            "_appFooter": "Example Unity documentation",
-            "_enableSearch": true
-          },
-          "sitemap":
-          {
-            "baseUrl": "https://normanderwan.github.io/DocFxForUnity" // The URL of your documentation website
-          }
+        "_appTitle": "Example Unity documentation",
+        "_appFooter": "Example Unity documentation",
+        "_enableSearch": true
+      },
+      "sitemap":
+      {
+        "baseUrl": "https://normanderwan.github.io/DocFxForUnity" // The URL of your documentation website
       }
-    ```
-    ```yaml
-    ---
-    uid: Your.Namespace1
-    summary: Description of the Your.Namespace1 namespace.
-    ---
-    ```
+  }
+```
+```yaml
+---
+uid: Your.Namespace1
+summary: Description of the Your.Namespace1 namespace.
+---
+```
 
 
-    ```bash
-    cp README.md Documentation/index.md
-    docfx Documentation/docfx.json --serve
-    ```
+```bash
+cp README.md Documentation/index.md
+docfx Documentation/docfx.json --serve
+```
 

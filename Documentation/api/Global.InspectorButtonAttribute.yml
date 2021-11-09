@@ -1,0 +1,214 @@
+### YamlMime:ManagedReference
+items:
+- uid: Global.InspectorButtonAttribute
+  commentId: T:Global.InspectorButtonAttribute
+  id: InspectorButtonAttribute
+  parent: Global
+  children:
+  - Global.InspectorButtonAttribute.#ctor(System.String)
+  - Global.InspectorButtonAttribute.ButtonWidth
+  - Global.InspectorButtonAttribute.kDefaultButtonWidth
+  - Global.InspectorButtonAttribute.MethodName
+  langs:
+  - csharp
+  - vb
+  name: InspectorButtonAttribute
+  nameWithType: InspectorButtonAttribute
+  fullName: InspectorButtonAttribute
+  type: Class
+  source:
+    id: InspectorButtonAttribute
+    path: ''
+    startLine: 7902
+  assemblies:
+  - cs.temp.dll
+  namespace: Global
+  summary: "\nThis attribute can only be applied to fields because its\nassociated PropertyDrawer only operates on fields (either\npublic or tagged with the [SerializeField] attribute) in\nthe target MonoBehaviour.\n"
+  example: []
+  syntax:
+    content: >-
+      [AttributeUsage(AttributeTargets.Field)]
+
+      public class InspectorButtonAttribute : PropertyAttribute
+    content.vb: >-
+      <AttributeUsage(AttributeTargets.Field)>
+
+      Public Class InspectorButtonAttribute
+          Inherits PropertyAttribute
+  inheritance:
+  - System.Object
+  attributes:
+  - type: System.AttributeUsageAttribute
+    ctor: System.AttributeUsageAttribute.#ctor(System.AttributeTargets)
+    arguments:
+    - type: System.AttributeTargets
+      value: 256
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+- uid: Global.InspectorButtonAttribute.kDefaultButtonWidth
+  commentId: F:Global.InspectorButtonAttribute.kDefaultButtonWidth
+  id: kDefaultButtonWidth
+  parent: Global.InspectorButtonAttribute
+  langs:
+  - csharp
+  - vb
+  name: kDefaultButtonWidth
+  nameWithType: InspectorButtonAttribute.kDefaultButtonWidth
+  fullName: InspectorButtonAttribute.kDefaultButtonWidth
+  type: Field
+  source:
+    id: kDefaultButtonWidth
+    path: ''
+    startLine: 7905
+  assemblies:
+  - cs.temp.dll
+  namespace: Global
+  syntax:
+    content: public static float kDefaultButtonWidth
+    return:
+      type: System.Single
+    content.vb: Public Shared kDefaultButtonWidth As Single
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: Global.InspectorButtonAttribute.MethodName
+  commentId: F:Global.InspectorButtonAttribute.MethodName
+  id: MethodName
+  parent: Global.InspectorButtonAttribute
+  langs:
+  - csharp
+  - vb
+  name: MethodName
+  nameWithType: InspectorButtonAttribute.MethodName
+  fullName: InspectorButtonAttribute.MethodName
+  type: Field
+  source:
+    id: MethodName
+    path: ''
+    startLine: 7907
+  assemblies:
+  - cs.temp.dll
+  namespace: Global
+  syntax:
+    content: public readonly string MethodName
+    return:
+      type: System.String
+    content.vb: Public ReadOnly MethodName As String
+  modifiers.csharp:
+  - public
+  - readonly
+  modifiers.vb:
+  - Public
+  - ReadOnly
+- uid: Global.InspectorButtonAttribute.ButtonWidth
+  commentId: P:Global.InspectorButtonAttribute.ButtonWidth
+  id: ButtonWidth
+  parent: Global.InspectorButtonAttribute
+  langs:
+  - csharp
+  - vb
+  name: ButtonWidth
+  nameWithType: InspectorButtonAttribute.ButtonWidth
+  fullName: InspectorButtonAttribute.ButtonWidth
+  type: Property
+  source:
+    id: ButtonWidth
+    path: ''
+    startLine: 7910
+  assemblies:
+  - cs.temp.dll
+  namespace: Global
+  syntax:
+    content: public float ButtonWidth { get; set; }
+    parameters: []
+    return:
+      type: System.Single
+    content.vb: Public Property ButtonWidth As Single
+  overload: Global.InspectorButtonAttribute.ButtonWidth*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Global.InspectorButtonAttribute.#ctor(System.String)
+  commentId: M:Global.InspectorButtonAttribute.#ctor(System.String)
+  id: '#ctor(System.String)'
+  parent: Global.InspectorButtonAttribute
+  langs:
+  - csharp
+  - vb
+  name: InspectorButtonAttribute(String)
+  nameWithType: InspectorButtonAttribute.InspectorButtonAttribute(String)
+  fullName: InspectorButtonAttribute.InspectorButtonAttribute(System.String)
+  type: Constructor
+  source:
+    id: .ctor
+    path: ''
+    startLine: 7916
+  assemblies:
+  - cs.temp.dll
+  namespace: Global
+  syntax:
+    content: public InspectorButtonAttribute(string MethodName)
+    parameters:
+    - id: MethodName
+      type: System.String
+    content.vb: Public Sub New(MethodName As String)
+  overload: Global.InspectorButtonAttribute.#ctor*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+references:
+- uid: Global
+  name: Global
+  nameWithType: Global
+  fullName: Global
+  nameWithType.vb: ''
+  fullName.vb: ''
+  name.vb: ''
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: System.Single
+  commentId: T:System.Single
+  parent: System
+  isExternal: true
+  name: Single
+  nameWithType: Single
+  fullName: System.Single
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  name: String
+  nameWithType: String
+  fullName: System.String
+- uid: Global.InspectorButtonAttribute.ButtonWidth*
+  commentId: Overload:Global.InspectorButtonAttribute.ButtonWidth
+  name: ButtonWidth
+  nameWithType: InspectorButtonAttribute.ButtonWidth
+  fullName: InspectorButtonAttribute.ButtonWidth
+- uid: Global.InspectorButtonAttribute.#ctor*
+  commentId: Overload:Global.InspectorButtonAttribute.#ctor
+  name: InspectorButtonAttribute
+  nameWithType: InspectorButtonAttribute.InspectorButtonAttribute
+  fullName: InspectorButtonAttribute.InspectorButtonAttribute

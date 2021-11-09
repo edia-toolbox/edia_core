@@ -1,0 +1,229 @@
+### YamlMime:ManagedReference
+items:
+- uid: eDIA.FileManager
+  commentId: T:eDIA.FileManager
+  id: FileManager
+  parent: eDIA
+  children:
+  - eDIA.FileManager.CreateFolder(System.String)
+  - eDIA.FileManager.ReadString(System.String)
+  - eDIA.FileManager.ReadStringFromApplicationPath(System.String)
+  - eDIA.FileManager.WriteString(System.String,System.String,System.Boolean)
+  langs:
+  - csharp
+  - vb
+  name: FileManager
+  nameWithType: FileManager
+  fullName: eDIA.FileManager
+  type: Class
+  source:
+    id: FileManager
+    path: ''
+    startLine: 1634
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public static class FileManager
+    content.vb: Public Module FileManager
+  inheritance:
+  - System.Object
+  modifiers.csharp:
+  - public
+  - static
+  - class
+  modifiers.vb:
+  - Public
+  - Module
+- uid: eDIA.FileManager.ReadStringFromApplicationPath(System.String)
+  commentId: M:eDIA.FileManager.ReadStringFromApplicationPath(System.String)
+  id: ReadStringFromApplicationPath(System.String)
+  parent: eDIA.FileManager
+  langs:
+  - csharp
+  - vb
+  name: ReadStringFromApplicationPath(String)
+  nameWithType: FileManager.ReadStringFromApplicationPath(String)
+  fullName: eDIA.FileManager.ReadStringFromApplicationPath(System.String)
+  type: Method
+  source:
+    id: ReadStringFromApplicationPath
+    path: ''
+    startLine: 1636
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public static string ReadStringFromApplicationPath(string _fileName)
+    parameters:
+    - id: _fileName
+      type: System.String
+    return:
+      type: System.String
+    content.vb: Public Shared Function ReadStringFromApplicationPath(_fileName As String) As String
+  overload: eDIA.FileManager.ReadStringFromApplicationPath*
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: eDIA.FileManager.ReadString(System.String)
+  commentId: M:eDIA.FileManager.ReadString(System.String)
+  id: ReadString(System.String)
+  parent: eDIA.FileManager
+  langs:
+  - csharp
+  - vb
+  name: ReadString(String)
+  nameWithType: FileManager.ReadString(String)
+  fullName: eDIA.FileManager.ReadString(System.String)
+  type: Method
+  source:
+    id: ReadString
+    path: ''
+    startLine: 1645
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  summary: Tries to read the given textbased filename.
+  example: []
+  syntax:
+    content: public static string ReadString(string _fileName)
+    parameters:
+    - id: _fileName
+      type: System.String
+    return:
+      type: System.String
+      description: Content of the file, or &apos;ERROR&apos; when failed
+    content.vb: Public Shared Function ReadString(_fileName As String) As String
+  overload: eDIA.FileManager.ReadString*
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: eDIA.FileManager.WriteString(System.String,System.String,System.Boolean)
+  commentId: M:eDIA.FileManager.WriteString(System.String,System.String,System.Boolean)
+  id: WriteString(System.String,System.String,System.Boolean)
+  parent: eDIA.FileManager
+  langs:
+  - csharp
+  - vb
+  name: WriteString(String, String, Boolean)
+  nameWithType: FileManager.WriteString(String, String, Boolean)
+  fullName: eDIA.FileManager.WriteString(System.String, System.String, System.Boolean)
+  type: Method
+  source:
+    id: WriteString
+    path: ''
+    startLine: 1666
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  summary: Saves a text file to given filename and containts given data
+  example: []
+  syntax:
+    content: public static void WriteString(string _fileName, string _data, bool _overwrite)
+    parameters:
+    - id: _fileName
+      type: System.String
+    - id: _data
+      type: System.String
+    - id: _overwrite
+      type: System.Boolean
+    content.vb: Public Shared Sub WriteString(_fileName As String, _data As String, _overwrite As Boolean)
+  overload: eDIA.FileManager.WriteString*
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: eDIA.FileManager.CreateFolder(System.String)
+  commentId: M:eDIA.FileManager.CreateFolder(System.String)
+  id: CreateFolder(System.String)
+  parent: eDIA.FileManager
+  langs:
+  - csharp
+  - vb
+  name: CreateFolder(String)
+  nameWithType: FileManager.CreateFolder(String)
+  fullName: eDIA.FileManager.CreateFolder(System.String)
+  type: Method
+  source:
+    id: CreateFolder
+    path: ''
+    startLine: 1681
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  summary: Creates a folder in the application data directory
+  example: []
+  syntax:
+    content: public static void CreateFolder(string _folderName)
+    parameters:
+    - id: _folderName
+      type: System.String
+    content.vb: Public Shared Sub CreateFolder(_folderName As String)
+  overload: eDIA.FileManager.CreateFolder*
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+references:
+- uid: eDIA
+  commentId: N:eDIA
+  name: eDIA
+  nameWithType: eDIA
+  fullName: eDIA
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: eDIA.FileManager.ReadStringFromApplicationPath*
+  commentId: Overload:eDIA.FileManager.ReadStringFromApplicationPath
+  name: ReadStringFromApplicationPath
+  nameWithType: FileManager.ReadStringFromApplicationPath
+  fullName: eDIA.FileManager.ReadStringFromApplicationPath
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  name: String
+  nameWithType: String
+  fullName: System.String
+- uid: eDIA.FileManager.ReadString*
+  commentId: Overload:eDIA.FileManager.ReadString
+  name: ReadString
+  nameWithType: FileManager.ReadString
+  fullName: eDIA.FileManager.ReadString
+- uid: eDIA.FileManager.WriteString*
+  commentId: Overload:eDIA.FileManager.WriteString
+  name: WriteString
+  nameWithType: FileManager.WriteString
+  fullName: eDIA.FileManager.WriteString
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  name: Boolean
+  nameWithType: Boolean
+  fullName: System.Boolean
+- uid: eDIA.FileManager.CreateFolder*
+  commentId: Overload:eDIA.FileManager.CreateFolder
+  name: CreateFolder
+  nameWithType: FileManager.CreateFolder
+  fullName: eDIA.FileManager.CreateFolder

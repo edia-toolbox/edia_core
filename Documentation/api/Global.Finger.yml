@@ -1,0 +1,184 @@
+### YamlMime:ManagedReference
+items:
+- uid: Global.Finger
+  commentId: T:Global.Finger
+  id: Finger
+  parent: Global
+  children:
+  - Global.Finger.#ctor(FingerType)
+  - Global.Finger.current
+  - Global.Finger.target
+  - Global.Finger.type
+  langs:
+  - csharp
+  - vb
+  name: Finger
+  nameWithType: Finger
+  fullName: Finger
+  type: Class
+  source:
+    id: Finger
+    path: ''
+    startLine: 10
+  assemblies:
+  - cs.temp.dll
+  namespace: Global
+  syntax:
+    content: public class Finger
+    content.vb: Public Class Finger
+  inheritance:
+  - System.Object
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+- uid: Global.Finger.type
+  commentId: F:Global.Finger.type
+  id: type
+  parent: Global.Finger
+  langs:
+  - csharp
+  - vb
+  name: type
+  nameWithType: Finger.type
+  fullName: Finger.type
+  type: Field
+  source:
+    id: type
+    path: ''
+    startLine: 12
+  assemblies:
+  - cs.temp.dll
+  namespace: Global
+  syntax:
+    content: public FingerType type
+    return:
+      type: Global.FingerType
+    content.vb: Public type As FingerType
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: Global.Finger.current
+  commentId: F:Global.Finger.current
+  id: current
+  parent: Global.Finger
+  langs:
+  - csharp
+  - vb
+  name: current
+  nameWithType: Finger.current
+  fullName: Finger.current
+  type: Field
+  source:
+    id: current
+    path: ''
+    startLine: 13
+  assemblies:
+  - cs.temp.dll
+  namespace: Global
+  syntax:
+    content: public float current
+    return:
+      type: System.Single
+    content.vb: Public current As Single
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: Global.Finger.target
+  commentId: F:Global.Finger.target
+  id: target
+  parent: Global.Finger
+  langs:
+  - csharp
+  - vb
+  name: target
+  nameWithType: Finger.target
+  fullName: Finger.target
+  type: Field
+  source:
+    id: target
+    path: ''
+    startLine: 14
+  assemblies:
+  - cs.temp.dll
+  namespace: Global
+  syntax:
+    content: public float target
+    return:
+      type: System.Single
+    content.vb: Public target As Single
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: Global.Finger.#ctor(FingerType)
+  commentId: M:Global.Finger.#ctor(FingerType)
+  id: '#ctor(FingerType)'
+  parent: Global.Finger
+  langs:
+  - csharp
+  - vb
+  name: Finger(FingerType)
+  nameWithType: Finger.Finger(FingerType)
+  fullName: Finger.Finger(FingerType)
+  type: Constructor
+  source:
+    id: .ctor
+    path: ''
+    startLine: 16
+  assemblies:
+  - cs.temp.dll
+  namespace: Global
+  syntax:
+    content: public Finger(FingerType type)
+    parameters:
+    - id: type
+      type: Global.FingerType
+    content.vb: Public Sub New(type As FingerType)
+  overload: Global.Finger.#ctor*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+references:
+- uid: Global
+  name: Global
+  nameWithType: Global
+  fullName: Global
+  nameWithType.vb: ''
+  fullName.vb: ''
+  name.vb: ''
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Global.FingerType
+  commentId: T:Global.FingerType
+  name: FingerType
+  nameWithType: FingerType
+  fullName: FingerType
+- uid: System.Single
+  commentId: T:System.Single
+  parent: System
+  isExternal: true
+  name: Single
+  nameWithType: Single
+  fullName: System.Single
+- uid: Global.Finger.#ctor*
+  commentId: Overload:Global.Finger.#ctor
+  name: Finger
+  nameWithType: Finger.Finger
+  fullName: Finger.Finger

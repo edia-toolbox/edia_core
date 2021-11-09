@@ -1,0 +1,128 @@
+### YamlMime:ManagedReference
+items:
+- uid: Global.ScreenFader
+  commentId: T:Global.ScreenFader
+  id: ScreenFader
+  parent: Global
+  children:
+  - Global.ScreenFader.StartFadeIn
+  - Global.ScreenFader.StartFadeOut
+  langs:
+  - csharp
+  - vb
+  name: ScreenFader
+  nameWithType: ScreenFader
+  fullName: ScreenFader
+  type: Class
+  source:
+    id: ScreenFader
+    path: ''
+    startLine: 2361
+  assemblies:
+  - cs.temp.dll
+  namespace: Global
+  syntax:
+    content: 'public class ScreenFader : MonoBehaviour'
+    content.vb: >-
+      Public Class ScreenFader
+          Inherits MonoBehaviour
+  inheritance:
+  - System.Object
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+- uid: Global.ScreenFader.StartFadeIn
+  commentId: M:Global.ScreenFader.StartFadeIn
+  id: StartFadeIn
+  parent: Global.ScreenFader
+  langs:
+  - csharp
+  - vb
+  name: StartFadeIn()
+  nameWithType: ScreenFader.StartFadeIn()
+  fullName: ScreenFader.StartFadeIn()
+  type: Method
+  source:
+    id: StartFadeIn
+    path: ''
+    startLine: 2375
+  assemblies:
+  - cs.temp.dll
+  namespace: Global
+  syntax:
+    content: public Coroutine StartFadeIn()
+    return:
+      type: Global.Coroutine
+    content.vb: Public Function StartFadeIn As Coroutine
+  overload: Global.ScreenFader.StartFadeIn*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: Global.ScreenFader.StartFadeOut
+  commentId: M:Global.ScreenFader.StartFadeOut
+  id: StartFadeOut
+  parent: Global.ScreenFader
+  langs:
+  - csharp
+  - vb
+  name: StartFadeOut()
+  nameWithType: ScreenFader.StartFadeOut()
+  fullName: ScreenFader.StartFadeOut()
+  type: Method
+  source:
+    id: StartFadeOut
+    path: ''
+    startLine: 2390
+  assemblies:
+  - cs.temp.dll
+  namespace: Global
+  syntax:
+    content: public Coroutine StartFadeOut()
+    return:
+      type: Global.Coroutine
+    content.vb: Public Function StartFadeOut As Coroutine
+  overload: Global.ScreenFader.StartFadeOut*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+references:
+- uid: Global
+  name: Global
+  nameWithType: Global
+  fullName: Global
+  nameWithType.vb: ''
+  fullName.vb: ''
+  name.vb: ''
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Global.ScreenFader.StartFadeIn*
+  commentId: Overload:Global.ScreenFader.StartFadeIn
+  name: StartFadeIn
+  nameWithType: ScreenFader.StartFadeIn
+  fullName: ScreenFader.StartFadeIn
+- uid: Global.Coroutine
+  isExternal: true
+  name: Coroutine
+  nameWithType: Coroutine
+  fullName: Coroutine
+- uid: Global.ScreenFader.StartFadeOut*
+  commentId: Overload:Global.ScreenFader.StartFadeOut
+  name: StartFadeOut
+  nameWithType: ScreenFader.StartFadeOut
+  fullName: ScreenFader.StartFadeOut

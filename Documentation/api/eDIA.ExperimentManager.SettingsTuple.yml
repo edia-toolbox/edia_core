@@ -1,0 +1,126 @@
+### YamlMime:ManagedReference
+items:
+- uid: eDIA.ExperimentManager.SettingsTuple
+  commentId: T:eDIA.ExperimentManager.SettingsTuple
+  id: ExperimentManager.SettingsTuple
+  parent: eDIA
+  children:
+  - eDIA.ExperimentManager.SettingsTuple.key
+  - eDIA.ExperimentManager.SettingsTuple.value
+  langs:
+  - csharp
+  - vb
+  name: ExperimentManager.SettingsTuple
+  nameWithType: ExperimentManager.SettingsTuple
+  fullName: eDIA.ExperimentManager.SettingsTuple
+  type: Class
+  source:
+    id: SettingsTuple
+    path: ''
+    startLine: 486
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  summary: Tuple of strings. Serializable in the inspector and dictionaries are not
+  example: []
+  syntax:
+    content: >-
+      [Serializable]
+
+      public class SettingsTuple
+    content.vb: >-
+      <Serializable>
+
+      Public Class SettingsTuple
+  inheritance:
+  - System.Object
+  attributes:
+  - type: System.SerializableAttribute
+    ctor: System.SerializableAttribute.#ctor
+    arguments: []
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+- uid: eDIA.ExperimentManager.SettingsTuple.key
+  commentId: F:eDIA.ExperimentManager.SettingsTuple.key
+  id: key
+  parent: eDIA.ExperimentManager.SettingsTuple
+  langs:
+  - csharp
+  - vb
+  name: key
+  nameWithType: ExperimentManager.SettingsTuple.key
+  fullName: eDIA.ExperimentManager.SettingsTuple.key
+  type: Field
+  source:
+    id: key
+    path: ''
+    startLine: 489
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public string key
+    return:
+      type: System.String
+    content.vb: Public key As String
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.ExperimentManager.SettingsTuple.value
+  commentId: F:eDIA.ExperimentManager.SettingsTuple.value
+  id: value
+  parent: eDIA.ExperimentManager.SettingsTuple
+  langs:
+  - csharp
+  - vb
+  name: value
+  nameWithType: ExperimentManager.SettingsTuple.value
+  fullName: eDIA.ExperimentManager.SettingsTuple.value
+  type: Field
+  source:
+    id: value
+    path: ''
+    startLine: 490
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public string value
+    return:
+      type: System.String
+    content.vb: Public value As String
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+references:
+- uid: eDIA
+  commentId: N:eDIA
+  name: eDIA
+  nameWithType: eDIA
+  fullName: eDIA
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  name: String
+  nameWithType: String
+  fullName: System.String

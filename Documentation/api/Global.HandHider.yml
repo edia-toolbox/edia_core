@@ -1,0 +1,88 @@
+### YamlMime:ManagedReference
+items:
+- uid: Global.HandHider
+  commentId: T:Global.HandHider
+  id: HandHider
+  parent: Global
+  children:
+  - Global.HandHider.handObject
+  langs:
+  - csharp
+  - vb
+  name: HandHider
+  nameWithType: HandHider
+  fullName: HandHider
+  type: Class
+  source:
+    id: HandHider
+    path: ''
+    startLine: 25
+  assemblies:
+  - cs.temp.dll
+  namespace: Global
+  syntax:
+    content: 'public class HandHider : MonoBehaviour'
+    content.vb: >-
+      Public Class HandHider
+          Inherits MonoBehaviour
+  inheritance:
+  - System.Object
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+- uid: Global.HandHider.handObject
+  commentId: F:Global.HandHider.handObject
+  id: handObject
+  parent: Global.HandHider
+  langs:
+  - csharp
+  - vb
+  name: handObject
+  nameWithType: HandHider.handObject
+  fullName: HandHider.handObject
+  type: Field
+  source:
+    id: handObject
+    path: ''
+    startLine: 27
+  assemblies:
+  - cs.temp.dll
+  namespace: Global
+  syntax:
+    content: public GameObject handObject
+    return:
+      type: Global.GameObject
+    content.vb: Public handObject As GameObject
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+references:
+- uid: Global
+  name: Global
+  nameWithType: Global
+  fullName: Global
+  nameWithType.vb: ''
+  fullName.vb: ''
+  name.vb: ''
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Global.GameObject
+  isExternal: true
+  name: GameObject
+  nameWithType: GameObject
+  fullName: GameObject

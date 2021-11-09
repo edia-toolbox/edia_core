@@ -1,0 +1,1041 @@
+### YamlMime:ManagedReference
+items:
+- uid: eDIA.TaskManagerBase
+  commentId: T:eDIA.TaskManagerBase
+  id: TaskManagerBase
+  parent: eDIA
+  children:
+  - eDIA.TaskManagerBase.AddToLog(System.String)
+  - eDIA.TaskManagerBase.AddToTrialResults(System.String,System.String)
+  - eDIA.TaskManagerBase.Awake
+  - eDIA.TaskManagerBase.currentStep
+  - eDIA.TaskManagerBase.NextStep
+  - eDIA.TaskManagerBase.OnBlockIntroduction
+  - eDIA.TaskManagerBase.OnBlockResume
+  - eDIA.TaskManagerBase.OnEnable
+  - eDIA.TaskManagerBase.OnEvBlockResume(eDIA.eParam)
+  - eDIA.TaskManagerBase.OnEvFoundXRrigReferences(eDIA.eParam)
+  - eDIA.TaskManagerBase.OnEvProceed(eDIA.eParam)
+  - eDIA.TaskManagerBase.OnSessionBreak
+  - eDIA.TaskManagerBase.OnSessionEnding
+  - eDIA.TaskManagerBase.OnSessionEndUXF
+  - eDIA.TaskManagerBase.OnSessionResume
+  - eDIA.TaskManagerBase.OnSessionStart
+  - eDIA.TaskManagerBase.ResetTrial
+  - eDIA.TaskManagerBase.showLog
+  - eDIA.TaskManagerBase.Start
+  - eDIA.TaskManagerBase.taskColor
+  - eDIA.TaskManagerBase.taskSettings
+  - eDIA.TaskManagerBase.taskSettingsContainer
+  - eDIA.TaskManagerBase.trialSequence
+  - eDIA.TaskManagerBase.XRrig_LeftController
+  - eDIA.TaskManagerBase.XRrig_MainCamera
+  - eDIA.TaskManagerBase.XRrig_RightController
+  langs:
+  - csharp
+  - vb
+  name: TaskManagerBase
+  nameWithType: TaskManagerBase
+  fullName: eDIA.TaskManagerBase
+  type: Class
+  source:
+    id: TaskManagerBase
+    path: ''
+    startLine: 867
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: 'public class TaskManagerBase : MonoBehaviour'
+    content.vb: >-
+      Public Class TaskManagerBase
+          Inherits MonoBehaviour
+  inheritance:
+  - System.Object
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+- uid: eDIA.TaskManagerBase.showLog
+  commentId: F:eDIA.TaskManagerBase.showLog
+  id: showLog
+  parent: eDIA.TaskManagerBase
+  langs:
+  - csharp
+  - vb
+  name: showLog
+  nameWithType: TaskManagerBase.showLog
+  fullName: eDIA.TaskManagerBase.showLog
+  type: Field
+  source:
+    id: showLog
+    path: ''
+    startLine: 871
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public bool showLog
+    return:
+      type: System.Boolean
+    content.vb: Public showLog As Boolean
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.TaskManagerBase.taskColor
+  commentId: F:eDIA.TaskManagerBase.taskColor
+  id: taskColor
+  parent: eDIA.TaskManagerBase
+  langs:
+  - csharp
+  - vb
+  name: taskColor
+  nameWithType: TaskManagerBase.taskColor
+  fullName: eDIA.TaskManagerBase.taskColor
+  type: Field
+  source:
+    id: taskColor
+    path: ''
+    startLine: 872
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public Color taskColor
+    return:
+      type: Global.Color
+    content.vb: Public taskColor As Color
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.TaskManagerBase.taskSettingsContainer
+  commentId: F:eDIA.TaskManagerBase.taskSettingsContainer
+  id: taskSettingsContainer
+  parent: eDIA.TaskManagerBase
+  langs:
+  - csharp
+  - vb
+  name: taskSettingsContainer
+  nameWithType: TaskManagerBase.taskSettingsContainer
+  fullName: eDIA.TaskManagerBase.taskSettingsContainer
+  type: Field
+  source:
+    id: taskSettingsContainer
+    path: ''
+    startLine: 879
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public TaskManagerBase.TaskSettingsContainer taskSettingsContainer
+    return:
+      type: eDIA.TaskManagerBase.TaskSettingsContainer
+    content.vb: Public taskSettingsContainer As TaskManagerBase.TaskSettingsContainer
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.TaskManagerBase.taskSettings
+  commentId: F:eDIA.TaskManagerBase.taskSettings
+  id: taskSettings
+  parent: eDIA.TaskManagerBase
+  langs:
+  - csharp
+  - vb
+  name: taskSettings
+  nameWithType: TaskManagerBase.taskSettings
+  fullName: eDIA.TaskManagerBase.taskSettings
+  type: Field
+  source:
+    id: taskSettings
+    path: ''
+    startLine: 880
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public Settings taskSettings
+    return:
+      type: UXF.Settings
+    content.vb: Public taskSettings As Settings
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.TaskManagerBase.XRrig_MainCamera
+  commentId: F:eDIA.TaskManagerBase.XRrig_MainCamera
+  id: XRrig_MainCamera
+  parent: eDIA.TaskManagerBase
+  langs:
+  - csharp
+  - vb
+  name: XRrig_MainCamera
+  nameWithType: TaskManagerBase.XRrig_MainCamera
+  fullName: eDIA.TaskManagerBase.XRrig_MainCamera
+  type: Field
+  source:
+    id: XRrig_MainCamera
+    path: ''
+    startLine: 883
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public Transform XRrig_MainCamera
+    return:
+      type: Global.Transform
+    content.vb: Public XRrig_MainCamera As Transform
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.TaskManagerBase.XRrig_RightController
+  commentId: F:eDIA.TaskManagerBase.XRrig_RightController
+  id: XRrig_RightController
+  parent: eDIA.TaskManagerBase
+  langs:
+  - csharp
+  - vb
+  name: XRrig_RightController
+  nameWithType: TaskManagerBase.XRrig_RightController
+  fullName: eDIA.TaskManagerBase.XRrig_RightController
+  type: Field
+  source:
+    id: XRrig_RightController
+    path: ''
+    startLine: 884
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public Transform XRrig_RightController
+    return:
+      type: Global.Transform
+    content.vb: Public XRrig_RightController As Transform
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.TaskManagerBase.XRrig_LeftController
+  commentId: F:eDIA.TaskManagerBase.XRrig_LeftController
+  id: XRrig_LeftController
+  parent: eDIA.TaskManagerBase
+  langs:
+  - csharp
+  - vb
+  name: XRrig_LeftController
+  nameWithType: TaskManagerBase.XRrig_LeftController
+  fullName: eDIA.TaskManagerBase.XRrig_LeftController
+  type: Field
+  source:
+    id: XRrig_LeftController
+    path: ''
+    startLine: 885
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public Transform XRrig_LeftController
+    return:
+      type: Global.Transform
+    content.vb: Public XRrig_LeftController As Transform
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.TaskManagerBase.Awake
+  commentId: M:eDIA.TaskManagerBase.Awake
+  id: Awake
+  parent: eDIA.TaskManagerBase
+  langs:
+  - csharp
+  - vb
+  name: Awake()
+  nameWithType: TaskManagerBase.Awake()
+  fullName: eDIA.TaskManagerBase.Awake()
+  type: Method
+  source:
+    id: Awake
+    path: ''
+    startLine: 890
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public virtual void Awake()
+    content.vb: Public Overridable Sub Awake
+  overload: eDIA.TaskManagerBase.Awake*
+  modifiers.csharp:
+  - public
+  - virtual
+  modifiers.vb:
+  - Public
+  - Overridable
+- uid: eDIA.TaskManagerBase.OnEnable
+  commentId: M:eDIA.TaskManagerBase.OnEnable
+  id: OnEnable
+  parent: eDIA.TaskManagerBase
+  langs:
+  - csharp
+  - vb
+  name: OnEnable()
+  nameWithType: TaskManagerBase.OnEnable()
+  fullName: eDIA.TaskManagerBase.OnEnable()
+  type: Method
+  source:
+    id: OnEnable
+    path: ''
+    startLine: 897
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public virtual void OnEnable()
+    content.vb: Public Overridable Sub OnEnable
+  overload: eDIA.TaskManagerBase.OnEnable*
+  modifiers.csharp:
+  - public
+  - virtual
+  modifiers.vb:
+  - Public
+  - Overridable
+- uid: eDIA.TaskManagerBase.Start
+  commentId: M:eDIA.TaskManagerBase.Start
+  id: Start
+  parent: eDIA.TaskManagerBase
+  langs:
+  - csharp
+  - vb
+  name: Start()
+  nameWithType: TaskManagerBase.Start()
+  fullName: eDIA.TaskManagerBase.Start()
+  type: Method
+  source:
+    id: Start
+    path: ''
+    startLine: 901
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public virtual void Start()
+    content.vb: Public Overridable Sub Start
+  overload: eDIA.TaskManagerBase.Start*
+  modifiers.csharp:
+  - public
+  - virtual
+  modifiers.vb:
+  - Public
+  - Overridable
+- uid: eDIA.TaskManagerBase.OnEvFoundXRrigReferences(eDIA.eParam)
+  commentId: M:eDIA.TaskManagerBase.OnEvFoundXRrigReferences(eDIA.eParam)
+  id: OnEvFoundXRrigReferences(eDIA.eParam)
+  parent: eDIA.TaskManagerBase
+  langs:
+  - csharp
+  - vb
+  name: OnEvFoundXRrigReferences(eParam)
+  nameWithType: TaskManagerBase.OnEvFoundXRrigReferences(eParam)
+  fullName: eDIA.TaskManagerBase.OnEvFoundXRrigReferences(eDIA.eParam)
+  type: Method
+  source:
+    id: OnEvFoundXRrigReferences
+    path: ''
+    startLine: 925
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public virtual void OnEvFoundXRrigReferences(eParam e)
+    parameters:
+    - id: e
+      type: eDIA.eParam
+    content.vb: Public Overridable Sub OnEvFoundXRrigReferences(e As eParam)
+  overload: eDIA.TaskManagerBase.OnEvFoundXRrigReferences*
+  modifiers.csharp:
+  - public
+  - virtual
+  modifiers.vb:
+  - Public
+  - Overridable
+- uid: eDIA.TaskManagerBase.AddToTrialResults(System.String,System.String)
+  commentId: M:eDIA.TaskManagerBase.AddToTrialResults(System.String,System.String)
+  id: AddToTrialResults(System.String,System.String)
+  parent: eDIA.TaskManagerBase
+  langs:
+  - csharp
+  - vb
+  name: AddToTrialResults(String, String)
+  nameWithType: TaskManagerBase.AddToTrialResults(String, String)
+  fullName: eDIA.TaskManagerBase.AddToTrialResults(System.String, System.String)
+  type: Method
+  source:
+    id: AddToTrialResults
+    path: ''
+    startLine: 972
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public void AddToTrialResults(string key, string value)
+    parameters:
+    - id: key
+      type: System.String
+    - id: value
+      type: System.String
+    content.vb: Public Sub AddToTrialResults(key As String, value As String)
+  overload: eDIA.TaskManagerBase.AddToTrialResults*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.TaskManagerBase.OnSessionEndUXF
+  commentId: M:eDIA.TaskManagerBase.OnSessionEndUXF
+  id: OnSessionEndUXF
+  parent: eDIA.TaskManagerBase
+  langs:
+  - csharp
+  - vb
+  name: OnSessionEndUXF()
+  nameWithType: TaskManagerBase.OnSessionEndUXF()
+  fullName: eDIA.TaskManagerBase.OnSessionEndUXF()
+  type: Method
+  source:
+    id: OnSessionEndUXF
+    path: ''
+    startLine: 997
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  summary: 'Called from UXF session. '
+  example: []
+  syntax:
+    content: public virtual void OnSessionEndUXF()
+    content.vb: Public Overridable Sub OnSessionEndUXF
+  overload: eDIA.TaskManagerBase.OnSessionEndUXF*
+  modifiers.csharp:
+  - public
+  - virtual
+  modifiers.vb:
+  - Public
+  - Overridable
+- uid: eDIA.TaskManagerBase.OnEvProceed(eDIA.eParam)
+  commentId: M:eDIA.TaskManagerBase.OnEvProceed(eDIA.eParam)
+  id: OnEvProceed(eDIA.eParam)
+  parent: eDIA.TaskManagerBase
+  langs:
+  - csharp
+  - vb
+  name: OnEvProceed(eParam)
+  nameWithType: TaskManagerBase.OnEvProceed(eParam)
+  fullName: eDIA.TaskManagerBase.OnEvProceed(eDIA.eParam)
+  type: Method
+  source:
+    id: OnEvProceed
+    path: ''
+    startLine: 1009
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public virtual void OnEvProceed(eParam e)
+    parameters:
+    - id: e
+      type: eDIA.eParam
+    content.vb: Public Overridable Sub OnEvProceed(e As eParam)
+  overload: eDIA.TaskManagerBase.OnEvProceed*
+  modifiers.csharp:
+  - public
+  - virtual
+  modifiers.vb:
+  - Public
+  - Overridable
+- uid: eDIA.TaskManagerBase.OnSessionStart
+  commentId: M:eDIA.TaskManagerBase.OnSessionStart
+  id: OnSessionStart
+  parent: eDIA.TaskManagerBase
+  langs:
+  - csharp
+  - vb
+  name: OnSessionStart()
+  nameWithType: TaskManagerBase.OnSessionStart()
+  fullName: eDIA.TaskManagerBase.OnSessionStart()
+  type: Method
+  source:
+    id: OnSessionStart
+    path: ''
+    startLine: 1018
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  summary: Hook up to OnSessionStart event
+  example: []
+  syntax:
+    content: public virtual void OnSessionStart()
+    content.vb: Public Overridable Sub OnSessionStart
+  overload: eDIA.TaskManagerBase.OnSessionStart*
+  modifiers.csharp:
+  - public
+  - virtual
+  modifiers.vb:
+  - Public
+  - Overridable
+- uid: eDIA.TaskManagerBase.OnSessionEnding
+  commentId: M:eDIA.TaskManagerBase.OnSessionEnding
+  id: OnSessionEnding
+  parent: eDIA.TaskManagerBase
+  langs:
+  - csharp
+  - vb
+  name: OnSessionEnding()
+  nameWithType: TaskManagerBase.OnSessionEnding()
+  fullName: eDIA.TaskManagerBase.OnSessionEnding()
+  type: Method
+  source:
+    id: OnSessionEnding
+    path: ''
+    startLine: 1024
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  summary: Hook up to Experiment OnExperimentEnd event
+  example: []
+  syntax:
+    content: public virtual void OnSessionEnding()
+    content.vb: Public Overridable Sub OnSessionEnding
+  overload: eDIA.TaskManagerBase.OnSessionEnding*
+  modifiers.csharp:
+  - public
+  - virtual
+  modifiers.vb:
+  - Public
+  - Overridable
+- uid: eDIA.TaskManagerBase.OnSessionBreak
+  commentId: M:eDIA.TaskManagerBase.OnSessionBreak
+  id: OnSessionBreak
+  parent: eDIA.TaskManagerBase
+  langs:
+  - csharp
+  - vb
+  name: OnSessionBreak()
+  nameWithType: TaskManagerBase.OnSessionBreak()
+  fullName: eDIA.TaskManagerBase.OnSessionBreak()
+  type: Method
+  source:
+    id: OnSessionBreak
+    path: ''
+    startLine: 1040
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  summary: Overridable OnEvSessionBreak
+  example: []
+  syntax:
+    content: public virtual void OnSessionBreak()
+    content.vb: Public Overridable Sub OnSessionBreak
+  overload: eDIA.TaskManagerBase.OnSessionBreak*
+  modifiers.csharp:
+  - public
+  - virtual
+  modifiers.vb:
+  - Public
+  - Overridable
+- uid: eDIA.TaskManagerBase.OnSessionResume
+  commentId: M:eDIA.TaskManagerBase.OnSessionResume
+  id: OnSessionResume
+  parent: eDIA.TaskManagerBase
+  langs:
+  - csharp
+  - vb
+  name: OnSessionResume()
+  nameWithType: TaskManagerBase.OnSessionResume()
+  fullName: eDIA.TaskManagerBase.OnSessionResume()
+  type: Method
+  source:
+    id: OnSessionResume
+    path: ''
+    startLine: 1052
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  summary: Overridable OnSessionResume method
+  example: []
+  syntax:
+    content: public virtual void OnSessionResume()
+    content.vb: Public Overridable Sub OnSessionResume
+  overload: eDIA.TaskManagerBase.OnSessionResume*
+  modifiers.csharp:
+  - public
+  - virtual
+  modifiers.vb:
+  - Public
+  - Overridable
+- uid: eDIA.TaskManagerBase.OnBlockIntroduction
+  commentId: M:eDIA.TaskManagerBase.OnBlockIntroduction
+  id: OnBlockIntroduction
+  parent: eDIA.TaskManagerBase
+  langs:
+  - csharp
+  - vb
+  name: OnBlockIntroduction()
+  nameWithType: TaskManagerBase.OnBlockIntroduction()
+  fullName: eDIA.TaskManagerBase.OnBlockIntroduction()
+  type: Method
+  source:
+    id: OnBlockIntroduction
+    path: ''
+    startLine: 1067
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  summary: Overridable OnBlockIntroduction
+  example: []
+  syntax:
+    content: public virtual void OnBlockIntroduction()
+    content.vb: Public Overridable Sub OnBlockIntroduction
+  overload: eDIA.TaskManagerBase.OnBlockIntroduction*
+  modifiers.csharp:
+  - public
+  - virtual
+  modifiers.vb:
+  - Public
+  - Overridable
+- uid: eDIA.TaskManagerBase.OnEvBlockResume(eDIA.eParam)
+  commentId: M:eDIA.TaskManagerBase.OnEvBlockResume(eDIA.eParam)
+  id: OnEvBlockResume(eDIA.eParam)
+  parent: eDIA.TaskManagerBase
+  langs:
+  - csharp
+  - vb
+  name: OnEvBlockResume(eParam)
+  nameWithType: TaskManagerBase.OnEvBlockResume(eParam)
+  fullName: eDIA.TaskManagerBase.OnEvBlockResume(eDIA.eParam)
+  type: Method
+  source:
+    id: OnEvBlockResume
+    path: ''
+    startLine: 1072
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  summary: OnEvBlockResume event listener
+  example: []
+  syntax:
+    content: public void OnEvBlockResume(eParam e)
+    parameters:
+    - id: e
+      type: eDIA.eParam
+    content.vb: Public Sub OnEvBlockResume(e As eParam)
+  overload: eDIA.TaskManagerBase.OnEvBlockResume*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.TaskManagerBase.OnBlockResume
+  commentId: M:eDIA.TaskManagerBase.OnBlockResume
+  id: OnBlockResume
+  parent: eDIA.TaskManagerBase
+  langs:
+  - csharp
+  - vb
+  name: OnBlockResume()
+  nameWithType: TaskManagerBase.OnBlockResume()
+  fullName: eDIA.TaskManagerBase.OnBlockResume()
+  type: Method
+  source:
+    id: OnBlockResume
+    path: ''
+    startLine: 1080
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  summary: Overridable OnBlockContinue
+  example: []
+  syntax:
+    content: public virtual void OnBlockResume()
+    content.vb: Public Overridable Sub OnBlockResume
+  overload: eDIA.TaskManagerBase.OnBlockResume*
+  modifiers.csharp:
+  - public
+  - virtual
+  modifiers.vb:
+  - Public
+  - Overridable
+- uid: eDIA.TaskManagerBase.trialSequence
+  commentId: F:eDIA.TaskManagerBase.trialSequence
+  id: trialSequence
+  parent: eDIA.TaskManagerBase
+  langs:
+  - csharp
+  - vb
+  name: trialSequence
+  nameWithType: TaskManagerBase.trialSequence
+  fullName: eDIA.TaskManagerBase.trialSequence
+  type: Field
+  source:
+    id: trialSequence
+    path: ''
+    startLine: 1100
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public List<TaskManagerBase.TrialStep> trialSequence
+    return:
+      type: Global.List{eDIA.TaskManagerBase.TrialStep}
+    content.vb: Public trialSequence As List(Of TaskManagerBase.TrialStep)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.TaskManagerBase.currentStep
+  commentId: F:eDIA.TaskManagerBase.currentStep
+  id: currentStep
+  parent: eDIA.TaskManagerBase
+  langs:
+  - csharp
+  - vb
+  name: currentStep
+  nameWithType: TaskManagerBase.currentStep
+  fullName: eDIA.TaskManagerBase.currentStep
+  type: Field
+  source:
+    id: currentStep
+    path: ''
+    startLine: 1102
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public int currentStep
+    return:
+      type: System.Int32
+    content.vb: Public currentStep As Integer
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.TaskManagerBase.ResetTrial
+  commentId: M:eDIA.TaskManagerBase.ResetTrial
+  id: ResetTrial
+  parent: eDIA.TaskManagerBase
+  langs:
+  - csharp
+  - vb
+  name: ResetTrial()
+  nameWithType: TaskManagerBase.ResetTrial()
+  fullName: eDIA.TaskManagerBase.ResetTrial()
+  type: Method
+  source:
+    id: ResetTrial
+    path: ''
+    startLine: 1120
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public virtual void ResetTrial()
+    content.vb: Public Overridable Sub ResetTrial
+  overload: eDIA.TaskManagerBase.ResetTrial*
+  modifiers.csharp:
+  - public
+  - virtual
+  modifiers.vb:
+  - Public
+  - Overridable
+- uid: eDIA.TaskManagerBase.NextStep
+  commentId: M:eDIA.TaskManagerBase.NextStep
+  id: NextStep
+  parent: eDIA.TaskManagerBase
+  langs:
+  - csharp
+  - vb
+  name: NextStep()
+  nameWithType: TaskManagerBase.NextStep()
+  fullName: eDIA.TaskManagerBase.NextStep()
+  type: Method
+  source:
+    id: NextStep
+    path: ''
+    startLine: 1124
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public void NextStep()
+    content.vb: Public Sub NextStep
+  overload: eDIA.TaskManagerBase.NextStep*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.TaskManagerBase.AddToLog(System.String)
+  commentId: M:eDIA.TaskManagerBase.AddToLog(System.String)
+  id: AddToLog(System.String)
+  parent: eDIA.TaskManagerBase
+  langs:
+  - csharp
+  - vb
+  name: AddToLog(String)
+  nameWithType: TaskManagerBase.AddToLog(String)
+  fullName: eDIA.TaskManagerBase.AddToLog(System.String)
+  type: Method
+  source:
+    id: AddToLog
+    path: ''
+    startLine: 1139
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public void AddToLog(string _msg)
+    parameters:
+    - id: _msg
+      type: System.String
+    content.vb: Public Sub AddToLog(_msg As String)
+  overload: eDIA.TaskManagerBase.AddToLog*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+references:
+- uid: eDIA
+  commentId: N:eDIA
+  name: eDIA
+  nameWithType: eDIA
+  fullName: eDIA
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  name: Boolean
+  nameWithType: Boolean
+  fullName: System.Boolean
+- uid: Global.Color
+  isExternal: true
+  name: Color
+  nameWithType: Color
+  fullName: Color
+- uid: eDIA.TaskManagerBase.TaskSettingsContainer
+  commentId: T:eDIA.TaskManagerBase.TaskSettingsContainer
+  parent: eDIA
+  name: TaskManagerBase.TaskSettingsContainer
+  nameWithType: TaskManagerBase.TaskSettingsContainer
+  fullName: eDIA.TaskManagerBase.TaskSettingsContainer
+- uid: UXF.Settings
+  commentId: T:UXF.Settings
+  parent: UXF
+  name: Settings
+  nameWithType: Settings
+  fullName: UXF.Settings
+- uid: UXF
+  commentId: N:UXF
+  name: UXF
+  nameWithType: UXF
+  fullName: UXF
+- uid: Global.Transform
+  isExternal: true
+  name: Transform
+  nameWithType: Transform
+  fullName: Transform
+- uid: eDIA.TaskManagerBase.Awake*
+  commentId: Overload:eDIA.TaskManagerBase.Awake
+  name: Awake
+  nameWithType: TaskManagerBase.Awake
+  fullName: eDIA.TaskManagerBase.Awake
+- uid: eDIA.TaskManagerBase.OnEnable*
+  commentId: Overload:eDIA.TaskManagerBase.OnEnable
+  name: OnEnable
+  nameWithType: TaskManagerBase.OnEnable
+  fullName: eDIA.TaskManagerBase.OnEnable
+- uid: eDIA.TaskManagerBase.Start*
+  commentId: Overload:eDIA.TaskManagerBase.Start
+  name: Start
+  nameWithType: TaskManagerBase.Start
+  fullName: eDIA.TaskManagerBase.Start
+- uid: eDIA.TaskManagerBase.OnEvFoundXRrigReferences*
+  commentId: Overload:eDIA.TaskManagerBase.OnEvFoundXRrigReferences
+  name: OnEvFoundXRrigReferences
+  nameWithType: TaskManagerBase.OnEvFoundXRrigReferences
+  fullName: eDIA.TaskManagerBase.OnEvFoundXRrigReferences
+- uid: eDIA.eParam
+  commentId: T:eDIA.eParam
+  parent: eDIA
+  name: eParam
+  nameWithType: eParam
+  fullName: eDIA.eParam
+- uid: eDIA.TaskManagerBase.AddToTrialResults*
+  commentId: Overload:eDIA.TaskManagerBase.AddToTrialResults
+  name: AddToTrialResults
+  nameWithType: TaskManagerBase.AddToTrialResults
+  fullName: eDIA.TaskManagerBase.AddToTrialResults
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  name: String
+  nameWithType: String
+  fullName: System.String
+- uid: eDIA.TaskManagerBase.OnSessionEndUXF*
+  commentId: Overload:eDIA.TaskManagerBase.OnSessionEndUXF
+  name: OnSessionEndUXF
+  nameWithType: TaskManagerBase.OnSessionEndUXF
+  fullName: eDIA.TaskManagerBase.OnSessionEndUXF
+- uid: eDIA.TaskManagerBase.OnEvProceed*
+  commentId: Overload:eDIA.TaskManagerBase.OnEvProceed
+  name: OnEvProceed
+  nameWithType: TaskManagerBase.OnEvProceed
+  fullName: eDIA.TaskManagerBase.OnEvProceed
+- uid: eDIA.TaskManagerBase.OnSessionStart*
+  commentId: Overload:eDIA.TaskManagerBase.OnSessionStart
+  name: OnSessionStart
+  nameWithType: TaskManagerBase.OnSessionStart
+  fullName: eDIA.TaskManagerBase.OnSessionStart
+- uid: eDIA.TaskManagerBase.OnSessionEnding*
+  commentId: Overload:eDIA.TaskManagerBase.OnSessionEnding
+  name: OnSessionEnding
+  nameWithType: TaskManagerBase.OnSessionEnding
+  fullName: eDIA.TaskManagerBase.OnSessionEnding
+- uid: eDIA.TaskManagerBase.OnSessionBreak*
+  commentId: Overload:eDIA.TaskManagerBase.OnSessionBreak
+  name: OnSessionBreak
+  nameWithType: TaskManagerBase.OnSessionBreak
+  fullName: eDIA.TaskManagerBase.OnSessionBreak
+- uid: eDIA.TaskManagerBase.OnSessionResume*
+  commentId: Overload:eDIA.TaskManagerBase.OnSessionResume
+  name: OnSessionResume
+  nameWithType: TaskManagerBase.OnSessionResume
+  fullName: eDIA.TaskManagerBase.OnSessionResume
+- uid: eDIA.TaskManagerBase.OnBlockIntroduction*
+  commentId: Overload:eDIA.TaskManagerBase.OnBlockIntroduction
+  name: OnBlockIntroduction
+  nameWithType: TaskManagerBase.OnBlockIntroduction
+  fullName: eDIA.TaskManagerBase.OnBlockIntroduction
+- uid: eDIA.TaskManagerBase.OnEvBlockResume*
+  commentId: Overload:eDIA.TaskManagerBase.OnEvBlockResume
+  name: OnEvBlockResume
+  nameWithType: TaskManagerBase.OnEvBlockResume
+  fullName: eDIA.TaskManagerBase.OnEvBlockResume
+- uid: eDIA.TaskManagerBase.OnBlockResume*
+  commentId: Overload:eDIA.TaskManagerBase.OnBlockResume
+  name: OnBlockResume
+  nameWithType: TaskManagerBase.OnBlockResume
+  fullName: eDIA.TaskManagerBase.OnBlockResume
+- uid: Global.List{eDIA.TaskManagerBase.TrialStep}
+  commentId: '!:Global.List{eDIA.TaskManagerBase.TrialStep}'
+  definition: Global.List`1
+  name: List<TaskManagerBase.TrialStep>
+  nameWithType: List<TaskManagerBase.TrialStep>
+  fullName: List<eDIA.TaskManagerBase.TrialStep>
+  nameWithType.vb: List(Of TaskManagerBase.TrialStep)
+  fullName.vb: List(Of eDIA.TaskManagerBase.TrialStep)
+  name.vb: List(Of TaskManagerBase.TrialStep)
+  spec.csharp:
+  - uid: Global.List`1
+    name: List
+    nameWithType: List
+    fullName: List
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: eDIA.TaskManagerBase.TrialStep
+    name: TaskManagerBase.TrialStep
+    nameWithType: TaskManagerBase.TrialStep
+    fullName: eDIA.TaskManagerBase.TrialStep
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: Global.List`1
+    name: List
+    nameWithType: List
+    fullName: List
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: eDIA.TaskManagerBase.TrialStep
+    name: TaskManagerBase.TrialStep
+    nameWithType: TaskManagerBase.TrialStep
+    fullName: eDIA.TaskManagerBase.TrialStep
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Global.List`1
+  isExternal: true
+  name: List<>
+  nameWithType: List<>
+  fullName: List<>
+  nameWithType.vb: List(Of )
+  fullName.vb: List(Of )
+  name.vb: List(Of )
+  spec.csharp:
+  - uid: Global.List`1
+    name: List
+    nameWithType: List
+    fullName: List
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: ''
+    nameWithType: ''
+    fullName: ''
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: Global.List`1
+    name: List
+    nameWithType: List
+    fullName: List
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: ''
+    nameWithType: ''
+    fullName: ''
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  name: Int32
+  nameWithType: Int32
+  fullName: System.Int32
+- uid: eDIA.TaskManagerBase.ResetTrial*
+  commentId: Overload:eDIA.TaskManagerBase.ResetTrial
+  name: ResetTrial
+  nameWithType: TaskManagerBase.ResetTrial
+  fullName: eDIA.TaskManagerBase.ResetTrial
+- uid: eDIA.TaskManagerBase.NextStep*
+  commentId: Overload:eDIA.TaskManagerBase.NextStep
+  name: NextStep
+  nameWithType: TaskManagerBase.NextStep
+  fullName: eDIA.TaskManagerBase.NextStep
+- uid: eDIA.TaskManagerBase.AddToLog*
+  commentId: Overload:eDIA.TaskManagerBase.AddToLog
+  name: AddToLog
+  nameWithType: TaskManagerBase.AddToLog
+  fullName: eDIA.TaskManagerBase.AddToLog

@@ -1,0 +1,166 @@
+### YamlMime:ManagedReference
+items:
+- uid: eDIA.TaskManagerBase.TrialStep
+  commentId: T:eDIA.TaskManagerBase.TrialStep
+  id: TaskManagerBase.TrialStep
+  parent: eDIA
+  children:
+  - eDIA.TaskManagerBase.TrialStep.#ctor(System.String,Action)
+  - eDIA.TaskManagerBase.TrialStep.methodToCall
+  - eDIA.TaskManagerBase.TrialStep.title
+  langs:
+  - csharp
+  - vb
+  name: TaskManagerBase.TrialStep
+  nameWithType: TaskManagerBase.TrialStep
+  fullName: eDIA.TaskManagerBase.TrialStep
+  type: Class
+  source:
+    id: TrialStep
+    path: ''
+    startLine: 1088
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: >-
+      [Serializable]
+
+      public class TrialStep
+    content.vb: >-
+      <Serializable>
+
+      Public Class TrialStep
+  inheritance:
+  - System.Object
+  attributes:
+  - type: System.SerializableAttribute
+    ctor: System.SerializableAttribute.#ctor
+    arguments: []
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+- uid: eDIA.TaskManagerBase.TrialStep.title
+  commentId: F:eDIA.TaskManagerBase.TrialStep.title
+  id: title
+  parent: eDIA.TaskManagerBase.TrialStep
+  langs:
+  - csharp
+  - vb
+  name: title
+  nameWithType: TaskManagerBase.TrialStep.title
+  fullName: eDIA.TaskManagerBase.TrialStep.title
+  type: Field
+  source:
+    id: title
+    path: ''
+    startLine: 1090
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public string title
+    return:
+      type: System.String
+    content.vb: Public title As String
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.TaskManagerBase.TrialStep.methodToCall
+  commentId: F:eDIA.TaskManagerBase.TrialStep.methodToCall
+  id: methodToCall
+  parent: eDIA.TaskManagerBase.TrialStep
+  langs:
+  - csharp
+  - vb
+  name: methodToCall
+  nameWithType: TaskManagerBase.TrialStep.methodToCall
+  fullName: eDIA.TaskManagerBase.TrialStep.methodToCall
+  type: Field
+  source:
+    id: methodToCall
+    path: ''
+    startLine: 1091
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public Action methodToCall
+    return:
+      type: Global.Action
+    content.vb: Public methodToCall As Action
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.TaskManagerBase.TrialStep.#ctor(System.String,Action)
+  commentId: M:eDIA.TaskManagerBase.TrialStep.#ctor(System.String,Action)
+  id: '#ctor(System.String,Action)'
+  parent: eDIA.TaskManagerBase.TrialStep
+  langs:
+  - csharp
+  - vb
+  name: TrialStep(String, Action)
+  nameWithType: TaskManagerBase.TrialStep.TrialStep(String, Action)
+  fullName: eDIA.TaskManagerBase.TrialStep.TrialStep(System.String, Action)
+  type: Constructor
+  source:
+    id: .ctor
+    path: ''
+    startLine: 1093
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public TrialStep(string title, Action methodToCall)
+    parameters:
+    - id: title
+      type: System.String
+    - id: methodToCall
+      type: Global.Action
+    content.vb: Public Sub New(title As String, methodToCall As Action)
+  overload: eDIA.TaskManagerBase.TrialStep.#ctor*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+references:
+- uid: eDIA
+  commentId: N:eDIA
+  name: eDIA
+  nameWithType: eDIA
+  fullName: eDIA
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  name: String
+  nameWithType: String
+  fullName: System.String
+- uid: Global.Action
+  isExternal: true
+  name: Action
+  nameWithType: Action
+  fullName: Action
+- uid: eDIA.TaskManagerBase.TrialStep.#ctor*
+  commentId: Overload:eDIA.TaskManagerBase.TrialStep.#ctor
+  name: TrialStep
+  nameWithType: TaskManagerBase.TrialStep.TrialStep
+  fullName: eDIA.TaskManagerBase.TrialStep.TrialStep

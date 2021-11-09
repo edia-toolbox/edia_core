@@ -1,0 +1,140 @@
+### YamlMime:ManagedReference
+items:
+- uid: Global.EndReadOnlyGroupDrawer
+  commentId: T:Global.EndReadOnlyGroupDrawer
+  id: EndReadOnlyGroupDrawer
+  parent: Global
+  children:
+  - Global.EndReadOnlyGroupDrawer.GetHeight
+  - Global.EndReadOnlyGroupDrawer.OnGUI(Rect)
+  langs:
+  - csharp
+  - vb
+  name: EndReadOnlyGroupDrawer
+  nameWithType: EndReadOnlyGroupDrawer
+  fullName: EndReadOnlyGroupDrawer
+  type: Class
+  source:
+    id: EndReadOnlyGroupDrawer
+    path: ''
+    startLine: 11785
+  assemblies:
+  - cs.temp.dll
+  namespace: Global
+  syntax:
+    content: 'public class EndReadOnlyGroupDrawer : DecoratorDrawer'
+    content.vb: >-
+      Public Class EndReadOnlyGroupDrawer
+          Inherits DecoratorDrawer
+  inheritance:
+  - System.Object
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+- uid: Global.EndReadOnlyGroupDrawer.GetHeight
+  commentId: M:Global.EndReadOnlyGroupDrawer.GetHeight
+  id: GetHeight
+  parent: Global.EndReadOnlyGroupDrawer
+  langs:
+  - csharp
+  - vb
+  name: GetHeight()
+  nameWithType: EndReadOnlyGroupDrawer.GetHeight()
+  fullName: EndReadOnlyGroupDrawer.GetHeight()
+  type: Method
+  source:
+    id: GetHeight
+    path: ''
+    startLine: 11789
+  assemblies:
+  - cs.temp.dll
+  namespace: Global
+  syntax:
+    content: public override float GetHeight()
+    return:
+      type: System.Single
+    content.vb: Public Overrides Function GetHeight As Single
+  overload: Global.EndReadOnlyGroupDrawer.GetHeight*
+  modifiers.csharp:
+  - public
+  - override
+  modifiers.vb:
+  - Public
+  - Overrides
+- uid: Global.EndReadOnlyGroupDrawer.OnGUI(Rect)
+  commentId: M:Global.EndReadOnlyGroupDrawer.OnGUI(Rect)
+  id: OnGUI(Rect)
+  parent: Global.EndReadOnlyGroupDrawer
+  langs:
+  - csharp
+  - vb
+  name: OnGUI(Rect)
+  nameWithType: EndReadOnlyGroupDrawer.OnGUI(Rect)
+  fullName: EndReadOnlyGroupDrawer.OnGUI(Rect)
+  type: Method
+  source:
+    id: OnGUI
+    path: ''
+    startLine: 11791
+  assemblies:
+  - cs.temp.dll
+  namespace: Global
+  syntax:
+    content: public override void OnGUI(Rect position)
+    parameters:
+    - id: position
+      type: Global.Rect
+    content.vb: Public Overrides Sub OnGUI(position As Rect)
+  overload: Global.EndReadOnlyGroupDrawer.OnGUI*
+  modifiers.csharp:
+  - public
+  - override
+  modifiers.vb:
+  - Public
+  - Overrides
+references:
+- uid: Global
+  name: Global
+  nameWithType: Global
+  fullName: Global
+  nameWithType.vb: ''
+  fullName.vb: ''
+  name.vb: ''
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Global.EndReadOnlyGroupDrawer.GetHeight*
+  commentId: Overload:Global.EndReadOnlyGroupDrawer.GetHeight
+  name: GetHeight
+  nameWithType: EndReadOnlyGroupDrawer.GetHeight
+  fullName: EndReadOnlyGroupDrawer.GetHeight
+- uid: System.Single
+  commentId: T:System.Single
+  parent: System
+  isExternal: true
+  name: Single
+  nameWithType: Single
+  fullName: System.Single
+- uid: Global.EndReadOnlyGroupDrawer.OnGUI*
+  commentId: Overload:Global.EndReadOnlyGroupDrawer.OnGUI
+  name: OnGUI
+  nameWithType: EndReadOnlyGroupDrawer.OnGUI
+  fullName: EndReadOnlyGroupDrawer.OnGUI
+- uid: Global.Rect
+  isExternal: true
+  name: Rect
+  nameWithType: Rect
+  fullName: Rect

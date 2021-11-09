@@ -1,0 +1,64 @@
+### YamlMime:ManagedReference
+items:
+- uid: Global.BoolEvent
+  commentId: T:Global.BoolEvent
+  id: BoolEvent
+  parent: Global
+  children: []
+  langs:
+  - csharp
+  - vb
+  name: BoolEvent
+  nameWithType: BoolEvent
+  fullName: BoolEvent
+  type: Class
+  source:
+    id: BoolEvent
+    path: ''
+    startLine: 1719
+  assemblies:
+  - cs.temp.dll
+  namespace: Global
+  syntax:
+    content: >-
+      [Serializable]
+
+      public class BoolEvent : UnityEvent<bool>
+    content.vb: >-
+      <Serializable>
+
+      Public Class BoolEvent
+          Inherits UnityEvent(Of Boolean)
+  inheritance:
+  - System.Object
+  attributes:
+  - type: System.SerializableAttribute
+    ctor: System.SerializableAttribute.#ctor
+    arguments: []
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+references:
+- uid: Global
+  name: Global
+  nameWithType: Global
+  fullName: Global
+  nameWithType.vb: ''
+  fullName.vb: ''
+  name.vb: ''
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
