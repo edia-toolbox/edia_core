@@ -61,6 +61,7 @@ namespace eDIA {
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region EDIA XR RIG 
 
+		/// <summary> Get references to the XR camera and hands </summary>
 		void GetXRrigReferences () {
 			eDIA.XRrigUtilities.GetXRrigReferencesAsync();
 		}
@@ -228,6 +229,7 @@ namespace eDIA {
 #region TASK STATEMACHINE
 		//? Methods controlling the current trial
 
+		/// <summary> A task trial exists out of one of more `steps` </summary>
 		[System.Serializable]
 		public class TrialStep {
 			public string title;

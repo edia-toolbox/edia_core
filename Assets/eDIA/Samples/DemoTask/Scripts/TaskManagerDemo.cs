@@ -4,231 +4,230 @@ using UnityEngine;
 using UXF;
 using eDIA;
 
-/*
-	This is a DEMO script for a very simple task.
-	All main functionalities to run the Experiment, UXF and Trial statemachine are in TaskManagerBase so no need to worry about that.
+namespace TASK {
 
-	To start your own TaskManager for your experiment task: 
+		/// <summary>
+		/// This is a DEMO script for a very simple task.
+		/// All main functionalities to run the Experiment, UXF and Trial statemachine are in TaskManagerBase so no need to worry about that.<br/><br/>
+		/// <para>To start your own TaskManager for your experiment task: 
+		/// 1. Copy/Paste the complete 'DemoTask' folder from /eDIA/Samples to the /Assets/ folder in your project<br/>
+		/// 2. Rename the script file and class to your Taskname<br/>
+		/// 3. Switch the inspector to 'debug' mode (3 dots right topcorner)<br/>
+		/// 4. Find [ SYSTEM ] > [ EXP ] gameobject and replace 'TaskManagerDemo' script entry in the inspector with your TaskManager script and switch inspector mode back again</para>
+		/// </summary>
+		public class TaskManagerDemo : TaskManagerBase {
 
-	1. Copy/Paste the complete 'DemoTask' folder from /eDIA/Samples to the /Assets/ folder in your project
-	2. Rename the script file and class to your Taskname
-	3. Switch the inspector to 'debug' mode (3 dots right topcorner)
-	4. Find [ SYSTEM ] > [ EXP ] gameobject and replace 'TaskManagerDemo' script entry in the inspector with your TaskManager script and switch inspector mode back again
-
-*/
-
-	// USER TASK CONTROL
-	public class TaskManagerDemo : TaskManagerBase {
-
-		[Header(("Task related refs"))]
-		public GameObject theCube;
-		
-		private Coroutine moveRoutine = null;
+			[Header(("Task related refs"))]
+			public GameObject theCube;
+			
+			private Coroutine moveRoutine = null;
 
 #region MONO METHODS 
 
-		void OnDisable() {
-		}
+			void OnDisable() {
+			}
 
-		void OnDestroy() {
-		}
+			void OnDestroy() {
+			}
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region OVERRIDE INHERITED METHODS
-		public override void OnEnable() {
-			base.OnEnable(); //! Do not remove
+			public override void OnEnable() {
+				base.OnEnable(); //! Do not remove
 
-			// ---------------------------------------------------------------------------------------------
-			// Custom task related actions go down here ▼
+				// ---------------------------------------------------------------------------------------------
+				// Custom task related actions go down here ▼
 
-			// ..
-		}
-		
-		public override void Awake() {
-			base.Awake(); // Tries to get the references to the MainCamera, Right/LeftController transforms //! Do not remove
-		
-			// ---------------------------------------------------------------------------------------------
-			// Custom task related actions go down here ▼
+				// ..
+			}
+			
+			public override void Awake() {
+				base.Awake(); // Tries to get the references to the MainCamera, Right/LeftController transforms //! Do not remove
+			
+				// ---------------------------------------------------------------------------------------------
+				// Custom task related actions go down here ▼
 
-			// ..
-		}
+				// ..
+			}
 
-		public override void Start() {
-			base.Start(); //! Do not remove
+			public override void Start() {
+				base.Start(); //! Do not remove
 
-			TaskSequenceSteps();
+				TaskSequenceSteps();
 
-			// ---------------------------------------------------------------------------------------------
-			// Custom task related actions go down here ▼
+				// ---------------------------------------------------------------------------------------------
+				// Custom task related actions go down here ▼
 
-			// ..
-		}
+				// ..
+			}
 
-		public override void ResetTrial() {
-			base.ResetTrial(); //! Do not remove
+			public override void ResetTrial() {
+				base.ResetTrial(); //! Do not remove
 
-			// Add resetting of values for the start of a new trial here
-			// someValue = 0;
-		}
+				// Add resetting of values for the start of a new trial here
+				// someValue = 0;
+			}
 
-		public override void OnSessionEndUXF () {
-			base.OnSessionEndUXF(); //! Do not remove
+			public override void OnSessionEndUXF () {
+				base.OnSessionEndUXF(); //! Do not remove
 
-			// Add actions to do when session has ended, like showing message to the user
-			EventManager.TriggerEvent("EvShowMessage", new eParam("Session ended, logfiles saved"));
+				// Add actions to do when session has ended, like showing message to the user
+				EventManager.TriggerEvent("EvShowMessage", new eParam("Session ended, logfiles saved"));
 
-		}
+			}
 
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region EDIA XR RIG 
 
-		/// <summary>Setup rig with things we need for this task. </summary>
-		public override void OnEvFoundXRrigReferences(eParam e) {
-			base.OnEvFoundXRrigReferences(e); // Do system related hidden actions first
+			/// <summary>Setup rig with things we need for this task. </summary>
+			public override void OnEvFoundXRrigReferences(eParam e) {
+				base.OnEvFoundXRrigReferences(e); // Do system related hidden actions first
 
-			// ---------------------------------------------------------------------------------------------
-			// Custom task related actions go down here ▼
+				// ---------------------------------------------------------------------------------------------
+				// Custom task related actions go down here ▼
 
-		}
+			}
 
-		public void XRrigCleanUP () {
-			// Remove shizzle from XR rig that is only for this task
-		}
+			public void XRrigCleanUP () {
+				// Remove shizzle from XR rig that is only for this task
+			}
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region TASK STRUCTURE METHODS 
 
-		/// <summary>The steps the trial goes through</summary>
-		void TaskSequenceSteps() {
-			trialSequence.Add(new TrialStep("Present Cube", TaskStep1));
-			trialSequence.Add(new TrialStep("Move cube, wait on user input", TaskStep2));
-			trialSequence.Add(new TrialStep("Stop moving, change color", TaskStep3));
-			trialSequence.Add(new TrialStep("Wait ", TaskStep4));
-			//trialSequence.Add( new TrialStep("last step", TaskStepX) );
-			// etc
-		}
-
-		/// <summary>Present Cube</summary>
-		void TaskStep1() {
-			AddToLog("Step:" + (currentStep + 1) +" > " + trialSequence[currentStep].title);
-
-			theCube.gameObject.SetActive(true);
-			theCube.transform.position = new Vector3(0, XRrig_MainCamera.position.y, taskSettings.GetFloat("distanceCube"));
-
-			Invoke("NextStepFromUserOrSceneOrButtonOrTimerOrWhatever", taskSettings.GetFloat("timerShowCube"));
-		}
-		
-		/// <summary>Move cube, wait on user input</summary>
-		void TaskStep2() {
-			AddToLog("Step:" + (currentStep + 1) +" > " + trialSequence[currentStep].title);
-
-			if (moveRoutine == null) {
-				moveRoutine = StartCoroutine("MoveCube");
+			/// <summary>The steps the trial goes through</summary>
+			void TaskSequenceSteps() {
+				trialSequence.Add(new TrialStep("Present Cube", TaskStep1));
+				trialSequence.Add(new TrialStep("Move cube, wait on user input", TaskStep2));
+				trialSequence.Add(new TrialStep("Stop moving, change color", TaskStep3));
+				trialSequence.Add(new TrialStep("Wait ", TaskStep4));
+				//trialSequence.Add( new TrialStep("last step", TaskStepX) );
+				// etc
 			}
 
-			EventManager.StartListening("EvProceed", OnEvProceed); //! Continues to the next step
-			EventManager.TriggerEvent("EvShowMessage", new eParam("Click button to continue"));
-		}
+			/// <summary>Present Cube</summary>
+			void TaskStep1() {
+				AddToLog("Step:" + (currentStep + 1) +" > " + trialSequence[currentStep].title);
 
-		/// <summary>Stop moving, change color</summary>
-		void TaskStep3() {
-			AddToLog("Step:" + (currentStep + 1) +" > " + trialSequence[currentStep].title);
+				theCube.gameObject.SetActive(true);
+				theCube.transform.position = new Vector3(0, XRrig_MainCamera.position.y, taskSettings.GetFloat("distanceCube"));
 
-			if (moveRoutine != null) {
-				StopCoroutine(moveRoutine);
-				moveRoutine = null;
+				Invoke("NextStepFromUserOrSceneOrButtonOrTimerOrWhatever", taskSettings.GetFloat("timerShowCube"));
 			}
 			
-			Color newCol;
-			if (ColorUtility.TryParseHtmlString(taskSettings.GetStringList("cubeColors")[Session.instance.CurrentTrial.settings.GetInt("color")], out newCol))
-				theCube.GetComponent<MeshRenderer>().material.color = newCol;
-			else newCol = Color.magenta;
+			/// <summary>Move cube, wait on user input</summary>
+			void TaskStep2() {
+				AddToLog("Step:" + (currentStep + 1) +" > " + trialSequence[currentStep].title);
 
-			NextStepFromUserOrSceneOrButtonOrTimerOrWhatever();
-		}
+				if (moveRoutine == null) {
+					moveRoutine = StartCoroutine("MoveCube");
+				}
 
-		/// <summary>Wait</summary>
-		void TaskStep4() {
-			AddToLog("Step:" + (currentStep + 1) +" > " + trialSequence[currentStep].title);
+				EventManager.StartListening("EvProceed", OnEvProceed); //! Continues to the next step
+				EventManager.TriggerEvent("EvShowMessage", new eParam("Click button to continue"));
+			}
 
-			Invoke("NextStepFromUserOrSceneOrButtonOrTimerOrWhatever", taskSettings.GetFloat("timerWait")); 
-		}
+			/// <summary>Stop moving, change color</summary>
+			void TaskStep3() {
+				AddToLog("Step:" + (currentStep + 1) +" > " + trialSequence[currentStep].title);
 
-		/// <summary>Call this from your code to proceed to the next step</summary>
-		public void NextStepFromUserOrSceneOrButtonOrTimerOrWhatever() {
-			NextStep();
-		}
+				if (moveRoutine != null) {
+					StopCoroutine(moveRoutine);
+					moveRoutine = null;
+				}
+				
+				Color newCol;
+				if (ColorUtility.TryParseHtmlString(taskSettings.GetStringList("cubeColors")[Session.instance.CurrentTrial.settings.GetInt("color")], out newCol))
+					theCube.GetComponent<MeshRenderer>().material.color = newCol;
+				else newCol = Color.magenta;
+
+				NextStepFromUserOrSceneOrButtonOrTimerOrWhatever();
+			}
+
+			/// <summary>Wait</summary>
+			void TaskStep4() {
+				AddToLog("Step:" + (currentStep + 1) +" > " + trialSequence[currentStep].title);
+
+				Invoke("NextStepFromUserOrSceneOrButtonOrTimerOrWhatever", taskSettings.GetFloat("timerWait")); 
+			}
+
+			/// <summary>Call this from your code to proceed to the next step</summary>
+			public void NextStepFromUserOrSceneOrButtonOrTimerOrWhatever() {
+				NextStep();
+			}
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region HELPERS
-		/// <summary>Moves the cube up or down depending on the setting `direction` in the trial settings.</summary>
-		IEnumerator MoveCube () {
-			float increment = Session.instance.CurrentTrial.settings.GetInt("direction") == 1 ? 0.001f : -0.001f;
+			/// <summary>Moves the cube up or down depending on the setting `direction` in the trial settings.</summary>
+			IEnumerator MoveCube () {
+				float increment = Session.instance.CurrentTrial.settings.GetInt("direction") == 1 ? 0.001f : -0.001f;
 
-			while (true) {
-				theCube.transform.Translate(new Vector3(0, increment ,0), Space.World);
-				yield return new WaitForEndOfFrame();
+				while (true) {
+					theCube.transform.Translate(new Vector3(0, increment ,0), Space.World);
+					yield return new WaitForEndOfFrame();
+				}
 			}
-		}
 
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region SESSION START / END
-		
-		// Every Experiment has a START and an END event!!
-		// Use these to show an introduction at the start and a thank-you or score overview in the end. 
-		
-		/// <summary>Called from Experiment manager</summary>
-		public override void OnSessionStart() {
-			//! System awaits 'EvProceed' event automaticcaly to proceed to first trial. 
-			EventManager.TriggerEvent("EvShowMessage", new eParam("Welcome to the experiment, please click button to continue"));
+			
+			// Every Experiment has a START and an END event!!
+			// Use these to show an introduction at the start and a thank-you or score overview in the end. 
+			
+			/// <summary>Called from Experiment manager</summary>
+			public override void OnSessionStart() {
+				//! System awaits 'EvProceed' event automaticcaly to proceed to first trial. 
+				EventManager.TriggerEvent("EvShowMessage", new eParam("Welcome to the experiment, please click button to continue"));
 
-			// Add additional task specific settings to the UXF logging system
-			Session.instance.settings.SetValue("timerShowCube", taskSettings.GetFloat("timerShowCube"));
-			// etc
-		}
+				// Add additional task specific settings to the UXF logging system
+				Session.instance.settings.SetValue("timerShowCube", taskSettings.GetFloat("timerShowCube"));
+				// etc
+			}
 
-		/// <summary>Called from Experiment manager</summary>
-		public override void OnSessionEnding () {
-			//! System awaits 'EvProceed' event automaticcaly to proceed to finalizing session. 
-			EventManager.TriggerEvent("EvShowMessage", new eParam("Thank you for participating in the experiment, please click button to end this session"));
-		}
+			/// <summary>Called from Experiment manager</summary>
+			public override void OnSessionEnding () {
+				//! System awaits 'EvProceed' event automaticcaly to proceed to finalizing session. 
+				EventManager.TriggerEvent("EvShowMessage", new eParam("Thank you for participating in the experiment, please click button to end this session"));
+			}
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region BREAK
 
-		// If there is a BREAK in the experiment, these methods get called
-		public override void OnSessionBreak() {
-			//! System waits on 'EvProceed' event automaticaly to proceed
-			Debug.Log("<color=#ffffff> >>> Take a short break </color>");
-			EventManager.TriggerEvent("EvShowMessage", new eParam("Take a short break, \nClick button to continue"));
-			
-		}
+			// If there is a BREAK in the experiment, these methods get called
+			public override void OnSessionBreak() {
+				//! System waits on 'EvProceed' event automaticaly to proceed
+				Debug.Log("<color=#ffffff> >>> Take a short break </color>");
+				EventManager.TriggerEvent("EvShowMessage", new eParam("Take a short break, \nClick button to continue"));
+				
+			}
 
-		public override void OnSessionResume () {
-			Debug.Log("<color=#ffffff> >>> Resuming experiment </color>");
-			EventManager.TriggerEvent("EvShowMessage", new eParam("Resuming experiment"));
-		}
+			public override void OnSessionResume () {
+				Debug.Log("<color=#ffffff> >>> Resuming experiment </color>");
+				EventManager.TriggerEvent("EvShowMessage", new eParam("Resuming experiment"));
+			}
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region BLOCK INTRODUCTION
-		
-		// If there is a INTRODUCTION at the start at some block, these methods get called
-		// Use ExperimentManager.Instance.experimentConfig.GetBlockIntroduction(Session.instance.currentBlockNum) to get the text.
-		
-		/// <summary>Called when the block introduction starts</summary>
-		public override void OnBlockIntroduction() {
-			//! System waits on 'EvProceed' event automaticaly to proceed
+			
+			// If there is a INTRODUCTION at the start at some block, these methods get called
+			// Use ExperimentManager.Instance.experimentConfig.GetBlockIntroduction(Session.instance.currentBlockNum) to get the text.
+			
+			/// <summary>Called when the block introduction starts</summary>
+			public override void OnBlockIntroduction() {
+				//! System waits on 'EvProceed' event automaticaly to proceed
 
-			EventManager.TriggerEvent("EvShowMessage", new eParam(  ExperimentManager.Instance.experimentConfig.GetBlockIntroduction(Session.instance.currentBlockNum) ));
-			Debug.Log("<color=#ffffff> >>> "+ ExperimentManager.Instance.experimentConfig.GetBlockIntroduction(Session.instance.currentBlockNum) + "</color>");
-		}
+				EventManager.TriggerEvent("EvShowMessage", new eParam(  ExperimentManager.Instance.experimentConfig.GetBlockIntroduction(Session.instance.currentBlockNum) ));
+				Debug.Log("<color=#ffffff> >>> "+ ExperimentManager.Instance.experimentConfig.GetBlockIntroduction(Session.instance.currentBlockNum) + "</color>");
+			}
 
-		/// <summary>Called when block resumes</summary>
-		public override void OnBlockResume () {
+			/// <summary>Called when block resumes</summary>
+			public override void OnBlockResume () {
 
-		}
+			}
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 	}
+
+}

@@ -17,11 +17,15 @@ items:
   - eDIA.FileManager
   - eDIA.InputActionHandler
   - eDIA.LogUtilities
+  - eDIA.MainMenu
+  - eDIA.MainMenu.aScene
   - eDIA.NetworkComManager
   - eDIA.NetworkManager
   - eDIA.ProjectFileUtilities
   - eDIA.ReadOnlyAttribute
   - eDIA.ReadOnlyDrawer
+  - eDIA.ScreenFader
+  - eDIA.SystemManager
   - eDIA.TaskManagerBase
   - eDIA.TaskManagerBase.TaskSettingsContainer
   - eDIA.TaskManagerBase.TrialStep
@@ -130,6 +134,11 @@ references:
   name: ProjectFileUtilities
   nameWithType: ProjectFileUtilities
   fullName: eDIA.ProjectFileUtilities
+- uid: eDIA.ScreenFader
+  commentId: T:eDIA.ScreenFader
+  name: ScreenFader
+  nameWithType: ScreenFader
+  fullName: eDIA.ScreenFader
 - uid: eDIA.XRrigInitialiser
   commentId: T:eDIA.XRrigInitialiser
   name: XRrigInitialiser
@@ -140,6 +149,22 @@ references:
   name: XRrigUtilities
   nameWithType: XRrigUtilities
   fullName: eDIA.XRrigUtilities
+- uid: eDIA.MainMenu
+  commentId: T:eDIA.MainMenu
+  name: MainMenu
+  nameWithType: MainMenu
+  fullName: eDIA.MainMenu
+- uid: eDIA.MainMenu.aScene
+  commentId: T:eDIA.MainMenu.aScene
+  name: MainMenu.aScene
+  nameWithType: MainMenu.aScene
+  fullName: eDIA.MainMenu.aScene
+- uid: eDIA.SystemManager
+  commentId: T:eDIA.SystemManager
+  parent: eDIA
+  name: SystemManager
+  nameWithType: SystemManager
+  fullName: eDIA.SystemManager
 - uid: eDIA.CommentEditor
   commentId: T:eDIA.CommentEditor
   name: CommentEditor

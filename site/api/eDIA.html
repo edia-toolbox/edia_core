@@ -98,7 +98,8 @@
       <h4><a class="xref" href="eDIA.EventManager.html">EventManager</a></h4>
       <section></section>
       <h4><a class="xref" href="eDIA.ExperimentManager.html">ExperimentManager</a></h4>
-      <section></section>
+      <section><p>Core manager of the experiment. Singleton so available throughout the system. </p>
+</section>
       <h4><a class="xref" href="eDIA.ExperimentManager.ExperimentConfig.html">ExperimentManager.ExperimentConfig</a></h4>
       <section><p>Main container to store sessions config, either from disk, editor or network </p>
 </section>
@@ -117,6 +118,13 @@
       <section></section>
       <h4><a class="xref" href="eDIA.LogUtilities.html">LogUtilities</a></h4>
       <section></section>
+      <h4><a class="xref" href="eDIA.MainMenu.html">MainMenu</a></h4>
+      <section><p>Main menu can be openen in the app with the action &apos;Menu&apos;
+It generates a list of scenes (which are tasks) and the default &apos;continue&apos; and &apos;quit&apos; option</p>
+</section>
+      <h4><a class="xref" href="eDIA.MainMenu.aScene.html">MainMenu.aScene</a></h4>
+      <section><p>A scene menuitem container</p>
+</section>
       <h4><a class="xref" href="eDIA.NetworkComManager.html">NetworkComManager</a></h4>
       <section></section>
       <h4><a class="xref" href="eDIA.NetworkManager.html">NetworkManager</a></h4>
@@ -128,12 +136,22 @@
       <h4><a class="xref" href="eDIA.ReadOnlyDrawer.html">ReadOnlyDrawer</a></h4>
       <section><p>This class contain custom drawer for ReadOnly attribute.</p>
 </section>
+      <h4><a class="xref" href="eDIA.ScreenFader.html">ScreenFader</a></h4>
+      <section><p>Handles fading the camera view </p>
+</section>
+      <h4><a class="xref" href="eDIA.SystemManager.html">SystemManager</a></h4>
+      <section><p>The SystemManager is a Singleton and therefor reachable from whatever script.
+The script travels along the scenes that are loaded as it is DontDestroyOnLoad. 
+Responsible for loading/unloading, user related actions, top level application stuff.
+Has references to the XR rig camera and hands for the rest of the application.</p>
+</section>
       <h4><a class="xref" href="eDIA.TaskManagerBase.html">TaskManagerBase</a></h4>
       <section></section>
       <h4><a class="xref" href="eDIA.TaskManagerBase.TaskSettingsContainer.html">TaskManagerBase.TaskSettingsContainer</a></h4>
       <section></section>
       <h4><a class="xref" href="eDIA.TaskManagerBase.TrialStep.html">TaskManagerBase.TrialStep</a></h4>
-      <section></section>
+      <section><p>A task trial exists out of one of more <code>steps</code> </p>
+</section>
       <h4><a class="xref" href="eDIA.XRrigInitialiser.html">XRrigInitialiser</a></h4>
       <section></section>
       <h4><a class="xref" href="eDIA.XRrigUtilities.html">XRrigUtilities</a></h4>

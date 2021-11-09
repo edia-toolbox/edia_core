@@ -28,6 +28,10 @@
     name: InputActionHandler
   - uid: eDIA.LogUtilities
     name: LogUtilities
+  - uid: eDIA.MainMenu
+    name: MainMenu
+  - uid: eDIA.MainMenu.aScene
+    name: MainMenu.aScene
   - uid: eDIA.NetworkComManager
     name: NetworkComManager
   - uid: eDIA.NetworkManager
@@ -38,6 +42,10 @@
     name: ReadOnlyAttribute
   - uid: eDIA.ReadOnlyDrawer
     name: ReadOnlyDrawer
+  - uid: eDIA.ScreenFader
+    name: ScreenFader
+  - uid: eDIA.SystemManager
+    name: SystemManager
   - uid: eDIA.TaskManagerBase
     name: TaskManagerBase
   - uid: eDIA.TaskManagerBase.TaskSettingsContainer
@@ -90,10 +98,6 @@
     name: Indicator
   - uid: Global.InspectorButtonAttribute
     name: InspectorButtonAttribute
-  - uid: Global.MainMenu
-    name: MainMenu
-  - uid: Global.MainMenu.aScene
-    name: MainMenu.aScene
   - uid: Global.Notes
     name: Notes
   - uid: Global.OffsetGrab
@@ -104,21 +108,20 @@
     name: ReadOnlyDrawer
   - uid: Global.Rotate
     name: Rotate
-  - uid: Global.ScreenFader
-    name: ScreenFader
   - uid: Global.Singleton`1
     name: Singleton<T>
     name.vb: Singleton(Of T)
   - uid: Global.StringEvent
     name: StringEvent
-  - uid: Global.SystemManager
-    name: SystemManager
   - uid: Global.TaskInputActionHandler
     name: TaskInputActionHandler
-  - uid: Global.TaskManagerDemo
-    name: TaskManagerDemo
-  - uid: Global.TaskManagerTemplate
-    name: TaskManagerTemplate
-  - uid: Global.UserMessageHandler
-    name: UserMessageHandler
   name.vb: ''
+- uid: TASK
+  name: TASK
+  items:
+  - uid: TASK.TaskManagerDemo
+    name: TaskManagerDemo
+  - uid: TASK.TaskManagerTemplate
+    name: TaskManagerTemplate
+  - uid: TASK.UserMessageHandler
+    name: UserMessageHandler

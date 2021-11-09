@@ -1,25 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using TMPro;
 using eDIA;
+using TMPro;
+using UnityEngine;
 
-public class UserMessageHandler : MonoBehaviour
-{
-    public TextMeshProUGUI msgField = null;
+namespace TASK {
 
-    void Start() {
-        EventManager.StartListening("EvShowMessage", OnEvShowMessage);
-    }
+	/// <summary>
+	/// Sample script to show the user a message in VR canvas
+	/// </summary>
+	public class UserMessageHandler : MonoBehaviour {
+		public TextMeshProUGUI msgField = null;
 
-    void OnDestroy() {
-        EventManager.StopListening("EvShowMessage", OnEvShowMessage);
-    }    
-    
-    public void OnEvShowMessage (eParam e) {
-        if (msgField == null) 
-            return;
+		void Start () {
+			EventManager.StartListening ("EvShowMessage", OnEvShowMessage);
+		}
 
-        msgField.text = e.GetString();
-    }
+		void OnDestroy () {
+			EventManager.StopListening ("EvShowMessage", OnEvShowMessage);
+		}
+
+		public void OnEvShowMessage (eParam e) {
+			if (msgField == null)
+				return;
+
+			msgField.text = e.GetString ();
+		}
+	}
 }

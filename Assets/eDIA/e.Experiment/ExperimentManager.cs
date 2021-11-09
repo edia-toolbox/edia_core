@@ -12,6 +12,7 @@ namespace eDIA {
 
 #region DECLARATIONS
 
+	/// <summary> Core manager of the experiment. Singleton so available throughout the system. </summary>
 	public class ExperimentManager : Singleton<ExperimentManager> {
 
 		// ---

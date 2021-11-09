@@ -1,0 +1,547 @@
+### YamlMime:ManagedReference
+items:
+- uid: TASK.TaskManagerTemplate
+  commentId: T:TASK.TaskManagerTemplate
+  id: TaskManagerTemplate
+  parent: TASK
+  children:
+  - TASK.TaskManagerTemplate.Awake
+  - TASK.TaskManagerTemplate.NextStepFromUserOrSceneOrButtonOrTimerOrWhatever
+  - TASK.TaskManagerTemplate.OnBlockIntroduction
+  - TASK.TaskManagerTemplate.OnBlockResume
+  - TASK.TaskManagerTemplate.OnEnable
+  - TASK.TaskManagerTemplate.OnEvFoundXRrigReferences(eParam)
+  - TASK.TaskManagerTemplate.OnSessionBreak
+  - TASK.TaskManagerTemplate.OnSessionEnding
+  - TASK.TaskManagerTemplate.OnSessionEndUXF
+  - TASK.TaskManagerTemplate.OnSessionResume
+  - TASK.TaskManagerTemplate.OnSessionStart
+  - TASK.TaskManagerTemplate.ResetTrial
+  - TASK.TaskManagerTemplate.Start
+  - TASK.TaskManagerTemplate.XRrigCleanUP
+  langs:
+  - csharp
+  - vb
+  name: TaskManagerTemplate
+  nameWithType: TaskManagerTemplate
+  fullName: TASK.TaskManagerTemplate
+  type: Class
+  source:
+    id: TaskManagerTemplate
+    path: ''
+    startLine: 1169
+  assemblies:
+  - cs.temp.dll
+  namespace: TASK
+  summary: "\nThis is a DEMO script for a very simple task.\nAll main functionalities to run the Experiment, UXF and Trial statemachine are in TaskManagerBase so no need to worry about that.<br /><br />\n<p>To start your own TaskManager for your experiment task: \n1. Copy/Paste the complete &apos;DemoTask&apos; folder from /eDIA/Samples to the /Assets/ folder in your project<br />\n2. Rename the script file and class to your Taskname<br />\n3. Switch the inspector to &apos;debug&apos; mode (3 dots right topcorner)<br />\n4. Find [ SYSTEM ] > [ EXP ] gameobject and replace &apos;TaskManagerDemo&apos; script entry in the inspector with your TaskManager script and switch inspector mode back again</p>\n"
+  example: []
+  syntax:
+    content: 'public class TaskManagerTemplate : TaskManagerBase'
+    content.vb: >-
+      Public Class TaskManagerTemplate
+          Inherits TaskManagerBase
+  inheritance:
+  - System.Object
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+- uid: TASK.TaskManagerTemplate.OnEnable
+  commentId: M:TASK.TaskManagerTemplate.OnEnable
+  id: OnEnable
+  parent: TASK.TaskManagerTemplate
+  langs:
+  - csharp
+  - vb
+  name: OnEnable()
+  nameWithType: TaskManagerTemplate.OnEnable()
+  fullName: TASK.TaskManagerTemplate.OnEnable()
+  type: Method
+  source:
+    id: OnEnable
+    path: ''
+    startLine: 1181
+  assemblies:
+  - cs.temp.dll
+  namespace: TASK
+  syntax:
+    content: public override void OnEnable()
+    content.vb: Public Overrides Sub OnEnable
+  overload: TASK.TaskManagerTemplate.OnEnable*
+  modifiers.csharp:
+  - public
+  - override
+  modifiers.vb:
+  - Public
+  - Overrides
+- uid: TASK.TaskManagerTemplate.Awake
+  commentId: M:TASK.TaskManagerTemplate.Awake
+  id: Awake
+  parent: TASK.TaskManagerTemplate
+  langs:
+  - csharp
+  - vb
+  name: Awake()
+  nameWithType: TaskManagerTemplate.Awake()
+  fullName: TASK.TaskManagerTemplate.Awake()
+  type: Method
+  source:
+    id: Awake
+    path: ''
+    startLine: 1190
+  assemblies:
+  - cs.temp.dll
+  namespace: TASK
+  syntax:
+    content: public override void Awake()
+    content.vb: Public Overrides Sub Awake
+  overload: TASK.TaskManagerTemplate.Awake*
+  modifiers.csharp:
+  - public
+  - override
+  modifiers.vb:
+  - Public
+  - Overrides
+- uid: TASK.TaskManagerTemplate.Start
+  commentId: M:TASK.TaskManagerTemplate.Start
+  id: Start
+  parent: TASK.TaskManagerTemplate
+  langs:
+  - csharp
+  - vb
+  name: Start()
+  nameWithType: TaskManagerTemplate.Start()
+  fullName: TASK.TaskManagerTemplate.Start()
+  type: Method
+  source:
+    id: Start
+    path: ''
+    startLine: 1199
+  assemblies:
+  - cs.temp.dll
+  namespace: TASK
+  syntax:
+    content: public override void Start()
+    content.vb: Public Overrides Sub Start
+  overload: TASK.TaskManagerTemplate.Start*
+  modifiers.csharp:
+  - public
+  - override
+  modifiers.vb:
+  - Public
+  - Overrides
+- uid: TASK.TaskManagerTemplate.ResetTrial
+  commentId: M:TASK.TaskManagerTemplate.ResetTrial
+  id: ResetTrial
+  parent: TASK.TaskManagerTemplate
+  langs:
+  - csharp
+  - vb
+  name: ResetTrial()
+  nameWithType: TaskManagerTemplate.ResetTrial()
+  fullName: TASK.TaskManagerTemplate.ResetTrial()
+  type: Method
+  source:
+    id: ResetTrial
+    path: ''
+    startLine: 1210
+  assemblies:
+  - cs.temp.dll
+  namespace: TASK
+  syntax:
+    content: public override void ResetTrial()
+    content.vb: Public Overrides Sub ResetTrial
+  overload: TASK.TaskManagerTemplate.ResetTrial*
+  modifiers.csharp:
+  - public
+  - override
+  modifiers.vb:
+  - Public
+  - Overrides
+- uid: TASK.TaskManagerTemplate.OnSessionEndUXF
+  commentId: M:TASK.TaskManagerTemplate.OnSessionEndUXF
+  id: OnSessionEndUXF
+  parent: TASK.TaskManagerTemplate
+  langs:
+  - csharp
+  - vb
+  name: OnSessionEndUXF()
+  nameWithType: TaskManagerTemplate.OnSessionEndUXF()
+  fullName: TASK.TaskManagerTemplate.OnSessionEndUXF()
+  type: Method
+  source:
+    id: OnSessionEndUXF
+    path: ''
+    startLine: 1217
+  assemblies:
+  - cs.temp.dll
+  namespace: TASK
+  syntax:
+    content: public override void OnSessionEndUXF()
+    content.vb: Public Overrides Sub OnSessionEndUXF
+  overload: TASK.TaskManagerTemplate.OnSessionEndUXF*
+  modifiers.csharp:
+  - public
+  - override
+  modifiers.vb:
+  - Public
+  - Overrides
+- uid: TASK.TaskManagerTemplate.OnEvFoundXRrigReferences(eParam)
+  commentId: M:TASK.TaskManagerTemplate.OnEvFoundXRrigReferences(eParam)
+  id: OnEvFoundXRrigReferences(eParam)
+  parent: TASK.TaskManagerTemplate
+  langs:
+  - csharp
+  - vb
+  name: OnEvFoundXRrigReferences(eParam)
+  nameWithType: TaskManagerTemplate.OnEvFoundXRrigReferences(eParam)
+  fullName: TASK.TaskManagerTemplate.OnEvFoundXRrigReferences(eParam)
+  type: Method
+  source:
+    id: OnEvFoundXRrigReferences
+    path: ''
+    startLine: 1228
+  assemblies:
+  - cs.temp.dll
+  namespace: TASK
+  summary: 'Setup rig with things we need for this task. '
+  example: []
+  syntax:
+    content: public override void OnEvFoundXRrigReferences(eParam e)
+    parameters:
+    - id: e
+      type: Global.eParam
+    content.vb: Public Overrides Sub OnEvFoundXRrigReferences(e As eParam)
+  overload: TASK.TaskManagerTemplate.OnEvFoundXRrigReferences*
+  modifiers.csharp:
+  - public
+  - override
+  modifiers.vb:
+  - Public
+  - Overrides
+- uid: TASK.TaskManagerTemplate.XRrigCleanUP
+  commentId: M:TASK.TaskManagerTemplate.XRrigCleanUP
+  id: XRrigCleanUP
+  parent: TASK.TaskManagerTemplate
+  langs:
+  - csharp
+  - vb
+  name: XRrigCleanUP()
+  nameWithType: TaskManagerTemplate.XRrigCleanUP()
+  fullName: TASK.TaskManagerTemplate.XRrigCleanUP()
+  type: Method
+  source:
+    id: XRrigCleanUP
+    path: ''
+    startLine: 1236
+  assemblies:
+  - cs.temp.dll
+  namespace: TASK
+  syntax:
+    content: public void XRrigCleanUP()
+    content.vb: Public Sub XRrigCleanUP
+  overload: TASK.TaskManagerTemplate.XRrigCleanUP*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: TASK.TaskManagerTemplate.NextStepFromUserOrSceneOrButtonOrTimerOrWhatever
+  commentId: M:TASK.TaskManagerTemplate.NextStepFromUserOrSceneOrButtonOrTimerOrWhatever
+  id: NextStepFromUserOrSceneOrButtonOrTimerOrWhatever
+  parent: TASK.TaskManagerTemplate
+  langs:
+  - csharp
+  - vb
+  name: NextStepFromUserOrSceneOrButtonOrTimerOrWhatever()
+  nameWithType: TaskManagerTemplate.NextStepFromUserOrSceneOrButtonOrTimerOrWhatever()
+  fullName: TASK.TaskManagerTemplate.NextStepFromUserOrSceneOrButtonOrTimerOrWhatever()
+  type: Method
+  source:
+    id: NextStepFromUserOrSceneOrButtonOrTimerOrWhatever
+    path: ''
+    startLine: 1268
+  assemblies:
+  - cs.temp.dll
+  namespace: TASK
+  summary: Call this from you code to proceed to the next step
+  example: []
+  syntax:
+    content: public void NextStepFromUserOrSceneOrButtonOrTimerOrWhatever()
+    content.vb: Public Sub NextStepFromUserOrSceneOrButtonOrTimerOrWhatever
+  overload: TASK.TaskManagerTemplate.NextStepFromUserOrSceneOrButtonOrTimerOrWhatever*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: TASK.TaskManagerTemplate.OnSessionStart
+  commentId: M:TASK.TaskManagerTemplate.OnSessionStart
+  id: OnSessionStart
+  parent: TASK.TaskManagerTemplate
+  langs:
+  - csharp
+  - vb
+  name: OnSessionStart()
+  nameWithType: TaskManagerTemplate.OnSessionStart()
+  fullName: TASK.TaskManagerTemplate.OnSessionStart()
+  type: Method
+  source:
+    id: OnSessionStart
+    path: ''
+    startLine: 1291
+  assemblies:
+  - cs.temp.dll
+  namespace: TASK
+  summary: Called from Experiment manager
+  example: []
+  syntax:
+    content: public override void OnSessionStart()
+    content.vb: Public Overrides Sub OnSessionStart
+  overload: TASK.TaskManagerTemplate.OnSessionStart*
+  modifiers.csharp:
+  - public
+  - override
+  modifiers.vb:
+  - Public
+  - Overrides
+- uid: TASK.TaskManagerTemplate.OnSessionEnding
+  commentId: M:TASK.TaskManagerTemplate.OnSessionEnding
+  id: OnSessionEnding
+  parent: TASK.TaskManagerTemplate
+  langs:
+  - csharp
+  - vb
+  name: OnSessionEnding()
+  nameWithType: TaskManagerTemplate.OnSessionEnding()
+  fullName: TASK.TaskManagerTemplate.OnSessionEnding()
+  type: Method
+  source:
+    id: OnSessionEnding
+    path: ''
+    startLine: 1299
+  assemblies:
+  - cs.temp.dll
+  namespace: TASK
+  summary: Called from Experiment manager
+  example: []
+  syntax:
+    content: public override void OnSessionEnding()
+    content.vb: Public Overrides Sub OnSessionEnding
+  overload: TASK.TaskManagerTemplate.OnSessionEnding*
+  modifiers.csharp:
+  - public
+  - override
+  modifiers.vb:
+  - Public
+  - Overrides
+- uid: TASK.TaskManagerTemplate.OnSessionBreak
+  commentId: M:TASK.TaskManagerTemplate.OnSessionBreak
+  id: OnSessionBreak
+  parent: TASK.TaskManagerTemplate
+  langs:
+  - csharp
+  - vb
+  name: OnSessionBreak()
+  nameWithType: TaskManagerTemplate.OnSessionBreak()
+  fullName: TASK.TaskManagerTemplate.OnSessionBreak()
+  type: Method
+  source:
+    id: OnSessionBreak
+    path: ''
+    startLine: 1309
+  assemblies:
+  - cs.temp.dll
+  namespace: TASK
+  syntax:
+    content: public override void OnSessionBreak()
+    content.vb: Public Overrides Sub OnSessionBreak
+  overload: TASK.TaskManagerTemplate.OnSessionBreak*
+  modifiers.csharp:
+  - public
+  - override
+  modifiers.vb:
+  - Public
+  - Overrides
+- uid: TASK.TaskManagerTemplate.OnSessionResume
+  commentId: M:TASK.TaskManagerTemplate.OnSessionResume
+  id: OnSessionResume
+  parent: TASK.TaskManagerTemplate
+  langs:
+  - csharp
+  - vb
+  name: OnSessionResume()
+  nameWithType: TaskManagerTemplate.OnSessionResume()
+  fullName: TASK.TaskManagerTemplate.OnSessionResume()
+  type: Method
+  source:
+    id: OnSessionResume
+    path: ''
+    startLine: 1313
+  assemblies:
+  - cs.temp.dll
+  namespace: TASK
+  syntax:
+    content: public override void OnSessionResume()
+    content.vb: Public Overrides Sub OnSessionResume
+  overload: TASK.TaskManagerTemplate.OnSessionResume*
+  modifiers.csharp:
+  - public
+  - override
+  modifiers.vb:
+  - Public
+  - Overrides
+- uid: TASK.TaskManagerTemplate.OnBlockIntroduction
+  commentId: M:TASK.TaskManagerTemplate.OnBlockIntroduction
+  id: OnBlockIntroduction
+  parent: TASK.TaskManagerTemplate
+  langs:
+  - csharp
+  - vb
+  name: OnBlockIntroduction()
+  nameWithType: TaskManagerTemplate.OnBlockIntroduction()
+  fullName: TASK.TaskManagerTemplate.OnBlockIntroduction()
+  type: Method
+  source:
+    id: OnBlockIntroduction
+    path: ''
+    startLine: 1325
+  assemblies:
+  - cs.temp.dll
+  namespace: TASK
+  summary: Called when the block introduction starts
+  example: []
+  syntax:
+    content: public override void OnBlockIntroduction()
+    content.vb: Public Overrides Sub OnBlockIntroduction
+  overload: TASK.TaskManagerTemplate.OnBlockIntroduction*
+  modifiers.csharp:
+  - public
+  - override
+  modifiers.vb:
+  - Public
+  - Overrides
+- uid: TASK.TaskManagerTemplate.OnBlockResume
+  commentId: M:TASK.TaskManagerTemplate.OnBlockResume
+  id: OnBlockResume
+  parent: TASK.TaskManagerTemplate
+  langs:
+  - csharp
+  - vb
+  name: OnBlockResume()
+  nameWithType: TaskManagerTemplate.OnBlockResume()
+  fullName: TASK.TaskManagerTemplate.OnBlockResume()
+  type: Method
+  source:
+    id: OnBlockResume
+    path: ''
+    startLine: 1331
+  assemblies:
+  - cs.temp.dll
+  namespace: TASK
+  summary: Called when block resumes
+  example: []
+  syntax:
+    content: public override void OnBlockResume()
+    content.vb: Public Overrides Sub OnBlockResume
+  overload: TASK.TaskManagerTemplate.OnBlockResume*
+  modifiers.csharp:
+  - public
+  - override
+  modifiers.vb:
+  - Public
+  - Overrides
+references:
+- uid: TASK
+  commentId: N:TASK
+  name: TASK
+  nameWithType: TASK
+  fullName: TASK
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: TASK.TaskManagerTemplate.OnEnable*
+  commentId: Overload:TASK.TaskManagerTemplate.OnEnable
+  name: OnEnable
+  nameWithType: TaskManagerTemplate.OnEnable
+  fullName: TASK.TaskManagerTemplate.OnEnable
+- uid: TASK.TaskManagerTemplate.Awake*
+  commentId: Overload:TASK.TaskManagerTemplate.Awake
+  name: Awake
+  nameWithType: TaskManagerTemplate.Awake
+  fullName: TASK.TaskManagerTemplate.Awake
+- uid: TASK.TaskManagerTemplate.Start*
+  commentId: Overload:TASK.TaskManagerTemplate.Start
+  name: Start
+  nameWithType: TaskManagerTemplate.Start
+  fullName: TASK.TaskManagerTemplate.Start
+- uid: TASK.TaskManagerTemplate.ResetTrial*
+  commentId: Overload:TASK.TaskManagerTemplate.ResetTrial
+  name: ResetTrial
+  nameWithType: TaskManagerTemplate.ResetTrial
+  fullName: TASK.TaskManagerTemplate.ResetTrial
+- uid: TASK.TaskManagerTemplate.OnSessionEndUXF*
+  commentId: Overload:TASK.TaskManagerTemplate.OnSessionEndUXF
+  name: OnSessionEndUXF
+  nameWithType: TaskManagerTemplate.OnSessionEndUXF
+  fullName: TASK.TaskManagerTemplate.OnSessionEndUXF
+- uid: TASK.TaskManagerTemplate.OnEvFoundXRrigReferences*
+  commentId: Overload:TASK.TaskManagerTemplate.OnEvFoundXRrigReferences
+  name: OnEvFoundXRrigReferences
+  nameWithType: TaskManagerTemplate.OnEvFoundXRrigReferences
+  fullName: TASK.TaskManagerTemplate.OnEvFoundXRrigReferences
+- uid: Global.eParam
+  isExternal: true
+  name: eParam
+  nameWithType: eParam
+  fullName: eParam
+- uid: TASK.TaskManagerTemplate.XRrigCleanUP*
+  commentId: Overload:TASK.TaskManagerTemplate.XRrigCleanUP
+  name: XRrigCleanUP
+  nameWithType: TaskManagerTemplate.XRrigCleanUP
+  fullName: TASK.TaskManagerTemplate.XRrigCleanUP
+- uid: TASK.TaskManagerTemplate.NextStepFromUserOrSceneOrButtonOrTimerOrWhatever*
+  commentId: Overload:TASK.TaskManagerTemplate.NextStepFromUserOrSceneOrButtonOrTimerOrWhatever
+  name: NextStepFromUserOrSceneOrButtonOrTimerOrWhatever
+  nameWithType: TaskManagerTemplate.NextStepFromUserOrSceneOrButtonOrTimerOrWhatever
+  fullName: TASK.TaskManagerTemplate.NextStepFromUserOrSceneOrButtonOrTimerOrWhatever
+- uid: TASK.TaskManagerTemplate.OnSessionStart*
+  commentId: Overload:TASK.TaskManagerTemplate.OnSessionStart
+  name: OnSessionStart
+  nameWithType: TaskManagerTemplate.OnSessionStart
+  fullName: TASK.TaskManagerTemplate.OnSessionStart
+- uid: TASK.TaskManagerTemplate.OnSessionEnding*
+  commentId: Overload:TASK.TaskManagerTemplate.OnSessionEnding
+  name: OnSessionEnding
+  nameWithType: TaskManagerTemplate.OnSessionEnding
+  fullName: TASK.TaskManagerTemplate.OnSessionEnding
+- uid: TASK.TaskManagerTemplate.OnSessionBreak*
+  commentId: Overload:TASK.TaskManagerTemplate.OnSessionBreak
+  name: OnSessionBreak
+  nameWithType: TaskManagerTemplate.OnSessionBreak
+  fullName: TASK.TaskManagerTemplate.OnSessionBreak
+- uid: TASK.TaskManagerTemplate.OnSessionResume*
+  commentId: Overload:TASK.TaskManagerTemplate.OnSessionResume
+  name: OnSessionResume
+  nameWithType: TaskManagerTemplate.OnSessionResume
+  fullName: TASK.TaskManagerTemplate.OnSessionResume
+- uid: TASK.TaskManagerTemplate.OnBlockIntroduction*
+  commentId: Overload:TASK.TaskManagerTemplate.OnBlockIntroduction
+  name: OnBlockIntroduction
+  nameWithType: TaskManagerTemplate.OnBlockIntroduction
+  fullName: TASK.TaskManagerTemplate.OnBlockIntroduction
+- uid: TASK.TaskManagerTemplate.OnBlockResume*
+  commentId: Overload:TASK.TaskManagerTemplate.OnBlockResume
+  name: OnBlockResume
+  nameWithType: TaskManagerTemplate.OnBlockResume
+  fullName: TASK.TaskManagerTemplate.OnBlockResume
