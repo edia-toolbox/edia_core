@@ -19,7 +19,7 @@ namespace eDIA {
 		public bool showLog = false;
 		public Color taskColor = Color.green;
 
-		/// <summary> Tuple of strings, using this as this is serializable in the inspector and dictionaries are not</summary>
+		/// <summary> Tuple of strings. Serializable in the inspector and dictionaries are not</summary>
 		[System.Serializable]
 		public class SettingsTuple {
 			[HideInInspector]
@@ -27,18 +27,18 @@ namespace eDIA {
 			public string value 	= string.Empty;
 		}
 
-		/// <summary> Temp storage of a list of string to use in another class to generate a two dimensional array basically</summary>
+		/// <summary> Stringlist with trial setting values</summary>
 		[System.Serializable]
 		public class TrialSequenceValues {
 			public List<string> values = new List<string>();
 		}
 
-		/// <summary> containerfor (de)serializing a list to JSON</summary>
+		/// <summary> Container for (de)serializing a list to JSON</summary>
 		public class TrialSequenceValuesContainer {
 			public List<TrialSequenceValues> trialSequenceValues = new List<TrialSequenceValues>();
 		}
 
-		/// <summary> Main container to store sessions config in, either from disk, editor or network </summary>
+		/// <summary> Main container to store sessions config, either from disk, editor or network </summary>
 		[System.Serializable]
 		public class ExperimentConfig {
 			public string				experiment			= string.Empty;
@@ -52,6 +52,9 @@ namespace eDIA {
 			public List<string> 			trialSequenceKeys 	= new List<string>();
 			public List<TrialSequenceValues> 	trialSequenceValues 	= new List<TrialSequenceValues>();
 
+			/// <summary>Does the given block have a introduction text defined </summary>
+			/// <param name="_blockNumber"></param>
+			/// <returns>Boolean True if any</returns>
 			public bool hasBlockIntroduction (int _blockNumber) {
 				bool itDoes = false;
 
@@ -63,6 +66,9 @@ namespace eDIA {
 				return itDoes;
 			}
 
+			/// <summary> Get the string value for blockintroduction of given blocknumber</summary>
+			/// <param name="_blockNumber"></param>
+			/// <returns>Introduction text as string</returns>
 			public string GetBlockIntroduction (int _blockNumber) {
 				string msg = "NO DATA FOUND";
 				foreach (SettingsTuple s in blockInstructions)
@@ -167,10 +173,12 @@ namespace eDIA {
 			}
 		}
 
+		/// <summary> Setting trial sequence by calling UXF sequence generation </summary>
 		void SetTrialSequence () {
 			GenerateUXFSequence(experimentConfig.trialSequenceKeys, experimentConfig.trialSequenceValues); // Generate sequence for UXF
 		}
 
+		/// <summary>Event listener to start the experiment</summary>
 		void OnEvStartExperiment (eParam e) {
 			EventManager.StopListening("EvStartExperiment", OnEvStartExperiment);
 			StartExperiment ();
@@ -365,6 +373,8 @@ namespace eDIA {
 
 #endregion	// -------------------------------------------------------------------------------------------------------------------------------
 #region MISC	
+		/// <summary> Add to experiment execution log. Auto inserts timestamp. </summary>
+		/// <param name="description"></param>
 		private void AddToExecutionOrderLog (string description) {
 			UXF.UXFDataRow newRow = new UXFDataRow();
 			newRow.Add(("start_time", Time.time)); // Log timestamp

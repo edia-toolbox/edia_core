@@ -1,19 +1,16 @@
 # README.md
 
-Testing md for projects readme
+Main eDIA framework used for developing XR based scientific experiments in the Unity3D game engine.
 
----
+# NOTE
 
-I love supporting the **[EFF](https://eff.org)**.
-This is the *[Markdown Guide](https://www.markdownguide.org)*.
-See the section on [`code`](#code).
+⚠️ This is not the package to import into your unity project.!
+This is the source off the **eDIA framework** package. How to install that package in Unity using the package manager can be found here <insert link> 
 
+## Dependencies
 
-1. first item
-2. second
-3. third
-    1. jump
-    2. inside
-4. fourth
+- [UXF framework](https://github.com/immersivecognition/unity-experiment-framework)
 
-Italicized text is the *cat's meow*.
+## Howto
+
+GIT readme file .md export test
