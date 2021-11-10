@@ -4,9 +4,14 @@ using UnityEngine;
 using UXF;
 using System; // needed for <action> 
 using System.Linq;
+using eDIA.EditorUtils;
 
 namespace eDIA {
 
+	/// <summary>
+	/// Link between <c>ExperimentManager</c> and the custom user task. <br/>
+	/// Hidden base where the custom task template is build upon.
+	/// </summary>
 	public class TaskManagerBase : MonoBehaviour {
 
 #region DECLARATIONS
@@ -14,12 +19,16 @@ namespace eDIA {
 		public bool showLog = false;
 		public Color taskColor = Color.yellow;
 
+		/// <summary>
+		/// Each task has it's own settings. <br/>
+		/// Container to deserialize the <c>TaskSettings.json</c> file in
+		/// </summary>
 		[System.Serializable]
 		public class TaskSettingsContainer { 
 			public List<ExperimentManager.SettingsTuple> taskSettings = new List<ExperimentManager.SettingsTuple>();
 		}
 		
-		public TaskSettingsContainer taskSettingsContainer;
+		TaskSettingsContainer taskSettingsContainer;
 		public UXF.Settings taskSettings = new Settings();
 
 		// XR RIG
@@ -283,7 +292,7 @@ namespace eDIA {
 
 		public void AddToLog(string _msg) {
 			if (showLog)
-				eDIA.LogUtilities.AddToLog(_msg, "TASK", taskColor);
+				LogUtilities.AddToLog(_msg, "TASK", taskColor);
 		}
 		
 

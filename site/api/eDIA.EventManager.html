@@ -16,13 +16,13 @@
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
     <link rel="stylesheet" href="../styles/docfx.css">
     <link rel="stylesheet" href="../styles/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
     <meta property="docfx:navrel" content="../toc.html">
     <meta property="docfx:tocrel" content="toc.html">
     
     <meta property="docfx:rel" content="../">
     
-  </head>
-  <body data-spy="scroll" data-target="#affix" data-offset="120">
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
     <div id="wrapper">
       <header>
         
@@ -83,7 +83,9 @@
   
   <h1 id="eDIA_EventManager" data-uid="eDIA.EventManager" class="text-break">Class EventManager
   </h1>
-  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 summary"><p>EventManager handles eventlisteners and fire events when triggered.<br>
+It uses <code>eparam</code> class to be able to send custom packages along with the event.</p>
+</div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
@@ -97,39 +99,14 @@
     <pre><code class="lang-csharp hljs">[Serializable]
 public class EventManager</code></pre>
   </div>
-  <h3 id="fields">Fields
-  </h3>
-  
-  
-  <h4 id="eDIA_EventManager_showLog" data-uid="eDIA.EventManager.showLog">showLog</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static bool showLog</code></pre>
-  </div>
-  <h5 class="fieldValue">Field Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
   <h3 id="methods">Methods
   </h3>
   
   
   <a id="eDIA_EventManager_StartListening_" data-uid="eDIA.EventManager.StartListening*"></a>
   <h4 id="eDIA_EventManager_StartListening_System_String_Action_eDIA_eParam__" data-uid="eDIA.EventManager.StartListening(System.String,Action{eDIA.eParam})">StartListening(String, Action&lt;eParam&gt;)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Starts a listener to the given <code>eventName</code> string</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -148,12 +125,14 @@ public class EventManager</code></pre>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
         <td><span class="parametername">eventName</span></td>
-        <td></td>
+        <td><p>String definition of the event</p>
+</td>
       </tr>
       <tr>
         <td><span class="xref">Action</span>&lt;<a class="xref" href="eDIA.eParam.html">eParam</a>&gt;</td>
         <td><span class="parametername">listener</span></td>
-        <td></td>
+        <td><p>Method to trigger when event is fired</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -161,7 +140,8 @@ public class EventManager</code></pre>
   
   <a id="eDIA_EventManager_StopListening_" data-uid="eDIA.EventManager.StopListening*"></a>
   <h4 id="eDIA_EventManager_StopListening_System_String_Action_eDIA_eParam__" data-uid="eDIA.EventManager.StopListening(System.String,Action{eDIA.eParam})">StopListening(String, Action&lt;eParam&gt;)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Stops the listener, if any, to the given <code>eventName</code> string</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -180,12 +160,14 @@ public class EventManager</code></pre>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
         <td><span class="parametername">eventName</span></td>
-        <td></td>
+        <td><p>String definition of the event</p>
+</td>
       </tr>
       <tr>
         <td><span class="xref">Action</span>&lt;<a class="xref" href="eDIA.eParam.html">eParam</a>&gt;</td>
         <td><span class="parametername">listener</span></td>
-        <td></td>
+        <td><p>Method to trigger when event is fired</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -193,7 +175,8 @@ public class EventManager</code></pre>
   
   <a id="eDIA_EventManager_TriggerEvent_" data-uid="eDIA.EventManager.TriggerEvent*"></a>
   <h4 id="eDIA_EventManager_TriggerEvent_System_String_eDIA_eParam_" data-uid="eDIA.EventManager.TriggerEvent(System.String,eDIA.eParam)">TriggerEvent(String, eParam)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Triggers the event with the given eventname</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -212,12 +195,14 @@ public class EventManager</code></pre>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
         <td><span class="parametername">eventName</span></td>
-        <td></td>
+        <td><p>String definition of the event</p>
+</td>
       </tr>
       <tr>
         <td><a class="xref" href="eDIA.eParam.html">eParam</a></td>
         <td><span class="parametername">eventParam</span></td>
-        <td></td>
+        <td><p>Parameter package to pass along</p>
+</td>
       </tr>
     </tbody>
   </table>

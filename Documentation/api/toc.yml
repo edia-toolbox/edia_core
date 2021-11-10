@@ -2,12 +2,6 @@
 - uid: eDIA
   name: eDIA
   items:
-  - uid: eDIA.ChangeLogEntry
-    name: ChangeLogEntry
-  - uid: eDIA.Comment
-    name: Comment
-  - uid: eDIA.CommentEditor
-    name: CommentEditor
   - uid: eDIA.eParam
     name: eParam
   - uid: eDIA.EventManager
@@ -26,8 +20,6 @@
     name: FileManager
   - uid: eDIA.InputActionHandler
     name: InputActionHandler
-  - uid: eDIA.LogUtilities
-    name: LogUtilities
   - uid: eDIA.MainMenu
     name: MainMenu
   - uid: eDIA.MainMenu.aScene
@@ -36,12 +28,6 @@
     name: NetworkComManager
   - uid: eDIA.NetworkManager
     name: NetworkManager
-  - uid: eDIA.ProjectFileUtilities
-    name: ProjectFileUtilities
-  - uid: eDIA.ReadOnlyAttribute
-    name: ReadOnlyAttribute
-  - uid: eDIA.ReadOnlyDrawer
-    name: ReadOnlyDrawer
   - uid: eDIA.ScreenFader
     name: ScreenFader
   - uid: eDIA.SystemManager
@@ -61,61 +47,19 @@
   items:
   - uid: eDIA.EditorUtils.eDIAcontrolPanel
     name: eDIAcontrolPanel
-- uid: Global
-  name: Global
-  items:
-  - uid: Global.BeginReadOnlyGroupAttribute
-    name: BeginReadOnlyGroupAttribute
-  - uid: Global.BeginReadOnlyGroupDrawer
-    name: BeginReadOnlyGroupDrawer
-  - uid: Global.BoolEvent
-    name: BoolEvent
-  - uid: Global.BoolStringEvent
-    name: BoolStringEvent
-  - uid: Global.ColorChanger
-    name: ColorChanger
-  - uid: Global.ComObjectEvent
-    name: ComObjectEvent
-  - uid: Global.DefaultEvent
-    name: DefaultEvent
-  - uid: Global.EndReadOnlyGroupAttribute
-    name: EndReadOnlyGroupAttribute
-  - uid: Global.EndReadOnlyGroupDrawer
-    name: EndReadOnlyGroupDrawer
-  - uid: Global.ExecutionOrderManager
-    name: ExecutionOrderManager
-  - uid: Global.Finger
-    name: Finger
-  - uid: Global.FingerType
-    name: FingerType
-  - uid: Global.HandHider
-    name: HandHider
-  - uid: Global.HandMeshAnimator
-    name: HandMeshAnimator
-  - uid: Global.HandPhysics
-    name: HandPhysics
-  - uid: Global.Indicator
-    name: Indicator
-  - uid: Global.InspectorButtonAttribute
-    name: InspectorButtonAttribute
-  - uid: Global.Notes
-    name: Notes
-  - uid: Global.OffsetGrab
-    name: OffsetGrab
-  - uid: Global.ReadOnlyAttribute
+  - uid: eDIA.EditorUtils.LogUtilities
+    name: LogUtilities
+  - uid: eDIA.EditorUtils.ReadOnlyAttribute
     name: ReadOnlyAttribute
-  - uid: Global.ReadOnlyDrawer
+  - uid: eDIA.EditorUtils.ReadOnlyDrawer
     name: ReadOnlyDrawer
-  - uid: Global.Rotate
-    name: Rotate
-  - uid: Global.Singleton`1
-    name: Singleton<T>
-    name.vb: Singleton(Of T)
-  - uid: Global.StringEvent
-    name: StringEvent
-  - uid: Global.TaskInputActionHandler
-    name: TaskInputActionHandler
-  name.vb: ''
+- uid: eDIA.Utilities
+  name: eDIA.Utilities
+  items:
+  - uid: eDIA.Utilities.ChangeLogEntry
+    name: ChangeLogEntry
+  - uid: eDIA.Utilities.ProjectFileUtilities
+    name: ProjectFileUtilities
 - uid: TASK
   name: TASK
   items:

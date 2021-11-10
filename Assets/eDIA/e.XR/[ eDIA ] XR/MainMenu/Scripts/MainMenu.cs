@@ -14,7 +14,7 @@ using UnityEngine.Events;
 namespace eDIA {
 
 	/// <summary>
-	/// Main menu can be openen in the app with the action 'Menu'
+	/// Main menu can be opened in the app with the action 'Menu'<br/>
 	/// It generates a list of scenes (which are tasks) and the default 'continue' and 'quit' option
 	/// </summary>
 	public class MainMenu : MonoBehaviour {

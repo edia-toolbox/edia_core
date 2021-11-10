@@ -25,6 +25,9 @@ public class DefaultEvent 	: UnityEvent{}
 // ==============================================================================================================================================
 namespace eDIA {
 
+	/// <summary>
+	/// Communication manager interface. Translates internal commands into network packages and viseversa
+	/// </summary>
 	public class NetworkComManager : MonoBehaviour
 	{
 		// public TextMeshProUGUI connectionStatus;

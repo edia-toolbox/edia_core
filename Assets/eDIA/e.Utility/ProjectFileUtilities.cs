@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using UnityEngine;
 
-namespace eDIA {
+namespace eDIA.Utilities {
 
 	[System.Serializable]
 	public class ChangeLogEntry {

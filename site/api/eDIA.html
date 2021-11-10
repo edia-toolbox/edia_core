@@ -16,13 +16,13 @@
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
     <link rel="stylesheet" href="../styles/docfx.css">
     <link rel="stylesheet" href="../styles/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
     <meta property="docfx:navrel" content="../toc.html">
     <meta property="docfx:tocrel" content="toc.html">
     
     <meta property="docfx:rel" content="../">
     
-  </head>
-  <body data-spy="scroll" data-target="#affix" data-offset="120">
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
     <div id="wrapper">
       <header>
         
@@ -87,16 +87,13 @@
   <div class="markdown level0 remarks"></div>
     <h3 id="classes">Classes
   </h3>
-      <h4><a class="xref" href="eDIA.ChangeLogEntry.html">ChangeLogEntry</a></h4>
-      <section></section>
-      <h4><a class="xref" href="eDIA.Comment.html">Comment</a></h4>
-      <section></section>
-      <h4><a class="xref" href="eDIA.CommentEditor.html">CommentEditor</a></h4>
-      <section></section>
       <h4><a class="xref" href="eDIA.eParam.html">eParam</a></h4>
-      <section></section>
+      <section><p>Parameter package definition to send along with an event. </p>
+</section>
       <h4><a class="xref" href="eDIA.EventManager.html">EventManager</a></h4>
-      <section></section>
+      <section><p>EventManager handles eventlisteners and fire events when triggered.<br>
+It uses <code>eparam</code> class to be able to send custom packages along with the event.</p>
+</section>
       <h4><a class="xref" href="eDIA.ExperimentManager.html">ExperimentManager</a></h4>
       <section><p>Core manager of the experiment. Singleton so available throughout the system. </p>
 </section>
@@ -113,42 +110,40 @@
       <section><p>Container for (de)serializing a list to JSON</p>
 </section>
       <h4><a class="xref" href="eDIA.FileManager.html">FileManager</a></h4>
-      <section></section>
+      <section><p>Static class to handle file IO</p>
+</section>
       <h4><a class="xref" href="eDIA.InputActionHandler.html">InputActionHandler</a></h4>
       <section></section>
-      <h4><a class="xref" href="eDIA.LogUtilities.html">LogUtilities</a></h4>
-      <section></section>
       <h4><a class="xref" href="eDIA.MainMenu.html">MainMenu</a></h4>
-      <section><p>Main menu can be openen in the app with the action &apos;Menu&apos;
+      <section><p>Main menu can be opened in the app with the action &apos;Menu&apos;<br>
 It generates a list of scenes (which are tasks) and the default &apos;continue&apos; and &apos;quit&apos; option</p>
 </section>
       <h4><a class="xref" href="eDIA.MainMenu.aScene.html">MainMenu.aScene</a></h4>
       <section><p>A scene menuitem container</p>
 </section>
       <h4><a class="xref" href="eDIA.NetworkComManager.html">NetworkComManager</a></h4>
-      <section></section>
+      <section><p>Communication manager interface. Translates internal commands into network packages and viseversa</p>
+</section>
       <h4><a class="xref" href="eDIA.NetworkManager.html">NetworkManager</a></h4>
-      <section></section>
-      <h4><a class="xref" href="eDIA.ProjectFileUtilities.html">ProjectFileUtilities</a></h4>
-      <section></section>
-      <h4><a class="xref" href="eDIA.ReadOnlyAttribute.html">ReadOnlyAttribute</a></h4>
-      <section></section>
-      <h4><a class="xref" href="eDIA.ReadOnlyDrawer.html">ReadOnlyDrawer</a></h4>
-      <section><p>This class contain custom drawer for ReadOnly attribute.</p>
+      <section><p>Manages network connections, disconnections, auto connect, etc</p>
 </section>
       <h4><a class="xref" href="eDIA.ScreenFader.html">ScreenFader</a></h4>
       <section><p>Handles fading the camera view </p>
 </section>
       <h4><a class="xref" href="eDIA.SystemManager.html">SystemManager</a></h4>
-      <section><p>The SystemManager is a Singleton and therefor reachable from whatever script.
-The script travels along the scenes that are loaded as it is DontDestroyOnLoad. 
-Responsible for loading/unloading, user related actions, top level application stuff.
-Has references to the XR rig camera and hands for the rest of the application.</p>
+      <section><p>The SystemManager is a Singleton and therefor reachable from whatever script.<br>
+The script travels along the scenes that are loaded as it is DontDestroyOnLoad. <br>
+Responsible for loading/unloading, user related actions, top level application stuff.<br>
+Has references to the XR rig camera and hands for the rest of the application.<br></p>
 </section>
       <h4><a class="xref" href="eDIA.TaskManagerBase.html">TaskManagerBase</a></h4>
-      <section></section>
+      <section><p>Link between <code>ExperimentManager</code> and the custom user task. <br>
+Hidden base where the custom task template is build upon.</p>
+</section>
       <h4><a class="xref" href="eDIA.TaskManagerBase.TaskSettingsContainer.html">TaskManagerBase.TaskSettingsContainer</a></h4>
-      <section></section>
+      <section><p>Each task has it&apos;s own settings. <br>
+Container to deserialize the <code>TaskSettings.json</code> file in</p>
+</section>
       <h4><a class="xref" href="eDIA.TaskManagerBase.TrialStep.html">TaskManagerBase.TrialStep</a></h4>
       <section><p>A task trial exists out of one of more <code>steps</code> </p>
 </section>

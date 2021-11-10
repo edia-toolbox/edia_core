@@ -7,6 +7,9 @@ using UnityEngine.XR.Interaction.Toolkit.Inputs;
 
 namespace eDIA {
 
+	/// <summary>
+	/// Mapping new Input system <c>InputAction</c> to eDIA <c>EventManager</c>
+	/// </summary>
 	[RequireComponent (typeof(InputActionManager))]
 	public class InputActionHandler : MonoBehaviour {
 

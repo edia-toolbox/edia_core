@@ -6,6 +6,7 @@ using UnityEngine;
 using System.Linq;
 using UXF;
 using UnityEngine.Events;
+using eDIA.EditorUtils;
 
 // EXPERIMENT CONTROL 
 namespace eDIA {
@@ -121,7 +122,7 @@ namespace eDIA {
 
 		/// <summary>Load the default JSON configuration locally</summary>
 		/// <returns>JSON string</returns>
-		string LoadExperimentConfigFromDisk () {
+		protected string LoadExperimentConfigFromDisk () {
 			string experimentJSON = FileManager.ReadStringFromApplicationPath("ExperimentConfig.json");
 
 			if (experimentJSON == "ERROR")
@@ -134,7 +135,7 @@ namespace eDIA {
 
 		/// <summary>Set the eDIA experiment settings with the full JSON config string</summary>
 		/// <param name="JSONstring">Full config string</param>
-		void SetExperimentConfig (string JSONstring) {
+		protected void SetExperimentConfig (string JSONstring) {
 			experimentConfig = UnityEngine.JsonUtility.FromJson<ExperimentConfig>(JSONstring == null ? LoadExperimentConfigFromDisk () : JSONstring);
 			// Debug.Log(UnityEngine.JsonUtility.ToJson(experimentConfig, true));
 
@@ -144,7 +145,7 @@ namespace eDIA {
 		}
 
 		/// <summary> Set the sessionsettings to use by UXF</summary>
-		void SetSessionSettings () {
+		protected void SetSessionSettings () {
 			// Add experimenter to settings
 			currentUXFSessionSettings.SetValue("experimenter", experimentConfig.experimenter);
 
@@ -186,7 +187,7 @@ namespace eDIA {
 		}
 
 		/// <summary>Starts the experiment</summary>
-		public void StartExperiment () {
+		void StartExperiment () {
 			Session.instance.Begin( 
 				experimentConfig.experiment 		== string.Empty ? "N.A." : experimentConfig.experiment,  
 				experimentConfig.participantID 	== string.Empty ? "N.A." : experimentConfig.participantID, 
@@ -239,7 +240,8 @@ namespace eDIA {
 		}
 
 		/// <summary>Called from UXF session. Begin setting things up for the trial that is about to start </summary>
-		void OnTrialBeginUXF(Trial newTrial) {
+		/// <param name="newTrial">Trial passed on by UXF</param>
+		protected void OnTrialBeginUXF(Trial newTrial) {
 			AddToLog("OnTrialBeginUXF");
 			AddToExecutionOrderLog("OnTrialBegin");
 
@@ -261,8 +263,9 @@ namespace eDIA {
 
 		}
 
-		/// <summary>Called from UXF session. Checks if to call NextTrial, should start a BREAK before next Block, or End the Session </summary>
-		void OnTrialEndUXF(Trial endedTrial) {
+		/// <summary>Called from UXF session. Checks if to call NextTrial, BREAK, PAUSE or End the Session </summary>
+		/// <param name="endedTrial">Trial passed on by UXF</param>
+		protected void OnTrialEndUXF(Trial endedTrial) {
 			AddToLog("OnTrialEndUXF");
 			AddToExecutionOrderLog("OnTrialEnd");
 			
@@ -308,16 +311,16 @@ namespace eDIA {
 
 		}
 
-		/// <summary>Called from this manager. Invokes onSessionBreak event and starts listener to EvProceed event</summary>
-		void SessionBreak () {
+		/// <summary>Starts Experiment BREAK and triggers corresponding event. Awaits <c>EvProceed</c> event to continue.</summary>
+		protected void SessionBreak () {
 			AddToLog("SessionBreak");
 			AddToExecutionOrderLog("SessionBreak");
 			EventManager.StartListening("EvProceed", SessionResume);
 			EventManager.TriggerEvent("EvSessionBreak", null);
 		}
 
-		/// <summary>Called from EvProceed event. Stops listener, invokes onSessionResume event and calls UXF BeginNextTrial. </summary>
-		void SessionResume (eParam e) {
+		/// <summary>Handles continue trigger while in BREAK</summary>
+		protected void SessionResume (eParam e) {
 			AddToExecutionOrderLog("SessionResume");
 			AddToLog("SessionResume");
 			EventManager.StopListening("EvProceed", SessionResume);
@@ -326,16 +329,16 @@ namespace eDIA {
 			Session.instance.Invoke("BeginNextTrialSafe", 0.5f);
 		}
 
-		/// <summary>Called from this manager. </summary>
-		void BlockIntroduction () {
+		/// <summary>Starts INTRODUCTION and triggers corresponding event. Awaits <c>EvProceed</c> event to continue.</summary>
+		protected void BlockIntroduction () {
 			AddToLog("BlockIntroduction");
 			AddToExecutionOrderLog("BlockIntroduction");
 			EventManager.StartListening("EvProceed", BlockResume);
 			EventManager.TriggerEvent("EvBlockIntroduction", null);
 		}
 
-		/// <summary>Called from this manager. </summary>
-		void BlockResume (eParam e) {
+		/// <summary>Handles continue trigger while in INTRODUCTION</summary>
+		protected void BlockResume (eParam e) {
 			AddToLog("BlockResume");
 			AddToExecutionOrderLog("BlockResume");
 			EventManager.StopListening("EvProceed", BlockResume);
@@ -345,8 +348,10 @@ namespace eDIA {
 #endregion	// -------------------------------------------------------------------------------------------------------------------------------
 #region JSON TO UXF CONVERSION
 
-		/// <summary>/// Convert JSON formatted definition for the seqence into a UXF format to run in the session/// </summary>
-		public void GenerateUXFSequence(List<string> _trialSequenceKeys, List<TrialSequenceValues> _trialSequenceValues) {
+		/// <summary> Generates trial sequence with the given keys and values for each trial in <c>Trial.Settings</c> </summary>
+		/// <param name="_trialSequenceKeys">List of string keys</param>
+		/// <param name="_trialSequenceValues">List of string values</param>
+		protected void GenerateUXFSequence(List<string> _trialSequenceKeys, List<TrialSequenceValues> _trialSequenceValues) {
 
 			Block newBlock = Session.instance.CreateBlock();
 			int currentblockNumber = 0;
@@ -375,8 +380,8 @@ namespace eDIA {
 #endregion	// -------------------------------------------------------------------------------------------------------------------------------
 #region MISC	
 		/// <summary> Add to experiment execution log. Auto inserts timestamp. </summary>
-		/// <param name="description"></param>
-		private void AddToExecutionOrderLog (string description) {
+		/// <param name="description">Message to log</param>
+		protected void AddToExecutionOrderLog (string description) {
 			UXF.UXFDataRow newRow = new UXFDataRow();
 			newRow.Add(("start_time", Time.time)); // Log timestamp
 			newRow.Add(("executed", description)); 
@@ -385,7 +390,7 @@ namespace eDIA {
 
 		private void AddToLog(string _msg) {
 			if (showLog)
-				eDIA.LogUtilities.AddToLog(_msg, "EXP", taskColor);
+				LogUtilities.AddToLog(_msg, "EXP", taskColor);
 		}
 		
 

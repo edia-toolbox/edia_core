@@ -4,9 +4,6 @@ items:
   commentId: N:eDIA
   id: eDIA
   children:
-  - eDIA.ChangeLogEntry
-  - eDIA.Comment
-  - eDIA.CommentEditor
   - eDIA.eParam
   - eDIA.EventManager
   - eDIA.ExperimentManager
@@ -16,14 +13,10 @@ items:
   - eDIA.ExperimentManager.TrialSequenceValuesContainer
   - eDIA.FileManager
   - eDIA.InputActionHandler
-  - eDIA.LogUtilities
   - eDIA.MainMenu
   - eDIA.MainMenu.aScene
   - eDIA.NetworkComManager
   - eDIA.NetworkManager
-  - eDIA.ProjectFileUtilities
-  - eDIA.ReadOnlyAttribute
-  - eDIA.ReadOnlyDrawer
   - eDIA.ScreenFader
   - eDIA.SystemManager
   - eDIA.TaskManagerBase
@@ -85,7 +78,6 @@ references:
   fullName: eDIA.TaskManagerBase
 - uid: eDIA.TaskManagerBase.TaskSettingsContainer
   commentId: T:eDIA.TaskManagerBase.TaskSettingsContainer
-  parent: eDIA
   name: TaskManagerBase.TaskSettingsContainer
   nameWithType: TaskManagerBase.TaskSettingsContainer
   fullName: eDIA.TaskManagerBase.TaskSettingsContainer
@@ -114,26 +106,6 @@ references:
   name: NetworkManager
   nameWithType: NetworkManager
   fullName: eDIA.NetworkManager
-- uid: eDIA.Comment
-  commentId: T:eDIA.Comment
-  name: Comment
-  nameWithType: Comment
-  fullName: eDIA.Comment
-- uid: eDIA.LogUtilities
-  commentId: T:eDIA.LogUtilities
-  name: LogUtilities
-  nameWithType: LogUtilities
-  fullName: eDIA.LogUtilities
-- uid: eDIA.ChangeLogEntry
-  commentId: T:eDIA.ChangeLogEntry
-  name: ChangeLogEntry
-  nameWithType: ChangeLogEntry
-  fullName: eDIA.ChangeLogEntry
-- uid: eDIA.ProjectFileUtilities
-  commentId: T:eDIA.ProjectFileUtilities
-  name: ProjectFileUtilities
-  nameWithType: ProjectFileUtilities
-  fullName: eDIA.ProjectFileUtilities
 - uid: eDIA.ScreenFader
   commentId: T:eDIA.ScreenFader
   name: ScreenFader
@@ -165,21 +137,6 @@ references:
   name: SystemManager
   nameWithType: SystemManager
   fullName: eDIA.SystemManager
-- uid: eDIA.CommentEditor
-  commentId: T:eDIA.CommentEditor
-  name: CommentEditor
-  nameWithType: CommentEditor
-  fullName: eDIA.CommentEditor
-- uid: eDIA.ReadOnlyAttribute
-  commentId: T:eDIA.ReadOnlyAttribute
-  name: ReadOnlyAttribute
-  nameWithType: ReadOnlyAttribute
-  fullName: eDIA.ReadOnlyAttribute
-- uid: eDIA.ReadOnlyDrawer
-  commentId: T:eDIA.ReadOnlyDrawer
-  name: ReadOnlyDrawer
-  nameWithType: ReadOnlyDrawer
-  fullName: eDIA.ReadOnlyDrawer
 - uid: eDIA
   commentId: N:eDIA
   name: eDIA

@@ -5,6 +5,9 @@ using UnityEngine;
 
 namespace eDIA {
 
+	/// <summary>
+	/// Manages network connections, disconnections, auto connect, etc
+	/// </summary>
 	public class NetworkManager : MonoBehaviour {
 
 

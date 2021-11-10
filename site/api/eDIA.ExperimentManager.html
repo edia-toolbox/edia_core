@@ -16,13 +16,13 @@
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
     <link rel="stylesheet" href="../styles/docfx.css">
     <link rel="stylesheet" href="../styles/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
     <meta property="docfx:navrel" content="../toc.html">
     <meta property="docfx:tocrel" content="toc.html">
     
     <meta property="docfx:rel" content="../">
     
-  </head>
-  <body data-spy="scroll" data-target="#affix" data-offset="120">
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
     <div id="wrapper">
       <header>
         
@@ -89,14 +89,8 @@
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
-    <div class="level1"><a class="xref" href="Global.Singleton-1.html">Singleton</a>&lt;<a class="xref" href="eDIA.ExperimentManager.html">ExperimentManager</a>&gt;</div>
+    <div class="level1"><span class="xref">Singleton</span>&lt;<a class="xref" href="eDIA.ExperimentManager.html">ExperimentManager</a>&gt;</div>
     <div class="level2"><span class="xref">ExperimentManager</span></div>
-  </div>
-  <div class="inheritedMembers">
-    <h5>Inherited Members</h5>
-    <div>
-      <a class="xref" href="Global.Singleton-1.html#Global_Singleton_1_Instance">Singleton&lt;ExperimentManager&gt;.Instance</a>
-    </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="eDIA.html">eDIA</a></h6>
   <h6><strong>Assembly</strong>: cs.temp.dll.dll</h6>
@@ -182,14 +176,82 @@
   </h3>
   
   
-  <a id="eDIA_ExperimentManager_GenerateUXFSequence_" data-uid="eDIA.ExperimentManager.GenerateUXFSequence*"></a>
-  <h4 id="eDIA_ExperimentManager_GenerateUXFSequence_List_System_String__List_eDIA_ExperimentManager_TrialSequenceValues__" data-uid="eDIA.ExperimentManager.GenerateUXFSequence(List{System.String},List{eDIA.ExperimentManager.TrialSequenceValues})">GenerateUXFSequence(List&lt;String&gt;, List&lt;ExperimentManager.TrialSequenceValues&gt;)</h4>
-  <div class="markdown level1 summary"><p>/// Convert JSON formatted definition for the seqence into a UXF format to run in the session/// </p>
+  <a id="eDIA_ExperimentManager_AddToExecutionOrderLog_" data-uid="eDIA.ExperimentManager.AddToExecutionOrderLog*"></a>
+  <h4 id="eDIA_ExperimentManager_AddToExecutionOrderLog_System_String_" data-uid="eDIA.ExperimentManager.AddToExecutionOrderLog(System.String)">AddToExecutionOrderLog(String)</h4>
+  <div class="markdown level1 summary"><p>Add to experiment execution log. Auto inserts timestamp. </p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void GenerateUXFSequence(List&lt;string&gt; _trialSequenceKeys, List&lt;ExperimentManager.TrialSequenceValues&gt; _trialSequenceValues)</code></pre>
+    <pre><code class="lang-csharp hljs">protected void AddToExecutionOrderLog(string description)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">description</span></td>
+        <td><p>Message to log</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="eDIA_ExperimentManager_BlockIntroduction_" data-uid="eDIA.ExperimentManager.BlockIntroduction*"></a>
+  <h4 id="eDIA_ExperimentManager_BlockIntroduction" data-uid="eDIA.ExperimentManager.BlockIntroduction">BlockIntroduction()</h4>
+  <div class="markdown level1 summary"><p>Starts INTRODUCTION and triggers corresponding event. Awaits <code>EvProceed</code> event to continue.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void BlockIntroduction()</code></pre>
+  </div>
+  
+  
+  <a id="eDIA_ExperimentManager_BlockResume_" data-uid="eDIA.ExperimentManager.BlockResume*"></a>
+  <h4 id="eDIA_ExperimentManager_BlockResume_eDIA_eParam_" data-uid="eDIA.ExperimentManager.BlockResume(eDIA.eParam)">BlockResume(eParam)</h4>
+  <div class="markdown level1 summary"><p>Handles continue trigger while in INTRODUCTION</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void BlockResume(eParam e)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="eDIA.eParam.html">eParam</a></td>
+        <td><span class="parametername">e</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="eDIA_ExperimentManager_GenerateUXFSequence_" data-uid="eDIA.ExperimentManager.GenerateUXFSequence*"></a>
+  <h4 id="eDIA_ExperimentManager_GenerateUXFSequence_List_System_String__List_eDIA_ExperimentManager_TrialSequenceValues__" data-uid="eDIA.ExperimentManager.GenerateUXFSequence(List{System.String},List{eDIA.ExperimentManager.TrialSequenceValues})">GenerateUXFSequence(List&lt;String&gt;, List&lt;ExperimentManager.TrialSequenceValues&gt;)</h4>
+  <div class="markdown level1 summary"><p>Generates trial sequence with the given keys and values for each trial in <code>Trial.Settings</code> </p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void GenerateUXFSequence(List&lt;string&gt; _trialSequenceKeys, List&lt;ExperimentManager.TrialSequenceValues&gt; _trialSequenceValues)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -204,25 +266,180 @@
       <tr>
         <td><span class="xref">List</span>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
         <td><span class="parametername">_trialSequenceKeys</span></td>
-        <td></td>
+        <td><p>List of string keys</p>
+</td>
       </tr>
       <tr>
         <td><span class="xref">List</span>&lt;<a class="xref" href="eDIA.ExperimentManager.TrialSequenceValues.html">ExperimentManager.TrialSequenceValues</a>&gt;</td>
         <td><span class="parametername">_trialSequenceValues</span></td>
+        <td><p>List of string values</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="eDIA_ExperimentManager_LoadExperimentConfigFromDisk_" data-uid="eDIA.ExperimentManager.LoadExperimentConfigFromDisk*"></a>
+  <h4 id="eDIA_ExperimentManager_LoadExperimentConfigFromDisk" data-uid="eDIA.ExperimentManager.LoadExperimentConfigFromDisk">LoadExperimentConfigFromDisk()</h4>
+  <div class="markdown level1 summary"><p>Load the default JSON configuration locally</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected string LoadExperimentConfigFromDisk()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><p>JSON string</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="eDIA_ExperimentManager_OnTrialBeginUXF_" data-uid="eDIA.ExperimentManager.OnTrialBeginUXF*"></a>
+  <h4 id="eDIA_ExperimentManager_OnTrialBeginUXF_Trial_" data-uid="eDIA.ExperimentManager.OnTrialBeginUXF(Trial)">OnTrialBeginUXF(Trial)</h4>
+  <div class="markdown level1 summary"><p>Called from UXF session. Begin setting things up for the trial that is about to start </p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void OnTrialBeginUXF(Trial newTrial)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Trial</span></td>
+        <td><span class="parametername">newTrial</span></td>
+        <td><p>Trial passed on by UXF</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="eDIA_ExperimentManager_OnTrialEndUXF_" data-uid="eDIA.ExperimentManager.OnTrialEndUXF*"></a>
+  <h4 id="eDIA_ExperimentManager_OnTrialEndUXF_Trial_" data-uid="eDIA.ExperimentManager.OnTrialEndUXF(Trial)">OnTrialEndUXF(Trial)</h4>
+  <div class="markdown level1 summary"><p>Called from UXF session. Checks if to call NextTrial, BREAK, PAUSE or End the Session </p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void OnTrialEndUXF(Trial endedTrial)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Trial</span></td>
+        <td><span class="parametername">endedTrial</span></td>
+        <td><p>Trial passed on by UXF</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="eDIA_ExperimentManager_SessionBreak_" data-uid="eDIA.ExperimentManager.SessionBreak*"></a>
+  <h4 id="eDIA_ExperimentManager_SessionBreak" data-uid="eDIA.ExperimentManager.SessionBreak">SessionBreak()</h4>
+  <div class="markdown level1 summary"><p>Starts Experiment BREAK and triggers corresponding event. Awaits <code>EvProceed</code> event to continue.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void SessionBreak()</code></pre>
+  </div>
+  
+  
+  <a id="eDIA_ExperimentManager_SessionResume_" data-uid="eDIA.ExperimentManager.SessionResume*"></a>
+  <h4 id="eDIA_ExperimentManager_SessionResume_eDIA_eParam_" data-uid="eDIA.ExperimentManager.SessionResume(eDIA.eParam)">SessionResume(eParam)</h4>
+  <div class="markdown level1 summary"><p>Handles continue trigger while in BREAK</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void SessionResume(eParam e)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="eDIA.eParam.html">eParam</a></td>
+        <td><span class="parametername">e</span></td>
         <td></td>
       </tr>
     </tbody>
   </table>
   
   
-  <a id="eDIA_ExperimentManager_StartExperiment_" data-uid="eDIA.ExperimentManager.StartExperiment*"></a>
-  <h4 id="eDIA_ExperimentManager_StartExperiment" data-uid="eDIA.ExperimentManager.StartExperiment">StartExperiment()</h4>
-  <div class="markdown level1 summary"><p>Starts the experiment</p>
+  <a id="eDIA_ExperimentManager_SetExperimentConfig_" data-uid="eDIA.ExperimentManager.SetExperimentConfig*"></a>
+  <h4 id="eDIA_ExperimentManager_SetExperimentConfig_System_String_" data-uid="eDIA.ExperimentManager.SetExperimentConfig(System.String)">SetExperimentConfig(String)</h4>
+  <div class="markdown level1 summary"><p>Set the eDIA experiment settings with the full JSON config string</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void StartExperiment()</code></pre>
+    <pre><code class="lang-csharp hljs">protected void SetExperimentConfig(string JSONstring)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">JSONstring</span></td>
+        <td><p>Full config string</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="eDIA_ExperimentManager_SetSessionSettings_" data-uid="eDIA.ExperimentManager.SetSessionSettings*"></a>
+  <h4 id="eDIA_ExperimentManager_SetSessionSettings" data-uid="eDIA.ExperimentManager.SetSessionSettings">SetSessionSettings()</h4>
+  <div class="markdown level1 summary"><p>Set the sessionsettings to use by UXF</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void SetSessionSettings()</code></pre>
   </div>
 </article>
           </div>

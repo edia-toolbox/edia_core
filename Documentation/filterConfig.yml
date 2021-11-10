@@ -5,8 +5,11 @@ apiRules:
 - include:
     uidRegex: ^TASK
     type: Namespace
-- include:
-    uidRegex: ^Global
+- exclude:
+    uidRegex: ^eDIA.EditorUtils
+    type: Namespace
+- exclude:
+    uidRegex: ^eDIA.Utilities
     type: Namespace
 - exclude:
     uidRegex: .*

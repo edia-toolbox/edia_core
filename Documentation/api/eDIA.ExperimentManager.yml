@@ -5,10 +5,19 @@ items:
   id: ExperimentManager
   parent: eDIA
   children:
+  - eDIA.ExperimentManager.AddToExecutionOrderLog(System.String)
+  - eDIA.ExperimentManager.BlockIntroduction
+  - eDIA.ExperimentManager.BlockResume(eDIA.eParam)
   - eDIA.ExperimentManager.experimentConfig
   - eDIA.ExperimentManager.GenerateUXFSequence(List{System.String},List{eDIA.ExperimentManager.TrialSequenceValues})
+  - eDIA.ExperimentManager.LoadExperimentConfigFromDisk
+  - eDIA.ExperimentManager.OnTrialBeginUXF(Trial)
+  - eDIA.ExperimentManager.OnTrialEndUXF(Trial)
+  - eDIA.ExperimentManager.SessionBreak
+  - eDIA.ExperimentManager.SessionResume(eDIA.eParam)
+  - eDIA.ExperimentManager.SetExperimentConfig(System.String)
+  - eDIA.ExperimentManager.SetSessionSettings
   - eDIA.ExperimentManager.showLog
-  - eDIA.ExperimentManager.StartExperiment
   - eDIA.ExperimentManager.taskColor
   langs:
   - csharp
@@ -20,7 +29,7 @@ items:
   source:
     id: ExperimentManager
     path: ''
-    startLine: 479
+    startLine: 501
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -34,8 +43,6 @@ items:
   inheritance:
   - System.Object
   - Global.Singleton{eDIA.ExperimentManager}
-  inheritedMembers:
-  - Global.Singleton{eDIA.ExperimentManager}.Instance
   modifiers.csharp:
   - public
   - class
@@ -56,7 +63,7 @@ items:
   source:
     id: showLog
     path: ''
-    startLine: 483
+    startLine: 505
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -83,7 +90,7 @@ items:
   source:
     id: taskColor
     path: ''
-    startLine: 484
+    startLine: 506
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -110,7 +117,7 @@ items:
   source:
     id: experimentConfig
     path: ''
-    startLine: 546
+    startLine: 568
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -124,34 +131,279 @@ items:
   - public
   modifiers.vb:
   - Public
-- uid: eDIA.ExperimentManager.StartExperiment
-  commentId: M:eDIA.ExperimentManager.StartExperiment
-  id: StartExperiment
+- uid: eDIA.ExperimentManager.LoadExperimentConfigFromDisk
+  commentId: M:eDIA.ExperimentManager.LoadExperimentConfigFromDisk
+  id: LoadExperimentConfigFromDisk
   parent: eDIA.ExperimentManager
   langs:
   - csharp
   - vb
-  name: StartExperiment()
-  nameWithType: ExperimentManager.StartExperiment()
-  fullName: eDIA.ExperimentManager.StartExperiment()
+  name: LoadExperimentConfigFromDisk()
+  nameWithType: ExperimentManager.LoadExperimentConfigFromDisk()
+  fullName: eDIA.ExperimentManager.LoadExperimentConfigFromDisk()
   type: Method
   source:
-    id: StartExperiment
+    id: LoadExperimentConfigFromDisk
     path: ''
-    startLine: 652
+    startLine: 609
   assemblies:
   - cs.temp.dll
   namespace: eDIA
-  summary: Starts the experiment
+  summary: Load the default JSON configuration locally
   example: []
   syntax:
-    content: public void StartExperiment()
-    content.vb: Public Sub StartExperiment
-  overload: eDIA.ExperimentManager.StartExperiment*
+    content: protected string LoadExperimentConfigFromDisk()
+    return:
+      type: System.String
+      description: JSON string
+    content.vb: Protected Function LoadExperimentConfigFromDisk As String
+  overload: eDIA.ExperimentManager.LoadExperimentConfigFromDisk*
   modifiers.csharp:
-  - public
+  - protected
   modifiers.vb:
-  - Public
+  - Protected
+- uid: eDIA.ExperimentManager.SetExperimentConfig(System.String)
+  commentId: M:eDIA.ExperimentManager.SetExperimentConfig(System.String)
+  id: SetExperimentConfig(System.String)
+  parent: eDIA.ExperimentManager
+  langs:
+  - csharp
+  - vb
+  name: SetExperimentConfig(String)
+  nameWithType: ExperimentManager.SetExperimentConfig(String)
+  fullName: eDIA.ExperimentManager.SetExperimentConfig(System.String)
+  type: Method
+  source:
+    id: SetExperimentConfig
+    path: ''
+    startLine: 622
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  summary: Set the eDIA experiment settings with the full JSON config string
+  example: []
+  syntax:
+    content: protected void SetExperimentConfig(string JSONstring)
+    parameters:
+    - id: JSONstring
+      type: System.String
+      description: Full config string
+    content.vb: Protected Sub SetExperimentConfig(JSONstring As String)
+  overload: eDIA.ExperimentManager.SetExperimentConfig*
+  modifiers.csharp:
+  - protected
+  modifiers.vb:
+  - Protected
+- uid: eDIA.ExperimentManager.SetSessionSettings
+  commentId: M:eDIA.ExperimentManager.SetSessionSettings
+  id: SetSessionSettings
+  parent: eDIA.ExperimentManager
+  langs:
+  - csharp
+  - vb
+  name: SetSessionSettings()
+  nameWithType: ExperimentManager.SetSessionSettings()
+  fullName: eDIA.ExperimentManager.SetSessionSettings()
+  type: Method
+  source:
+    id: SetSessionSettings
+    path: ''
+    startLine: 632
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  summary: Set the sessionsettings to use by UXF
+  example: []
+  syntax:
+    content: protected void SetSessionSettings()
+    content.vb: Protected Sub SetSessionSettings
+  overload: eDIA.ExperimentManager.SetSessionSettings*
+  modifiers.csharp:
+  - protected
+  modifiers.vb:
+  - Protected
+- uid: eDIA.ExperimentManager.OnTrialBeginUXF(Trial)
+  commentId: M:eDIA.ExperimentManager.OnTrialBeginUXF(Trial)
+  id: OnTrialBeginUXF(Trial)
+  parent: eDIA.ExperimentManager
+  langs:
+  - csharp
+  - vb
+  name: OnTrialBeginUXF(Trial)
+  nameWithType: ExperimentManager.OnTrialBeginUXF(Trial)
+  fullName: eDIA.ExperimentManager.OnTrialBeginUXF(Trial)
+  type: Method
+  source:
+    id: OnTrialBeginUXF
+    path: ''
+    startLine: 728
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  summary: 'Called from UXF session. Begin setting things up for the trial that is about to start '
+  example: []
+  syntax:
+    content: protected void OnTrialBeginUXF(Trial newTrial)
+    parameters:
+    - id: newTrial
+      type: Global.Trial
+      description: Trial passed on by UXF
+    content.vb: Protected Sub OnTrialBeginUXF(newTrial As Trial)
+  overload: eDIA.ExperimentManager.OnTrialBeginUXF*
+  modifiers.csharp:
+  - protected
+  modifiers.vb:
+  - Protected
+- uid: eDIA.ExperimentManager.OnTrialEndUXF(Trial)
+  commentId: M:eDIA.ExperimentManager.OnTrialEndUXF(Trial)
+  id: OnTrialEndUXF(Trial)
+  parent: eDIA.ExperimentManager
+  langs:
+  - csharp
+  - vb
+  name: OnTrialEndUXF(Trial)
+  nameWithType: ExperimentManager.OnTrialEndUXF(Trial)
+  fullName: eDIA.ExperimentManager.OnTrialEndUXF(Trial)
+  type: Method
+  source:
+    id: OnTrialEndUXF
+    path: ''
+    startLine: 752
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  summary: 'Called from UXF session. Checks if to call NextTrial, BREAK, PAUSE or End the Session '
+  example: []
+  syntax:
+    content: protected void OnTrialEndUXF(Trial endedTrial)
+    parameters:
+    - id: endedTrial
+      type: Global.Trial
+      description: Trial passed on by UXF
+    content.vb: Protected Sub OnTrialEndUXF(endedTrial As Trial)
+  overload: eDIA.ExperimentManager.OnTrialEndUXF*
+  modifiers.csharp:
+  - protected
+  modifiers.vb:
+  - Protected
+- uid: eDIA.ExperimentManager.SessionBreak
+  commentId: M:eDIA.ExperimentManager.SessionBreak
+  id: SessionBreak
+  parent: eDIA.ExperimentManager
+  langs:
+  - csharp
+  - vb
+  name: SessionBreak()
+  nameWithType: ExperimentManager.SessionBreak()
+  fullName: eDIA.ExperimentManager.SessionBreak()
+  type: Method
+  source:
+    id: SessionBreak
+    path: ''
+    startLine: 799
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  summary: Starts Experiment BREAK and triggers corresponding event. Awaits <code>EvProceed</code> event to continue.
+  example: []
+  syntax:
+    content: protected void SessionBreak()
+    content.vb: Protected Sub SessionBreak
+  overload: eDIA.ExperimentManager.SessionBreak*
+  modifiers.csharp:
+  - protected
+  modifiers.vb:
+  - Protected
+- uid: eDIA.ExperimentManager.SessionResume(eDIA.eParam)
+  commentId: M:eDIA.ExperimentManager.SessionResume(eDIA.eParam)
+  id: SessionResume(eDIA.eParam)
+  parent: eDIA.ExperimentManager
+  langs:
+  - csharp
+  - vb
+  name: SessionResume(eParam)
+  nameWithType: ExperimentManager.SessionResume(eParam)
+  fullName: eDIA.ExperimentManager.SessionResume(eDIA.eParam)
+  type: Method
+  source:
+    id: SessionResume
+    path: ''
+    startLine: 807
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  summary: Handles continue trigger while in BREAK
+  example: []
+  syntax:
+    content: protected void SessionResume(eParam e)
+    parameters:
+    - id: e
+      type: eDIA.eParam
+    content.vb: Protected Sub SessionResume(e As eParam)
+  overload: eDIA.ExperimentManager.SessionResume*
+  modifiers.csharp:
+  - protected
+  modifiers.vb:
+  - Protected
+- uid: eDIA.ExperimentManager.BlockIntroduction
+  commentId: M:eDIA.ExperimentManager.BlockIntroduction
+  id: BlockIntroduction
+  parent: eDIA.ExperimentManager
+  langs:
+  - csharp
+  - vb
+  name: BlockIntroduction()
+  nameWithType: ExperimentManager.BlockIntroduction()
+  fullName: eDIA.ExperimentManager.BlockIntroduction()
+  type: Method
+  source:
+    id: BlockIntroduction
+    path: ''
+    startLine: 817
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  summary: Starts INTRODUCTION and triggers corresponding event. Awaits <code>EvProceed</code> event to continue.
+  example: []
+  syntax:
+    content: protected void BlockIntroduction()
+    content.vb: Protected Sub BlockIntroduction
+  overload: eDIA.ExperimentManager.BlockIntroduction*
+  modifiers.csharp:
+  - protected
+  modifiers.vb:
+  - Protected
+- uid: eDIA.ExperimentManager.BlockResume(eDIA.eParam)
+  commentId: M:eDIA.ExperimentManager.BlockResume(eDIA.eParam)
+  id: BlockResume(eDIA.eParam)
+  parent: eDIA.ExperimentManager
+  langs:
+  - csharp
+  - vb
+  name: BlockResume(eParam)
+  nameWithType: ExperimentManager.BlockResume(eParam)
+  fullName: eDIA.ExperimentManager.BlockResume(eDIA.eParam)
+  type: Method
+  source:
+    id: BlockResume
+    path: ''
+    startLine: 825
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  summary: Handles continue trigger while in INTRODUCTION
+  example: []
+  syntax:
+    content: protected void BlockResume(eParam e)
+    parameters:
+    - id: e
+      type: eDIA.eParam
+    content.vb: Protected Sub BlockResume(e As eParam)
+  overload: eDIA.ExperimentManager.BlockResume*
+  modifiers.csharp:
+  - protected
+  modifiers.vb:
+  - Protected
 - uid: eDIA.ExperimentManager.GenerateUXFSequence(List{System.String},List{eDIA.ExperimentManager.TrialSequenceValues})
   commentId: M:eDIA.ExperimentManager.GenerateUXFSequence(List{System.String},List{eDIA.ExperimentManager.TrialSequenceValues})
   id: GenerateUXFSequence(List{System.String},List{eDIA.ExperimentManager.TrialSequenceValues})
@@ -166,28 +418,62 @@ items:
   source:
     id: GenerateUXFSequence
     path: ''
-    startLine: 812
+    startLine: 838
   assemblies:
   - cs.temp.dll
   namespace: eDIA
-  summary: '/// Convert JSON formatted definition for the seqence into a UXF format to run in the session/// '
+  summary: 'Generates trial sequence with the given keys and values for each trial in <code>Trial.Settings</code> '
   example: []
   syntax:
-    content: public void GenerateUXFSequence(List<string> _trialSequenceKeys, List<ExperimentManager.TrialSequenceValues> _trialSequenceValues)
+    content: protected void GenerateUXFSequence(List<string> _trialSequenceKeys, List<ExperimentManager.TrialSequenceValues> _trialSequenceValues)
     parameters:
     - id: _trialSequenceKeys
       type: Global.List{System.String}
+      description: List of string keys
     - id: _trialSequenceValues
       type: Global.List{eDIA.ExperimentManager.TrialSequenceValues}
-    content.vb: Public Sub GenerateUXFSequence(_trialSequenceKeys As List(Of String), _trialSequenceValues As List(Of ExperimentManager.TrialSequenceValues))
+      description: List of string values
+    content.vb: Protected Sub GenerateUXFSequence(_trialSequenceKeys As List(Of String), _trialSequenceValues As List(Of ExperimentManager.TrialSequenceValues))
   overload: eDIA.ExperimentManager.GenerateUXFSequence*
   nameWithType.vb: ExperimentManager.GenerateUXFSequence(List(Of String), List(Of ExperimentManager.TrialSequenceValues))
   modifiers.csharp:
-  - public
+  - protected
   modifiers.vb:
-  - Public
+  - Protected
   fullName.vb: eDIA.ExperimentManager.GenerateUXFSequence(List(Of System.String), List(Of eDIA.ExperimentManager.TrialSequenceValues))
   name.vb: GenerateUXFSequence(List(Of String), List(Of ExperimentManager.TrialSequenceValues))
+- uid: eDIA.ExperimentManager.AddToExecutionOrderLog(System.String)
+  commentId: M:eDIA.ExperimentManager.AddToExecutionOrderLog(System.String)
+  id: AddToExecutionOrderLog(System.String)
+  parent: eDIA.ExperimentManager
+  langs:
+  - csharp
+  - vb
+  name: AddToExecutionOrderLog(String)
+  nameWithType: ExperimentManager.AddToExecutionOrderLog(String)
+  fullName: eDIA.ExperimentManager.AddToExecutionOrderLog(System.String)
+  type: Method
+  source:
+    id: AddToExecutionOrderLog
+    path: ''
+    startLine: 868
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  summary: 'Add to experiment execution log. Auto inserts timestamp. '
+  example: []
+  syntax:
+    content: protected void AddToExecutionOrderLog(string description)
+    parameters:
+    - id: description
+      type: System.String
+      description: Message to log
+    content.vb: Protected Sub AddToExecutionOrderLog(description As String)
+  overload: eDIA.ExperimentManager.AddToExecutionOrderLog*
+  modifiers.csharp:
+  - protected
+  modifiers.vb:
+  - Protected
 references:
 - uid: eDIA
   commentId: N:eDIA
@@ -240,15 +526,6 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: Global.Singleton{eDIA.ExperimentManager}.Instance
-  commentId: P:Global.Singleton{eDIA.ExperimentManager}.Instance
-  parent: Global.Singleton{eDIA.ExperimentManager}
-  definition: Global.Singleton`1.Instance
-  name: Instance
-  nameWithType: Singleton<ExperimentManager>.Instance
-  fullName: Singleton<eDIA.ExperimentManager>.Instance
-  nameWithType.vb: Singleton(Of ExperimentManager).Instance
-  fullName.vb: Singleton(Of eDIA.ExperimentManager).Instance
 - uid: System
   commentId: N:System
   isExternal: true
@@ -291,13 +568,6 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: Global.Singleton`1.Instance
-  commentId: P:Global.Singleton`1.Instance
-  name: Instance
-  nameWithType: Singleton<T>.Instance
-  fullName: Singleton<T>.Instance
-  nameWithType.vb: Singleton(Of T).Instance
-  fullName.vb: Singleton(Of T).Instance
 - uid: System.Boolean
   commentId: T:System.Boolean
   parent: System
@@ -316,11 +586,69 @@ references:
   name: ExperimentManager.ExperimentConfig
   nameWithType: ExperimentManager.ExperimentConfig
   fullName: eDIA.ExperimentManager.ExperimentConfig
-- uid: eDIA.ExperimentManager.StartExperiment*
-  commentId: Overload:eDIA.ExperimentManager.StartExperiment
-  name: StartExperiment
-  nameWithType: ExperimentManager.StartExperiment
-  fullName: eDIA.ExperimentManager.StartExperiment
+- uid: eDIA.ExperimentManager.LoadExperimentConfigFromDisk*
+  commentId: Overload:eDIA.ExperimentManager.LoadExperimentConfigFromDisk
+  name: LoadExperimentConfigFromDisk
+  nameWithType: ExperimentManager.LoadExperimentConfigFromDisk
+  fullName: eDIA.ExperimentManager.LoadExperimentConfigFromDisk
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  name: String
+  nameWithType: String
+  fullName: System.String
+- uid: eDIA.ExperimentManager.SetExperimentConfig*
+  commentId: Overload:eDIA.ExperimentManager.SetExperimentConfig
+  name: SetExperimentConfig
+  nameWithType: ExperimentManager.SetExperimentConfig
+  fullName: eDIA.ExperimentManager.SetExperimentConfig
+- uid: eDIA.ExperimentManager.SetSessionSettings*
+  commentId: Overload:eDIA.ExperimentManager.SetSessionSettings
+  name: SetSessionSettings
+  nameWithType: ExperimentManager.SetSessionSettings
+  fullName: eDIA.ExperimentManager.SetSessionSettings
+- uid: eDIA.ExperimentManager.OnTrialBeginUXF*
+  commentId: Overload:eDIA.ExperimentManager.OnTrialBeginUXF
+  name: OnTrialBeginUXF
+  nameWithType: ExperimentManager.OnTrialBeginUXF
+  fullName: eDIA.ExperimentManager.OnTrialBeginUXF
+- uid: Global.Trial
+  isExternal: true
+  name: Trial
+  nameWithType: Trial
+  fullName: Trial
+- uid: eDIA.ExperimentManager.OnTrialEndUXF*
+  commentId: Overload:eDIA.ExperimentManager.OnTrialEndUXF
+  name: OnTrialEndUXF
+  nameWithType: ExperimentManager.OnTrialEndUXF
+  fullName: eDIA.ExperimentManager.OnTrialEndUXF
+- uid: eDIA.ExperimentManager.SessionBreak*
+  commentId: Overload:eDIA.ExperimentManager.SessionBreak
+  name: SessionBreak
+  nameWithType: ExperimentManager.SessionBreak
+  fullName: eDIA.ExperimentManager.SessionBreak
+- uid: eDIA.ExperimentManager.SessionResume*
+  commentId: Overload:eDIA.ExperimentManager.SessionResume
+  name: SessionResume
+  nameWithType: ExperimentManager.SessionResume
+  fullName: eDIA.ExperimentManager.SessionResume
+- uid: eDIA.eParam
+  commentId: T:eDIA.eParam
+  parent: eDIA
+  name: eParam
+  nameWithType: eParam
+  fullName: eDIA.eParam
+- uid: eDIA.ExperimentManager.BlockIntroduction*
+  commentId: Overload:eDIA.ExperimentManager.BlockIntroduction
+  name: BlockIntroduction
+  nameWithType: ExperimentManager.BlockIntroduction
+  fullName: eDIA.ExperimentManager.BlockIntroduction
+- uid: eDIA.ExperimentManager.BlockResume*
+  commentId: Overload:eDIA.ExperimentManager.BlockResume
+  name: BlockResume
+  nameWithType: ExperimentManager.BlockResume
+  fullName: eDIA.ExperimentManager.BlockResume
 - uid: eDIA.ExperimentManager.GenerateUXFSequence*
   commentId: Overload:eDIA.ExperimentManager.GenerateUXFSequence
   name: GenerateUXFSequence
@@ -448,3 +776,8 @@ references:
   - name: )
     nameWithType: )
     fullName: )
+- uid: eDIA.ExperimentManager.AddToExecutionOrderLog*
+  commentId: Overload:eDIA.ExperimentManager.AddToExecutionOrderLog
+  name: AddToExecutionOrderLog
+  nameWithType: ExperimentManager.AddToExecutionOrderLog
+  fullName: eDIA.ExperimentManager.AddToExecutionOrderLog

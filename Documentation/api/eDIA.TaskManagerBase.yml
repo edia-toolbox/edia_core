@@ -26,7 +26,6 @@ items:
   - eDIA.TaskManagerBase.Start
   - eDIA.TaskManagerBase.taskColor
   - eDIA.TaskManagerBase.taskSettings
-  - eDIA.TaskManagerBase.taskSettingsContainer
   - eDIA.TaskManagerBase.trialSequence
   - eDIA.TaskManagerBase.XRrig_LeftController
   - eDIA.TaskManagerBase.XRrig_MainCamera
@@ -41,10 +40,12 @@ items:
   source:
     id: TaskManagerBase
     path: ''
-    startLine: 868
+    startLine: 899
   assemblies:
   - cs.temp.dll
   namespace: eDIA
+  summary: "\nLink between <code>ExperimentManager</code> and the custom user task. <br />\nHidden base where the custom task template is build upon.\n"
+  example: []
   syntax:
     content: 'public class TaskManagerBase : MonoBehaviour'
     content.vb: >-
@@ -72,7 +73,7 @@ items:
   source:
     id: showLog
     path: ''
-    startLine: 872
+    startLine: 903
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -99,7 +100,7 @@ items:
   source:
     id: taskColor
     path: ''
-    startLine: 873
+    startLine: 904
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -108,33 +109,6 @@ items:
     return:
       type: Global.Color
     content.vb: Public taskColor As Color
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
-- uid: eDIA.TaskManagerBase.taskSettingsContainer
-  commentId: F:eDIA.TaskManagerBase.taskSettingsContainer
-  id: taskSettingsContainer
-  parent: eDIA.TaskManagerBase
-  langs:
-  - csharp
-  - vb
-  name: taskSettingsContainer
-  nameWithType: TaskManagerBase.taskSettingsContainer
-  fullName: eDIA.TaskManagerBase.taskSettingsContainer
-  type: Field
-  source:
-    id: taskSettingsContainer
-    path: ''
-    startLine: 880
-  assemblies:
-  - cs.temp.dll
-  namespace: eDIA
-  syntax:
-    content: public TaskManagerBase.TaskSettingsContainer taskSettingsContainer
-    return:
-      type: eDIA.TaskManagerBase.TaskSettingsContainer
-    content.vb: Public taskSettingsContainer As TaskManagerBase.TaskSettingsContainer
   modifiers.csharp:
   - public
   modifiers.vb:
@@ -153,7 +127,7 @@ items:
   source:
     id: taskSettings
     path: ''
-    startLine: 881
+    startLine: 916
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -180,7 +154,7 @@ items:
   source:
     id: XRrig_MainCamera
     path: ''
-    startLine: 884
+    startLine: 919
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -207,7 +181,7 @@ items:
   source:
     id: XRrig_RightController
     path: ''
-    startLine: 885
+    startLine: 920
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -234,7 +208,7 @@ items:
   source:
     id: XRrig_LeftController
     path: ''
-    startLine: 886
+    startLine: 921
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -261,7 +235,7 @@ items:
   source:
     id: Awake
     path: ''
-    startLine: 891
+    startLine: 926
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -289,7 +263,7 @@ items:
   source:
     id: OnEnable
     path: ''
-    startLine: 898
+    startLine: 933
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -317,7 +291,7 @@ items:
   source:
     id: Start
     path: ''
-    startLine: 902
+    startLine: 937
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -345,7 +319,7 @@ items:
   source:
     id: OnEvFoundXRrigReferences
     path: ''
-    startLine: 927
+    startLine: 962
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -376,7 +350,7 @@ items:
   source:
     id: AddToTrialResults
     path: ''
-    startLine: 974
+    startLine: 1009
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -407,7 +381,7 @@ items:
   source:
     id: OnSessionEndUXF
     path: ''
-    startLine: 999
+    startLine: 1034
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -437,7 +411,7 @@ items:
   source:
     id: OnEvProceed
     path: ''
-    startLine: 1011
+    startLine: 1046
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -468,7 +442,7 @@ items:
   source:
     id: OnSessionStart
     path: ''
-    startLine: 1020
+    startLine: 1055
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -498,7 +472,7 @@ items:
   source:
     id: OnSessionEnding
     path: ''
-    startLine: 1026
+    startLine: 1061
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -528,7 +502,7 @@ items:
   source:
     id: OnSessionBreak
     path: ''
-    startLine: 1042
+    startLine: 1077
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -558,7 +532,7 @@ items:
   source:
     id: OnSessionResume
     path: ''
-    startLine: 1054
+    startLine: 1089
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -588,7 +562,7 @@ items:
   source:
     id: OnBlockIntroduction
     path: ''
-    startLine: 1069
+    startLine: 1104
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -618,7 +592,7 @@ items:
   source:
     id: OnEvBlockResume
     path: ''
-    startLine: 1074
+    startLine: 1109
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -649,7 +623,7 @@ items:
   source:
     id: OnBlockResume
     path: ''
-    startLine: 1082
+    startLine: 1117
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -679,7 +653,7 @@ items:
   source:
     id: trialSequence
     path: ''
-    startLine: 1103
+    startLine: 1138
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -706,7 +680,7 @@ items:
   source:
     id: currentStep
     path: ''
-    startLine: 1105
+    startLine: 1140
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -733,7 +707,7 @@ items:
   source:
     id: ResetTrial
     path: ''
-    startLine: 1123
+    startLine: 1158
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -761,7 +735,7 @@ items:
   source:
     id: NextStep
     path: ''
-    startLine: 1127
+    startLine: 1162
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -787,7 +761,7 @@ items:
   source:
     id: AddToLog
     path: ''
-    startLine: 1142
+    startLine: 1177
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -833,12 +807,6 @@ references:
   name: Color
   nameWithType: Color
   fullName: Color
-- uid: eDIA.TaskManagerBase.TaskSettingsContainer
-  commentId: T:eDIA.TaskManagerBase.TaskSettingsContainer
-  parent: eDIA
-  name: TaskManagerBase.TaskSettingsContainer
-  nameWithType: TaskManagerBase.TaskSettingsContainer
-  fullName: eDIA.TaskManagerBase.TaskSettingsContainer
 - uid: UXF.Settings
   commentId: T:UXF.Settings
   parent: UXF

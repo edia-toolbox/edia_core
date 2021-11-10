@@ -1,0 +1,119 @@
+### YamlMime:ManagedReference
+items:
+- uid: eDIA.EditorUtils.ReadOnlyDrawer
+  commentId: T:eDIA.EditorUtils.ReadOnlyDrawer
+  id: ReadOnlyDrawer
+  parent: eDIA.EditorUtils
+  children:
+  - eDIA.EditorUtils.ReadOnlyDrawer.OnGUI(Rect,SerializedProperty,GUIContent)
+  langs:
+  - csharp
+  - vb
+  name: ReadOnlyDrawer
+  nameWithType: ReadOnlyDrawer
+  fullName: eDIA.EditorUtils.ReadOnlyDrawer
+  type: Class
+  source:
+    id: ReadOnlyDrawer
+    path: ''
+    startLine: 3183
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA.EditorUtils
+  summary: This class contain custom drawer for ReadOnly attribute.
+  example: []
+  syntax:
+    content: 'public class ReadOnlyDrawer : PropertyDrawer'
+    content.vb: >-
+      Public Class ReadOnlyDrawer
+          Inherits PropertyDrawer
+  inheritance:
+  - System.Object
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+- uid: eDIA.EditorUtils.ReadOnlyDrawer.OnGUI(Rect,SerializedProperty,GUIContent)
+  commentId: M:eDIA.EditorUtils.ReadOnlyDrawer.OnGUI(Rect,SerializedProperty,GUIContent)
+  id: OnGUI(Rect,SerializedProperty,GUIContent)
+  parent: eDIA.EditorUtils.ReadOnlyDrawer
+  langs:
+  - csharp
+  - vb
+  name: OnGUI(Rect, SerializedProperty, GUIContent)
+  nameWithType: ReadOnlyDrawer.OnGUI(Rect, SerializedProperty, GUIContent)
+  fullName: eDIA.EditorUtils.ReadOnlyDrawer.OnGUI(Rect, SerializedProperty, GUIContent)
+  type: Method
+  source:
+    id: OnGUI
+    path: ''
+    startLine: 3192
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA.EditorUtils
+  summary: "\nUnity method for drawing GUI in Editor\n"
+  example: []
+  syntax:
+    content: public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+    parameters:
+    - id: position
+      type: Global.Rect
+      description: Position.
+    - id: property
+      type: Global.SerializedProperty
+      description: Property.
+    - id: label
+      type: Global.GUIContent
+      description: Label.
+    content.vb: Public Overrides Sub OnGUI(position As Rect, property As SerializedProperty, label As GUIContent)
+  overload: eDIA.EditorUtils.ReadOnlyDrawer.OnGUI*
+  modifiers.csharp:
+  - public
+  - override
+  modifiers.vb:
+  - Public
+  - Overrides
+references:
+- uid: eDIA.EditorUtils
+  commentId: N:eDIA.EditorUtils
+  name: eDIA.EditorUtils
+  nameWithType: eDIA.EditorUtils
+  fullName: eDIA.EditorUtils
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: eDIA.EditorUtils.ReadOnlyDrawer.OnGUI*
+  commentId: Overload:eDIA.EditorUtils.ReadOnlyDrawer.OnGUI
+  name: OnGUI
+  nameWithType: ReadOnlyDrawer.OnGUI
+  fullName: eDIA.EditorUtils.ReadOnlyDrawer.OnGUI
+- uid: Global.Rect
+  commentId: '!:Global.Rect'
+  isExternal: true
+  name: Rect
+  nameWithType: Rect
+  fullName: Rect
+- uid: Global.SerializedProperty
+  commentId: '!:Global.SerializedProperty'
+  isExternal: true
+  name: SerializedProperty
+  nameWithType: SerializedProperty
+  fullName: SerializedProperty
+- uid: Global.GUIContent
+  commentId: '!:Global.GUIContent'
+  isExternal: true
+  name: GUIContent
+  nameWithType: GUIContent
+  fullName: GUIContent

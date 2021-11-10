@@ -15,7 +15,9 @@ using UnityEngine;
 // ==============================================================================================================================================
 namespace eDIA {
 
-	//main parameters package definition to send along an event. 
+	/// <summary>
+	/// Parameter package definition to send along with an event. 
+	/// </summary>
 	public class eParam {
 		// Empty constructor
 		/// <summary>Default empty </summary>
@@ -150,12 +152,21 @@ namespace eDIA {
 
 	// ==============================================================================================================================================
 
+	/// <summary>
+	/// EventManager handles eventlisteners and fire events when triggered.<br/>
+	/// It uses <c>eparam</c> class to be able to send custom packages along with the event.
+	/// </summary>
 	[System.Serializable]
 	public class EventManager {
 		private static Dictionary<string, Action<eParam>> eventDictionary = new Dictionary<string, Action<eParam>> ();
 
-		public static bool showLog = false;
+		private static bool showLog { get; set; } = false;
 
+		/// <summary>
+		/// Starts a listener to the given <c>eventName</c> string
+		/// </summary>
+		/// <param name="eventName">String definition of the event</param>
+		/// <param name="listener">Method to trigger when event is fired</param>
 		public static void StartListening (string eventName, Action<eParam> listener) {
 			Action<eParam> thisEvent;
 
@@ -175,6 +186,11 @@ namespace eDIA {
 				UnityEngine.Debug.Log("added listener:" + eventName);
 		}
 
+		/// <summary>
+		/// Stops the listener, if any, to the given <c>eventName</c> string
+		/// </summary>
+		/// <param name="eventName">String definition of the event</param>
+		/// <param name="listener">Method to trigger when event is fired</param>
 		public static void StopListening (string eventName, Action<eParam> listener) {
 			//if (eventManager == null) return;
 			Action<eParam> thisEvent;
@@ -191,6 +207,11 @@ namespace eDIA {
 			}
 		}
 
+		/// <summary>
+		/// Triggers the event with the given eventname
+		/// </summary>
+		/// <param name="eventName">String definition of the event</param>
+		/// <param name="eventParam">Parameter package to pass along</param>
 		public static void TriggerEvent (string eventName, eParam eventParam) {
 			Action<eParam> thisEvent = null;
 

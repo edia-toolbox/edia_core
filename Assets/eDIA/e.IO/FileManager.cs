@@ -5,6 +5,9 @@ using UnityEngine;
 
 namespace eDIA {
 
+	/// <summary>
+	/// Static class to handle file IO
+	/// </summary>
 	public static class FileManager {
 
 		public static string ReadStringFromApplicationPath (string _fileName) {

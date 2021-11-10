@@ -2,14 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using eDIA.EditorUtils;
 
 namespace eDIA {
 
 	/// <summary> 
-	/// The SystemManager is a Singleton and therefor reachable from whatever script.
-	/// The script travels along the scenes that are loaded as it is DontDestroyOnLoad. 
-	/// Responsible for loading/unloading, user related actions, top level application stuff.
-	/// Has references to the XR rig camera and hands for the rest of the application.
+	/// The SystemManager is a Singleton and therefor reachable from whatever script.<br/>
+	/// The script travels along the scenes that are loaded as it is DontDestroyOnLoad. <br/>
+	/// Responsible for loading/unloading, user related actions, top level application stuff.<br/>
+	/// Has references to the XR rig camera and hands for the rest of the application.<br/>
 	/// </summary>
 	public class SystemManager : MonoBehaviour {
 
@@ -73,7 +74,7 @@ namespace eDIA {
 
 			public void AddToLog(string _msg) {
 				if (showLog)
-					eDIA.LogUtilities.AddToLog(_msg, "eDIA", taskColor);
+					LogUtilities.AddToLog(_msg, "eDIA", taskColor);
 			}
 			
 
