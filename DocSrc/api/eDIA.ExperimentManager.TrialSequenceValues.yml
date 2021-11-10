@@ -1,0 +1,172 @@
+### YamlMime:ManagedReference
+items:
+- uid: eDIA.ExperimentManager.TrialSequenceValues
+  commentId: T:eDIA.ExperimentManager.TrialSequenceValues
+  id: ExperimentManager.TrialSequenceValues
+  parent: eDIA
+  children:
+  - eDIA.ExperimentManager.TrialSequenceValues.values
+  langs:
+  - csharp
+  - vb
+  name: ExperimentManager.TrialSequenceValues
+  nameWithType: ExperimentManager.TrialSequenceValues
+  fullName: eDIA.ExperimentManager.TrialSequenceValues
+  type: Class
+  source:
+    id: TrialSequenceValues
+    path: ''
+    startLine: 517
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  summary: Stringlist with trial setting values
+  example: []
+  syntax:
+    content: >-
+      [Serializable]
+
+      public class TrialSequenceValues
+    content.vb: >-
+      <Serializable>
+
+      Public Class TrialSequenceValues
+  inheritance:
+  - System.Object
+  attributes:
+  - type: System.SerializableAttribute
+    ctor: System.SerializableAttribute.#ctor
+    arguments: []
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+- uid: eDIA.ExperimentManager.TrialSequenceValues.values
+  commentId: F:eDIA.ExperimentManager.TrialSequenceValues.values
+  id: values
+  parent: eDIA.ExperimentManager.TrialSequenceValues
+  langs:
+  - csharp
+  - vb
+  name: values
+  nameWithType: ExperimentManager.TrialSequenceValues.values
+  fullName: eDIA.ExperimentManager.TrialSequenceValues.values
+  type: Field
+  source:
+    id: values
+    path: ''
+    startLine: 519
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public List<string> values
+    return:
+      type: Global.List{System.String}
+    content.vb: Public values As List(Of String)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+references:
+- uid: eDIA
+  commentId: N:eDIA
+  name: eDIA
+  nameWithType: eDIA
+  fullName: eDIA
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Global.List{System.String}
+  commentId: '!:Global.List{System.String}'
+  definition: Global.List`1
+  name: List<String>
+  nameWithType: List<String>
+  fullName: List<System.String>
+  nameWithType.vb: List(Of String)
+  fullName.vb: List(Of System.String)
+  name.vb: List(Of String)
+  spec.csharp:
+  - uid: Global.List`1
+    name: List
+    nameWithType: List
+    fullName: List
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: Global.List`1
+    name: List
+    nameWithType: List
+    fullName: List
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Global.List`1
+  isExternal: true
+  name: List<>
+  nameWithType: List<>
+  fullName: List<>
+  nameWithType.vb: List(Of )
+  fullName.vb: List(Of )
+  name.vb: List(Of )
+  spec.csharp:
+  - uid: Global.List`1
+    name: List
+    nameWithType: List
+    fullName: List
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: ''
+    nameWithType: ''
+    fullName: ''
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: Global.List`1
+    name: List
+    nameWithType: List
+    fullName: List
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: ''
+    nameWithType: ''
+    fullName: ''
+  - name: )
+    nameWithType: )
+    fullName: )

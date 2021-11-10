@@ -1,0 +1,580 @@
+### YamlMime:ManagedReference
+items:
+- uid: TASK.TaskManagerDemo
+  commentId: T:TASK.TaskManagerDemo
+  id: TaskManagerDemo
+  parent: TASK
+  children:
+  - TASK.TaskManagerDemo.Awake
+  - TASK.TaskManagerDemo.NextStepFromUserOrSceneOrButtonOrTimerOrWhatever
+  - TASK.TaskManagerDemo.OnBlockIntroduction
+  - TASK.TaskManagerDemo.OnBlockResume
+  - TASK.TaskManagerDemo.OnEnable
+  - TASK.TaskManagerDemo.OnEvFoundXRrigReferences(eParam)
+  - TASK.TaskManagerDemo.OnSessionBreak
+  - TASK.TaskManagerDemo.OnSessionEnding
+  - TASK.TaskManagerDemo.OnSessionEndUXF
+  - TASK.TaskManagerDemo.OnSessionResume
+  - TASK.TaskManagerDemo.OnSessionStart
+  - TASK.TaskManagerDemo.ResetTrial
+  - TASK.TaskManagerDemo.Start
+  - TASK.TaskManagerDemo.theCube
+  - TASK.TaskManagerDemo.XRrigCleanUP
+  langs:
+  - csharp
+  - vb
+  name: TaskManagerDemo
+  nameWithType: TaskManagerDemo
+  fullName: TASK.TaskManagerDemo
+  type: Class
+  source:
+    id: TaskManagerDemo
+    path: ''
+    startLine: 3223
+  assemblies:
+  - cs.temp.dll
+  namespace: TASK
+  summary: "\nThis is a DEMO script for a very simple task.\nAll main functionalities to run the Experiment, UXF and Trial statemachine are in TaskManagerBase so no need to worry about that.<br /><br />\n<p>To start your own TaskManager for your experiment task: \n1. Copy/Paste the complete &apos;DemoTask&apos; folder from /eDIA/Samples to the /Assets/ folder in your project<br />\n2. Rename the script file and class to your Taskname<br />\n3. Switch the inspector to &apos;debug&apos; mode (3 dots right topcorner)<br />\n4. Find [ SYSTEM ] > [ EXP ] gameobject and replace &apos;TaskManagerDemo&apos; script entry in the inspector with your TaskManager script and switch inspector mode back again</p>\n"
+  example: []
+  syntax:
+    content: 'public class TaskManagerDemo : TaskManagerBase'
+    content.vb: >-
+      Public Class TaskManagerDemo
+          Inherits TaskManagerBase
+  inheritance:
+  - System.Object
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+- uid: TASK.TaskManagerDemo.theCube
+  commentId: F:TASK.TaskManagerDemo.theCube
+  id: theCube
+  parent: TASK.TaskManagerDemo
+  langs:
+  - csharp
+  - vb
+  name: theCube
+  nameWithType: TaskManagerDemo.theCube
+  fullName: TASK.TaskManagerDemo.theCube
+  type: Field
+  source:
+    id: theCube
+    path: ''
+    startLine: 3226
+  assemblies:
+  - cs.temp.dll
+  namespace: TASK
+  syntax:
+    content: public GameObject theCube
+    return:
+      type: Global.GameObject
+    content.vb: Public theCube As GameObject
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: TASK.TaskManagerDemo.OnEnable
+  commentId: M:TASK.TaskManagerDemo.OnEnable
+  id: OnEnable
+  parent: TASK.TaskManagerDemo
+  langs:
+  - csharp
+  - vb
+  name: OnEnable()
+  nameWithType: TaskManagerDemo.OnEnable()
+  fullName: TASK.TaskManagerDemo.OnEnable()
+  type: Method
+  source:
+    id: OnEnable
+    path: ''
+    startLine: 3240
+  assemblies:
+  - cs.temp.dll
+  namespace: TASK
+  syntax:
+    content: public override void OnEnable()
+    content.vb: Public Overrides Sub OnEnable
+  overload: TASK.TaskManagerDemo.OnEnable*
+  modifiers.csharp:
+  - public
+  - override
+  modifiers.vb:
+  - Public
+  - Overrides
+- uid: TASK.TaskManagerDemo.Awake
+  commentId: M:TASK.TaskManagerDemo.Awake
+  id: Awake
+  parent: TASK.TaskManagerDemo
+  langs:
+  - csharp
+  - vb
+  name: Awake()
+  nameWithType: TaskManagerDemo.Awake()
+  fullName: TASK.TaskManagerDemo.Awake()
+  type: Method
+  source:
+    id: Awake
+    path: ''
+    startLine: 3249
+  assemblies:
+  - cs.temp.dll
+  namespace: TASK
+  syntax:
+    content: public override void Awake()
+    content.vb: Public Overrides Sub Awake
+  overload: TASK.TaskManagerDemo.Awake*
+  modifiers.csharp:
+  - public
+  - override
+  modifiers.vb:
+  - Public
+  - Overrides
+- uid: TASK.TaskManagerDemo.Start
+  commentId: M:TASK.TaskManagerDemo.Start
+  id: Start
+  parent: TASK.TaskManagerDemo
+  langs:
+  - csharp
+  - vb
+  name: Start()
+  nameWithType: TaskManagerDemo.Start()
+  fullName: TASK.TaskManagerDemo.Start()
+  type: Method
+  source:
+    id: Start
+    path: ''
+    startLine: 3258
+  assemblies:
+  - cs.temp.dll
+  namespace: TASK
+  syntax:
+    content: public override void Start()
+    content.vb: Public Overrides Sub Start
+  overload: TASK.TaskManagerDemo.Start*
+  modifiers.csharp:
+  - public
+  - override
+  modifiers.vb:
+  - Public
+  - Overrides
+- uid: TASK.TaskManagerDemo.ResetTrial
+  commentId: M:TASK.TaskManagerDemo.ResetTrial
+  id: ResetTrial
+  parent: TASK.TaskManagerDemo
+  langs:
+  - csharp
+  - vb
+  name: ResetTrial()
+  nameWithType: TaskManagerDemo.ResetTrial()
+  fullName: TASK.TaskManagerDemo.ResetTrial()
+  type: Method
+  source:
+    id: ResetTrial
+    path: ''
+    startLine: 3269
+  assemblies:
+  - cs.temp.dll
+  namespace: TASK
+  syntax:
+    content: public override void ResetTrial()
+    content.vb: Public Overrides Sub ResetTrial
+  overload: TASK.TaskManagerDemo.ResetTrial*
+  modifiers.csharp:
+  - public
+  - override
+  modifiers.vb:
+  - Public
+  - Overrides
+- uid: TASK.TaskManagerDemo.OnSessionEndUXF
+  commentId: M:TASK.TaskManagerDemo.OnSessionEndUXF
+  id: OnSessionEndUXF
+  parent: TASK.TaskManagerDemo
+  langs:
+  - csharp
+  - vb
+  name: OnSessionEndUXF()
+  nameWithType: TaskManagerDemo.OnSessionEndUXF()
+  fullName: TASK.TaskManagerDemo.OnSessionEndUXF()
+  type: Method
+  source:
+    id: OnSessionEndUXF
+    path: ''
+    startLine: 3276
+  assemblies:
+  - cs.temp.dll
+  namespace: TASK
+  syntax:
+    content: public override void OnSessionEndUXF()
+    content.vb: Public Overrides Sub OnSessionEndUXF
+  overload: TASK.TaskManagerDemo.OnSessionEndUXF*
+  modifiers.csharp:
+  - public
+  - override
+  modifiers.vb:
+  - Public
+  - Overrides
+- uid: TASK.TaskManagerDemo.OnEvFoundXRrigReferences(eParam)
+  commentId: M:TASK.TaskManagerDemo.OnEvFoundXRrigReferences(eParam)
+  id: OnEvFoundXRrigReferences(eParam)
+  parent: TASK.TaskManagerDemo
+  langs:
+  - csharp
+  - vb
+  name: OnEvFoundXRrigReferences(eParam)
+  nameWithType: TaskManagerDemo.OnEvFoundXRrigReferences(eParam)
+  fullName: TASK.TaskManagerDemo.OnEvFoundXRrigReferences(eParam)
+  type: Method
+  source:
+    id: OnEvFoundXRrigReferences
+    path: ''
+    startLine: 3289
+  assemblies:
+  - cs.temp.dll
+  namespace: TASK
+  summary: 'Setup rig with things we need for this task. '
+  example: []
+  syntax:
+    content: public override void OnEvFoundXRrigReferences(eParam e)
+    parameters:
+    - id: e
+      type: Global.eParam
+    content.vb: Public Overrides Sub OnEvFoundXRrigReferences(e As eParam)
+  overload: TASK.TaskManagerDemo.OnEvFoundXRrigReferences*
+  modifiers.csharp:
+  - public
+  - override
+  modifiers.vb:
+  - Public
+  - Overrides
+- uid: TASK.TaskManagerDemo.XRrigCleanUP
+  commentId: M:TASK.TaskManagerDemo.XRrigCleanUP
+  id: XRrigCleanUP
+  parent: TASK.TaskManagerDemo
+  langs:
+  - csharp
+  - vb
+  name: XRrigCleanUP()
+  nameWithType: TaskManagerDemo.XRrigCleanUP()
+  fullName: TASK.TaskManagerDemo.XRrigCleanUP()
+  type: Method
+  source:
+    id: XRrigCleanUP
+    path: ''
+    startLine: 3297
+  assemblies:
+  - cs.temp.dll
+  namespace: TASK
+  syntax:
+    content: public void XRrigCleanUP()
+    content.vb: Public Sub XRrigCleanUP
+  overload: TASK.TaskManagerDemo.XRrigCleanUP*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: TASK.TaskManagerDemo.NextStepFromUserOrSceneOrButtonOrTimerOrWhatever
+  commentId: M:TASK.TaskManagerDemo.NextStepFromUserOrSceneOrButtonOrTimerOrWhatever
+  id: NextStepFromUserOrSceneOrButtonOrTimerOrWhatever
+  parent: TASK.TaskManagerDemo
+  langs:
+  - csharp
+  - vb
+  name: NextStepFromUserOrSceneOrButtonOrTimerOrWhatever()
+  nameWithType: TaskManagerDemo.NextStepFromUserOrSceneOrButtonOrTimerOrWhatever()
+  fullName: TASK.TaskManagerDemo.NextStepFromUserOrSceneOrButtonOrTimerOrWhatever()
+  type: Method
+  source:
+    id: NextStepFromUserOrSceneOrButtonOrTimerOrWhatever
+    path: ''
+    startLine: 3361
+  assemblies:
+  - cs.temp.dll
+  namespace: TASK
+  summary: Call this from your code to proceed to the next step
+  example: []
+  syntax:
+    content: public void NextStepFromUserOrSceneOrButtonOrTimerOrWhatever()
+    content.vb: Public Sub NextStepFromUserOrSceneOrButtonOrTimerOrWhatever
+  overload: TASK.TaskManagerDemo.NextStepFromUserOrSceneOrButtonOrTimerOrWhatever*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: TASK.TaskManagerDemo.OnSessionStart
+  commentId: M:TASK.TaskManagerDemo.OnSessionStart
+  id: OnSessionStart
+  parent: TASK.TaskManagerDemo
+  langs:
+  - csharp
+  - vb
+  name: OnSessionStart()
+  nameWithType: TaskManagerDemo.OnSessionStart()
+  fullName: TASK.TaskManagerDemo.OnSessionStart()
+  type: Method
+  source:
+    id: OnSessionStart
+    path: ''
+    startLine: 3385
+  assemblies:
+  - cs.temp.dll
+  namespace: TASK
+  summary: Called from Experiment manager
+  example: []
+  syntax:
+    content: public override void OnSessionStart()
+    content.vb: Public Overrides Sub OnSessionStart
+  overload: TASK.TaskManagerDemo.OnSessionStart*
+  modifiers.csharp:
+  - public
+  - override
+  modifiers.vb:
+  - Public
+  - Overrides
+- uid: TASK.TaskManagerDemo.OnSessionEnding
+  commentId: M:TASK.TaskManagerDemo.OnSessionEnding
+  id: OnSessionEnding
+  parent: TASK.TaskManagerDemo
+  langs:
+  - csharp
+  - vb
+  name: OnSessionEnding()
+  nameWithType: TaskManagerDemo.OnSessionEnding()
+  fullName: TASK.TaskManagerDemo.OnSessionEnding()
+  type: Method
+  source:
+    id: OnSessionEnding
+    path: ''
+    startLine: 3395
+  assemblies:
+  - cs.temp.dll
+  namespace: TASK
+  summary: Called from Experiment manager
+  example: []
+  syntax:
+    content: public override void OnSessionEnding()
+    content.vb: Public Overrides Sub OnSessionEnding
+  overload: TASK.TaskManagerDemo.OnSessionEnding*
+  modifiers.csharp:
+  - public
+  - override
+  modifiers.vb:
+  - Public
+  - Overrides
+- uid: TASK.TaskManagerDemo.OnSessionBreak
+  commentId: M:TASK.TaskManagerDemo.OnSessionBreak
+  id: OnSessionBreak
+  parent: TASK.TaskManagerDemo
+  langs:
+  - csharp
+  - vb
+  name: OnSessionBreak()
+  nameWithType: TaskManagerDemo.OnSessionBreak()
+  fullName: TASK.TaskManagerDemo.OnSessionBreak()
+  type: Method
+  source:
+    id: OnSessionBreak
+    path: ''
+    startLine: 3404
+  assemblies:
+  - cs.temp.dll
+  namespace: TASK
+  syntax:
+    content: public override void OnSessionBreak()
+    content.vb: Public Overrides Sub OnSessionBreak
+  overload: TASK.TaskManagerDemo.OnSessionBreak*
+  modifiers.csharp:
+  - public
+  - override
+  modifiers.vb:
+  - Public
+  - Overrides
+- uid: TASK.TaskManagerDemo.OnSessionResume
+  commentId: M:TASK.TaskManagerDemo.OnSessionResume
+  id: OnSessionResume
+  parent: TASK.TaskManagerDemo
+  langs:
+  - csharp
+  - vb
+  name: OnSessionResume()
+  nameWithType: TaskManagerDemo.OnSessionResume()
+  fullName: TASK.TaskManagerDemo.OnSessionResume()
+  type: Method
+  source:
+    id: OnSessionResume
+    path: ''
+    startLine: 3411
+  assemblies:
+  - cs.temp.dll
+  namespace: TASK
+  syntax:
+    content: public override void OnSessionResume()
+    content.vb: Public Overrides Sub OnSessionResume
+  overload: TASK.TaskManagerDemo.OnSessionResume*
+  modifiers.csharp:
+  - public
+  - override
+  modifiers.vb:
+  - Public
+  - Overrides
+- uid: TASK.TaskManagerDemo.OnBlockIntroduction
+  commentId: M:TASK.TaskManagerDemo.OnBlockIntroduction
+  id: OnBlockIntroduction
+  parent: TASK.TaskManagerDemo
+  langs:
+  - csharp
+  - vb
+  name: OnBlockIntroduction()
+  nameWithType: TaskManagerDemo.OnBlockIntroduction()
+  fullName: TASK.TaskManagerDemo.OnBlockIntroduction()
+  type: Method
+  source:
+    id: OnBlockIntroduction
+    path: ''
+    startLine: 3423
+  assemblies:
+  - cs.temp.dll
+  namespace: TASK
+  summary: Called when the block introduction starts
+  example: []
+  syntax:
+    content: public override void OnBlockIntroduction()
+    content.vb: Public Overrides Sub OnBlockIntroduction
+  overload: TASK.TaskManagerDemo.OnBlockIntroduction*
+  modifiers.csharp:
+  - public
+  - override
+  modifiers.vb:
+  - Public
+  - Overrides
+- uid: TASK.TaskManagerDemo.OnBlockResume
+  commentId: M:TASK.TaskManagerDemo.OnBlockResume
+  id: OnBlockResume
+  parent: TASK.TaskManagerDemo
+  langs:
+  - csharp
+  - vb
+  name: OnBlockResume()
+  nameWithType: TaskManagerDemo.OnBlockResume()
+  fullName: TASK.TaskManagerDemo.OnBlockResume()
+  type: Method
+  source:
+    id: OnBlockResume
+    path: ''
+    startLine: 3431
+  assemblies:
+  - cs.temp.dll
+  namespace: TASK
+  summary: Called when block resumes
+  example: []
+  syntax:
+    content: public override void OnBlockResume()
+    content.vb: Public Overrides Sub OnBlockResume
+  overload: TASK.TaskManagerDemo.OnBlockResume*
+  modifiers.csharp:
+  - public
+  - override
+  modifiers.vb:
+  - Public
+  - Overrides
+references:
+- uid: TASK
+  commentId: N:TASK
+  name: TASK
+  nameWithType: TASK
+  fullName: TASK
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Global.GameObject
+  isExternal: true
+  name: GameObject
+  nameWithType: GameObject
+  fullName: GameObject
+- uid: TASK.TaskManagerDemo.OnEnable*
+  commentId: Overload:TASK.TaskManagerDemo.OnEnable
+  name: OnEnable
+  nameWithType: TaskManagerDemo.OnEnable
+  fullName: TASK.TaskManagerDemo.OnEnable
+- uid: TASK.TaskManagerDemo.Awake*
+  commentId: Overload:TASK.TaskManagerDemo.Awake
+  name: Awake
+  nameWithType: TaskManagerDemo.Awake
+  fullName: TASK.TaskManagerDemo.Awake
+- uid: TASK.TaskManagerDemo.Start*
+  commentId: Overload:TASK.TaskManagerDemo.Start
+  name: Start
+  nameWithType: TaskManagerDemo.Start
+  fullName: TASK.TaskManagerDemo.Start
+- uid: TASK.TaskManagerDemo.ResetTrial*
+  commentId: Overload:TASK.TaskManagerDemo.ResetTrial
+  name: ResetTrial
+  nameWithType: TaskManagerDemo.ResetTrial
+  fullName: TASK.TaskManagerDemo.ResetTrial
+- uid: TASK.TaskManagerDemo.OnSessionEndUXF*
+  commentId: Overload:TASK.TaskManagerDemo.OnSessionEndUXF
+  name: OnSessionEndUXF
+  nameWithType: TaskManagerDemo.OnSessionEndUXF
+  fullName: TASK.TaskManagerDemo.OnSessionEndUXF
+- uid: TASK.TaskManagerDemo.OnEvFoundXRrigReferences*
+  commentId: Overload:TASK.TaskManagerDemo.OnEvFoundXRrigReferences
+  name: OnEvFoundXRrigReferences
+  nameWithType: TaskManagerDemo.OnEvFoundXRrigReferences
+  fullName: TASK.TaskManagerDemo.OnEvFoundXRrigReferences
+- uid: Global.eParam
+  isExternal: true
+  name: eParam
+  nameWithType: eParam
+  fullName: eParam
+- uid: TASK.TaskManagerDemo.XRrigCleanUP*
+  commentId: Overload:TASK.TaskManagerDemo.XRrigCleanUP
+  name: XRrigCleanUP
+  nameWithType: TaskManagerDemo.XRrigCleanUP
+  fullName: TASK.TaskManagerDemo.XRrigCleanUP
+- uid: TASK.TaskManagerDemo.NextStepFromUserOrSceneOrButtonOrTimerOrWhatever*
+  commentId: Overload:TASK.TaskManagerDemo.NextStepFromUserOrSceneOrButtonOrTimerOrWhatever
+  name: NextStepFromUserOrSceneOrButtonOrTimerOrWhatever
+  nameWithType: TaskManagerDemo.NextStepFromUserOrSceneOrButtonOrTimerOrWhatever
+  fullName: TASK.TaskManagerDemo.NextStepFromUserOrSceneOrButtonOrTimerOrWhatever
+- uid: TASK.TaskManagerDemo.OnSessionStart*
+  commentId: Overload:TASK.TaskManagerDemo.OnSessionStart
+  name: OnSessionStart
+  nameWithType: TaskManagerDemo.OnSessionStart
+  fullName: TASK.TaskManagerDemo.OnSessionStart
+- uid: TASK.TaskManagerDemo.OnSessionEnding*
+  commentId: Overload:TASK.TaskManagerDemo.OnSessionEnding
+  name: OnSessionEnding
+  nameWithType: TaskManagerDemo.OnSessionEnding
+  fullName: TASK.TaskManagerDemo.OnSessionEnding
+- uid: TASK.TaskManagerDemo.OnSessionBreak*
+  commentId: Overload:TASK.TaskManagerDemo.OnSessionBreak
+  name: OnSessionBreak
+  nameWithType: TaskManagerDemo.OnSessionBreak
+  fullName: TASK.TaskManagerDemo.OnSessionBreak
+- uid: TASK.TaskManagerDemo.OnSessionResume*
+  commentId: Overload:TASK.TaskManagerDemo.OnSessionResume
+  name: OnSessionResume
+  nameWithType: TaskManagerDemo.OnSessionResume
+  fullName: TASK.TaskManagerDemo.OnSessionResume
+- uid: TASK.TaskManagerDemo.OnBlockIntroduction*
+  commentId: Overload:TASK.TaskManagerDemo.OnBlockIntroduction
+  name: OnBlockIntroduction
+  nameWithType: TaskManagerDemo.OnBlockIntroduction
+  fullName: TASK.TaskManagerDemo.OnBlockIntroduction
+- uid: TASK.TaskManagerDemo.OnBlockResume*
+  commentId: Overload:TASK.TaskManagerDemo.OnBlockResume
+  name: OnBlockResume
+  nameWithType: TaskManagerDemo.OnBlockResume
+  fullName: TASK.TaskManagerDemo.OnBlockResume

@@ -1,0 +1,129 @@
+### YamlMime:ManagedReference
+items:
+- uid: TASK.UserMessageHandler
+  commentId: T:TASK.UserMessageHandler
+  id: UserMessageHandler
+  parent: TASK
+  children:
+  - TASK.UserMessageHandler.msgField
+  - TASK.UserMessageHandler.OnEvShowMessage(eParam)
+  langs:
+  - csharp
+  - vb
+  name: UserMessageHandler
+  nameWithType: UserMessageHandler
+  fullName: TASK.UserMessageHandler
+  type: Class
+  source:
+    id: UserMessageHandler
+    path: ''
+    startLine: 3450
+  assemblies:
+  - cs.temp.dll
+  namespace: TASK
+  summary: "\nSample script to show the user a message in VR canvas\n"
+  example: []
+  syntax:
+    content: 'public class UserMessageHandler : MonoBehaviour'
+    content.vb: >-
+      Public Class UserMessageHandler
+          Inherits MonoBehaviour
+  inheritance:
+  - System.Object
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+- uid: TASK.UserMessageHandler.msgField
+  commentId: F:TASK.UserMessageHandler.msgField
+  id: msgField
+  parent: TASK.UserMessageHandler
+  langs:
+  - csharp
+  - vb
+  name: msgField
+  nameWithType: UserMessageHandler.msgField
+  fullName: TASK.UserMessageHandler.msgField
+  type: Field
+  source:
+    id: msgField
+    path: ''
+    startLine: 3451
+  assemblies:
+  - cs.temp.dll
+  namespace: TASK
+  syntax:
+    content: public TextMeshProUGUI msgField
+    return:
+      type: Global.TextMeshProUGUI
+    content.vb: Public msgField As TextMeshProUGUI
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: TASK.UserMessageHandler.OnEvShowMessage(eParam)
+  commentId: M:TASK.UserMessageHandler.OnEvShowMessage(eParam)
+  id: OnEvShowMessage(eParam)
+  parent: TASK.UserMessageHandler
+  langs:
+  - csharp
+  - vb
+  name: OnEvShowMessage(eParam)
+  nameWithType: UserMessageHandler.OnEvShowMessage(eParam)
+  fullName: TASK.UserMessageHandler.OnEvShowMessage(eParam)
+  type: Method
+  source:
+    id: OnEvShowMessage
+    path: ''
+    startLine: 3461
+  assemblies:
+  - cs.temp.dll
+  namespace: TASK
+  syntax:
+    content: public void OnEvShowMessage(eParam e)
+    parameters:
+    - id: e
+      type: Global.eParam
+    content.vb: Public Sub OnEvShowMessage(e As eParam)
+  overload: TASK.UserMessageHandler.OnEvShowMessage*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+references:
+- uid: TASK
+  commentId: N:TASK
+  name: TASK
+  nameWithType: TASK
+  fullName: TASK
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Global.TextMeshProUGUI
+  commentId: '!:Global.TextMeshProUGUI'
+  isExternal: true
+  name: TextMeshProUGUI
+  nameWithType: TextMeshProUGUI
+  fullName: TextMeshProUGUI
+- uid: TASK.UserMessageHandler.OnEvShowMessage*
+  commentId: Overload:TASK.UserMessageHandler.OnEvShowMessage
+  name: OnEvShowMessage
+  nameWithType: UserMessageHandler.OnEvShowMessage
+  fullName: TASK.UserMessageHandler.OnEvShowMessage
+- uid: Global.eParam
+  isExternal: true
+  name: eParam
+  nameWithType: eParam
+  fullName: eParam

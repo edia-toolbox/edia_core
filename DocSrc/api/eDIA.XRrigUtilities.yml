@@ -1,0 +1,208 @@
+### YamlMime:ManagedReference
+items:
+- uid: eDIA.XRrigUtilities
+  commentId: T:eDIA.XRrigUtilities
+  id: XRrigUtilities
+  parent: eDIA
+  children:
+  - eDIA.XRrigUtilities.GetXRcam
+  - eDIA.XRrigUtilities.GetXRcontrollerLeft
+  - eDIA.XRrigUtilities.GetXRcontrollerRight
+  - eDIA.XRrigUtilities.GetXRrigReferencesAsync
+  langs:
+  - csharp
+  - vb
+  name: XRrigUtilities
+  nameWithType: XRrigUtilities
+  fullName: eDIA.XRrigUtilities
+  type: Class
+  source:
+    id: XRrigUtilities
+    path: ''
+    startLine: 2471
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public static class XRrigUtilities
+    content.vb: Public Module XRrigUtilities
+  inheritance:
+  - System.Object
+  modifiers.csharp:
+  - public
+  - static
+  - class
+  modifiers.vb:
+  - Public
+  - Module
+- uid: eDIA.XRrigUtilities.GetXRrigReferencesAsync
+  commentId: M:eDIA.XRrigUtilities.GetXRrigReferencesAsync
+  id: GetXRrigReferencesAsync
+  parent: eDIA.XRrigUtilities
+  langs:
+  - csharp
+  - vb
+  name: GetXRrigReferencesAsync()
+  nameWithType: XRrigUtilities.GetXRrigReferencesAsync()
+  fullName: eDIA.XRrigUtilities.GetXRrigReferencesAsync()
+  type: Method
+  source:
+    id: GetXRrigReferencesAsync
+    path: ''
+    startLine: 2480
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  summary: 'Gets XRrig references from SystemManager or FindWithTag  '
+  example: []
+  syntax:
+    content: public static async void GetXRrigReferencesAsync()
+    content.vb: Public Shared Sub GetXRrigReferencesAsync
+  overload: eDIA.XRrigUtilities.GetXRrigReferencesAsync*
+  modifiers.csharp:
+  - public
+  - static
+  - async
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: eDIA.XRrigUtilities.GetXRcam
+  commentId: M:eDIA.XRrigUtilities.GetXRcam
+  id: GetXRcam
+  parent: eDIA.XRrigUtilities
+  langs:
+  - csharp
+  - vb
+  name: GetXRcam()
+  nameWithType: XRrigUtilities.GetXRcam()
+  fullName: eDIA.XRrigUtilities.GetXRcam()
+  type: Method
+  source:
+    id: GetXRcam
+    path: ''
+    startLine: 2515
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public static Transform GetXRcam()
+    return:
+      type: Global.Transform
+    content.vb: Public Shared Function GetXRcam As Transform
+  overload: eDIA.XRrigUtilities.GetXRcam*
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: eDIA.XRrigUtilities.GetXRcontrollerRight
+  commentId: M:eDIA.XRrigUtilities.GetXRcontrollerRight
+  id: GetXRcontrollerRight
+  parent: eDIA.XRrigUtilities
+  langs:
+  - csharp
+  - vb
+  name: GetXRcontrollerRight()
+  nameWithType: XRrigUtilities.GetXRcontrollerRight()
+  fullName: eDIA.XRrigUtilities.GetXRcontrollerRight()
+  type: Method
+  source:
+    id: GetXRcontrollerRight
+    path: ''
+    startLine: 2535
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  summary: 'Gets RightController transform from SystemManager or FindWithTag&apos;RightController&apos; '
+  example: []
+  syntax:
+    content: public static Transform GetXRcontrollerRight()
+    return:
+      type: Global.Transform
+      description: Transform of the RightController or null if not found
+    content.vb: Public Shared Function GetXRcontrollerRight As Transform
+  overload: eDIA.XRrigUtilities.GetXRcontrollerRight*
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: eDIA.XRrigUtilities.GetXRcontrollerLeft
+  commentId: M:eDIA.XRrigUtilities.GetXRcontrollerLeft
+  id: GetXRcontrollerLeft
+  parent: eDIA.XRrigUtilities
+  langs:
+  - csharp
+  - vb
+  name: GetXRcontrollerLeft()
+  nameWithType: XRrigUtilities.GetXRcontrollerLeft()
+  fullName: eDIA.XRrigUtilities.GetXRcontrollerLeft()
+  type: Method
+  source:
+    id: GetXRcontrollerLeft
+    path: ''
+    startLine: 2555
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  summary: 'Gets LeftController transform from SystemManager or FindWithTag&apos;LeftController&apos; '
+  example: []
+  syntax:
+    content: public static Transform GetXRcontrollerLeft()
+    return:
+      type: Global.Transform
+      description: Transform of the LeftController or null if not found
+    content.vb: Public Shared Function GetXRcontrollerLeft As Transform
+  overload: eDIA.XRrigUtilities.GetXRcontrollerLeft*
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+references:
+- uid: eDIA
+  commentId: N:eDIA
+  name: eDIA
+  nameWithType: eDIA
+  fullName: eDIA
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: eDIA.XRrigUtilities.GetXRrigReferencesAsync*
+  commentId: Overload:eDIA.XRrigUtilities.GetXRrigReferencesAsync
+  name: GetXRrigReferencesAsync
+  nameWithType: XRrigUtilities.GetXRrigReferencesAsync
+  fullName: eDIA.XRrigUtilities.GetXRrigReferencesAsync
+- uid: eDIA.XRrigUtilities.GetXRcam*
+  commentId: Overload:eDIA.XRrigUtilities.GetXRcam
+  name: GetXRcam
+  nameWithType: XRrigUtilities.GetXRcam
+  fullName: eDIA.XRrigUtilities.GetXRcam
+- uid: Global.Transform
+  isExternal: true
+  name: Transform
+  nameWithType: Transform
+  fullName: Transform
+- uid: eDIA.XRrigUtilities.GetXRcontrollerRight*
+  commentId: Overload:eDIA.XRrigUtilities.GetXRcontrollerRight
+  name: GetXRcontrollerRight
+  nameWithType: XRrigUtilities.GetXRcontrollerRight
+  fullName: eDIA.XRrigUtilities.GetXRcontrollerRight
+- uid: eDIA.XRrigUtilities.GetXRcontrollerLeft*
+  commentId: Overload:eDIA.XRrigUtilities.GetXRcontrollerLeft
+  name: GetXRcontrollerLeft
+  nameWithType: XRrigUtilities.GetXRcontrollerLeft
+  fullName: eDIA.XRrigUtilities.GetXRcontrollerLeft

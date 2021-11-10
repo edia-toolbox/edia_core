@@ -6,6 +6,9 @@ using System.Threading;
 
 namespace eDIA {
 
+    /// <summary>
+    /// Project wide utilities relating to XR rig
+    /// </summary>
     public static class XRrigUtilities
     {
         private static Transform xCam = null;
@@ -50,6 +53,8 @@ namespace eDIA {
             EventManager.TriggerEvent("EvFoundXRrigReferences", null);
         }
 
+        /// <summary>Searches for the correct <c>Camera</c> reference</summary>
+        /// <returns>Transform of the camera gameobject</returns>
         public static Transform GetXRcam () {
 
             if (xCam == null) {

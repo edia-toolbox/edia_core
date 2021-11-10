@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace eDIA {
         
+    /// <summary> Injects eDIA XRrig prefab in the current loaded scene at Awake and positions the playarea on this gameobjects transform. </summary>
     public class XRrigInitialiser : MonoBehaviour
     {
         public GameObject XRrigPrefab;

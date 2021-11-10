@@ -29,6 +29,28 @@ ardere. Fallit in artus primordia, fratres **in bold**, ipsi manu **and even mor
     }
     
 
+## Json test
+    {
+        "experimenter":"eDIA",
+        "participantID":"Someone",
+        "sessionNumber":0,
+        "participantInfo":[{"type":"string","key":"Age","value":"32"}],
+        "sessionSettings":[
+            {"type":"strings","key":"personNames","value":"Anton, Bert, Anja"}
+        ],
+        "blockInstructions":[
+            {"type":"string","key":"1","value":"Watch the cube and press the button"}
+        ],
+        "breakAfter":[2],
+        "trialSequenceKeys":["block_num","direction","color"],
+        "trialSequenceValues":[
+            {"values":["1","1","1"]},
+            {"values":["1","-1","3"]},
+            {"values":["2","-1","2"]},
+            {"values":["3","1","1"]}
+        ]
+    }
+
 ## Some other blabla title
 
 Another block example

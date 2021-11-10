@@ -1,0 +1,242 @@
+### YamlMime:ManagedReference
+items:
+- uid: eDIA.InputActionHandler
+  commentId: T:eDIA.InputActionHandler
+  id: InputActionHandler
+  parent: eDIA
+  children:
+  - eDIA.InputActionHandler.actionPauseExperimentPerformed(InputAction.CallbackContext)
+  - eDIA.InputActionHandler.actionStartExperimentPerformed(InputAction.CallbackContext)
+  - eDIA.InputActionHandler.menuPerformed(InputAction.CallbackContext)
+  - eDIA.InputActionHandler.proceedPerformed(InputAction.CallbackContext)
+  - eDIA.InputActionHandler.SetActionMapName(System.String)
+  langs:
+  - csharp
+  - vb
+  name: InputActionHandler
+  nameWithType: InputActionHandler
+  fullName: eDIA.InputActionHandler
+  type: Class
+  source:
+    id: InputActionHandler
+    path: ''
+    startLine: 1386
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  summary: "\nMapping new Input system <code>InputAction</code> to eDIA <code>EventManager</code>\n"
+  example: []
+  syntax:
+    content: 'public class InputActionHandler : MonoBehaviour'
+    content.vb: >-
+      Public Class InputActionHandler
+          Inherits MonoBehaviour
+  inheritance:
+  - System.Object
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+- uid: eDIA.InputActionHandler.SetActionMapName(System.String)
+  commentId: M:eDIA.InputActionHandler.SetActionMapName(System.String)
+  id: SetActionMapName(System.String)
+  parent: eDIA.InputActionHandler
+  langs:
+  - csharp
+  - vb
+  name: SetActionMapName(String)
+  nameWithType: InputActionHandler.SetActionMapName(String)
+  fullName: eDIA.InputActionHandler.SetActionMapName(System.String)
+  type: Method
+  source:
+    id: SetActionMapName
+    path: ''
+    startLine: 1452
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public void SetActionMapName(string mapName)
+    parameters:
+    - id: mapName
+      type: System.String
+    content.vb: Public Sub SetActionMapName(mapName As String)
+  overload: eDIA.InputActionHandler.SetActionMapName*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.InputActionHandler.menuPerformed(InputAction.CallbackContext)
+  commentId: M:eDIA.InputActionHandler.menuPerformed(InputAction.CallbackContext)
+  id: menuPerformed(InputAction.CallbackContext)
+  parent: eDIA.InputActionHandler
+  langs:
+  - csharp
+  - vb
+  name: menuPerformed(InputAction.CallbackContext)
+  nameWithType: InputActionHandler.menuPerformed(InputAction.CallbackContext)
+  fullName: eDIA.InputActionHandler.menuPerformed(InputAction.CallbackContext)
+  type: Method
+  source:
+    id: menuPerformed
+    path: ''
+    startLine: 1459
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public void menuPerformed(InputAction.CallbackContext context)
+    parameters:
+    - id: context
+      type: Global.InputAction.CallbackContext
+    content.vb: Public Sub menuPerformed(context As InputAction.CallbackContext)
+  overload: eDIA.InputActionHandler.menuPerformed*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.InputActionHandler.proceedPerformed(InputAction.CallbackContext)
+  commentId: M:eDIA.InputActionHandler.proceedPerformed(InputAction.CallbackContext)
+  id: proceedPerformed(InputAction.CallbackContext)
+  parent: eDIA.InputActionHandler
+  langs:
+  - csharp
+  - vb
+  name: proceedPerformed(InputAction.CallbackContext)
+  nameWithType: InputActionHandler.proceedPerformed(InputAction.CallbackContext)
+  fullName: eDIA.InputActionHandler.proceedPerformed(InputAction.CallbackContext)
+  type: Method
+  source:
+    id: proceedPerformed
+    path: ''
+    startLine: 1463
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public void proceedPerformed(InputAction.CallbackContext context)
+    parameters:
+    - id: context
+      type: Global.InputAction.CallbackContext
+    content.vb: Public Sub proceedPerformed(context As InputAction.CallbackContext)
+  overload: eDIA.InputActionHandler.proceedPerformed*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.InputActionHandler.actionStartExperimentPerformed(InputAction.CallbackContext)
+  commentId: M:eDIA.InputActionHandler.actionStartExperimentPerformed(InputAction.CallbackContext)
+  id: actionStartExperimentPerformed(InputAction.CallbackContext)
+  parent: eDIA.InputActionHandler
+  langs:
+  - csharp
+  - vb
+  name: actionStartExperimentPerformed(InputAction.CallbackContext)
+  nameWithType: InputActionHandler.actionStartExperimentPerformed(InputAction.CallbackContext)
+  fullName: eDIA.InputActionHandler.actionStartExperimentPerformed(InputAction.CallbackContext)
+  type: Method
+  source:
+    id: actionStartExperimentPerformed
+    path: ''
+    startLine: 1467
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public void actionStartExperimentPerformed(InputAction.CallbackContext context)
+    parameters:
+    - id: context
+      type: Global.InputAction.CallbackContext
+    content.vb: Public Sub actionStartExperimentPerformed(context As InputAction.CallbackContext)
+  overload: eDIA.InputActionHandler.actionStartExperimentPerformed*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.InputActionHandler.actionPauseExperimentPerformed(InputAction.CallbackContext)
+  commentId: M:eDIA.InputActionHandler.actionPauseExperimentPerformed(InputAction.CallbackContext)
+  id: actionPauseExperimentPerformed(InputAction.CallbackContext)
+  parent: eDIA.InputActionHandler
+  langs:
+  - csharp
+  - vb
+  name: actionPauseExperimentPerformed(InputAction.CallbackContext)
+  nameWithType: InputActionHandler.actionPauseExperimentPerformed(InputAction.CallbackContext)
+  fullName: eDIA.InputActionHandler.actionPauseExperimentPerformed(InputAction.CallbackContext)
+  type: Method
+  source:
+    id: actionPauseExperimentPerformed
+    path: ''
+    startLine: 1471
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public void actionPauseExperimentPerformed(InputAction.CallbackContext context)
+    parameters:
+    - id: context
+      type: Global.InputAction.CallbackContext
+    content.vb: Public Sub actionPauseExperimentPerformed(context As InputAction.CallbackContext)
+  overload: eDIA.InputActionHandler.actionPauseExperimentPerformed*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+references:
+- uid: eDIA
+  commentId: N:eDIA
+  name: eDIA
+  nameWithType: eDIA
+  fullName: eDIA
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: eDIA.InputActionHandler.SetActionMapName*
+  commentId: Overload:eDIA.InputActionHandler.SetActionMapName
+  name: SetActionMapName
+  nameWithType: InputActionHandler.SetActionMapName
+  fullName: eDIA.InputActionHandler.SetActionMapName
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  name: String
+  nameWithType: String
+  fullName: System.String
+- uid: eDIA.InputActionHandler.menuPerformed*
+  commentId: Overload:eDIA.InputActionHandler.menuPerformed
+  name: menuPerformed
+  nameWithType: InputActionHandler.menuPerformed
+  fullName: eDIA.InputActionHandler.menuPerformed
+- uid: Global.InputAction.CallbackContext
+  isExternal: true
+  name: InputAction.CallbackContext
+  nameWithType: InputAction.CallbackContext
+  fullName: InputAction.CallbackContext
+- uid: eDIA.InputActionHandler.proceedPerformed*
+  commentId: Overload:eDIA.InputActionHandler.proceedPerformed
+  name: proceedPerformed
+  nameWithType: InputActionHandler.proceedPerformed
+  fullName: eDIA.InputActionHandler.proceedPerformed
+- uid: eDIA.InputActionHandler.actionStartExperimentPerformed*
+  commentId: Overload:eDIA.InputActionHandler.actionStartExperimentPerformed
+  name: actionStartExperimentPerformed
+  nameWithType: InputActionHandler.actionStartExperimentPerformed
+  fullName: eDIA.InputActionHandler.actionStartExperimentPerformed
+- uid: eDIA.InputActionHandler.actionPauseExperimentPerformed*
+  commentId: Overload:eDIA.InputActionHandler.actionPauseExperimentPerformed
+  name: actionPauseExperimentPerformed
+  nameWithType: InputActionHandler.actionPauseExperimentPerformed
+  fullName: eDIA.InputActionHandler.actionPauseExperimentPerformed
