@@ -100,8 +100,9 @@ namespace eDIA {
 			EventManager.StartListening("EvSetExperimentConfig", OnEvSetExperimentConfig);
 			EventManager.StartListening("EvStartExperiment", OnEvStartExperiment);
 			EventManager.StartListening("EvPauseExperiment", OnEvPauseExperiment);
+			EventManager.StartListening("EvQuitApplication", OnEvQuitApplication);
 		}
-		
+
 		void Start() {
 			SetExperimentConfig(null);
 		}
@@ -110,6 +111,7 @@ namespace eDIA {
 			EventManager.StopListening("EvSetExperimentConfig", OnEvSetExperimentConfig);
 			EventManager.StopListening("EvStartExperiment", OnEvStartExperiment);
 			EventManager.StopListening("EvPauseExperiment", OnEvPauseExperiment);
+			EventManager.StopListening("EvQuitApplication", OnEvQuitApplication);
 		}
 
 
@@ -202,6 +204,19 @@ namespace eDIA {
 		{
 			AddToExecutionOrderLog("BreakInjectionMoment");
 			isPauseRequested = true;
+		}
+
+		/// <summary>
+		/// Handles the call for a Application Quit
+		/// </summary>
+		/// <param name="e"></param>
+		private void OnEvQuitApplication(eParam e)
+		{
+			// TODO Close the experiment and UXF in a good was so the logfiles up till now get stored. 
+			AddToLog("PreQuitApplication");
+			AddToExecutionOrderLog("PreQuitApplication");
+
+			Application.Quit();
 		}
 
 

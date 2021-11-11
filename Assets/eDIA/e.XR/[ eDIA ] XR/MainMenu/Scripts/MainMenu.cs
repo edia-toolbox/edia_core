@@ -43,7 +43,8 @@ namespace eDIA {
 		[Header("Settings")]
 		public bool startOpen = false;
 		public float menuDistance = 2f;
-		[Tooltip("")]
+		/// <summary> Layer to put the canvas on to draw on top of everything else</summary>
+		[Tooltip("Layer to put the canvas on to draw on top of everything else")]
 		public int overLayer = 10;
 		public bool isDebug = false;
 
@@ -51,6 +52,10 @@ namespace eDIA {
 		public Transform menuHolder;
 		public RectTransform buttonHolder;
 		public GameObject buttonPrefab;
+
+		[Header("Static buttons")]
+		public Button closeButton;
+		public Button quitButton;
 
 		[Header("Events")]
 		public UnityEvent OnLoadBegin = new UnityEvent();
@@ -122,18 +127,17 @@ namespace eDIA {
 				newButton.GetComponent<Button>().onClick.AddListener( () => { LoadNewScene(newIndex); });
 			}
 
-			GameObject closeButton = GenerateButtonUI();
-			closeButton.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Close Menu";
-			closeButton.GetComponent<Button>().onClick.AddListener( () => { OpenMenu(false); });
 
-			if (!isDebug)
-				return;
+			// if (!isDebug)
+			// 	return;
 
 			GameObject startSessionButton = GenerateButtonUI();
 			startSessionButton.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Start Session";
 			startSessionButton.GetComponent<Button>().onClick.AddListener( () => { EventManager.TriggerEvent("EvStartExperiment", null); OpenMenu(false); });
 
-
+			// Footer
+			closeButton.onClick.AddListener( () => { OpenMenu(false); });
+			quitButton.onClick.AddListener( () => { EventManager.TriggerEvent("EvQuitApplication", null); });
 		}
 
 	#endregion // -------------------------------------------------------------------------------------------------------------------------------
