@@ -74,7 +74,7 @@ namespace eDIA {
 			#elif UNITY_ANDROID
 				platformSpecificPath = Application.persistentDataPath;
 			#else
-				platformSpecificPath = Application.persistentDataPath;
+				platformSpecificPath = Application.dataPath;
 			#endif
 			
 			return platformSpecificPath;
