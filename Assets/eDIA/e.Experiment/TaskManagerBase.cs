@@ -16,6 +16,7 @@ namespace eDIA {
 
 #region DECLARATIONS
 
+		[Header("Debug")]
 		public bool showLog = false;
 		public Color taskColor = Color.yellow;
 

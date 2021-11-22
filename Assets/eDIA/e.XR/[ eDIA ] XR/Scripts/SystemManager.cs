@@ -14,7 +14,7 @@ namespace eDIA {
 	/// </summary>
 	public class SystemManager : MonoBehaviour {
 
-		[Header("Settings")]
+		[Header("Debug")]
 		public bool showLog = false;
 		public Color taskColor = Color.cyan;
 		[Space(10f)]
@@ -27,6 +27,10 @@ namespace eDIA {
 		public Transform XRrig_RightController;
 		public Transform mainMenuHolder;
 		
+		[Header("System")]
+		public TargetHZ targetHZ = TargetHZ.H90;
+		public enum TargetHZ { H60, H72, H90, H120 };
+
 		/// <summary>Main system manager, provides refs to XR rig components</summary>
 		public static SystemManager instance = null;
 
@@ -37,6 +41,11 @@ namespace eDIA {
 				instance = this;
 				DontDestroyOnLoad (transform.gameObject);
 			
+				// Set time and location to avoid comma / period issues
+				System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
+				
+				SetApplicationFramerate();
+
 				CheckReferences ();
 				
 				if(ignoreXR)
@@ -45,6 +54,15 @@ namespace eDIA {
 			else if (instance != this) Destroy (this.gameObject);
 		}
 
+		/// <summary>
+		/// In order to get a fixed timestep for experiments, we set the application to a fixed rate </summary>
+		private void SetApplicationFramerate() {
+			QualitySettings.vSyncCount = 0; // Don't vsync
+			int tframerate = int.Parse(targetHZ.ToString().Substring(1,targetHZ.ToString().Length-1));
+			Application.targetFrameRate = tframerate;
+			AddToLog("Target framerate set to " + tframerate);
+		}
+		
 		void CheckReferences () {
 			if (XRrig_MainCamera == null) 	Debug.LogError("XRrig_MainCamera reference not set");
 			if (XRrig_LeftController == null) 	Debug.LogError("XRrig_LeftController reference not set");
