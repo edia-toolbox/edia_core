@@ -29,7 +29,7 @@ namespace eDIA {
 		
 		[Header("System")]
 		public TargetHZ targetHZ = TargetHZ.H90;
-		public enum TargetHZ { H60, H72, H90, H120 };
+		public enum TargetHZ { NONE, H60, H72, H90, H120 };
 
 		/// <summary>Main system manager, provides refs to XR rig components</summary>
 		public static SystemManager instance = null;
@@ -57,6 +57,10 @@ namespace eDIA {
 		/// <summary>
 		/// In order to get a fixed timestep for experiments, we set the application to a fixed rate </summary>
 		private void SetApplicationFramerate() {
+
+			if (targetHZ == TargetHZ.NONE)
+				return;
+				
 			QualitySettings.vSyncCount = 0; // Don't vsync
 			int tframerate = int.Parse(targetHZ.ToString().Substring(1,targetHZ.ToString().Length-1));
 			Application.targetFrameRate = tframerate;
