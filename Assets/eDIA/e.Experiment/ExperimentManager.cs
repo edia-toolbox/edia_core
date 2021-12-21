@@ -108,7 +108,7 @@ namespace eDIA {
 		}
 
 		void Start() {
-			//SetExperimentConfig(null);
+			SetExperimentConfig(null);
 		}
 
 		void OnDestroy() {

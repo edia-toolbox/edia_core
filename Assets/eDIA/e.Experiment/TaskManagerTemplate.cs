@@ -10,14 +10,6 @@ namespace SFEM {
 	public class TaskManagerTemplate : TaskManagerBase {
 
 #region MONO METHODS 
-		public override void OnEnable() {
-			base.OnEnable();
-
-			// ---------------------------------------------------------------------------------------------
-			// Custom task related actions go down here ▼
-
-			// ..
-		}
 
 		void OnDisable() {
 		}

@@ -89,6 +89,14 @@ namespace TASK {
 
 			}
 
+			public override void OnExperimentInitialised(bool result) {
+				base.OnExperimentInitialised(result); //! Do not remove
+				
+				// ---------------------------------------------------------------------------------------------
+				// Custom task related actions go down here ▼
+				
+			}
+			
 			public void XRrigCleanUP () {
 				// Remove shizzle from XR rig that is only for this task
 			}
