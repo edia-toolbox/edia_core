@@ -4,26 +4,16 @@ using UnityEngine;
 using UXF;
 using System; // needed for <action> 
 using System.Linq;
-using eDIA.EditorUtils;
 
 namespace eDIA {
 
-	/// <summary>
-	/// Link between <c>ExperimentManager</c> and the custom user task. <br/>
-	/// Hidden base where the custom task template is build upon.
-	/// </summary>
 	public class TaskManagerBase : MonoBehaviour {
 
 #region DECLARATIONS
 
-		[Header("Debug")]
 		public bool showLog = false;
 		public Color taskColor = Color.yellow;
 
-		/// <summary>
-		/// Each task has it's own settings. <br/>
-		/// Container to deserialize the <c>TaskSettings.json</c> file in
-		/// </summary>
 		[System.Serializable]
 		public class TaskSettingsContainer { 
 			public List<ExperimentManager.SettingsTuple> taskSettings = new List<ExperimentManager.SettingsTuple>();
@@ -43,7 +33,7 @@ namespace eDIA {
 		public virtual void Awake() {
 			// Listen to event that XR rig is ready
 			EventManager.StartListening("EvFoundXRrigReferences", OnEvFoundXRrigReferences);
-
+			EventManager.StartListening("EvExperimentInitialised", OnEvExperimentInitialised);
 			GetXRrigReferences();
 		}
 
@@ -65,13 +55,12 @@ namespace eDIA {
 			EventManager.StopListening("EvBlockIntroduction", 	OnEvBlockIntroduction);
 			EventManager.StopListening("EvBlockResume", 		OnEvBlockResume);
 			EventManager.StopListening("EvTrialBegin", 		OnEvTrialBegin);
-	
+			EventManager.StopListening("EvExperimentInitialised", OnEvExperimentInitialised);
 		}
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region EDIA XR RIG 
 
-		/// <summary> Get references to the XR camera and hands </summary>
 		void GetXRrigReferences () {
 			eDIA.XRrigUtilities.GetXRrigReferencesAsync();
 		}
@@ -80,7 +69,7 @@ namespace eDIA {
 			EventManager.StopListening("EvFoundXRrigReferences", OnEvFoundXRrigReferences);
 			AddToLog("XRrig references FOUND");
 
-			XRrig_MainCamera 		= eDIA.XRrigUtilities.GetXRcam();
+			XRrig_MainCamera 		= SystemManager.instance.XRrig_MainCamera;
 			XRrig_RightController	= eDIA.XRrigUtilities.GetXRcontrollerRight();
 			XRrig_LeftController	= eDIA.XRrigUtilities.GetXRcontrollerLeft();
 
@@ -141,11 +130,11 @@ namespace eDIA {
 			OnSessionStart();
 		}
 
-		/// <summary>Called from UXF session. </summary>
-		void OnPreSessionEndUXF() {
-			AddToLog("OnPreSessionEndUXF");
-			OnSessionEnding(); // call our own session ending
-		}
+		// /// <summary>Called from UXF session. </summary>
+		// void OnPreSessionEndUXF() {
+		// 	AddToLog("OnPreSessionEndUXF");
+		// 	OnPreSessionEnd(); // call our own session ending
+		// }
 
 		/// <summary>Called from UXF session. </summary>
 		public virtual void OnSessionEndUXF() {
@@ -155,6 +144,15 @@ namespace eDIA {
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region eDIA EXPERIMENT EVENT HANDLERS
+
+		void OnEvExperimentInitialised (eParam e) {
+			// AddToLog("Experiment Initialized:" + e.GetBool());
+			OnExperimentInitialised(e.GetBool());
+		}
+
+		public virtual void OnExperimentInitialised(bool result) {
+			// Intentially empty
+		}
 
 		void OnEvTrialBegin (eParam e) {
 			StartTrial();
@@ -172,12 +170,6 @@ namespace eDIA {
 		public virtual void OnSessionStart() {
 			// Intentially empty
 			//! System awaits 'EvProceed' event automaticaly to proceed to first trial. 
-		}
-
-		/// <summary>Hook up to Experiment OnExperimentEnd event</summary>
-		public virtual void OnSessionEnding() {
-			// Intentially empty
-			//! System awaits 'EvProceed' event automaticaly to proceed to finalising session.
 		}
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
@@ -239,7 +231,6 @@ namespace eDIA {
 #region TASK STATEMACHINE
 		//? Methods controlling the current trial
 
-		/// <summary> A task trial exists out of one of more `steps` </summary>
 		[System.Serializable]
 		public class TrialStep {
 			public string title;
@@ -293,7 +284,7 @@ namespace eDIA {
 
 		public void AddToLog(string _msg) {
 			if (showLog)
-				LogUtilities.AddToLog(_msg, "TASK", taskColor);
+				eDIA.LogUtilities.AddToLog(_msg, "TASK", taskColor);
 		}
 		
 

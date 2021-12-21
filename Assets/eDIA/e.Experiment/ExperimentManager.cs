@@ -6,7 +6,6 @@ using UnityEngine;
 using System.Linq;
 using UXF;
 using UnityEngine.Events;
-using eDIA.EditorUtils;
 
 // EXPERIMENT CONTROL 
 namespace eDIA {
@@ -75,6 +74,7 @@ namespace eDIA {
 		/// The config instance that holds current experimental configuration
 		[HideInInspector]
 		public ExperimentConfig experimentConfig;
+		public bool experimentInitialized = false;
 
 		// Helpers
 		[Space(20)]
@@ -108,7 +108,7 @@ namespace eDIA {
 		}
 
 		void Start() {
-			SetExperimentConfig(null);
+			//SetExperimentConfig(null);
 		}
 
 		void OnDestroy() {
@@ -144,9 +144,21 @@ namespace eDIA {
 			experimentConfig = UnityEngine.JsonUtility.FromJson<ExperimentConfig>(JSONstring == null ? LoadExperimentConfigFromDisk () : JSONstring);
 			// Debug.Log(UnityEngine.JsonUtility.ToJson(experimentConfig, true));
 
-			SetSessionSettings ();
-			SetParticipantDetails ();
-			SetTrialSequence ();
+			try
+			{
+				SetSessionSettings ();
+				SetParticipantDetails ();
+				SetTrialSequence ();
+				experimentInitialized = true;
+			}
+			catch (System.Exception)
+			{
+				Debug.Log("Init not ok!");
+				throw;
+			}
+
+			AddToLog("ExperimentInitialized " + experimentInitialized);
+			EventManager.TriggerEvent("EvExperimentInitialised", new eParam(experimentInitialized));
 		}
 
 		/// <summary> Set the sessionsettings to use by UXF</summary>
@@ -200,6 +212,10 @@ namespace eDIA {
 			); 
 		}
 
+		public void NewSession () {
+			SetExperimentConfig(null);
+		}
+
 		/// <summary>Sets the PauseExperiment flag to true and logs the call for an extra break</summary>
 		void OnEvPauseExperiment(eParam e)
 		{
@@ -209,7 +225,7 @@ namespace eDIA {
 
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
-#region UXF EVENT HANDLERS 
+#region UXF EVENT HANDLERS
 
 		/// <summary>Start of the UXF session. </summary>
 		void OnSessionBeginUXF() {
@@ -225,23 +241,9 @@ namespace eDIA {
 		}
 
 		/// <summary>Called from UXF session. </summary>
-		void OnPreSessionEndUXF() {
-			AddToLog("OnPreSessionEndUXF");
-			EventManager.StartListening("EvProceed", OnEvFinaliseSession);
-		}
-
-		/// <summary>Called from user input. </summary>
-		void OnEvFinaliseSession (eParam e) {
-			EventManager.StopListening("EvProceed", OnEvFinaliseSession);
-			// Debug.Log("savedatatable");
-			UXF.Session.instance.SaveDataTable(executionOrderLog, "executionOrder");
-			UXF.Session.instance.SaveDataTable(markerLog, "markerLog");
-			Session.instance.End();
-		}
-
-		/// <summary>Called from UXF session. </summary>
 		void OnSessionEndUXF() {
 			AddToLog("OnSessionEndUXF");
+			AddToExecutionOrderLog("OnSessionEndUXF");
 		}
 
 		/// <summary>Called from UXF session. Begin setting things up for the trial that is about to start </summary>
@@ -270,7 +272,8 @@ namespace eDIA {
 		void OnTrialEndUXF(Trial endedTrial) {
 			AddToLog("OnTrialEndUXF");
 			AddToExecutionOrderLog("OnTrialEnd");
-			
+			SaveCustomDataTables();
+
 			// Are we ending?
 			if (Session.instance.isEnding)
 				return;
@@ -296,7 +299,7 @@ namespace eDIA {
 			// Is this then the last trial of the session?
 			if (Session.instance.LastTrial == endedTrial) {
 				AddToLog("Reached end of trials ");
-				Session.instance.preSessionEnd.Invoke(Session.instance);
+				FinalizeSession();
 				return;
 			}
 
@@ -309,6 +312,30 @@ namespace eDIA {
 			// If we reach here it's just a normal trial and we continue
 			Session.instance.BeginNextTrialSafe();
 		}
+
+#endregion // -------------------------------------------------------------------------------------------------------------------------------
+#region STATE MACHINE HELPERS
+
+		/// <summary>Done with all trial, clean up and call UXF to end this session</summary>
+		void FinalizeSession ()
+		{
+			AddToLog("FinalizeSession");
+			
+			// clean
+			EventManager.TriggerEvent("EvFinalizeSession", null);
+			Session.instance.End();
+		}
+
+		private void SaveCustomDataTables()
+		{
+			// AddToLog("Savedatatable");
+			UXF.Session.instance.SaveDataTable(executionOrderLog, "executionOrder");
+			UXF.Session.instance.SaveDataTable(markerLog, "markerLog");
+		}
+
+
+#endregion // -------------------------------------------------------------------------------------------------------------------------------
+#region BREAK
 
 		/// <summary>Called from this manager. Invokes onSessionBreak event and starts listener to EvProceed event</summary>
 		void SessionBreak () {
@@ -327,6 +354,9 @@ namespace eDIA {
 
 			Session.instance.Invoke("BeginNextTrialSafe", 0.5f);
 		}
+
+#endregion // -------------------------------------------------------------------------------------------------------------------------------
+#region BLOCK INTRODUCTION
 
 		/// <summary>Called from this manager. </summary>
 		void BlockIntroduction () {
@@ -400,7 +430,7 @@ namespace eDIA {
 
 		private void AddToLog(string _msg) {
 			if (showLog)
-				LogUtilities.AddToLog(_msg, "EXP", taskColor);
+				eDIA.LogUtilities.AddToLog(_msg, "EXP", taskColor);
 		}
 		
 

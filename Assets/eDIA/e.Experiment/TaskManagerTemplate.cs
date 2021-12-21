@@ -4,20 +4,20 @@ using UnityEngine;
 using UXF;
 using eDIA;
 
-namespace TASK {
+namespace SFEM {
 
-		/// <summary>
-		/// This is a DEMO script for a very simple task.
-		/// All main functionalities to run the Experiment, UXF and Trial statemachine are in TaskManagerBase so no need to worry about that.<br/><br/>
-		/// <para>To start your own TaskManager for your experiment task: 
-		/// 1. Copy/Paste the complete 'DemoTask' folder from /eDIA/Samples to the /Assets/ folder in your project<br/>
-		/// 2. Rename the script file and class to your Taskname<br/>
-		/// 3. Switch the inspector to 'debug' mode (3 dots right topcorner)<br/>
-		/// 4. Find [ SYSTEM ] > [ EXP ] gameobject and replace 'TaskManagerDemo' script entry in the inspector with your TaskManager script and switch inspector mode back again</para>
-		/// </summary>
+	// USER TASK CONTROL
 	public class TaskManagerTemplate : TaskManagerBase {
 
 #region MONO METHODS 
+		public override void OnEnable() {
+			base.OnEnable();
+
+			// ---------------------------------------------------------------------------------------------
+			// Custom task related actions go down here ▼
+
+			// ..
+		}
 
 		void OnDisable() {
 		}
@@ -27,15 +27,16 @@ namespace TASK {
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region OVERRIDE INHERITED METHODS
-		public override void OnEnable() {
-			base.OnEnable();
-
-			// ---------------------------------------------------------------------------------------------
-			// Custom task related actions go down here ▼
-
-			// ..
-		}
 		
+		public override void OnEnable() {
+			base.OnEnable(); //! Do not remove
+
+				// ---------------------------------------------------------------------------------------------
+				// Custom task related actions go down here ▼
+
+				// ..
+		}
+
 		public override void Awake() {
 			base.Awake(); // Tries to get the references to the MainCamera, Right/LeftController transforms
 		
@@ -64,9 +65,11 @@ namespace TASK {
 		}
 
 		public override void OnSessionEndUXF () {
-			base.OnSessionEndUXF();
+			base.OnSessionEndUXF(); //! Do not remove
 
 			// Add actions to do when session has ended, like showing message to the user
+			EventManager.TriggerEvent("EvShowMessage", new eParam("Session ended, logfiles saved"));
+
 		}
 
 
@@ -138,16 +141,10 @@ namespace TASK {
 
 		/// <summary>Called from Experiment manager</summary>
 		public override void OnSessionStart() {
-			base.OnSessionStart();
+			EventManager.TriggerEvent("EvShowMessage", new eParam("Welcome to the experiment, please click button to continue"));
 
 			// Show Intro
 			// System awaits 'EvProceed' event automaticcaly to proceed to first trial. 
-		}
-
-		/// <summary>Called from Experiment manager</summary>
-		public override void OnSessionEnding () {
-			base.OnSessionEnding();
-
 		}
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
@@ -156,10 +153,12 @@ namespace TASK {
 		// If there is a BREAK in the experiment, these methods get called
 
 		public override void OnSessionBreak() {
+			EventManager.TriggerEvent("EvShowMessage", new eParam("Take a short break, \nClick button to continue"));
 
 		}
 
 		public override void OnSessionResume () {
+			EventManager.TriggerEvent("EvShowMessage", new eParam("Resuming experiment"));
 
 		}
 
@@ -170,15 +169,14 @@ namespace TASK {
 		// If there is a INTRODUCTION at the start at some block, these methods get called
 		// Use ExperimentManager.Instance.experimentConfig.GetBlockIntroduction(Session.instance.currentBlockNum) to get the text.
 		
-		/// <summary>Called when the block introduction starts</summary>
+		/// <summary>Hook up to Experiment OnSessionBreak event</summary>
 		public override void OnBlockIntroduction() {
-			base.OnBlockIntroduction();
+			EventManager.TriggerEvent("EvShowMessage", new eParam(  ExperimentManager.Instance.experimentConfig.GetBlockIntroduction(Session.instance.currentBlockNum) ));
 
 		}
 
-		/// <summary>Called when block resumes</summary>
+		/// <summary>Hook up to Experiment OnSessionResume event</summary>
 		public override void OnBlockResume () {
-			base.OnBlockResume();
 
 		}
 

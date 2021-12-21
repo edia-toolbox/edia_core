@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace eDIA.EditorUtils {
+namespace eDIA {
 
     public static class LogUtilities {
         public static void AddToLog (string message, string indicator, Color color) {

@@ -186,12 +186,6 @@ namespace TASK {
 				// etc
 			}
 
-			/// <summary>Called from Experiment manager</summary>
-			public override void OnSessionEnding () {
-				//! System awaits 'EvProceed' event automaticcaly to proceed to finalizing session. 
-				EventManager.TriggerEvent("EvShowMessage", new eParam("Thank you for participating in the experiment, please click button to end this session"));
-			}
-
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region BREAK
 
