@@ -250,7 +250,9 @@ namespace eDIA {
 		private bool inSession = false;
 
 		void StartTrial() {
-			EventManager.TriggerEvent("EvExperimentInfoUpdate", null);
+			// Update GUI with block description
+			string blockDescription = Session.instance.settings.GetStringList("block_types")[ Session.instance.CurrentTrial.settings.GetInt("block_type")-1];
+			EventManager.TriggerEvent("EvExperimentInfoUpdate", new eParam(blockDescription));
 
 			AddToLog("StartTrial");
 			ResetTrial();

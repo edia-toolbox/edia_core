@@ -240,6 +240,7 @@ namespace eDIA {
 			AddToExecutionOrderLog("OnSessionBegin");
 			EventManager.StartListening("EvProceed", OnEvStartFirstTrial);
 
+			EventManager.TriggerEvent("EvExperimentInfoUpdate", new eParam("Welcome"));
 			ListenToProceedTrigger(true);
 
 			// eye calibration option enabled
@@ -257,6 +258,7 @@ namespace eDIA {
 			AddToLog("OnSessionEndUXF");
 			AddToExecutionOrderLog("OnSessionEndUXF");
 
+			EventManager.TriggerEvent("EvExperimentInfoUpdate", new eParam("End"));
 			ListenToProceedTrigger(false);
 			ListenToPauseTrigger(false);
 			ListenToNewSessionTrigger(true);
@@ -274,11 +276,6 @@ namespace eDIA {
 				showIntroduction = experimentConfig.hasBlockIntroduction(Session.instance.currentBlockNum);
 				// Set new activeBlockUXF value
 				activeBlockUXF = Session.instance.currentBlockNum;
-
-				// TODO Make this not just UXF blocks, but EXP phases ? (as those a more: break,intro,start,etc)
-				// Update GUI with block description
-				string blockDescription = currentUXFSessionSettings.GetStringList("block_types")[ Session.instance.CurrentTrial.settings.GetInt("block_type")-1];
-				EventManager.TriggerEvent("EvExperimentInfoUpdate", new eParam(blockDescription));
 			}
 
 			// Inject introduction step or continue UXF sequence
@@ -364,13 +361,17 @@ namespace eDIA {
 
 			if (_onOff)
 				EventManager.StartListening("EvEyeCalibrationRequested", OnEvEyeCalibrationRequested);
-			else 
-				EventManager.StopListening("EvEyeCalibrationRequested", OnEvEyeCalibrationRequested);
 		}
 
 		/// <summary> eye calibration tool call </summary>
 		void OnEvEyeCalibrationRequested (eParam e) {
-			ListenToEyeCalibrationTrigger(false);
+			Debug.Log("OnEvEyeCalibrationRequested");
+			EventManager.StopListening("EvEyeCalibrationRequested", OnEvEyeCalibrationRequested);
+			EventManager.TriggerEvent("EvButtonChangeState", new eParam( 
+				new string[] { ((int)ExperimenterCanvasButtons.EYE_CALIBRATION).ToString(), "false" })
+			);
+
+			// ListenToEyeCalibrationTrigger(false);
 		}
 
 
@@ -402,6 +403,8 @@ namespace eDIA {
 			EventManager.StartListening("EvProceed", SessionResume);
 			EventManager.TriggerEvent("EvSessionBreak", null);
 				
+			EventManager.TriggerEvent("EvExperimentInfoUpdate", new eParam("Break"));
+
 			ListenToProceedTrigger(true);
 			ListenToPauseTrigger(false);
 			ListenToEyeCalibrationTrigger(true);
@@ -427,6 +430,8 @@ namespace eDIA {
 			AddToLog("BlockIntroduction");
 			AddToExecutionOrderLog("BlockIntroduction");
 			EventManager.StartListening("EvProceed", BlockResume);
+
+			EventManager.TriggerEvent("EvExperimentInfoUpdate", new eParam("Introduction"));
 
 			ListenToProceedTrigger(true);
 			ListenToPauseTrigger(false);

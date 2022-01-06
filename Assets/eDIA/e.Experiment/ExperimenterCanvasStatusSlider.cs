@@ -45,7 +45,7 @@ public class ExperimenterCanvasStatusSlider : MonoBehaviour {
 	}
 
 	void OnEnable() {
-		currentValue = 0;
+		// currentValue = 0;
 	}
 
 }

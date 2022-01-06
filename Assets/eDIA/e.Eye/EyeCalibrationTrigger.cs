@@ -5,7 +5,8 @@ using UnityEngine;
 namespace eDIA {
 
 	public class EyeCalibrationTrigger : MonoBehaviour {
-		void OnEnable () {
+
+		void Start () {
 			EventManager.StartListening("EvEyeCalibrationRequested", OnEvEyeCalibrationRequested);
 		}
 

@@ -36,6 +36,8 @@ namespace eDIA {
 			EventManager.StopListening("EvExperimentInitialised", OnEvExperimentInitialised);
 			SetupButtons ();
 			btnStartExperiment.interactable = true;
+
+			blockSlider.description = "ready";
 		}
 
 		void OnEvStartExperiment (eParam e) {
@@ -46,7 +48,7 @@ namespace eDIA {
 			trialSlider.description = "Trials";
 
 			blockSlider.maxValue = Session.instance.blocks.Count;
-			blockSlider.description = "Blocks";
+			blockSlider.description = "Started";
 
 			EventManager.StartListening("EvExperimentInfoUpdate", OnEvExperimentInfoUpdate);
 		}
@@ -64,7 +66,7 @@ namespace eDIA {
 		}
 
 		void OnDestroy() {
-			EventManager.StartListening("EvExperimentInitialised", OnEvExperimentInitialised);
+			EventManager.StopListening("EvExperimentInitialised", OnEvExperimentInitialised);
 			EventManager.StopListening("EvButtonChangeState", OnEvButtonChangeState);
 		}
 
