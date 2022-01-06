@@ -132,6 +132,7 @@ namespace TASK {
 					moveRoutine = StartCoroutine("MoveCube");
 				}
 
+				ExperimentManager.Instance.ListenToProceedTrigger(true); // enable proceed button
 				EventManager.StartListening("EvProceed", OnEvProceed); //! Continues to the next step
 				EventManager.TriggerEvent("EvShowMessage", new eParam("Click button to continue"));
 			}
@@ -192,12 +193,7 @@ namespace TASK {
 				// Add additional task specific settings to the UXF logging system
 				Session.instance.settings.SetValue("timerShowCube", taskSettings.GetFloat("timerShowCube"));
 				
-				ExperimentManager.Instance.EnableExperimentProceed(true);
 
-				// eye calibration option enabled
-				// EnableCalibrationRequest(true);
-
-				// etc
 			}
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
@@ -209,21 +205,12 @@ namespace TASK {
 				Debug.Log("<color=#ffffff> >>> Take a short break </color>");
 				EventManager.TriggerEvent("EvShowMessage", new eParam("Take a short break, \nClick button to continue"));
 
-				ExperimentManager.Instance.EnableExperimentProceed(true);
-
-				// Disable 'inject break' button
-				ExperimentManager.Instance.EnableExperimentPause(false);
-
-				// eye calibration option enabled
-				// EnableCalibrationRequest(true);
-				
 			}
 
 			public override void OnSessionResume () {
 				Debug.Log("<color=#ffffff> >>> Resuming experiment </color>");
 				EventManager.TriggerEvent("EvShowMessage", new eParam("Resuming experiment"));
 
-				// EnableCalibrationRequest(false);
 			}
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
@@ -239,19 +226,11 @@ namespace TASK {
 				EventManager.TriggerEvent("EvShowMessage", new eParam(  ExperimentManager.Instance.experimentConfig.GetBlockIntroduction(Session.instance.currentBlockNum) ));
 				Debug.Log("<color=#ffffff> >>> "+ ExperimentManager.Instance.experimentConfig.GetBlockIntroduction(Session.instance.currentBlockNum) + "</color>");
 
-							ExperimentManager.Instance.EnableExperimentProceed(true);
-
-				// Disable 'inject break' button
-				ExperimentManager.Instance.EnableExperimentPause(false);
-
-				// eye calibration option enabled
-				// EnableCalibrationRequest(true);
 			}
 
 			/// <summary>Called when block resumes</summary>
 			public override void OnBlockResume () {
 
-				// EnableCalibrationRequest(false);
 
 			}
 
