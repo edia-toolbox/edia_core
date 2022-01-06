@@ -72,7 +72,7 @@ namespace eDIA {
 		}	
 
 		/// The config instance that holds current experimental configuration
-		[HideInInspector]
+		// [HideInInspector]
 		public ExperimentConfig experimentConfig;
 		public bool experimentInitialized = false;
 
@@ -93,6 +93,7 @@ namespace eDIA {
 		#region MONO METHODS
 
 		void Awake() {
+			EventManager.StartListening("EvNewSession", OnEvNewSession);
 			EventManager.StartListening("EvSetExperimentConfig", OnEvSetExperimentConfig);
 			EventManager.StartListening("EvStartExperiment", OnEvStartExperiment);
 			EventManager.StartListening("EvPauseExperiment", OnEvPauseExperiment);
@@ -108,10 +109,11 @@ namespace eDIA {
 		}
 
 		void Start() {
-			SetExperimentConfig(null);
+			//SetExperimentConfig(null);
 		}
 
 		void OnDestroy() {
+			EventManager.StopListening("EvNewSession", OnEvNewSession);
 			EventManager.StopListening("EvSetExperimentConfig", OnEvSetExperimentConfig);
 			EventManager.StopListening("EvStartExperiment", OnEvStartExperiment);
 			EventManager.StopListening("EvPauseExperiment", OnEvPauseExperiment);
@@ -149,6 +151,7 @@ namespace eDIA {
 				SetSessionSettings ();
 				SetParticipantDetails ();
 				SetTrialSequence ();
+
 				experimentInitialized = true;
 			}
 			catch (System.Exception)
@@ -177,8 +180,12 @@ namespace eDIA {
 				return;
 			
 			// Add to UXF settings
-			for (int i=0;i<experimentConfig.sessionSettings.Count; i++) {
-				currentUXFSessionSettings.SetValue(experimentConfig.sessionSettings[i].key, experimentConfig.sessionSettings[i].value);
+			foreach(ExperimentManager.SettingsTuple tuple in experimentConfig.sessionSettings) {
+				
+				if (tuple.value.Contains(',')) { // it's a list!
+					List<string> stringlist = tuple.value.Split(',').ToList();
+					currentUXFSessionSettings.SetValue(tuple.key, stringlist);	
+				} else currentUXFSessionSettings.SetValue(tuple.key, tuple.value);	// normal string
 			}
 		}
 
@@ -212,7 +219,7 @@ namespace eDIA {
 			); 
 		}
 
-		public void NewSession () {
+		void OnEvNewSession (eParam e) {
 			SetExperimentConfig(null);
 		}
 
@@ -244,6 +251,10 @@ namespace eDIA {
 		void OnSessionEndUXF() {
 			AddToLog("OnSessionEndUXF");
 			AddToExecutionOrderLog("OnSessionEndUXF");
+
+			EnableExperimentProceed(false);
+			EnableExperimentPause(false);
+			EnableExperimentNewSession(true);
 		}
 
 		/// <summary>Called from UXF session. Begin setting things up for the trial that is about to start </summary>
@@ -258,6 +269,11 @@ namespace eDIA {
 				showIntroduction = experimentConfig.hasBlockIntroduction(Session.instance.currentBlockNum);
 				// Set new activeBlockUXF value
 				activeBlockUXF = Session.instance.currentBlockNum;
+
+				// TODO Make this not just UXF blocks, but EXP phases ? (as those a more: break,intro,start,etc)
+				// Update GUI with block description
+				string blockDescription = currentUXFSessionSettings.GetStringList("block_types")[ Session.instance.CurrentTrial.settings.GetInt("block_type")-1];
+				EventManager.TriggerEvent("EvExperimentInfoUpdate", new eParam(blockDescription));
 			}
 
 			// Inject introduction step or continue UXF sequence
@@ -315,6 +331,19 @@ namespace eDIA {
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region STATE MACHINE HELPERS
+
+		public void EnableExperimentPause(bool _onOff) {
+			EventManager.TriggerEvent("EvButtonChangeState", new eParam( new string[] { ((int)ExperimenterCanvasButtons.EXP_PAUSE).ToString(), _onOff.ToString() }));
+		}
+
+		public void EnableExperimentProceed(bool _onOff) {
+			EventManager.TriggerEvent("EvButtonChangeState", new eParam( new string[] { ((int)ExperimenterCanvasButtons.EXP_PROCEED).ToString(), _onOff.ToString() }));
+		}
+
+		public void EnableExperimentNewSession(bool _onOff) {
+			EventManager.TriggerEvent("EvButtonChangeState", new eParam( new string[] { ((int)ExperimenterCanvasButtons.SES_NEW).ToString(), _onOff.ToString() }));
+		}
+
 
 		/// <summary>Done with all trial, clean up and call UXF to end this session</summary>
 		void FinalizeSession ()

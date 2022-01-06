@@ -250,6 +250,8 @@ namespace eDIA {
 		private bool inSession = false;
 
 		void StartTrial() {
+			EventManager.TriggerEvent("EvExperimentInfoUpdate", null);
+
 			AddToLog("StartTrial");
 			ResetTrial();
 
