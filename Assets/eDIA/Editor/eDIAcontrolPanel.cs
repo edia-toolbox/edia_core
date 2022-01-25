@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
-using eDIA.Utilities;
 
 namespace eDIA.EditorUtils {
 
@@ -104,7 +103,7 @@ namespace eDIA.EditorUtils {
 
             GUILayout.Label ("To update the changelog, hit this button", labelStyle);
             if (GUILayout.Button ("Update Changelog from CSV"))
-                ProjectFileUtilities.UpdateChangelog ();
+                eDIA.Utilities.ProjectFileUtilities.UpdateChangelog ();
 
             EditorGUILayout.Separator ();
 
