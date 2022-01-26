@@ -132,7 +132,7 @@ namespace TASK {
 					moveRoutine = StartCoroutine("MoveCube");
 				}
 
-				ExperimentManager.Instance.ListenToProceedTrigger(true); // enable proceed button
+				ExperimentManager.Instance.EnableExperimentProceed(true); // enable proceed button
 				EventManager.StartListening("EvProceed", OnEvProceed); //! Continues to the next step
 				EventManager.TriggerEvent("EvShowMessage", new eParam("Click button to continue"));
 			}

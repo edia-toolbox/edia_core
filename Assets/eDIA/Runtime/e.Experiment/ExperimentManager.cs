@@ -241,7 +241,7 @@ namespace eDIA {
 			EventManager.StartListening("EvProceed", OnEvStartFirstTrial);
 
 			EventManager.TriggerEvent("EvExperimentInfoUpdate", new eParam("Welcome"));
-			ListenToProceedTrigger(true);
+			EnableExperimentProceed(true);
 
 			// eye calibration option enabled
 			ListenToEyeCalibrationTrigger(true);
@@ -259,9 +259,9 @@ namespace eDIA {
 			AddToExecutionOrderLog("OnSessionEndUXF");
 
 			EventManager.TriggerEvent("EvExperimentInfoUpdate", new eParam("End"));
-			ListenToProceedTrigger(false);
-			ListenToPauseTrigger(false);
-			ListenToNewSessionTrigger(true);
+			EnableExperimentProceed(false);
+			EnableExperimentPause(false);
+			EnableExperimentNewSession(true);
 		}
 
 		/// <summary>Called from UXF session. Begin setting things up for the trial that is about to start </summary>
@@ -334,23 +334,18 @@ namespace eDIA {
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region STATE MACHINE HELPERS
 
-		public void ListenToPauseTrigger (bool _onOff) {
-			EventManager.TriggerEvent("EvButtonChangeState", new eParam( 
-				new string[] { ((int)ExperimenterCanvasButtons.EXP_PAUSE).ToString(), _onOff.ToString() })
-			);
+		public void EnableExperimentPause(bool _onOff) {
+			EventManager.TriggerEvent("EvButtonChangeState", new eParam( new string[] { ((int)ExperimenterCanvasButtons.EXP_PAUSE).ToString(), _onOff.ToString() }));
 		}
 
-		public void ListenToProceedTrigger (bool _onOff) {
-			EventManager.TriggerEvent("EvButtonChangeState", new eParam( 
-				new string[] { ((int)ExperimenterCanvasButtons.EXP_PROCEED).ToString(), _onOff.ToString() })
-			);
+		public void EnableExperimentProceed(bool _onOff) {
+			EventManager.TriggerEvent("EvButtonChangeState", new eParam( new string[] { ((int)ExperimenterCanvasButtons.EXP_PROCEED).ToString(), _onOff.ToString() }));
 		}
 
-		public void ListenToNewSessionTrigger (bool _onOff) {
-			EventManager.TriggerEvent("EvButtonChangeState", new eParam( 
-				new string[] { ((int)ExperimenterCanvasButtons.SES_NEW).ToString(), _onOff.ToString() })
-			);
+		public void EnableExperimentNewSession(bool _onOff) {
+			EventManager.TriggerEvent("EvButtonChangeState", new eParam( new string[] { ((int)ExperimenterCanvasButtons.SES_NEW).ToString(), _onOff.ToString() }));
 		}
+
 
 		/// <summary> Set system open for calibration call from event or button</summary>
 		/// <param name="onOff"></param>
@@ -405,8 +400,8 @@ namespace eDIA {
 				
 			EventManager.TriggerEvent("EvExperimentInfoUpdate", new eParam("Break"));
 
-			ListenToProceedTrigger(true);
-			ListenToPauseTrigger(false);
+			EnableExperimentProceed(true);
+			EnableExperimentPause(false);
 			ListenToEyeCalibrationTrigger(true);
 		}
 
@@ -433,8 +428,8 @@ namespace eDIA {
 
 			EventManager.TriggerEvent("EvExperimentInfoUpdate", new eParam("Introduction"));
 
-			ListenToProceedTrigger(true);
-			ListenToPauseTrigger(false);
+			EnableExperimentProceed(true);
+			EnableExperimentPause(false);
 			ListenToEyeCalibrationTrigger(true);
 
 			EventManager.TriggerEvent("EvBlockIntroduction", null);
