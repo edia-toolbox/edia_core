@@ -36,10 +36,10 @@ RectTransform:
   m_Father: {fileID: 2895498607837511893}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: -220}
-  m_SizeDelta: {x: 0, y: 130}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 400, y: -240}
+  m_SizeDelta: {x: 760, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &1136508084
 CanvasRenderer:
@@ -183,10 +183,10 @@ RectTransform:
   m_Father: {fileID: 2895498607837511893}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: -220}
-  m_SizeDelta: {x: 0, y: 20}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 400, y: 0}
+  m_SizeDelta: {x: 760, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &2895498607649813554
 CanvasRenderer:
@@ -426,7 +426,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: -360}
+  m_SizeDelta: {x: 0, y: -210}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2895498607837511912
 CanvasRenderer:
@@ -833,10 +833,10 @@ RectTransform:
   m_Father: {fileID: 2895498607837511893}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 400, y: -20}
-  m_SizeDelta: {x: 760, y: 200}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 200}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &2895498608635266351
 CanvasRenderer:
@@ -930,7 +930,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   showLog: 1
   taskColor: {r: 0, g: 1, b: 1, a: 1}
-  ignoreXR: 0
+  ignoreXR: 1
   XRrig_MainCamera: {fileID: 119296242425747648}
   XRrig_LeftController: {fileID: 119296241153373625}
   XRrig_RightController: {fileID: 119296242191617566}
@@ -948,7 +948,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34e3dacc4599bc547af4a43b0b848c66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Note: 
+  Note: '!!!!! SHOULD BE IN THE ROOT OF THE HIERARCHY !!!!!
+
+
+    SystemManager:
+
+    Singleton
+    that travels along the scenes and has references to the XR rig components.
+
+'
 --- !u!1 &2895498609317418377
 GameObject:
   m_ObjectHideFlags: 0
@@ -1330,7 +1338,7 @@ PrefabInstance:
     - target: {fileID: 8949575026164837383, guid: 9a345d2a9b4dc0143a0cd554f3f4a5e6,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8949575026164837383, guid: 9a345d2a9b4dc0143a0cd554f3f4a5e6,
         type: 3}
@@ -1340,12 +1348,12 @@ PrefabInstance:
     - target: {fileID: 8949575026164837383, guid: 9a345d2a9b4dc0143a0cd554f3f4a5e6,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8949575026164837383, guid: 9a345d2a9b4dc0143a0cd554f3f4a5e6,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 380
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8949575026164837383, guid: 9a345d2a9b4dc0143a0cd554f3f4a5e6,
         type: 3}
@@ -1390,12 +1398,12 @@ PrefabInstance:
     - target: {fileID: 8949575026164837383, guid: 9a345d2a9b4dc0143a0cd554f3f4a5e6,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 190
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8949575026164837383, guid: 9a345d2a9b4dc0143a0cd554f3f4a5e6,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -80
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8949575026164837383, guid: 9a345d2a9b4dc0143a0cd554f3f4a5e6,
         type: 3}
@@ -1487,7 +1495,7 @@ PrefabInstance:
     - target: {fileID: 8949575026164837383, guid: 9a345d2a9b4dc0143a0cd554f3f4a5e6,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8949575026164837383, guid: 9a345d2a9b4dc0143a0cd554f3f4a5e6,
         type: 3}
@@ -1497,12 +1505,12 @@ PrefabInstance:
     - target: {fileID: 8949575026164837383, guid: 9a345d2a9b4dc0143a0cd554f3f4a5e6,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8949575026164837383, guid: 9a345d2a9b4dc0143a0cd554f3f4a5e6,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 380
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8949575026164837383, guid: 9a345d2a9b4dc0143a0cd554f3f4a5e6,
         type: 3}
@@ -1547,12 +1555,12 @@ PrefabInstance:
     - target: {fileID: 8949575026164837383, guid: 9a345d2a9b4dc0143a0cd554f3f4a5e6,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 570
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8949575026164837383, guid: 9a345d2a9b4dc0143a0cd554f3f4a5e6,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -80
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8949575026164837383, guid: 9a345d2a9b4dc0143a0cd554f3f4a5e6,
         type: 3}
@@ -1616,6 +1624,46 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2895498609272378037}
     m_Modifications:
+    - target: {fileID: 2992980499813747525, guid: 855907b17848de04d9c8dd92687e9b89,
+        type: 3}
+      propertyPath: m_SelectActionValue.m_Action.m_Id
+      value: 9a179a23-501a-4ebe-9536-0dd165e5f28b
+      objectReference: {fileID: 0}
+    - target: {fileID: 2992980499813747525, guid: 855907b17848de04d9c8dd92687e9b89,
+        type: 3}
+      propertyPath: m_UIPressActionValue.m_Action.m_Id
+      value: a2dec971-a16a-43e9-aa67-461453683945
+      objectReference: {fileID: 0}
+    - target: {fileID: 2992980499813747525, guid: 855907b17848de04d9c8dd92687e9b89,
+        type: 3}
+      propertyPath: m_ActivateActionValue.m_Action.m_Id
+      value: c9414a84-0a1a-4b57-bd2c-ffe147ae78cb
+      objectReference: {fileID: 0}
+    - target: {fileID: 2992980499813747525, guid: 855907b17848de04d9c8dd92687e9b89,
+        type: 3}
+      propertyPath: m_SelectActionValue.m_Action.m_Name
+      value: Select Action Value
+      objectReference: {fileID: 0}
+    - target: {fileID: 2992980499813747525, guid: 855907b17848de04d9c8dd92687e9b89,
+        type: 3}
+      propertyPath: m_TrackingStateAction.m_Action.m_Id
+      value: 8d670258-ab73-4c46-8388-5519318c1c71
+      objectReference: {fileID: 0}
+    - target: {fileID: 2992980499813747525, guid: 855907b17848de04d9c8dd92687e9b89,
+        type: 3}
+      propertyPath: m_UIPressActionValue.m_Action.m_Name
+      value: UI Press Action Value
+      objectReference: {fileID: 0}
+    - target: {fileID: 2992980499813747525, guid: 855907b17848de04d9c8dd92687e9b89,
+        type: 3}
+      propertyPath: m_ActivateActionValue.m_Action.m_Name
+      value: Activate Action Value
+      objectReference: {fileID: 0}
+    - target: {fileID: 2992980499813747525, guid: 855907b17848de04d9c8dd92687e9b89,
+        type: 3}
+      propertyPath: m_TrackingStateAction.m_Action.m_Name
+      value: Tracking State
+      objectReference: {fileID: 0}
     - target: {fileID: 2992980500322122586, guid: 855907b17848de04d9c8dd92687e9b89,
         type: 3}
       propertyPath: m_RootOrder
