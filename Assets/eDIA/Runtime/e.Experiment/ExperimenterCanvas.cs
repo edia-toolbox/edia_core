@@ -20,14 +20,39 @@ namespace eDIA {
 		public Button btnNewSession = null;
 		public Button btnEyeCalibration = null;
 
+
+		[Header("Experiment status")]
 		public ExperimenterCanvasStatusSlider trialSlider;
 		public ExperimenterCanvasStatusSlider blockSlider;
 
+		[Header("Session configs")]
+		public TMP_Dropdown configFilesOptions;
+		public Button btnSubmit = null;
 
 		private void Awake() {
+			EventManager.StartListening("EvFoundLocalConfigFiles", OnEvFoundLocalConfigFiles);
 			EventManager.StartListening("EvExperimentInitialised", OnEvExperimentInitialised);
 			EventManager.StartListening("EvButtonChangeState", OnEvButtonChangeState);
 			EventManager.StartListening("EvStartExperiment", OnEvStartExperiment);
+		}
+
+#region EVENT LISTENERS
+
+		/// <summary>Fired when local config files were detected by the system</summary>
+		/// <param name="obj">Event parameter container, holds array of strings with filename</param>
+		private void OnEvFoundLocalConfigFiles(eParam obj)
+		{
+			EventManager.StopListening("EvFoundLocalConfigFiles", OnEvFoundLocalConfigFiles);
+
+			// got filenames, fill the dropdown
+			string[] filenames = obj.GetStrings();
+			List<TMP_Dropdown.OptionData> fileOptions = new List<TMP_Dropdown.OptionData>();
+			
+			for (int s=0;s<filenames.Length;s++) {
+				fileOptions.Add(new TMP_Dropdown.OptionData(filenames[s].Split('.')[0]));
+			}
+
+			configFilesOptions.AddOptions(fileOptions);
 		}
 
 
@@ -61,9 +86,19 @@ namespace eDIA {
 				blockSlider.description = e.GetString();
 		}
 
+#endregion // -------------------------------------------------------------------------------------------------------------------------------
+#region BUTTONPRESSES
+
 		public void BtnNewSessionPressed () {
 			EventManager.TriggerEvent("EvNewSession", null);
 		}
+
+		public void BtnSubmitPressed () {
+			EventManager.TriggerEvent("EvLocalConfigSubmitted", new eParam(configFilesOptions.value));
+		}
+
+
+#endregion // -------------------------------------------------------------------------------------------------------------------------------
 
 		void OnDestroy() {
 			EventManager.StopListening("EvExperimentInitialised", OnEvExperimentInitialised);

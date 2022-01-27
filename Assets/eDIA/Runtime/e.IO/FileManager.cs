@@ -1,3 +1,4 @@
+using System.Xml.Schema;
 using System.Text;
 using System.Collections;
 using System.IO;
@@ -9,6 +10,42 @@ namespace eDIA {
 	/// Static class to handle file IO
 	/// </summary>
 	public static class FileManager {
+
+		/// <summary>Get all filenames with a certain extension from the applications given subfolder</summary>
+		/// <param subFolder="subFolder">Folder to scan</param>
+		/// <param extension="extension">filter on specific file type, use * for all</param>
+		public static string[] GetAllFilenamesFrom (string subFolder, string extension) {
+			
+			string path =  CorrectPath() + "/" + subFolder + "/";
+			DirectoryInfo dir = new DirectoryInfo(path);
+			
+			if (!dir.Exists) {
+				Debug.Log("Directory " + subFolder + " does not exist");
+				return null;
+			}
+
+			FileInfo[] info = dir.GetFiles("*." + extension);
+			
+			if (info.Length == 0) {
+				Debug.Log("No files found with " + extension + " in " + subFolder);
+				return null;
+			}
+
+			string[] result = new string[info.Length];
+
+			for (int f=0; f<info.Length; f++) {
+				result[f] = info[f].Name;
+			}
+
+			return result;
+		}
+
+		public static string ReadStringFromApplicationPathSubfolder (string _subfolder, string _fileName) {
+			string path =  CorrectPath() + "/" + _subfolder + "/" + _fileName;
+
+			return ReadString(path);
+		}
+
 
 		public static string ReadStringFromApplicationPath (string _fileName) {
 			string path =  CorrectPath() + "/" + _fileName;

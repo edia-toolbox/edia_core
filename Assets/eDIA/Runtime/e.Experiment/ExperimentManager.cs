@@ -33,7 +33,7 @@ namespace eDIA {
 			public List<string> values = new List<string>();
 		}
 
-		/// <summary> containerfor (de)serializing a list to JSON</summary>
+		/// <summary> container for (de)serializing a list to JSON</summary>
 		public class TrialSequenceValuesContainer {
 			public List<TrialSequenceValues> trialSequenceValues = new List<TrialSequenceValues>();
 		}
@@ -75,6 +75,8 @@ namespace eDIA {
 		[HideInInspector]
 		public ExperimentConfig experimentConfig;
 		public bool experimentInitialized = false;
+		string localConfigDirectoryName = "Configs";
+		public List<string> localConfigFilenames = new List<string>();
 
 		// Helpers
 		[Space(20)]
@@ -89,8 +91,8 @@ namespace eDIA {
 		UXF.UXFDataTable executionOrderLog = new UXF.UXFDataTable("timestamp", "executed"); 
 		UXF.UXFDataTable markerLog = new UXF.UXFDataTable("timestamp", "annotation"); 
 
-		#endregion // -------------------------------------------------------------------------------------------------------------------------------
-		#region MONO METHODS
+#endregion // -------------------------------------------------------------------------------------------------------------------------------
+#region MONO METHODS
 
 		void Awake() {
 			EventManager.StartListening("EvNewSession", OnEvNewSession);
@@ -101,8 +103,7 @@ namespace eDIA {
 			SetApplicationFramerate();
 		}
 
-		/// <summary>
-		/// In order to get a fixed timestep for experiments, we set the application to a fixed rate </summary>
+		/// <summary> In order to get a fixed timestep for experiments, we set the application to a fixed rate </summary>
 		private void SetApplicationFramerate() {
 			QualitySettings.vSyncCount = 0; // Don't vsync
 			Application.targetFrameRate = 90;
@@ -110,6 +111,7 @@ namespace eDIA {
 
 		void Start() {
 			//SetExperimentConfig(null);
+			GetLocalExperimentConfigs();
 		}
 
 		void OnDestroy() {
@@ -121,16 +123,39 @@ namespace eDIA {
 
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
-#region EXPERIMENT INFO
+#region EXPERIMENT CONFIG
 
+		/// <summary>Generate an array with  configfiles filenames from the given subfolder</summary>
+		void GetLocalExperimentConfigs () {
+			localConfigFilenames = FileManager.GetAllFilenamesFrom("Configs","json").ToList<string>();
+
+			if (localConfigFilenames == null) {
+				Debug.LogWarning("Error checking for local config files");
+				return;
+			}
+				
+			EventManager.TriggerEvent("EvFoundLocalConfigFiles", new eParam(localConfigFilenames.ToArray()));
+			EventManager.StartListening("EvLocalConfigSubmitted", OnEvLocalConfigSubmitted);
+		}
+
+		/// <summary>Look up given index in the localConfigFiles list and give content of that file to system </summary>
+		/// <param name="e">Int = index of the filename in the array</param>
+		void OnEvLocalConfigSubmitted (eParam e) {
+			int index = e.GetInt();
+			SetExperimentConfig (LoadExperimentConfigFromDisk(localConfigFilenames[index]));
+		}
+
+		/// <summary> Eventlistener which expects the config as JSON file, triggers default config file load if not. </summary>
+		/// <param name="e">JSON config as string</param>
 		void OnEvSetExperimentConfig( eParam e) {
-			SetExperimentConfig( e == null ? LoadExperimentConfigFromDisk () : e.GetString() );
+			SetExperimentConfig( e == null ? LoadExperimentConfigFromDisk ("DefaultExperimentConfig.json") : e.GetString() );
+			// TODO: If there is nothing given, then load a default experimenter thing from task? at least not from config dir
 		}
 
 		/// <summary>Load the default JSON configuration locally</summary>
 		/// <returns>JSON string</returns>
-		string LoadExperimentConfigFromDisk () {
-			string experimentJSON = FileManager.ReadStringFromApplicationPath("ExperimentConfig.json");
+		string LoadExperimentConfigFromDisk (string fileName) {
+			string experimentJSON = FileManager.ReadStringFromApplicationPathSubfolder(localConfigDirectoryName, fileName);
 
 			if (experimentJSON == "ERROR")
 				Debug.LogError("Experiment JSON not correctly loaded!");
@@ -143,7 +168,7 @@ namespace eDIA {
 		/// <summary>Set the eDIA experiment settings with the full JSON config string</summary>
 		/// <param name="JSONstring">Full config string</param>
 		void SetExperimentConfig (string JSONstring) {
-			experimentConfig = UnityEngine.JsonUtility.FromJson<ExperimentConfig>(JSONstring == null ? LoadExperimentConfigFromDisk () : JSONstring);
+			experimentConfig = UnityEngine.JsonUtility.FromJson<ExperimentConfig>(JSONstring);
 			// Debug.Log(UnityEngine.JsonUtility.ToJson(experimentConfig, true));
 
 			try
@@ -163,6 +188,9 @@ namespace eDIA {
 			AddToLog("ExperimentInitialized " + experimentInitialized);
 			EventManager.TriggerEvent("EvExperimentInitialised", new eParam(experimentInitialized));
 		}
+
+#endregion // -------------------------------------------------------------------------------------------------------------------------------
+#region SESSION SETTINGS
 
 		/// <summary> Set the sessionsettings to use by UXF</summary>
 		void SetSessionSettings () {
