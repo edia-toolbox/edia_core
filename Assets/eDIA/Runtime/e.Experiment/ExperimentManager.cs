@@ -78,6 +78,9 @@ namespace eDIA {
 		string localConfigDirectoryName = "Configs";
 		public List<string> localConfigFilenames = new List<string>();
 
+		[HideInInspector]
+		public TextAsset defaultConfig; // text asset reference to 'DefaultExperimentConfig.json'
+
 		// Helpers
 		[Space(20)]
 		int activeBlockUXF = 0;
@@ -127,12 +130,15 @@ namespace eDIA {
 
 		/// <summary>Generate an array with  configfiles filenames from the given subfolder</summary>
 		void GetLocalExperimentConfigs () {
-			localConfigFilenames = FileManager.GetAllFilenamesFrom("Configs","json").ToList<string>();
+			string[] filelist = FileManager.GetAllFilenamesFrom("Configs","json"); // catch result in an array first to check if anything came back
 
-			if (localConfigFilenames == null) {
-				Debug.LogWarning("Error checking for local config files");
+			if (filelist == null) {
+				AddToLog("Local config files not found");
 				return;
 			}
+
+			localConfigFilenames = filelist.ToList<string>();
+			AddToLog(localConfigFilenames.Count + " local config files added");
 				
 			EventManager.TriggerEvent("EvFoundLocalConfigFiles", new eParam(localConfigFilenames.ToArray()));
 			EventManager.StartListening("EvLocalConfigSubmitted", OnEvLocalConfigSubmitted);
@@ -148,8 +154,7 @@ namespace eDIA {
 		/// <summary> Eventlistener which expects the config as JSON file, triggers default config file load if not. </summary>
 		/// <param name="e">JSON config as string</param>
 		void OnEvSetExperimentConfig( eParam e) {
-			SetExperimentConfig( e == null ? LoadExperimentConfigFromDisk ("DefaultExperimentConfig.json") : e.GetString() );
-			// TODO: If there is nothing given, then load a default experimenter thing from task? at least not from config dir
+			SetExperimentConfig( e == null ? defaultConfig.text : e.GetString() );
 		}
 
 		/// <summary>Load the default JSON configuration locally</summary>
@@ -248,7 +253,8 @@ namespace eDIA {
 		}
 
 		void OnEvNewSession (eParam e) {
-			SetExperimentConfig(null);
+			// SetExperimentConfig(null);
+			EventManager.TriggerEvent("EvSetExperimentConfig", null);
 		}
 
 		/// <summary>Sets the PauseExperiment flag to true and logs the call for an extra break</summary>
