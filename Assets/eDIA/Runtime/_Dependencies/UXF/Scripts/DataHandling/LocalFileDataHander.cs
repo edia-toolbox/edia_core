@@ -7,7 +7,6 @@ using System.IO;
 using System.Threading;
 using System.Linq;
 
-
 namespace UXF
 {
     public abstract class LocalFileDataHander : DataHandler

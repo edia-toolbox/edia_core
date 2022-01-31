@@ -10,7 +10,6 @@ namespace UXF
 {
     public class HTTPPost : DataHandler
     {
-
         [Tooltip("Key used in the form for a desired filepath.")]
         public string filepathKey = "filepath";
 
