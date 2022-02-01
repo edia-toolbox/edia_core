@@ -75,8 +75,6 @@ namespace eDIA {
 		[HideInInspector]
 		public ExperimentConfig experimentConfig;
 		public bool experimentInitialized = false;
-		string localConfigDirectoryName = "Configs";
-		public List<string> localConfigFilenames = new List<string>();
 
 		[HideInInspector]
 		public TextAsset defaultConfig; // text asset reference to 'DefaultExperimentConfig.json'
@@ -98,6 +96,7 @@ namespace eDIA {
 #region MONO METHODS
 
 		void Awake() {
+			EventManager.StartListening("EvFoundLocalConfigFiles", OnEvFoundLocalConfigFiles);
 			EventManager.StartListening("EvNewSession", OnEvNewSession);
 			EventManager.StartListening("EvSetExperimentConfig", OnEvSetExperimentConfig);
 			EventManager.StartListening("EvStartExperiment", OnEvStartExperiment);
@@ -113,8 +112,6 @@ namespace eDIA {
 		}
 
 		void Start() {
-			//SetExperimentConfig(null);
-			GetLocalExperimentConfigs();
 		}
 
 		void OnDestroy() {
@@ -122,33 +119,28 @@ namespace eDIA {
 			EventManager.StopListening("EvSetExperimentConfig", OnEvSetExperimentConfig);
 			EventManager.StopListening("EvStartExperiment", OnEvStartExperiment);
 			EventManager.StopListening("EvPauseExperiment", OnEvPauseExperiment);
+			EventManager.StopListening("EvFoundLocalConfigFiles", OnEvFoundLocalConfigFiles);
 		}
 
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region EXPERIMENT CONFIG
 
-		/// <summary>Generate an array with  configfiles filenames from the given subfolder</summary>
-		void GetLocalExperimentConfigs () {
-			string[] filelist = FileManager.GetAllFilenamesFrom("Configs","json"); // catch result in an array first to check if anything came back
-
-			if (filelist == null) {
-				AddToLog("Local config files not found");
-				return;
-			}
-
-			localConfigFilenames = filelist.ToList<string>();
-			AddToLog(localConfigFilenames.Count + " local config files added");
+		/// <summary>Register local mode, listen to submission of config file</summary>
+		void OnEvFoundLocalConfigFiles (eParam e) {
+			EventManager.StopListening("EvFoundLocalConfigFiles", OnEvFoundLocalConfigFiles);		
+			
+			AddToLog(e.GetInt() + " local config files added");
 				
-			EventManager.TriggerEvent("EvFoundLocalConfigFiles", new eParam(localConfigFilenames.ToArray()));
 			EventManager.StartListening("EvLocalConfigSubmitted", OnEvLocalConfigSubmitted);
 		}
 
 		/// <summary>Look up given index in the localConfigFiles list and give content of that file to system </summary>
-		/// <param name="e">Int = index of the filename in the array</param>
+		/// <param name="e">String = filename of the configfile</param>
 		void OnEvLocalConfigSubmitted (eParam e) {
-			int index = e.GetInt();
-			SetExperimentConfig (LoadExperimentConfigFromDisk(localConfigFilenames[index]));
+			EventManager.StopListening("EvLocalConfigSubmitted", OnEvLocalConfigSubmitted);
+			Debug.Log(e.GetString());
+			SetExperimentConfig (LoadExperimentConfigFromDisk(e.GetString()));
 		}
 
 		/// <summary> Eventlistener which expects the config as JSON file, triggers default config file load if not. </summary>
@@ -157,10 +149,10 @@ namespace eDIA {
 			SetExperimentConfig( e == null ? defaultConfig.text : e.GetString() );
 		}
 
-		/// <summary>Load the default JSON configuration locally</summary>
+		/// <summary>Load JSON configuration locally from configdirectory</summary>
 		/// <returns>JSON string</returns>
 		string LoadExperimentConfigFromDisk (string fileName) {
-			string experimentJSON = FileManager.ReadStringFromApplicationPathSubfolder(localConfigDirectoryName, fileName);
+			string experimentJSON = FileManager.ReadStringFromApplicationPathSubfolder(edia.Constants.localConfigDirectoryName, fileName);
 
 			if (experimentJSON == "ERROR")
 				Debug.LogError("Experiment JSON not correctly loaded!");
