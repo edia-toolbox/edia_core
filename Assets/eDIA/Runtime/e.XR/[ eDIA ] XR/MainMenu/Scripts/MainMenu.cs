@@ -173,7 +173,7 @@ namespace eDIA {
 		}
 
 		private IEnumerator LoadScene(int sceneIndex) {
-			SystemManager.instance.AddToLog("Loading scene: " + scenes[sceneIndex].name);
+			XRrigManager.instance.AddToLog("Loading scene: " + scenes[sceneIndex].name);
 			OpenMenu(false);
 
 			isLoading = true;

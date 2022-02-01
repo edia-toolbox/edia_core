@@ -10,12 +10,12 @@ namespace eDIA {
         public GameObject XRrigPrefab;
 
         void Awake() {
-            if (SystemManager.instance == null) {
+            if (XRrigManager.instance == null) {
                 Instantiate(XRrigPrefab, new Vector3(0,0,0), Quaternion.identity);
             }
             
-            SystemManager.instance.MovePlayarea(this.transform);
-            SystemManager.instance.AddToLog("Positioned playarea");
+            XRrigManager.instance.MovePlayarea(this.transform);
+            XRrigManager.instance.AddToLog("Positioned playarea");
         }
     }
 }

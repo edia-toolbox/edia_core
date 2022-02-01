@@ -11,7 +11,7 @@ namespace eDIA {
 	/// Responsible for loading/unloading, user related actions, top level application stuff.<br/>
 	/// Has references to the XR rig camera and hands for the rest of the application.<br/>
 	/// </summary>
-	public class SystemManager : MonoBehaviour {
+	public class XRrigManager : MonoBehaviour {
 
 		[Header("Debug")]
 		public bool showLog = false;
@@ -31,7 +31,7 @@ namespace eDIA {
 		public enum TargetHZ { NONE, H60, H72, H90, H120 };
 
 		/// <summary>Main system manager, provides refs to XR rig components</summary>
-		public static SystemManager instance = null;
+		public static XRrigManager instance = null;
 
 		void Awake () {
 

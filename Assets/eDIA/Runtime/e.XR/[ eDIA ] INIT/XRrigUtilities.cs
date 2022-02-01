@@ -61,8 +61,8 @@ namespace eDIA {
 		public static Transform GetXRcam () {
 
 			if (xCam == null) {
-				if (SystemManager.instance != null) {
-					xCam = SystemManager.instance.XRrig_MainCamera;
+				if (XRrigManager.instance != null) {
+					xCam = XRrigManager.instance.XRrig_MainCamera;
 				} else {
 					try {
 						xCam = GameObject.FindGameObjectWithTag ("XRcam").transform;
@@ -81,8 +81,8 @@ namespace eDIA {
 		public static Transform GetXRcontrollerRight () {
 
 			if (xCtrlR == null) {
-				if (SystemManager.instance != null) {
-					xCtrlR = SystemManager.instance.XRrig_RightController;
+				if (XRrigManager.instance != null) {
+					xCtrlR = XRrigManager.instance.XRrig_RightController;
 				} else {
 					try {
 						xCtrlR = GameObject.FindGameObjectWithTag ("RightController").transform;
@@ -101,8 +101,8 @@ namespace eDIA {
 		public static Transform GetXRcontrollerLeft () {
 
 			if (xCtrlL == null) {
-				if (SystemManager.instance != null) {
-					xCtrlL = SystemManager.instance.XRrig_LeftController;
+				if (XRrigManager.instance != null) {
+					xCtrlL = XRrigManager.instance.XRrig_LeftController;
 				} else {
 					try {
 						xCtrlL = GameObject.FindGameObjectWithTag ("LeftController").transform;

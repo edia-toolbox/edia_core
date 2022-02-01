@@ -69,7 +69,7 @@ namespace eDIA {
 			EventManager.StopListening("EvFoundXRrigReferences", OnEvFoundXRrigReferences);
 			AddToLog("XRrig references FOUND");
 
-			XRrig_MainCamera 		= SystemManager.instance.XRrig_MainCamera;
+			XRrig_MainCamera 		= XRrigManager.instance.XRrig_MainCamera;
 			XRrig_RightController	= eDIA.XRrigUtilities.GetXRcontrollerRight();
 			XRrig_LeftController	= eDIA.XRrigUtilities.GetXRcontrollerLeft();
 
