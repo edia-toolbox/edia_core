@@ -5,21 +5,28 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 using TMPro;
+using System;
 
 namespace eDIA {
 
+	/// <summary>GUI element that enables the user to choose from a dropdown of found experiment config files</summary>
 	public class ExperimentConfigSelection : MonoBehaviour {
 
-		[Header ("Session configs")]
+		[Header ("Refs")]
 		public TMP_Dropdown configFilesOptions;
 		public Button btnSubmit = null;
 		public TextMeshProUGUI infoTextField;
 
-		public List<string> localConfigFilenames = new List<string>();
+		List<string> localConfigFilenames = new List<string>();
 
 		void Start() {
-			Reset();
+			OnEvResetExperimentConfigSelection(null);
+			EventManager.StartListening("EvResetExperimentConfigSelection", OnEvResetExperimentConfigSelection);
+		}
 
+		private void OnEvResetExperimentConfigSelection(eParam obj)
+		{
+			Reset();
 			GetLocalExperimentConfigs();
 		}
 

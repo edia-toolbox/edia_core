@@ -8,7 +8,7 @@ using UXF;
 
 namespace eDIA {
 
-	public class ExperimenterCanvas : MonoBehaviour {
+	public class ExperimentControl : MonoBehaviour {
 
 		// Default buttons that are always needed for running a experiment
 		[Header("Default buttons")]
@@ -24,13 +24,12 @@ namespace eDIA {
 		public ExperimenterCanvasStatusSlider blockSlider;
 
 		private void Awake() {
-			EventManager.StartListening("EvExperimentInitialised", OnEvExperimentInitialised);
-			EventManager.StartListening("EvButtonChangeState", OnEvButtonChangeState);
-			EventManager.StartListening("EvStartExperiment", OnEvStartExperiment);
+			EventManager.StartListening("EvExperimentInitialised", 	OnEvExperimentInitialised);
+			EventManager.StartListening("EvButtonChangeState", 		OnEvButtonChangeState);
+			EventManager.StartListening("EvStartExperiment", 		OnEvStartExperiment);
 		}
 
 #region EVENT LISTENERS
-
 
 		void OnEvExperimentInitialised(eParam obj)
 		{

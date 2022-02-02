@@ -139,7 +139,7 @@ namespace eDIA {
 		/// <param name="e">String = filename of the configfile</param>
 		void OnEvLocalConfigSubmitted (eParam e) {
 			EventManager.StopListening("EvLocalConfigSubmitted", OnEvLocalConfigSubmitted);
-			Debug.Log(e.GetString());
+			// Debug.Log(e.GetString());
 			SetExperimentConfig (LoadExperimentConfigFromDisk(e.GetString()));
 		}
 
