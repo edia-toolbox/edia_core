@@ -118,6 +118,8 @@ namespace TASK {
 			void TaskStep1() {
 				AddToLog("Step:" + (currentStep + 1) +" > " + trialSequence[currentStep].title);
 
+				ExperimentManager.Instance.EnableExperimentPause(true);
+
 				theCube.gameObject.SetActive(true);
 				theCube.transform.position = new Vector3(0, XRrig_MainCamera.position.y, taskSettings.GetFloat("distanceCube"));
 

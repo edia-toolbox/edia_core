@@ -69,6 +69,10 @@ namespace eDIA {
 					msg = int.Parse(s.key) == _blockNumber ? s.value : msg;
 				return msg;
 			}
+
+			public string[] GetExperimentDisplayInformation() {
+				return new string[] { experiment, experimenter, participantID, sessionNumber.ToString() };
+			}
 		}	
 
 		/// The config instance that holds current experimental configuration
@@ -97,10 +101,10 @@ namespace eDIA {
 
 		void Awake() {
 			EventManager.StartListening("EvFoundLocalConfigFiles", OnEvFoundLocalConfigFiles);
-			EventManager.StartListening("EvNewSession", OnEvNewSession);
+			// EventManager.StartListening("EvNewSession", OnEvNewSession);
 			EventManager.StartListening("EvSetExperimentConfig", OnEvSetExperimentConfig);
 			EventManager.StartListening("EvStartExperiment", OnEvStartExperiment);
-			EventManager.StartListening("EvPauseExperiment", OnEvPauseExperiment);
+			
 
 			SetApplicationFramerate();
 		}
@@ -115,7 +119,7 @@ namespace eDIA {
 		}
 
 		void OnDestroy() {
-			EventManager.StopListening("EvNewSession", OnEvNewSession);
+			// EventManager.StopListening("EvNewSession", OnEvNewSession);
 			EventManager.StopListening("EvSetExperimentConfig", OnEvSetExperimentConfig);
 			EventManager.StopListening("EvStartExperiment", OnEvStartExperiment);
 			EventManager.StopListening("EvPauseExperiment", OnEvPauseExperiment);
@@ -152,7 +156,7 @@ namespace eDIA {
 		/// <summary>Load JSON configuration locally from configdirectory</summary>
 		/// <returns>JSON string</returns>
 		string LoadExperimentConfigFromDisk (string fileName) {
-			string experimentJSON = FileManager.ReadStringFromApplicationPathSubfolder(edia.Constants.localConfigDirectoryName, fileName);
+			string experimentJSON = FileManager.ReadStringFromApplicationPathSubfolder(eDIA.Constants.localConfigDirectoryName, fileName);
 
 			if (experimentJSON == "ERROR")
 				Debug.LogError("Experiment JSON not correctly loaded!");
@@ -184,6 +188,8 @@ namespace eDIA {
 
 			AddToLog("ExperimentInitialized " + experimentInitialized);
 			EventManager.TriggerEvent("EvExperimentInitialised", new eParam(experimentInitialized));
+			EventManager.TriggerEvent("EvSetDisplayInformation", new eParam( experimentConfig.GetExperimentDisplayInformation()) );
+
 		}
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
@@ -230,6 +236,8 @@ namespace eDIA {
 
 		void OnEvStartExperiment (eParam e) {
 			EventManager.StopListening("EvStartExperiment", OnEvStartExperiment);
+			EventManager.StartListening("EvPauseExperiment", OnEvPauseExperiment);
+
 			StartExperiment ();
 		}
 
@@ -242,6 +250,8 @@ namespace eDIA {
 				participantDetails, 
 				currentUXFSessionSettings
 			); 
+
+
 		}
 
 		void OnEvNewSession (eParam e) {
@@ -252,6 +262,7 @@ namespace eDIA {
 		/// <summary>Sets the PauseExperiment flag to true and logs the call for an extra break</summary>
 		void OnEvPauseExperiment(eParam e)
 		{
+			AddToLog("InjectedSessionBreakCall");
 			AddToExecutionOrderLog("InjectedSessionBreakCall");
 			isPauseRequested = true;
 		}
@@ -361,40 +372,22 @@ namespace eDIA {
 #region STATE MACHINE HELPERS
 
 		public void EnableExperimentPause(bool _onOff) {
-			EventManager.TriggerEvent("EvButtonChangeState", new eParam( new string[] { ((int)ExperimenterCanvasButtons.EXP_PAUSE).ToString(), _onOff.ToString() }));
+			EventManager.TriggerEvent("EvButtonChangeState", new eParam( new string[] { ((int)Constants.ExperimenterCanvasButtons.EXP_PAUSE).ToString(), _onOff.ToString() }));
 		}
 
 		public void EnableExperimentProceed(bool _onOff) {
-			EventManager.TriggerEvent("EvButtonChangeState", new eParam( new string[] { ((int)ExperimenterCanvasButtons.EXP_PROCEED).ToString(), _onOff.ToString() }));
+			EventManager.TriggerEvent("EvButtonChangeState", new eParam( new string[] { ((int)Constants.ExperimenterCanvasButtons.EXP_PROCEED).ToString(), _onOff.ToString() }));
 		}
 
 		public void EnableExperimentNewSession(bool _onOff) {
-			EventManager.TriggerEvent("EvButtonChangeState", new eParam( new string[] { ((int)ExperimenterCanvasButtons.SES_NEW).ToString(), _onOff.ToString() }));
+			EventManager.TriggerEvent("EvButtonChangeState", new eParam( new string[] { ((int)Constants.ExperimenterCanvasButtons.SES_NEW).ToString(), _onOff.ToString() }));
 		}
-
 
 		/// <summary> Set system open for calibration call from event or button</summary>
 		/// <param name="onOff"></param>
 		public void ListenToEyeCalibrationTrigger (bool _onOff) {
-			EventManager.TriggerEvent("EvButtonChangeState", new eParam( 
-				new string[] { ((int)ExperimenterCanvasButtons.EYE_CALIBRATION).ToString(), _onOff.ToString() })
-			);
-
-			if (_onOff)
-				EventManager.StartListening("EvEyeCalibrationRequested", OnEvEyeCalibrationRequested);
+			EventManager.TriggerEvent("EvEnableEyeCalibrationTrigger", new eParam(_onOff));
 		}
-
-		/// <summary> eye calibration tool call </summary>
-		void OnEvEyeCalibrationRequested (eParam e) {
-			Debug.Log("OnEvEyeCalibrationRequested");
-			EventManager.StopListening("EvEyeCalibrationRequested", OnEvEyeCalibrationRequested);
-			EventManager.TriggerEvent("EvButtonChangeState", new eParam( 
-				new string[] { ((int)ExperimenterCanvasButtons.EYE_CALIBRATION).ToString(), "false" })
-			);
-
-			// ListenToEyeCalibrationTrigger(false);
-		}
-
 
 		/// <summary>Done with all trial, clean up and call UXF to end this session</summary>
 		void FinalizeSession ()

@@ -35,13 +35,14 @@ namespace eDIA {
 			infoTextField.text = "eDIA";
 			configFilesOptions.ClearOptions();
 			localConfigFilenames.Clear();
+			transform.GetChild(0).gameObject.SetActive(true);
 		}
 
 		/// <summary>Generate an array with  configfiles filenames from the given subfolder</summary>
 		void GetLocalExperimentConfigs () {
 			infoTextField.text = "Looking for configs";
 
-			string[] filelist = FileManager.GetAllFilenamesFrom(edia.Constants.localConfigDirectoryName,"json"); // catch result in an array first to check if anything came back
+			string[] filelist = FileManager.GetAllFilenamesFrom(eDIA.Constants.localConfigDirectoryName,"json"); // catch result in an array first to check if anything came back
 
 			if (filelist == null) {
 				// AddToLog("Local config files not found");
@@ -68,6 +69,7 @@ namespace eDIA {
 
 		public void BtnSubmitPressed () {
 			EventManager.TriggerEvent("EvLocalConfigSubmitted", new eParam(localConfigFilenames[configFilesOptions.value]));
+			transform.GetChild(0).gameObject.SetActive(false);
 		}
 
 
