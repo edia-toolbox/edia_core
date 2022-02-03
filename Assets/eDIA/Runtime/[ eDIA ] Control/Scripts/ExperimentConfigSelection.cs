@@ -98,7 +98,7 @@ namespace eDIA {
 		}
 
 		public void BtnSubmitPressed () {
-			EventManager.TriggerEvent("EvLocalConfigSubmitted", new eParam(configFilesOptions.options[configFilesOptions.value]));
+			EventManager.TriggerEvent("EvLocalConfigSubmitted", new eParam(new string[] { taskOptions.options[taskOptions.value].text, configFilesOptions.options[configFilesOptions.value].text } )); // TASK / PARTICIPANT
 			transform.GetChild(0).gameObject.SetActive(false);
 		}
 

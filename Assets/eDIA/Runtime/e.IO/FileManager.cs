@@ -1,4 +1,3 @@
-using System.Xml.Schema;
 using System.Text;
 using System.Collections;
 using System.IO;
@@ -52,7 +51,7 @@ namespace eDIA {
 				return null;
 			}
 
-			FileInfo[] info = dir.GetFiles();
+			FileInfo[] info = dir.GetFiles("*.*");
 			
 			if (info.Length == 0) {
 				Debug.Log("No files found in " + subFolder);

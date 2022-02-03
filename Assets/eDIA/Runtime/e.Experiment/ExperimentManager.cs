@@ -143,8 +143,10 @@ namespace eDIA {
 		/// <param name="e">String = filename of the configfile</param>
 		void OnEvLocalConfigSubmitted (eParam e) {
 			EventManager.StopListening("EvLocalConfigSubmitted", OnEvLocalConfigSubmitted);
+			string filename = e.GetStrings()[0] + "_" + e.GetStrings()[1] + ".json"; // combine task string and participant string
+			
 			// Debug.Log(e.GetString());
-			SetExperimentConfig (LoadExperimentConfigFromDisk(e.GetString()));
+			SetExperimentConfig (LoadExperimentConfigFromDisk(filename));
 		}
 
 		/// <summary> Eventlistener which expects the config as JSON file, triggers default config file load if not. </summary>
@@ -156,7 +158,7 @@ namespace eDIA {
 		/// <summary>Load JSON configuration locally from configdirectory</summary>
 		/// <returns>JSON string</returns>
 		string LoadExperimentConfigFromDisk (string fileName) {
-			string experimentJSON = FileManager.ReadStringFromApplicationPathSubfolder(eDIA.Constants.localConfigDirectoryName, fileName);
+			string experimentJSON = FileManager.ReadStringFromApplicationPathSubfolder(eDIA.Constants.localConfigDirectoryName + "/Participants", fileName);
 
 			if (experimentJSON == "ERROR")
 				Debug.LogError("Experiment JSON not correctly loaded!");

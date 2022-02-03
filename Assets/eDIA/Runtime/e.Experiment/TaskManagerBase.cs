@@ -34,6 +34,8 @@ namespace eDIA {
 			// Listen to event that XR rig is ready
 			EventManager.StartListening("EvFoundXRrigReferences", OnEvFoundXRrigReferences);
 			EventManager.StartListening("EvExperimentInitialised", OnEvExperimentInitialised);
+			EventManager.StartListening("EvLocalConfigSubmitted", OnEvLocalConfigSubmitted);
+
 			GetXRrigReferences();
 		}
 
@@ -42,7 +44,6 @@ namespace eDIA {
 		}
 
 		public virtual void Start() {
-			SetTaskConfig();
 		}
 
 
@@ -87,10 +88,10 @@ namespace eDIA {
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region TASK UXF HELPERS
 
-		private void SetTaskConfig()
+		private void SetTaskConfig(string filename)
 		{
 			// Load taskConfigFile
-			string taskConfigJSON = FileManager.ReadStringFromApplicationPath("TaskConfig.json");
+			string taskConfigJSON = FileManager.ReadStringFromApplicationPathSubfolder(Constants.localConfigDirectoryName + "/Tasks", filename);
 
 			if (taskConfigJSON == "ERROR") {
 				Debug.LogError("Task JSON not correctly loaded!");
@@ -144,6 +145,17 @@ namespace eDIA {
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region eDIA EXPERIMENT EVENT HANDLERS
+
+		/// <summary>Look up given index in the localConfigFiles list and give content of that file to system </summary>
+		/// <param name="e">String = filename of the configfile</param>
+		void OnEvLocalConfigSubmitted (eParam e) {
+			EventManager.StopListening("EvLocalConfigSubmitted", OnEvLocalConfigSubmitted);
+
+			string filename = e.GetStrings()[0] + ".json"; // combine task string and participant string
+			
+			// Debug.Log(e.GetString());
+			SetTaskConfig (filename);
+		}
 
 		void OnEvExperimentInitialised (eParam e) {
 			// AddToLog("Experiment Initialized:" + e.GetBool());
