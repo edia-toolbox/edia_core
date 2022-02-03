@@ -14,7 +14,7 @@ namespace eDIA {
 		/// <summary>Get all filenames with a certain extension from the applications given subfolder</summary>
 		/// <param subFolder="subFolder">Folder to scan</param>
 		/// <param extension="extension">filter on specific file type, use * for all</param>
-		public static string[] GetAllFilenamesFrom (string subFolder, string extension) {
+		public static string[] GetAllFilenamesWithExtensionFrom (string subFolder, string extension) {
 			
 			string path =  CorrectPath() + "/" + subFolder + "/";
 			DirectoryInfo dir = new DirectoryInfo(path);
@@ -28,6 +28,60 @@ namespace eDIA {
 			
 			if (info.Length == 0) {
 				Debug.Log("No files found with " + extension + " in " + subFolder);
+				return null;
+			}
+
+			string[] result = new string[info.Length];
+
+			for (int f=0; f<info.Length; f++) {
+				result[f] = info[f].Name;
+			}
+
+			return result;
+		}
+
+		/// <summary>Get all filenames with a certain extension from the applications given subfolder</summary>
+		/// <param subFolder="subFolder">Folder to scan</param>
+		public static string[] GetAllFilenamesFrom (string subFolder) {
+			
+			string path =  CorrectPath() + "/" + subFolder + "/";
+			DirectoryInfo dir = new DirectoryInfo(path);
+			
+			if (!dir.Exists) {
+				Debug.Log("Directory " + subFolder + " does not exist");
+				return null;
+			}
+
+			FileInfo[] info = dir.GetFiles();
+			
+			if (info.Length == 0) {
+				Debug.Log("No files found in " + subFolder);
+				return null;
+			}
+
+			string[] result = new string[info.Length];
+
+			for (int f=0; f<info.Length; f++) {
+				result[f] = info[f].Name;
+			}
+
+			return result;
+		}
+
+		public static string[] GetAllSubFolders (string subFolder) {
+			
+			string path =  CorrectPath() + "/" + subFolder + "/";
+			DirectoryInfo dir = new DirectoryInfo(path);
+			
+			if (!dir.Exists) {
+				Debug.Log("Directory " + subFolder + " does not exist");
+				return null;
+			}
+
+			DirectoryInfo[] info = dir.GetDirectories();
+			
+			if (info.Length == 0) {
+				Debug.Log("No task folders found in " + subFolder);
 				return null;
 			}
 

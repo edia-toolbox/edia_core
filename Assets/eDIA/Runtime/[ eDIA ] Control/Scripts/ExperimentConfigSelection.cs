@@ -12,65 +12,93 @@ namespace eDIA {
 	public class ExperimentConfigSelection : MonoBehaviour {
 
 		[Header ("Refs")]
+		public TMP_Dropdown taskOptions;
 		public TMP_Dropdown configFilesOptions;
 		public Button btnSubmit = null;
 		public TextMeshProUGUI infoTextField;
 
-		List<string> localConfigFilenames = new List<string>();
+		public enum ConfigTypes { TASK, PARTICIPANT };
+		private string selectedTask = "empty";
 
 		void Start() {
 			OnEvResetExperimentConfigSelection(null);
 			EventManager.StartListening("EvResetExperimentConfigSelection", OnEvResetExperimentConfigSelection);
 		}
 
+		/// <summary>Repopulate the dropdowns with values</summary>
 		private void OnEvResetExperimentConfigSelection(eParam obj)
 		{
 			Reset();
-			GetLocalExperimentConfigs();
+			GetLocalConfigs(ConfigTypes.TASK);
+			UpdateParticipantConfigList();
 		}
 
+		/// <summary>Clear everything to startstate</summary>
 		void Reset () {
 			btnSubmit.interactable = false;
 			infoTextField.text = "eDIA";
 			configFilesOptions.ClearOptions();
-			localConfigFilenames.Clear();
+			taskOptions.ClearOptions();
+
 			transform.GetChild(0).gameObject.SetActive(true);
 		}
 
-		/// <summary>Generate an array with  configfiles filenames from the given subfolder</summary>
-		void GetLocalExperimentConfigs () {
+		/// <summary>Update the participants list of selected task.</summary>
+		public void UpdateParticipantConfigList() {
+
+			configFilesOptions.ClearOptions();
+			selectedTask = taskOptions.options.Count > 0 ? taskOptions.options[taskOptions.value].text : "NONE";
+
+			if (selectedTask != "NONE")
+				GetLocalConfigs(ConfigTypes.PARTICIPANT);
+			else Debug.LogWarning("No valid task selected");
+		}
+
+
+		/// <summary>Generate an array with configfiles filenames from the given configtype</summary>
+		void GetLocalConfigs (ConfigTypes configType) {
 			infoTextField.text = "Looking for configs";
 
-			string[] filelist = FileManager.GetAllFilenamesFrom(eDIA.Constants.localConfigDirectoryName,"json"); // catch result in an array first to check if anything came back
+			string[] filelist = FileManager.GetAllFilenamesWithExtensionFrom(
+				eDIA.Constants.localConfigDirectoryName +  (configType == ConfigTypes.TASK ? "/Tasks" : "/Participants"),"json"
+				); // catch result in an array first to check if anything came back
 
 			if (filelist == null) {
-				// AddToLog("Local config files not found");
 				Debug.Log("Local config files not found");
 				infoTextField.text = "Nothing found!";
 				return;
 			}
 
 			infoTextField.text = "Choose config file";
-			localConfigFilenames = filelist.ToList<string>();
 
 			// got filenames, fill the dropdown
 			List<TMP_Dropdown.OptionData> fileOptions = new List<TMP_Dropdown.OptionData>();
 			
 			for (int s=0;s<filelist.Length;s++) {
-				if (filelist[s].Contains('_')) {
+
+				if (configType == ConfigTypes.TASK) {
+					fileOptions.Add(new TMP_Dropdown.OptionData(filelist[s].Split('.')[0]));
+					continue;
+				}
+
+				if (filelist[s].Contains('_') && filelist[s].Contains(selectedTask)) {
 					fileOptions.Add(new TMP_Dropdown.OptionData(filelist[s].Split('.')[0].Split('_')[1])); // Fileformat: EXPERIMENTNAME_PARTICIPANTID.json
 				} else
-				 	Debug.LogWarning("[SKIPPED] Incorrect filename " + filelist[s] + " <EXPERIMENTNAME_PARTICIPANTID>.json");
+				 	Debug.LogWarning("[SKIPPED] " + filelist[s]);
 			}
 
-			configFilesOptions.AddOptions(fileOptions);
+			if (configType == ConfigTypes.TASK) {
+				taskOptions.AddOptions(fileOptions);
+			} else {
+				configFilesOptions.AddOptions(fileOptions);
+				EventManager.TriggerEvent("EvFoundLocalConfigFiles", new eParam(configFilesOptions.options.Count));
+			} 
 
 			btnSubmit.interactable = true;
-			EventManager.TriggerEvent("EvFoundLocalConfigFiles", new eParam(localConfigFilenames.Count));
 		}
 
 		public void BtnSubmitPressed () {
-			EventManager.TriggerEvent("EvLocalConfigSubmitted", new eParam(localConfigFilenames[configFilesOptions.value]));
+			EventManager.TriggerEvent("EvLocalConfigSubmitted", new eParam(configFilesOptions.options[configFilesOptions.value]));
 			transform.GetChild(0).gameObject.SetActive(false);
 		}
 
