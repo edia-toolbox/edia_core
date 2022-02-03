@@ -106,7 +106,7 @@ namespace eDIA {
 		}
 
 		void OnEvExperimentInfoUpdate (eParam e) {
-			trialSlider.currentValue = Session.instance.currentTrialNum;
+			trialSlider.currentValue = Session.instance.currentTrialNum; //TODO not modular yet!
 			blockSlider.currentValue = Session.instance.currentBlockNum;
 
 			if (e != null)

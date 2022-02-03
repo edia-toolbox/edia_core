@@ -1,4 +1,3 @@
-using Microsoft.VisualBasic;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -58,7 +57,10 @@ namespace eDIA {
 			List<TMP_Dropdown.OptionData> fileOptions = new List<TMP_Dropdown.OptionData>();
 			
 			for (int s=0;s<filelist.Length;s++) {
-				fileOptions.Add(new TMP_Dropdown.OptionData(filelist[s].Split('.')[0]));
+				if (filelist[s].Contains('_')) {
+					fileOptions.Add(new TMP_Dropdown.OptionData(filelist[s].Split('.')[0].Split('_')[1])); // Fileformat: EXPERIMENTNAME_PARTICIPANTID.json
+				} else
+				 	Debug.LogWarning("[SKIPPED] Incorrect filename " + filelist[s] + " <EXPERIMENTNAME_PARTICIPANTID>.json");
 			}
 
 			configFilesOptions.AddOptions(fileOptions);

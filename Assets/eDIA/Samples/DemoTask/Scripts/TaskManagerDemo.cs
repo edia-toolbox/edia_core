@@ -194,8 +194,6 @@ namespace TASK {
 
 				// Add additional task specific settings to the UXF logging system
 				Session.instance.settings.SetValue("timerShowCube", taskSettings.GetFloat("timerShowCube"));
-				
-
 			}
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
