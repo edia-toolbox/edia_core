@@ -20,6 +20,8 @@ namespace eDIA {
 		public enum ConfigTypes { TASK, PARTICIPANT };
 		private string selectedTask = "empty";
 
+		public string filter = "DEMO";
+		
 		void Start() {
 			OnEvResetExperimentConfigSelection(null);
 			EventManager.StartListening("EvResetExperimentConfigSelection", OnEvResetExperimentConfigSelection);
