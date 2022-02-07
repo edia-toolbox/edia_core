@@ -126,6 +126,13 @@ namespace eDIA {
 			return result;
 		}
 
+		public static void CopyFileTo(string _sourcePath, string _filename, string _destinationPath) {
+			
+			string pathfile =  CorrectPath() + "/" + _sourcePath + "/" + _filename;
+
+			File.Copy(pathfile, CorrectPath() + "/" + _destinationPath + "/" + _filename, true);
+		}
+
 		/// <summary>Saves a text file to given filename and containts given data</summary>
 		/// <param _fileName="_fileName">Name of the file</param>
 		/// <param _data="_data">The data that needs to be written</param>
@@ -151,6 +158,7 @@ namespace eDIA {
 
 			if (!Directory.Exists (path)) {
 				Directory.CreateDirectory (path);
+				Debug.Log("Folder created");
 			}
 		}
 
@@ -164,7 +172,7 @@ namespace eDIA {
 			#elif UNITY_ANDROID
 				platformSpecificPath = Application.persistentDataPath;
 			#else
-				platformSpecificPath = Application.dataPath + "/../";
+				platformSpecificPath = Application.dataPath + "../";
 			#endif
 			
 			return platformSpecificPath;

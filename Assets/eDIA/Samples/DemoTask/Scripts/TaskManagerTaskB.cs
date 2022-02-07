@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UXF;
 using eDIA;
+using UnityEngine.UI;
+using TMPro;
 
 namespace TASK {
 
@@ -15,12 +17,12 @@ namespace TASK {
 		/// 3. Switch the inspector to 'debug' mode (3 dots right topcorner)<br/>
 		/// 4. Find [ SYSTEM ] > [ EXP ] gameobject and replace 'TaskManagerDemo' script entry in the inspector with your TaskManager script and switch inspector mode back again</para>
 		/// </summary>
-		public class TaskManagerDemo : TaskManagerBase {
+		public class TaskManagerTaskB : TaskManagerBase {
 
 			[Header(("Task related refs"))]
-			public GameObject theCube;
-			
-			private Coroutine moveRoutine = null;
+			public Image stimuliHolder;
+			public Transform buttonPanel = null;
+			public List<Sprite> stimulis = new List<Sprite>();
 
 #region MONO METHODS 
 
@@ -106,60 +108,49 @@ namespace TASK {
 
 			/// <summary>The steps the trial goes through</summary>
 			void TaskSequenceSteps() {
-				trialSequence.Add(new TrialStep("Present Cube", TaskStep1));
-				trialSequence.Add(new TrialStep("Move cube, wait on user input", TaskStep2));
-				trialSequence.Add(new TrialStep("Stop moving, change color", TaskStep3));
-				trialSequence.Add(new TrialStep("Wait ", TaskStep4));
+				trialSequence.Add(new TrialStep("Present Stimuli", TaskStep1));
+				trialSequence.Add(new TrialStep("Show buttons, wait on user", TaskStep2));
+				trialSequence.Add(new TrialStep("Wait ", TaskStep3));
 				//trialSequence.Add( new TrialStep("last step", TaskStepX) );
 				// etc
 			}
 
-			/// <summary>Present Cube</summary>
+			/// <summary>Present Stimuli</summary>
 			void TaskStep1() {
 				AddToLog("Step:" + (currentStep + 1) +" > " + trialSequence[currentStep].title);
 
 				ExperimentManager.Instance.EnableExperimentPause(true);
 
-				theCube.gameObject.SetActive(true);
-				theCube.transform.position = new Vector3(0, XRrig_MainCamera.position.y, taskSettings.GetFloat("distanceCube"));
+				buttonPanel.gameObject.SetActive(false);
+				EventManager.TriggerEvent("EvShowMessage", new eParam("Take a good look at this symbol"));
 
-				Invoke("NextStepFromUserOrSceneOrButtonOrTimerOrWhatever", taskSettings.GetFloat("timerShowCube"));
+				// Show stimuli
+				stimuliHolder.sprite = stimulis[Random.Range(0,stimulis.Count)];
+				stimuliHolder.gameObject.SetActive(true);
+
+				Invoke("NextStepFromUserOrSceneOrButtonOrTimerOrWhatever", taskSettings.GetFloat("timerWait")); 
 			}
 			
 			/// <summary>Move cube, wait on user input</summary>
 			void TaskStep2() {
 				AddToLog("Step:" + (currentStep + 1) +" > " + trialSequence[currentStep].title);
 
-				if (moveRoutine == null) {
-					moveRoutine = StartCoroutine("MoveCube");
+				// Show buttons
+				for (int b=0;b<buttonPanel.transform.childCount;b++) {
+					buttonPanel.GetChild(b).gameObject.SetActive( b < Session.instance.CurrentTrial.settings.GetInt("button_range") ? true : false  );
 				}
+				buttonPanel.gameObject.SetActive(true);
 
-				ExperimentManager.Instance.EnableExperimentProceed(true); // enable proceed button
-				EventManager.StartListening("EvProceed", OnEvProceed); //! Continues to the next step
-				EventManager.TriggerEvent("EvShowMessage", new eParam("Click button to continue"));
-			}
-
-			/// <summary>Stop moving, change color</summary>
-			void TaskStep3() {
-				AddToLog("Step:" + (currentStep + 1) +" > " + trialSequence[currentStep].title);
-
-				if (moveRoutine != null) {
-					StopCoroutine(moveRoutine);
-					moveRoutine = null;
-				}
-				
-				Color newCol;
-				if (ColorUtility.TryParseHtmlString(taskSettings.GetStringList("cubeColors")[Session.instance.CurrentTrial.settings.GetInt("color")], out newCol))
-					theCube.GetComponent<MeshRenderer>().material.color = newCol;
-				else newCol = Color.magenta;
-
-				NextStepFromUserOrSceneOrButtonOrTimerOrWhatever();
+				EventManager.TriggerEvent("EvShowMessage", new eParam("Rate it from 1 - 5 by pressing the corresponding button"));
 			}
 
 			/// <summary>Wait</summary>
-			void TaskStep4() {
+			void TaskStep3() {
 				AddToLog("Step:" + (currentStep + 1) +" > " + trialSequence[currentStep].title);
 
+				stimuliHolder.gameObject.SetActive(false);
+
+				EventManager.TriggerEvent("EvShowMessage", new eParam("Thank you"));
 				Invoke("NextStepFromUserOrSceneOrButtonOrTimerOrWhatever", taskSettings.GetFloat("timerWait")); 
 			}
 
@@ -168,16 +159,16 @@ namespace TASK {
 				NextStep();
 			}
 
-#endregion // -------------------------------------------------------------------------------------------------------------------------------
-#region HELPERS
-			/// <summary>Moves the cube up or down depending on the setting `direction` in the trial settings.</summary>
-			IEnumerator MoveCube () {
-				float increment = Session.instance.CurrentTrial.settings.GetInt("direction") == 1 ? 0.001f : -0.001f;
 
-				while (true) {
-					theCube.transform.Translate(new Vector3(0, increment ,0), Space.World);
-					yield return new WaitForEndOfFrame();
-				}
+#endregion // -------------------------------------------------------------------------------------------------------------------------------
+#region BUTTON PRESSES
+
+			public void BtnPressed (int btnID) {
+
+				Session.instance.CurrentTrial.result["selected_button"] = btnID;
+				buttonPanel.gameObject.SetActive(false);
+
+				NextStepFromUserOrSceneOrButtonOrTimerOrWhatever();
 			}
 
 
@@ -193,7 +184,7 @@ namespace TASK {
 				EventManager.TriggerEvent("EvShowMessage", new eParam("Welcome to the experiment, please click button to continue"));
 
 				// Add additional task specific settings to the UXF logging system
-				Session.instance.settings.SetValue("timerShowCube", taskSettings.GetFloat("timerShowCube"));
+				// Session.instance.settings.SetValue("timerShowCube", taskSettings.GetFloat("timerShowCube"));
 			}
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------

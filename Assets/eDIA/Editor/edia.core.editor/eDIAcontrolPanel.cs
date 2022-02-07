@@ -9,13 +9,6 @@ namespace eDIA.EditorUtils {
     [InitializeOnLoad]
     public class eDIAcontrolPanel : EditorWindow {
 
-        //TODO: auto generate config json files based on template?
-        [MenuItem ("Assets/Create/eDIA/Add Configuration")]
-        private static void AddConfig () {
-            // Create and add a new ScriptableObject for storing configuration
-        }
-
-
         public Texture2D eDIAIcon;
         public static bool forceShow = false;
 #if UNITY_2018_3_OR_NEWER
@@ -133,7 +126,7 @@ namespace eDIA.EditorUtils {
 
             GUILayout.Label ("Create basic config files", EditorStyles.boldLabel);
 
-            if (GUILayout.Button ("Create config JSON files"))
+            if (GUILayout.Button ("Create config folder + demo JSON files"))
                 CreateConfigFiles ();
 
             EditorGUILayout.Separator ();
@@ -183,7 +176,16 @@ namespace eDIA.EditorUtils {
         }
 
         private static void CreateConfigFiles () {
-            Debug.Log ("CreateConfigFiles");
+            FileManager.CreateFolder("Configs/Participants");
+            FileManager.CreateFolder("Configs/Tasks");
+
+            FileManager.CopyFileTo("eDIA/Editor/edia.core.editor/jsons","TASKA_PARTICIPANTID.json", "Configs/Participants");
+            FileManager.CopyFileTo("eDIA/Editor/edia.core.editor/jsons","TASKA.json", "Configs/Tasks"); 
+
+            FileManager.CopyFileTo("eDIA/Editor/edia.core.editor/jsons","TASKB_PARTICIPANTID.json", "Configs/Participants");
+            FileManager.CopyFileTo("eDIA/Editor/edia.core.editor/jsons","TASKB.json", "Configs/Tasks");
+
+            Debug.Log("Created Config folders with demo configuration files");
         }
 
         private static void SetSettingsWindows () {

@@ -9,10 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8773633709820969311}
-  - component: {fileID: 8773633709820969310}
   - component: {fileID: 8773633709820969305}
   - component: {fileID: 8773633709820969308}
-  - component: {fileID: 8773633709820969304}
   - component: {fileID: 8773633709820969309}
   m_Layer: 0
   m_Name: '[ TASK ]'
@@ -35,26 +33,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8773633709820969310
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8773633709820969299}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9da7377befe2c0248b6556eda0d390c1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  showLog: 1
-  taskColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  XRrig_MainCamera: {fileID: 0}
-  XRrig_RightController: {fileID: 0}
-  XRrig_LeftController: {fileID: 0}
-  trialSequence: []
-  currentStep: -1
-  theCube: {fileID: 0}
 --- !u!114 &8773633709820969305
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -90,18 +68,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ActionAssets:
   - {fileID: -944628639613478452, guid: 24a53ce88137d56479a811aa8fd4d643, type: 3}
---- !u!114 &8773633709820969304
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8773633709820969299}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4e2b854d3a6e954e871347e4b728c9d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &8773633709820969309
 MonoBehaviour:
   m_ObjectHideFlags: 0

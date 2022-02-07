@@ -60,7 +60,6 @@ namespace eDIA {
 			List<TMP_Dropdown.OptionData> fileOptions = new List<TMP_Dropdown.OptionData>();
 			
 			for (int s=0;s<filelist.Length;s++) {
-				Debug.Log("Filelist " + s);
 				if (isFileValid(filelist[s]))
 					fileOptions.Add(new TMP_Dropdown.OptionData(filelist[s].Split('.')[0].Split('_')[1])); // Fileformat: EXPERIMENTNAME_PARTICIPANTID.json
 			}
