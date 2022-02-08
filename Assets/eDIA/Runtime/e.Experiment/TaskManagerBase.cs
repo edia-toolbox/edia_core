@@ -19,7 +19,7 @@ namespace eDIA {
 			public List<ExperimentManager.SettingsTuple> taskSettings = new List<ExperimentManager.SettingsTuple>();
 		}
 		
-		TaskSettingsContainer taskSettingsContainer;
+		public TaskSettingsContainer taskSettingsContainer;
 		public UXF.Settings taskSettings = new Settings();
 
 		// XR RIG
@@ -156,12 +156,12 @@ namespace eDIA {
 			// Debug.Log(e.GetString());
 			SetTaskConfig (filename);
 		}
-
+		
 		void OnEvExperimentInitialised (eParam e) {
-			// AddToLog("Experiment Initialized:" + e.GetBool());
 			OnExperimentInitialised(e.GetBool());
 		}
 
+		/// <summary>At this point we have acces to all taskSettings</summary>
 		public virtual void OnExperimentInitialised(bool result) {
 			// Intentially empty
 		}

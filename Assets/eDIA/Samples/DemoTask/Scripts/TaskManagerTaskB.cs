@@ -91,6 +91,7 @@ namespace TASK {
 
 			}
 
+			/// <summary>At this point we have acces to all taskSettings</summary>
 			public override void OnExperimentInitialised(bool result) {
 				base.OnExperimentInitialised(result); //! Do not remove
 				
