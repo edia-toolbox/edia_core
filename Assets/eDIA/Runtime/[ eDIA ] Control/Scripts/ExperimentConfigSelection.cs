@@ -95,49 +95,5 @@ namespace eDIA {
 
 		}
 
-		// /// <summary>Generate an array with configfiles filenames from the given configtype</summary>
-		// void GetLocalConfigs (ConfigTypes configType) {
-		// 	infoTextField.text = "Looking for configs";
-
-		// 	string[] filelist = FileManager.GetAllFilenamesWithExtensionFrom(
-		// 		eDIA.Constants.localConfigDirectoryName +  (configType == ConfigTypes.TASK ? "/Tasks" : "/Participants"),"json"
-		// 		); // catch result in an array first to check if anything came back
-
-		// 	if (filelist == null) {
-		// 		Debug.Log("Local config files not found");
-		// 		infoTextField.text = "Nothing found!";
-		// 		return;
-		// 	}
-
-		// 	infoTextField.text = "Choose config file";
-
-		// 	// got filenames, fill the dropdown
-		// 	List<TMP_Dropdown.OptionData> fileOptions = new List<TMP_Dropdown.OptionData>();
-			
-		// 	for (int s=0;s<filelist.Length;s++) {
-
-		// 		if (configType == ConfigTypes.TASK) {
-		// 			fileOptions.Add(new TMP_Dropdown.OptionData(filelist[s].Split('.')[0]));
-		// 			continue;
-		// 		}
-
-		// 		if (filelist[s].Contains('_') && filelist[s].Contains(selectedTask)) {
-		// 			fileOptions.Add(new TMP_Dropdown.OptionData(filelist[s].Split('.')[0].Split('_')[1])); // Fileformat: EXPERIMENTNAME_PARTICIPANTID.json
-		// 		} else
-		// 		 	Debug.LogWarning("[SKIPPED] " + filelist[s]);
-		// 	}
-
-		// 	if (configType == ConfigTypes.TASK) {
-		// 		taskOptions.AddOptions(fileOptions);
-		// 	} else {
-		// 		configFilesOptions.AddOptions(fileOptions);
-		// 		EventManager.TriggerEvent("EvFoundLocalConfigFiles", new eParam(configFilesOptions.options.Count));
-		// 	} 
-
-		// 	btnSubmit.interactable = true;
-		// }
-
-
-
 	}
 }
