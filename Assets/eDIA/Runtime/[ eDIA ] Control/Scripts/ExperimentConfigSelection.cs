@@ -38,7 +38,7 @@ namespace eDIA {
 			infoTextField.text = "eDIA";
 			configFilesOptions.ClearOptions();
 
-			transform.GetChild(0).gameObject.SetActive(true);
+			ShowPanel();
 		}
 
 		/// <summary>Update the participants list of selected task.</summary>
@@ -72,7 +72,6 @@ namespace eDIA {
 
 
 		bool isFileValid (string fileNameToCheck) {
-			// bool isValid = true;
 
 			bool isValid = fileNameToCheck.ToUpper().Contains(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name.ToUpper()) & fileNameToCheck.Contains('_');
 			// Debug.LogWarning("[SKIPPED] " + fileNameToCheck);
@@ -82,7 +81,18 @@ namespace eDIA {
 
 		public void BtnSubmitPressed () {
 			EventManager.TriggerEvent("EvLocalConfigSubmitted", new eParam(new string[] { UnityEngine.SceneManagement.SceneManager.GetActiveScene().name , configFilesOptions.options[configFilesOptions.value].text } )); // TASK / PARTICIPANT
+			HidePanel();
+		}
+
+		void ShowPanel () {
+			transform.GetChild(0).gameObject.SetActive(true);
+			GetComponent<LayoutElement>().ignoreLayout = false;
+		}
+
+		void HidePanel () {
 			transform.GetChild(0).gameObject.SetActive(false);
+			GetComponent<LayoutElement>().ignoreLayout = true;
+
 		}
 
 		// /// <summary>Generate an array with configfiles filenames from the given configtype</summary>
