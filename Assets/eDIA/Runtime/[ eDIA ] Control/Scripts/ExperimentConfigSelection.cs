@@ -9,15 +9,16 @@ using System;
 namespace eDIA {
 
 	/// <summary>GUI element that enables the user to choose from a dropdown of found experiment config files</summary>
-	public class ExperimentConfigSelection : MonoBehaviour {
+	public class ExperimentConfigSelection : ExperimenterPanel {
 
 		[Header ("Refs")]
 		public TMP_Dropdown configFilesOptions;
 		public Button btnSubmit = null;
 		public TextMeshProUGUI infoTextField;
 
-		public enum ConfigTypes { TASK, PARTICIPANT };
+		// Settings
 		private string selectedTask = "empty";
+
 
 		void Start() {
 			OnEvResetExperimentConfigSelection(null);
@@ -28,7 +29,6 @@ namespace eDIA {
 		private void OnEvResetExperimentConfigSelection(eParam obj)
 		{
 			Reset();
-			// GetLocalConfigs(ConfigTypes.TASK);
 			UpdateParticipantConfigList();
 		}
 
@@ -83,17 +83,5 @@ namespace eDIA {
 			EventManager.TriggerEvent("EvLocalConfigSubmitted", new eParam(new string[] { UnityEngine.SceneManagement.SceneManager.GetActiveScene().name , configFilesOptions.options[configFilesOptions.value].text } )); // TASK / PARTICIPANT
 			HidePanel();
 		}
-
-		void ShowPanel () {
-			transform.GetChild(0).gameObject.SetActive(true);
-			GetComponent<LayoutElement>().ignoreLayout = false;
-		}
-
-		void HidePanel () {
-			transform.GetChild(0).gameObject.SetActive(false);
-			GetComponent<LayoutElement>().ignoreLayout = true;
-
-		}
-
 	}
 }

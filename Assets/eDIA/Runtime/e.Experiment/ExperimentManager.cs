@@ -142,7 +142,7 @@ namespace eDIA {
 			EventManager.StopListening("EvLocalConfigSubmitted", OnEvLocalConfigSubmitted);
 			string filename = e.GetStrings()[0] + "_" + e.GetStrings()[1] + ".json"; // combine task string and participant string
 			
-			EventManager.TriggerEvent(eDIA.gui.Events.EvShowMessageBox, new eParam("File:" + filename));
+			EventManager.TriggerEvent(eDIA.Events.GUI.EvShowMessageBox, new eParam("File:" + filename));
 
 			SetExperimentConfig (LoadExperimentConfigFromDisk(filename));
 		}
@@ -151,7 +151,7 @@ namespace eDIA {
 		/// <param name="e">JSON config as string</param>
 		void OnEvSetExperimentConfig( eParam e) {
 			if (e == null) {
-				EventManager.TriggerEvent(eDIA.core.Events.EvSystemHalt, new eParam("No JSON config received!"));
+				EventManager.TriggerEvent(eDIA.Events.Core.EvSystemHalt, new eParam("No JSON config received!"));
 				return;
 			}
 

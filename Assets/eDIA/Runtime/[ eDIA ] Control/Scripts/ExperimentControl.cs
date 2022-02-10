@@ -8,7 +8,7 @@ using UXF;
 
 namespace eDIA {
 
-	public class ExperimentControl : MonoBehaviour {
+	public class ExperimentControl : ExperimenterPanel {
 
 		// Default buttons that are always needed for running a experiment
 		[Header("Default buttons")]
@@ -37,7 +37,7 @@ namespace eDIA {
 			EventManager.StartListening("EvButtonChangeState", 		OnEvButtonChangeState);
 			EventManager.StartListening("EvStartExperiment", 		OnEvStartExperiment);
 
-			ShowPanel (false);
+			HidePanel ();
 		}
 
 #region EVENT LISTENERS
@@ -45,16 +45,17 @@ namespace eDIA {
 		void OnEvExperimentInitialised(eParam obj)
 		{
 			EventManager.StopListening("EvExperimentInitialised", OnEvExperimentInitialised);
+
 			SetupButtons ();
 			btnExperiment.interactable = true;
 
 			blockSlider.description = "ready";
 
-			ShowPanel (true);
 			panelIdle.SetActive(true);
 			panelRunning.SetActive(false);
 			panelStatus.SetActive(false);
 			panelInfo.SetActive(false);
+			ShowPanel ();
 
 			EventManager.StartListening("EvSetDisplayInformation", OnEvSetDisplayInformation);
 		}
@@ -152,10 +153,6 @@ namespace eDIA {
 			btnExperiment.onClick.AddListener(	()=>EventManager.TriggerEvent("EvStartExperiment", null));
 			btnPauseExperiment.onClick.AddListener(	()=>EventManager.TriggerEvent("EvPauseExperiment", null));
 			btnProceedExperiment.onClick.AddListener(	()=>EventManager.TriggerEvent("EvProceed", null));
-		}
-
-		void ShowPanel (bool onOff) {
-			transform.GetChild(0).gameObject.SetActive(onOff);
 		}
 
 	}
