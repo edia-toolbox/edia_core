@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace eDIA {
+namespace eDIA.core {
 
 	/// <summary>Overview of all events in the system. Easier to reference and no typo mistakes by using them.</summary>
 	public static class Events {
