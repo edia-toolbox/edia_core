@@ -78,10 +78,8 @@ namespace eDIA {
 		/// The config instance that holds current experimental configuration
 		[HideInInspector]
 		public ExperimentConfig experimentConfig;
-		public bool experimentInitialized = false;
-
 		[HideInInspector]
-		public TextAsset defaultConfig; // text asset reference to 'DefaultExperimentConfig.json'
+		public bool experimentInitialized = false;
 
 		// Helpers
 		[Space(20)]
@@ -101,10 +99,8 @@ namespace eDIA {
 
 		void Awake() {
 			EventManager.StartListening("EvFoundLocalConfigFiles", OnEvFoundLocalConfigFiles);
-			// EventManager.StartListening("EvNewSession", OnEvNewSession);
 			EventManager.StartListening("EvSetExperimentConfig", OnEvSetExperimentConfig);
 			EventManager.StartListening("EvStartExperiment", OnEvStartExperiment);
-			
 
 			SetApplicationFramerate();
 		}
@@ -145,14 +141,18 @@ namespace eDIA {
 			EventManager.StopListening("EvLocalConfigSubmitted", OnEvLocalConfigSubmitted);
 			string filename = e.GetStrings()[0] + "_" + e.GetStrings()[1] + ".json"; // combine task string and participant string
 			
-			// Debug.Log(e.GetString());
 			SetExperimentConfig (LoadExperimentConfigFromDisk(filename));
 		}
 
 		/// <summary> Eventlistener which expects the config as JSON file, triggers default config file load if not. </summary>
 		/// <param name="e">JSON config as string</param>
 		void OnEvSetExperimentConfig( eParam e) {
-			SetExperimentConfig( e == null ? defaultConfig.text : e.GetString() );
+			if (e == null) {
+				EventManager.TriggerEvent(eDIA.Events.EvSystemHalt, new eParam("No JSON config received!"));
+				return;
+			}
+
+			SetExperimentConfig( e.GetString() );
 		}
 
 		/// <summary>Load JSON configuration locally from configdirectory</summary>
