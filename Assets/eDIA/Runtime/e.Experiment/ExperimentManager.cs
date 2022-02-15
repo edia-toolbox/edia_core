@@ -129,7 +129,6 @@ namespace eDIA {
 		/// <summary>Register local mode, listen to submission of config file</summary>
 		void OnEvFoundLocalConfigFiles (eParam e) {
 			EventManager.StopListening("EvFoundLocalConfigFiles", OnEvFoundLocalConfigFiles);		
-			
 
 			AddToLog(e.GetInt() + " local config files added");
 				
