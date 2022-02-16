@@ -12,10 +12,15 @@ namespace eDIA {
 		public TextMeshProUGUI messageField = null;
 		public Button panelButton = null;
 
-		void Awake() {
+		public override void Awake() {
+
+			base.Awake();
+
 			EventManager.StartListening(eDIA.Events.GUI.EvShowMessageBox, OnEvShowMessageBox);
 			panelButton.onClick.AddListener(buttonClicked);
-			
+		}
+
+		void Start() {
 			HidePanel ();
 		}
 
@@ -31,7 +36,6 @@ namespace eDIA {
 		}
 
 		void buttonClicked() {
-			Debug.Log("buttonClicked");
 			HidePanel();
 		}
 

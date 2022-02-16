@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,19 +7,25 @@ using UnityEngine.UI;
 namespace eDIA {
 
 	/// <summary>Base Panel functionality class</summary>
-	[RequireComponent(typeof(LayoutElement))]
+	[RequireComponent(typeof(VerticalLayoutGroup))]
 	public class ExperimenterPanel : MonoBehaviour {
 		
+		public List<Transform> children = new List<Transform>();
+
+		public virtual void Awake() {
+			foreach (Transform tr in transform) children.Add(tr);
+			Debug.Log(transform.gameObject.name);
+		}
+
 		public void ShowPanel () {
-			transform.GetChild(0).gameObject.SetActive(true);
-			GetComponent<LayoutElement>().ignoreLayout = false;
+			foreach (Transform tr in children) tr.gameObject.SetActive(true);
+			GetComponent<VerticalLayoutGroup>().enabled = true;
 		}
 
 		public void HidePanel () {
-			transform.GetChild(0).gameObject.SetActive(false);
-			GetComponent<LayoutElement>().ignoreLayout = true;
+			foreach (Transform tr in children) tr.gameObject.SetActive(false);
+			GetComponent<VerticalLayoutGroup>().enabled = false;
 		}
-
 
 	}
 }

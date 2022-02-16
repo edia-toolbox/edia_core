@@ -132,7 +132,7 @@ namespace eDIA {
 
 			AddToLog(e.GetInt() + " local config files added");
 				
-			EventManager.StartListening("EvLocalConfigSubmitted", OnEvLocalConfigSubmitted);
+			EventManager.StartListening(eDIA.Events.Core.EvLocalConfigSubmitted, OnEvLocalConfigSubmitted);
 		}
 
 		/// <summary>Look up given index in the localConfigFiles list and give content of that file to system </summary>
@@ -254,8 +254,6 @@ namespace eDIA {
 				participantDetails, 
 				currentUXFSessionSettings
 			); 
-
-
 		}
 
 		void OnEvNewSession (eParam e) {

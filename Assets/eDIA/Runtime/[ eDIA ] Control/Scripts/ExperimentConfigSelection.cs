@@ -23,6 +23,7 @@ namespace eDIA {
 		void Start() {
 			OnEvResetExperimentConfigSelection(null);
 			EventManager.StartListening("EvResetExperimentConfigSelection", OnEvResetExperimentConfigSelection);
+
 		}
 
 		/// <summary>Repopulate the dropdowns with values</summary>

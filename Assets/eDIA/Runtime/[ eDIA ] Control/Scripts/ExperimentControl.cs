@@ -32,11 +32,16 @@ namespace eDIA {
 		public TextMeshProUGUI participantIDField = null;
 		public TextMeshProUGUI sessionNumberField = null;
 
-		private void Awake() {
+		public override void Awake() {
+
+			base.Awake();
+			
 			EventManager.StartListening("EvExperimentInitialised", 	OnEvExperimentInitialised);
 			EventManager.StartListening("EvButtonChangeState", 		OnEvButtonChangeState);
 			EventManager.StartListening("EvStartExperiment", 		OnEvStartExperiment);
+		}
 
+		void Start() {
 			HidePanel ();
 		}
 
