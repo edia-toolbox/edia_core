@@ -141,8 +141,6 @@ namespace eDIA {
 			EventManager.StopListening("EvLocalConfigSubmitted", OnEvLocalConfigSubmitted);
 			string filename = e.GetStrings()[0] + "_" + e.GetStrings()[1] + ".json"; // combine task string and participant string
 			
-			EventManager.TriggerEvent(eDIA.Events.GUI.EvShowMessageBox, new eParam("File:" + filename));
-
 			SetExperimentConfig (LoadExperimentConfigFromDisk(filename));
 		}
 
@@ -166,15 +164,12 @@ namespace eDIA {
 				Debug.LogError("Experiment JSON not correctly loaded!");
 			
 			return experimentJSON;
-
-			// TODO: There should be a HALT option in the framework, to halt the complete application and rset back
 		}
 
 		/// <summary>Set the eDIA experiment settings with the full JSON config string</summary>
 		/// <param name="JSONstring">Full config string</param>
 		void SetExperimentConfig (string JSONstring) {
 			experimentConfig = UnityEngine.JsonUtility.FromJson<ExperimentConfig>(JSONstring);
-			// Debug.Log(UnityEngine.JsonUtility.ToJson(experimentConfig, true));
 
 			try
 			{

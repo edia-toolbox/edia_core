@@ -35,15 +35,14 @@ namespace eDIA {
 		public override void Awake() {
 
 			base.Awake();
-			
+
 			EventManager.StartListening("EvExperimentInitialised", 	OnEvExperimentInitialised);
 			EventManager.StartListening("EvButtonChangeState", 		OnEvButtonChangeState);
 			EventManager.StartListening("EvStartExperiment", 		OnEvStartExperiment);
-		}
 
-		void Start() {
 			HidePanel ();
 		}
+
 
 #region EVENT LISTENERS
 
@@ -60,7 +59,7 @@ namespace eDIA {
 			panelRunning.SetActive(false);
 			panelStatus.SetActive(false);
 			panelInfo.SetActive(false);
-			ShowPanel ();
+			GetComponent<VerticalLayoutGroup>().enabled = true;
 
 			EventManager.StartListening("EvSetDisplayInformation", OnEvSetDisplayInformation);
 		}
@@ -80,6 +79,7 @@ namespace eDIA {
 			panelIdle.SetActive(false);
 			panelRunning.SetActive(true);
 			panelStatus.SetActive(true);
+			GetComponent<VerticalLayoutGroup>().enabled = true;
 
 			EventManager.StartListening("EvExperimentInfoUpdate", OnEvExperimentInfoUpdate);
 			EventManager.StartListening("EvFinalizeSession", OnEvFinalizeSession);
@@ -94,6 +94,7 @@ namespace eDIA {
 			sessionNumberField.text = displayInformation[3];
 
 			panelInfo.SetActive(true);
+			GetComponent<VerticalLayoutGroup>().enabled = true;
 		}
 
 
@@ -109,6 +110,7 @@ namespace eDIA {
 			panelIdle.SetActive(true);
 			panelRunning.SetActive(false);
 			panelStatus.SetActive(false);
+			GetComponent<VerticalLayoutGroup>().enabled = true;
 		}
 
 		void OnEvExperimentInfoUpdate (eParam e) {
