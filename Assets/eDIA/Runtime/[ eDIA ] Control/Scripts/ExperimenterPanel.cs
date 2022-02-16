@@ -14,7 +14,6 @@ namespace eDIA {
 
 		public virtual void Awake() {
 			foreach (Transform tr in transform) children.Add(tr);
-			Debug.Log(transform.gameObject.name);
 		}
 
 		public void ShowPanel () {
