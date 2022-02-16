@@ -19,7 +19,7 @@ namespace eDIA {
 			public List<ExperimentManager.SettingsTuple> taskSettings = new List<ExperimentManager.SettingsTuple>();
 		}
 		
-		public TaskSettingsContainer taskSettingsContainer;
+		TaskSettingsContainer taskSettingsContainer;
 		public UXF.Settings taskSettings = new Settings();
 
 		// XR RIG
