@@ -15,7 +15,7 @@ namespace eDIA {
 
 		// Master volume
 		public static float volume = 50f;
-
+ 
 
 		// Methods
 		public static void SavePrefs () {
