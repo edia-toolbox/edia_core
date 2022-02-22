@@ -114,7 +114,7 @@ namespace eDIA {
 		}
 
 		void OnEvExperimentInfoUpdate (eParam e) {
-			trialSlider.currentValue = Session.instance.currentTrialNum; //TODO not modular yet!
+			trialSlider.currentValue = Session.instance.currentTrialNum; //TODO not modular yet! so won't work if it's on a remote tablet or something
 			blockSlider.currentValue = Session.instance.currentBlockNum;
 
 			if (e != null)
@@ -124,16 +124,12 @@ namespace eDIA {
 		void OnEvButtonChangeState(eParam e) {
 
 			bool newState = e.GetStrings()[1].ToUpper() == "TRUE";
-			Constants.ExperimenterCanvasButtons btn = (Constants.ExperimenterCanvasButtons)int.Parse(e.GetStrings()[0]);
 
-			switch (btn) {
-				case Constants.ExperimenterCanvasButtons.EXP_START :
-					btnExperiment.interactable = newState;
-				break;
-				case Constants.ExperimenterCanvasButtons.EXP_PAUSE :
+			switch (e.GetStrings()[0].ToUpper()) {
+				case "PAUSE" :
 					btnPauseExperiment.interactable = newState;
 				break;
-				case Constants.ExperimenterCanvasButtons.EXP_PROCEED :
+				case "PROCEED" :
 					btnProceedExperiment.interactable = newState;
 				break;
 			}
@@ -150,7 +146,7 @@ namespace eDIA {
 
 		void OnDestroy() {
 			EventManager.StopListening("EvExperimentInitialised", OnEvExperimentInitialised);
-			EventManager.StopListening("EvButtonChangeState", OnEvButtonChangeState);
+			// EventManager.StopListening("EvButtonChangeState", OnEvButtonChangeState);
 			EventManager.StopListening("EvFinalizeSession", OnEvFinalizeSession);
 			EventManager.StopListening("EvStartExperiment", OnEvFinalizeSession);
 		}

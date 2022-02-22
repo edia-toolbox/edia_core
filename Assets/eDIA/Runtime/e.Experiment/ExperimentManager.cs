@@ -295,7 +295,6 @@ namespace eDIA {
 			EventManager.TriggerEvent("EvExperimentInfoUpdate", new eParam("End"));
 			EnableExperimentProceed(false);
 			EnableExperimentPause(false);
-			EnableExperimentNewSession(true);
 		}
 
 		/// <summary>Called from UXF session. Begin setting things up for the trial that is about to start </summary>
@@ -369,15 +368,11 @@ namespace eDIA {
 #region STATE MACHINE HELPERS
 
 		public void EnableExperimentPause(bool _onOff) {
-			EventManager.TriggerEvent("EvButtonChangeState", new eParam( new string[] { ((int)Constants.ExperimenterCanvasButtons.EXP_PAUSE).ToString(), _onOff.ToString() }));
+			EventManager.TriggerEvent("EvButtonChangeState", new eParam( new string[] { "PAUSE", _onOff.ToString() }));
 		}
 
 		public void EnableExperimentProceed(bool _onOff) {
-			EventManager.TriggerEvent("EvButtonChangeState", new eParam( new string[] { ((int)Constants.ExperimenterCanvasButtons.EXP_PROCEED).ToString(), _onOff.ToString() }));
-		}
-
-		public void EnableExperimentNewSession(bool _onOff) {
-			EventManager.TriggerEvent("EvButtonChangeState", new eParam( new string[] { ((int)Constants.ExperimenterCanvasButtons.SES_NEW).ToString(), _onOff.ToString() }));
+			EventManager.TriggerEvent("EvButtonChangeState", new eParam( new string[] { "PROCEED", _onOff.ToString() }));
 		}
 
 		/// <summary> Set system open for calibration call from event or button</summary>

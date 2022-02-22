@@ -26,5 +26,10 @@ namespace eDIA {
 			GetComponent<VerticalLayoutGroup>().enabled = false;
 		}
 
+		public void ApplyTheme () {
+			
+		}
+
+
 	}
 }
