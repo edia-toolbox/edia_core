@@ -47,6 +47,8 @@ namespace eDIA {
 
 				CheckReferences ();
 				
+				SystemSettings.InitSystemSettings();
+
 				if(ignoreXR)
 					DisableXRrig();
 			}
@@ -93,12 +95,11 @@ namespace eDIA {
 
 	#region MISC	
 
-			public void AddToLog(string _msg) {
-				if (showLog)
-					LogUtilities.AddToLog(_msg, "eDIA", taskColor);
-			}
-			
-
+		public void AddToLog(string _msg) {
+			if (showLog)
+				LogUtilities.AddToLog(_msg, "eDIA", taskColor);
+		}
+		
 	#endregion	// -------------------------------------------------------------------------------------------------------------------------------
 	}
 }

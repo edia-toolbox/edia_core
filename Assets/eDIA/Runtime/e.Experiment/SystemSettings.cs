@@ -4,33 +4,59 @@ using UnityEngine;
 
 namespace eDIA {
 
+	/// <summary>Global settings of the application</summary>
 	public static class SystemSettings {
 
-		// Which hand is primary
-		public static Constants.PrimaryInteractor primaryInteractor;
+#region DECLARATIONS
 
-		// Resolution on standalone windows player
-		public static UnityEngine.Vector2 onScreenResolution = new UnityEngine.Vector2(1920f,1080f);
+		/// <summary>Instance of the Settings declaration class in order to (de)serialize to JSON</summary>
+		public static SettingsDeclaration systemSettings = new SettingsDeclaration();
 
-		// Master volume
-		public static float volume = 50f;
+		
+#endregion // -------------------------------------------------------------------------------------------------------------------------------
+#region EVENT LISTENERS
 
+		public static void OnEvUpdateSystemSettings (eParam e) {
+			Debug.Log("Systemsettings OnEvent");
 
-		public static void SavePrefs () {
-			PlayerPrefs.SetInt ("primaryInteraction", (int)primaryInteractor);
-			PlayerPrefs.Save ();
+			// Check if any things have changed
+
 		}
 
-		public static void LoadPrefs () {
-			int volume = PlayerPrefs.GetInt ("Volume", 1);
-			Debug.Log(volume);
+#endregion // -------------------------------------------------------------------------------------------------------------------------------
+#region MAIN METHODS
+
+		/// <summary>Gets called from XRrigmanager to init the system. </summary>
+		public static void InitSystemSettings () {
+
+			// Any settings on disk? > load them
+
+			// Apply loaded or default settings
+
+			// Listen to update settings request
+			EventManager.StartListening(eDIA.Events.Core.EvUpdateSystemSettings, OnEvUpdateSystemSettings);
+			
+			
+			// ff hier
+			EventManager.TriggerEvent(eDIA.Events.Core.EvOpenSystemSettings, new eParam( GetSettingsAsJSONstring()));
 		}
 
 
+		public static void ApplySystemSettings () {
+
+		}
+
+#endregion // -------------------------------------------------------------------------------------------------------------------------------
+#region HELPERS
+
+		/// <summary>Gets all settings from the 'SettingsDeclaration' instance 'systemSettings' as a JSON string</summary>
+		/// <returns>JSON string</returns>
+		public static string GetSettingsAsJSONstring () {
+			return UnityEngine.JsonUtility.ToJson(systemSettings,false);
+		}
 
 
-
-
+#endregion // -------------------------------------------------------------------------------------------------------------------------------
 
 	}
 }
