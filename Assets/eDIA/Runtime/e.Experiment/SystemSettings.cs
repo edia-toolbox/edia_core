@@ -42,6 +42,7 @@ namespace eDIA {
 			EventManager.StartListening(eDIA.Events.Core.EvUpdateSystemSettings, OnEvUpdateSystemSettings);
 			
 			
+			
 			// ff hier
 			EventManager.TriggerEvent(eDIA.Events.Core.EvOpenSystemSettings, new eParam( GetSettingsAsJSONstring()));
 		}

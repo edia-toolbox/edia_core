@@ -49,6 +49,8 @@ namespace eDIA {
 				
 				SystemSettings.InitSystemSettings();
 
+				
+
 				if(ignoreXR)
 					DisableXRrig();
 			}

@@ -11,6 +11,7 @@ namespace eDIA {
 		[Header("Refs")]
 		public TextMeshProUGUI messageField = null;
 		public Button panelButton = null;
+		public float timeToShow = 2f;
 
 		public override void Awake() {
 
@@ -30,9 +31,21 @@ namespace eDIA {
 
 		private void OnEvShowMessageBox(eParam obj)
 		{
-			messageField.text = obj.GetString();
-
+			Debug.Log("OnEvShowMessageBox");
+			messageField.text = obj.GetStringBoolString();
+			
 			ShowPanel();
+
+			children[1].gameObject.SetActive(!obj.GetStringBoolBool());
+
+			if (obj.GetStringBoolBool()) 
+				StartCoroutine(AutoHide());
+		}
+
+		IEnumerator AutoHide () {
+			yield return new WaitForSeconds(timeToShow);
+
+			HidePanel();
 		}
 
 		void buttonClicked() {

@@ -7,7 +7,7 @@ namespace eDIA.Events {
 	/// <summary>UI related events </summary>
 	public class GUI {
 
-		// Show info on screen to Experimenter
+		/// <summary>Shows message to experimenter canvas, expects message as string, autohide as bool</summary>
 		public static string EvShowMessageBox = "EvShowMessageBox";
 
 		// Fired when mouse hovers over a GUI item that has 'tooltip' script on it

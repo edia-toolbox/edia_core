@@ -112,6 +112,7 @@ namespace eDIA {
 		}
 
 		void Start() {
+			EventManager.TriggerEvent(eDIA.Events.GUI.EvShowMessageBox, new eParam("Test message", true));
 		}
 
 		void OnDestroy() {

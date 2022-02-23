@@ -153,7 +153,7 @@ namespace eDIA {
 			public bool boolP;
 		}
 
-		public StringBool stringBool;
+		public StringBool stringBool = new StringBool();
 		public eParam (string _string, bool _bool) {
 			stringBool.stringP 	= _string;
 			stringBool.boolP 		= _bool;
