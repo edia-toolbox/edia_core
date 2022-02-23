@@ -48,6 +48,7 @@ namespace eDIA {
 			volumeSlider.value = localSystemSettingsContainer.volume;
 			primaryHandDropdown.value = (int)localSystemSettingsContainer.primaryInteractor;
 			languageDropdown.value = (int)localSystemSettingsContainer.language;
+			// resolutionDropdown.value = localSystemSettingsContainer.screenResolution;
 
 			// Show
 			ShowPanel();

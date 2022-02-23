@@ -1,4 +1,3 @@
-using Microsoft.VisualBasic;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,7 +8,7 @@ namespace eDIA
     [System.Serializable]
 	public class SettingsDeclaration {
 		public Constants.PrimaryInteractor primaryInteractor = Constants.PrimaryInteractor.RIGHTHANDED;
-		public Vector2 onScreenResolution = new Vector2(1920f,1080f);
+		public Vector2 screenResolution = new Vector2(55f,44);
 		public float volume = 50f;
         public Constants.Languages language = Constants.Languages.ENG;
 
@@ -30,6 +29,10 @@ namespace eDIA
 
         public enum Languages { ENG, DU };
 
-
+        public static List<Vector2> screenResolutions = new List<Vector2>() { 
+            new Vector2(1920,1080),
+            new Vector2(2048,1024) 
+        };
+        
     }
 }

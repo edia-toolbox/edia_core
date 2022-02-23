@@ -112,6 +112,7 @@ namespace eDIA {
 		}
 
 		void Start() {
+			//! Just as a test message : >>>>>
 			EventManager.TriggerEvent(eDIA.Events.GUI.EvShowMessageBox, new eParam("Test message", true));
 		}
 
