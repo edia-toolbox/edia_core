@@ -146,6 +146,28 @@ namespace eDIA {
 		public Transform GetTransform () {
 			return transformP;
 		}
+
+		//# StringBool
+		public class StringBool {
+			public string stringP;
+			public bool boolP;
+		}
+
+		public StringBool stringBool;
+		public eParam (string _string, bool _bool) {
+			stringBool.stringP 	= _string;
+			stringBool.boolP 		= _bool;
+		}
+
+		public string GetStringBoolString () {
+			return stringBool.stringP;
+		}
+
+		public bool GetStringBoolBool () {
+			return stringBool.boolP;
+		}
+
+
 	}
 
 	#endregion
