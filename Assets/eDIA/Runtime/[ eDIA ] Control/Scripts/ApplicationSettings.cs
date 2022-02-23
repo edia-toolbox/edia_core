@@ -33,7 +33,6 @@ namespace eDIA {
 			EventManager.StartListening(eDIA.Events.Core.EvOpenSystemSettings, OnEvOpenSystemSettings);
 		}
 
-
 		void OnDestroy() {
 			EventManager.StopListening(eDIA.Events.Core.EvOpenSystemSettings, OnEvOpenSystemSettings);
 		}
@@ -49,7 +48,7 @@ namespace eDIA {
 			volumeSlider.value = localSystemSettingsContainer.volume;
 			primaryHandDropdown.value = (int)localSystemSettingsContainer.primaryInteractor;
 			languageDropdown.value = (int)localSystemSettingsContainer.language;
-			
+
 			// Show
 			ShowPanel();
 

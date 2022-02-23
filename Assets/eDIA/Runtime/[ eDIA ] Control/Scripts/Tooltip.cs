@@ -9,15 +9,21 @@ namespace eDIA {
 
 		public string message = "This will be shown in the tooltip";
 		private float timeToWait = 0.5f;
+		private bool isHovering = false;
 
 		public void OnPointerEnter (PointerEventData eventData) {
+			isHovering = true;
 			StopAllCoroutines ();
 			StartCoroutine (StartTimer ());
 		}
 
 		public void OnPointerExit (PointerEventData eventData) {
 			StopAllCoroutines ();
-			EventManager.TriggerEvent(eDIA.Events.GUI.EvMouseExit, null);
+			
+			if (isHovering)
+				EventManager.TriggerEvent(eDIA.Events.GUI.EvMouseExit, null);
+			
+			isHovering = false;
 		}
 
 		void ShowMessage () {

@@ -49,7 +49,6 @@ namespace eDIA {
 		public void OnEvMouseExit (eParam obj) {
 			EventManager.StopListening(eDIA.Events.GUI.EvMouseExit, OnEvMouseExit);
 
-			Cursor.visible = true;
 			textField.text = default;
 			gameObject.SetActive(false);
 			EventManager.StartListening(eDIA.Events.GUI.EvMouseEnter, OnEvMouseEnter);
@@ -57,7 +56,6 @@ namespace eDIA {
 
 		private Vector2 CalculateTooltipScreenPosition () {
 			return new Vector2(Mouse.current.position.ReadValue().x + offsetX, Mouse.current.position.ReadValue().y + offsetY);
-			// return new Vector2(Mouse.current.position.ReadValue().x + tooltipWindow.sizeDelta.x * 2, Mouse.current.position.ReadValue().y);
 		}
 
 		void Update() {

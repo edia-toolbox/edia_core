@@ -1,3 +1,4 @@
+using Microsoft.VisualBasic;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,6 +29,10 @@ namespace eDIA {
 
 		/// <summary>Gets called from XRrigmanager to init the system. </summary>
 		public static void InitSystemSettings () {
+
+			systemSettings.language = Constants.Languages.DU;
+			systemSettings.volume = 30f;
+			systemSettings.primaryInteractor = Constants.PrimaryInteractor.RIGHTHANDED;
 
 			// Any settings on disk? > load them
 
