@@ -1,4 +1,3 @@
-using Microsoft.VisualBasic;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,6 +14,37 @@ namespace eDIA {
 		public static SettingsDeclaration systemSettings = new SettingsDeclaration();
 
 		
+#endregion // -------------------------------------------------------------------------------------------------------------------------------
+#region MAIN METHODS
+
+		/// <summary>Gets called from XRrigmanager to init the system. </summary>
+		public static void InitSystemSettings () {
+
+			// Listen to update settings requests
+			EventManager.StartListening(eDIA.Events.Core.EvUpdateSystemSettings, OnEvUpdateSystemSettings);
+			EventManager.StartListening(eDIA.Events.Core.EvRequestSystemSettings, EvRequestSystemSettings);
+			
+			// systemSettings.language = Constants.Languages.DU;
+			// systemSettings.volume = 30f;
+			// systemSettings.primaryInteractor = Constants.PrimaryInteractor.RIGHTHANDED;
+			// systemSettings.screenResolution = Constants.screenResolutions[0];
+
+			// Any settings on disk? > load them
+			LoadSettings ();
+			
+		}
+
+		static void SaveSettings () {
+			FileManager.WriteString("settings.json", UnityEngine.JsonUtility.ToJson(systemSettings,true), true);
+		}
+
+		static void LoadSettings () {
+			
+			string loadedSettings = FileManager.ReadStringFromApplicationPath("settings.json");
+			EventManager.TriggerEvent(eDIA.Events.Core.EvUpdateSystemSettings, new eParam(loadedSettings));
+		}
+
+
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region EVENT LISTENERS
 
@@ -52,28 +82,9 @@ namespace eDIA {
 
 
 			Debug.Log("OnEvUpdateSystemSettings");
-
-		}
-
-#endregion // -------------------------------------------------------------------------------------------------------------------------------
-#region MAIN METHODS
-
-		/// <summary>Gets called from XRrigmanager to init the system. </summary>
-		public static void InitSystemSettings () {
-
-			systemSettings.language = Constants.Languages.DU;
-			systemSettings.volume = 30f;
-			systemSettings.primaryInteractor = Constants.PrimaryInteractor.RIGHTHANDED;
-			systemSettings.screenResolution = Constants.screenResolutions[0];
-
-			// Any settings on disk? > load them
-
-			// Apply loaded or default settings
-
-			// Listen to update settings requests
-			EventManager.StartListening(eDIA.Events.Core.EvUpdateSystemSettings, OnEvUpdateSystemSettings);
-			EventManager.StartListening(eDIA.Events.Core.EvRequestSystemSettings, EvRequestSystemSettings);
 			
+			SaveSettings();
+
 		}
 
 		/// <summary> Catches request to show system settings, collects them and send them out with a OPEN settings panel event. </summary>
@@ -83,8 +94,8 @@ namespace eDIA {
 		}
 
 
-		#endregion // -------------------------------------------------------------------------------------------------------------------------------
-		#region HELPERS
+#endregion // -------------------------------------------------------------------------------------------------------------------------------
+#region HELPERS
 
 		/// <summary>Gets all settings from the 'SettingsDeclaration' instance 'systemSettings' as a JSON string</summary>
 		/// <returns>JSON string</returns>

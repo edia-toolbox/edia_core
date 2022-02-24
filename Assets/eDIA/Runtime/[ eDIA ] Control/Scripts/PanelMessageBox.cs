@@ -11,7 +11,9 @@ namespace eDIA {
 		[Header("Refs")]
 		public TextMeshProUGUI messageField = null;
 		public Button panelButton = null;
-		public float timeToShow = 2f;
+
+		[Header("Settings")]
+		public float autoHideTimer = 2f;
 
 		public override void Awake() {
 
@@ -29,9 +31,11 @@ namespace eDIA {
 			EventManager.StopListening(eDIA.Events.GUI.EvShowMessageBox, OnEvShowMessageBox);
 		}
 
+#region EVENT LISTENERS
+
+		/// <summary> Shows the message box. Expects string[], param[0] = message, param[1] = autohide true/false </summary>
 		private void OnEvShowMessageBox(eParam obj)
 		{
-			Debug.Log("OnEvShowMessageBox");
 			messageField.text = obj.GetStringBoolString();
 			
 			ShowPanel();
@@ -42,8 +46,11 @@ namespace eDIA {
 				StartCoroutine(AutoHide());
 		}
 
+#endregion // -------------------------------------------------------------------------------------------------------------------------------
+#region HELPERS
+		
 		IEnumerator AutoHide () {
-			yield return new WaitForSeconds(timeToShow);
+			yield return new WaitForSeconds(autoHideTimer);
 
 			HidePanel();
 		}
@@ -51,6 +58,8 @@ namespace eDIA {
 		void buttonClicked() {
 			HidePanel();
 		}
+
+#endregion // -------------------------------------------------------------------------------------------------------------------------------
 
 	}
 }
