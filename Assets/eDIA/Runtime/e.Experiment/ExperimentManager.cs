@@ -117,7 +117,6 @@ namespace eDIA {
 		}
 
 		void OnDestroy() {
-			// EventManager.StopListening("EvNewSession", OnEvNewSession);
 			EventManager.StopListening("EvSetExperimentConfig", OnEvSetExperimentConfig);
 			EventManager.StopListening("EvStartExperiment", OnEvStartExperiment);
 			EventManager.StopListening("EvPauseExperiment", OnEvPauseExperiment);

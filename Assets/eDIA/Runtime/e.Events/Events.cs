@@ -36,7 +36,19 @@ namespace eDIA.Events {
 
 
 	}
+
+
+	//? ========================================================================================================
+	
+	public class Interaction {
+
+		/// <summary>SystemSettings have been updated, apply them</summary>
+		public static string EvUpdatePrimaryInteractor 	= "EvUpdatePrimaryInteractor";
+ 
+	}
 }
+
+
 
 /*
 

@@ -20,8 +20,8 @@ namespace eDIA {
 		public TMP_Dropdown primaryHandDropdown = null;
 		public TMP_Dropdown languageDropdown = null;
 
-
-		public SettingsDeclaration localSystemSettingsContainer = null;
+		private SettingsDeclaration localSystemSettingsContainer = null;
+		private bool hasChanged = false;
 
 		public override void Awake() {
 
@@ -53,6 +53,8 @@ namespace eDIA {
 			// Show
 			ShowPanel();
 
+			btnApply.interactable = false ;
+
 			Debug.Log("OnEvOpenSystemSettings: " + obj.GetString());
 		}
 		
@@ -60,12 +62,33 @@ namespace eDIA {
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region BUTTONPRESSES
 
+		public void ValueChanged () {
+			hasChanged = true;
+			btnApply.interactable = true;
+		}
+
+		void BtnApplyPressed () {
+			// Something has changed
+			UpdateLocalSettings();
+
+			EventManager.TriggerEvent(eDIA.Events.Core.EvUpdateSystemSettings, new eParam ( UnityEngine.JsonUtility.ToJson(localSystemSettingsContainer)));
+		}
+
 
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 
+		void UpdateLocalSettings () {
+
+			localSystemSettingsContainer.volume = volumeSlider.value;
+			localSystemSettingsContainer.primaryInteractor = (Constants.PrimaryInteractor)primaryHandDropdown.value;
+			localSystemSettingsContainer.language = (Constants.Languages)languageDropdown.value;
+
+			// resolutionDropdown.value = localSystemSettingsContainer.screenResolution;
+		}
+
 		void SetupButtons () {
-			btnApply.onClick.AddListener(	()=> EventManager.TriggerEvent(eDIA.Events.Core.EvUpdateSystemSettings, null));
+			btnApply.onClick.AddListener(	()=> BtnApplyPressed());
 			btnClose.onClick.AddListener(	()=> HidePanel ());
 		}
 	}

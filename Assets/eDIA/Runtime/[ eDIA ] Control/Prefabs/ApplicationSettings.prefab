@@ -247,12 +247,6 @@ MonoBehaviour:
   resolutionDropdown: {fileID: 1435254892296712804}
   primaryHandDropdown: {fileID: 7591771190236645452}
   languageDropdown: {fileID: 7970337843831171415}
-  localSystemSettingsContainer:
-    primaryInteractor: 1
-    onScreenResolution: {x: 1920, y: 1080}
-    volume: 50
-    language: 0
-    pathToLogfiles: logfiles
 --- !u!1 &332515007439057044
 GameObject:
   m_ObjectHideFlags: 0
@@ -1167,7 +1161,7 @@ GameObject:
   - component: {fileID: 1435254891705043741}
   - component: {fileID: 1435254891705043745}
   - component: {fileID: 1435254891705043744}
-  - component: {fileID: 2909368153914485158}
+  - component: {fileID: 6149162157380285449}
   m_Layer: 5
   m_Name: Resolution
   m_TagString: Untagged
@@ -1234,7 +1228,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &2909368153914485158
+--- !u!114 &6149162157380285449
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1246,7 +1240,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de1686a5c12deb34490bc82eb0e3f7ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  message: This will be shown in the tooltip
+  message: Resolution of the windows application
 --- !u!1 &1435254892066264343
 GameObject:
   m_ObjectHideFlags: 0
@@ -1678,7 +1672,19 @@ MonoBehaviour:
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4521988964718985272}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: ValueChanged
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_AlphaFadeSpeed: 0.15
 --- !u!1 &1435254892378339865
 GameObject:
@@ -2801,6 +2807,7 @@ GameObject:
   - component: {fileID: 2659087861920071112}
   - component: {fileID: 2166180591984455383}
   - component: {fileID: 419016163115950307}
+  - component: {fileID: 1883184444760167607}
   m_Layer: 5
   m_Name: Language
   m_TagString: Untagged
@@ -2867,6 +2874,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1883184444760167607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3299222776548676761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de1686a5c12deb34490bc82eb0e3f7ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  message: Language of the application
 --- !u!1 &3389903460949715129
 GameObject:
   m_ObjectHideFlags: 0
@@ -3574,6 +3594,7 @@ GameObject:
   - component: {fileID: 6988459837075942083}
   - component: {fileID: 5423356896080350644}
   - component: {fileID: 3694917950458148484}
+  - component: {fileID: 3749632148890846655}
   m_Layer: 5
   m_Name: Volume
   m_TagString: Untagged
@@ -3640,6 +3661,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3749632148890846655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4590112533266519743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de1686a5c12deb34490bc82eb0e3f7ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  message: Master volume
 --- !u!1 &4751129388111656288
 GameObject:
   m_ObjectHideFlags: 0
@@ -3994,6 +4028,7 @@ GameObject:
   - component: {fileID: 8608871955662668623}
   - component: {fileID: 1595052994327231630}
   - component: {fileID: 8340097881356129856}
+  - component: {fileID: 8923809157366490088}
   m_Layer: 5
   m_Name: PrimaryHand
   m_TagString: Untagged
@@ -4060,6 +4095,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8923809157366490088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6023611156975727504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de1686a5c12deb34490bc82eb0e3f7ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  message: Which hand is primary
 --- !u!1 &6213044537205087367
 GameObject:
   m_ObjectHideFlags: 0
@@ -4180,7 +4228,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5134626736651138371}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3410516230869329370}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: set_interactable
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6252569822371576788
 GameObject:
   m_ObjectHideFlags: 0
@@ -4479,7 +4539,19 @@ MonoBehaviour:
   m_Value: 50
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4521988964718985272}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: ValueChanged
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6663979580180159277
 GameObject:
   m_ObjectHideFlags: 0
@@ -4801,7 +4873,19 @@ MonoBehaviour:
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4521988964718985272}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: ValueChanged
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_AlphaFadeSpeed: 0.15
 --- !u!1 &7731066013747786116
 GameObject:
@@ -5208,7 +5292,19 @@ MonoBehaviour:
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4521988964718985272}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: ValueChanged
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_AlphaFadeSpeed: 0.15
 --- !u!1 &8141776283043426133
 GameObject:

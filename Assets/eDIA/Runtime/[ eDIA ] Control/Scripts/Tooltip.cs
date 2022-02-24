@@ -5,29 +5,36 @@ using UnityEngine.EventSystems;
 
 namespace eDIA {
 	/// <summary>Enables a tooltip on the component this is on.</summary>
-	public class Tooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
+	public class Tooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler {
 
-		public string message = "This will be shown in the tooltip";
+		public string message = "This message will be shown in the tooltip";
+
 		private float timeToWait = 0.5f;
-		private bool isHovering = false;
+		private bool isShowing = false;
 
 		public void OnPointerEnter (PointerEventData eventData) {
-			isHovering = true;
 			StopAllCoroutines ();
 			StartCoroutine (StartTimer ());
+		}
+
+		public void OnPointerClick(PointerEventData eventData)
+		{
+			if (isShowing)
+				OnPointerExit(eventData);
 		}
 
 		public void OnPointerExit (PointerEventData eventData) {
 			StopAllCoroutines ();
 			
-			if (isHovering)
-				EventManager.TriggerEvent(eDIA.Events.GUI.EvMouseExit, null);
+			if (isShowing)
+				EventManager.TriggerEvent(eDIA.Events.GUI.EvHideTooltip, null);
 			
-			isHovering = false;
+			isShowing = false;
 		}
 
 		void ShowMessage () {
-			EventManager.TriggerEvent(eDIA.Events.GUI.EvMouseEnter, new eParam(message));
+			isShowing = true;
+			EventManager.TriggerEvent(eDIA.Events.GUI.EvShowTooltip, new eParam(message));
 		}
 
 		IEnumerator StartTimer () {

@@ -21,21 +21,20 @@ namespace eDIA {
 		}
 
 		void OnEnable() {
-			EventManager.StartListening(eDIA.Events.GUI.EvMouseEnter, OnEvMouseEnter);
-			EventManager.StartListening(eDIA.Events.GUI.EvMouseExit, OnEvMouseExit);
+			EventManager.StartListening(eDIA.Events.GUI.EvShowTooltip, OnEvShowTooltip);
+			EventManager.StartListening(eDIA.Events.GUI.EvHideTooltip, OnEvHideTooltip);
 		}
 
 		void OnDestroy() {
-			EventManager.StopListening(eDIA.Events.GUI.EvMouseEnter, OnEvMouseEnter);
-			EventManager.StopListening(eDIA.Events.GUI.EvMouseExit, OnEvMouseExit);
+			EventManager.StopListening(eDIA.Events.GUI.EvShowTooltip, OnEvShowTooltip);
+			EventManager.StopListening(eDIA.Events.GUI.EvHideTooltip, OnEvHideTooltip);
 		}
 
 		void Start() {
-			OnEvMouseExit(null);
+			OnEvHideTooltip(null);
 		}
 
-		public void OnEvMouseEnter (eParam obj) {
-			EventManager.StopListening(eDIA.Events.GUI.EvMouseEnter, OnEvMouseEnter);
+		public void OnEvShowTooltip (eParam obj) {
 			
 			textField.text = obj.GetString();
 			tooltipWindow.transform.position = CalculateTooltipScreenPosition();
@@ -43,15 +42,12 @@ namespace eDIA {
 			
 			gameObject.SetActive(true);
 			isVisible = true;
-			EventManager.StartListening(eDIA.Events.GUI.EvMouseExit, OnEvMouseExit);
 		}
 
-		public void OnEvMouseExit (eParam obj) {
-			EventManager.StopListening(eDIA.Events.GUI.EvMouseExit, OnEvMouseExit);
+		public void OnEvHideTooltip (eParam obj) {
 
 			textField.text = default;
 			gameObject.SetActive(false);
-			EventManager.StartListening(eDIA.Events.GUI.EvMouseEnter, OnEvMouseEnter);
 		}
 
 		private Vector2 CalculateTooltipScreenPosition () {

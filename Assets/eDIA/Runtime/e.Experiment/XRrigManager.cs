@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -43,16 +44,29 @@ namespace eDIA {
 				// Set time and location to avoid comma / period issues
 				System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
 				
+				// Setting fixed framerate
 				SetApplicationFramerate();
 
+				// Check if references are filled in the inspector
 				CheckReferences ();
 				
+				// Init the settings, either defaults or stored on disk
 				SystemSettings.InitSystemSettings();
 
+				// for debugging
 				if(ignoreXR)
 					DisableXRrig();
 			}
 			else if (instance != this) Destroy (this.gameObject);
+		}
+
+		void Start() {
+			EventManager.StartListening(eDIA.Events.Interaction.EvUpdatePrimaryInteractor, OnEvUpdatePrimaryInteractor);
+		}
+
+		private void OnEvUpdatePrimaryInteractor(eParam obj)
+		{
+			Debug.Log("OnEvUpdatePrimaryInteractor received");
 		}
 
 		/// <summary>

@@ -17,10 +17,40 @@ namespace eDIA {
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region EVENT LISTENERS
 
-		public static void OnEvUpdateSystemSettings (eParam e) {
-			Debug.Log("Systemsettings OnEvent");
+		public static void OnEvUpdateSystemSettings (eParam obj) {
 
-			// Check if any things have changed
+			SettingsDeclaration receivedSettings = UnityEngine.JsonUtility.FromJson<SettingsDeclaration>(obj.GetString());
+			
+			// Primary hand interaction
+			if (systemSettings.primaryInteractor != receivedSettings.primaryInteractor) {
+				Debug.Log("new hand");
+				systemSettings.primaryInteractor = receivedSettings.primaryInteractor;
+				EventManager.TriggerEvent(eDIA.Events.Interaction.EvUpdatePrimaryInteractor, new eParam((int)systemSettings.primaryInteractor));
+			}
+
+			// Resolution of the app
+			if (systemSettings.screenResolution != receivedSettings.screenResolution) {
+				systemSettings.screenResolution = receivedSettings.screenResolution;
+				
+				//TODO Change actual value
+			}
+
+			// Volume of the app
+			if (systemSettings.volume != receivedSettings.volume) {
+				systemSettings.volume = receivedSettings.volume;
+				
+				//TODO Change actual value
+			}
+
+			// language 
+			if (systemSettings.language != receivedSettings.language) {
+				systemSettings.language = receivedSettings.language;
+				
+				//TODO Change actual value 
+			}
+
+
+			Debug.Log("OnEvUpdateSystemSettings");
 
 		}
 
@@ -48,10 +78,6 @@ namespace eDIA {
 			EventManager.TriggerEvent(eDIA.Events.Core.EvOpenSystemSettings, new eParam( GetSettingsAsJSONstring()));
 		}
 
-
-		public static void ApplySystemSettings () {
-
-		}
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region HELPERS

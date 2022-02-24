@@ -11,10 +11,10 @@ namespace eDIA.Events {
 		public static string EvShowMessageBox = "EvShowMessageBox";
 
 		// Fired when mouse hovers over a GUI item that has 'tooltip' script on it
-		public static string EvMouseEnter = "EvMouseEnter";
+		public static string EvShowTooltip = "EvShowTooltip";
 
 		// Fired when mouse hovers over a GUI item that has 'tooltip' script on it
-		public static string EvMouseExit = "EvMouseExit";
+		public static string EvHideTooltip = "EvHideTooltip";
 
 	}
 }
