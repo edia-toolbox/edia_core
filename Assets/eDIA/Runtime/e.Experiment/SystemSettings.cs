@@ -24,14 +24,8 @@ namespace eDIA {
 			EventManager.StartListening(eDIA.Events.Core.EvUpdateSystemSettings, OnEvUpdateSystemSettings);
 			EventManager.StartListening(eDIA.Events.Core.EvRequestSystemSettings, EvRequestSystemSettings);
 			
-			// systemSettings.language = Constants.Languages.DU;
-			// systemSettings.volume = 30f;
-			// systemSettings.primaryInteractor = Constants.PrimaryInteractor.RIGHTHANDED;
-			// systemSettings.screenResolution = Constants.screenResolutions[0];
-
 			// Any settings on disk? > load them
 			LoadSettings ();
-			
 		}
 
 		static void SaveSettings () {
