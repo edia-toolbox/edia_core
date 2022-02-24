@@ -9,7 +9,7 @@ using System;
 namespace eDIA {
 
 	/// <summary>GUI element that enables the user to choose from a dropdown of found experiment config files</summary>
-	public class ExperimentConfigSelection : ExperimenterPanel {
+	public class PanelConfigSelection : ExperimenterPanel {
 
 		[Header ("Refs")]
 		public TMP_Dropdown configFilesOptions;
@@ -81,7 +81,11 @@ namespace eDIA {
 		}
 
 		public void BtnSubmitPressed () {
-			EventManager.TriggerEvent("EvLocalConfigSubmitted", new eParam(new string[] { UnityEngine.SceneManagement.SceneManager.GetActiveScene().name , configFilesOptions.options[configFilesOptions.value].text } )); // TASK / PARTICIPANT
+			// Set up param as: TASK / PARTICIPANT
+			string[] param = new string[] { UnityEngine.SceneManagement.SceneManager.GetActiveScene().name, configFilesOptions.options[configFilesOptions.value].text };
+			
+			EventManager.TriggerEvent(eDIA.Events.Core.EvLocalConfigSubmitted, new eParam(param)); 
+			
 			HidePanel();
 		}
 	}

@@ -8,7 +8,7 @@ using UXF;
 
 namespace eDIA {
 
-	public class ExperimentControl : ExperimenterPanel {
+	public class PanelExperimentControl : ExperimenterPanel {
 
 		// Default buttons that are always needed for running a experiment
 		[Header("Default buttons")]
@@ -23,8 +23,8 @@ namespace eDIA {
 		public GameObject panelInfo = null;
 
 		[Header("Experiment status")]
-		public ExperimenterCanvasStatusSlider trialSlider;
-		public ExperimenterCanvasStatusSlider blockSlider;
+		public SliderExperimenterStatus trialSlider;
+		public SliderExperimenterStatus blockSlider;
 
 		[Header("Session info")]
 		public TextMeshProUGUI experimentNameField = null;

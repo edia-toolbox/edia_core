@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace eDIA {
+	
 	/// <summary>Enables a tooltip on the component this is on.</summary>
 	public class Tooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler {
 

@@ -28,10 +28,13 @@ namespace eDIA.Events {
 
 
 
-		/// <summary>Open system settings panel</summary>
+		/// <summary>Request to show system settings. Expects null</summary>
+		public static string EvRequestSystemSettings 	= "EvRequestSystemSettings";
+
+		/// <summary>Open system settings panel. Expects full package of SettingsDeclaration as JSON</summary>
 		public static string EvOpenSystemSettings 	= "EvOpenSystemSettings";
 
-		/// <summary>SystemSettings have been updated, apply them</summary>
+		/// <summary>SystemSettings have been updated. Expects full package of SettingsDeclaration as JSON</summary>
 		public static string EvUpdateSystemSettings 	= "EvUpdateSystemSettings";
 
 
@@ -42,9 +45,14 @@ namespace eDIA.Events {
 	
 	public class Interaction {
 
-		/// <summary>SystemSettings have been updated, apply them</summary>
+		/// <summary>The main interactor has changed. Expects a enum PrimaryInteractor as INT</summary>
 		public static string EvUpdatePrimaryInteractor 	= "EvUpdatePrimaryInteractor";
  
+
+
+
+
+
 	}
 }
 

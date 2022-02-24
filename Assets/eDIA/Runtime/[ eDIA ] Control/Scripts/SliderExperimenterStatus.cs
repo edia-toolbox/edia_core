@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ExperimenterCanvasStatusSlider : MonoBehaviour {
+public class SliderExperimenterStatus : MonoBehaviour {
 
 	[Header ("References")]
 	public TextMeshProUGUI currentValueField;

@@ -7,14 +7,18 @@ namespace eDIA.Events {
 	/// <summary>UI related events </summary>
 	public class GUI {
 
-		/// <summary>Shows message to experimenter canvas, expects message as string, autohide as bool</summary>
+		/// <summary>Shows message to experimenter canvas. Expects message as string, autohide as bool</summary>
 		public static string EvShowMessageBox = "EvShowMessageBox";
 
-		// Fired when mouse hovers over a GUI item that has 'tooltip' script on it
+		// Fired when mouse hovers over a GUI item that has 'tooltip' script on it. Expects null.
 		public static string EvShowTooltip = "EvShowTooltip";
 
-		// Fired when mouse hovers over a GUI item that has 'tooltip' script on it
+		// Fired when mouse hovers over a GUI item that has 'tooltip' script on it. Expects null.
 		public static string EvHideTooltip = "EvHideTooltip";
+
+
+
+
 
 	}
 }

@@ -1,4 +1,5 @@
 using Microsoft.VisualBasic;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -69,18 +70,21 @@ namespace eDIA {
 
 			// Apply loaded or default settings
 
-			// Listen to update settings request
+			// Listen to update settings requests
 			EventManager.StartListening(eDIA.Events.Core.EvUpdateSystemSettings, OnEvUpdateSystemSettings);
+			EventManager.StartListening(eDIA.Events.Core.EvRequestSystemSettings, EvRequestSystemSettings);
 			
-			
-			
-			// ff hier
+		}
+
+		/// <summary> Catches request to show system settings, collects them and send them out with a OPEN settings panel event. </summary>
+		private static void EvRequestSystemSettings(eParam obj)
+		{
 			EventManager.TriggerEvent(eDIA.Events.Core.EvOpenSystemSettings, new eParam( GetSettingsAsJSONstring()));
 		}
 
 
-#endregion // -------------------------------------------------------------------------------------------------------------------------------
-#region HELPERS
+		#endregion // -------------------------------------------------------------------------------------------------------------------------------
+		#region HELPERS
 
 		/// <summary>Gets all settings from the 'SettingsDeclaration' instance 'systemSettings' as a JSON string</summary>
 		/// <returns>JSON string</returns>

@@ -7,7 +7,7 @@ using System;
 
 namespace eDIA {
 
-	public class ApplicationSettings : ExperimenterPanel {
+	public class PanelApplicationSettings : ExperimenterPanel {
 
 		// Default buttons that are always needed for running a experiment
 		[Header("Buttons")]

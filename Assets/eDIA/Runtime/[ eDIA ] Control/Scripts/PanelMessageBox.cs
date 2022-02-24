@@ -6,7 +6,7 @@ using TMPro;
 
 namespace eDIA {
 
-	public class ExperimenterMessageBox : ExperimenterPanel {
+	public class PanelMessageBox : ExperimenterPanel {
 
 		[Header("Refs")]
 		public TextMeshProUGUI messageField = null;
