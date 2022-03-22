@@ -99,12 +99,12 @@ namespace eDIA {
 		/// </summary>
 		void DisableXRrig () {
 			XRrig_MainCamera.transform.parent.transform.localPosition = new Vector3(0, 1.675f, 0);
-			XRrig_RightController.GetComponent<XRInteractorLineVisual>().enabled = false;
-			XRrig_LeftController.GetComponent<XRInteractorLineVisual>().enabled = false;
+			XRrig_RightController.GetComponent<XRrigController>().EnableInteraction(false);
+			XRrig_LeftController.GetComponent<XRrigController>().EnableInteraction(false);
 
 			// Hide hands
-			XRrig_RightController.GetComponentInChildren<SkinnedMeshRenderer>(true).enabled = false;
-			XRrig_LeftController.GetComponentInChildren<SkinnedMeshRenderer>(true).enabled = false;
+			XRrig_RightController.GetComponentInChildren<XRrigController>().ShowHand(false);
+			XRrig_LeftController.GetComponentInChildren<XRrigController>().ShowHand(false);
 		}
 
 	#region MISC	

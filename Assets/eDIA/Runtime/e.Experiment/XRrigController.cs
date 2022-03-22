@@ -6,10 +6,13 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 namespace eDIA {
 	
-	public class XRrig_Controller : MonoBehaviour	{
+	public class XRrigController : MonoBehaviour	{
 
 		[Header("Settings")]
 		public eDIA.Constants.Interactor interactorType = eDIA.Constants.Interactor.LEFT;
+
+		bool isEnabled = false;
+		bool isVisible = false;
 
 		SkinnedMeshRenderer handSMR = null;
 		XRInteractorLineVisual lineVisual = null;
@@ -26,16 +29,18 @@ namespace eDIA {
 			eDIA.Constants.Interactor receivedInteractor = (eDIA.Constants.Interactor)obj.GetInt();
 			if ((receivedInteractor == eDIA.Constants.Interactor.BOTH) || (receivedInteractor == interactorType)) {
 				// Enable this controller
-				EnableInteraction();
-			}
+				EnableInteraction(true);
+			} else EnableInteraction(false);
 		}
 
-		void EnableInteraction () {
-			Debug.Log( name + " EnableInteraction");
+		public void EnableInteraction (bool _onOff) {
+			Debug.Log( name + " EnableInteraction:" + _onOff);
+			isEnabled = _onOff;
 		}
 
-		void ShowHand (bool _onOff) {
+		public void ShowHand (bool _onOff) {
 			handSMR.enabled = _onOff;		
+			isVisible = _onOff;
 		}
     	}
 }
