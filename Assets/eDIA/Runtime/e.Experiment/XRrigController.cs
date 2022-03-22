@@ -59,6 +59,7 @@ namespace eDIA {
 
 		public void MakeInteractive (bool _onOff) {
 			isInteractive = _onOff;
+			lineVisual.enabled = _onOff;
 		}
 
     	}

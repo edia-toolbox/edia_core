@@ -95,6 +95,7 @@ namespace TASK {
 				// ---------------------------------------------------------------------------------------------
 				// Custom task related actions go down here ▼
 				
+				//EventManager.TriggerEvent(, null);
 			}
 			
 			public void XRrigCleanUP () {
@@ -194,6 +195,8 @@ namespace TASK {
 
 				// Add additional task specific settings to the UXF logging system
 				Session.instance.settings.SetValue("timerShowCube", taskSettings.GetFloat("timerShowCube"));
+
+				// Teeeeest
 			}
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------

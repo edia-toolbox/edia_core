@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using UXF;
-using UnityEngine.Events;
 
 // EXPERIMENT CONTROL 
 namespace eDIA {
