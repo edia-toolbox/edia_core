@@ -46,10 +46,10 @@ namespace eDIA {
 			localSystemSettingsContainer = UnityEngine.JsonUtility.FromJson<SettingsDeclaration>(obj.GetString());
 
 			// populate the GUI elements with correct values
-			volumeSlider.value = localSystemSettingsContainer.volume;
-			primaryHandDropdown.value = (int)localSystemSettingsContainer.primaryInteractor;
-			activeInteractorDropdown.value = (int)localSystemSettingsContainer.interactor;
-			languageDropdown.value = (int)localSystemSettingsContainer.language;
+			volumeSlider.value 			= localSystemSettingsContainer.volume;
+			primaryHandDropdown.value 		= (int)localSystemSettingsContainer.InteractiveInteractor;
+			activeInteractorDropdown.value 	= (int)localSystemSettingsContainer.VisableInteractor;
+			languageDropdown.value 			= (int)localSystemSettingsContainer.language;
 			// resolutionDropdown.value = localSystemSettingsContainer.screenResolution;
 
 			// Show
@@ -83,8 +83,8 @@ namespace eDIA {
 		void UpdateLocalSettings () {
 
 			localSystemSettingsContainer.volume = volumeSlider.value;
-			localSystemSettingsContainer.primaryInteractor = (Constants.Interactor)primaryHandDropdown.value;
-			localSystemSettingsContainer.interactor = (Constants.Interactor)activeInteractorDropdown.value;
+			localSystemSettingsContainer.InteractiveInteractor = (Constants.Interactor)primaryHandDropdown.value;
+			localSystemSettingsContainer.VisableInteractor = (Constants.Interactor)activeInteractorDropdown.value;
 			localSystemSettingsContainer.language = (Constants.Languages)languageDropdown.value;
 
 			// resolutionDropdown.value = localSystemSettingsContainer.screenResolution;

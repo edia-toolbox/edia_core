@@ -11,8 +11,8 @@ namespace eDIA {
 		[Header("Settings")]
 		public eDIA.Constants.Interactor interactorType = eDIA.Constants.Interactor.LEFT;
 
-		bool isEnabled = false;
-		bool isVisible = false;
+		public bool isVisible = false;
+		public bool isInteractive = false;
 
 		SkinnedMeshRenderer handSMR = null;
 		XRInteractorLineVisual lineVisual = null;
@@ -21,26 +21,45 @@ namespace eDIA {
 			handSMR = GetComponentInChildren<SkinnedMeshRenderer>(true);
 			lineVisual = GetComponent<XRInteractorLineVisual>();
 
-			EventManager.StartListening(eDIA.Events.Interaction.EvUpdateAvailableInteractor, OnEvUpdateAvailableInteractor);
+			MakeVisible(isVisible);
+			MakeInteractive(isInteractive);
+
+			EventManager.StartListening(eDIA.Events.Interaction.EvUpdateVisableInteractor, OnEvUpdateVisableInteractor);
+			EventManager.StartListening(eDIA.Events.Interaction.EvUpdateInteractiveInteractor, OnEvUpdateInteractiveInteractor);
 		}
 
-		private void OnEvUpdateAvailableInteractor(eParam obj)
+		void OnDestroy() {
+			EventManager.StopListening(eDIA.Events.Interaction.EvUpdateVisableInteractor, OnEvUpdateVisableInteractor);
+			EventManager.StopListening(eDIA.Events.Interaction.EvUpdateInteractiveInteractor, OnEvUpdateInteractiveInteractor);
+		}
+
+		private void OnEvUpdateVisableInteractor(eParam obj)
 		{
 			eDIA.Constants.Interactor receivedInteractor = (eDIA.Constants.Interactor)obj.GetInt();
+			
 			if ((receivedInteractor == eDIA.Constants.Interactor.BOTH) || (receivedInteractor == interactorType)) {
-				// Enable this controller
-				EnableInteraction(true);
-			} else EnableInteraction(false);
+
+				MakeVisible(true);
+			} else MakeVisible(false);
 		}
 
-		public void EnableInteraction (bool _onOff) {
-			Debug.Log( name + " EnableInteraction:" + _onOff);
-			isEnabled = _onOff;
+		private void OnEvUpdateInteractiveInteractor(eParam obj)
+		{
+			eDIA.Constants.Interactor receivedInteractor = (eDIA.Constants.Interactor)obj.GetInt();
+
+			if ((receivedInteractor == eDIA.Constants.Interactor.BOTH) || (receivedInteractor == interactorType)) {
+				MakeInteractive(true);
+			} else MakeInteractive(false);
 		}
 
-		public void ShowHand (bool _onOff) {
+		public void MakeVisible (bool _onOff) {
 			handSMR.enabled = _onOff;		
 			isVisible = _onOff;
 		}
+
+		public void MakeInteractive (bool _onOff) {
+			isInteractive = _onOff;
+		}
+
     	}
 }

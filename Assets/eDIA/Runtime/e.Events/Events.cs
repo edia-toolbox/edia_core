@@ -46,10 +46,10 @@ namespace eDIA.Events {
 	public class Interaction {
 
 		/// <summary>The main interactor has changed. Expects a enum PrimaryInteractor as INT</summary>
-		public static string EvUpdatePrimaryInteractor 	= "EvUpdatePrimaryInteractor";
+		public static string EvUpdateInteractiveInteractor 	= "EvUpdateInteractiveInteractor";
  
 		/// <summary>Which controllers are active in the application. Expects a enum AvailableController as INT</summary>
-		public static string EvUpdateAvailableInteractor = "EvUpdateAvailableInteractor";
+		public static string EvUpdateVisableInteractor 		= "EvUpdateVisableInteractor";
  
 
 

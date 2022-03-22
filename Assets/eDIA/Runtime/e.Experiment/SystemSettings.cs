@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -25,16 +26,19 @@ namespace eDIA {
 			EventManager.StartListening(eDIA.Events.Core.EvRequestSystemSettings, OnEvRequestSystemSettings);
 			
 			// Any settings on disk? > load them
-			LoadSettings ();
+			LoadSettings();
 		}
 
 		static void SaveSettings () {
 			FileManager.WriteString("settings.json", UnityEngine.JsonUtility.ToJson(systemSettings,true), true);
 		}
 
-		static void LoadSettings () {
+		async static void LoadSettings () {
 			
 			string loadedSettings = FileManager.ReadStringFromApplicationPath("settings.json");
+			Debug.Log(" settings loaded ");
+			
+			await Task.Delay(500); // 1 second delay
 			EventManager.TriggerEvent(eDIA.Events.Core.EvUpdateSystemSettings, new eParam(loadedSettings));
 		}
 
@@ -43,21 +47,24 @@ namespace eDIA {
 #region EVENT LISTENERS
 
 		public static void OnEvUpdateSystemSettings (eParam obj) {
+			Debug.Log("OnEvUpdateSystemSettings");
 
 			SettingsDeclaration receivedSettings = UnityEngine.JsonUtility.FromJson<SettingsDeclaration>(obj.GetString());
-			
-			if (systemSettings.interactor != receivedSettings.interactor) {
-				Debug.Log("Controller change");
-				systemSettings.interactor = receivedSettings.interactor;
-				EventManager.TriggerEvent(eDIA.Events.Interaction.EvUpdateAvailableInteractor, new eParam(systemSettings.interactor));
-			}
 
-			// Primary hand interaction
-			if (systemSettings.primaryInteractor != receivedSettings.primaryInteractor) {
-				Debug.Log("new hand");
-				systemSettings.primaryInteractor = receivedSettings.primaryInteractor;
-				EventManager.TriggerEvent(eDIA.Events.Interaction.EvUpdatePrimaryInteractor, new eParam((int)systemSettings.primaryInteractor));
-			}
+			EventManager.TriggerEvent(eDIA.Events.Interaction.EvUpdateVisableInteractor, new eParam((int)receivedSettings.VisableInteractor));
+			
+			// if (systemSettings.VisableInteractor != receivedSettings.VisableInteractor) {
+			// 	Debug.Log("Visable interactor change " + systemSettings.VisableInteractor + " <> " + receivedSettings.VisableInteractor);
+			// 	systemSettings.VisableInteractor = receivedSettings.VisableInteractor;
+			// }
+
+			EventManager.TriggerEvent(eDIA.Events.Interaction.EvUpdateInteractiveInteractor, new eParam((int)receivedSettings.InteractiveInteractor));
+			
+			// // Primary hand interaction
+			// if (systemSettings.InteractiveInteractor != receivedSettings.InteractiveInteractor) {
+			// 	Debug.Log("Interactive interactor change");
+			// 	systemSettings.InteractiveInteractor = receivedSettings.InteractiveInteractor;
+			// }
 
 			// Resolution of the app
 			if (systemSettings.screenResolution != receivedSettings.screenResolution) {
@@ -79,12 +86,8 @@ namespace eDIA {
 				
 				//TODO Change actual value 
 			}
-
-
-			Debug.Log("OnEvUpdateSystemSettings");
 			
 			SaveSettings();
-
 		}
 
 		/// <summary> Catches request to show system settings, collects them and send them out with a OPEN settings panel event. </summary>

@@ -7,8 +7,8 @@ namespace eDIA
     /// <summary>Container to hold main settings of the application </summary>
     [System.Serializable]
 	public class SettingsDeclaration {
-        public Constants.Interactor interactor = Constants.Interactor.BOTH;
-		public Constants.Interactor primaryInteractor = Constants.Interactor.RIGHT;
+        public Constants.Interactor VisableInteractor;
+		public Constants.Interactor InteractiveInteractor;
 		public Vector2 screenResolution = new Vector2(55f,44);
 		public float volume = 50f;
         public Constants.Languages language = Constants.Languages.ENG;

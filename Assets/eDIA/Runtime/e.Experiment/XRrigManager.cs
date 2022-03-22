@@ -60,15 +60,6 @@ namespace eDIA {
 			else if (instance != this) Destroy (this.gameObject);
 		}
 
-		void Start() {
-			EventManager.StartListening(eDIA.Events.Interaction.EvUpdatePrimaryInteractor, OnEvUpdatePrimaryInteractor);
-		}
-
-		private void OnEvUpdatePrimaryInteractor(eParam obj)
-		{
-			Debug.Log("OnEvUpdatePrimaryInteractor received");
-		}
-
 		/// <summary>
 		/// In order to get a fixed timestep for experiments, we set the application to a fixed rate </summary>
 		private void SetApplicationFramerate() {
@@ -99,12 +90,12 @@ namespace eDIA {
 		/// </summary>
 		void DisableXRrig () {
 			XRrig_MainCamera.transform.parent.transform.localPosition = new Vector3(0, 1.675f, 0);
-			XRrig_RightController.GetComponent<XRrigController>().EnableInteraction(false);
-			XRrig_LeftController.GetComponent<XRrigController>().EnableInteraction(false);
+			XRrig_RightController.GetComponent<XRrigController>().MakeInteractive(false);
+			XRrig_LeftController.GetComponent<XRrigController>().MakeInteractive(false);
 
 			// Hide hands
-			XRrig_RightController.GetComponentInChildren<XRrigController>().ShowHand(false);
-			XRrig_LeftController.GetComponentInChildren<XRrigController>().ShowHand(false);
+			XRrig_RightController.GetComponentInChildren<XRrigController>().MakeVisible(false);
+			XRrig_LeftController.GetComponentInChildren<XRrigController>().MakeVisible(false);
 		}
 
 	#region MISC	
