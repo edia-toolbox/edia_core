@@ -18,6 +18,7 @@ namespace eDIA {
 		public Slider volumeSlider = null;
 		public TMP_Dropdown resolutionDropdown = null;
 		public TMP_Dropdown primaryHandDropdown = null;
+		public TMP_Dropdown activeInteractorDropdown = null;
 		public TMP_Dropdown languageDropdown = null;
 
 		private SettingsDeclaration localSystemSettingsContainer = null;
@@ -47,6 +48,7 @@ namespace eDIA {
 			// populate the GUI elements with correct values
 			volumeSlider.value = localSystemSettingsContainer.volume;
 			primaryHandDropdown.value = (int)localSystemSettingsContainer.primaryInteractor;
+			activeInteractorDropdown.value = (int)localSystemSettingsContainer.interactor;
 			languageDropdown.value = (int)localSystemSettingsContainer.language;
 			// resolutionDropdown.value = localSystemSettingsContainer.screenResolution;
 
@@ -81,7 +83,8 @@ namespace eDIA {
 		void UpdateLocalSettings () {
 
 			localSystemSettingsContainer.volume = volumeSlider.value;
-			localSystemSettingsContainer.primaryInteractor = (Constants.PrimaryInteractor)primaryHandDropdown.value;
+			localSystemSettingsContainer.primaryInteractor = (Constants.Interactor)primaryHandDropdown.value;
+			localSystemSettingsContainer.interactor = (Constants.Interactor)activeInteractorDropdown.value;
 			localSystemSettingsContainer.language = (Constants.Languages)languageDropdown.value;
 
 			// resolutionDropdown.value = localSystemSettingsContainer.screenResolution;

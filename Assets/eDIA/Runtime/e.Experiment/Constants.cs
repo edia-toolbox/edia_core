@@ -7,14 +7,14 @@ namespace eDIA
     /// <summary>Container to hold main settings of the application </summary>
     [System.Serializable]
 	public class SettingsDeclaration {
-		public Constants.PrimaryInteractor primaryInteractor = Constants.PrimaryInteractor.RIGHTHANDED;
+        public Constants.Interactor interactor = Constants.Interactor.BOTH;
+		public Constants.Interactor primaryInteractor = Constants.Interactor.RIGHT;
 		public Vector2 screenResolution = new Vector2(55f,44);
 		public float volume = 50f;
         public Constants.Languages language = Constants.Languages.ENG;
 
         public string pathToLogfiles = "logfiles";
         public static string localConfigDirectoryName = "Configs";
-
 	}
 
     /// <summary>Static definitions</summary>
@@ -22,11 +22,11 @@ namespace eDIA
     {
         public static string localConfigDirectoryName = "Configs";
 
+        // 
+        public enum Interactor { LEFT, RIGHT, BOTH };
+
         // Fixed FPS target
 		public enum TargetHZ { NONE, H60, H72, H90, H120 };
-
-        // Which hand to use primary for interaction
-        public enum PrimaryInteractor { LEFTHANDED, RIGHTHANDED, BOTH };
 
         // System language
         public enum Languages { ENG, DU };

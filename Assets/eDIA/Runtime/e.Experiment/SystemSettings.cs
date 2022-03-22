@@ -22,7 +22,7 @@ namespace eDIA {
 
 			// Listen to update settings requests
 			EventManager.StartListening(eDIA.Events.Core.EvUpdateSystemSettings, OnEvUpdateSystemSettings);
-			EventManager.StartListening(eDIA.Events.Core.EvRequestSystemSettings, EvRequestSystemSettings);
+			EventManager.StartListening(eDIA.Events.Core.EvRequestSystemSettings, OnEvRequestSystemSettings);
 			
 			// Any settings on disk? > load them
 			LoadSettings ();
@@ -46,6 +46,12 @@ namespace eDIA {
 
 			SettingsDeclaration receivedSettings = UnityEngine.JsonUtility.FromJson<SettingsDeclaration>(obj.GetString());
 			
+			if (systemSettings.interactor != receivedSettings.interactor) {
+				Debug.Log("Controller change");
+				systemSettings.interactor = receivedSettings.interactor;
+				EventManager.TriggerEvent(eDIA.Events.Interaction.EvUpdateAvailableInteractor, new eParam(systemSettings.interactor));
+			}
+
 			// Primary hand interaction
 			if (systemSettings.primaryInteractor != receivedSettings.primaryInteractor) {
 				Debug.Log("new hand");
@@ -82,7 +88,7 @@ namespace eDIA {
 		}
 
 		/// <summary> Catches request to show system settings, collects them and send them out with a OPEN settings panel event. </summary>
-		private static void EvRequestSystemSettings(eParam obj)
+		private static void OnEvRequestSystemSettings(eParam obj)
 		{
 			EventManager.TriggerEvent(eDIA.Events.Core.EvOpenSystemSettings, new eParam( GetSettingsAsJSONstring()));
 		}
