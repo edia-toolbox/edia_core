@@ -18,9 +18,6 @@ namespace eDIA {
 		public bool showLog = false;
 		public Color taskColor = Color.cyan;
 		[Space(10f)]
-		[Tooltip("ignore flag to use static camera position instead of XR rig tracking")]
-		public bool ignoreXR = false;
-
 		[Header ("References")]
 		public Transform XRrig_MainCamera;
 		public Transform XRrig_LeftController;
@@ -52,10 +49,6 @@ namespace eDIA {
 				
 				// Init the settings, either defaults or stored on disk
 				SystemSettings.InitSystemSettings();
-
-				// for debugging
-				if(ignoreXR)
-					DisableXRrig();
 			}
 			else if (instance != this) Destroy (this.gameObject);
 		}
@@ -85,14 +78,6 @@ namespace eDIA {
 			transform.rotation = newTransform.rotation;
 		}
 
-		/// <summary>
-		/// 
-		/// </summary>
-		void DisableXRrig () {
-			XRrig_MainCamera.transform.parent.transform.localPosition = new Vector3(0, 1.675f, 0);
-			EventManager.TriggerEvent(eDIA.Events.Interaction.EvEnableXRInteraction, new eParam(false));
-			EventManager.TriggerEvent(eDIA.Events.Interaction.EvShowXRController, new eParam(false));
-		}
 
 	#region MISC	
 

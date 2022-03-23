@@ -16,7 +16,7 @@ namespace eDIA {
 		public bool isVisible = false;
 		public bool isInteractive = false;
 
-		SkinnedMeshRenderer handSMR = null;
+		public SkinnedMeshRenderer handSMR = null;
 		XRInteractorLineVisual lineVisual = null;
 
 #region SETTING UP
@@ -51,9 +51,12 @@ namespace eDIA {
 			eDIA.Constants.Interactor receivedInteractor = (eDIA.Constants.Interactor)obj.GetInt();
 			
 			if ((receivedInteractor == eDIA.Constants.Interactor.BOTH) || (receivedInteractor == interactorType)) {
-
 				AllowVisible(true);
-			} else AllowVisible(false);
+				Show(true);
+			} else {
+				AllowVisible(false);
+				Show(false);
+			}
 		}
 
 		/// <summary>Change the controller / interactor that is the main interactor</summary>
@@ -64,7 +67,11 @@ namespace eDIA {
 
 			if ((receivedInteractor == eDIA.Constants.Interactor.BOTH) || (receivedInteractor == interactorType)) {
 				AllowInteractive(true);
-			} else AllowInteractive(false);
+				EnableInteraction(true);
+			} else { 
+				AllowInteractive(false);
+				EnableInteraction(false);
+			}
 		}
 
 		/// <summary>Change the controller / interactor that is visible</summary>
@@ -87,7 +94,7 @@ namespace eDIA {
 		/// <summary>Show the actual controller of hand visually</summary>
 		/// <param name="_onOff">True/false</param>
 		void AllowVisible (bool _onOff) {
-			isVisible = _onOff;
+			isAllowedToBeVisable = _onOff;
 		}
 
 		/// <summary>Allow this controller to be interacting with the environment</summary>
@@ -99,18 +106,14 @@ namespace eDIA {
 		/// <summary>Enable/Disable interaction</summary>
 		/// <param name="_onOff">True/false</param>
 		void EnableInteraction (bool _onOff) {
-			
-			if (!isAllowedToInteract)
-				return;
-
 			isInteractive = _onOff;
 			lineVisual.enabled = _onOff;
 		}
 
+		/// <summary>Show/Hide controller</summary>
+		/// <param name="_onOff">True/false</param>
 		void Show (bool _onOff) {
-			if (!isAllowedToBeVisable)
-				return;
-
+			isVisible = _onOff;
 			handSMR.enabled = _onOff;		
 		}
 

@@ -840,7 +840,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 900abd11501861d40bfe871e73e73a8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactorType: 0
+  interactorType: 1
+  isAllowedToBeVisable: 0
+  isAllowedToInteract: 0
   isVisible: 0
   isInteractive: 0
 --- !u!1 &2992980500265012247
@@ -1514,6 +1516,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactorType: 0
+  isAllowedToBeVisable: 0
+  isAllowedToInteract: 0
   isVisible: 0
   isInteractive: 0
 --- !u!114 &729190939210169544
@@ -1690,6 +1694,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2992980500265012246}
     m_Modifications:
+    - target: {fileID: 8220382581640090814, guid: 50b0ad0913843dc4f820aae6010fc65f,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8220382581640090814, guid: 50b0ad0913843dc4f820aae6010fc65f,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -1934,6 +1943,11 @@ PrefabInstance:
       objectReference: {fileID: 2659843226730596668, guid: adec04d4cf91ea84eb9651c8f4608216,
         type: 3}
     - target: {fileID: 573763192728940863, guid: 142de5c27643e9a4fa3f29573aedd1f9,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 573763192848871153, guid: 142de5c27643e9a4fa3f29573aedd1f9,
         type: 3}
       propertyPath: m_Enabled
       value: 0
