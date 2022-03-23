@@ -51,7 +51,8 @@ namespace eDIA.Events {
 		/// <summary>Which controllers are active in the application. Expects a enum AvailableController as INT</summary>
 		public static string EvUpdateVisableInteractor 		= "EvUpdateVisableInteractor";
  
-
+ 		/// <summary>Turn XR hand / controller interaction possibility on or off. Expects boolean</summary>
+		public static string EvEnableXRInteraction		= "EvEnableXRInteraction";
 
 
 

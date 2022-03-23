@@ -119,13 +119,19 @@ namespace eDIA {
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region XR HMD and Controller methods
 
-		/// <summary>
-		/// Setting the XRInteractorLine component 
-		/// </summary>
-		/// <param name="_onOff">True or false</param>
-		public static void EnableXRInteractorLine (bool _onOff) {
-			xCtrlR.GetComponent<XRInteractorLineVisual> ().enabled = _onOff;
-			xCtrlL.GetComponent<XRInteractorLineVisual> ().enabled = _onOff;
+		// /// <summary>
+		// /// Setting the XRInteractorLine component 
+		// /// </summary>
+		// /// <param name="_onOff">True or false</param>
+		// public static void EnableXRInteractorLine (bool _onOff) {
+		// 	xCtrlR.GetComponent<XRInteractorLineVisual> ().enabled = _onOff;
+		// 	xCtrlL.GetComponent<XRInteractorLineVisual> ().enabled = _onOff;
+		// }
+
+		/// <summary>Turn XR hand / controller interaction possibility on or off.</summary>
+		/// <param name="_onOff">Boolean</param>
+		public static void EnableXRInteraction (bool _onOff) {
+			EventManager.TriggerEvent(eDIA.Events.Interaction.EvEnableXRInteraction, new eParam(_onOff));
 		}
 
 	}
