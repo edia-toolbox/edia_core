@@ -90,8 +90,8 @@ namespace eDIA {
 		/// </summary>
 		void DisableXRrig () {
 			XRrig_MainCamera.transform.parent.transform.localPosition = new Vector3(0, 1.675f, 0);
-			XRrig_RightController.GetComponent<XRrigController>().MakeInteractive(false);
-			XRrig_LeftController.GetComponent<XRrigController>().MakeInteractive(false);
+			XRrig_RightController.GetComponent<XRrigController>().AllowInteractive(false);
+			XRrig_LeftController.GetComponent<XRrigController>().AllowInteractive(false);
 
 			// Hide hands
 			XRrig_RightController.GetComponentInChildren<XRrigController>().MakeVisible(false);
