@@ -120,6 +120,7 @@ namespace TASK {
 				AddToLog("Step:" + (currentStep + 1) +" > " + trialSequence[currentStep].title);
 
 				ExperimentManager.Instance.EnableExperimentPause(true);
+				XRrigUtilities.EnableXRInteraction(false);
 
 				theCube.gameObject.SetActive(true);
 				theCube.transform.position = new Vector3(0, XRrig_MainCamera.position.y, taskSettings.GetFloat("distanceCube"));
@@ -135,6 +136,7 @@ namespace TASK {
 					moveRoutine = StartCoroutine("MoveCube");
 				}
 
+				XRrigUtilities.EnableXRInteraction(true);
 				ExperimentManager.Instance.EnableExperimentProceed(true); // enable proceed button
 				EventManager.StartListening("EvProceed", OnEvProceed); //! Continues to the next step
 				EventManager.TriggerEvent("EvShowMessage", new eParam("Click button to continue"));
