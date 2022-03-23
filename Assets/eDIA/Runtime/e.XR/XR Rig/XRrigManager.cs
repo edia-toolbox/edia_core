@@ -91,11 +91,7 @@ namespace eDIA {
 		void DisableXRrig () {
 			XRrig_MainCamera.transform.parent.transform.localPosition = new Vector3(0, 1.675f, 0);
 			EventManager.TriggerEvent(eDIA.Events.Interaction.EvEnableXRInteraction, new eParam(false));
-			EventManager.TriggerEvent(eDIA.Events.Interaction.EvEnableXRInteraction, new eParam(false));
-
-			// Hide hands
-			XRrig_RightController.GetComponentInChildren<XRrigController>().AllowVisible(false);
-			XRrig_LeftController.GetComponentInChildren<XRrigController>().AllowVisible(false);
+			EventManager.TriggerEvent(eDIA.Events.Interaction.EvShowXRController, new eParam(false));
 		}
 
 	#region MISC	
