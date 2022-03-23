@@ -13,7 +13,7 @@ namespace eDIA {
 
 		/// <summary>Instance of the Settings declaration class in order to (de)serialize to JSON</summary>
 		public static SettingsDeclaration systemSettings = new SettingsDeclaration();
-
+		static SettingsDeclaration receivedSettings = new SettingsDeclaration();
 		
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region MAIN METHODS
@@ -34,9 +34,7 @@ namespace eDIA {
 		}
 
 		async static void LoadSettings () {
-			
 			string loadedSettings = FileManager.ReadStringFromApplicationPath("settings.json");
-			Debug.Log(" settings loaded ");
 			
 			await Task.Delay(500); // 1 second delay
 			EventManager.TriggerEvent(eDIA.Events.Core.EvUpdateSystemSettings, new eParam(loadedSettings));
@@ -47,24 +45,15 @@ namespace eDIA {
 #region EVENT LISTENERS
 
 		public static void OnEvUpdateSystemSettings (eParam obj) {
-			Debug.Log("OnEvUpdateSystemSettings");
+			
+			receivedSettings = new SettingsDeclaration();
+			receivedSettings = UnityEngine.JsonUtility.FromJson<SettingsDeclaration>(obj.GetString());
 
-			SettingsDeclaration receivedSettings = UnityEngine.JsonUtility.FromJson<SettingsDeclaration>(obj.GetString());
-
+			systemSettings.VisableInteractor = receivedSettings.VisableInteractor;
 			EventManager.TriggerEvent(eDIA.Events.Interaction.EvUpdateVisableInteractor, new eParam((int)receivedSettings.VisableInteractor));
-			
-			// if (systemSettings.VisableInteractor != receivedSettings.VisableInteractor) {
-			// 	Debug.Log("Visable interactor change " + systemSettings.VisableInteractor + " <> " + receivedSettings.VisableInteractor);
-			// 	systemSettings.VisableInteractor = receivedSettings.VisableInteractor;
-			// }
 
+			systemSettings.InteractiveInteractor = receivedSettings.InteractiveInteractor;
 			EventManager.TriggerEvent(eDIA.Events.Interaction.EvUpdateInteractiveInteractor, new eParam((int)receivedSettings.InteractiveInteractor));
-			
-			// // Primary hand interaction
-			// if (systemSettings.InteractiveInteractor != receivedSettings.InteractiveInteractor) {
-			// 	Debug.Log("Interactive interactor change");
-			// 	systemSettings.InteractiveInteractor = receivedSettings.InteractiveInteractor;
-			// }
 
 			// Resolution of the app
 			if (systemSettings.screenResolution != receivedSettings.screenResolution) {

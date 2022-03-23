@@ -17,8 +17,8 @@ namespace eDIA {
 		[Header("Settings")]
 		public Slider volumeSlider = null;
 		public TMP_Dropdown resolutionDropdown = null;
-		public TMP_Dropdown primaryHandDropdown = null;
-		public TMP_Dropdown activeInteractorDropdown = null;
+		public TMP_Dropdown interactiveInteractorDropdown = null;
+		public TMP_Dropdown visibleInteractorDropdown = null;
 		public TMP_Dropdown languageDropdown = null;
 
 		private SettingsDeclaration localSystemSettingsContainer = null;
@@ -47,8 +47,8 @@ namespace eDIA {
 
 			// populate the GUI elements with correct values
 			volumeSlider.value 			= localSystemSettingsContainer.volume;
-			primaryHandDropdown.value 		= (int)localSystemSettingsContainer.InteractiveInteractor;
-			activeInteractorDropdown.value 	= (int)localSystemSettingsContainer.VisableInteractor;
+			interactiveInteractorDropdown.value	= (int)localSystemSettingsContainer.InteractiveInteractor;
+			visibleInteractorDropdown.value 	= (int)localSystemSettingsContainer.VisableInteractor;
 			languageDropdown.value 			= (int)localSystemSettingsContainer.language;
 			// resolutionDropdown.value = localSystemSettingsContainer.screenResolution;
 
@@ -57,7 +57,6 @@ namespace eDIA {
 
 			btnApply.interactable = false ;
 
-			Debug.Log("OnEvOpenSystemSettings: " + obj.GetString());
 		}
 		
 
@@ -73,7 +72,7 @@ namespace eDIA {
 			// Something has changed
 			UpdateLocalSettings();
 
-			EventManager.TriggerEvent(eDIA.Events.Core.EvUpdateSystemSettings, new eParam ( UnityEngine.JsonUtility.ToJson(localSystemSettingsContainer)));
+			EventManager.TriggerEvent(eDIA.Events.Core.EvUpdateSystemSettings, new eParam ( UnityEngine.JsonUtility.ToJson(localSystemSettingsContainer,false)));
 		}
 
 
@@ -83,8 +82,8 @@ namespace eDIA {
 		void UpdateLocalSettings () {
 
 			localSystemSettingsContainer.volume = volumeSlider.value;
-			localSystemSettingsContainer.InteractiveInteractor = (Constants.Interactor)primaryHandDropdown.value;
-			localSystemSettingsContainer.VisableInteractor = (Constants.Interactor)activeInteractorDropdown.value;
+			localSystemSettingsContainer.InteractiveInteractor = (Constants.Interactor)interactiveInteractorDropdown.value;
+			localSystemSettingsContainer.VisableInteractor = (Constants.Interactor)visibleInteractorDropdown.value;
 			localSystemSettingsContainer.language = (Constants.Languages)languageDropdown.value;
 
 			// resolutionDropdown.value = localSystemSettingsContainer.screenResolution;
