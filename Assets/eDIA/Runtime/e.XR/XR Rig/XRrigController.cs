@@ -11,9 +11,10 @@ namespace eDIA {
 		[Header("Settings")]
 		public eDIA.Constants.Interactor interactorType = eDIA.Constants.Interactor.LEFT;
 
+		public bool isAllowedToBeVisable = false;
+		public bool isAllowedToInteract = false;
 		public bool isVisible = false;
 		public bool isInteractive = false;
-		public bool isAllowedToInteract = false;
 
 		SkinnedMeshRenderer handSMR = null;
 		XRInteractorLineVisual lineVisual = null;
@@ -24,19 +25,20 @@ namespace eDIA {
 			handSMR = GetComponentInChildren<SkinnedMeshRenderer>(true);
 			lineVisual = GetComponent<XRInteractorLineVisual>();
 
-			MakeVisible(isVisible);
-			AllowInteractive(isInteractive);
-
+			AllowVisible(isVisible);
+			AllowInteractive(isAllowedToInteract);
+			
 			EventManager.StartListening(eDIA.Events.Interaction.EvUpdateVisableInteractor, OnEvUpdateVisableInteractor);
 			EventManager.StartListening(eDIA.Events.Interaction.EvUpdateInteractiveInteractor, OnEvUpdateInteractiveInteractor);
 			EventManager.StartListening(eDIA.Events.Interaction.EvEnableXRInteraction, OnEvEnableXRInteraction);
+			EventManager.StartListening(eDIA.Events.Interaction.EvShowXRController, OnEvShowXRController);
 		}
-
 
 		void OnDestroy() {
 			EventManager.StopListening(eDIA.Events.Interaction.EvUpdateVisableInteractor, OnEvUpdateVisableInteractor);
 			EventManager.StopListening(eDIA.Events.Interaction.EvUpdateInteractiveInteractor, OnEvUpdateInteractiveInteractor);
 			EventManager.StopListening(eDIA.Events.Interaction.EvEnableXRInteraction, OnEvEnableXRInteraction);
+			EventManager.StopListening(eDIA.Events.Interaction.EvShowXRController, OnEvShowXRController);
 		}
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
@@ -50,8 +52,8 @@ namespace eDIA {
 			
 			if ((receivedInteractor == eDIA.Constants.Interactor.BOTH) || (receivedInteractor == interactorType)) {
 
-				MakeVisible(true);
-			} else MakeVisible(false);
+				AllowVisible(true);
+			} else AllowVisible(false);
 		}
 
 		/// <summary>Change the controller / interactor that is the main interactor</summary>
@@ -72,25 +74,45 @@ namespace eDIA {
 			EnableInteraction(obj.GetBool());
 		}
 
+		/// <summary>Change the controller / interactor that is visible</summary>
+		/// <param name="obj">Interactor enum index</param>
+		private void OnEvShowXRController(eParam obj)
+		{
+			Show(obj.GetBool());
+		}
+
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region MAIN METHODS
 
-		public void MakeVisible (bool _onOff) {
-			handSMR.enabled = _onOff;		
+		/// <summary>Show the actual controller of hand visually</summary>
+		/// <param name="_onOff">True/false</param>
+		void AllowVisible (bool _onOff) {
 			isVisible = _onOff;
 		}
 
-		public void AllowInteractive (bool _onOff) {
+		/// <summary>Allow this controller to be interacting with the environment</summary>
+		/// <param name="_onOff">True/false</param>
+		void AllowInteractive (bool _onOff) {
 			isAllowedToInteract = _onOff;
+		}
+
+		/// <summary>Enable/Disable interaction</summary>
+		/// <param name="_onOff">True/false</param>
+		void EnableInteraction (bool _onOff) {
+			
+			if (!isAllowedToInteract)
+				return;
+
 			isInteractive = _onOff;
 			lineVisual.enabled = _onOff;
 		}
 
-		public void EnableInteraction (bool _onOff) {
-			isInteractive = _onOff;
-			lineVisual.enabled = _onOff;
-		}
+		void Show (bool _onOff) {
+			if (!isAllowedToBeVisable)
+				return;
 
+			handSMR.enabled = _onOff;		
+		}
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
     	}

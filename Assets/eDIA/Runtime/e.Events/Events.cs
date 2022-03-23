@@ -54,6 +54,8 @@ namespace eDIA.Events {
  		/// <summary>Turn XR hand / controller interaction possibility on or off. Expects boolean</summary>
 		public static string EvEnableXRInteraction		= "EvEnableXRInteraction";
 
+ 		/// <summary>Shows XR hand / controller on or off. Expects boolean</summary>
+		public static string EvShowXRController			= "EvShowXRController";
 
 
 
