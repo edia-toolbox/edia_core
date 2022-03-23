@@ -150,6 +150,11 @@ namespace eDIA {
 			return ReadString(path);
 		}
 
+		public static bool FileExists (string _fileName) {
+			string path =  CorrectPath() + "/" + _fileName;
+			return File.Exists(path);
+		}
+
 		/// <summary>Tries to read the given textbased filename.</summary>
 		/// <param _fileName="_fileName"></param>
 		/// <returns>Content of the file, or 'ERROR' when failed</returns>

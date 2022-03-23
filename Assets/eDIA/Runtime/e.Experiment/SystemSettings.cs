@@ -34,6 +34,13 @@ namespace eDIA {
 		}
 
 		async static void LoadSettings () {
+
+			if (!FileManager.FileExists("settings.json")) {
+				Debug.Log("Settings file not found, saving defaults");
+				SaveSettings();
+				return;
+			}
+
 			string loadedSettings = FileManager.ReadStringFromApplicationPath("settings.json");
 			
 			await Task.Delay(500); // 1 second delay
