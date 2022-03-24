@@ -24,8 +24,8 @@ namespace eDIA {
 		public Transform XRrig_RightController;
 		public Transform mainMenuHolder;
 		
-		[Header("System")]
-		public Constants.TargetHZ targetHZ = Constants.TargetHZ.H90;
+		// [Header("System")]
+		// public Constants.TargetHZ targetHZ = Constants.TargetHZ.NONE;
 		
 
 		/// <summary>Main system manager, provides refs to XR rig components</summary>
@@ -42,7 +42,7 @@ namespace eDIA {
 				System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
 				
 				// Setting fixed framerate
-				SetApplicationFramerate();
+				// SetApplicationFramerate();
 
 				// Check if references are filled in the inspector
 				CheckReferences ();
@@ -57,13 +57,13 @@ namespace eDIA {
 		/// In order to get a fixed timestep for experiments, we set the application to a fixed rate </summary>
 		private void SetApplicationFramerate() {
 
-			if (targetHZ == Constants.TargetHZ.NONE)
-				return;
+			// if (targetHZ == Constants.TargetHZ.NONE)
+			// 	return;
 				
-			QualitySettings.vSyncCount = 0; // Don't vsync
-			int tframerate = int.Parse(targetHZ.ToString().Substring(1,targetHZ.ToString().Length-1));
-			Application.targetFrameRate = tframerate;
-			AddToLog("Target framerate set to " + tframerate);
+			// QualitySettings.vSyncCount = 0; // Don't vsync
+			// int tframerate = int.Parse(targetHZ.ToString().Substring(1,targetHZ.ToString().Length-1));
+			// Application.targetFrameRate = tframerate;
+			// AddToLog("Target framerate set to " + tframerate);
 		}
 		
 		void CheckReferences () {

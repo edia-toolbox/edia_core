@@ -50,12 +50,12 @@ public class HandMeshAnimator : MonoBehaviour {
 
 	private void Update () {
 		// Smooth input values
-		SmoothFinger (gripFingers);
+		// SmoothFinger (gripFingers);
 		// SmoothFinger(pointFingers);
 
 		// Apply smooth values
 		// AnimateFinger(pointFingers);
-		AnimateFinger (gripFingers);
+		// AnimateFinger (gripFingers);
 	}
 
 

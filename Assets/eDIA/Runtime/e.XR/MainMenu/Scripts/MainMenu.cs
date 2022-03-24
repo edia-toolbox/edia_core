@@ -49,6 +49,7 @@ namespace eDIA {
 		public bool isDebug = false;
 
 		[Header("Menu Generation")]
+		public Camera overlayCam;
 		public Transform menuHolder;
 		public RectTransform buttonHolder;
 		public GameObject buttonPrefab;
@@ -83,9 +84,12 @@ namespace eDIA {
 
 		void Start() {
 			screenFader = eDIA.XRrigUtilities.GetXRcam().GetComponent<ScreenFader>();
-			GetSceneList();
-			GenerateMenu ();
-			OpenMenu(startOpen);
+
+			if (overlayCam != null) {
+				GetSceneList();
+				GenerateMenu ();
+				OpenMenu(startOpen);
+			} else Debug.LogError("Reference the XROrigin Overlay camera in MainMenu!");
 		}
 
 	#endregion // -------------------------------------------------------------------------------------------------------------------------------
@@ -151,6 +155,7 @@ namespace eDIA {
 
 			isOpen = onOff;
 			menuHolder.gameObject.SetActive(onOff);
+			overlayCam.enabled = onOff;
 
 			if (!onOff)
 				return;
