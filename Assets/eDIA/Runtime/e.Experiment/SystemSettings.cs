@@ -25,6 +25,9 @@ namespace eDIA {
 			EventManager.StartListening(eDIA.Events.Core.EvUpdateSystemSettings, OnEvUpdateSystemSettings);
 			EventManager.StartListening(eDIA.Events.Core.EvRequestSystemSettings, OnEvRequestSystemSettings);
 			
+			// Set time and location to avoid comma / period issues
+			System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
+
 			// Any settings on disk? > load them
 			LoadSettings();
 		}
