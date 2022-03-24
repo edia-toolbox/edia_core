@@ -100,16 +100,9 @@ namespace eDIA {
 			EventManager.StartListening("EvFoundLocalConfigFiles", OnEvFoundLocalConfigFiles);
 			EventManager.StartListening("EvSetExperimentConfig", OnEvSetExperimentConfig);
 			EventManager.StartListening("EvStartExperiment", OnEvStartExperiment);
-
-			SetApplicationFramerate();
 		}
 
-		/// <summary> In order to get a fixed timestep for experiments, we set the application to a fixed rate </summary>
-		private void SetApplicationFramerate() {
-			QualitySettings.vSyncCount = 0; // Don't vsync
-			Application.targetFrameRate = 90;
-		}
-
+		// 
 		void Start() {
 			//! Just as a test message : >>>>>
 			EventManager.TriggerEvent(eDIA.Events.GUI.EvShowMessageBox, new eParam("Test message", true));
