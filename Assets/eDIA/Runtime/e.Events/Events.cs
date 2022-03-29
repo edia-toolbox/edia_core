@@ -7,8 +7,9 @@ namespace eDIA.Events {
 	/// <summary>Overview of all events in the system. Easier to reference and no typo mistakes by using them.</summary>
 	public static class Core {
 		
-		/// <summary>Use this to alert the user that something went wrong</summary>
-		public static string EvSystemHalt 			= "EvSystemHalt";
+
+
+
 
 		/// <summary>Set experiment config. Expects config as JSON string</summary>
 		public static string EvSetExperimentConfig 	= "EvSetExperimentConfig";
@@ -19,6 +20,27 @@ namespace eDIA.Events {
 		/// <summary>Injects a break block after current trial. Expects null</summary>
 		public static string EvPauseExperiment 		= "EvPauseExperiment";
 
+		/// <summary>Fired when the Experiment manager has initiataled OK. Expects result as bool. </summary>
+		public static string EvExperimentInitialised 	= "EvExperimentInitialised";
+
+		/// <summary>Fired by ExperimentManager when a trial has begun. Expects null</summary>
+		public static string EvTrialBegin 			= "EvExperimentInitialised";
+
+		/// <summary>Fired by ExperimentManager when the session had Finialized. Expects null</summary>
+		public static string EvFinalizeSession 		= "EvFinalizeSession";
+
+		/// <summary>Fired by ExperimentManager when the session starts a break. Expects null</summary>
+		public static string EvSessionBreak 		= "EvSessionBreak";
+
+		/// <summary>Fired by ExperimentManager when the session resumes after a break. Expects null</summary>
+		public static string EvBlockResume 			= "EvBlockResume";
+
+		/// <summary>Event indicating that the system can proceed, useally from experimenter. Expects null</summary>
+		public static string EvProceed 			= "EvProceed";
+
+
+
+
 		/// <summary>Notification that local config files are found on disk. Expects amount as int</summary>
 		public static string EvFoundLocalConfigFiles 	= "EvFoundLocalConfigFiles";
 
@@ -26,7 +48,8 @@ namespace eDIA.Events {
 		public static string EvLocalConfigSubmitted 	= "EvLocalConfigSubmitted";
 
 
-
+		/// <summary>Use this to alert the user that something went wrong</summary>
+		public static string EvSystemHalt 			= "EvSystemHalt";
 
 		/// <summary>Request to show system settings. Expects null</summary>
 		public static string EvRequestSystemSettings 	= "EvRequestSystemSettings";
@@ -77,17 +100,12 @@ namespace eDIA.Events {
 
 /*
 
-EvExperimentInitialised
+
+
+EvButtonChangeState
 EvSetDisplayInformation
 EvExperimentInfoUpdate
-EvTrialBegin
-EvButtonChangeState
 EvEnableEyeCalibrationTrigger
-EvFinalizeSession
-EvSessionBreak
-EvBlockResume
-EvSendMarker
-
 -----
 
 
