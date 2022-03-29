@@ -22,7 +22,7 @@ namespace eDIA.Events {
 		public static string EvExperimentInitialised 	= "EvExperimentInitialised";
 
 		/// <summary>Fired by ExperimentManager when a trial has begun. Expects null</summary>
-		public static string EvTrialBegin 			= "EvExperimentInitialised";
+		public static string EvTrialBegin 			= "EvTrialBegin";
 
 		/// <summary>Fired by ExperimentManager when the session had Finialized. Expects null</summary>
 		public static string EvFinalizeSession 		= "EvFinalizeSession";
@@ -30,7 +30,13 @@ namespace eDIA.Events {
 		/// <summary>Fired by ExperimentManager when the session starts a break. Expects null</summary>
 		public static string EvSessionBreak 		= "EvSessionBreak";
 
-		/// <summary>Fired by ExperimentManager when the session resumes after a break. Expects null</summary>
+		/// <summary>Fired by ExperimentManager when the session continues. Expects null</summary>
+		public static string EvSessionResume 		= "EvSessionResume";
+
+		/// <summary>Fired by ExperimentManager when a blockintroduction is found. Expects null</summary>
+		public static string EvBlockIntroduction 		= "EvBlockIntroduction";
+
+		/// <summary>Fired by ExperimentManager when the session resumes after an i.e. introduction. Expects null</summary>
 		public static string EvBlockResume 			= "EvBlockResume";
 
 		/// <summary>Event indicating that the system can proceed, useally from experimenter. Expects null</summary>
@@ -59,8 +65,11 @@ namespace eDIA.Events {
 		public static string EvUpdateSystemSettings 	= "EvUpdateSystemSettings";
 
 
-	}
+		/// <summary>Broaccast a update in the experiment, useally to show to the user</summary>
+		public static string EvUpdateExperimentInfoToUser 	= "EvUpdateExperimentInfoToUser";
 
+
+	}
 
 	//? ========================================================================================================
 	
@@ -78,6 +87,8 @@ namespace eDIA.Events {
  		/// <summary>Shows XR hand / controller on or off. Expects boolean</summary>
 		public static string EvShowXRController			= "EvShowXRController";
 
+ 		/// <summary>System found XR hands and HMD objects. Expects null</summary>
+		public static string EvFoundXRrigReferences		= "EvFoundXRrigReferences";
 	}
 
 	//? ========================================================================================================

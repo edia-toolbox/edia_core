@@ -32,9 +32,9 @@ namespace eDIA {
 
 		public virtual void Awake() {
 			// Listen to event that XR rig is ready
-			EventManager.StartListening("EvFoundXRrigReferences", OnEvFoundXRrigReferences);
-			EventManager.StartListening("EvExperimentInitialised", OnEvExperimentInitialised);
-			EventManager.StartListening("EvLocalConfigSubmitted", OnEvLocalConfigSubmitted);
+			EventManager.StartListening(eDIA.Events.Interaction.EvFoundXRrigReferences, 	OnEvFoundXRrigReferences);
+			EventManager.StartListening(eDIA.Events.Core.EvExperimentInitialised, 	OnEvExperimentInitialised);
+			EventManager.StartListening(eDIA.Events.Core.EvLocalConfigSubmitted, 	OnEvLocalConfigSubmitted);
 
 			GetXRrigReferences();
 		}
@@ -51,12 +51,12 @@ namespace eDIA {
 			EventManager.StopListening("EvFoundXRrigReferences", OnEvFoundXRrigReferences);
 			
 			// Set up sequence listeners
-			EventManager.StopListening("EvSessionBreak", 		OnEvSessionBreak);
-			EventManager.StopListening("EvSessionResume", 		OnEvSessionResume);
-			EventManager.StopListening("EvBlockIntroduction", 	OnEvBlockIntroduction);
-			EventManager.StopListening("EvBlockResume", 		OnEvBlockResume);
-			EventManager.StopListening("EvTrialBegin", 		OnEvTrialBegin);
-			EventManager.StopListening("EvExperimentInitialised", OnEvExperimentInitialised);
+			EventManager.StopListening(eDIA.Events.Core.EvSessionBreak, 		OnEvSessionBreak);
+			EventManager.StopListening(eDIA.Events.Core.EvSessionResume, 		OnEvSessionResume);
+			EventManager.StopListening(eDIA.Events.Core.EvBlockIntroduction, 		OnEvBlockIntroduction);
+			EventManager.StopListening(eDIA.Events.Core.EvBlockResume, 			OnEvBlockResume);
+			EventManager.StopListening(eDIA.Events.Core.EvTrialBegin, 			OnEvTrialBegin);
+			EventManager.StopListening(eDIA.Events.Core.EvExperimentInitialised, 	OnEvExperimentInitialised);
 		}
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
@@ -67,7 +67,7 @@ namespace eDIA {
 		}
 
 		public virtual void OnEvFoundXRrigReferences (eParam e)  {
-			EventManager.StopListening("EvFoundXRrigReferences", OnEvFoundXRrigReferences);
+			EventManager.StopListening(eDIA.Events.Interaction.EvFoundXRrigReferences, OnEvFoundXRrigReferences);
 			AddToLog("XRrig references FOUND");
 
 			XRrig_MainCamera 		= XRrigManager.instance.XRrig_MainCamera;
@@ -123,9 +123,9 @@ namespace eDIA {
 
 		void OnSessionBeginUXF() {
 			AddToLog("OnSessionBeginUXF");
-			EventManager.StartListening("EvTrialBegin", 		OnEvTrialBegin);
-			EventManager.StartListening("EvSessionBreak", 		OnEvSessionBreak);
-			EventManager.StartListening("EvBlockIntroduction", 	OnEvBlockIntroduction);
+			EventManager.StartListening(eDIA.Events.Core.EvTrialBegin, 		OnEvTrialBegin);
+			EventManager.StartListening(eDIA.Events.Core.EvSessionBreak, 	OnEvSessionBreak);
+			EventManager.StartListening(eDIA.Events.Core.EvBlockIntroduction, OnEvBlockIntroduction);
 
 			inSession = true;
 			OnSessionStart();
@@ -149,7 +149,7 @@ namespace eDIA {
 		/// <summary>Look up given index in the localConfigFiles list and give content of that file to system </summary>
 		/// <param name="e">String = filename of the configfile</param>
 		void OnEvLocalConfigSubmitted (eParam e) {
-			EventManager.StopListening("EvLocalConfigSubmitted", OnEvLocalConfigSubmitted);
+			EventManager.StopListening(eDIA.Events.Core.EvLocalConfigSubmitted, OnEvLocalConfigSubmitted);
 
 			string filename = e.GetStrings()[0] + ".json"; // combine task string and participant string
 			
@@ -171,7 +171,7 @@ namespace eDIA {
 		}
 
 		public virtual void OnEvProceed (eParam e) {
-			EventManager.StopListening("EvProceed", OnEvProceed);
+			EventManager.StopListening(eDIA.Events.Core.EvProceed, OnEvProceed);
 			NextStep();
 		}
 
@@ -190,7 +190,7 @@ namespace eDIA {
 		/// <summary>OnEvSessionBreak event listener</summary>
 		void OnEvSessionBreak(eParam e) {
 			AddToLog("Break START");
-			EventManager.StartListening("EvSessionResume", 		OnEvSessionResume);
+			EventManager.StartListening(eDIA.Events.Core.EvSessionResume, 		OnEvSessionResume);
 			OnSessionBreak();
 		}
 
@@ -202,7 +202,7 @@ namespace eDIA {
 		/// <summary>OnEvSessionResume event listener</summary>
 		void OnEvSessionResume (eParam e) {
 			AddToLog("Session Resume");
-			EventManager.StopListening("EvSessionResume", 		OnEvSessionResume);
+			EventManager.StopListening(eDIA.Events.Core.EvSessionResume, 		OnEvSessionResume);
 			OnSessionResume();
 		}
 
@@ -217,7 +217,7 @@ namespace eDIA {
 		/// <summary>OnEvBlockIntroduction event listener</summary>
 		void OnEvBlockIntroduction (eParam e) {
 			AddToLog("Block introduction");
-			EventManager.StartListening("EvBlockResume", 		OnEvBlockResume);
+			EventManager.StartListening(eDIA.Events.Core.EvBlockResume, 		OnEvBlockResume);
 			OnBlockIntroduction();
 		}
 		
@@ -229,7 +229,7 @@ namespace eDIA {
 		/// <summary>OnEvBlockResume event listener</summary>
 		public void OnEvBlockResume (eParam e) {
 			AddToLog("Block Resume");
-			EventManager.StopListening("EvBlockResume", 		OnEvBlockResume);
+			EventManager.StopListening(eDIA.Events.Core.EvBlockResume, 		OnEvBlockResume);
 			OnBlockResume();
 			StartTrial();
 		}
@@ -264,7 +264,7 @@ namespace eDIA {
 		void StartTrial() {
 			// Update GUI with block description
 			string blockDescription = Session.instance.settings.GetStringList("block_types")[ Session.instance.CurrentTrial.settings.GetInt("block_type")-1];
-			EventManager.TriggerEvent("EvExperimentInfoUpdate", new eParam(blockDescription));
+			EventManager.TriggerEvent(eDIA.Events.Core.EvUpdateExperimentInfoToUser, new eParam(blockDescription));
 
 			AddToLog("StartTrial");
 			ResetTrial();

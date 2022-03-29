@@ -155,7 +155,7 @@ namespace eDIA {
 			btnExperiment.transform.GetChild(0).GetComponentInChildren<Text>().text = "Start Experiment";
 			btnExperiment.onClick.AddListener(	()=>EventManager.TriggerEvent("EvStartExperiment", null));
 			btnPauseExperiment.onClick.AddListener(	()=>EventManager.TriggerEvent("EvPauseExperiment", null));
-			btnProceedExperiment.onClick.AddListener(	()=>EventManager.TriggerEvent("EvProceed", null));
+			btnProceedExperiment.onClick.AddListener(	()=>EventManager.TriggerEvent(eDIA.Events.Core.EvProceed, null));
 		}
 
 	}

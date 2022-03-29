@@ -138,7 +138,7 @@ namespace TASK {
 
 				XRrigUtilities.EnableXRInteraction(true);
 				ExperimentManager.Instance.EnableExperimentProceed(true); // enable proceed button
-				EventManager.StartListening("EvProceed", OnEvProceed); //! Continues to the next step
+				EventManager.StartListening(eDIA.Events.Core.EvProceed, OnEvProceed); //! Continues to the next step
 				EventManager.TriggerEvent("EvShowMessage", new eParam("Click button to continue"));
 			}
 
