@@ -265,7 +265,7 @@ namespace eDIA {
 		void OnSessionBeginUXF() {
 			AddToLog("OnSessionBeginUXF");
 			AddToExecutionOrderLog("OnSessionBegin");
-			EventManager.StartListening("EvProceed", OnEvStartFirstTrial);
+			EventManager.StartListening(eDIA.Events.Core.EvProceed, OnEvStartFirstTrial);
 
 			EventManager.TriggerEvent("EvExperimentInfoUpdate", new eParam("Welcome"));
 			EnableExperimentProceed(true);
@@ -276,7 +276,7 @@ namespace eDIA {
 
 		/// <summary>Called from user input. </summary>
 		void OnEvStartFirstTrial (eParam e) {
-			EventManager.StopListening("EvProceed", OnEvStartFirstTrial);
+			EventManager.StopListening(eDIA.Events.Core.EvProceed, OnEvStartFirstTrial);
 			Session.instance.Invoke("BeginNextTrial", 0.5f);
 		}
 
@@ -399,8 +399,8 @@ namespace eDIA {
 		void SessionBreak () {
 			AddToLog("SessionBreak");
 			AddToExecutionOrderLog("SessionBreak");
-			EventManager.StartListening("EvProceed", SessionResume);
-			EventManager.TriggerEvent("EvSessionBreak", null);
+			EventManager.StartListening(eDIA.Events.Core.EvProceed, SessionResume);
+			EventManager.TriggerEvent(eDIA.Events.Core.EvSessionBreak, null);
 				
 			EventManager.TriggerEvent("EvExperimentInfoUpdate", new eParam("Break"));
 
@@ -413,8 +413,8 @@ namespace eDIA {
 		void SessionResume (eParam e) {
 			AddToExecutionOrderLog("SessionResume");
 			AddToLog("SessionResume");
-			EventManager.StopListening("EvProceed", SessionResume);
-			EventManager.TriggerEvent("EvSessionResume", null);
+			EventManager.StopListening(eDIA.Events.Core.EvProceed, SessionResume);
+			EventManager.TriggerEvent(eDIA.Events.Core.EvBlockResume, null);
 
 			ListenToEyeCalibrationTrigger(false);
 
@@ -428,7 +428,7 @@ namespace eDIA {
 		void BlockIntroduction () {
 			AddToLog("BlockIntroduction");
 			AddToExecutionOrderLog("BlockIntroduction");
-			EventManager.StartListening("EvProceed", BlockResume);
+			EventManager.StartListening(eDIA.Events.Core.EvProceed, BlockResume);
 
 			EventManager.TriggerEvent("EvExperimentInfoUpdate", new eParam("Introduction"));
 
@@ -443,11 +443,11 @@ namespace eDIA {
 		void BlockResume (eParam e) {
 			AddToLog("BlockResume");
 			AddToExecutionOrderLog("BlockResume");
-			EventManager.StopListening("EvProceed", BlockResume);
+			EventManager.StopListening(eDIA.Events.Core.EvProceed, BlockResume);
 
 			ListenToEyeCalibrationTrigger(false);
 
-			EventManager.TriggerEvent("EvBlockResume",null);
+			EventManager.TriggerEvent(eDIA.Events.Core.EvBlockResume,null);
 		}
 
 #endregion	// -------------------------------------------------------------------------------------------------------------------------------
@@ -501,7 +501,7 @@ namespace eDIA {
 			newRow.Add(("annotation", annotation)); 
 			markerLog.AddCompleteRow(newRow);
 
-			EventManager.TriggerEvent("EvSendMarker", new eParam(annotation));
+			EventManager.TriggerEvent(eDIA.Events.DataHandlers.EvSendMarker, new eParam(annotation));
 		}
 
 		private void AddToLog(string _msg) {
