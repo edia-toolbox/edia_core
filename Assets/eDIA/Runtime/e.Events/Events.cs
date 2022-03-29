@@ -57,10 +57,18 @@ namespace eDIA.Events {
  		/// <summary>Shows XR hand / controller on or off. Expects boolean</summary>
 		public static string EvShowXRController			= "EvShowXRController";
 
+	}
 
+	//? ========================================================================================================
+	
+	public class DataHandlers {
 
+		/// <summary>Send a marker to the system, any listener can pick it up and handle it. Expects marker as string</summary>
+		public static string EvSendMarker 				= "EvSendMarker";
+ 
 
 	}
+
 
 
 }
