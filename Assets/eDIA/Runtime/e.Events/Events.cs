@@ -9,8 +9,6 @@ namespace eDIA.Events {
 		
 
 
-
-
 		/// <summary>Set experiment config. Expects config as JSON string</summary>
 		public static string EvSetExperimentConfig 	= "EvSetExperimentConfig";
 
