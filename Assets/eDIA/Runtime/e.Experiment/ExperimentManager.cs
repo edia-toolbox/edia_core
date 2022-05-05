@@ -290,6 +290,8 @@ namespace eDIA {
 			AddToLog("OnTrialBeginUXF");
 			AddToExecutionOrderLog("OnTrialBegin");
 
+			EventManager.TriggerEvent("EvExperimentInfoUpdate", null); // update sliders in GUI
+			
 			bool showIntroduction = false;
 
 			if ((Session.instance.currentBlockNum != activeBlockUXF) && (Session.instance.currentBlockNum <= Session.instance.blocks.Count)) {
