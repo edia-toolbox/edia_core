@@ -411,7 +411,7 @@ namespace eDIA {
 			AddToExecutionOrderLog("SessionResume");
 			AddToLog("SessionResume");
 			EventManager.StopListening(eDIA.Events.Core.EvProceed, SessionResume);
-			EventManager.TriggerEvent(eDIA.Events.Core.EvBlockResume, null);
+			EventManager.TriggerEvent(eDIA.Events.Core.EvSessionResume, null);
 
 			ListenToEyeCalibrationTrigger(false);
 
@@ -494,7 +494,7 @@ namespace eDIA {
 
 			// Log it in the UXF way
 			UXF.UXFDataRow newRow = new UXFDataRow();
-			newRow.Add(("timestamp", Time.time)); // Log timestamp
+			newRow.Add(("timestamp", Time.realtimeSinceStartup)); // Log timestamp
 			newRow.Add(("annotation", annotation)); 
 			markerLog.AddCompleteRow(newRow);
 

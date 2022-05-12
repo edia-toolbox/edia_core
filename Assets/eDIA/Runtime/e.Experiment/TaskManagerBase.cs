@@ -191,6 +191,7 @@ namespace eDIA {
 		void OnEvSessionBreak(eParam e) {
 			AddToLog("Break START");
 			EventManager.StartListening(eDIA.Events.Core.EvSessionResume, 		OnEvSessionResume);
+			
 			OnSessionBreak();
 		}
 
