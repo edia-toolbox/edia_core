@@ -28,10 +28,13 @@ namespace eDIA {
 
 			base.Awake();
 
-			HidePanel ();
 			SetupButtons ();
 
 			EventManager.StartListening(eDIA.Events.Core.EvOpenSystemSettings, OnEvOpenSystemSettings);
+		}
+
+		void Start() {
+			HidePanel();
 		}
 
 		void OnDestroy() {

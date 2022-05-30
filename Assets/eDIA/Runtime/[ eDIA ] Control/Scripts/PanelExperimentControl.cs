@@ -40,9 +40,11 @@ namespace eDIA {
 			EventManager.StartListening("EvButtonChangeState", 		OnEvButtonChangeState);
 			EventManager.StartListening("EvStartExperiment", 		OnEvStartExperiment);
 
-			HidePanel ();
 		}
 
+		void Start() {
+			HidePanel();
+		}
 
 #region EVENT LISTENERS
 

@@ -22,8 +22,14 @@ namespace eDIA {
 
 		void Start() {
 			OnEvResetExperimentConfigSelection(null);
+
+			EventManager.StartListening(eDIA.Events.Core.EvFoundLocalConfigFiles, OnEvFoundLocalConfigFiles);
 			EventManager.StartListening("EvResetExperimentConfigSelection", OnEvResetExperimentConfigSelection);
 
+		}
+
+		void OnEvFoundLocalConfigFiles (eParam e) {
+			ShowPanel();
 		}
 
 		/// <summary>Repopulate the dropdowns with values</summary>
