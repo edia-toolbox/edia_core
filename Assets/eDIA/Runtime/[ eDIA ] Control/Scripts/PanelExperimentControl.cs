@@ -61,6 +61,8 @@ namespace eDIA {
 			panelInfo.SetActive(false);
 			GetComponent<VerticalLayoutGroup>().enabled = true;
 
+			ShowPanel();
+
 			EventManager.StartListening("EvSetDisplayInformation", OnEvSetDisplayInformation);
 		}
 
