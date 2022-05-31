@@ -43,18 +43,21 @@ namespace eDIA {
 					currentSibblingList.Clear();
 					foreach (Transform tr in transform.parent) currentSibblingList.Add(tr);
 
-					for (int i=1;i<currentSibblingList.Count;i++) {
-						int 
-						if(preSetSibblingList.FindIndex(x => x = currentSibblingList[i]) == -1)
+					for (int i=currentSibblingList.Count-1;i>=0;i--) {
+						
+						int checkIndex = preSetSibblingList.FindIndex(x => x == currentSibblingList[i]);
+						Debug.Log("Index: " + i + " checkindex: " + checkIndex);
+
+						if (checkIndex == -1)
 							continue;
 						else {
-
+							if (checkIndex > myIndex) {
+								transform.SetSiblingIndex(i);
+								Debug.Log("SetSiblingIndex: " + i);
+							}
 						}
-
 					}
-
 				}
-			
 			}
 			else {
 				Debug.Log("Nope, not in the list");
