@@ -76,6 +76,9 @@ namespace eDIA.Events {
 	public class Eye {
 		/// <summary>Whatever EYE package is used, it listens to this. Expects boolean</summary>
 		public static string EvEnableEyeCalibrationTrigger 	= "EvEnableEyeCalibrationTrigger";
+
+		/// <summary>Eye calibration request. Expects null</summary>
+		public static string EvEyeCalibrationRequested 	= "EvEyeCalibrationRequested";
 	}
 
 	//? ========================================================================================================
