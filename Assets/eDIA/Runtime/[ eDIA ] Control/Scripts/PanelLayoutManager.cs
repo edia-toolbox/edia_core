@@ -7,31 +7,23 @@ namespace eDIA {
 
 	public class PanelLayoutManager : MonoBehaviour {
 		
-		public List<Transform> originalPanelOrder = new List<Transform>();
 		public List<Transform> currentPanelOrder = new List<Transform>();
 
 		void Awake() {
 			foreach (Transform tr in transform) {
-				originalPanelOrder.Add(tr); // get a list of all children of this subpanel
-				tr.GetComponent<ExperimenterPanel>().myOriginalIndex = tr.GetSiblingIndex();
+				tr.name = tr.GetSiblingIndex().ToString() + "_" + tr.name;
 			}
 		}
 
-		public void UpdatePanelOrder (Transform child, int childsOriginalIndex) {
-			if (childsOriginalIndex == -1)
-				return;
-
-			int newIndex = -1;
+		public void UpdatePanelOrder () {
 
 			currentPanelOrder.Clear();
 			currentPanelOrder = transform.Cast<Transform>().ToList();
+			currentPanelOrder.Sort((Transform t1, Transform t2) => { return t1.name.CompareTo(t2.name); });
 
-			for (int i=0;i<currentPanelOrder.Count;i++) {
-				newIndex = currentPanelOrder[i].GetComponent<ExperimenterPanel>().myOriginalIndex > childsOriginalIndex ? i : newIndex;
+			for (int i=0; i<currentPanelOrder.Count; ++i) {
+				currentPanelOrder[i].SetSiblingIndex(i);
 			}
-
-			child.SetSiblingIndex(newIndex);
 		}
-
 	}
 }
