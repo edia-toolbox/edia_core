@@ -266,7 +266,7 @@ namespace eDIA {
 			EnableExperimentProceed(true);
 
 			// eye calibration option enabled
-			ListenToEyeCalibrationTrigger(true);
+			EnableEyeCalibrationTrigger(true);
 		}
 
 		/// <summary>Called from user input. </summary>
@@ -281,6 +281,7 @@ namespace eDIA {
 			AddToExecutionOrderLog("OnSessionEndUXF");
 
 			EventManager.TriggerEvent("EvExperimentInfoUpdate", new eParam("End"));
+			
 			EnableExperimentProceed(false);
 			EnableExperimentPause(false);
 		}
@@ -367,8 +368,8 @@ namespace eDIA {
 
 		/// <summary> Set system open for calibration call from event or button</summary>
 		/// <param name="onOff"></param>
-		public void ListenToEyeCalibrationTrigger (bool _onOff) {
-			EventManager.TriggerEvent("EvEnableEyeCalibrationTrigger", new eParam(_onOff));
+		public void EnableEyeCalibrationTrigger (bool _onOff) {
+			EventManager.TriggerEvent(eDIA.Events.Eye.EvEnableEyeCalibrationTrigger, new eParam(_onOff));
 		}
 
 		/// <summary>Done with all trial, clean up and call UXF to end this session</summary>
@@ -378,6 +379,7 @@ namespace eDIA {
 			
 			// clean
 			EventManager.TriggerEvent("EvFinalizeSession", null);
+			EventManager.TriggerEvent("EvExperimentInfoUpdate", new eParam("Finalize Session"));
 			Session.instance.End();
 		}
 
@@ -403,7 +405,7 @@ namespace eDIA {
 
 			EnableExperimentProceed(true);
 			EnableExperimentPause(false);
-			ListenToEyeCalibrationTrigger(true);
+			EnableEyeCalibrationTrigger(true);
 		}
 
 		/// <summary>Called from EvProceed event. Stops listener, invokes onSessionResume event and calls UXF BeginNextTrial. </summary>
@@ -413,7 +415,9 @@ namespace eDIA {
 			EventManager.StopListening(eDIA.Events.Core.EvProceed, SessionResume);
 			EventManager.TriggerEvent(eDIA.Events.Core.EvSessionResume, null);
 
-			ListenToEyeCalibrationTrigger(false);
+			EventManager.TriggerEvent("EvExperimentInfoUpdate", new eParam("Block"));
+
+			EnableEyeCalibrationTrigger(false);
 
 			Session.instance.Invoke("BeginNextTrialSafe", 0.5f);
 		}
@@ -431,7 +435,7 @@ namespace eDIA {
 
 			EnableExperimentProceed(true);
 			EnableExperimentPause(false);
-			ListenToEyeCalibrationTrigger(true);
+			EnableEyeCalibrationTrigger(true);
 
 			EventManager.TriggerEvent("EvBlockIntroduction", null);
 		}
@@ -442,7 +446,7 @@ namespace eDIA {
 			AddToExecutionOrderLog("BlockResume");
 			EventManager.StopListening(eDIA.Events.Core.EvProceed, BlockResume);
 
-			ListenToEyeCalibrationTrigger(false);
+			EnableEyeCalibrationTrigger(false);
 
 			EventManager.TriggerEvent(eDIA.Events.Core.EvBlockResume,null);
 		}
