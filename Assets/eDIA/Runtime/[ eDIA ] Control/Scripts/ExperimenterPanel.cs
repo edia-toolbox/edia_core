@@ -9,6 +9,7 @@ namespace eDIA {
 	public class ExperimenterPanel : MonoBehaviour {
 		
 		Transform menuPanel;
+		Transform nonActivePanel;
 
 		[HideInInspector]
 		public List<Transform> children = new List<Transform>();
@@ -17,6 +18,7 @@ namespace eDIA {
 		public virtual void Awake() {
 
 			menuPanel = transform.parent; // The main panel all subpanels are childs off
+			nonActivePanel = menuPanel.GetComponent<PanelLayoutManager>().nonActivePanelHolder;
 
 			foreach (Transform tr in transform) children.Add(tr); // get a list of all children of this subpanel
 		}
@@ -32,7 +34,7 @@ namespace eDIA {
 
 		public void HidePanel () {
 			foreach (Transform tr in children) tr.gameObject.SetActive(false);
-			transform.parent = null;
+			transform.parent = nonActivePanel;
 
 			menuPanel.GetComponent<PanelLayoutManager>().UpdatePanelOrder();
 		}

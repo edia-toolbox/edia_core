@@ -8,7 +8,8 @@ namespace eDIA {
 	public class PanelLayoutManager : MonoBehaviour {
 		
 		public List<Transform> currentPanelOrder = new List<Transform>();
-
+		public Transform nonActivePanelHolder = null;
+		
 		void Awake() {
 			foreach (Transform tr in transform) {
 				tr.name = tr.GetSiblingIndex().ToString() + "_" + tr.name;
