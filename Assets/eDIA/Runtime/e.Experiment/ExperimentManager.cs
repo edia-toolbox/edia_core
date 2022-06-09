@@ -307,7 +307,7 @@ namespace eDIA {
 				BlockIntroduction ();
 			else {
 				EventManager.TriggerEvent("EvTrialBegin", null);
-				EventManager.TriggerEvent("EvExperimentInfoUpdate", new eParam("Trial"));
+				EventManager.TriggerEvent("EvExperimentInfoUpdate", new eParam("Block"));
 			}
 		}
 
@@ -416,7 +416,7 @@ namespace eDIA {
 			EventManager.StopListening(eDIA.Events.Core.EvProceed, SessionResume);
 			EventManager.TriggerEvent(eDIA.Events.Core.EvSessionResume, null);
 
-			EventManager.TriggerEvent("EvExperimentInfoUpdate", new eParam("Trial"));
+			EventManager.TriggerEvent("EvExperimentInfoUpdate", new eParam("Block"));
 
 			EnableEyeCalibrationTrigger(false);
 
