@@ -64,6 +64,10 @@ namespace eDIA.Events {
 		/// <summary>SystemSettings have been updated. Expects full package of SettingsDeclaration as JSON</summary>
 		public static string EvUpdateSystemSettings 	= "EvUpdateSystemSettings";
 
+		/// <summary>Exit application</summary>
+		public static string EvQuitApplication 		= "EvQuitApplication";
+
+
 
 		/// <summary>Broaccast a update in the experiment, useally to show to the user</summary>
 		public static string EvUpdateExperimentInfoToUser 	= "EvUpdateExperimentInfoToUser";

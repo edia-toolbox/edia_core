@@ -100,7 +100,9 @@ namespace eDIA {
 			EventManager.StartListening("EvFoundLocalConfigFiles", OnEvFoundLocalConfigFiles);
 			EventManager.StartListening("EvSetExperimentConfig", OnEvSetExperimentConfig);
 			EventManager.StartListening("EvStartExperiment", OnEvStartExperiment);
+			EventManager.StartListening(eDIA.Events.Core.EvQuitApplication, OnEvQuitApplication);
 		}
+
 
 
 		void OnDestroy() {
@@ -108,6 +110,7 @@ namespace eDIA {
 			EventManager.StopListening("EvStartExperiment", OnEvStartExperiment);
 			EventManager.StopListening("EvPauseExperiment", OnEvPauseExperiment);
 			EventManager.StopListening("EvFoundLocalConfigFiles", OnEvFoundLocalConfigFiles);
+			EventManager.StopListening(eDIA.Events.Core.EvQuitApplication, OnEvQuitApplication);
 		}
 
 
@@ -251,6 +254,12 @@ namespace eDIA {
 			AddToExecutionOrderLog("InjectedSessionBreakCall");
 			isPauseRequested = true;
 		}
+
+		private void OnEvQuitApplication(eParam obj)
+		{
+			AddToLog("Quiting..");
+			Application.Quit();
+;		}
 
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------

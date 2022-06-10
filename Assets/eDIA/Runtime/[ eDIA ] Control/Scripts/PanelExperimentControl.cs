@@ -108,7 +108,7 @@ namespace eDIA {
 			EventManager.StopListening("EvSetDisplayInformation", OnEvSetDisplayInformation);
 
 			btnExperiment.transform.GetChild(0).GetComponentInChildren<Text>().text = "Quit";
-			btnExperiment.onClick.AddListener(()=>EventManager.TriggerEvent("EvQuitApplication", null));
+			btnExperiment.onClick.AddListener( ()=> EventManager.TriggerEvent(eDIA.Events.Core.EvQuitApplication, null));
 			btnExperiment.interactable = true;
 
 			panelIdle.SetActive(true);
@@ -150,7 +150,6 @@ namespace eDIA {
 
 		void OnDestroy() {
 			EventManager.StopListening("EvExperimentInitialised", OnEvExperimentInitialised);
-			// EventManager.StopListening("EvButtonChangeState", OnEvButtonChangeState);
 			EventManager.StopListening("EvFinalizeSession", OnEvFinalizeSession);
 			EventManager.StopListening("EvStartExperiment", OnEvFinalizeSession);
 		}
