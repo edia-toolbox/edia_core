@@ -179,11 +179,11 @@ namespace eDIA.EditorUtils {
             FileManager.CreateFolder("Configs/Participants");
             FileManager.CreateFolder("Configs/Tasks");
 
-            FileManager.CopyFileTo("eDIA/Editor/edia.core.editor/jsons","TASKA_PARTICIPANTID.json", "Configs/Participants");
-            FileManager.CopyFileTo("eDIA/Editor/edia.core.editor/jsons","TASKA.json", "Configs/Tasks"); 
+            FileManager.CopyFileTo("../packages/eDIA/Editor/edia.core.editor/jsons","TASKA_PARTICIPANTID.json", "Configs/Participants");
+            FileManager.CopyFileTo("../packages/eDIA/Editor/edia.core.editor/jsons","TASKA.json", "Configs/Tasks"); 
 
-            FileManager.CopyFileTo("eDIA/Editor/edia.core.editor/jsons","TASKB_PARTICIPANTID.json", "Configs/Participants");
-            FileManager.CopyFileTo("eDIA/Editor/edia.core.editor/jsons","TASKB.json", "Configs/Tasks");
+            FileManager.CopyFileTo("../packages/eDIA/Editor/edia.core.editor/jsons","TASKB_PARTICIPANTID.json", "Configs/Participants");
+            FileManager.CopyFileTo("../packages/eDIA/Editor/edia.core.editor/jsons","TASKB.json", "Configs/Tasks");
 
             Debug.Log("Created Config folders with demo configuration files");
         }
