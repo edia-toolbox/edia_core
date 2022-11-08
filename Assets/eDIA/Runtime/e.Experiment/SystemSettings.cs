@@ -72,6 +72,11 @@ namespace eDIA {
 				//TODO Change actual value
 			}
 
+			// Save Path for logfiles
+			systemSettings.pathToLogfiles = receivedSettings.pathToLogfiles;
+			EventManager.TriggerEvent(eDIA.Events.Core.EvSetCustomStoragePath, new eParam(receivedSettings.pathToLogfiles));
+
+
 			// Volume of the app
 			if (systemSettings.volume != receivedSettings.volume) {
 				systemSettings.volume = receivedSettings.volume;

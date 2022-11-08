@@ -43,6 +43,8 @@ namespace eDIA.Events {
 		public static string EvProceed 			= "EvProceed";
 
 
+		/// <summary>Set storagepath systemwide. Expects full path as string</summary>
+		public static string EvSetCustomStoragePath 	= "EvSetCustomStoragePath";
 
 
 		/// <summary>Notification that local config files are found on disk. Expects amount as int</summary>
