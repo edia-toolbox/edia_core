@@ -9,7 +9,7 @@ namespace eDIA
 	public class SettingsDeclaration {
         public Constants.Interactor VisableInteractor;
 		public Constants.Interactor InteractiveInteractor;
-		public Vector2 screenResolution = new Vector2(55f,44);
+		public int screenResolution = 0;
 		public float volume = 50f;
         public Constants.Languages language = Constants.Languages.ENG;
 
@@ -22,7 +22,6 @@ namespace eDIA
     {
         public static string localConfigDirectoryName = "Configs";
 
-        // 
         public enum Interactor { LEFT, RIGHT, BOTH };
 
         // Fixed FPS target
@@ -33,8 +32,9 @@ namespace eDIA
 
         // List of possible resolutions
         public static List<Vector2> screenResolutions = new List<Vector2>() { 
+            new Vector2(1280,720),
             new Vector2(1920,1080),
-            new Vector2(2048,1024) 
+            new Vector2(2048,1440) 
         };
         
     }
