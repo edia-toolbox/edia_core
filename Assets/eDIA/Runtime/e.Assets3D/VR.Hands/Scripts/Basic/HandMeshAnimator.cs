@@ -9,6 +9,7 @@ public class HandMeshAnimator : MonoBehaviour {
 
 	[Header("Refs")]
 	public InputActionReference gripReference = null;
+	public InputActionReference pointReference = null;
 
 	[Header("Settings")]
 	public float speed = 5f;
@@ -20,13 +21,13 @@ public class HandMeshAnimator : MonoBehaviour {
 
 	private readonly List<Finger> gripFingers = new List<Finger> () {
 		new Finger (FingerType.Middle),
-			new Finger (FingerType.Ring),
-			new Finger (FingerType.Pinky)
+		new Finger (FingerType.Ring),
+		new Finger (FingerType.Pinky)
 	};
 
 	private readonly List<Finger> pointFingers = new List<Finger> () {
 		new Finger (FingerType.Index),
-			new Finger (FingerType.Thumb),
+		new Finger (FingerType.Thumb),
 	};
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
@@ -39,6 +40,7 @@ public class HandMeshAnimator : MonoBehaviour {
 	private void Start()
 	{
 	    	gripReference.action.performed += GripPerformed;
+		pointReference.action.performed += PointPerformed;
 	}
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
@@ -48,14 +50,18 @@ public class HandMeshAnimator : MonoBehaviour {
 		SetFingerTargets (gripFingers, context.ReadValue<float>());
 	}
 
+	void PointPerformed (InputAction.CallbackContext context) {
+		SetFingerTargets (pointFingers, context.ReadValue<float>());
+	}
+
 	private void Update () {
 		// Smooth input values
-		// SmoothFinger (gripFingers);
-		// SmoothFinger(pointFingers);
+		SmoothFinger (gripFingers);
+		SmoothFinger(pointFingers);
 
 		// Apply smooth values
-		// AnimateFinger(pointFingers);
-		// AnimateFinger (gripFingers);
+		AnimateFinger(pointFingers);
+		AnimateFinger (gripFingers);
 	}
 
 
