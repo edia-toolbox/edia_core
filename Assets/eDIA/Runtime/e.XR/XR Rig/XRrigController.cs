@@ -117,7 +117,7 @@ namespace eDIA {
 
 		/// <summary>Show/Hide controller</summary>
 		/// <param name="_onOff">True/false</param>
-		void Show (bool _onOff) {
+		public void Show (bool _onOff) {
 
 			if (!isAllowedToBeVisable)
 				return;
