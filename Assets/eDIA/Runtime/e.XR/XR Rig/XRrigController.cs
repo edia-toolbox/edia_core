@@ -121,7 +121,7 @@ namespace eDIA {
 
 			if (!isAllowedToBeVisable)
 				return;
-
+ 
 			isVisible = _onOff;
 			handSMR.enabled = _onOff;		
 		}
