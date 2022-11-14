@@ -9,6 +9,12 @@ public class CtrlSlider : MonoBehaviour {
 
 	[Header ("References")]
 	public TextMeshProUGUI currentValueField;
+	private Slider mySlider;
+
+	private void Awake() {
+		mySlider = GetComponent<Slider>();
+		currentValueField.text = mySlider.value.ToString();
+	}
 
 	public int currentValue {
 		get {
