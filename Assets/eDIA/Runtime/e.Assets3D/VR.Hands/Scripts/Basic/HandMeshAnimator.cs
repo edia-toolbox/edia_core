@@ -12,7 +12,7 @@ public class HandMeshAnimator : MonoBehaviour {
 	public InputActionReference pointReference = null;
 
 	[Header("Settings")]
-	public float speed = 5f;
+	public float smoothingSpeed = 5f;
 
 	private Animator animator = null;
 
@@ -75,7 +75,7 @@ public class HandMeshAnimator : MonoBehaviour {
 
 	private void SmoothFinger (List<Finger> fingers) {
 		foreach (Finger finger in fingers) {
-			float time = speed * Time.unscaledDeltaTime;
+			float time = smoothingSpeed * Time.unscaledDeltaTime;
 			finger.current = Mathf.MoveTowards (finger.current, finger.target, time);
 		}
 	}
