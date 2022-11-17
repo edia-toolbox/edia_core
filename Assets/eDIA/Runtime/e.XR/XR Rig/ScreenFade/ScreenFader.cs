@@ -27,6 +27,7 @@ namespace eDIA {
 
         private IEnumerator FadeIn()
         {
+            Debug.Log("StartFadeIn");
             while (_intensity <= 1.0f)
             {
                 _intensity += _speed * Time.deltaTime;

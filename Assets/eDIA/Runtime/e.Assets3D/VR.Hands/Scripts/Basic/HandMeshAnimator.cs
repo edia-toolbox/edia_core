@@ -1,7 +1,10 @@
-﻿using System.Collections;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using eDIA;
+using System;
 
 public class HandMeshAnimator : MonoBehaviour {
 
@@ -41,10 +44,49 @@ public class HandMeshAnimator : MonoBehaviour {
 	{
 	    	gripReference.action.performed += GripPerformed;
 		pointReference.action.performed += PointPerformed;
+
+		EventManager.StartListening(eDIA.Events.Interaction.EvHandPointPose, OnEvHandPointPose);
 	}
 
-#endregion // -------------------------------------------------------------------------------------------------------------------------------
-#region EVENTHANDLERS
+	private void OnDestroy() {
+		EventManager.StopListening(eDIA.Events.Interaction.EvHandPointPose, OnEvHandPointPose);
+	}
+
+
+	#endregion // -------------------------------------------------------------------------------------------------------------------------------
+	#region EVENTHANDLERS
+
+	private void OnEvHandPointPose (eParam obj)
+	{
+		if (obj.GetBool())
+			StartCoroutine(GoIntoPointMode());		
+		else 
+			StartCoroutine(GotoIntoIdleMode());		
+	}
+
+	IEnumerator GoIntoPointMode () {
+		float val = 0f;
+
+		while (val < 1f) {
+			SetFingerTargets (pointFingers, val);
+			val += 0.1f;
+			yield return new WaitForEndOfFrame();
+		}
+
+		SetFingerTargets (pointFingers, 1f);
+	}
+
+	IEnumerator GotoIntoIdleMode () {
+		float val = 1f;
+
+		while (val > 0f) {
+			SetFingerTargets (pointFingers, val);
+			val -= 0.1f;
+			yield return new WaitForEndOfFrame();
+		}
+
+		SetFingerTargets (pointFingers, 0f);
+	}
 
 	void GripPerformed (InputAction.CallbackContext context) {
 		SetFingerTargets (gripFingers, context.ReadValue<float>());

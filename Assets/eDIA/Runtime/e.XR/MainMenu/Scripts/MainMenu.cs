@@ -72,6 +72,7 @@ namespace eDIA {
 	#region Starters
 
 		void Awake() {
+			Debug.Log("StartListening EvMenuPerformed");
 			EventManager.StartListening("EvMenuPerformed", OnEvMenuPerformed);
 		}
 
@@ -211,7 +212,6 @@ namespace eDIA {
 	#region helpers
 
 		void SetMenuPosition () {
-			// TODO how to put it in front off the user always, part of the global XR rig maybe?
 
 			menuHolder.transform.localPosition = new Vector3(0, eDIA.XRrigUtilities.GetXRcam().position.y, menuDistance);
 		}

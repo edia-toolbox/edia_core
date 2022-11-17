@@ -105,6 +105,9 @@ namespace eDIA.Events {
 
  		/// <summary>System found XR hands and HMD objects. Expects null</summary>
 		public static string EvFoundXRrigReferences		= "EvFoundXRrigReferences";
+
+		/// <summary>System found XR hands and HMD objects. Expects null</summary>
+		public static string EvHandPointPose		= "EvHandPointPose";
 	}
 
 	//? ========================================================================================================

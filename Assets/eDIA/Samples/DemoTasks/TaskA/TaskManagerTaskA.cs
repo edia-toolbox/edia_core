@@ -119,6 +119,8 @@ namespace TASK {
 			void TaskStep1() {
 				AddToLog("Step:" + (currentStep + 1) +" > " + trialSequence[currentStep].title);
 
+				EventManager.TriggerEvent(eDIA.Events.Interaction.EvHandPointPose, new eParam(true));
+
 				ExperimentManager.Instance.EnableExperimentPause(true);
 				XRrigUtilities.EnableXRInteraction(false);
 
@@ -131,6 +133,8 @@ namespace TASK {
 			/// <summary>Move cube, wait on user input</summary>
 			void TaskStep2() {
 				AddToLog("Step:" + (currentStep + 1) +" > " + trialSequence[currentStep].title);
+
+				EventManager.TriggerEvent(eDIA.Events.Interaction.EvHandPointPose, new eParam(false));
 
 				if (moveRoutine == null) {
 					moveRoutine = StartCoroutine("MoveCube");

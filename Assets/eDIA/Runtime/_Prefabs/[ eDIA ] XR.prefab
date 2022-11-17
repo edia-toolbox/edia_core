@@ -896,7 +896,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2895498609272378037}
   - component: {fileID: 2895498609272378036}
-  - component: {fileID: 2895498609272378038}
   m_Layer: 0
   m_Name: '[ eDIA ] XR'
   m_TagString: Untagged
@@ -939,33 +938,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67bde8944b186fd4b803f9c5c195a078, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  showLog: 0
+  showLog: 1
   taskColor: {r: 0, g: 1, b: 1, a: 1}
   XRrig_MainCamera: {fileID: 119296242425747648}
   XRrig_LeftController: {fileID: 119296241153373625}
   XRrig_RightController: {fileID: 119296242191617566}
   mainMenuHolder: {fileID: 2895498608240784868}
---- !u!114 &2895498609272378038
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2895498609272378035}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34e3dacc4599bc547af4a43b0b848c66, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Note: '!!!!! SHOULD BE IN THE ROOT OF THE HIERARCHY !!!!!
-
-
-    SystemManager:
-
-    Singleton
-    that travels along the scenes and has references to the XR rig components.
-
-'
 --- !u!1 &2895498609317418377
 GameObject:
   m_ObjectHideFlags: 0
@@ -1655,6 +1633,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OcclusionCulling
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2992980498975579544, guid: 855907b17848de04d9c8dd92687e9b89,
+        type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 1079
       objectReference: {fileID: 0}
     - target: {fileID: 2992980500322122586, guid: 855907b17848de04d9c8dd92687e9b89,
         type: 3}

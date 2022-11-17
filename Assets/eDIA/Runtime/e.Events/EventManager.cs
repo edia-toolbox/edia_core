@@ -245,5 +245,10 @@ namespace eDIA {
 				Debug.Log("No listener for:" + eventName);
 			}
 		}
+
+		internal static void StartListening(object evPointMode)
+		{
+			throw new NotImplementedException();
+		}
 	}
 }
