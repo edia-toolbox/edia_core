@@ -68,24 +68,24 @@ public class HandMeshAnimator : MonoBehaviour {
 		float val = 0f;
 
 		while (val < 1f) {
-			SetFingerTargets (pointFingers, val);
+			SetFingerTargets (gripFingers, val);
 			val += 0.1f;
 			yield return new WaitForEndOfFrame();
 		}
 
-		SetFingerTargets (pointFingers, 1f);
+		SetFingerTargets (gripFingers, 1f);
 	}
 
 	IEnumerator GotoIntoIdleMode () {
 		float val = 1f;
 
 		while (val > 0f) {
-			SetFingerTargets (pointFingers, val);
+			SetFingerTargets (gripFingers, val);
 			val -= 0.1f;
 			yield return new WaitForEndOfFrame();
 		}
 
-		SetFingerTargets (pointFingers, 0f);
+		SetFingerTargets (gripFingers, 0f);
 	}
 
 	void GripPerformed (InputAction.CallbackContext context) {
