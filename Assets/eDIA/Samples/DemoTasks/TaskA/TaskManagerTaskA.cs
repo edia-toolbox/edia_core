@@ -39,6 +39,8 @@ namespace TASK {
 				// Custom task related actions go down here ▼
 
 				// ..
+				// Disable live visual reaction to the controller
+				EventManager.TriggerEvent(eDIA.Events.Interaction.EvHandModelReacts, new eParam(false));
 			}
 			
 			public override void Awake() {
@@ -119,7 +121,7 @@ namespace TASK {
 			void TaskStep1() {
 				AddToLog("Step:" + (currentStep + 1) +" > " + trialSequence[currentStep].title);
 
-				EventManager.TriggerEvent(eDIA.Events.Interaction.EvHandPointPose, new eParam(true));
+				EventManager.TriggerEvent(eDIA.Events.Interaction.EvHandPose, new eParam("point"));
 
 				ExperimentManager.Instance.EnableExperimentPause(true);
 				XRrigUtilities.EnableXRInteraction(false);
@@ -134,7 +136,6 @@ namespace TASK {
 			void TaskStep2() {
 				AddToLog("Step:" + (currentStep + 1) +" > " + trialSequence[currentStep].title);
 
-				EventManager.TriggerEvent(eDIA.Events.Interaction.EvHandPointPose, new eParam(false));
 
 				if (moveRoutine == null) {
 					moveRoutine = StartCoroutine("MoveCube");
@@ -160,6 +161,8 @@ namespace TASK {
 					theCube.GetComponent<MeshRenderer>().material.color = newCol;
 				else newCol = Color.magenta;
 
+				EventManager.TriggerEvent(eDIA.Events.Interaction.EvHandPose, new eParam("idle"));
+				
 				NextStepFromUserOrSceneOrButtonOrTimerOrWhatever();
 			}
 

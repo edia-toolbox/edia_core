@@ -106,8 +106,14 @@ namespace eDIA.Events {
  		/// <summary>System found XR hands and HMD objects. Expects null</summary>
 		public static string EvFoundXRrigReferences		= "EvFoundXRrigReferences";
 
-		/// <summary>System found XR hands and HMD objects. Expects null</summary>
-		public static string EvHandPointPose		= "EvHandPointPose";
+	//? ========================================================================================================
+	
+		/// <summary>Animate the handmodel is this pose, expects string 'idle' 'point' 'fist' ...</summary>
+		public static string EvHandPose				= "EvHandPose";
+
+		/// <summary>Handmodel pose reacts live to controller state, expects bool</summary>
+		public static string EvHandModelReacts			= "EvHandModelReacts";
+
 	}
 
 	//? ========================================================================================================

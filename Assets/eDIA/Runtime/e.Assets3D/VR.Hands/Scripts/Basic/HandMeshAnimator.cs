@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -42,33 +41,55 @@ public class HandMeshAnimator : MonoBehaviour {
 
 	private void Start()
 	{
-	    	gripReference.action.performed += GripPerformed;
-		pointReference.action.performed += PointPerformed;
-
-		EventManager.StartListening(eDIA.Events.Interaction.EvHandPointPose, OnEvHandPointPose);
+		EventManager.StartListening(eDIA.Events.Interaction.EvHandPose, OnEvHandPose);
+		EventManager.StartListening(eDIA.Events.Interaction.EvHandModelReacts, EvHandModelReacts);
 	}
 
 	private void OnDestroy() {
-		EventManager.StopListening(eDIA.Events.Interaction.EvHandPointPose, OnEvHandPointPose);
+		EventManager.StopListening(eDIA.Events.Interaction.EvHandPose, OnEvHandPose);
+		EventManager.StartListening(eDIA.Events.Interaction.EvHandModelReacts, EvHandModelReacts);
 	}
+
 
 
 	#endregion // -------------------------------------------------------------------------------------------------------------------------------
 	#region EVENTHANDLERS
 
-	private void OnEvHandPointPose (eParam obj)
-	{
-		if (obj.GetBool())
-			StartCoroutine(GoIntoPointMode());		
-		else 
-			StartCoroutine(GotoIntoIdleMode());		
+	private void EvHandModelReacts(eParam obj) {
+
+		if (obj.GetBool()) {
+	    		gripReference.action.performed += GripPerformed;
+			pointReference.action.performed += PointPerformed;
+		} else {
+			gripReference.action.performed -= GripPerformed;
+			pointReference.action.performed -= PointPerformed;
+		}
 	}
 
-	IEnumerator GoIntoPointMode () {
+
+	private void OnEvHandPose (eParam obj)
+	{
+		string pose = obj.GetString();
+
+		switch (pose) {
+			case "idle":
+				StartCoroutine(GotoIntoIdleMode());		
+			break;
+			case "point":
+				StartCoroutine(GoIntoPose(gripFingers));		
+			break;
+			case "fist":
+				StartCoroutine(GoIntoPose(gripFingers));		
+				StartCoroutine(GoIntoPose(pointFingers));
+			break;
+		}
+	}
+
+	IEnumerator GoIntoPose (List<Finger> fingers) {
 		float val = 0f;
 
 		while (val < 1f) {
-			SetFingerTargets (gripFingers, val);
+			SetFingerTargets (fingers, val);
 			val += 0.1f;
 			yield return new WaitForEndOfFrame();
 		}
