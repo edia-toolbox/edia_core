@@ -12,6 +12,9 @@ namespace eDIA.Events {
 		/// <summary>Set experiment config. Expects config as JSON string</summary>
 		public static string EvSetExperimentConfig 	= "EvSetExperimentConfig";
 
+		/// <summary>Set task config. Expects config as JSON string</summary>
+		public static string EvSetTaskConfig 		= "EvSetTaskConfig";
+
 		/// <summary>Starts the experiment. Expects null</summary>
 		public static string EvStartExperiment 		= "EvStartExperiment";
 
@@ -107,7 +110,8 @@ namespace eDIA.Events {
 		public static string EvFoundXRrigReferences		= "EvFoundXRrigReferences";
 
 	//? ========================================================================================================
-	
+	//? Hands
+
 		/// <summary>Animate the handmodel is this pose, expects string 'idle' 'point' 'fist' ...</summary>
 		public static string EvHandPose				= "EvHandPose";
 

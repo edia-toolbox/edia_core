@@ -33,14 +33,15 @@ namespace eDIA {
 		public virtual void Awake() {
 			// Listen to event that XR rig is ready
 			EventManager.StartListening(eDIA.Events.Interaction.EvFoundXRrigReferences, 	OnEvFoundXRrigReferences);
-			EventManager.StartListening(eDIA.Events.Core.EvExperimentInitialised, 	OnEvExperimentInitialised);
-			EventManager.StartListening(eDIA.Events.Core.EvLocalConfigSubmitted, 	OnEvLocalConfigSubmitted);
+			EventManager.StartListening(eDIA.Events.Core.EvExperimentInitialised, 		OnEvExperimentInitialised);
+			EventManager.StartListening(eDIA.Events.Core.EvLocalConfigSubmitted, 		OnEvLocalConfigSubmitted);
+			EventManager.StartListening(eDIA.Events.Core.EvSetTaskConfig, 			OnEvSetTaskConfig);
 
 			GetXRrigReferences();
 		}
 
-		public virtual void OnEnable() {
 
+		public virtual void OnEnable() {
 		}
 
 		public virtual void Start() {
@@ -88,29 +89,42 @@ namespace eDIA {
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region TASK UXF HELPERS
 
-		private void SetTaskConfig(string filename)
+		private void LoadTaskConfigFromFile(string filename)
 		{
 			// Load taskConfigFile
 			string taskConfigJSON = FileManager.ReadStringFromApplicationPathSubfolder(Constants.localConfigDirectoryName + "/Tasks", filename);
 
-			if (taskConfigJSON == "ERROR") {
+			if (taskConfigJSON == "ERROR")
+			{
 				Debug.LogError("Task JSON not correctly loaded!");
 				return;
-				
-				// TODO: There should be a HALT option in the framework, to halt the complete application and rset back
 			}
 
+			SetTaskConfigFromJSON(taskConfigJSON);
+		}
+
+		private void SetTaskConfigFromJSON (string taskConfigJSON)
+		{
 			// Parse JSON into a container
 			taskSettingsContainer = UnityEngine.JsonUtility.FromJson<TaskSettingsContainer>(taskConfigJSON);
 
 			// Workaround to parse into a UXF Dictionary 
-			foreach(ExperimentManager.SettingsTuple tuple in taskSettingsContainer.taskSettings) {
-				
-				if (tuple.value.Contains(',')) { // it's a list!
+			foreach (ExperimentManager.SettingsTuple tuple in taskSettingsContainer.taskSettings)
+			{
+
+				if (tuple.value.Contains(','))
+				{ // it's a list!
 					List<string> stringlist = tuple.value.Split(',').ToList();
-					taskSettings.SetValue(tuple.key, stringlist);	
-				} else taskSettings.SetValue(tuple.key, tuple.value);	// normal string
+					taskSettings.SetValue(tuple.key, stringlist);
+				}
+				else taskSettings.SetValue(tuple.key, tuple.value);   // normal string
 			}
+		}
+
+		/// <summary>Event catcher for taskconfig</summary>
+		void OnEvSetTaskConfig(eParam obj)
+		{
+			SetTaskConfigFromJSON(obj.GetString());
 		}
 
 		public void AddToTrialResults (string key, string value) {
@@ -146,6 +160,7 @@ namespace eDIA {
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region eDIA EXPERIMENT EVENT HANDLERS
 
+
 		/// <summary>Look up given index in the localConfigFiles list and give content of that file to system </summary>
 		/// <param name="e">String = filename of the configfile</param>
 		void OnEvLocalConfigSubmitted (eParam e) {
@@ -154,7 +169,7 @@ namespace eDIA {
 			string filename = e.GetStrings()[0] + ".json"; // combine task string and participant string
 			
 			// Debug.Log(e.GetString());
-			SetTaskConfig (filename);
+			LoadTaskConfigFromFile (filename);
 		}
 		
 		void OnEvExperimentInitialised (eParam e) {
