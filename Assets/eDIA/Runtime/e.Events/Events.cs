@@ -45,6 +45,9 @@ namespace eDIA.Events {
 		/// <summary>Event indicating that the system can proceed, useally from experimenter. Expects null</summary>
 		public static string EvProceed 			= "EvProceed";
 
+		/// <summary>Fired by ExperimentManager when a new block is starting. Expects null</summary>
+		public static string EvBlockStart 			= "EvBlockStart";
+
 
 		/// <summary>Set storagepath systemwide. Expects full path as string</summary>
 		public static string EvSetCustomStoragePath 	= "EvSetCustomStoragePath";
@@ -72,6 +75,9 @@ namespace eDIA.Events {
 		/// <summary>Exit application</summary>
 		public static string EvQuitApplication 		= "EvQuitApplication";
 
+
+		/// <summary>Send progress update (trial/block)</summary>
+		public static string EvExperimentProgressUpdate = "EvExperimentProgressUpdate";
 
 
 		/// <summary>Broaccast a update in the experiment, useally to show to the user</summary>

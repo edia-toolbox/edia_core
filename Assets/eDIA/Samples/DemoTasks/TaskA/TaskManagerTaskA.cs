@@ -15,12 +15,14 @@ namespace TASK {
 		/// 3. Switch the inspector to 'debug' mode (3 dots right topcorner)<br/>
 		/// 4. Find [ SYSTEM ] > [ EXP ] gameobject and replace 'TaskManagerDemo' script entry in the inspector with your TaskManager script and switch inspector mode back again</para>
 		/// </summary>
-		public class TaskManagerTaskA : TaskManagerBase {
+		public class TaskManagerTaskA : TaskManager {
 
-			[Header(("Task related refs"))]
-			public GameObject theCube;
+			// [Header(("Task related refs"))]
+			// public GameObject theCube;
 			
-			private Coroutine moveRoutine = null;
+			// private Coroutine moveRoutine = null;
+
+
 
 #region MONO METHODS 
 
@@ -55,7 +57,7 @@ namespace TASK {
 			public override void Start() {
 				base.Start(); //! Do not remove
 
-				TaskSequenceSteps();
+				
 
 				// ---------------------------------------------------------------------------------------------
 				// Custom task related actions go down here ▼
@@ -107,88 +109,89 @@ namespace TASK {
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region TASK STRUCTURE METHODS 
 
-			/// <summary>The steps the trial goes through</summary>
-			void TaskSequenceSteps() {
-				trialSequence.Add(new TrialStep("Present Cube", TaskStep1));
-				trialSequence.Add(new TrialStep("Move cube, wait on user input", TaskStep2));
-				trialSequence.Add(new TrialStep("Stop moving, change color", TaskStep3));
-				trialSequence.Add(new TrialStep("Wait ", TaskStep4));
-				//trialSequence.Add( new TrialStep("last step", TaskStepX) );
-				// etc
-			}
 
-			/// <summary>Present Cube</summary>
-			void TaskStep1() {
-				AddToLog("Step:" + (currentStep + 1) +" > " + trialSequence[currentStep].title);
+// 			/// <summary>The steps the trial goes through</summary>
+// 			void TaskSequenceSteps() {
+// 				trialSequence.Add(new TrialStep("Present Cube", TaskStep1));
+// 				trialSequence.Add(new TrialStep("Move cube, wait on user input", TaskStep2));
+// 				trialSequence.Add(new TrialStep("Stop moving, change color", TaskStep3));
+// 				trialSequence.Add(new TrialStep("Wait ", TaskStep4));
+// 				//trialSequence.Add( new TrialStep("last step", TaskStepX) );
+// 				// etc
+// 			}
 
-				EventManager.TriggerEvent(eDIA.Events.Interaction.EvHandPose, new eParam("point"));
+// // 			/// <summary>Present Cube</summary>
+// 			void TaskStep1() {
+// 				AddToLog("Step:" + (currentStep + 1) +" > " + trialSequence[currentStep].title);
 
-				ExperimentManager.Instance.EnableExperimentPause(true);
-				XRrigUtilities.EnableXRInteraction(false);
+// 				EventManager.TriggerEvent(eDIA.Events.Interaction.EvHandPose, new eParam("point"));
 
-				theCube.gameObject.SetActive(true);
-				theCube.transform.position = new Vector3(0, XRrig_MainCamera.position.y, taskSettings.GetFloat("distanceCube"));
+// 				ExperimentManager.Instance.EnableExperimentPause(true);
+// 				XRrigUtilities.EnableXRInteraction(false);
 
-				Invoke("NextStepFromUserOrSceneOrButtonOrTimerOrWhatever", taskSettings.GetFloat("timerShowCube"));
-			}
+// 				theCube.gameObject.SetActive(true);
+// 				theCube.transform.position = new Vector3(0, XRrig_MainCamera.position.y, taskSettings.GetFloat("distanceCube"));
+
+// 				Invoke("NextStepFromUserOrSceneOrButtonOrTimerOrWhatever", taskSettings.GetFloat("timerShowCube"));
+// 			}
 			
-			/// <summary>Move cube, wait on user input</summary>
-			void TaskStep2() {
-				AddToLog("Step:" + (currentStep + 1) +" > " + trialSequence[currentStep].title);
+// 			/// <summary>Move cube, wait on user input</summary>
+// 			void TaskStep2() {
+// 				AddToLog("Step:" + (currentStep + 1) +" > " + trialSequence[currentStep].title);
 
 
-				if (moveRoutine == null) {
-					moveRoutine = StartCoroutine("MoveCube");
-				}
+// 				if (moveRoutine == null) {
+// 					moveRoutine = StartCoroutine("MoveCube");
+// 				}
 
-				XRrigUtilities.EnableXRInteraction(true);
-				ExperimentManager.Instance.EnableExperimentProceed(true); // enable proceed button
-				EventManager.StartListening(eDIA.Events.Core.EvProceed, OnEvProceed); //! Continues to the next step
-				EventManager.TriggerEvent("EvShowMessage", new eParam("Click button to continue"));
-			}
+// 				XRrigUtilities.EnableXRInteraction(true);
+// 				ExperimentManager.Instance.EnableExperimentProceed(true); // enable proceed button
+// 				EventManager.StartListening(eDIA.Events.Core.EvProceed, OnEvProceed); //! Continues to the next step
+// 				EventManager.TriggerEvent("EvShowMessage", new eParam("Click button to continue"));
+// 			}
 
-			/// <summary>Stop moving, change color</summary>
-			void TaskStep3() {
-				AddToLog("Step:" + (currentStep + 1) +" > " + trialSequence[currentStep].title);
+// 			/// <summary>Stop moving, change color</summary>
+// 			void TaskStep3() {
+// 				AddToLog("Step:" + (currentStep + 1) +" > " + trialSequence[currentStep].title);
 
-				if (moveRoutine != null) {
-					StopCoroutine(moveRoutine);
-					moveRoutine = null;
-				}
+// 				if (moveRoutine != null) {
+// 					StopCoroutine(moveRoutine);
+// 					moveRoutine = null;
+// 				}
 				
-				Color newCol;
-				if (ColorUtility.TryParseHtmlString(taskSettings.GetStringList("cubeColors")[Session.instance.CurrentTrial.settings.GetInt("color")], out newCol))
-					theCube.GetComponent<MeshRenderer>().material.color = newCol;
-				else newCol = Color.magenta;
+// 				Color newCol;
+// 				if (ColorUtility.TryParseHtmlString(taskSettings.GetStringList("cubeColors")[Session.instance.CurrentTrial.settings.GetInt("color")], out newCol))
+// 					theCube.GetComponent<MeshRenderer>().material.color = newCol;
+// 				else newCol = Color.magenta;
 
-				EventManager.TriggerEvent(eDIA.Events.Interaction.EvHandPose, new eParam("idle"));
+// 				EventManager.TriggerEvent(eDIA.Events.Interaction.EvHandPose, new eParam("idle"));
 				
-				NextStepFromUserOrSceneOrButtonOrTimerOrWhatever();
-			}
+// 				NextStepFromUserOrSceneOrButtonOrTimerOrWhatever();
+// 			}
 
-			/// <summary>Wait</summary>
-			void TaskStep4() {
-				AddToLog("Step:" + (currentStep + 1) +" > " + trialSequence[currentStep].title);
+// 			/// <summary>Wait</summary>
+// 			void TaskStep4() {
+// 				AddToLog("Step:" + (currentStep + 1) +" > " + trialSequence[currentStep].title);
 
-				Invoke("NextStepFromUserOrSceneOrButtonOrTimerOrWhatever", taskSettings.GetFloat("timerWait")); 
-			}
+// 				Invoke("NextStepFromUserOrSceneOrButtonOrTimerOrWhatever", taskSettings.GetFloat("timerWait")); 
+// 			}
 
-			/// <summary>Call this from your code to proceed to the next step</summary>
-			public void NextStepFromUserOrSceneOrButtonOrTimerOrWhatever() {
-				NextStep();
-			}
+// 			/// <summary>Call this from your code to proceed to the next step</summary>
+// 			public void NextStepFromUserOrSceneOrButtonOrTimerOrWhatever() {
+// 				NextStep();
+// 			}
 
-#endregion // -------------------------------------------------------------------------------------------------------------------------------
-#region HELPERS
-			/// <summary>Moves the cube up or down depending on the setting `direction` in the trial settings.</summary>
-			IEnumerator MoveCube () {
-				float increment = Session.instance.CurrentTrial.settings.GetInt("direction") == 1 ? 0.001f : -0.001f;
+// #endregion // -------------------------------------------------------------------------------------------------------------------------------
+// #region HELPERS
+// 			/// <summary>Moves the cube up or down depending on the setting `direction` in the trial settings.</summary>
+// 			IEnumerator MoveCube () {
+// 				float increment = Session.instance.CurrentTrial.settings.GetInt("direction") == 1 ? 0.001f : -0.001f;
 
-				while (true) {
-					theCube.transform.Translate(new Vector3(0, increment ,0), Space.World);
-					yield return new WaitForEndOfFrame();
-				}
-			}
+// 				while (true) {
+// 					theCube.transform.Translate(new Vector3(0, increment ,0), Space.World);
+// 					yield return new WaitForEndOfFrame();
+// 				}
+// 			}
 
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
@@ -235,8 +238,8 @@ namespace TASK {
 			public override void OnBlockIntroduction() {
 				//! System waits on 'EvProceed' event automaticaly to proceed
 
-				EventManager.TriggerEvent("EvShowMessage", new eParam(  ExperimentManager.Instance.experimentConfig.GetBlockIntroduction(Session.instance.currentBlockNum) ));
-				Debug.Log("<color=#ffffff> >>> "+ ExperimentManager.Instance.experimentConfig.GetBlockIntroduction(Session.instance.currentBlockNum) + "</color>");
+				EventManager.TriggerEvent("EvShowMessage", new eParam(  ExperimentManager.Instance.experimentConfig.GetBlockIntroduction()) );
+				Debug.Log("<color=#ffffff> >>> "+ ExperimentManager.Instance.experimentConfig.GetBlockIntroduction() + "</color>");
 
 			}
 

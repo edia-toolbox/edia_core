@@ -26,6 +26,15 @@ namespace eDIA {
 			public string value 	= string.Empty;
 		}
 
+		[System.Serializable]
+		public class ExperimentBlock {
+			public string 				name				= string.Empty;
+			public string 				introduction 		= string.Empty;
+			public List<string> 			headers 			= new List<string>();
+			public List<TrialSequenceValues> 	trialSequence 		= new List<TrialSequenceValues>();
+		}
+
+
 		/// <summary> Temp storage of a list of string to use in another class to generate a two dimensional array basically</summary>
 		[System.Serializable]
 		public class TrialSequenceValues {
@@ -46,27 +55,26 @@ namespace eDIA {
 			public int 					sessionNumber 		= 0;
 			public List<SettingsTuple>		participantInfo 		= new List<SettingsTuple>();
 			public List<SettingsTuple>		sessionSettings 		= new List<SettingsTuple>();
-			public List<SettingsTuple> 		blockInstructions 	= new List<SettingsTuple>();
+			// public List<SettingsTuple> 		blockInstructions 	= new List<SettingsTuple>();
 			public List<int>				breakAfter			= new List<int>(); 
-			public List<string> 			trialSequenceKeys 	= new List<string>();
-			public List<TrialSequenceValues> 	trialSequenceValues 	= new List<TrialSequenceValues>();
+			// public List<string> 			trialSequenceKeys 	= new List<string>();
+			// public List<TrialSequenceValues> 	trialSequenceValues 	= new List<TrialSequenceValues>();
+			public List<ExperimentBlock>		blocks			= new List<ExperimentBlock>();
 
-			public bool hasBlockIntroduction (int _blockNumber) {
-				bool itDoes = false;
+			// public bool hasBlockIntroduction (int _blockNumber) {
+			// 	bool itDoes = false;
 
-				if (blockInstructions.Count == 0) // if there are none
-					return false;
+			// 	if (blockInstructions.Count == 0) // if there are none
+			// 		return false;
 
-				foreach (SettingsTuple s in blockInstructions) 
-					itDoes = int.Parse(s.key) == _blockNumber ? true : itDoes;
-				return itDoes;
-			}
+			// 	foreach (SettingsTuple s in blockInstructions) 
+			// 		itDoes = int.Parse(s.key) == _blockNumber ? true : itDoes;
+			// 	return itDoes;
+			// }
 
-			public string GetBlockIntroduction (int _blockNumber) {
-				string msg = "NO DATA FOUND";
-				foreach (SettingsTuple s in blockInstructions)
-					msg = int.Parse(s.key) == _blockNumber ? s.value : msg;
-				return msg;
+			public string GetBlockIntroduction () {
+
+				return blocks[Session.instance.currentBlockNum-1].introduction == string.Empty ? string.Empty : blocks[Session.instance.currentBlockNum-1].introduction;
 			}
 
 			public string[] GetExperimentDisplayInformation() {
@@ -75,14 +83,14 @@ namespace eDIA {
 		}	
 
 		/// The config instance that holds current experimental configuration
-		[HideInInspector]
+		// [HideInInspector]
 		public ExperimentConfig experimentConfig;
 		[HideInInspector]
 		public bool experimentInitialized = false;
 
 		// Helpers
 		[Space(20)]
-		int activeBlockUXF = 0;
+		public int activeBlockUXF = 0;
 		bool isPauseRequested = false;
 
 		// UXF related
@@ -191,10 +199,10 @@ namespace eDIA {
 			currentUXFSessionSettings.SetValue("experimenter", experimentConfig.experimenter);
 
 			// Convert and add KEYS and VALUES to the UXF settings in order to be logged
-			TrialSequenceValuesContainer trialSequenceValuesContainer = new TrialSequenceValuesContainer();
-			trialSequenceValuesContainer.trialSequenceValues.AddRange(experimentConfig.trialSequenceValues);
-			currentUXFSessionSettings.SetValue("trialSequenceKeys", experimentConfig.trialSequenceKeys);
-			currentUXFSessionSettings.SetValue("trialSequenceValues", UnityEngine.JsonUtility.ToJson(trialSequenceValuesContainer, false));
+			// TrialSequenceValuesContainer trialSequenceValuesContainer = new TrialSequenceValuesContainer();
+			// trialSequenceValuesContainer.trialSequenceValues.AddRange(experimentConfig.trialSequenceValues);
+			// currentUXFSessionSettings.SetValue("trialSequenceKeys", experimentConfig.trialSequenceKeys);
+			// currentUXFSessionSettings.SetValue("trialSequenceValues", UnityEngine.JsonUtility.ToJson(trialSequenceValuesContainer, false));
 
 			// Are there default settings?
 			if (experimentConfig.sessionSettings.Count == 0)
@@ -221,7 +229,7 @@ namespace eDIA {
 		}
 
 		void SetTrialSequence () {
-			GenerateUXFSequence(experimentConfig.trialSequenceKeys, experimentConfig.trialSequenceValues); // Generate sequence for UXF
+			GenerateUXFSequence(); // Generate sequence for UXF
 		}
 
 		void OnEvStartExperiment (eParam e) {
@@ -271,7 +279,7 @@ namespace eDIA {
 			AddToExecutionOrderLog("OnSessionBegin");
 			EventManager.StartListening(eDIA.Events.Core.EvProceed, OnEvStartFirstTrial);
 
-			EventManager.TriggerEvent("EvExperimentInfoUpdate", new eParam("Welcome"));
+			EventManager.TriggerEvent("EvExperimentProgressUpdate", new eParam("Welcome"));
 			EnableExperimentProceed(true);
 
 			// eye calibration option enabled
@@ -289,7 +297,7 @@ namespace eDIA {
 			AddToLog("OnSessionEndUXF");
 			AddToExecutionOrderLog("OnSessionEndUXF");
 
-			EventManager.TriggerEvent("EvExperimentInfoUpdate", new eParam("End"));
+			EventManager.TriggerEvent("EvExperimentProgressUpdate", new eParam("End"));
 			
 			EnableExperimentProceed(false);
 			EnableExperimentPause(false);
@@ -300,13 +308,17 @@ namespace eDIA {
 			AddToLog("OnTrialBeginUXF");
 			AddToExecutionOrderLog("OnTrialBegin");
 
-			EventManager.TriggerEvent("EvExperimentInfoUpdate", null); // update sliders in GUI
+			// EventManager.TriggerEvent("EvExperimentProgressUpdate", null); // update sliders in GUI
 			
 			bool showIntroduction = false;
 
 			if ((Session.instance.currentBlockNum != activeBlockUXF) && (Session.instance.currentBlockNum <= Session.instance.blocks.Count)) {
+
+				//! NEW BLOCK				
+				EventManager.TriggerEvent(eDIA.Events.Core.EvBlockStart, null);
+
 				// Check for block introduction flag
-				showIntroduction = experimentConfig.hasBlockIntroduction(Session.instance.currentBlockNum);
+				showIntroduction = experimentConfig.GetBlockIntroduction() != string.Empty;
 				// Set new activeBlockUXF value
 				activeBlockUXF = Session.instance.currentBlockNum;
 			}
@@ -316,7 +328,7 @@ namespace eDIA {
 				BlockIntroduction ();
 			else {
 				EventManager.TriggerEvent("EvTrialBegin", null);
-				EventManager.TriggerEvent("EvExperimentInfoUpdate", new eParam("Block"));
+				EventManager.TriggerEvent("EvExperimentProgressUpdate", new eParam(experimentConfig.blocks[Session.instance.currentBlockNum-1].name));
 			}
 		}
 
@@ -344,6 +356,7 @@ namespace eDIA {
 
 			// Reached last trial in a block?
 			if (Session.instance.CurrentBlock.lastTrial != endedTrial) {
+				// TODO Insert block check here
 				Session.instance.BeginNextTrialSafe();
 				return;
 			}
@@ -374,6 +387,9 @@ namespace eDIA {
 
 		public void EnableExperimentProceed(bool _onOff) {
 			EventManager.TriggerEvent("EvButtonChangeState", new eParam( new string[] { "PROCEED", _onOff.ToString() }));
+
+			if (_onOff)
+				EventManager.StartListening (eDIA.Events.Core.EvProceed, TaskManager.Instance.OnEvProceed);
 		}
 
 		/// <summary> Set system open for calibration call from event or button</summary>
@@ -389,7 +405,7 @@ namespace eDIA {
 			
 			// clean
 			EventManager.TriggerEvent("EvFinalizeSession", null);
-			EventManager.TriggerEvent("EvExperimentInfoUpdate", new eParam("Finalize Session"));
+			EventManager.TriggerEvent("EvExperimentProgressUpdate", new eParam("Finalize Session"));
 			Session.instance.End();
 		}
 
@@ -411,7 +427,7 @@ namespace eDIA {
 			EventManager.StartListening(eDIA.Events.Core.EvProceed, SessionResume);
 			EventManager.TriggerEvent(eDIA.Events.Core.EvSessionBreak, null);
 				
-			EventManager.TriggerEvent("EvExperimentInfoUpdate", new eParam("Break"));
+			EventManager.TriggerEvent("EvExperimentProgressUpdate", new eParam("Break"));
 
 			EnableExperimentProceed(true);
 			EnableExperimentPause(false);
@@ -425,7 +441,7 @@ namespace eDIA {
 			EventManager.StopListening(eDIA.Events.Core.EvProceed, SessionResume);
 			EventManager.TriggerEvent(eDIA.Events.Core.EvSessionResume, null);
 
-			EventManager.TriggerEvent("EvExperimentInfoUpdate", new eParam("Block"));
+			EventManager.TriggerEvent("EvExperimentProgressUpdate", new eParam("Block"));
 
 			EnableEyeCalibrationTrigger(false);
 
@@ -441,7 +457,7 @@ namespace eDIA {
 			AddToExecutionOrderLog("BlockIntroduction");
 			EventManager.StartListening(eDIA.Events.Core.EvProceed, BlockResume);
 
-			EventManager.TriggerEvent("EvExperimentInfoUpdate", new eParam("Introduction"));
+			EventManager.TriggerEvent("EvExperimentProgressUpdate", new eParam("Introduction"));
 
 			EnableExperimentProceed(true);
 			EnableExperimentPause(false);
@@ -465,31 +481,60 @@ namespace eDIA {
 #region JSON TO UXF CONVERSION
 
 		/// <summary>/// Convert JSON formatted definition for the seqence into a UXF format to run in the session/// </summary>
-		public void GenerateUXFSequence(List<string> _trialSequenceKeys, List<TrialSequenceValues> _trialSequenceValues) {
+		public void GenerateUXFSequence() {
 
-			Block newBlock = Session.instance.CreateBlock();
-			int currentblockNumber = 0;
+			foreach (ExperimentBlock b in experimentConfig.blocks) {
+				
+				Block newBlock = Session.instance.CreateBlock();
+				newBlock.settings.SetValue("name",b.name);
+				newBlock.settings.SetValue("introduction",b.introduction);
+				newBlock.settings.SetValue("headers",b.headers);
 
-			foreach (TrialSequenceValues row in _trialSequenceValues) {
-				if ((int.Parse(row.values[0])-1) != currentblockNumber) { // -1 as the JSON block_num starts at value 1
-					currentblockNumber++;
-					newBlock = Session.instance.CreateBlock();
-				}
+				foreach (TrialSequenceValues row in b.trialSequence) {
 
-				Trial newTrial = newBlock.CreateTrial();
+					Trial newTrial = newBlock.CreateTrial();
 
-				for (int i = 0; i < _trialSequenceKeys.Count; i++) {
-					newTrial.settings.SetValue(_trialSequenceKeys[i], row.values[i].ToUpper()); // set values to trial
+					for (int i = 0; i < b.headers.Count; i++) {
+						newTrial.settings.SetValue(b.headers[i], row.values[i].ToUpper()); // set values to trial
+					}
 				}
 			}
 
+			// TODO how to log different types of trials without having empty columns for each logfile
 			// Log all that shizzle
-			for (int i = 1; i < _trialSequenceKeys.Count; i++) {
-				Session.instance.settingsToLog.Add(_trialSequenceKeys[i]);
-			}
+			// for (int i = 1; i < _trialSequenceKeys.Count; i++) {
+			// 	Session.instance.settingsToLog.Add(_trialSequenceKeys[i]);
+			// }
 
 			AddToLog("Generated UXF Sequence");
 		}
+
+		// /// <summary>/// Convert JSON formatted definition for the seqence into a UXF format to run in the session/// </summary>
+		// public void GenerateUXFSequence(List<string> _trialSequenceKeys, List<TrialSequenceValues> _trialSequenceValues) {
+
+		// 	Block newBlock = Session.instance.CreateBlock();
+		// 	int currentblockNumber = 0;
+
+		// 	foreach (TrialSequenceValues row in _trialSequenceValues) {
+		// 		if ((int.Parse(row.values[0])-1) != currentblockNumber) { // -1 as the JSON block_num starts at value 1
+		// 			currentblockNumber++;
+		// 			newBlock = Session.instance.CreateBlock();
+		// 		}
+
+		// 		Trial newTrial = newBlock.CreateTrial();
+
+		// 		for (int i = 0; i < _trialSequenceKeys.Count; i++) {
+		// 			newTrial.settings.SetValue(_trialSequenceKeys[i], row.values[i].ToUpper()); // set values to trial
+		// 		}
+		// 	}
+
+		// 	// Log all that shizzle
+		// 	for (int i = 1; i < _trialSequenceKeys.Count; i++) {
+		// 		Session.instance.settingsToLog.Add(_trialSequenceKeys[i]);
+		// 	}
+
+		// 	AddToLog("Generated UXF Sequence");
+		// }
 
 #endregion	// -------------------------------------------------------------------------------------------------------------------------------
 #region LOGGING	

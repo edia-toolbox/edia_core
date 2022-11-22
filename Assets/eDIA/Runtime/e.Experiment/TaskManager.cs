@@ -4,10 +4,12 @@ using UnityEngine;
 using UXF;
 using System; // needed for <action> 
 using System.Linq;
+using UnityEngine.Events;
+
 
 namespace eDIA {
 
-	public class TaskManagerBase : MonoBehaviour {
+	public class TaskManager : Singleton<TaskManager> {
 
 #region DECLARATIONS
 
@@ -21,6 +23,14 @@ namespace eDIA {
 		
 		TaskSettingsContainer taskSettingsContainer;
 		public UXF.Settings taskSettings = new Settings();
+
+
+		// Events forwarding
+		[Header("Event hooks")]
+		public UnityEvent OnOnEnable = null;
+		public UnityEvent OnStart = null;
+
+
 
 		// XR RIG
 		[HideInInspector] public Transform XRrig_MainCamera 		= null;
@@ -140,6 +150,7 @@ namespace eDIA {
 			EventManager.StartListening(eDIA.Events.Core.EvTrialBegin, 		OnEvTrialBegin);
 			EventManager.StartListening(eDIA.Events.Core.EvSessionBreak, 	OnEvSessionBreak);
 			EventManager.StartListening(eDIA.Events.Core.EvBlockIntroduction, OnEvBlockIntroduction);
+			EventManager.StartListening(eDIA.Events.Core.EvBlockStart, 		OnEvBlockStart);
 
 			inSession = true;
 			OnSessionStart();
@@ -155,11 +166,11 @@ namespace eDIA {
 		public virtual void OnSessionEndUXF() {
 			AddToLog("OnSessionEndUXF");
 			inSession = false;
+			EventManager.StopListening(eDIA.Events.Core.EvBlockStart, 		OnEvBlockStart);
 		}
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region eDIA EXPERIMENT EVENT HANDLERS
-
 
 		/// <summary>Look up given index in the localConfigFiles list and give content of that file to system </summary>
 		/// <param name="e">String = filename of the configfile</param>
@@ -185,10 +196,23 @@ namespace eDIA {
 			StartTrial();
 		}
 
+		void OnEvBlockStart (eParam obj) {
+			// New block, got from experimentmanager
+			// Call overridable local Method
+			OnBlockStart();
+		}
+
+		public virtual void OnBlockStart () {
+			// Intentially empty
+
+		}
+
 		public virtual void OnEvProceed (eParam e) {
 			EventManager.StopListening(eDIA.Events.Core.EvProceed, OnEvProceed);
 			NextStep();
 		}
+
+
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region SESSION START / END
@@ -259,28 +283,15 @@ namespace eDIA {
 #region TASK STATEMACHINE
 		//? Methods controlling the current trial
 
-		[System.Serializable]
-		public class TrialStep {
-			public string title;
-			public Action methodToCall;
-
-			public TrialStep(string title, Action methodToCall) {
-				this.title = title;
-				this.methodToCall = methodToCall;
-			}
-		}
-
-		[SerializeField][HideInInspector]
+		[SerializeField]//[HideInInspector]
 		public List<TrialStep> trialSequence = new List<TrialStep>();
 		[HideInInspector]
 		public int currentStep = -1;
 
 		private bool inSession = false;
 
+
 		void StartTrial() {
-			// Update GUI with block description
-			string blockDescription = Session.instance.settings.GetStringList("block_types")[ Session.instance.CurrentTrial.settings.GetInt("block_type")-1];
-			EventManager.TriggerEvent(eDIA.Events.Core.EvUpdateExperimentInfoToUser, new eParam(blockDescription));
 
 			AddToLog("StartTrial");
 			ResetTrial();
@@ -297,6 +308,12 @@ namespace eDIA {
 
 		public virtual void ResetTrial() {
 			currentStep = -1;
+		}
+
+		/// <summary>Call next step in the trial with delay.</summary>
+		/// <param name="delay">Time to wait before proceeding. Expects float</param>
+		public void NextStep (float delay) {
+			Invoke("NextStep", delay);
 		}
 
 		public void NextStep() {

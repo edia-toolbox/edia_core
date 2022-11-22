@@ -17,7 +17,7 @@ namespace TASK {
 		/// 3. Switch the inspector to 'debug' mode (3 dots right topcorner)<br/>
 		/// 4. Find [ SYSTEM ] > [ EXP ] gameobject and replace 'TaskManagerDemo' script entry in the inspector with your TaskManager script and switch inspector mode back again</para>
 		/// </summary>
-		public class TaskManagerTaskB : TaskManagerBase {
+		public class TaskManagerTaskB : TaskManager {
 
 			[Header(("Task related refs"))]
 			public Image stimuliHolder;
@@ -109,10 +109,10 @@ namespace TASK {
 
 			/// <summary>The steps the trial goes through</summary>
 			void TaskSequenceSteps() {
-				trialSequence.Add(new TrialStep("Present Stimuli", TaskStep1));
-				trialSequence.Add(new TrialStep("Show buttons, wait on user", TaskStep2));
-				trialSequence.Add(new TrialStep("Wait ", TaskStep3));
-				//trialSequence.Add( new TrialStep("last step", TaskStepX) );
+				// trialSequence.Add(new TrialStep("Present Stimuli", "TaskStep1"));
+				// trialSequence.Add(new TrialStep("Show buttons, wait on user", "TaskStep2"));
+				// trialSequence.Add(new TrialStep("Wait ", "TaskStep3"));
+				// //trialSequence.Add( new TrialStep("last step", TaskStepX) );
 				// etc
 			}
 
@@ -215,8 +215,8 @@ namespace TASK {
 			public override void OnBlockIntroduction() {
 				//! System waits on 'EvProceed' event automaticaly to proceed
 
-				EventManager.TriggerEvent("EvShowMessage", new eParam(  ExperimentManager.Instance.experimentConfig.GetBlockIntroduction(Session.instance.currentBlockNum) ));
-				Debug.Log("<color=#ffffff> >>> "+ ExperimentManager.Instance.experimentConfig.GetBlockIntroduction(Session.instance.currentBlockNum) + "</color>");
+				EventManager.TriggerEvent("EvShowMessage", new eParam(  ExperimentManager.Instance.experimentConfig.blocks[Session.instance.currentBlockNum].introduction) );
+				Debug.Log("<color=#ffffff> >>> "+ ExperimentManager.Instance.experimentConfig.blocks[Session.instance.currentBlockNum].introduction + "</color>");
 
 			}
 

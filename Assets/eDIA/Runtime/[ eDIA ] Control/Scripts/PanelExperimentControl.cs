@@ -85,13 +85,15 @@ namespace eDIA {
 			panelStatus.SetActive(true);
 			GetComponent<VerticalLayoutGroup>().enabled = true;
 
-			EventManager.StartListening("EvExperimentInfoUpdate", OnEvExperimentInfoUpdate);
+			EventManager.StartListening("EvExperimentProgressUpdate", OnEvExperimentProgressUpdate);
 			EventManager.StartListening("EvFinalizeSession", OnEvFinalizeSession);
 		}
 
 		private void OnEvSetDisplayInformation(eParam e)
 		{
+			//TODO not modular yet! so won't work if it's on a remote tablet or something
 			string[] displayInformation = ExperimentManager.Instance.experimentConfig.GetExperimentDisplayInformation();
+			
 			experimentNameField.text = displayInformation[0];
 			experimenterField.text = displayInformation[1];
 			participantIDField.text = displayInformation[2];
@@ -117,12 +119,11 @@ namespace eDIA {
 			GetComponent<VerticalLayoutGroup>().enabled = true;
 		}
 
-		void OnEvExperimentInfoUpdate (eParam e) {
+		void OnEvExperimentProgressUpdate (eParam e) {
 			trialSlider.currentValue = Session.instance.currentTrialNum; //TODO not modular yet! so won't work if it's on a remote tablet or something
 			blockSlider.currentValue = Session.instance.currentBlockNum;
 
-			if (e != null)
-				blockSlider.description = e.GetString();
+			blockSlider.description = e == null ? "" : blockSlider.description = e.GetString();
 		}
 
 		void OnEvButtonChangeState(eParam e) {
