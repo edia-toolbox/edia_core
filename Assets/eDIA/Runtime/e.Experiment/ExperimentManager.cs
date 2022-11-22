@@ -30,7 +30,8 @@ namespace eDIA {
 		public class ExperimentBlock {
 			public string 				name				= string.Empty;
 			public string 				introduction 		= string.Empty;
-			public List<string> 			headers 			= new List<string>();
+			public List<SettingsTuple>		blockSettings		= new List<SettingsTuple>();
+			public List<string> 			trialKeys 			= new List<string>();
 			public List<TrialSequenceValues> 	trialSequence 		= new List<TrialSequenceValues>();
 		}
 
@@ -55,29 +56,16 @@ namespace eDIA {
 			public int 					sessionNumber 		= 0;
 			public List<SettingsTuple>		participantInfo 		= new List<SettingsTuple>();
 			public List<SettingsTuple>		sessionSettings 		= new List<SettingsTuple>();
-			// public List<SettingsTuple> 		blockInstructions 	= new List<SettingsTuple>();
 			public List<int>				breakAfter			= new List<int>(); 
-			// public List<string> 			trialSequenceKeys 	= new List<string>();
-			// public List<TrialSequenceValues> 	trialSequenceValues 	= new List<TrialSequenceValues>();
 			public List<ExperimentBlock>		blocks			= new List<ExperimentBlock>();
 
-			// public bool hasBlockIntroduction (int _blockNumber) {
-			// 	bool itDoes = false;
-
-			// 	if (blockInstructions.Count == 0) // if there are none
-			// 		return false;
-
-			// 	foreach (SettingsTuple s in blockInstructions) 
-			// 		itDoes = int.Parse(s.key) == _blockNumber ? true : itDoes;
-			// 	return itDoes;
-			// }
 
 			public string GetBlockIntroduction () {
 
 				return blocks[Session.instance.currentBlockNum-1].introduction == string.Empty ? string.Empty : blocks[Session.instance.currentBlockNum-1].introduction;
 			}
 
-			public string[] GetExperimentDisplayInformation() {
+			public string[] GetExperimentSummary() {
 				return new string[] { experiment, experimenter, participantID, sessionNumber.ToString() };
 			}
 		}	
@@ -186,7 +174,7 @@ namespace eDIA {
 
 			AddToLog("ExperimentInitialized " + experimentInitialized);
 			EventManager.TriggerEvent("EvExperimentInitialised", new eParam(experimentInitialized));
-			EventManager.TriggerEvent("EvSetDisplayInformation", new eParam( experimentConfig.GetExperimentDisplayInformation()) );
+			EventManager.TriggerEvent("EvSetDisplayInformation", new eParam( experimentConfig.GetExperimentSummary()) );
 
 		}
 
@@ -488,14 +476,16 @@ namespace eDIA {
 				Block newBlock = Session.instance.CreateBlock();
 				newBlock.settings.SetValue("name",b.name);
 				newBlock.settings.SetValue("introduction",b.introduction);
-				newBlock.settings.SetValue("headers",b.headers);
+
+				// Assign blocksettings to this UXF block
+				foreach (SettingsTuple s in b.blockSettings)
+					newBlock.settings.SetValue(s.key, s.value);
 
 				foreach (TrialSequenceValues row in b.trialSequence) {
-
 					Trial newTrial = newBlock.CreateTrial();
 
-					for (int i = 0; i < b.headers.Count; i++) {
-						newTrial.settings.SetValue(b.headers[i], row.values[i].ToUpper()); // set values to trial
+					for (int i = 0; i < b.trialKeys.Count; i++) {
+						newTrial.settings.SetValue(b.trialKeys[i], row.values[i].ToUpper()); // set values to trial
 					}
 				}
 			}

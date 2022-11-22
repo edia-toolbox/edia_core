@@ -14,7 +14,13 @@
 		{
 			"name":"Experiment",
 			"introduction":"",
-			"headers":["direction","color","marker"],
+			"blockSettings":[
+				{"key":"cubeColors","value":"#FFFF00,#F00F0F,#00F500,#004F30"},
+				{"key":"timerShowCube","value":"1"},
+				{"key":"timerWait","value":"1"},
+				{"key":"distanceCube","value":"2.5"}
+			],
+			"trialKeys":["direction","color","marker"],
 			"trialSequence":[
 				{"values":["1","1","43"]},
 				{"values":["-1","2","34"]}
@@ -23,7 +29,10 @@
 		{
 			"name":"Assessement",
 			"introduction":"Fill in thingiez",
-			"headers":["qtype","qsettings","qsequence"],
+			"blockSettings":[
+				{"key":"qtype","value":"SUN, another, simular, thing"}
+			],
+			"trialKeys":["qtype","qsettings","qsequence"],
 			"trialSequence":[
 				{"values":["1","1","1"]},
 				{"values":["2","2","2"]},

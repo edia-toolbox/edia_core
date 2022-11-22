@@ -92,7 +92,7 @@ namespace eDIA {
 		private void OnEvSetDisplayInformation(eParam e)
 		{
 			//TODO not modular yet! so won't work if it's on a remote tablet or something
-			string[] displayInformation = ExperimentManager.Instance.experimentConfig.GetExperimentDisplayInformation();
+			string[] displayInformation = ExperimentManager.Instance.experimentConfig.GetExperimentSummary();
 			
 			experimentNameField.text = displayInformation[0];
 			experimenterField.text = displayInformation[1];

@@ -16,21 +16,37 @@ namespace eDIA {
 		public bool showLog = false;
 		public Color taskColor = Color.yellow;
 
-		[System.Serializable]
-		public class TaskSettingsContainer { 
-			public List<ExperimentManager.SettingsTuple> taskSettings = new List<ExperimentManager.SettingsTuple>();
-		}
+		// [System.Serializable]
+		// public class TaskSettingsContainer { 
+		// 	public List<ExperimentManager.SettingsTuple> taskSettings = new List<ExperimentManager.SettingsTuple>();
+		// }
 		
-		TaskSettingsContainer taskSettingsContainer;
-		public UXF.Settings taskSettings = new Settings();
+		// TaskSettingsContainer taskSettingsContainer;
+		// public UXF.Settings taskSettings = new Settings();
 
 
-		// Events forwarding
-		[Header("Event hooks")]
-		public UnityEvent OnOnEnable = null;
-		public UnityEvent OnStart = null;
+		[System.Serializable]
+		public class TaskBlock {
+
+			public string name;
+			// Events forwarding
+			[Header("Event hooks")]
+			public UnityEvent OnOnEnable = null;
+			public UnityEvent OnStart = null;
+
+			[SerializeField]
+			[Header("Steps the trial goes through in this task block")]
+			public List<TrialStep> trialSequence = new List<TrialStep>();
+		}
 
 
+		public List<TaskBlock> taskBlocks = new List<TaskBlock>();
+
+
+		[HideInInspector]
+		public int currentStep = -1;
+
+		private bool inSession = false;
 
 		// XR RIG
 		[HideInInspector] public Transform XRrig_MainCamera 		= null;
@@ -45,7 +61,7 @@ namespace eDIA {
 			EventManager.StartListening(eDIA.Events.Interaction.EvFoundXRrigReferences, 	OnEvFoundXRrigReferences);
 			EventManager.StartListening(eDIA.Events.Core.EvExperimentInitialised, 		OnEvExperimentInitialised);
 			EventManager.StartListening(eDIA.Events.Core.EvLocalConfigSubmitted, 		OnEvLocalConfigSubmitted);
-			EventManager.StartListening(eDIA.Events.Core.EvSetTaskConfig, 			OnEvSetTaskConfig);
+			// EventManager.StartListening(eDIA.Events.Core.EvSetTaskConfig, 			OnEvSetTaskConfig);
 
 			GetXRrigReferences();
 		}
@@ -99,43 +115,43 @@ namespace eDIA {
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region TASK UXF HELPERS
 
-		private void LoadTaskConfigFromFile(string filename)
-		{
-			// Load taskConfigFile
-			string taskConfigJSON = FileManager.ReadStringFromApplicationPathSubfolder(Constants.localConfigDirectoryName + "/Tasks", filename);
+		// private void LoadTaskConfigFromFile(string filename)
+		// {
+		// 	// Load taskConfigFile
+		// 	string taskConfigJSON = FileManager.ReadStringFromApplicationPathSubfolder(Constants.localConfigDirectoryName + "/Tasks", filename);
 
-			if (taskConfigJSON == "ERROR")
-			{
-				Debug.LogError("Task JSON not correctly loaded!");
-				return;
-			}
+		// 	if (taskConfigJSON == "ERROR")
+		// 	{
+		// 		Debug.LogError("Task JSON not correctly loaded!");
+		// 		return;
+		// 	}
 
-			SetTaskConfigFromJSON(taskConfigJSON);
-		}
+		// 	SetTaskConfigFromJSON(taskConfigJSON);
+		// }
 
-		private void SetTaskConfigFromJSON (string taskConfigJSON)
-		{
-			// Parse JSON into a container
-			taskSettingsContainer = UnityEngine.JsonUtility.FromJson<TaskSettingsContainer>(taskConfigJSON);
+		// private void SetTaskConfigFromJSON (string taskConfigJSON)
+		// {
+		// 	// Parse JSON into a container
+		// 	taskSettingsContainer = UnityEngine.JsonUtility.FromJson<TaskSettingsContainer>(taskConfigJSON);
 
-			// Workaround to parse into a UXF Dictionary 
-			foreach (ExperimentManager.SettingsTuple tuple in taskSettingsContainer.taskSettings)
-			{
+		// 	// Workaround to parse into a UXF Dictionary 
+		// 	foreach (ExperimentManager.SettingsTuple tuple in taskSettingsContainer.taskSettings)
+		// 	{
 
-				if (tuple.value.Contains(','))
-				{ // it's a list!
-					List<string> stringlist = tuple.value.Split(',').ToList();
-					taskSettings.SetValue(tuple.key, stringlist);
-				}
-				else taskSettings.SetValue(tuple.key, tuple.value);   // normal string
-			}
-		}
+		// 		if (tuple.value.Contains(','))
+		// 		{ // it's a list!
+		// 			List<string> stringlist = tuple.value.Split(',').ToList();
+		// 			taskSettings.SetValue(tuple.key, stringlist);
+		// 		}
+		// 		else taskSettings.SetValue(tuple.key, tuple.value);   // normal string
+		// 	}
+		// }
 
-		/// <summary>Event catcher for taskconfig</summary>
-		void OnEvSetTaskConfig(eParam obj)
-		{
-			SetTaskConfigFromJSON(obj.GetString());
-		}
+		// /// <summary>Event catcher for taskconfig</summary>
+		// void OnEvSetTaskConfig(eParam obj)
+		// {
+		// 	SetTaskConfigFromJSON(obj.GetString());
+		// }
 
 		public void AddToTrialResults (string key, string value) {
 			// TODO: Add option to add result easily to results dict and therefor on disk
@@ -180,7 +196,7 @@ namespace eDIA {
 			string filename = e.GetStrings()[0] + ".json"; // combine task string and participant string
 			
 			// Debug.Log(e.GetString());
-			LoadTaskConfigFromFile (filename);
+			// LoadTaskConfigFromFile (filename);
 		}
 		
 		void OnEvExperimentInitialised (eParam e) {
@@ -283,14 +299,6 @@ namespace eDIA {
 #region TASK STATEMACHINE
 		//? Methods controlling the current trial
 
-		[SerializeField]//[HideInInspector]
-		public List<TrialStep> trialSequence = new List<TrialStep>();
-		[HideInInspector]
-		public int currentStep = -1;
-
-		private bool inSession = false;
-
-
 		void StartTrial() {
 
 			AddToLog("StartTrial");
@@ -322,8 +330,8 @@ namespace eDIA {
 
 			currentStep++;
 
-			if (currentStep < trialSequence.Count) {
-				trialSequence[currentStep].methodToCall.Invoke();
+			if (currentStep < taskBlocks[0].trialSequence.Count) {
+				taskBlocks[0].trialSequence[currentStep].methodToCall.Invoke();
 			}
 			else EndTrial();
 		}

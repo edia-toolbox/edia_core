@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using eDIA;
 using UnityEngine;
 using UXF;
-
+ 
 namespace TASK {
 	
 	[System.Serializable]
-	public class TastTrialPractice : MonoBehaviour {
+	public class TaskTrialPractice : MonoBehaviour {
 
 		[Header (("Task related refs"))]
 		public GameObject theCube;
@@ -23,9 +23,9 @@ namespace TASK {
 			XRrigUtilities.EnableXRInteraction (false);
 
 			theCube.gameObject.SetActive (true);
-			theCube.transform.position = new Vector3 (0, XRrigUtilities.GetXRcam().position.y, TaskManager.Instance.taskSettings.GetFloat ("distanceCube"));
+			theCube.transform.position = new Vector3 (0, XRrigUtilities.GetXRcam().position.y, Session.instance.CurrentBlock.settings.GetFloat ("distanceCube"));
 
-			TaskManager.Instance.NextStep (TaskManager.Instance.taskSettings.GetFloat ("timerShowCube"));
+			TaskManager.Instance.NextStep (Session.instance.CurrentBlock.settings.GetFloat ("timerShowCube"));
 		}
 
 		/// <summary>Move cube, wait on user input</summary>
@@ -50,7 +50,7 @@ namespace TASK {
 			}
 
 			Color newCol;
-			if (ColorUtility.TryParseHtmlString (TaskManager.Instance.taskSettings.GetStringList ("cubeColors") [Session.instance.CurrentTrial.settings.GetInt ("color")], out newCol))
+			if (ColorUtility.TryParseHtmlString (Session.instance.CurrentBlock.settings.GetStringList ("cubeColors") [Session.instance.CurrentTrial.settings.GetInt ("color")], out newCol))
 				theCube.GetComponent<MeshRenderer> ().material.color = newCol;
 			else newCol = Color.magenta;
 
@@ -61,7 +61,7 @@ namespace TASK {
 
 		/// <summary>Wait</summary>
 		public void TaskStep4 () {
-			TaskManager.Instance.NextStep (TaskManager.Instance.taskSettings.GetFloat ("timerWait"));
+			TaskManager.Instance.NextStep (Session.instance.CurrentBlock.settings.GetFloat ("timerWait"));
 		}
 
 

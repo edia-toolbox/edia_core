@@ -206,7 +206,7 @@ namespace TASK {
 				EventManager.TriggerEvent("EvShowMessage", new eParam("Welcome to the experiment, please click button to continue"));
 
 				// Add additional task specific settings to the UXF logging system
-				Session.instance.settings.SetValue("timerShowCube", taskSettings.GetFloat("timerShowCube"));
+				// Session.instance.settings.SetValue("timerShowCube", Session.instance.CurrentBlock.settings.GetFloat("timerShowCube"));
 
 				// Teeeeest
 			}

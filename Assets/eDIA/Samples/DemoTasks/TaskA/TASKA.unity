@@ -2058,11 +2058,135 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8541c78e5138c63489caa8b61a2bfbfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  showLog: 0
+  showLog: 1
   taskColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  taskBlocks:
+  - name: Practice
+    OnOnEnable:
+      m_PersistentCalls:
+        m_Calls: []
+    OnStart:
+      m_PersistentCalls:
+        m_Calls: []
+    trialSequence:
+    - title: Text
+      methodToCall:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 8773633708703055147}
+            m_TargetAssemblyTypeName: 
+            m_MethodName: TaskStep1
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+    - title: Show cube
+      methodToCall:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 8773633708703055147}
+            m_TargetAssemblyTypeName: 
+            m_MethodName: TaskStep2
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+    - title: Move cube
+      methodToCall:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 8773633708703055147}
+            m_TargetAssemblyTypeName: 
+            m_MethodName: TaskStep3
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+    - title: Wait
+      methodToCall:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 8773633708703055147}
+            m_TargetAssemblyTypeName: 
+            m_MethodName: TaskStep4
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+  - name: Assessment
+    OnOnEnable:
+      m_PersistentCalls:
+        m_Calls: []
+    OnStart:
+      m_PersistentCalls:
+        m_Calls: []
+    trialSequence:
+    - title: 
+      methodToCall:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 8773633708703055147}
+            m_TargetAssemblyTypeName: 
+            m_MethodName: TaskStep1
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+    - title: 
+      methodToCall:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 8773633708703055147}
+            m_TargetAssemblyTypeName: 
+            m_MethodName: TaskStep1
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+  currentStep: -1
   XRrig_MainCamera: {fileID: 0}
   XRrig_RightController: {fileID: 0}
   XRrig_LeftController: {fileID: 0}
-  trialSequence: []
-  currentStep: -1
+--- !u!114 &8773633708703055147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8773633708703055142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59c0c0b620100e446b101e1ee3b862b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   theCube: {fileID: 742829618}

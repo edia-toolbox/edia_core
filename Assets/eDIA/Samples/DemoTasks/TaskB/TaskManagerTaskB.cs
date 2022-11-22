@@ -118,7 +118,7 @@ namespace TASK {
 
 			/// <summary>Present Stimuli</summary>
 			void TaskStep1() {
-				AddToLog("Step:" + (currentStep + 1) +" > " + trialSequence[currentStep].title);
+				// AddToLog("Step:" + (currentStep + 1) +" > " + trialSequence[currentStep].title);
 
 				ExperimentManager.Instance.EnableExperimentPause(true);
 
@@ -129,12 +129,12 @@ namespace TASK {
 				stimuliHolder.sprite = stimulis[Random.Range(0,stimulis.Count)];
 				stimuliHolder.gameObject.SetActive(true);
 
-				Invoke("NextStepFromUserOrSceneOrButtonOrTimerOrWhatever", taskSettings.GetFloat("timerWait")); 
+				Invoke("NextStepFromUserOrSceneOrButtonOrTimerOrWhatever", Session.instance.CurrentBlock.settings.GetFloat("timerWait")); 
 			}
 			
 			/// <summary>Move cube, wait on user input</summary>
 			void TaskStep2() {
-				AddToLog("Step:" + (currentStep + 1) +" > " + trialSequence[currentStep].title);
+				// AddToLog("Step:" + (currentStep + 1) +" > " + trialSequence[currentStep].title);
 
 				// Show buttons
 				for (int b=0;b<buttonPanel.transform.childCount;b++) {
@@ -147,12 +147,12 @@ namespace TASK {
 
 			/// <summary>Wait</summary>
 			void TaskStep3() {
-				AddToLog("Step:" + (currentStep + 1) +" > " + trialSequence[currentStep].title);
+				// AddToLog("Step:" + (currentStep + 1) +" > " + trialSequence[currentStep].title);
 
 				stimuliHolder.gameObject.SetActive(false);
 
 				EventManager.TriggerEvent("EvShowMessage", new eParam("Thank you"));
-				Invoke("NextStepFromUserOrSceneOrButtonOrTimerOrWhatever", taskSettings.GetFloat("timerWait")); 
+				Invoke("NextStepFromUserOrSceneOrButtonOrTimerOrWhatever", Session.instance.CurrentBlock.settings.GetFloat("timerWait")); 
 			}
 
 			/// <summary>Call this from your code to proceed to the next step</summary>
