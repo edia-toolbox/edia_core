@@ -22,6 +22,7 @@ namespace TASK {
 			ExperimentManager.Instance.EnableExperimentPause (true);
 			XRrigUtilities.EnableXRInteraction (false);
 
+			Debug.Log(Session.instance.currentBlockNum);
 			theCube.gameObject.SetActive (true);
 			theCube.transform.position = new Vector3 (0, XRrigUtilities.GetXRcam().position.y, Session.instance.CurrentBlock.settings.GetFloat ("distanceCube"));
 
@@ -48,6 +49,12 @@ namespace TASK {
 				StopCoroutine (moveRoutine);
 				moveRoutine = null;
 			}
+
+			Debug.Log(Session.instance.CurrentBlock.settings.GetString("cubeColors"));
+
+			// Dictionary<string, object> bla = Session.instance.CurrentBlock.settings.GetDict("cubeColors");
+
+			Session.instance.CurrentBlock.settings.GetStringList ("cubeColors");
 
 			Color newCol;
 			if (ColorUtility.TryParseHtmlString (Session.instance.CurrentBlock.settings.GetStringList ("cubeColors") [Session.instance.CurrentTrial.settings.GetInt ("color")], out newCol))

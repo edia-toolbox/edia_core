@@ -268,7 +268,8 @@ namespace eDIA {
 			EventManager.StartListening(eDIA.Events.Core.EvProceed, OnEvStartFirstTrial);
 
 			EventManager.TriggerEvent("EvExperimentProgressUpdate", new eParam("Welcome"));
-			EnableExperimentProceed(true);
+			// 
+			EventManager.TriggerEvent("EvButtonChangeState", new eParam( new string[] { "PROCEED", "true" }));
 
 			// eye calibration option enabled
 			EnableEyeCalibrationTrigger(true);
@@ -478,8 +479,12 @@ namespace eDIA {
 				newBlock.settings.SetValue("introduction",b.introduction);
 
 				// Assign blocksettings to this UXF block
+				
 				foreach (SettingsTuple s in b.blockSettings)
-					newBlock.settings.SetValue(s.key, s.value);
+					if (s.value.Contains(',')) { // it's a list!
+						List<string> stringlist = s.value.Split(',').ToList();
+						newBlock.settings.SetValue(s.key, stringlist);	
+					} else newBlock.settings.SetValue(s.key, s.value);	// normal string
 
 				foreach (TrialSequenceValues row in b.trialSequence) {
 					Trial newTrial = newBlock.CreateTrial();
