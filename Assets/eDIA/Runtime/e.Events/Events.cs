@@ -40,7 +40,7 @@ namespace eDIA.Events {
 		public static string EvBlockIntroduction 		= "EvBlockIntroduction";
 
 		/// <summary>Fired by ExperimentManager when the session resumes after an i.e. introduction. Expects null</summary>
-		public static string OnEvBlockResumeAfterIntro 	= "OnEvBlockResumeAfterIntro";
+		public static string EvBlockResumeAfterIntro 	= "EvBlockResumeAfterIntro";
 
 		/// <summary>Event indicating that the system can proceed, useally from experimenter. Expects null</summary>
 		public static string EvProceed 			= "EvProceed";

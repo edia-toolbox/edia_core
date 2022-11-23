@@ -205,7 +205,7 @@ namespace eDIA {
 			}
 
 			if (showLog)
-				UnityEngine.Debug.Log("added listener:" + eventName);
+				UnityEngine.Debug.Log("<color=#00ff00>Added listener:" + eventName + "</color>");
 		}
 
 		/// <summary>
@@ -225,7 +225,7 @@ namespace eDIA {
 				eventDictionary.Remove(eventName);
 
 				if (showLog)
-					UnityEngine.Debug.Log("Stopped listener:" + eventName);
+					UnityEngine.Debug.Log("<color=#880000>Removed listener:" + eventName + "</color>");
 			}
 		}
 

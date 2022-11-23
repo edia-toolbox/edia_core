@@ -3,20 +3,19 @@ using System.Collections.Generic;
 using eDIA;
 using UnityEngine;
 using UXF;
- 
+using TMPro;
+
 namespace TASK {
 	
 	[System.Serializable]
-	public class TaskBlockPractice : MonoBehaviour {
+	public class TaskBlockAssessment : MonoBehaviour {
 
 		[Header (("Task related refs"))]
-		public GameObject theCube;
 		public MessagePanelInVR messagePanelInVR;
-		private Coroutine moveRoutine = null;
-
+		public GameObject qpanel;
+		public TextMeshProUGUI qpanelTextField;
 
 		private void Start() {
-			XRrigUtilities.EnableCustomHandPoses(false);
 		}
 
 // -------------------------------------------------------------------------------------------------------------------------------
@@ -25,63 +24,32 @@ namespace TASK {
 		/// <summary>Present Cube</summary>
 		public void TaskStep1 () {
 
-			XRrigUtilities.SetHandPose("point");
-
-			ExperimentManager.Instance.EnableExperimentPause (true);
 			XRrigUtilities.EnableXRInteraction (false);
 
-			theCube.gameObject.SetActive (true);
-			theCube.transform.position = new Vector3 (0, XRrigUtilities.GetXRcam().position.y, Session.instance.CurrentBlock.settings.GetFloat ("distanceCube"));
-
-			TaskManager.Instance.NextStep (Session.instance.CurrentBlock.settings.GetFloat ("timerShowCube"));
+			messagePanelInVR.ShowMessage("Now you have to fill in some questions");
+			ExperimentManager.Instance.EnableExperimentProceed (true); // enable proceed button
 		}
 
 		/// <summary>Move cube, wait on user input</summary>
 		public void TaskStep2 () {
 
-			if (moveRoutine == null) {
-				moveRoutine = StartCoroutine ("MoveCube");
-			}
-
 			XRrigUtilities.EnableXRInteraction (true);
-			ExperimentManager.Instance.EnableExperimentProceed (true); // enable proceed button
 
-			messagePanelInVR.ShowMessage("Click button to continue");
+			qpanel.SetActive(true);
+			qpanelTextField.text = "Qtype: " + Session.instance.CurrentBlock.settings.GetStringList("qtypes")[Session.instance.CurrentTrial.settings.GetInt("qtype")];
+
+			ExperimentManager.Instance.EnableExperimentProceed (true); // enable proceed button
 		}
 
 		/// <summary>Stop moving, change color</summary>
 		public void TaskStep3 () {
 
-			if (moveRoutine != null) {
-				StopCoroutine (moveRoutine);
-				moveRoutine = null;
-			}
+			qpanel.SetActive(false);
 
-			Color newCol;
-			if (ColorUtility.TryParseHtmlString (Session.instance.CurrentBlock.settings.GetStringList ("cubeColors") [Session.instance.CurrentTrial.settings.GetInt ("color")], out newCol))
-				theCube.GetComponent<MeshRenderer> ().material.color = newCol;
-			else newCol = Color.magenta;
-
-			XRrigUtilities.SetHandPose("idle");
-
-			TaskManager.Instance.NextStep();
+			messagePanelInVR.ShowMessage("Thank you for your answer");
+			TaskManager.Instance.NextStep(4f);
 		}
 
-		/// <summary>Wait</summary>
-		public void TaskStep4 () {
-			TaskManager.Instance.NextStep (Session.instance.CurrentBlock.settings.GetFloat ("timerWait"));
-		}
-
-
-		/// <summary>Moves the cube up or down depending on the setting `direction` in the trial settings.</summary>
-		IEnumerator MoveCube () {
-			float increment = Session.instance.CurrentTrial.settings.GetInt ("direction") == 1 ? 0.001f : -0.001f;
-
-			while (true) {
-				theCube.transform.Translate (new Vector3 (0, increment, 0), Space.World);
-				yield return new WaitForEndOfFrame ();
-			}
-		}
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region EVENT HOOKS
@@ -99,10 +67,12 @@ namespace TASK {
 		}
 
 		public void OnStartNewTrial () {
+			Debug.Log("OnStartNewTrial");
 			messagePanelInVR.HidePanel();
 		}
 
 		public void OnBetweenSteps () {
+			Debug.Log("OnBetweenSteps");
 			messagePanelInVR.HidePanel();
 		}
 

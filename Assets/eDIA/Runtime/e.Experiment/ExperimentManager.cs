@@ -238,10 +238,10 @@ namespace eDIA {
 			); 
 		}
 
-		void OnEvNewSession (eParam e) {
-			// SetExperimentConfig(null);
-			EventManager.TriggerEvent("EvSetExperimentConfig", null);
-		}
+		// void OnEvNewSession (eParam e) {
+		// 	// SetExperimentConfig(null);
+		// 	EventManager.TriggerEvent("EvSetExperimentConfig", null);
+		// }
 
 		/// <summary>Sets the PauseExperiment flag to true and logs the call for an extra break</summary>
 		void OnEvPauseExperiment(eParam e)
@@ -297,17 +297,13 @@ namespace eDIA {
 			AddToLog("OnTrialBeginUXF");
 			AddToExecutionOrderLog("OnTrialBegin");
 
-			// EventManager.TriggerEvent("EvExperimentProgressUpdate", null); // update sliders in GUI
-			
 			bool showIntroduction = false;
 
 			if ((Session.instance.currentBlockNum != activeBlockUXF) && (Session.instance.currentBlockNum <= Session.instance.blocks.Count)) {
 
-				//! NEW BLOCK				
-				EventManager.TriggerEvent(eDIA.Events.Core.EvBlockStart, null);
-
 				// Check for block introduction flag
 				showIntroduction = experimentConfig.GetBlockIntroduction() != string.Empty;
+				Debug.Log("showIntroduction:" + showIntroduction);
 				// Set new activeBlockUXF value
 				activeBlockUXF = Session.instance.currentBlockNum;
 			}
@@ -316,6 +312,9 @@ namespace eDIA {
 			if (showIntroduction)
 				BlockIntroduction ();
 			else {
+				if (newTrial == Session.instance.CurrentBlock.firstTrial) //! new block, so call blockstart for initialising
+					TaskManager.Instance.OnBlockStart();
+
 				EventManager.TriggerEvent("EvTrialBegin", null);
 				EventManager.TriggerEvent("EvExperimentProgressUpdate", new eParam(experimentConfig.blocks[Session.instance.currentBlockNum-1].name));
 			}
@@ -377,8 +376,9 @@ namespace eDIA {
 		public void EnableExperimentProceed(bool _onOff) {
 			EventManager.TriggerEvent("EvButtonChangeState", new eParam( new string[] { "PROCEED", _onOff.ToString() }));
 
-			if (_onOff)
+			if (_onOff) {
 				EventManager.StartListening (eDIA.Events.Core.EvProceed, TaskManager.Instance.OnEvProceed);
+			}
 		}
 
 		/// <summary> Set system open for calibration call from event or button</summary>
@@ -463,7 +463,7 @@ namespace eDIA {
 
 			EnableEyeCalibrationTrigger(false);
 
-			EventManager.TriggerEvent(eDIA.Events.Core.OnEvBlockResumeAfterIntro,null);
+			EventManager.TriggerEvent(eDIA.Events.Core.EvBlockResumeAfterIntro,null);
 		}
 
 #endregion	// -------------------------------------------------------------------------------------------------------------------------------
@@ -479,7 +479,6 @@ namespace eDIA {
 				newBlock.settings.SetValue("introduction",b.introduction);
 
 				// Assign blocksettings to this UXF block
-				
 				foreach (SettingsTuple s in b.blockSettings)
 					if (s.value.Contains(',')) { // it's a list!
 						List<string> stringlist = s.value.Split(',').ToList();
@@ -504,32 +503,6 @@ namespace eDIA {
 			AddToLog("Generated UXF Sequence");
 		}
 
-		// /// <summary>/// Convert JSON formatted definition for the seqence into a UXF format to run in the session/// </summary>
-		// public void GenerateUXFSequence(List<string> _trialSequenceKeys, List<TrialSequenceValues> _trialSequenceValues) {
-
-		// 	Block newBlock = Session.instance.CreateBlock();
-		// 	int currentblockNumber = 0;
-
-		// 	foreach (TrialSequenceValues row in _trialSequenceValues) {
-		// 		if ((int.Parse(row.values[0])-1) != currentblockNumber) { // -1 as the JSON block_num starts at value 1
-		// 			currentblockNumber++;
-		// 			newBlock = Session.instance.CreateBlock();
-		// 		}
-
-		// 		Trial newTrial = newBlock.CreateTrial();
-
-		// 		for (int i = 0; i < _trialSequenceKeys.Count; i++) {
-		// 			newTrial.settings.SetValue(_trialSequenceKeys[i], row.values[i].ToUpper()); // set values to trial
-		// 		}
-		// 	}
-
-		// 	// Log all that shizzle
-		// 	for (int i = 1; i < _trialSequenceKeys.Count; i++) {
-		// 		Session.instance.settingsToLog.Add(_trialSequenceKeys[i]);
-		// 	}
-
-		// 	AddToLog("Generated UXF Sequence");
-		// }
 
 #endregion	// -------------------------------------------------------------------------------------------------------------------------------
 #region LOGGING	

@@ -35,7 +35,7 @@ namespace TASK {
 		}
 
 		void OnEvHideMessage (eParam e) {
-			EventManager.StopListening(eDIA.Events.Core.EvProceed, OnEvHideMessage);
+			// EventManager.StopListening(eDIA.Events.Core.EvProceed, OnEvHideMessage);
 			HidePanel();
 		}
 

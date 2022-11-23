@@ -20,23 +20,26 @@ namespace eDIA {
 		public class TaskBlock {
 
 			[Header("Short description of this block")]
+			[Tooltip("Stick with using the 'name' from the config file for this block")]
 			public string BlockDescription;
 
 			[SerializeField]
 			[Header("Link the methods the trial goes through sequentially for this block.")]
 			public List<TrialSequenceStep> trialSequence = new List<TrialSequenceStep>();
 
-			[Header("Event hooks")]
+			[Space(20)]
+			[Header("Event hooks\nOptional event hooks to use in your task block")]
 			public UnityEvent OnSessionStart = null;
 			public UnityEvent OnSessionBreak = null;
 			public UnityEvent OnSessionResume = null;
 			public UnityEvent OnBlockStart = null;
 			public UnityEvent OnBlockIntroduction = null;
 			public UnityEvent OnBlockResumeAfterIntro = null;
-			public UnityEvent OnResetTrial = null;
-			public UnityEvent OnStart = null;
+			public UnityEvent OnStartNewTrial = null;
+			public UnityEvent OnBetweenSteps = null;
 		}
 
+		[Space(20)]
 		public List<TaskBlock> taskBlocks = new List<TaskBlock>();
 
 		[HideInInspector]
@@ -68,7 +71,7 @@ namespace eDIA {
 			EventManager.StopListening(eDIA.Events.Core.EvSessionBreak, 		OnEvSessionBreak);
 			EventManager.StopListening(eDIA.Events.Core.EvSessionResume, 		OnEvSessionResume);
 			EventManager.StopListening(eDIA.Events.Core.EvBlockIntroduction, 		OnEvBlockIntroduction);
-			EventManager.StopListening(eDIA.Events.Core.OnEvBlockResumeAfterIntro, 	OnEvBlockResumeAfterIntro);
+			EventManager.StopListening(eDIA.Events.Core.EvBlockResumeAfterIntro, 	OnEvBlockResumeAfterIntro);
 			EventManager.StopListening(eDIA.Events.Core.EvTrialBegin, 			OnEvTrialBegin);
 		}
 
@@ -116,7 +119,8 @@ namespace eDIA {
 			EventManager.StartListening(eDIA.Events.Core.EvBlockStart, 		OnEvBlockStart);
 
 			inSession = true;
-			taskBlocks[Session.instance.currentBlockNum].OnSessionStart?.Invoke();
+			taskBlocks[0].OnSessionStart?.Invoke(); // is always 0 as session starts only once
+			//! TODO This would probably won't work at the moment we introduce multiple tasks in one session though
 		}
 
 
@@ -142,13 +146,13 @@ namespace eDIA {
 			StartTrial();
 		}
 
-//! IS this the start of calling a block? maybe for an INIT method or someething
 		void OnEvBlockStart (eParam obj) {
 			// New block, got from experimentmanager
-			taskBlocks[Session.instance.currentBlockNum].OnBlockStart?.Invoke();
+			OnBlockStart();
 		}
 
-		public virtual void OnEvProceed (eParam e) {
+		public void OnEvProceed (eParam e) {
+			AddToLog("EvProceed listener OFF");
 			EventManager.StopListening(eDIA.Events.Core.EvProceed, OnEvProceed);
 			NextStep();
 		}
@@ -162,7 +166,7 @@ namespace eDIA {
 			AddToLog("Break START");
 
 			EventManager.StartListening(eDIA.Events.Core.EvSessionResume, OnEvSessionResume);
-			taskBlocks[Session.instance.currentBlockNum].OnSessionBreak?.Invoke();
+			taskBlocks[Session.instance.CurrentBlock.number-1].OnSessionBreak?.Invoke();
 		}
 
 		/// <summary>OnEvSessionResume event listener</summary>
@@ -170,28 +174,35 @@ namespace eDIA {
 			AddToLog("Session Resume");
 
 			EventManager.StopListening(eDIA.Events.Core.EvSessionResume, OnEvSessionResume);
-			taskBlocks[Session.instance.currentBlockNum].OnSessionResume?.Invoke();
+			taskBlocks[Session.instance.CurrentBlock.number-1].OnSessionResume?.Invoke();
 		}
 
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
-#region BLOCK INTRODUCTION
+#region BLOCK 
+
+		/// <summary>OnEvBlockIntroduction event listener</summary>
+		public void OnBlockStart () {
+			AddToLog("Block Start");
+			taskBlocks[Session.instance.CurrentBlock.number-1].OnBlockStart?.Invoke();
+		}
+		
 
 		/// <summary>OnEvBlockIntroduction event listener</summary>
 		void OnEvBlockIntroduction (eParam e) {
 			AddToLog("Block introduction");
 
-			EventManager.StartListening(eDIA.Events.Core.OnEvBlockResumeAfterIntro, OnEvBlockResumeAfterIntro);
-			taskBlocks[Session.instance.currentBlockNum].OnBlockIntroduction?.Invoke();
+			EventManager.StartListening(eDIA.Events.Core.EvBlockResumeAfterIntro, OnEvBlockResumeAfterIntro);
+			taskBlocks[Session.instance.CurrentBlock.number-1].OnBlockIntroduction?.Invoke();
 		}
 		
 
 		/// <summary>OnEvBlockResume event listener</summary>
-		public void OnEvBlockResumeAfterIntro (eParam e) {
+		void OnEvBlockResumeAfterIntro (eParam e) {
 			AddToLog("Block Resume");
 
-			EventManager.StopListening(eDIA.Events.Core.OnEvBlockResumeAfterIntro, OnEvBlockResumeAfterIntro);
-			taskBlocks[Session.instance.currentBlockNum].OnBlockResumeAfterIntro?.Invoke();
+			EventManager.StopListening(eDIA.Events.Core.EvBlockResumeAfterIntro, OnEvBlockResumeAfterIntro);
+			taskBlocks[Session.instance.CurrentBlock.number-1].OnBlockResumeAfterIntro?.Invoke();
 
 			StartTrial();
 		}
@@ -204,7 +215,7 @@ namespace eDIA {
 		void StartTrial() {
 
 			AddToLog("StartTrial");
-			ResetTrial();
+			OnStartNewTrial();
 
 			// Fire up the task state machine to run the steps of the trial.
 			NextStep();
@@ -216,10 +227,9 @@ namespace eDIA {
 			Session.instance.EndCurrentTrial(); // tells UXF to end this trial and fire the event that follows
 		}
 
-		public void ResetTrial() {
-
+		public void OnStartNewTrial() {
 			currentStep = -1;
-			taskBlocks[Session.instance.currentBlockNum].OnResetTrial?.Invoke();
+			taskBlocks[Session.instance.CurrentBlock.number-1].OnStartNewTrial?.Invoke();
 		}
 
 		/// <summary>Call next step in the trial with delay.</summary>
@@ -234,8 +244,9 @@ namespace eDIA {
 
 			currentStep++;
 
-			if (currentStep < taskBlocks[0].trialSequence.Count) {
-				taskBlocks[Session.instance.currentBlockNum].trialSequence[currentStep].methodToCall.Invoke();
+			if (currentStep < taskBlocks[Session.instance.CurrentBlock.number-1].trialSequence.Count) {
+				taskBlocks[Session.instance.CurrentBlock.number-1].OnBetweenSteps.Invoke();
+				taskBlocks[Session.instance.CurrentBlock.number-1].trialSequence[currentStep].methodToCall.Invoke();
 			}
 			else EndTrial();
 		}
