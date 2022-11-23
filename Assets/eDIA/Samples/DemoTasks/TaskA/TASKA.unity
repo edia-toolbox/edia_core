@@ -2006,152 +2006,6 @@ MonoBehaviour:
   showLog: 1
   taskColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   taskBlocks:
-  - BlockDescription: Questionaire
-    trialSequence:
-    - title: Intro
-      methodToCall:
-        m_PersistentCalls:
-          m_Calls:
-          - m_Target: {fileID: 1416558614}
-            m_TargetAssemblyTypeName: 
-            m_MethodName: TaskStep1
-            m_Mode: 1
-            m_Arguments:
-              m_ObjectArgument: {fileID: 0}
-              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-              m_IntArgument: 0
-              m_FloatArgument: 0
-              m_StringArgument: 
-              m_BoolArgument: 0
-            m_CallState: 2
-    - title: Show Q
-      methodToCall:
-        m_PersistentCalls:
-          m_Calls:
-          - m_Target: {fileID: 1416558614}
-            m_TargetAssemblyTypeName: 
-            m_MethodName: TaskStep2
-            m_Mode: 1
-            m_Arguments:
-              m_ObjectArgument: {fileID: 0}
-              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-              m_IntArgument: 0
-              m_FloatArgument: 0
-              m_StringArgument: 
-              m_BoolArgument: 0
-            m_CallState: 2
-    - title: Thanks
-      methodToCall:
-        m_PersistentCalls:
-          m_Calls:
-          - m_Target: {fileID: 1416558614}
-            m_TargetAssemblyTypeName: 
-            m_MethodName: TaskStep3
-            m_Mode: 1
-            m_Arguments:
-              m_ObjectArgument: {fileID: 0}
-              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-              m_IntArgument: 0
-              m_FloatArgument: 0
-              m_StringArgument: 
-              m_BoolArgument: 0
-            m_CallState: 2
-    OnSessionStart:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1416558614}
-          m_TargetAssemblyTypeName: 
-          m_MethodName: OnSessionStart
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-    OnSessionBreak:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1416558614}
-          m_TargetAssemblyTypeName: 
-          m_MethodName: OnSessionBreak
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-    OnSessionResume:
-      m_PersistentCalls:
-        m_Calls: []
-    OnBlockStart:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1416558614}
-          m_TargetAssemblyTypeName: 
-          m_MethodName: OnBlockStart
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-    OnBlockIntroduction:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1416558614}
-          m_TargetAssemblyTypeName: 
-          m_MethodName: OnBlockIntroduction
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-    OnBlockResumeAfterIntro:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1416558614}
-          m_TargetAssemblyTypeName: 
-          m_MethodName: OnBlockResumeAfterIntroduction
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-    OnStartNewTrial:
-      m_PersistentCalls:
-        m_Calls: []
-    OnBetweenSteps:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1416558614}
-          m_TargetAssemblyTypeName: 
-          m_MethodName: OnBetweenSteps
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
   - BlockDescription: Practice
     trialSequence:
     - title: Show Text
@@ -2315,6 +2169,152 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1416558613}
+          m_TargetAssemblyTypeName: 
+          m_MethodName: OnBetweenSteps
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - BlockDescription: Questionaire
+    trialSequence:
+    - title: Intro
+      methodToCall:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 1416558614}
+            m_TargetAssemblyTypeName: 
+            m_MethodName: TaskStep1
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+    - title: Show Q
+      methodToCall:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 1416558614}
+            m_TargetAssemblyTypeName: 
+            m_MethodName: TaskStep2
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+    - title: Thanks
+      methodToCall:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 1416558614}
+            m_TargetAssemblyTypeName: 
+            m_MethodName: TaskStep3
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+    OnSessionStart:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1416558614}
+          m_TargetAssemblyTypeName: 
+          m_MethodName: OnSessionStart
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    OnSessionBreak:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1416558614}
+          m_TargetAssemblyTypeName: 
+          m_MethodName: OnSessionBreak
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    OnSessionResume:
+      m_PersistentCalls:
+        m_Calls: []
+    OnBlockStart:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1416558614}
+          m_TargetAssemblyTypeName: 
+          m_MethodName: OnBlockStart
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    OnBlockIntroduction:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1416558614}
+          m_TargetAssemblyTypeName: 
+          m_MethodName: OnBlockIntroduction
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    OnBlockResumeAfterIntro:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1416558614}
+          m_TargetAssemblyTypeName: 
+          m_MethodName: OnBlockResumeAfterIntroduction
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    OnStartNewTrial:
+      m_PersistentCalls:
+        m_Calls: []
+    OnBetweenSteps:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1416558614}
           m_TargetAssemblyTypeName: 
           m_MethodName: OnBetweenSteps
           m_Mode: 1
