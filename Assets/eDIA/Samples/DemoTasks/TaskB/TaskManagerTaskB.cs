@@ -18,7 +18,7 @@ namespace TASK {
 		/// 4. Find [ SYSTEM ] > [ EXP ] gameobject and replace 'TaskManagerDemo' script entry in the inspector with your TaskManager script and switch inspector mode back again</para>
 		/// </summary>
 		public class TaskManagerTaskB : TaskManager {
-
+/*
 			[Header(("Task related refs"))]
 			public Image stimuliHolder;
 			public Transform buttonPanel = null;
@@ -227,6 +227,6 @@ namespace TASK {
 			}
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
+*/
 	}
-
 }

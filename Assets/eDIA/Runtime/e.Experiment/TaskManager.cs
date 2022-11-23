@@ -16,32 +16,28 @@ namespace eDIA {
 		public bool showLog = false;
 		public Color taskColor = Color.yellow;
 
-		// [System.Serializable]
-		// public class TaskSettingsContainer { 
-		// 	public List<ExperimentManager.SettingsTuple> taskSettings = new List<ExperimentManager.SettingsTuple>();
-		// }
-		
-		// TaskSettingsContainer taskSettingsContainer;
-		// public UXF.Settings taskSettings = new Settings();
-
-
 		[System.Serializable]
 		public class TaskBlock {
 
-			public string name;
-			// Events forwarding
-			[Header("Event hooks")]
-			public UnityEvent OnOnEnable = null;
-			public UnityEvent OnStart = null;
+			[Header("Short description of this block")]
+			public string BlockDescription;
 
 			[SerializeField]
-			[Header("Steps the trial goes through in this task block")]
-			public List<TrialStep> trialSequence = new List<TrialStep>();
+			[Header("Link the methods the trial goes through sequentially for this block.")]
+			public List<TrialSequenceStep> trialSequence = new List<TrialSequenceStep>();
+
+			[Header("Event hooks")]
+			public UnityEvent OnSessionStart = null;
+			public UnityEvent OnSessionBreak = null;
+			public UnityEvent OnSessionResume = null;
+			public UnityEvent OnBlockStart = null;
+			public UnityEvent OnBlockIntroduction = null;
+			public UnityEvent OnBlockResumeAfterIntro = null;
+			public UnityEvent OnResetTrial = null;
+			public UnityEvent OnStart = null;
 		}
 
-
 		public List<TaskBlock> taskBlocks = new List<TaskBlock>();
-
 
 		[HideInInspector]
 		public int currentStep = -1;
@@ -59,18 +55,9 @@ namespace eDIA {
 		public virtual void Awake() {
 			// Listen to event that XR rig is ready
 			EventManager.StartListening(eDIA.Events.Interaction.EvFoundXRrigReferences, 	OnEvFoundXRrigReferences);
-			EventManager.StartListening(eDIA.Events.Core.EvExperimentInitialised, 		OnEvExperimentInitialised);
 			EventManager.StartListening(eDIA.Events.Core.EvLocalConfigSubmitted, 		OnEvLocalConfigSubmitted);
-			// EventManager.StartListening(eDIA.Events.Core.EvSetTaskConfig, 			OnEvSetTaskConfig);
 
 			GetXRrigReferences();
-		}
-
-
-		public virtual void OnEnable() {
-		}
-
-		public virtual void Start() {
 		}
 
 
@@ -81,9 +68,8 @@ namespace eDIA {
 			EventManager.StopListening(eDIA.Events.Core.EvSessionBreak, 		OnEvSessionBreak);
 			EventManager.StopListening(eDIA.Events.Core.EvSessionResume, 		OnEvSessionResume);
 			EventManager.StopListening(eDIA.Events.Core.EvBlockIntroduction, 		OnEvBlockIntroduction);
-			EventManager.StopListening(eDIA.Events.Core.EvBlockResume, 			OnEvBlockResume);
+			EventManager.StopListening(eDIA.Events.Core.OnEvBlockResumeAfterIntro, 	OnEvBlockResumeAfterIntro);
 			EventManager.StopListening(eDIA.Events.Core.EvTrialBegin, 			OnEvTrialBegin);
-			EventManager.StopListening(eDIA.Events.Core.EvExperimentInitialised, 	OnEvExperimentInitialised);
 		}
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
@@ -115,46 +101,7 @@ namespace eDIA {
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region TASK UXF HELPERS
 
-		// private void LoadTaskConfigFromFile(string filename)
-		// {
-		// 	// Load taskConfigFile
-		// 	string taskConfigJSON = FileManager.ReadStringFromApplicationPathSubfolder(Constants.localConfigDirectoryName + "/Tasks", filename);
-
-		// 	if (taskConfigJSON == "ERROR")
-		// 	{
-		// 		Debug.LogError("Task JSON not correctly loaded!");
-		// 		return;
-		// 	}
-
-		// 	SetTaskConfigFromJSON(taskConfigJSON);
-		// }
-
-		// private void SetTaskConfigFromJSON (string taskConfigJSON)
-		// {
-		// 	// Parse JSON into a container
-		// 	taskSettingsContainer = UnityEngine.JsonUtility.FromJson<TaskSettingsContainer>(taskConfigJSON);
-
-		// 	// Workaround to parse into a UXF Dictionary 
-		// 	foreach (ExperimentManager.SettingsTuple tuple in taskSettingsContainer.taskSettings)
-		// 	{
-
-		// 		if (tuple.value.Contains(','))
-		// 		{ // it's a list!
-		// 			List<string> stringlist = tuple.value.Split(',').ToList();
-		// 			taskSettings.SetValue(tuple.key, stringlist);
-		// 		}
-		// 		else taskSettings.SetValue(tuple.key, tuple.value);   // normal string
-		// 	}
-		// }
-
-		// /// <summary>Event catcher for taskconfig</summary>
-		// void OnEvSetTaskConfig(eParam obj)
-		// {
-		// 	SetTaskConfigFromJSON(obj.GetString());
-		// }
-
 		public void AddToTrialResults (string key, string value) {
-			// TODO: Add option to add result easily to results dict and therefor on disk
 			Session.instance.CurrentTrial.result[key] = value;
 		}
 
@@ -169,14 +116,9 @@ namespace eDIA {
 			EventManager.StartListening(eDIA.Events.Core.EvBlockStart, 		OnEvBlockStart);
 
 			inSession = true;
-			OnSessionStart();
+			taskBlocks[Session.instance.currentBlockNum].OnSessionStart?.Invoke();
 		}
 
-		// /// <summary>Called from UXF session. </summary>
-		// void OnPreSessionEndUXF() {
-		// 	AddToLog("OnPreSessionEndUXF");
-		// 	OnPreSessionEnd(); // call our own session ending
-		// }
 
 		/// <summary>Called from UXF session. </summary>
 		public virtual void OnSessionEndUXF() {
@@ -194,33 +136,16 @@ namespace eDIA {
 			EventManager.StopListening(eDIA.Events.Core.EvLocalConfigSubmitted, OnEvLocalConfigSubmitted);
 
 			string filename = e.GetStrings()[0] + ".json"; // combine task string and participant string
-			
-			// Debug.Log(e.GetString());
-			// LoadTaskConfigFromFile (filename);
 		}
 		
-		void OnEvExperimentInitialised (eParam e) {
-			OnExperimentInitialised(e.GetBool());
-		}
-
-		/// <summary>At this point we have acces to all taskSettings</summary>
-		public virtual void OnExperimentInitialised(bool result) {
-			// Intentially empty
-		}
-
 		void OnEvTrialBegin (eParam e) {
 			StartTrial();
 		}
 
+//! IS this the start of calling a block? maybe for an INIT method or someething
 		void OnEvBlockStart (eParam obj) {
 			// New block, got from experimentmanager
-			// Call overridable local Method
-			OnBlockStart();
-		}
-
-		public virtual void OnBlockStart () {
-			// Intentially empty
-
+			taskBlocks[Session.instance.currentBlockNum].OnBlockStart?.Invoke();
 		}
 
 		public virtual void OnEvProceed (eParam e) {
@@ -229,43 +154,25 @@ namespace eDIA {
 		}
 
 
-
-#endregion // -------------------------------------------------------------------------------------------------------------------------------
-#region SESSION START / END
-
-		/// <summary>Hook up to OnSessionStart event</summary>
-		public virtual void OnSessionStart() {
-			// Intentially empty
-			//! System awaits 'EvProceed' event automaticaly to proceed to first trial. 
-		}
-
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region BREAK
 
 		/// <summary>OnEvSessionBreak event listener</summary>
 		void OnEvSessionBreak(eParam e) {
 			AddToLog("Break START");
-			EventManager.StartListening(eDIA.Events.Core.EvSessionResume, 		OnEvSessionResume);
-			
-			OnSessionBreak();
-		}
 
-		/// <summary> Overridable OnEvSessionBreak</summary>
-		public virtual void OnSessionBreak() {
-			// Intentially empty
+			EventManager.StartListening(eDIA.Events.Core.EvSessionResume, OnEvSessionResume);
+			taskBlocks[Session.instance.currentBlockNum].OnSessionBreak?.Invoke();
 		}
 
 		/// <summary>OnEvSessionResume event listener</summary>
 		void OnEvSessionResume (eParam e) {
 			AddToLog("Session Resume");
-			EventManager.StopListening(eDIA.Events.Core.EvSessionResume, 		OnEvSessionResume);
-			OnSessionResume();
+
+			EventManager.StopListening(eDIA.Events.Core.EvSessionResume, OnEvSessionResume);
+			taskBlocks[Session.instance.currentBlockNum].OnSessionResume?.Invoke();
 		}
 
-		/// <summary> Overridable OnSessionResume method</summary>
-		public virtual void OnSessionResume() {
-			// Intentially empty
-		}
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region BLOCK INTRODUCTION
@@ -273,27 +180,22 @@ namespace eDIA {
 		/// <summary>OnEvBlockIntroduction event listener</summary>
 		void OnEvBlockIntroduction (eParam e) {
 			AddToLog("Block introduction");
-			EventManager.StartListening(eDIA.Events.Core.EvBlockResume, 		OnEvBlockResume);
-			OnBlockIntroduction();
+
+			EventManager.StartListening(eDIA.Events.Core.OnEvBlockResumeAfterIntro, OnEvBlockResumeAfterIntro);
+			taskBlocks[Session.instance.currentBlockNum].OnBlockIntroduction?.Invoke();
 		}
 		
-		/// <summary>Overridable OnBlockIntroduction</summary>
-		public virtual void OnBlockIntroduction() {
-			// Intentially empty
-		}
 
 		/// <summary>OnEvBlockResume event listener</summary>
-		public void OnEvBlockResume (eParam e) {
+		public void OnEvBlockResumeAfterIntro (eParam e) {
 			AddToLog("Block Resume");
-			EventManager.StopListening(eDIA.Events.Core.EvBlockResume, 		OnEvBlockResume);
-			OnBlockResume();
+
+			EventManager.StopListening(eDIA.Events.Core.OnEvBlockResumeAfterIntro, OnEvBlockResumeAfterIntro);
+			taskBlocks[Session.instance.currentBlockNum].OnBlockResumeAfterIntro?.Invoke();
+
 			StartTrial();
 		}
 
-		/// <summary>Overridable OnBlockContinue</summary>
-		public virtual void OnBlockResume () {
-			// Intentially empty
-		}
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region TASK STATEMACHINE
@@ -314,8 +216,10 @@ namespace eDIA {
 			Session.instance.EndCurrentTrial(); // tells UXF to end this trial and fire the event that follows
 		}
 
-		public virtual void ResetTrial() {
+		public void ResetTrial() {
+
 			currentStep = -1;
+			taskBlocks[Session.instance.currentBlockNum].OnResetTrial?.Invoke();
 		}
 
 		/// <summary>Call next step in the trial with delay.</summary>
@@ -331,7 +235,7 @@ namespace eDIA {
 			currentStep++;
 
 			if (currentStep < taskBlocks[0].trialSequence.Count) {
-				taskBlocks[0].trialSequence[currentStep].methodToCall.Invoke();
+				taskBlocks[Session.instance.currentBlockNum].trialSequence[currentStep].methodToCall.Invoke();
 			}
 			else EndTrial();
 		}

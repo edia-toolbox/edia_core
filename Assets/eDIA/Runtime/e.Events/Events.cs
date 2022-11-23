@@ -40,7 +40,7 @@ namespace eDIA.Events {
 		public static string EvBlockIntroduction 		= "EvBlockIntroduction";
 
 		/// <summary>Fired by ExperimentManager when the session resumes after an i.e. introduction. Expects null</summary>
-		public static string EvBlockResume 			= "EvBlockResume";
+		public static string OnEvBlockResumeAfterIntro 	= "OnEvBlockResumeAfterIntro";
 
 		/// <summary>Event indicating that the system can proceed, useally from experimenter. Expects null</summary>
 		public static string EvProceed 			= "EvProceed";
@@ -122,7 +122,7 @@ namespace eDIA.Events {
 		public static string EvHandPose				= "EvHandPose";
 
 		/// <summary>Handmodel pose reacts live to controller state, expects bool</summary>
-		public static string EvHandModelReacts			= "EvHandModelReacts";
+		public static string EvEnableCustomHandPoses		= "EvEnableCustomHandPoses";
 
 	}
 

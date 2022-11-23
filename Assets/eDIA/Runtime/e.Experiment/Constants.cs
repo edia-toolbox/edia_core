@@ -19,11 +19,11 @@ namespace eDIA {
     }
 
     [System.Serializable]
-    public class TrialStep {
+    public class TrialSequenceStep {
         public string title;
         public UnityEvent methodToCall;
 
-        public TrialStep (string title, UnityEvent methodToCall) {
+        public TrialSequenceStep (string title, UnityEvent methodToCall) {
             this.title = title;
             this.methodToCall = methodToCall;
         }

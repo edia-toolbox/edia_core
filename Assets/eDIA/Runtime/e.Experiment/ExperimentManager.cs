@@ -32,19 +32,19 @@ namespace eDIA {
 			public string 				introduction 		= string.Empty;
 			public List<SettingsTuple>		blockSettings		= new List<SettingsTuple>();
 			public List<string> 			trialKeys 			= new List<string>();
-			public List<TrialSequenceValues> 	trialSequence 		= new List<TrialSequenceValues>();
+			public List<TrialChainValues> 	trialChain 			= new List<TrialChainValues>();
 		}
 
 
 		/// <summary> Temp storage of a list of string to use in another class to generate a two dimensional array basically</summary>
 		[System.Serializable]
-		public class TrialSequenceValues {
+		public class TrialChainValues {
 			public List<string> values = new List<string>();
 		}
 
 		/// <summary> container for (de)serializing a list to JSON</summary>
-		public class TrialSequenceValuesContainer {
-			public List<TrialSequenceValues> trialSequenceValues = new List<TrialSequenceValues>();
+		public class TrialChainValuesContainer {
+			public List<TrialChainValues> trialSequenceValues = new List<TrialChainValues>();
 		}
 
 		/// <summary> Main container to store sessions config in, either from disk, editor or network </summary>
@@ -463,7 +463,7 @@ namespace eDIA {
 
 			EnableEyeCalibrationTrigger(false);
 
-			EventManager.TriggerEvent(eDIA.Events.Core.EvBlockResume,null);
+			EventManager.TriggerEvent(eDIA.Events.Core.OnEvBlockResumeAfterIntro,null);
 		}
 
 #endregion	// -------------------------------------------------------------------------------------------------------------------------------
@@ -486,7 +486,7 @@ namespace eDIA {
 						newBlock.settings.SetValue(s.key, stringlist);	
 					} else newBlock.settings.SetValue(s.key, s.value);	// normal string
 
-				foreach (TrialSequenceValues row in b.trialSequence) {
+				foreach (TrialChainValues row in b.trialChain) {
 					Trial newTrial = newBlock.CreateTrial();
 
 					for (int i = 0; i < b.trialKeys.Count; i++) {

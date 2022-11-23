@@ -134,6 +134,23 @@ namespace eDIA {
 			EventManager.TriggerEvent(eDIA.Events.Interaction.EvEnableXRInteraction, new eParam(_onOff));
 		}
 
+#endregion // -------------------------------------------------------------------------------------------------------------------------------
+#region HANDS
+
+		/// <summary>Set the hand pose for the currently hand(s) set as interactives</summary>
+		/// <param name="pose">Pose as string 'point','fist','idle'</param>
+		public static void SetHandPose (string pose) {
+			EventManager.TriggerEvent (eDIA.Events.Interaction.EvHandPose, new eParam ( pose ));
+		}
+
+		/// <summary>Set the hand pose for the currently hand(s) set as interactives</summary>
+		/// <param name="pose">Pose as string 'point','fist','idle'</param>
+		public static void EnableCustomHandPoses (bool onOff) {
+			EventManager.TriggerEvent (eDIA.Events.Interaction.EvEnableCustomHandPoses, new eParam ( onOff ));
+		}
+
+
+
 	}
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
