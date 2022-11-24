@@ -238,6 +238,7 @@ namespace eDIA {
 			Invoke("NextStep", delay);
 		}
 
+		/// <summary>Call next step in the trial.</summary>
 		public void NextStep() {
 			if (!inSession)
 				return;
