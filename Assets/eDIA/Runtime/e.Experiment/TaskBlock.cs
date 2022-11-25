@@ -6,18 +6,17 @@ using UnityEngine;
 [System.Serializable]
 public class TaskBlock : MonoBehaviour {
 
-    [Header ("Short description of this block")]
-    public string BlockDescription;
+    [Header ("Block name, use the name defined in the config")]
+    public string BlockName;
 
     [SerializeField]
     public List<Action> trialSteps = new List<Action> ();
-
 
 #region EVENT HOOKS
 
     public virtual void OnBlockStart () { }
     public virtual void OnBlockIntroduction () { }
-    public virtual void OnBlockResumeAfterIntroduction () { }
+    public virtual void OnBlockResumeAfterIntro () { }
     public virtual void OnStartNewTrial () { }
     public virtual void OnBetweenSteps () { }
     public virtual void OnBlockEnd () { }

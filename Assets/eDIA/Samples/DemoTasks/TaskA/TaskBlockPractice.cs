@@ -108,7 +108,7 @@ namespace TASK {
 		}
 
 		/// <summary>Called when block resumes</summary>
-		public override void OnBlockResumeAfterIntroduction () {
+		public override void OnBlockResumeAfterIntro () {
 
 		}
 

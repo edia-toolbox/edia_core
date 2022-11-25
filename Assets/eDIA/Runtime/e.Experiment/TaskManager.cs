@@ -16,33 +16,15 @@ namespace eDIA {
 		public bool showLog = false;
 		public Color taskColor = Color.yellow;
 
-		// [System.Serializable]
-		// public class TaskBlock {
-
-		// 	[Header("Short description of this block")]
-		// 	[Tooltip("Stick with using the 'name' from the config file for this block")]
-		// 	public string BlockDescription;
-
-		// 	[SerializeField]
-		// 	[Header("Link the methods the trial goes through sequentially for this block.")]
-		// 	public List<TrialSequenceStep> trialSequence = new List<TrialSequenceStep>();
-
-		// }
-
 		[Space(20)]
 		public List<TaskBlock> taskBlocks = new List<TaskBlock>();
 
 		[Space(20)]
-		[Header("Event hooks\nOptional event hooks to use in your task block")]
+		[Header("Event hooks\n\nOptional event hooks to use in your task")]
 		public UnityEvent OnSessionStart = null;
 		public UnityEvent OnSessionBreak = null;
-		public UnityEvent OnSessionResume = null;
-		public UnityEvent OnBlockStart = null;
-		public UnityEvent OnBlockEnd = null;
-		public UnityEvent OnBlockIntroduction = null;
-		public UnityEvent OnBlockResumeAfterIntro = null;
-		public UnityEvent OnStartNewTrial = null;
-		public UnityEvent OnBetweenSteps = null;
+		public UnityEvent OnSessionEnd = null;
+
 		
 		[HideInInspector]
 		public int currentStep = -1;
@@ -122,14 +104,15 @@ namespace eDIA {
 
 		public void SessionBeginUXF() {
 			AddToLog("OnSessionBeginUXF");
-
 			inSession = true;
+			OnSessionStart?.Invoke();
 		}
 
 		/// <summary>Called from UXF session. </summary>
 		public void SessionEndUXF() {
 			AddToLog("OnSessionEndUXF");
 			inSession = false;
+			OnSessionEnd?.Invoke();
 		}
 		
 		public void TrialBegin () {
@@ -147,7 +130,6 @@ namespace eDIA {
 		/// <summary>Called from experiment manager</summary>
 		public void SessionBreak() {
 			AddToLog("Break START");
-
 			OnSessionBreak?.Invoke();
 		}
 
@@ -160,21 +142,19 @@ namespace eDIA {
 		/// <summary>Called from experiment manager</summary>
 		public void BlockEnd () {
 			AddToLog("Block End");
-			OnBlockEnd?.Invoke();
+			taskBlocks[Session.instance.currentBlockNum-1].OnBlockEnd();
 		}
 
 		/// <summary>Called from experiment manager</summary>
 		public void BlockIntroduction () {
 			AddToLog("Block introduction");
-
-			OnBlockIntroduction?.Invoke();
+			taskBlocks[Session.instance.currentBlockNum-1].OnBlockIntroduction();	
 		}
 
 		/// <summary>Called from experiment manager</summary>
 		public void BlockResumeAfterIntro () {
 			AddToLog("OnEvBlockResumeAfterIntro");
-
-			OnBlockResumeAfterIntro?.Invoke();
+			taskBlocks[Session.instance.currentBlockNum-1].OnBlockResumeAfterIntro();	
 
 			StartTrial();
 		}
@@ -201,7 +181,7 @@ namespace eDIA {
 
 		public void StartNewTrial() {
 			currentStep = -1;
-			OnStartNewTrial?.Invoke();
+			taskBlocks[Session.instance.currentBlockNum-1].OnStartNewTrial();
 		}
 
 		/// <summary>Call next step in the trial with delay.</summary>
@@ -229,7 +209,7 @@ namespace eDIA {
 			currentStep++;
 
 			if (currentStep < taskBlocks[Session.instance.CurrentBlock.number-1].trialSteps.Count) {
-				OnBetweenSteps.Invoke();
+				taskBlocks[Session.instance.currentBlockNum-1].OnBetweenSteps();
 				taskBlocks[Session.instance.CurrentBlock.number-1].trialSteps[currentStep].Invoke();
 			}
 			else EndTrial();

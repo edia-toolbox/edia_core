@@ -38,17 +38,24 @@ namespace TASK {
 			HidePanel();
 		}
 
+		/// <summary>Shows the message in VR on a canvas for a certain duration.</summary>
+		/// <param name="msg">Message to show</param>
+		/// <param name="duration">Duration</param>
 		public void ShowMessage (string msg, float duration) {
 			ShowMessage(msg);
 			Invoke("HidePanel", duration);
 		}
-
-		public void ShowMessage (string msg, bool hideOnButtonClick) {
+		
+		/// <summary>Shows the message in VR on a canvas until EvProceed event is fired</summary>
+		/// <param name="msg">Message to show</param>
+		/// <param name="hideOnEvProceed">Hide when EvProceed is fired</param>
+		public void ShowMessage (string msg, bool hideOnEvProceed) {
 			ShowMessage(msg);
 			EventManager.StartListening(eDIA.Events.Core.EvProceed, OnEvHideMessage);
 		}
 
-
+		/// <summary>Shows the message in VR on a canvas.</summary>
+		/// <param name="msg">Message to show</param>
 		public void ShowMessage (string msg) {
 			if (msgField == null)
 				return;
