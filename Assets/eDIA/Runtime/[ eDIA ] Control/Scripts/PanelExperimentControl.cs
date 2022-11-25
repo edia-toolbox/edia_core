@@ -65,7 +65,7 @@ namespace eDIA {
 
 			ShowPanel();
 
-			EventManager.StartListening("EvSetDisplayInformation", OnEvSetDisplayInformation);
+			EventManager.StartListening("EvSetDisplayInformation", OnEvDisplaySessionInfo);
 		}
 
 		void OnEvStartExperiment (eParam e)
@@ -85,14 +85,14 @@ namespace eDIA {
 			panelStatus.SetActive(true);
 			GetComponent<VerticalLayoutGroup>().enabled = true;
 
+			EventManager.StartListening("EvDisplaySessionInfo", OnEvDisplaySessionInfo);
 			EventManager.StartListening("EvExperimentProgressUpdate", OnEvExperimentProgressUpdate);
 			EventManager.StartListening("EvFinalizeSession", OnEvFinalizeSession);
 		}
 
-		private void OnEvSetDisplayInformation(eParam e)
+		private void OnEvDisplaySessionInfo(eParam e)
 		{
-			//TODO not modular yet! so won't work if it's on a remote tablet or something
-			string[] displayInformation = ExperimentManager.Instance.experimentConfig.GetExperimentSummary();
+			string[] displayInformation = e.GetStrings();
 			
 			experimentNameField.text = displayInformation[0];
 			experimenterField.text = displayInformation[1];
@@ -107,7 +107,7 @@ namespace eDIA {
 		private void OnEvFinalizeSession(eParam obj)
 		{
 			EventManager.StopListening("EvFinalizeSession", OnEvFinalizeSession);
-			EventManager.StopListening("EvSetDisplayInformation", OnEvSetDisplayInformation);
+			EventManager.StopListening("EvSetDisplayInformation", OnEvDisplaySessionInfo);
 
 			btnExperiment.transform.GetChild(0).GetComponentInChildren<Text>().text = "Quit";
 			btnExperiment.onClick.AddListener( ()=> EventManager.TriggerEvent(eDIA.Events.Core.EvQuitApplication, null));

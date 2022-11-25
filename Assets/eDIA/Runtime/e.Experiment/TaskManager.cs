@@ -16,32 +16,34 @@ namespace eDIA {
 		public bool showLog = false;
 		public Color taskColor = Color.yellow;
 
-		[System.Serializable]
-		public class TaskBlock {
+		// [System.Serializable]
+		// public class TaskBlock {
 
-			[Header("Short description of this block")]
-			[Tooltip("Stick with using the 'name' from the config file for this block")]
-			public string BlockDescription;
+		// 	[Header("Short description of this block")]
+		// 	[Tooltip("Stick with using the 'name' from the config file for this block")]
+		// 	public string BlockDescription;
 
-			[SerializeField]
-			[Header("Link the methods the trial goes through sequentially for this block.")]
-			public List<TrialSequenceStep> trialSequence = new List<TrialSequenceStep>();
+		// 	[SerializeField]
+		// 	[Header("Link the methods the trial goes through sequentially for this block.")]
+		// 	public List<TrialSequenceStep> trialSequence = new List<TrialSequenceStep>();
 
-			[Space(20)]
-			[Header("Event hooks\nOptional event hooks to use in your task block")]
-			public UnityEvent OnSessionStart = null;
-			public UnityEvent OnSessionBreak = null;
-			public UnityEvent OnSessionResume = null;
-			public UnityEvent OnBlockStart = null;
-			public UnityEvent OnBlockIntroduction = null;
-			public UnityEvent OnBlockResumeAfterIntro = null;
-			public UnityEvent OnStartNewTrial = null;
-			public UnityEvent OnBetweenSteps = null;
-		}
+		// }
 
 		[Space(20)]
 		public List<TaskBlock> taskBlocks = new List<TaskBlock>();
 
+		[Space(20)]
+		[Header("Event hooks\nOptional event hooks to use in your task block")]
+		public UnityEvent OnSessionStart = null;
+		public UnityEvent OnSessionBreak = null;
+		public UnityEvent OnSessionResume = null;
+		public UnityEvent OnBlockStart = null;
+		public UnityEvent OnBlockEnd = null;
+		public UnityEvent OnBlockIntroduction = null;
+		public UnityEvent OnBlockResumeAfterIntro = null;
+		public UnityEvent OnStartNewTrial = null;
+		public UnityEvent OnBetweenSteps = null;
+		
 		[HideInInspector]
 		public int currentStep = -1;
 
@@ -68,13 +70,6 @@ namespace eDIA {
 
 		void OnDestroy() {
 			EventManager.StopListening("EvFoundXRrigReferences", OnEvFoundXRrigReferences);
-			
-			// Set up sequence listeners
-			EventManager.StopListening(eDIA.Events.Core.EvSessionBreak, 		OnEvSessionBreak);
-			EventManager.StopListening(eDIA.Events.Core.EvSessionResume, 		OnEvSessionResume);
-			EventManager.StopListening(eDIA.Events.Core.EvBlockIntroduction, 		OnEvBlockIntroduction);
-			EventManager.StopListening(eDIA.Events.Core.EvBlockResumeAfterIntro, 	OnEvBlockResumeAfterIntro);
-			EventManager.StopListening(eDIA.Events.Core.EvTrialBegin, 			OnEvTrialBegin);
 		}
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
@@ -111,100 +106,75 @@ namespace eDIA {
 		}
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
-#region UXF EVENT HANDLERS
-
-		void OnSessionBeginUXF() {
-			AddToLog("OnSessionBeginUXF");
-			EventManager.StartListening(eDIA.Events.Core.EvTrialBegin, 		OnEvTrialBegin);
-			EventManager.StartListening(eDIA.Events.Core.EvSessionBreak, 	OnEvSessionBreak);
-			EventManager.StartListening(eDIA.Events.Core.EvBlockIntroduction, OnEvBlockIntroduction);
-			EventManager.StartListening(eDIA.Events.Core.EvBlockStart, 		OnEvBlockStart);
-
-			inSession = true;
-			taskBlocks[0].OnSessionStart?.Invoke(); // is always 0 as session starts only once
-			//! TODO This would probably won't work at the moment we introduce multiple tasks in one session though
-		}
-
-
-		/// <summary>Called from UXF session. </summary>
-		public virtual void OnSessionEndUXF() {
-			AddToLog("OnSessionEndUXF");
-			inSession = false;
-			EventManager.StopListening(eDIA.Events.Core.EvBlockStart, 		OnEvBlockStart);
-		}
-
-#endregion // -------------------------------------------------------------------------------------------------------------------------------
-#region eDIA EXPERIMENT EVENT HANDLERS
+#region eDIA EVENT HANDLERS
 
 		/// <summary>Look up given index in the localConfigFiles list and give content of that file to system </summary>
 		/// <param name="e">String = filename of the configfile</param>
 		void OnEvLocalConfigSubmitted (eParam e) {
-			EventManager.StopListening(eDIA.Events.Core.EvLocalConfigSubmitted, OnEvLocalConfigSubmitted);
 
+			EventManager.StopListening(eDIA.Events.Core.EvLocalConfigSubmitted, OnEvLocalConfigSubmitted);
 			string filename = e.GetStrings()[0] + ".json"; // combine task string and participant string
 		}
 		
-		void OnEvTrialBegin (eParam e) {
+
+#endregion // -------------------------------------------------------------------------------------------------------------------------------
+#region eDIA EXPERIMENT MANAGER CALLS
+
+		public void SessionBeginUXF() {
+			AddToLog("OnSessionBeginUXF");
+
+			inSession = true;
+		}
+
+		/// <summary>Called from UXF session. </summary>
+		public void SessionEndUXF() {
+			AddToLog("OnSessionEndUXF");
+			inSession = false;
+		}
+		
+		public void TrialBegin () {
 			StartTrial();
 		}
 
-		void OnEvBlockStart (eParam obj) {
-			// New block, got from experimentmanager
-			OnBlockStart();
-		}
-
 		public void OnEvProceed (eParam e) {
-			AddToLog("EvProceed listener OFF");
-			EventManager.StopListening(eDIA.Events.Core.EvProceed, OnEvProceed);
+
+			Debug.Log("<color=#50eee0>["+ name +  "]]> OnEvProceed called</color>");
+			EventManager.StopListening(eDIA.Events.Core.EvProceed, OnEvProceed); // stop listening to avoid doubleclicks
+			EventManager.TriggerEvent("EvButtonChangeState", new eParam( new string[] { "PROCEED", "false" })); // disable button, as OnEvProceed might have come from somewhere else than the button itself
 			NextStep();
 		}
 
-
-#endregion // -------------------------------------------------------------------------------------------------------------------------------
-#region BREAK
-
-		/// <summary>OnEvSessionBreak event listener</summary>
-		void OnEvSessionBreak(eParam e) {
+		/// <summary>Called from experiment manager</summary>
+		public void SessionBreak() {
 			AddToLog("Break START");
 
-			EventManager.StartListening(eDIA.Events.Core.EvSessionResume, OnEvSessionResume);
-			taskBlocks[Session.instance.CurrentBlock.number-1].OnSessionBreak?.Invoke();
+			OnSessionBreak?.Invoke();
 		}
 
-		/// <summary>OnEvSessionResume event listener</summary>
-		void OnEvSessionResume (eParam e) {
-			AddToLog("Session Resume");
-
-			EventManager.StopListening(eDIA.Events.Core.EvSessionResume, OnEvSessionResume);
-			taskBlocks[Session.instance.CurrentBlock.number-1].OnSessionResume?.Invoke();
-		}
-
-
-#endregion // -------------------------------------------------------------------------------------------------------------------------------
-#region BLOCK 
-
-		/// <summary>OnEvBlockIntroduction event listener</summary>
-		public void OnBlockStart () {
+		/// <summary>Called from experiment manager</summary>
+		public void BlockStart () {
 			AddToLog("Block Start");
-			taskBlocks[Session.instance.CurrentBlock.number-1].OnBlockStart?.Invoke();
+			taskBlocks[Session.instance.currentBlockNum-1].OnBlockStart();
 		}
 		
+		/// <summary>Called from experiment manager</summary>
+		public void BlockEnd () {
+			AddToLog("Block End");
+			OnBlockEnd?.Invoke();
+		}
 
-		/// <summary>OnEvBlockIntroduction event listener</summary>
-		void OnEvBlockIntroduction (eParam e) {
+		/// <summary>Called from experiment manager</summary>
+		public void BlockIntroduction () {
 			AddToLog("Block introduction");
 
-			EventManager.StartListening(eDIA.Events.Core.EvBlockResumeAfterIntro, OnEvBlockResumeAfterIntro);
-			taskBlocks[Session.instance.CurrentBlock.number-1].OnBlockIntroduction?.Invoke();
+			OnBlockIntroduction?.Invoke();
 		}
-		
 
-		/// <summary>OnEvBlockResume event listener</summary>
-		void OnEvBlockResumeAfterIntro (eParam e) {
-			AddToLog("Block Resume");
+		/// <summary>Called from experiment manager</summary>
+		public void BlockResumeAfterIntro () {
+			AddToLog("OnEvBlockResumeAfterIntro");
 
-			EventManager.StopListening(eDIA.Events.Core.EvBlockResumeAfterIntro, OnEvBlockResumeAfterIntro);
-			taskBlocks[Session.instance.CurrentBlock.number-1].OnBlockResumeAfterIntro?.Invoke();
+			OnBlockResumeAfterIntro?.Invoke();
 
 			StartTrial();
 		}
@@ -217,7 +187,7 @@ namespace eDIA {
 		void StartTrial() {
 
 			AddToLog("StartTrial");
-			OnStartNewTrial();
+			StartNewTrial();
 
 			// Fire up the task state machine to run the steps of the trial.
 			NextStep();
@@ -229,19 +199,20 @@ namespace eDIA {
 			Session.instance.EndCurrentTrial(); // tells UXF to end this trial and fire the event that follows
 		}
 
-		public void OnStartNewTrial() {
+		public void StartNewTrial() {
 			currentStep = -1;
-			taskBlocks[Session.instance.CurrentBlock.number-1].OnStartNewTrial?.Invoke();
+			OnStartNewTrial?.Invoke();
 		}
 
 		/// <summary>Call next step in the trial with delay.</summary>
 		/// <param name="delay">Time to wait before proceeding. Expects float</param>
 		public void NextStep (float delay) {
-			if (timer != null) StopCoroutine(timer);
+			if (timer != null) StopCoroutine(timer); // Kill timer, if any
 
 			timer = StartCoroutine("NextStepTimer", delay);
 		}
 
+		/// <summary>Coroutine as timer as we can kill that to avoid delayed calls in the statemachine</summary>
 		IEnumerator NextStepTimer (float delay) {
 			
 			yield return new WaitForSeconds(delay);
@@ -250,16 +221,16 @@ namespace eDIA {
 
 		/// <summary>Call next step in the trial.</summary>
 		public void NextStep() {
-			if (timer != null) StopCoroutine(timer);
-			
+			if (timer != null) StopCoroutine(timer); // Kill timer, if any
+
 			if (!inSession)
 				return;
 
 			currentStep++;
 
-			if (currentStep < taskBlocks[Session.instance.CurrentBlock.number-1].trialSequence.Count) {
-				taskBlocks[Session.instance.CurrentBlock.number-1].OnBetweenSteps.Invoke();
-				taskBlocks[Session.instance.CurrentBlock.number-1].trialSequence[currentStep].methodToCall.Invoke();
+			if (currentStep < taskBlocks[Session.instance.CurrentBlock.number-1].trialSteps.Count) {
+				OnBetweenSteps.Invoke();
+				taskBlocks[Session.instance.CurrentBlock.number-1].trialSteps[currentStep].Invoke();
 			}
 			else EndTrial();
 		}

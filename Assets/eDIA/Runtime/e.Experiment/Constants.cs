@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using System;
 
 namespace eDIA {
 
@@ -19,11 +20,11 @@ namespace eDIA {
     }
 
     [System.Serializable]
-    public class TrialSequenceStep {
+    public class TrialStep {
         public string title;
-        public UnityEvent methodToCall;
+        public Action methodToCall;
 
-        public TrialSequenceStep (string title, UnityEvent methodToCall) {
+        public TrialStep (string title, Action methodToCall) {
             this.title = title;
             this.methodToCall = methodToCall;
         }

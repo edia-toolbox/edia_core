@@ -1,5 +1,5 @@
 {
-    "name": "eDIA FSEM input actions",
+    "name": "InputActionsTaskA",
     "maps": [
         {
             "name": "TASK",
@@ -11,7 +11,8 @@
                     "id": "8a4b71ce-8845-4e26-8755-0b2a9d1288e4",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "SelectEmotion2",
@@ -19,7 +20,8 @@
                     "id": "f3525cdd-4801-4f8e-851c-b56d26936aa7",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "SelectEmotion3",
@@ -27,7 +29,8 @@
                     "id": "f73a6315-4a05-4fef-8558-5b0888538eb1",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "SelectEmotion4",
@@ -35,7 +38,17 @@
                     "id": "2583fdea-20b1-4ff5-8848-594dfbfeb0a3",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "EvProceedFromController",
+                    "type": "Button",
+                    "id": "59ecc021-9485-44a5-aca1-66fa0e211321",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -80,6 +93,39 @@
                     "processors": "",
                     "groups": "",
                     "action": "SelectEmotion4",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d34a3f4b-d82d-439e-9216-f6fb37d07323",
+                    "path": "<XRController>{RightHand}/triggerPressed",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "EvProceedFromController",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "420182aa-ea04-4341-9fe4-c49b899bc502",
+                    "path": "<XRController>{LeftHand}/triggerPressed",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "EvProceedFromController",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c6a7c7d6-e107-4553-997a-39c9f9236371",
+                    "path": "<ViveController>/triggerPressed",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "EvProceedFromController",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

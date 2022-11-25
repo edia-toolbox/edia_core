@@ -36,7 +36,7 @@ namespace eDIA {
 		}
 
 
-		/// <summary> Temp storage of a list of string to use in another class to generate a two dimensional array basically</summary>
+		/// <summary> Temp storage of a list of string to use in another class to generate a two dimensional array </summary>
 		[System.Serializable]
 		public class TrialChainValues {
 			public List<string> values = new List<string>();
@@ -99,8 +99,6 @@ namespace eDIA {
 			EventManager.StartListening(eDIA.Events.Core.EvQuitApplication, OnEvQuitApplication);
 		}
 
-
-
 		void OnDestroy() {
 			EventManager.StopListening("EvSetExperimentConfig", OnEvSetExperimentConfig);
 			EventManager.StopListening("EvStartExperiment", OnEvStartExperiment);
@@ -115,16 +113,16 @@ namespace eDIA {
 
 		/// <summary>Register local mode, listen to submission of config file</summary>
 		void OnEvFoundLocalConfigFiles (eParam e) {
-			EventManager.StopListening("EvFoundLocalConfigFiles", OnEvFoundLocalConfigFiles);		
 
+			EventManager.StopListening("EvFoundLocalConfigFiles", OnEvFoundLocalConfigFiles);		
 			AddToLog(e.GetInt() + " local config files added");
-				
 			EventManager.StartListening(eDIA.Events.Core.EvLocalConfigSubmitted, OnEvLocalConfigSubmitted);
 		}
 
 		/// <summary>Look up given index in the localConfigFiles list and give content of that file to system </summary>
 		/// <param name="e">String = filename of the configfile</param>
 		void OnEvLocalConfigSubmitted (eParam e) {
+
 			EventManager.StopListening("EvLocalConfigSubmitted", OnEvLocalConfigSubmitted);
 			string filename = e.GetStrings()[0] + "_" + e.GetStrings()[1] + ".json"; // combine task string and participant string
 			
@@ -134,6 +132,7 @@ namespace eDIA {
 		/// <summary> Eventlistener which expects the config as JSON file, triggers default config file load if not. </summary>
 		/// <param name="e">JSON config as string</param>
 		void OnEvSetExperimentConfig( eParam e) {
+
 			if (e == null) {
 				EventManager.TriggerEvent(eDIA.Events.Core.EvSystemHalt, new eParam("No JSON config received!"));
 				return;
@@ -145,6 +144,7 @@ namespace eDIA {
 		/// <summary>Load JSON configuration locally from configdirectory</summary>
 		/// <returns>JSON string</returns>
 		string LoadExperimentConfigFromDisk (string fileName) {
+
 			string experimentJSON = FileManager.ReadStringFromApplicationPathSubfolder(eDIA.Constants.localConfigDirectoryName + "/Participants", fileName);
 
 			if (experimentJSON == "ERROR")
@@ -162,7 +162,7 @@ namespace eDIA {
 			{
 				SetSessionSettings ();
 				SetParticipantDetails ();
-				SetTrialSequence ();
+				GenerateUXFSequence(); // Generate sequence for UXF
 
 				experimentInitialized = true;
 			}
@@ -178,6 +178,7 @@ namespace eDIA {
 
 		}
 
+
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region SESSION SETTINGS
 
@@ -185,12 +186,6 @@ namespace eDIA {
 		void SetSessionSettings () {
 			// Add experimenter to settings
 			currentUXFSessionSettings.SetValue("experimenter", experimentConfig.experimenter);
-
-			// Convert and add KEYS and VALUES to the UXF settings in order to be logged
-			// TrialSequenceValuesContainer trialSequenceValuesContainer = new TrialSequenceValuesContainer();
-			// trialSequenceValuesContainer.trialSequenceValues.AddRange(experimentConfig.trialSequenceValues);
-			// currentUXFSessionSettings.SetValue("trialSequenceKeys", experimentConfig.trialSequenceKeys);
-			// currentUXFSessionSettings.SetValue("trialSequenceValues", UnityEngine.JsonUtility.ToJson(trialSequenceValuesContainer, false));
 
 			// Are there default settings?
 			if (experimentConfig.sessionSettings.Count == 0)
@@ -216,16 +211,41 @@ namespace eDIA {
 			}
 		}
 
-		void SetTrialSequence () {
-			GenerateUXFSequence(); // Generate sequence for UXF
+		/// <summary>/// Convert JSON formatted definition for the seqence into a UXF format to run in the session/// </summary>
+		void GenerateUXFSequence() {
+
+			foreach (ExperimentBlock b in experimentConfig.blocks) {
+				
+				Block newBlock = Session.instance.CreateBlock();
+				newBlock.settings.SetValue("name",b.name);
+				newBlock.settings.SetValue("introduction",b.introduction);
+
+				// Assign blocksettings to this UXF block
+				foreach (SettingsTuple s in b.blockSettings)
+					if (s.value.Contains(',')) { // it's a list!
+						List<string> stringlist = s.value.Split(',').ToList();
+						newBlock.settings.SetValue(s.key, stringlist);	
+					} else newBlock.settings.SetValue(s.key, s.value);	// normal string
+
+				foreach (TrialChainValues row in b.trialChain) {
+					Trial newTrial = newBlock.CreateTrial();
+
+					for (int i = 0; i < b.trialKeys.Count; i++) {
+						newTrial.settings.SetValue(b.trialKeys[i], row.values[i].ToUpper()); // set values to trial
+					}
+				}
+
+				// Log all keys
+				foreach (string k in b.trialKeys)
+					Session.instance.settingsToLog.Add(k);
+			}
+
+			AddToLog("Generated UXF Sequence");
 		}
 
-		void OnEvStartExperiment (eParam e) {
-			EventManager.StopListening("EvStartExperiment", OnEvStartExperiment);
-			EventManager.StartListening("EvPauseExperiment", OnEvPauseExperiment);
 
-			StartExperiment ();
-		}
+#endregion // -------------------------------------------------------------------------------------------------------------------------------
+#region APPLICATION CONTROL
 
 		/// <summary>Starts the experiment</summary>
 		public void StartExperiment () {
@@ -238,11 +258,12 @@ namespace eDIA {
 			); 
 		}
 
-		// void OnEvNewSession (eParam e) {
-		// 	// SetExperimentConfig(null);
-		// 	EventManager.TriggerEvent("EvSetExperimentConfig", null);
-		// }
-
+		void OnEvStartExperiment (eParam e) {
+			EventManager.StopListening("EvStartExperiment", OnEvStartExperiment);
+			
+			StartExperiment ();
+		}
+		
 		/// <summary>Sets the PauseExperiment flag to true and logs the call for an extra break</summary>
 		void OnEvPauseExperiment(eParam e)
 		{
@@ -255,128 +276,19 @@ namespace eDIA {
 		{
 			AddToLog("Quiting..");
 			Application.Quit();
-;		}
-
-
-#endregion // -------------------------------------------------------------------------------------------------------------------------------
-#region UXF EVENT HANDLERS
-
-		/// <summary>Start of the UXF session. </summary>
-		void OnSessionBeginUXF() {
-			AddToLog("OnSessionBeginUXF");
-			AddToExecutionOrderLog("OnSessionBegin");
-			EventManager.StartListening(eDIA.Events.Core.EvProceed, OnEvStartFirstTrial);
-
-			EventManager.TriggerEvent("EvExperimentProgressUpdate", new eParam("Welcome"));
-			// 
-			EventManager.TriggerEvent("EvButtonChangeState", new eParam( new string[] { "PROCEED", "true" }));
-
-			// eye calibration option enabled
-			EnableEyeCalibrationTrigger(true);
 		}
 
-		/// <summary>Called from user input. </summary>
-		void OnEvStartFirstTrial (eParam e) {
-			EventManager.StopListening(eDIA.Events.Core.EvProceed, OnEvStartFirstTrial);
-			Session.instance.Invoke("BeginNextTrial", 0.5f);
-		}
-
-		/// <summary>Called from UXF session. </summary>
-		void OnSessionEndUXF() {
-			AddToLog("OnSessionEndUXF");
-			AddToExecutionOrderLog("OnSessionEndUXF");
-
-			EventManager.TriggerEvent("EvExperimentProgressUpdate", new eParam("End"));
-			
-			EnableExperimentProceed(false);
-			EnableExperimentPause(false);
-		}
-
-		/// <summary>Called from UXF session. Begin setting things up for the trial that is about to start </summary>
-		void OnTrialBeginUXF(Trial newTrial) {
-			AddToLog("OnTrialBeginUXF");
-			AddToExecutionOrderLog("OnTrialBegin");
-
-			bool showIntroduction = false;
-
-			if ((Session.instance.currentBlockNum != activeBlockUXF) && (Session.instance.currentBlockNum <= Session.instance.blocks.Count)) {
-
-				// Check for block introduction flag
-				showIntroduction = experimentConfig.GetBlockIntroduction() != string.Empty;
-				Debug.Log("showIntroduction:" + showIntroduction);
-				// Set new activeBlockUXF value
-				activeBlockUXF = Session.instance.currentBlockNum;
-			}
-
-			// Inject introduction step or continue UXF sequence
-			if (showIntroduction)
-				BlockIntroduction ();
-			else {
-				if (newTrial == Session.instance.CurrentBlock.firstTrial) //! new block, so call blockstart for initialising
-					TaskManager.Instance.OnBlockStart();
-
-				EventManager.TriggerEvent("EvTrialBegin", null);
-				EventManager.TriggerEvent("EvExperimentProgressUpdate", new eParam(experimentConfig.blocks[Session.instance.currentBlockNum-1].name));
-			}
-		}
-
-		/// <summary>Called from UXF session. Checks if to call NextTrial, should start a BREAK before next Block, or End the Session </summary>
-		void OnTrialEndUXF(Trial endedTrial) {
-			AddToLog("OnTrialEndUXF");
-			AddToExecutionOrderLog("OnTrialEnd");
-			SaveCustomDataTables();
-
-			// Are we ending?
-			if (Session.instance.isEnding)
-				return;
-			
-			// Is there a PAUSE requested right now?
-			if (isPauseRequested) {
-				isPauseRequested = false;
-				
-				if (endedTrial == Session.instance.LastTrial)
-					return;
-
-				AddToExecutionOrderLog("Injected SessionBreak");
-				SessionBreak();
-				return;
-			}
-
-			// Reached last trial in a block?
-			if (Session.instance.CurrentBlock.lastTrial != endedTrial) {
-				// TODO Insert block check here
-				Session.instance.BeginNextTrialSafe();
-				return;
-			}
-
-			// Is this then the last trial of the session?
-			if (Session.instance.LastTrial == endedTrial) {
-				AddToLog("Reached end of trials ");
-				FinalizeSession();
-				return;
-			}
-
-			// Do we take a break or jump to next block?
-			if (experimentConfig.breakAfter.Contains(Session.instance.currentBlockNum)) {
-				SessionBreak();
-				return;
-			}
-			
-			// If we reach here it's just a normal trial and we continue
-			Session.instance.BeginNextTrialSafe();
-		}
-
-#endregion // -------------------------------------------------------------------------------------------------------------------------------
-#region STATE MACHINE HELPERS
 
 		public void EnableExperimentPause(bool _onOff) {
 			EventManager.TriggerEvent("EvButtonChangeState", new eParam( new string[] { "PAUSE", _onOff.ToString() }));
+			EventManager.StartListening("EvPauseExperiment", OnEvPauseExperiment);
 		}
 
 		public void EnableExperimentProceed(bool _onOff) {
 			EventManager.TriggerEvent("EvButtonChangeState", new eParam( new string[] { "PROCEED", _onOff.ToString() }));
 
 			if (_onOff) {
+				Debug.Log("<color=#50ee20>[" + name + "]]> OnEvProceed enabled</color>");
 				EventManager.StartListening (eDIA.Events.Core.EvProceed, TaskManager.Instance.OnEvProceed);
 			}
 		}
@@ -407,16 +319,132 @@ namespace eDIA {
 
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
+#region UXF STATE MACHINE
+
+		/// <summary>Start of the UXF session. </summary>
+		void OnSessionBeginUXF() {
+			AddToLog("OnSessionBeginUXF");
+			AddToExecutionOrderLog("OnSessionBegin");
+			EventManager.StartListening(eDIA.Events.Core.EvProceed, OnEvStartFirstTrial);
+
+			EventManager.TriggerEvent("EvDisplaySessionInfo", new eParam(experimentConfig.GetExperimentSummary()));
+			EventManager.TriggerEvent("EvExperimentProgressUpdate", new eParam("Welcome"));
+			EventManager.TriggerEvent("EvButtonChangeState", new eParam( new string[] { "PROCEED", "true" }));
+
+			// eye calibration option enabled
+			EnableEyeCalibrationTrigger(true);
+
+			TaskManager.Instance.SessionBeginUXF();
+		}
+
+		/// <summary>Called from user input. </summary>
+		void OnEvStartFirstTrial (eParam e) {
+			EventManager.StopListening(eDIA.Events.Core.EvProceed, OnEvStartFirstTrial);
+			Session.instance.Invoke("BeginNextTrial", 0.5f);
+		}
+
+		/// <summary>Called from UXF session. </summary>
+		void OnSessionEndUXF() {
+			TaskManager.Instance.SessionEndUXF();
+
+			AddToLog("OnSessionEndUXF");
+			AddToExecutionOrderLog("OnSessionEndUXF");
+
+			EventManager.TriggerEvent("EvExperimentProgressUpdate", new eParam("End"));
+			
+			EnableExperimentProceed(false);
+			EnableExperimentPause(false);
+
+		}
+
+		/// <summary>Called from UXF session. Begin setting things up for the trial that is about to start </summary>
+		void OnTrialBeginUXF(Trial newTrial) {
+			AddToLog("OnTrialBeginUXF");
+			AddToExecutionOrderLog("OnTrialBegin");
+
+			bool showIntroduction = false;
+
+			// Is this a new block?
+			if ((Session.instance.currentBlockNum != activeBlockUXF) && (Session.instance.currentBlockNum <= Session.instance.blocks.Count)) {
+
+				// Check for block introduction flag
+				showIntroduction = experimentConfig.GetBlockIntroduction() != string.Empty;
+				Debug.Log("showIntroduction:" + showIntroduction);
+
+				// Set new activeBlockUXF value
+				activeBlockUXF = Session.instance.currentBlockNum;
+				
+				TaskManager.Instance.BlockStart();
+			}
+
+			// Inject introduction step or continue UXF sequence
+			if (showIntroduction)
+				BlockIntroduction ();
+			else {
+				TaskManager.Instance.TrialBegin();
+				EventManager.TriggerEvent("EvExperimentProgressUpdate", new eParam(Session.instance.CurrentBlock.settings.GetString("name")));
+			}
+		}
+
+		/// <summary>Called from UXF session. Checks if to call NextTrial, should start a BREAK before next Block, or End the Session </summary>
+		void OnTrialEndUXF(Trial endedTrial) {
+			AddToLog("OnTrialEndUXF");
+			AddToExecutionOrderLog("OnTrialEnd");
+			SaveCustomDataTables();
+			EnableExperimentProceed(false);
+
+			// Are we ending?
+			if (Session.instance.isEnding)
+				return;
+			
+			// Is there a PAUSE requested right now?
+			if (isPauseRequested) {
+				isPauseRequested = false;
+				
+				if (endedTrial == Session.instance.LastTrial)
+					return;
+
+				AddToExecutionOrderLog("Injected SessionBreak");
+				SessionBreak();
+				return;
+			}
+
+			// Reached last trial in a block?
+			if (Session.instance.CurrentBlock.lastTrial != endedTrial) { // NO
+				Session.instance.BeginNextTrialSafe();
+				return;
+			} else TaskManager.Instance.BlockEnd(); // YES
+
+			// Is this then the last trial of the session?
+			if (Session.instance.LastTrial == endedTrial) {
+				AddToLog("Reached end of trials ");
+				FinalizeSession();
+				return;
+			}
+
+			// Do we take a break or jump to next block?
+			if (experimentConfig.breakAfter.Contains(Session.instance.currentBlockNum)) {
+				SessionBreak();
+				return;
+			}
+			
+			// If we reach here it's just a normal trial and we continue
+			Session.instance.BeginNextTrialSafe();
+		}
+
+
+#endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region BREAK
 
 		/// <summary>Called from this manager. Invokes onSessionBreak event and starts listener to EvProceed event</summary>
 		void SessionBreak () {
 			AddToLog("SessionBreak");
 			AddToExecutionOrderLog("SessionBreak");
-			EventManager.StartListening(eDIA.Events.Core.EvProceed, SessionResume);
-			EventManager.TriggerEvent(eDIA.Events.Core.EvSessionBreak, null);
 				
+			EventManager.StartListening(eDIA.Events.Core.EvProceed, SessionResumeAfterBreak);
 			EventManager.TriggerEvent("EvExperimentProgressUpdate", new eParam("Break"));
+			
+			TaskManager.Instance.SessionBreak();
 
 			EnableExperimentProceed(true);
 			EnableExperimentPause(false);
@@ -424,16 +452,15 @@ namespace eDIA {
 		}
 
 		/// <summary>Called from EvProceed event. Stops listener, invokes onSessionResume event and calls UXF BeginNextTrial. </summary>
-		void SessionResume (eParam e) {
-			AddToExecutionOrderLog("SessionResume");
+		void SessionResumeAfterBreak (eParam e) {
 			AddToLog("SessionResume");
-			EventManager.StopListening(eDIA.Events.Core.EvProceed, SessionResume);
-			EventManager.TriggerEvent(eDIA.Events.Core.EvSessionResume, null);
+			AddToExecutionOrderLog("SessionResume");
 
-			EventManager.TriggerEvent("EvExperimentProgressUpdate", new eParam("Block"));
+			EventManager.StopListening(eDIA.Events.Core.EvProceed, SessionResumeAfterBreak);
 
 			EnableEyeCalibrationTrigger(false);
 
+			//? Why the delay here ?
 			Session.instance.Invoke("BeginNextTrialSafe", 0.5f);
 		}
 
@@ -444,63 +471,28 @@ namespace eDIA {
 		void BlockIntroduction () {
 			AddToLog("BlockIntroduction");
 			AddToExecutionOrderLog("BlockIntroduction");
-			EventManager.StartListening(eDIA.Events.Core.EvProceed, BlockResume);
 
+			EventManager.StartListening(eDIA.Events.Core.EvProceed, BlockResumeAfterIntro); // as this comes form anywhere
 			EventManager.TriggerEvent("EvExperimentProgressUpdate", new eParam("Introduction"));
 
 			EnableExperimentProceed(true);
 			EnableExperimentPause(false);
 			EnableEyeCalibrationTrigger(true);
 
+			TaskManager.Instance.BlockIntroduction();
 			EventManager.TriggerEvent("EvBlockIntroduction", null);
 		}
 
 		/// <summary>Called from this manager. </summary>
-		void BlockResume (eParam e) {
-			AddToLog("BlockResume");
-			AddToExecutionOrderLog("BlockResume");
-			EventManager.StopListening(eDIA.Events.Core.EvProceed, BlockResume);
+		void BlockResumeAfterIntro (eParam e) {
+			AddToLog("BlockResumeAfterIntro");
+			AddToExecutionOrderLog("BlockRBlockResumeAfterIntroesume");
 
+			EventManager.StopListening(eDIA.Events.Core.EvProceed, BlockResumeAfterIntro);
+			
 			EnableEyeCalibrationTrigger(false);
 
-			EventManager.TriggerEvent(eDIA.Events.Core.EvBlockResumeAfterIntro,null);
-		}
-
-#endregion	// -------------------------------------------------------------------------------------------------------------------------------
-#region JSON TO UXF CONVERSION
-
-		/// <summary>/// Convert JSON formatted definition for the seqence into a UXF format to run in the session/// </summary>
-		public void GenerateUXFSequence() {
-
-			foreach (ExperimentBlock b in experimentConfig.blocks) {
-				
-				Block newBlock = Session.instance.CreateBlock();
-				newBlock.settings.SetValue("name",b.name);
-				newBlock.settings.SetValue("introduction",b.introduction);
-
-				// Assign blocksettings to this UXF block
-				foreach (SettingsTuple s in b.blockSettings)
-					if (s.value.Contains(',')) { // it's a list!
-						List<string> stringlist = s.value.Split(',').ToList();
-						newBlock.settings.SetValue(s.key, stringlist);	
-					} else newBlock.settings.SetValue(s.key, s.value);	// normal string
-
-				foreach (TrialChainValues row in b.trialChain) {
-					Trial newTrial = newBlock.CreateTrial();
-
-					for (int i = 0; i < b.trialKeys.Count; i++) {
-						newTrial.settings.SetValue(b.trialKeys[i], row.values[i].ToUpper()); // set values to trial
-					}
-				}
-			}
-
-			// TODO how to log different types of trials without having empty columns for each logfile
-			// Log all that shizzle
-			// for (int i = 1; i < _trialSequenceKeys.Count; i++) {
-			// 	Session.instance.settingsToLog.Add(_trialSequenceKeys[i]);
-			// }
-
-			AddToLog("Generated UXF Sequence");
+			TaskManager.Instance.BlockResumeAfterIntro();
 		}
 
 

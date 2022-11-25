@@ -1478,8 +1478,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1416558615}
-  - component: {fileID: 1416558614}
   - component: {fileID: 1416558613}
+  - component: {fileID: 1416558614}
   m_Layer: 0
   m_Name: TaskBlocksHolder
   m_TagString: Untagged
@@ -1516,6 +1516,23 @@ MonoBehaviour:
   messagePanelInVR: {fileID: 584832351}
   qpanel: {fileID: 187626243}
   qpanelTextField: {fileID: 2128183403}
+  OnEvProceed:
+    m_Name: On Ev Proceed
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 15d1b398-3f1a-45e2-b0da-c99f40fe2adc
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 7139f7d7-ee45-43ba-bfb0-051e4354aa3f
+      m_Path: <ViveController>/triggerPressed
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: On Ev Proceed
+      m_Flags: 0
+    m_Flags: 0
 --- !u!4 &1416558615
 Transform:
   m_ObjectHideFlags: 0
@@ -1983,7 +2000,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8773633709820969305, guid: d672bf818d278f4409a2da5d58c04202, type: 3}
+    - {fileID: 8773633709820969309, guid: d672bf818d278f4409a2da5d58c04202, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: d672bf818d278f4409a2da5d58c04202, type: 3}
 --- !u!1 &8773633708703055142 stripped
 GameObject:
@@ -2132,6 +2151,9 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+    OnBlockEnd:
+      m_PersistentCalls:
+        m_Calls: []
     OnBlockIntroduction:
       m_PersistentCalls:
         m_Calls:
@@ -2180,7 +2202,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - BlockDescription: Questionaire
+  - BlockDescription: Assessment
     trialSequence:
     - title: Intro
       methodToCall:
@@ -2278,6 +2300,9 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+    OnBlockEnd:
+      m_PersistentCalls:
+        m_Calls: []
     OnBlockIntroduction:
       m_PersistentCalls:
         m_Calls:

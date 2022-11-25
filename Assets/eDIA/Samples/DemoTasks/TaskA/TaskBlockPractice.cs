@@ -7,13 +7,19 @@ using UXF;
 namespace TASK {
 	
 	[System.Serializable]
-	public class TaskBlockPractice : MonoBehaviour {
+	public class TaskBlockPractice : TaskBlock {
 
 		[Header (("Task related refs"))]
 		public GameObject theCube;
 		public MessagePanelInVR messagePanelInVR;
 		private Coroutine moveRoutine = null;
 
+		private void Awake() {
+			trialSteps.Add(TaskStep1);
+			trialSteps.Add(TaskStep2);
+			trialSteps.Add(TaskStep3);
+			trialSteps.Add(TaskStep4);
+		}
 
 		private void Start() {
 			XRrigUtilities.EnableCustomHandPoses(false);
@@ -84,56 +90,40 @@ namespace TASK {
 		}
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
-#region EVENT HOOKS
+#region OPTIONAL METHODS FOR YOUR TASK
+ /*  
+
+	GUIDELINES	
+	* Dont use any call to EvProceed in these, the statemachine for that is handled 
+
+ */
 			
 		/// <summary>Called when block starts</summary>
-		public void OnBlockStart () {
-			// TODO
-			Debug.Log(name + " > OnBlockStart");
-		}
-
-		/// <summary>Called when block ends</summary>
-		public void OnBlockEnd () {
-			// TODO
-			Debug.Log(name + " > OnBlockEnd");
-		}
-
-		public void OnStartNewTrial () {
-			messagePanelInVR.HidePanel();
-		}
-
-		public void OnBetweenSteps () {
-			messagePanelInVR.HidePanel();
-		}
-
-		/// <summary>Called from Experiment manager</summary>
-		public void OnSessionStart() {
-			messagePanelInVR.ShowMessage("Welcome to the experiment, please click button to continue", true);
-		}
-
-		// If there is a BREAK in the experiment, these methods get called
-		public void OnSessionBreak() {
-			messagePanelInVR.ShowMessage("Take a short break, \nClick button to continue", true);
-		}
-
-		public void OnSessionEnd () {
-			messagePanelInVR.ShowMessage("Session ended, logfiles saved");
+		public override void OnBlockStart () {
 		}
 
 		/// <summary>Called when the block introduction starts</summary>
-		public void OnSessionResume () {
-			messagePanelInVR.ShowMessage("Resuming experiment", 2f);
-		}
-
-		/// <summary>Called when the block introduction starts</summary>
-		public void OnBlockIntroduction() {
+		public override void OnBlockIntroduction() {
 			messagePanelInVR.ShowMessage(ExperimentManager.Instance.experimentConfig.GetBlockIntroduction(), true);
 		}
 
 		/// <summary>Called when block resumes</summary>
-		public void OnBlockResumeAfterIntroduction () {
+		public override void OnBlockResumeAfterIntroduction () {
 
 		}
+
+		public override void OnStartNewTrial () {
+			messagePanelInVR.HidePanel();
+		}
+
+		public override void OnBetweenSteps () {
+			messagePanelInVR.HidePanel();
+		}
+
+		/// <summary>Called when block ends</summary>
+		public override void OnBlockEnd () {
+		}
+
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 	}
