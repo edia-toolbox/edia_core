@@ -89,6 +89,9 @@ namespace eDIA {
 		UXF.UXFDataTable executionOrderLog = new UXF.UXFDataTable("timestamp", "executed"); 
 		UXF.UXFDataTable markerLog = new UXF.UXFDataTable("timestamp", "annotation"); 
 
+
+
+
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region MONO METHODS
 
@@ -214,6 +217,17 @@ namespace eDIA {
 		/// <summary>/// Convert JSON formatted definition for the seqence into a UXF format to run in the session/// </summary>
 		void GenerateUXFSequence() {
 
+			// Reorder the taskblock list in the taskmanager
+			List<TaskBlock> reordered = new List<TaskBlock>();
+			
+			foreach (ExperimentBlock b in experimentConfig.blocks) {
+				reordered.Add(TaskManager.Instance.taskBlocks.Find(x => x.name == b.name));
+			}
+
+			TaskManager.Instance.taskBlocks.Clear();
+			TaskManager.Instance.taskBlocks.AddRange(reordered);
+
+			// Now set the settings per UXF block
 			foreach (ExperimentBlock b in experimentConfig.blocks) {
 				
 				Block newBlock = Session.instance.CreateBlock();

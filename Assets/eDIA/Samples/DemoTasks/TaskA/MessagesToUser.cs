@@ -15,7 +15,7 @@ namespace TASK {
 		}
 
 		public void OnSessionStart() {
-			messagePanelInVR.ShowMessage("Welcome to the experiment, please click button to continue", true);
+			messagePanelInVR.ShowMessage("Welcome to the experiment", true);
 		}
 
 		public void OnSessionBreak() {

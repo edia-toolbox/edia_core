@@ -1489,8 +1489,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1416558615}
   - component: {fileID: 1416558614}
+  - component: {fileID: 1416558616}
   m_Layer: 0
-  m_Name: TaskBlock_Questionaire
+  m_Name: TaskBlock_Assessement
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1508,12 +1509,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed1c5fa1a90e7df4f8927a464d543dfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BlockName: Questionaire
+  name: Assessement
   messagePanelInVR: {fileID: 584832351}
   qpanel: {fileID: 187626243}
   qpanelTextField: {fileID: 2128183403}
   inputActionSubmit: {fileID: 187161793506945269, guid: c348712bda248c246b8c49b3db54643f,
     type: 3}
+  controllerListener: {fileID: 1416558616}
 --- !u!4 &1416558615
 Transform:
   m_ObjectHideFlags: 0
@@ -1529,6 +1531,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1416558616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1416558612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c10f6c19296501a46a6a5ba19633ffa2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Redirectors:
+  - id: TriggerPressed
+    inputActionSubmit: {fileID: 187161793506945269, guid: c348712bda248c246b8c49b3db54643f,
+      type: 3}
+    methodToCall:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1416558614}
+          m_TargetAssemblyTypeName: 
+          m_MethodName: TriggerPressed
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1557063188
 GameObject:
   m_ObjectHideFlags: 0
@@ -1570,6 +1603,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1584166940}
   - component: {fileID: 1584166939}
+  - component: {fileID: 1584166941}
   m_Layer: 0
   m_Name: TaskBlock_Practice
   m_TagString: Untagged
@@ -1589,9 +1623,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7857ea6508fd69d4ebf703a500d7ff0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BlockName: Practice
+  name: Practice
   theCube: {fileID: 742829618}
   messagePanelInVR: {fileID: 584832351}
+  controllerListener: {fileID: 1584166941}
 --- !u!4 &1584166940
 Transform:
   m_ObjectHideFlags: 0
@@ -1607,6 +1642,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1584166941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1584166938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c10f6c19296501a46a6a5ba19633ffa2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Redirectors:
+  - id: TriggerPressed
+    inputActionSubmit: {fileID: 187161793506945269, guid: c348712bda248c246b8c49b3db54643f,
+      type: 3}
+    methodToCall:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1584166939}
+          m_TargetAssemblyTypeName: 
+          m_MethodName: TriggerPressed
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!20 &1894317238 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 3836058974363829724, guid: 1cfd8201e5913a241bab0b428ceb22e7,
@@ -2053,8 +2119,8 @@ MonoBehaviour:
   showLog: 1
   taskColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   taskBlocks:
-  - {fileID: 1584166939}
   - {fileID: 1416558614}
+  - {fileID: 1584166939}
   OnSessionStart:
     m_PersistentCalls:
       m_Calls:

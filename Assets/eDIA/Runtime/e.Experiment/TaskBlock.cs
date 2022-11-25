@@ -7,7 +7,7 @@ using UnityEngine;
 public class TaskBlock : MonoBehaviour {
 
     [Header ("Block name, use the name defined in the config")]
-    public string BlockName;
+    public string name;
 
     [SerializeField]
     public List<Action> trialSteps = new List<Action> ();

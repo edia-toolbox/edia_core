@@ -47,6 +47,10 @@ namespace eDIA {
 			EventManager.StartListening(eDIA.Events.Core.EvLocalConfigSubmitted, 		OnEvLocalConfigSubmitted);
 
 			GetXRrigReferences();
+
+			// Disable all task blocks at start
+			foreach (TaskBlock t in taskBlocks)
+				t.gameObject.SetActive(false);
 		}
 
 
@@ -111,6 +115,7 @@ namespace eDIA {
 		/// <summary>Called from UXF session. </summary>
 		public void SessionEndUXF() {
 			AddToLog("OnSessionEndUXF");
+			taskBlocks[Session.instance.currentBlockNum-2].gameObject.SetActive(false); 
 			inSession = false;
 			OnSessionEnd?.Invoke();
 		}
@@ -136,6 +141,13 @@ namespace eDIA {
 		/// <summary>Called from experiment manager</summary>
 		public void BlockStart () {
 			AddToLog("Block Start");
+
+			// Disable old block
+			if (Session.instance.currentBlockNum-1 != 0)
+				taskBlocks[Session.instance.currentBlockNum-2].gameObject.SetActive(false);
+
+			// enable new block
+			taskBlocks[Session.instance.currentBlockNum-1].gameObject.SetActive(true);
 			taskBlocks[Session.instance.currentBlockNum-1].OnBlockStart();
 		}
 		

@@ -18,10 +18,14 @@ namespace TASK {
 		public TextMeshProUGUI qpanelTextField;
 		public InputActionReference inputActionSubmit;
 
+		public ControllerListenerRemapper controllerListener = null;
+
 		private void Awake() {
+			// Set up sequence
 			trialSteps.Add(TaskStep1);
 			trialSteps.Add(TaskStep2);
 			trialSteps.Add(TaskStep3);
+
 		}
 
 
@@ -46,30 +50,31 @@ namespace TASK {
 			qpanelTextField.text = "Qtype: " + Session.instance.CurrentBlock.settings.GetStringList("qtypes")[Session.instance.CurrentTrial.settings.GetInt("qtype")];
 
 			ExperimentManager.Instance.EnableExperimentProceed (true); // enable proceed button
-			EnableControllerTrigger(true);
+			
+			controllerListener.EnableRemapping("TriggerPressed", true);
+
 		}
 
 		/// <summary>Stop moving, change color</summary>
 		public void TaskStep3 () {
 
 			qpanel.SetActive(false);
-			EnableControllerTrigger(false);
+
+			controllerListener.EnableRemapping("TriggerPressed", false);
 
 			messagePanelInVR.ShowMessage("Thank you for your answer");
 			TaskManager.Instance.NextStep(4f);
 		}
 
 
+#endregion // -------------------------------------------------------------------------------------------------------------------------------
+#region TASK HELPERS
 
 		public void TriggerPressed (InputAction.CallbackContext context) {
 			Debug.Log("TriggerPressed");
 			EventManager.TriggerEvent(eDIA.Events.Core.EvProceed, null);
 		}
 
-		public void EnableControllerTrigger (bool onOff) {
-			if (onOff) inputActionSubmit.action.performed += TriggerPressed;
-			else inputActionSubmit.action.performed -= TriggerPressed;
-		}
 
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
@@ -85,7 +90,7 @@ namespace TASK {
 		public override void OnBlockStart () {
 		}
 
-		/// <summary>Called when the block introduction starts</summary>
+		/// <summary>Called when this block has a introduction text in the json</summary>
 		public override void OnBlockIntroduction() {
 			messagePanelInVR.ShowMessage(ExperimentManager.Instance.experimentConfig.GetBlockIntroduction(), true);
 		}

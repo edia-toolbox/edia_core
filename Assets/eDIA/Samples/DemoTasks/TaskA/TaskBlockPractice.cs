@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using eDIA;
 using UnityEngine;
 using UXF;
- 
+ using UnityEngine.InputSystem;
+using UnityEngine.XR.Interaction.Toolkit;
+
 namespace TASK {
 	
 	[System.Serializable]
@@ -13,6 +15,8 @@ namespace TASK {
 		public GameObject theCube;
 		public MessagePanelInVR messagePanelInVR;
 		private Coroutine moveRoutine = null;
+
+		public ControllerListenerRemapper controllerListener = null; // controller button remapper to proceed
 
 		private void Awake() {
 			trialSteps.Add(TaskStep1);
@@ -50,13 +54,17 @@ namespace TASK {
 			}
 
 			XRrigUtilities.EnableXRInteraction (true);
-			ExperimentManager.Instance.EnableExperimentProceed (true); // enable proceed button
 
 			messagePanelInVR.ShowMessage("Click button to continue");
+
+			ExperimentManager.Instance.EnableExperimentProceed (true); // enable proceed button for experiment
+			controllerListener.EnableRemapping("TriggerPressed", true); // enable controller button remapper to proceed
 		}
 
 		/// <summary>Stop moving, change color</summary>
 		public void TaskStep3 () {
+
+			controllerListener.EnableRemapping("TriggerPressed", false);
 
 			if (moveRoutine != null) {
 				StopCoroutine (moveRoutine);
@@ -76,6 +84,14 @@ namespace TASK {
 		/// <summary>Wait</summary>
 		public void TaskStep4 () {
 			TaskManager.Instance.NextStep (Session.instance.CurrentBlock.settings.GetFloat ("timerWait"));
+		}
+
+#endregion // -------------------------------------------------------------------------------------------------------------------------------
+#region TASK HELPERS
+
+		public void TriggerPressed (InputAction.CallbackContext context) {
+			Debug.Log("TriggerPressed");
+			EventManager.TriggerEvent(eDIA.Events.Core.EvProceed, null);
 		}
 
 
@@ -102,7 +118,7 @@ namespace TASK {
 		public override void OnBlockStart () {
 		}
 
-		/// <summary>Called when the block introduction starts</summary>
+		/// <summary>Called when this block has a introduction text in the json</summary>
 		public override void OnBlockIntroduction() {
 			messagePanelInVR.ShowMessage(ExperimentManager.Instance.experimentConfig.GetBlockIntroduction(), true);
 		}
