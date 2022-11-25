@@ -47,6 +47,8 @@ namespace eDIA {
 
 		private bool inSession = false;
 
+		Coroutine timer = null;
+
 		// XR RIG
 		[HideInInspector] public Transform XRrig_MainCamera 		= null;
 		[HideInInspector] public Transform XRrig_RightController	= null;
@@ -235,11 +237,21 @@ namespace eDIA {
 		/// <summary>Call next step in the trial with delay.</summary>
 		/// <param name="delay">Time to wait before proceeding. Expects float</param>
 		public void NextStep (float delay) {
-			Invoke("NextStep", delay);
+			if (timer != null) StopCoroutine(timer);
+
+			timer = StartCoroutine("NextStepTimer", delay);
+		}
+
+		IEnumerator NextStepTimer (float delay) {
+			
+			yield return new WaitForSeconds(delay);
+			NextStep();
 		}
 
 		/// <summary>Call next step in the trial.</summary>
 		public void NextStep() {
+			if (timer != null) StopCoroutine(timer);
+			
 			if (!inSession)
 				return;
 
