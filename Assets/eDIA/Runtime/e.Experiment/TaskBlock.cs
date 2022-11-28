@@ -3,23 +3,30 @@ using System.Collections.Generic;
 using eDIA;
 using UnityEngine;
 
-[System.Serializable]
-public class TaskBlock : MonoBehaviour {
+namespace eDIA {
 
-    [Header ("Block name, use the name defined in the config")]
-    public string name;
+    [System.Serializable]
+    public class TaskBlock : MonoBehaviour {
 
-    [SerializeField]
-    public List<Action> trialSteps = new List<Action> ();
+        [Header ("Block name, use the name defined in the config")]
+        public string name;
 
-#region EVENT HOOKS
+        [SerializeField][HideInInspector]
+        public List<Action> trialSteps = new List<Action> ();
 
-    public virtual void OnBlockStart () { }
-    public virtual void OnBlockIntroduction () { }
-    public virtual void OnBlockResumeAfterIntro () { }
-    public virtual void OnStartNewTrial () { }
-    public virtual void OnBetweenSteps () { }
-    public virtual void OnBlockEnd () { }
+        void AddToTrialSequence (Action methodStep) {
+            trialSteps.Add(methodStep);
+        }
 
-#endregion // -------------------------------------------------------------------------------------------------------------------------------
+    #region EVENT HOOKS
+
+        public virtual void OnBlockStart () { }
+        public virtual void OnBlockIntroduction () { }
+        public virtual void OnBlockResumeAfterIntro () { }
+        public virtual void OnStartNewTrial () { }
+        public virtual void OnBetweenSteps () { }
+        public virtual void OnBlockEnd () { }
+
+    #endregion // -------------------------------------------------------------------------------------------------------------------------------
+    }
 }

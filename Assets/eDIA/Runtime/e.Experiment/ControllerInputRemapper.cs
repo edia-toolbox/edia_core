@@ -11,7 +11,7 @@ namespace eDIA {
 
 	/// <summary>In order to be flexible for each taskblock, the remapping of a controller key to a method is a separate script</summary>
 	[System.Serializable]
-	public class ControllerListenerRemapper : MonoBehaviour {
+	public class ControllerInputRemapper : MonoBehaviour {
 
 		[System.Serializable]
 		public class ControllerInputRemap {

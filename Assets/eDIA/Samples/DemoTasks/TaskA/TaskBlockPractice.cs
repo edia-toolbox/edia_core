@@ -16,7 +16,7 @@ namespace TASK {
 		public MessagePanelInVR messagePanelInVR;
 		private Coroutine moveRoutine = null;
 
-		public ControllerListenerRemapper controllerListener = null; // controller button remapper to proceed
+		public ControllerInputRemapper controllerListener = null; // controller button remapper to proceed
 
 		private void Awake() {
 			trialSteps.Add(TaskStep1);

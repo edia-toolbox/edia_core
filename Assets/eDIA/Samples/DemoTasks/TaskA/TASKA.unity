@@ -1467,6 +1467,18 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
+--- !u!114 &1265218028 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -6784678948114575914, guid: dd8c9c632e3b3cf42b4c84d19ed610e5,
+    type: 3}
+  m_PrefabInstance: {fileID: 613201256196045256}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4263abe1493a44c45912f7d7af87ba62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1329750496 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3557775115307834005, guid: 000b08f63f5f6d54f815383c6edd9c7e,
@@ -1540,7 +1552,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1416558612}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c10f6c19296501a46a6a5ba19633ffa2, type: 3}
+  m_Script: {fileID: 11500000, guid: b069b356239d29a419d434a678dad244, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Redirectors:
@@ -1651,7 +1663,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1584166938}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c10f6c19296501a46a6a5ba19633ffa2, type: 3}
+  m_Script: {fileID: 11500000, guid: b069b356239d29a419d434a678dad244, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Redirectors:
@@ -1826,21 +1838,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: MessagePanelInVR
       objectReference: {fileID: 0}
-    - target: {fileID: 613201255631203474, guid: dd8c9c632e3b3cf42b4c84d19ed610e5,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 613201255631203477, guid: dd8c9c632e3b3cf42b4c84d19ed610e5,
         type: 3}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 810232185}
-    - target: {fileID: 613201255631203477, guid: dd8c9c632e3b3cf42b4c84d19ed610e5,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 613201255631203478, guid: dd8c9c632e3b3cf42b4c84d19ed610e5,
         type: 3}
       propertyPath: m_Pivot.x
@@ -2124,7 +2126,7 @@ MonoBehaviour:
   OnSessionStart:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8773633708703055148}
+      - m_Target: {fileID: 1265218028}
         m_TargetAssemblyTypeName: 
         m_MethodName: OnSessionStart
         m_Mode: 1
@@ -2139,7 +2141,7 @@ MonoBehaviour:
   OnSessionBreak:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8773633708703055148}
+      - m_Target: {fileID: 1265218028}
         m_TargetAssemblyTypeName: 
         m_MethodName: OnSessionBreak
         m_Mode: 1
@@ -2154,7 +2156,7 @@ MonoBehaviour:
   OnSessionEnd:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8773633708703055148}
+      - m_Target: {fileID: 1265218028}
         m_TargetAssemblyTypeName: 
         m_MethodName: OnSessionEnd
         m_Mode: 1
@@ -2170,16 +2172,3 @@ MonoBehaviour:
   XRrig_MainCamera: {fileID: 0}
   XRrig_RightController: {fileID: 0}
   XRrig_LeftController: {fileID: 0}
---- !u!114 &8773633708703055148
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8773633708703055142}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4263abe1493a44c45912f7d7af87ba62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  messagePanelInVR: {fileID: 584832351}

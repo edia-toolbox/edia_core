@@ -18,7 +18,7 @@ namespace TASK {
 		public TextMeshProUGUI qpanelTextField;
 		public InputActionReference inputActionSubmit;
 
-		public ControllerListenerRemapper controllerListener = null;
+		public ControllerInputRemapper controllerListener = null;
 
 		private void Awake() {
 			// Set up sequence
