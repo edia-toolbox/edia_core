@@ -14,7 +14,7 @@ namespace eDIA {
         [SerializeField][HideInInspector]
         public List<Action> trialSteps = new List<Action> ();
 
-        void AddToTrialSequence (Action methodStep) {
+        public void AddToTrialSequence (Action methodStep) {
             trialSteps.Add(methodStep);
         }
 

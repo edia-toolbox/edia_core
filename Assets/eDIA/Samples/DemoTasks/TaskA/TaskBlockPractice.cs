@@ -19,10 +19,10 @@ namespace TASK {
 		public ControllerInputRemapper controllerListener = null; // controller button remapper to proceed
 
 		private void Awake() {
-			trialSteps.Add(TaskStep1);
-			trialSteps.Add(TaskStep2);
-			trialSteps.Add(TaskStep3);
-			trialSteps.Add(TaskStep4);
+			AddToTrialSequence(TaskStep1);
+			AddToTrialSequence(TaskStep2);
+			AddToTrialSequence(TaskStep3);
+			AddToTrialSequence(TaskStep4);
 		}
 
 		private void Start() {
