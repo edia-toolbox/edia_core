@@ -459,7 +459,8 @@ namespace eDIA {
 			
 			TaskManager.Instance.SessionBreak();
 
-			EnableExperimentProceed(true);
+			EventManager.TriggerEvent("EvButtonChangeState", new eParam( new string[] { "PROCEED", "true" }));
+			// EnableExperimentProceed(true);
 			EnableExperimentPause(false);
 			EnableEyeCalibrationTrigger(true);
 		}
@@ -488,7 +489,8 @@ namespace eDIA {
 			EventManager.StartListening(eDIA.Events.Core.EvProceed, BlockResumeAfterIntro); // listener as it event call can come from any script
 			EventManager.TriggerEvent("EvExperimentProgressUpdate", new eParam("Introduction"));
 
-			EnableExperimentProceed(true);
+			EventManager.TriggerEvent("EvButtonChangeState", new eParam( new string[] { "PROCEED", "true" }));
+			// EnableExperimentProceed(true);
 			EnableExperimentPause(false);
 			EnableEyeCalibrationTrigger(true);
 
