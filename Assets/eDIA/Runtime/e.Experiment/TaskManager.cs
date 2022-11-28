@@ -209,22 +209,22 @@ namespace eDIA {
 
 		/// <summary>Coroutine as timer as we can kill that to avoid delayed calls in the statemachine</summary>
 		IEnumerator NextStepTimer (float delay) {
-			Debug.Log("Timer started");
 			yield return new WaitForSeconds(delay);
-			Debug.Log("Timer Done");
 			NextStep();
 		}
 
 		/// <summary>Call next step in the trial.</summary>
 		public void NextStep() {
+			Debug.Log("NextStep");
 			if (timer != null) StopCoroutine(timer); // Kill timer, if any
-
+			Debug.Log("NextStep>no timer");
 			if (!inSession)
 				return;
-
+			Debug.Log("NextStep>in session");
 			currentStep++;
 
 			if (currentStep < taskBlocks[Session.instance.CurrentBlock.number-1].trialSteps.Count) {
+				Debug.Log("NextStep>currentstep"+ currentStep + " < " + taskBlocks[Session.instance.CurrentBlock.number-1].trialSteps.Count);
 				taskBlocks[Session.instance.currentBlockNum-1].OnBetweenSteps();
 				taskBlocks[Session.instance.CurrentBlock.number-1].trialSteps[currentStep].Invoke();
 			}
