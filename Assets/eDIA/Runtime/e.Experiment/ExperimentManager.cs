@@ -303,8 +303,15 @@ namespace eDIA {
 
 			if (_onOff) {
 				Debug.Log("<color=#50ee20>[" + name + "]]> OnEvProceed enabled</color>");
-				EventManager.StartListening (eDIA.Events.Core.EvProceed, TaskManager.Instance.OnEvProceed);
+				EventManager.StartListening (eDIA.Events.Core.EvProceed, CatchEvProceed);
 			}
+		}
+
+		void CatchEvProceed (eParam e) {
+			Debug.Log("<color=#50eee0>["+ name +  "]]> OnEvProceed called</color>");
+			EventManager.TriggerEvent("EvButtonChangeState", new eParam( new string[] { "PROCEED", "false" })); // disable button, as OnEvProceed might have come from somewhere else than the button itself
+			EventManager.StopListening(eDIA.Events.Core.EvProceed, CatchEvProceed); // stop listening to avoid doubleclicks
+			TaskManager.Instance.OnEvProceed();
 		}
 
 		/// <summary> Set system open for calibration call from event or button</summary>
@@ -366,7 +373,7 @@ namespace eDIA {
 
 			EventManager.TriggerEvent("EvExperimentProgressUpdate", new eParam("End"));
 			
-			EnableExperimentProceed(false);
+			EventManager.TriggerEvent("EvButtonChangeState", new eParam( new string[] { "PROCEED", "false" }));
 			EnableExperimentPause(false);
 
 		}
@@ -404,7 +411,7 @@ namespace eDIA {
 			AddToLog("OnTrialEndUXF");
 			AddToExecutionOrderLog("OnTrialEnd");
 			SaveCustomDataTables();
-			EnableExperimentProceed(false);
+			// EnableExperimentProceed(false);
 
 			// Are we ending?
 			if (Session.instance.isEnding)

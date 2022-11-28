@@ -130,7 +130,6 @@ namespace TASK {
 		}
 
 		public override void OnStartNewTrial () {
-			messagePanelInVR.HidePanel();
 		}
 
 		public override void OnBetweenSteps () {

@@ -123,14 +123,10 @@ namespace eDIA {
 		}
 		
 		public void TrialBegin () {
-			StartTrial();
+			Invoke("StartTrial",0.2f);
 		}
 
-		public void OnEvProceed (eParam e) {
-
-			Debug.Log("<color=#50eee0>["+ name +  "]]> OnEvProceed called</color>");
-			EventManager.StopListening(eDIA.Events.Core.EvProceed, OnEvProceed); // stop listening to avoid doubleclicks
-			EventManager.TriggerEvent("EvButtonChangeState", new eParam( new string[] { "PROCEED", "false" })); // disable button, as OnEvProceed might have come from somewhere else than the button itself
+		public void OnEvProceed () {
 			NextStep();
 		}
 
@@ -170,7 +166,7 @@ namespace eDIA {
 			AddToLog("OnEvBlockResumeAfterIntro");
 			taskBlocks[Session.instance.currentBlockNum-1].OnBlockResumeAfterIntro();	
 
-			StartTrial();
+			Invoke("StartTrial",0.2f);
 		}
 
 
@@ -181,10 +177,9 @@ namespace eDIA {
 		void StartTrial() {
 
 			AddToLog("StartTrial");
-			// StartNewTrial();
+			taskBlocks[Session.instance.currentBlockNum-1].OnStartNewTrial();
 			
 			currentStep = -1;
-			taskBlocks[Session.instance.currentBlockNum-1].OnStartNewTrial();
 			EventManager.TriggerEvent("EvExperimentProgressUpdate", new eParam(Session.instance.CurrentBlock.settings.GetString("name")));
 
 			// Fire up the task state machine to run the steps of the trial.
@@ -218,10 +213,10 @@ namespace eDIA {
 		public void NextStep() {
 			Debug.Log("NextStep");
 			if (timer != null) StopCoroutine(timer); // Kill timer, if any
-			Debug.Log("NextStep>no timer");
+
 			if (!inSession)
 				return;
-			Debug.Log("NextStep>in session");
+
 			currentStep++;
 
 			if (currentStep < taskBlocks[Session.instance.CurrentBlock.number-1].trialSteps.Count) {

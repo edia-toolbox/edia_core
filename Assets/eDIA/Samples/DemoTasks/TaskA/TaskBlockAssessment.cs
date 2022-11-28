@@ -22,10 +22,9 @@ namespace TASK {
 
 		private void Awake() {
 			// Set up sequence
-			trialSteps.Add(TaskStep1);
-			trialSteps.Add(TaskStep2);
-			trialSteps.Add(TaskStep3);
-
+			AddToTrialSequence(TaskStep1);
+			AddToTrialSequence(TaskStep2);
+			AddToTrialSequence(TaskStep3);
 		}
 
 
@@ -37,8 +36,8 @@ namespace TASK {
 
 			XRrigUtilities.EnableXRInteraction (false);
 
-			messagePanelInVR.ShowMessage("Now you have to fill in some questions");
-			ExperimentManager.Instance.EnableExperimentProceed (true); // enable proceed button
+			messagePanelInVR.ShowMessage("blaaa");
+			TaskManager.Instance.NextStep (2f);
 		}
 
 		/// <summary>Move cube, wait on user input</summary>
@@ -51,6 +50,7 @@ namespace TASK {
 
 			ExperimentManager.Instance.EnableExperimentProceed (true); // enable proceed button
 			
+			messagePanelInVR.ShowMessage("Now you have to fill in some questions", true);
 			controllerListener.EnableRemapping("TriggerPressed", true);
 
 		}
@@ -101,11 +101,10 @@ namespace TASK {
 		}
 
 		public override void OnStartNewTrial () {
-			messagePanelInVR.HidePanel();
 		}
 
 		public override void OnBetweenSteps () {
-			messagePanelInVR.HidePanel();
+			// messagePanelInVR.HidePanel();
 		}
 
 		/// <summary>Called when block ends</summary>

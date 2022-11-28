@@ -44,7 +44,7 @@ namespace TASK {
 		/// <param name="duration">Duration</param>
 		public void ShowMessage (string msg, float duration) {
 			ShowMessage(msg);
-			
+
 			MessageTimer = StartCoroutine("timer", duration);
 		}
 		
@@ -64,6 +64,7 @@ namespace TASK {
 		/// <summary>Shows the message in VR on a canvas.</summary>
 		/// <param name="msg">Message to show</param>
 		public void ShowMessage (string msg) {
+			Debug.Log("Received: " + msg);
 			if (MessageTimer != null) StopCoroutine ("MessageTimer");
 
 			if (msgField == null)
