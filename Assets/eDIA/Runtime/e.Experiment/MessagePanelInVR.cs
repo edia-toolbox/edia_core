@@ -11,6 +11,7 @@ namespace TASK {
 		
 		public TextMeshProUGUI msgField = null;
 		Canvas myCanvas = null;
+		Coroutine MessageTimer = null;
 
 		private void Awake() {
 			myCanvas = GetComponent<Canvas>();
@@ -43,9 +44,15 @@ namespace TASK {
 		/// <param name="duration">Duration</param>
 		public void ShowMessage (string msg, float duration) {
 			ShowMessage(msg);
-			Invoke("HidePanel", duration);
+			
+			MessageTimer = StartCoroutine("timer", duration);
 		}
 		
+		IEnumerator timer (float duration) {
+			yield return new WaitForSeconds(duration);
+			HidePanel();
+		}
+
 		/// <summary>Shows the message in VR on a canvas until EvProceed event is fired</summary>
 		/// <param name="msg">Message to show</param>
 		/// <param name="hideOnEvProceed">Hide when EvProceed is fired</param>
@@ -57,6 +64,8 @@ namespace TASK {
 		/// <summary>Shows the message in VR on a canvas.</summary>
 		/// <param name="msg">Message to show</param>
 		public void ShowMessage (string msg) {
+			if (MessageTimer != null) StopCoroutine ("MessageTimer");
+
 			if (msgField == null)
 				return;
 
@@ -73,6 +82,7 @@ namespace TASK {
 
 		public void HidePanel () {
 			ShowPanel(false);
+			EventManager.StopListening(eDIA.Events.Core.EvProceed, OnEvHideMessage);
 			EventManager.StartListening ("EvShowMessage", OnEvShowMessage);
 		}
 
