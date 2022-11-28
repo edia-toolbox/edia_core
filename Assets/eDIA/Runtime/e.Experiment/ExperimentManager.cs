@@ -383,7 +383,6 @@ namespace eDIA {
 
 				// Check for block introduction flag
 				showIntroduction = experimentConfig.GetBlockIntroduction() != string.Empty;
-				Debug.Log("showIntroduction:" + showIntroduction);
 
 				// Set new activeBlockUXF value
 				activeBlockUXF = Session.instance.currentBlockNum;
@@ -486,7 +485,7 @@ namespace eDIA {
 			AddToLog("BlockIntroduction");
 			AddToExecutionOrderLog("BlockIntroduction");
 
-			EventManager.StartListening(eDIA.Events.Core.EvProceed, BlockResumeAfterIntro); // as this comes form anywhere
+			EventManager.StartListening(eDIA.Events.Core.EvProceed, BlockResumeAfterIntro); // listener as it event call can come from any script
 			EventManager.TriggerEvent("EvExperimentProgressUpdate", new eParam("Introduction"));
 
 			EnableExperimentProceed(true);
@@ -494,7 +493,6 @@ namespace eDIA {
 			EnableEyeCalibrationTrigger(true);
 
 			TaskManager.Instance.BlockIntroduction();
-			EventManager.TriggerEvent("EvBlockIntroduction", null);
 		}
 
 		/// <summary>Called from this manager. </summary>
@@ -512,6 +510,29 @@ namespace eDIA {
 
 #endregion	// -------------------------------------------------------------------------------------------------------------------------------
 #region LOGGING	
+
+		/// <summary>Converts given data to a UXF Table, and stores the data to disk linked to the active trial at the time</summary>
+		/// <param name="headers">Headers of the data</param>
+		/// <param name="values">Data</param>
+		/// <param name="filename">Name to store the data with</param>
+		public void ConvertAndSaveDataToUXF(string[] headers, List<string[]> values, string filename)
+		{
+			var UXFheaders = headers;
+			var data = new UXF.UXFDataTable(UXFheaders);
+
+			foreach (string[] valuerow in values)
+			{
+				UXFDataRow newRow = new UXFDataRow();
+				for(int s=0;s<valuerow.Length-1;s++) {
+					newRow.Add((UXFheaders[s], valuerow[s]));
+				}
+				data.AddCompleteRow(newRow);
+			}
+
+			// Save data
+			Session.instance.CurrentTrial.SaveDataTable(data,filename);
+		}
+
 		private void AddToExecutionOrderLog (string description) {
 			UXF.UXFDataRow newRow = new UXFDataRow();
 			newRow.Add(("timestamp", Time.time)); // Log timestamp
