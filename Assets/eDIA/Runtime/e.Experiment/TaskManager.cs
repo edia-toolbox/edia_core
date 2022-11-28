@@ -26,7 +26,7 @@ namespace eDIA {
 		public UnityEvent OnSessionEnd = null;
 
 		
-		[HideInInspector]
+		// [HideInInspector]
 		public int currentStep = -1;
 
 		private bool inSession = false;
@@ -181,7 +181,11 @@ namespace eDIA {
 		void StartTrial() {
 
 			AddToLog("StartTrial");
-			StartNewTrial();
+			// StartNewTrial();
+			
+			currentStep = -1;
+			taskBlocks[Session.instance.currentBlockNum-1].OnStartNewTrial();
+			EventManager.TriggerEvent("EvExperimentProgressUpdate", new eParam(Session.instance.CurrentBlock.settings.GetString("name")));
 
 			// Fire up the task state machine to run the steps of the trial.
 			NextStep();
@@ -194,9 +198,6 @@ namespace eDIA {
 		}
 
 		public void StartNewTrial() {
-			currentStep = -1;
-			taskBlocks[Session.instance.currentBlockNum-1].OnStartNewTrial();
-			EventManager.TriggerEvent("EvExperimentProgressUpdate", new eParam(Session.instance.CurrentBlock.settings.GetString("name")));
 		}
 
 		/// <summary>Call next step in the trial with delay.</summary>
