@@ -498,7 +498,7 @@ namespace eDIA {
 		/// <summary>Called from this manager. </summary>
 		void BlockResumeAfterIntro (eParam e) {
 			AddToLog("BlockResumeAfterIntro");
-			AddToExecutionOrderLog("BlockRBlockResumeAfterIntroesume");
+			AddToExecutionOrderLog("BlockResumeAfterIntro");
 
 			EventManager.StopListening(eDIA.Events.Core.EvProceed, BlockResumeAfterIntro);
 			

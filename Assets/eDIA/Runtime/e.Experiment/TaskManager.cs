@@ -115,7 +115,9 @@ namespace eDIA {
 		/// <summary>Called from UXF session. </summary>
 		public void SessionEndUXF() {
 			AddToLog("OnSessionEndUXF");
-			taskBlocks[Session.instance.currentBlockNum-2].gameObject.SetActive(false); 
+			foreach(TaskBlock t in taskBlocks) {
+				t.gameObject.SetActive(false);
+			}
 			inSession = false;
 			OnSessionEnd?.Invoke();
 		}
@@ -194,6 +196,7 @@ namespace eDIA {
 		public void StartNewTrial() {
 			currentStep = -1;
 			taskBlocks[Session.instance.currentBlockNum-1].OnStartNewTrial();
+			EventManager.TriggerEvent("EvExperimentProgressUpdate", new eParam(Session.instance.CurrentBlock.settings.GetString("name")));
 		}
 
 		/// <summary>Call next step in the trial with delay.</summary>
@@ -206,8 +209,9 @@ namespace eDIA {
 
 		/// <summary>Coroutine as timer as we can kill that to avoid delayed calls in the statemachine</summary>
 		IEnumerator NextStepTimer (float delay) {
-			
+			Debug.Log("Timer started");
 			yield return new WaitForSeconds(delay);
+			Debug.Log("Timer Done");
 			NextStep();
 		}
 

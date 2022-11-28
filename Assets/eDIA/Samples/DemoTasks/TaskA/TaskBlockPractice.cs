@@ -84,6 +84,7 @@ namespace TASK {
 		/// <summary>Wait</summary>
 		public void TaskStep4 () {
 			TaskManager.Instance.NextStep (Session.instance.CurrentBlock.settings.GetFloat ("timerWait"));
+			Debug.Log("TaskStep4 started");
 		}
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
