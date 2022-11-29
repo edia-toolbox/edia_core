@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using UXF;
+using UnityEngine.Events;
 
 // EXPERIMENT CONTROL 
 namespace eDIA {
@@ -16,6 +17,15 @@ namespace eDIA {
 		[Header("Editor Settings")]
 		public bool showLog = false;
 		public Color taskColor = Color.green;
+
+		[Space(20)]
+		public List<TaskBlock> taskBlocks = new List<TaskBlock>();
+
+		[Space(20)]
+		[Header("Event hooks\n\nOptional event hooks to use in your task")]
+		public UnityEvent OnSessionStart = null;
+		public UnityEvent OnSessionBreak = null;
+		public UnityEvent OnSessionEnd = null;
 
 		/// The config instance that holds current experimental configuration
 		// [HideInInspector]
@@ -29,17 +39,16 @@ namespace eDIA {
 		int activeBlockUXF = 0;
 		bool isPauseRequested = false;
 
-		// // UXF related
-		// Dictionary<string, object> participantDetails   = new Dictionary<string, object>();
-		// UXF.Settings currentUXFSessionSettings = new Settings();
-
 		// UXF Logging
 		UXF.UXFDataTable executionOrderLog = new UXF.UXFDataTable("timestamp", "executed"); 
-		UXF.UXFDataTable markerLog = new UXF.UXFDataTable("timestamp", "annotation"); 
+		UXF.UXFDataTable markerLog = new UXF.UXFDataTable("timestamp", "annotation");
+
+		public int currentStepNum = -1;
+		Coroutine stepTimer = null;
 
 
-#endregion // -------------------------------------------------------------------------------------------------------------------------------
-#region MONO METHODS
+		#endregion // -------------------------------------------------------------------------------------------------------------------------------
+		#region MONO METHODS
 
 		void Awake() {
 			EventManager.StartListening("EvFoundLocalConfigFiles", OnEvFoundLocalConfigFiles);
@@ -58,7 +67,7 @@ namespace eDIA {
 
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
-#region EXPERIMENT CONFIG
+#region SETUP CONFIGS 
 
 		/// <summary>Register local mode, listen to submission of config file</summary>
 		void OnEvFoundLocalConfigFiles (eParam e) {
@@ -147,86 +156,13 @@ namespace eDIA {
 
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
-#region SESSION SETTINGS
-
-		// /// <summary> Set the sessionsettings to use by UXF</summary>
-		// void SetSessionSettings () {
-		// 	// Add experimenter to settings
-		// 	experimentConfig.UXFSessionSettings.SetValue("experimenter", experimentConfig.experimenter);
-
-		// 	// Are there default settings?
-		// 	if (experimentConfig.sessionSettings.Count == 0)
-		// 		return;
-			
-		// 	// Add to UXF settings
-		// 	foreach(SettingsTuple tuple in experimentConfig.sessionSettings) {
-				
-		// 		if (tuple.value.Contains(',')) { // it's a list!
-		// 			List<string> stringlist = tuple.value.Split(',').ToList();
-		// 			experimentConfig.UXFSessionSettings.SetValue(tuple.key, stringlist);	
-		// 		} else experimentConfig.UXFSessionSettings.SetValue(tuple.key, tuple.value);	// normal string
-		// 	}
-		// }
-
-		// /// <summary> Set the participant details to use by UXF, if any</summary>
-		// void SetParticipantDetails () {
-		// 	if (experimentConfig.participantInfo.Count == 0)
-		// 		return;
-
-		// 	for (int i=0;i<experimentConfig.participantInfo.Count; i++) {
-		// 		participantDetails.Add(experimentConfig.participantInfo[i].key, experimentConfig.participantInfo[i].value);
-		// 	}
-		// }
-
-		// /// <summary>/// Convert JSON formatted definition for the seqence into a UXF format to run in the session/// </summary>
-		// void GenerateUXFSequence() {
-
-		// 	// Reorder the taskblock list in the taskmanager
-		// 	List<TaskBlock> reordered = new List<TaskBlock>();
-			
-		// 	foreach (ExperimentBlock b in experimentConfig.blocks) {
-		// 		reordered.Add(TaskManager.Instance.taskBlocks.Find(x => x.name == b.name));
-		// 	}
-
-		// 	TaskManager.Instance.taskBlocks.Clear();
-		// 	TaskManager.Instance.taskBlocks.AddRange(reordered);
-
-		// 	// Now set the settings per UXF block
-		// 	foreach (ExperimentBlock b in experimentConfig.blocks) {
-				
-		// 		Block newBlock = Session.instance.CreateBlock();
-		// 		newBlock.settings.SetValue("name",b.name);
-		// 		newBlock.settings.SetValue("introduction",b.introduction);
-
-		// 		// Assign blocksettings to this UXF block
-		// 		foreach (SettingsTuple s in b.blockSettings)
-		// 			if (s.value.Contains(',')) { // it's a list!
-		// 				List<string> stringlist = s.value.Split(',').ToList();
-		// 				newBlock.settings.SetValue(s.key, stringlist);	
-		// 			} else newBlock.settings.SetValue(s.key, s.value);	// normal string
-
-		// 		foreach (ValueList row in b.trialSettings.valueList) {
-		// 			Trial newTrial = newBlock.CreateTrial();
-
-		// 			for (int i = 0; i < row.values.Count; i++) {
-		// 				newTrial.settings.SetValue(b.trialSettings.keys[i], row.values[i].ToUpper()); // set values to trial
-		// 			}
-		// 		}
-
-		// 		// Log all keys
-		// 		foreach (string k in b.trialSettings.keys)
-		// 			Session.instance.settingsToLog.Add(k);
-		// 	}
-
-		// 	AddToLog("Generated UXF Sequence");
-		// }
-
-
-#endregion // -------------------------------------------------------------------------------------------------------------------------------
-#region APPLICATION CONTROL
+#region EXPERIMENT CONTROL
 
 		/// <summary>Starts the experiment</summary>
 		public void StartExperiment () {
+
+			AddXRrigTracking();
+
 
 			Session.instance.Begin( 
 				experimentConfig.experiment == string.Empty ? "N.A." : experimentConfig.experiment,  
@@ -277,7 +213,7 @@ namespace eDIA {
 			Debug.Log("<color=#50eee0>["+ name +  "]]> OnEvProceed called</color>");
 			EventManager.TriggerEvent("EvButtonChangeState", new eParam( new string[] { "PROCEED", "false" })); // disable button, as OnEvProceed might have come from somewhere else than the button itself
 			EventManager.StopListening(eDIA.Events.Core.EvProceed, CatchEvProceed); // stop listening to avoid doubleclicks
-			TaskManager.Instance.OnEvProceed();
+			NextStep();
 		}
 
 		/// <summary> Set system open for calibration call from event or button</summary>
@@ -297,19 +233,33 @@ namespace eDIA {
 			Session.instance.End();
 		}
 
-		private void SaveCustomDataTables()
+
+#endregion // -------------------------------------------------------------------------------------------------------------------------------
+#region UXF RELATED HELPERS
+
+		public void AddToTrialResults (string key, string value) {
+			Session.instance.CurrentTrial.result[key] = value;
+		}
+
+		void AddXRrigTracking () {
+			Session.instance.trackedObjects.Add(XRrigManager.instance.XRrig_MainCamera.GetComponent<Tracker>());
+			Session.instance.trackedObjects.Add(XRrigManager.instance.XRrig_RightController.GetComponent<Tracker>());
+			Session.instance.trackedObjects.Add(XRrigManager.instance.XRrig_LeftController.GetComponent<Tracker>());
+		}
+
+		void SaveCustomDataTables()
 		{
-			// AddToLog("Savedatatable");
 			UXF.Session.instance.SaveDataTable(executionOrderLog, "executionOrder");
 			UXF.Session.instance.SaveDataTable(markerLog, "markerLog");
 		}
-
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region UXF STATE MACHINE
 
 		/// <summary>Start of the UXF session. </summary>
 		void OnSessionBeginUXF() {
+			OnSessionStart?.Invoke();
+			
 			AddToLog("OnSessionBeginUXF");
 			AddToExecutionOrderLog("OnSessionBegin");
 			EventManager.StartListening(eDIA.Events.Core.EvProceed, OnEvStartFirstTrial);
@@ -321,19 +271,17 @@ namespace eDIA {
 			// eye calibration option enabled
 			EnableEyeCalibrationTrigger(true);
 
-			TaskManager.Instance.SessionBeginUXF();
 		}
 
-		/// <summary>Called from user input. </summary>
-		void OnEvStartFirstTrial (eParam e) {
-			EventManager.StopListening(eDIA.Events.Core.EvProceed, OnEvStartFirstTrial);
-			Session.instance.Invoke("BeginNextTrial", 0.5f);
-		}
 
 		/// <summary>Called from UXF session. </summary>
 		void OnSessionEndUXF() {
-			TaskManager.Instance.SessionEndUXF();
+			OnSessionEnd?.Invoke();
 
+			foreach(TaskBlock t in taskBlocks) {
+				t.gameObject.SetActive(false);
+			}
+			
 			AddToLog("OnSessionEndUXF");
 			AddToExecutionOrderLog("OnSessionEndUXF");
 
@@ -342,6 +290,13 @@ namespace eDIA {
 			EventManager.TriggerEvent("EvButtonChangeState", new eParam( new string[] { "PROCEED", "false" }));
 			EnableExperimentPause(false);
 
+		}
+
+		/// <summary>Called from user input. </summary>
+		void OnEvStartFirstTrial (eParam e) {
+			EventManager.StopListening(eDIA.Events.Core.EvProceed, OnEvStartFirstTrial);
+			// Session.instance.Invoke("BeginNextTrial", 0.5f);
+			Session.instance.BeginNextTrial();
 		}
 
 		/// <summary>Called from UXF session. Begin setting things up for the trial that is about to start </summary>
@@ -360,14 +315,14 @@ namespace eDIA {
 				// Set new activeBlockUXF value
 				activeBlockUXF = Session.instance.currentBlockNum;
 				
-				TaskManager.Instance.BlockStart();
+				BlockStart();
 			}
 
 			// Inject introduction step or continue UXF sequence
 			if (showIntroduction)
 				BlockIntroduction ();
 			else {
-				TaskManager.Instance.TrialBegin();
+				StartTrial();
 				EventManager.TriggerEvent("EvExperimentProgressUpdate", new eParam(Session.instance.CurrentBlock.settings.GetString("name")));
 			}
 		}
@@ -399,7 +354,7 @@ namespace eDIA {
 			if (Session.instance.CurrentBlock.lastTrial != endedTrial) { // NO
 				Session.instance.BeginNextTrialSafe();
 				return;
-			} else TaskManager.Instance.BlockEnd(); // YES
+			} else taskBlocks[Session.instance.currentBlockNum-1].OnBlockEnd(); // YES
 
 			// Is this then the last trial of the session?
 			if (Session.instance.LastTrial == endedTrial) {
@@ -419,6 +374,113 @@ namespace eDIA {
 		}
 
 
+
+#endregion // -------------------------------------------------------------------------------------------------------------------------------
+#region BLOCK
+
+		void BlockStart () {
+			AddToLog("Block Start");
+
+			// Disable old block
+			if (Session.instance.currentBlockNum-1 != 0)
+				taskBlocks[Session.instance.currentBlockNum-2].gameObject.SetActive(false);
+
+			// enable new block
+			taskBlocks[Session.instance.currentBlockNum-1].gameObject.SetActive(true);
+			taskBlocks[Session.instance.currentBlockNum-1].OnBlockStart();
+		}
+
+		void BlockEnd () {
+			AddToLog("Block End");
+			taskBlocks[Session.instance.currentBlockNum-1].OnBlockEnd();
+
+			taskBlocks[Session.instance.currentBlockNum-1].OnBlockEnd();
+		}
+
+
+		/// <summary>Called from this manager. </summary>
+		void BlockIntroduction () {
+			AddToLog("BlockIntroduction");
+			AddToExecutionOrderLog("BlockIntroduction");
+
+			EventManager.StartListening(eDIA.Events.Core.EvProceed, BlockResumeAfterIntro); // listener as it event call can come from any script
+			EventManager.TriggerEvent("EvExperimentProgressUpdate", new eParam("Introduction"));
+			EventManager.TriggerEvent("EvButtonChangeState", new eParam( new string[] { "PROCEED", "true" }));
+
+			EnableExperimentPause(false);
+			EnableEyeCalibrationTrigger(true);
+
+			taskBlocks[Session.instance.currentBlockNum-1].OnBlockIntroduction();
+		}
+
+		/// <summary>Called from this manager. </summary>
+		void BlockResumeAfterIntro (eParam e) {
+			AddToLog("BlockResumeAfterIntro");
+			AddToExecutionOrderLog("BlockResumeAfterIntro");
+
+			EventManager.StopListening(eDIA.Events.Core.EvProceed, BlockResumeAfterIntro);
+			
+			EnableEyeCalibrationTrigger(false);
+
+			StartTrial();
+		}
+
+
+#endregion // -------------------------------------------------------------------------------------------------------------------------------
+#region TRIAL STATEMACHINE
+		//? Methods controlling the current trial
+
+		void StartTrial() {
+
+			AddToLog("StartTrial");
+			taskBlocks[Session.instance.currentBlockNum-1].OnStartNewTrial();
+			
+			currentStepNum = -1;
+			EventManager.TriggerEvent("EvExperimentProgressUpdate", new eParam(Session.instance.CurrentBlock.settings.GetString("name")));
+
+			// Fire up the task state machine to run the steps of the trial.
+			NextStep();
+		}
+
+		/// <summary>Called after the task sequence is done </summary>
+		void EndTrial() {
+			AddToLog("Trial Steps DONE");
+			Session.instance.EndCurrentTrial(); // tells UXF to end this trial and fire the event that follows
+		}
+
+		public void StartNewTrial() {
+		}
+
+		/// <summary>Call next step in the trial with delay.</summary>
+		/// <param name="delay">Time to wait before proceeding. Expects float</param>
+		public void NextStep (float delay) {
+			if (stepTimer != null) StopCoroutine(stepTimer); // Kill timer, if any
+
+			stepTimer = StartCoroutine("NextStepTimer", delay);
+		}
+
+		/// <summary>Coroutine as timer as we can kill that to avoid delayed calls in the statemachine</summary>
+		IEnumerator NextStepTimer (float delay) {
+			yield return new WaitForSeconds(delay);
+			NextStep();
+		}
+
+		/// <summary>Call next step in the trial.</summary>
+		public void NextStep() {
+			Debug.Log("NextStep");
+			if (stepTimer != null) StopCoroutine(stepTimer); // Kill timer, if any
+
+			currentStepNum ++;
+
+			if (currentStepNum < taskBlocks[Session.instance.CurrentBlock.number-1].trialSteps.Count) {
+				Debug.Log("NextStep>currentstep"+ currentStepNum + " < " + taskBlocks[Session.instance.CurrentBlock.number-1].trialSteps.Count);
+				taskBlocks[Session.instance.currentBlockNum-1].OnBetweenSteps();
+				taskBlocks[Session.instance.currentBlockNum-1].trialSteps[currentStepNum].Invoke();
+			}
+			else EndTrial();
+		}
+
+		
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region BREAK
 
@@ -430,7 +492,7 @@ namespace eDIA {
 			EventManager.StartListening(eDIA.Events.Core.EvProceed, SessionResumeAfterBreak);
 			EventManager.TriggerEvent("EvExperimentProgressUpdate", new eParam("Break"));
 			
-			TaskManager.Instance.SessionBreak();
+			OnSessionBreak.Invoke();
 
 			EventManager.TriggerEvent("EvButtonChangeState", new eParam( new string[] { "PROCEED", "true" }));
 			// EnableExperimentProceed(true);
@@ -454,33 +516,6 @@ namespace eDIA {
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region BLOCK INTRODUCTION
 
-		/// <summary>Called from this manager. </summary>
-		void BlockIntroduction () {
-			AddToLog("BlockIntroduction");
-			AddToExecutionOrderLog("BlockIntroduction");
-
-			EventManager.StartListening(eDIA.Events.Core.EvProceed, BlockResumeAfterIntro); // listener as it event call can come from any script
-			EventManager.TriggerEvent("EvExperimentProgressUpdate", new eParam("Introduction"));
-
-			EventManager.TriggerEvent("EvButtonChangeState", new eParam( new string[] { "PROCEED", "true" }));
-			// EnableExperimentProceed(true);
-			EnableExperimentPause(false);
-			EnableEyeCalibrationTrigger(true);
-
-			TaskManager.Instance.BlockIntroduction();
-		}
-
-		/// <summary>Called from this manager. </summary>
-		void BlockResumeAfterIntro (eParam e) {
-			AddToLog("BlockResumeAfterIntro");
-			AddToExecutionOrderLog("BlockResumeAfterIntro");
-
-			EventManager.StopListening(eDIA.Events.Core.EvProceed, BlockResumeAfterIntro);
-			
-			EnableEyeCalibrationTrigger(false);
-
-			TaskManager.Instance.BlockResumeAfterIntro();
-		}
 
 
 #endregion	// -------------------------------------------------------------------------------------------------------------------------------

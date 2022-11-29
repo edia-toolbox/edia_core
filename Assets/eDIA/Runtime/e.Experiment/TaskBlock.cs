@@ -22,7 +22,6 @@ namespace eDIA {
 
         public virtual void OnBlockStart () { }
         public virtual void OnBlockIntroduction () { }
-        public virtual void OnBlockResumeAfterIntro () { }
         public virtual void OnStartNewTrial () { }
         public virtual void OnBetweenSteps () { }
         public virtual void OnBlockEnd () { }

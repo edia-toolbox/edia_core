@@ -43,7 +43,7 @@ namespace TASK {
 			theCube.gameObject.SetActive (true);
 			theCube.transform.position = new Vector3 (0, XRrigUtilities.GetXRcam().position.y, Session.instance.CurrentBlock.settings.GetFloat ("distanceCube"));
 
-			TaskManager.Instance.NextStep (Session.instance.CurrentBlock.settings.GetFloat ("timerShowCube"));
+			Experiment.Instance.NextStep (Session.instance.CurrentBlock.settings.GetFloat ("timerShowCube"));
 		}
 
 		/// <summary>Move cube, wait on user input</summary>
@@ -78,12 +78,12 @@ namespace TASK {
 
 			XRrigUtilities.SetHandPose("idle");
 
-			TaskManager.Instance.NextStep();
+			Experiment.Instance.NextStep();
 		}
 
 		/// <summary>Wait</summary>
 		public void TaskStep4 () {
-			TaskManager.Instance.NextStep (Session.instance.CurrentBlock.settings.GetFloat ("timerWait"));
+			Experiment.Instance.NextStep (Session.instance.CurrentBlock.settings.GetFloat ("timerWait"));
 			Debug.Log("TaskStep4 started");
 		}
 
@@ -122,11 +122,6 @@ namespace TASK {
 		/// <summary>Called when this block has a introduction text in the json</summary>
 		public override void OnBlockIntroduction() {
 			messagePanelInVR.ShowMessage(Session.instance.CurrentBlock.settings.GetString("introduction"), true);
-		}
-
-		/// <summary>Called when block resumes</summary>
-		public override void OnBlockResumeAfterIntro () {
-
 		}
 
 		public override void OnStartNewTrial () {

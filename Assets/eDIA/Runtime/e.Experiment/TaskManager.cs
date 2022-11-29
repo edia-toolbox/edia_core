@@ -10,7 +10,7 @@ using UnityEngine.Events;
 namespace eDIA {
 
 	public class TaskManager : Singleton<TaskManager> {
-
+/*
 #region DECLARATIONS
 
 		public bool showLog = false;
@@ -25,28 +25,26 @@ namespace eDIA {
 		public UnityEvent OnSessionBreak = null;
 		public UnityEvent OnSessionEnd = null;
 
+		private bool inSession = false;
 		
 		// [HideInInspector]
 		public int currentStep = -1;
-
-		private bool inSession = false;
-
 		Coroutine timer = null;
 
 		// XR RIG
-		[HideInInspector] public Transform XRrig_MainCamera 		= null;
-		[HideInInspector] public Transform XRrig_RightController	= null;
-		[HideInInspector] public Transform XRrig_LeftController 	= null;
+		// [HideInInspector] public Transform XRrig_MainCamera 		= null;
+		// [HideInInspector] public Transform XRrig_RightController	= null;
+		// [HideInInspector] public Transform XRrig_LeftController 	= null;
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region Mono methods
 
 		public virtual void Awake() {
 			// Listen to event that XR rig is ready
-			EventManager.StartListening(eDIA.Events.Interaction.EvFoundXRrigReferences, 	OnEvFoundXRrigReferences);
-			EventManager.StartListening(eDIA.Events.Core.EvLocalConfigSubmitted, 		OnEvLocalConfigSubmitted);
+			// EventManager.StartListening(eDIA.Events.Interaction.EvFoundXRrigReferences, 	OnEvFoundXRrigReferences);
+			// EventManager.StartListening(eDIA.Events.Core.EvLocalConfigSubmitted, 		OnEvLocalConfigSubmitted);
 
-			GetXRrigReferences();
+			// GetXRrigReferences();
 
 			// Disable all task blocks at start
 			foreach (TaskBlock t in taskBlocks)
@@ -55,72 +53,68 @@ namespace eDIA {
 
 
 		void OnDestroy() {
-			EventManager.StopListening("EvFoundXRrigReferences", OnEvFoundXRrigReferences);
+			// EventManager.StopListening("EvFoundXRrigReferences", OnEvFoundXRrigReferences);
 		}
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region EDIA XR RIG 
 
-		void GetXRrigReferences () {
-			eDIA.XRrigUtilities.GetXRrigReferencesAsync();
-		}
+		// void GetXRrigReferences () {
+		// 	eDIA.XRrigUtilities.GetXRrigReferencesAsync();
+		// }
 
-		public virtual void OnEvFoundXRrigReferences (eParam e)  {
-			EventManager.StopListening(eDIA.Events.Interaction.EvFoundXRrigReferences, OnEvFoundXRrigReferences);
-			AddToLog("XRrig references FOUND");
+		// public virtual void OnEvFoundXRrigReferences (eParam e)  {
+		// 	EventManager.StopListening(eDIA.Events.Interaction.EvFoundXRrigReferences, OnEvFoundXRrigReferences);
+		// 	AddToLog("XRrig references FOUND");
 
-			XRrig_MainCamera 		= XRrigManager.instance.XRrig_MainCamera;
-			XRrig_RightController	= eDIA.XRrigUtilities.GetXRcontrollerRight();
-			XRrig_LeftController	= eDIA.XRrigUtilities.GetXRcontrollerLeft();
+		// 	SetXRrigTracking ();
+		// }
 
-			SetXRrigTracking ();
-		}
+		// void SetXRrigTracking () {
+		// 	Session.instance.trackedObjects.Add(XRrigManager.instance.XRrig_MainCamera.GetComponent<Tracker>());
+		// 	Session.instance.trackedObjects.Add(XRrigManager.instance.XRrig_RightController.GetComponent<Tracker>());
+		// 	Session.instance.trackedObjects.Add(XRrigManager.instance.XRrig_LeftController.GetComponent<Tracker>());
 
-		void SetXRrigTracking () {
-			Session.instance.trackedObjects.Add(XRrig_MainCamera.GetComponent<Tracker>());
-			Session.instance.trackedObjects.Add(XRrig_RightController.GetComponent<Tracker>());
-			Session.instance.trackedObjects.Add(XRrig_LeftController.GetComponent<Tracker>());
-
-			AddToLog("XRrig added to UXF tracking");
-		}
+		// 	AddToLog("XRrig added to UXF tracking");
+		// }
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region TASK UXF HELPERS
 
-		public void AddToTrialResults (string key, string value) {
-			Session.instance.CurrentTrial.result[key] = value;
-		}
+		// public void AddToTrialResults (string key, string value) {
+		// 	Session.instance.CurrentTrial.result[key] = value;
+		// }
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region eDIA EVENT HANDLERS
 
-		/// <summary>Look up given index in the localConfigFiles list and give content of that file to system </summary>
-		/// <param name="e">String = filename of the configfile</param>
-		void OnEvLocalConfigSubmitted (eParam e) {
+		// /// <summary>Look up given index in the localConfigFiles list and give content of that file to system </summary>
+		// /// <param name="e">String = filename of the configfile</param>
+		// void OnEvLocalConfigSubmitted (eParam e) {
 
-			EventManager.StopListening(eDIA.Events.Core.EvLocalConfigSubmitted, OnEvLocalConfigSubmitted);
-			string filename = e.GetStrings()[0] + ".json"; // combine task string and participant string
-		}
+		// 	EventManager.StopListening(eDIA.Events.Core.EvLocalConfigSubmitted, OnEvLocalConfigSubmitted);
+		// 	string filename = e.GetStrings()[0] + ".json"; // combine task string and participant string
+		// }
 		
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region eDIA EXPERIMENT MANAGER CALLS
 
-		public void SessionBeginUXF() {
-			AddToLog("OnSessionBeginUXF");
-			inSession = true;
-			OnSessionStart?.Invoke();
-		}
+		// public void SessionBeginUXF() {
+		// 	AddToLog("OnSessionBeginUXF");
+		// 	inSession = true;
+		// 	OnSessionStart?.Invoke();
+		// }
 
 		/// <summary>Called from UXF session. </summary>
-		public void SessionEndUXF() {
-			AddToLog("OnSessionEndUXF");
-			foreach(TaskBlock t in taskBlocks) {
-				t.gameObject.SetActive(false);
-			}
-			inSession = false;
-			OnSessionEnd?.Invoke();
-		}
+		// public void SessionEndUXF() {
+		// 	AddToLog("OnSessionEndUXF");
+		// 	foreach(TaskBlock t in taskBlocks) {
+		// 		t.gameObject.SetActive(false);
+		// 	}
+		// 	inSession = false;
+		// 	OnSessionEnd?.Invoke();
+		// }
 		
 		public void TrialBegin () {
 			Invoke("StartTrial",0.2f);
@@ -130,48 +124,48 @@ namespace eDIA {
 			NextStep();
 		}
 
-		/// <summary>Called from experiment manager</summary>
-		public void SessionBreak() {
-			AddToLog("Break START");
-			OnSessionBreak?.Invoke();
-		}
+		// /// <summary>Called from experiment manager</summary>
+		// public void SessionBreak() {
+		// 	AddToLog("Break START");
+		// 	OnSessionBreak?.Invoke();
+		// }
 
-		/// <summary>Called from experiment manager</summary>
-		public void BlockStart () {
-			AddToLog("Block Start");
+		// /// <summary>Called from experiment manager</summary>
+		// public void BlockStart () {
+		// 	AddToLog("Block Start");
 
-			// Disable old block
-			if (Session.instance.currentBlockNum-1 != 0)
-				taskBlocks[Session.instance.currentBlockNum-2].gameObject.SetActive(false);
+		// 	// Disable old block
+		// 	if (Session.instance.currentBlockNum-1 != 0)
+		// 		taskBlocks[Session.instance.currentBlockNum-2].gameObject.SetActive(false);
 
-			// enable new block
-			taskBlocks[Session.instance.currentBlockNum-1].gameObject.SetActive(true);
-			taskBlocks[Session.instance.currentBlockNum-1].OnBlockStart();
-		}
+		// 	// enable new block
+		// 	taskBlocks[Session.instance.currentBlockNum-1].gameObject.SetActive(true);
+		// 	taskBlocks[Session.instance.currentBlockNum-1].OnBlockStart();
+		// }
 		
-		/// <summary>Called from experiment manager</summary>
-		public void BlockEnd () {
-			AddToLog("Block End");
-			taskBlocks[Session.instance.currentBlockNum-1].OnBlockEnd();
-		}
+		// /// <summary>Called from experiment manager</summary>
+		// public void BlockEnd () {
+		// 	AddToLog("Block End");
+		// 	taskBlocks[Session.instance.currentBlockNum-1].OnBlockEnd();
+		// }
 
-		/// <summary>Called from experiment manager</summary>
-		public void BlockIntroduction () {
-			AddToLog("Block introduction");
-			taskBlocks[Session.instance.currentBlockNum-1].OnBlockIntroduction();	
-		}
+		// /// <summary>Called from experiment manager</summary>
+		// public void BlockIntroduction () {
+		// 	AddToLog("Block introduction");
+		// 	taskBlocks[Session.instance.currentBlockNum-1].OnBlockIntroduction();	
+		// }
 
-		/// <summary>Called from experiment manager</summary>
-		public void BlockResumeAfterIntro () {
-			AddToLog("OnEvBlockResumeAfterIntro");
-			taskBlocks[Session.instance.currentBlockNum-1].OnBlockResumeAfterIntro();	
+		// /// <summary>Called from experiment manager</summary>
+		// public void BlockResumeAfterIntro () {
+		// 	AddToLog("OnEvBlockResumeAfterIntro");
+		// 	taskBlocks[Session.instance.currentBlockNum-1].OnBlockResumeAfterIntro();	
 
-			Invoke("StartTrial",0.2f);
-		}
+		// 	Invoke("StartTrial",0.2f);
+		// }
 
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
-#region TASK STATEMACHINE
+#region TRIAL STATEMACHINE
 		//? Methods controlling the current trial
 
 		void StartTrial() {
@@ -237,6 +231,6 @@ namespace eDIA {
 		
 
 #endregion	// -------------------------------------------------------------------------------------------------------------------------------
-		
+		*/
 	}
 }

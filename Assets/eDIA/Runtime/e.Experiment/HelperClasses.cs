@@ -90,11 +90,11 @@ namespace eDIA {
 			List<TaskBlock> reordered = new List<TaskBlock>();
 			
 			foreach (ExperimentBlock b in blocks) {
-				reordered.Add(TaskManager.Instance.taskBlocks.Find(x => x.name == b.name));
+				reordered.Add(Experiment.Instance.taskBlocks.Find(x => x.name == b.name));
 			}
 
-			TaskManager.Instance.taskBlocks.Clear();
-			TaskManager.Instance.taskBlocks.AddRange(reordered);
+			Experiment.Instance.taskBlocks.Clear();
+			Experiment.Instance.taskBlocks.AddRange(reordered);
 
 			// Convert the Taskconfig into UXF blocks and settings
 			foreach (ExperimentBlock b in blocks) {

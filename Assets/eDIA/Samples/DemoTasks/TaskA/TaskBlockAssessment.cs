@@ -37,7 +37,7 @@ namespace TASK {
 			XRrigUtilities.EnableXRInteraction (false);
 
 			messagePanelInVR.ShowMessage("blaaa");
-			TaskManager.Instance.NextStep (2f);
+			Experiment.Instance.NextStep (5f);
 		}
 
 		/// <summary>Move cube, wait on user input</summary>
@@ -63,7 +63,7 @@ namespace TASK {
 			controllerListener.EnableRemapping("TriggerPressed", false);
 
 			messagePanelInVR.ShowMessage("Thank you for your answer");
-			TaskManager.Instance.NextStep(4f);
+			Experiment.Instance.NextStep(4f);
 		}
 
 
@@ -95,10 +95,6 @@ namespace TASK {
 			messagePanelInVR.ShowMessage(Session.instance.CurrentBlock.settings.GetString("introduction"), true);
 		}
 
-		/// <summary>Called when block resumes</summary>
-		public override void OnBlockResumeAfterIntro () {
-
-		}
 
 		public override void OnStartNewTrial () {
 		}
