@@ -27,6 +27,9 @@ namespace eDIA.Events {
 		/// <summary>Fired when the Experiment manager has set the taskconfig. </summary>
 		public static string EvTaskConfigSet 		= "EvTaskConfigSet";
 
+		/// <summary>Fired when both configs are set </summary>
+		public static string EvReadyToGo 			= "EvReadyToGo";
+
 		/// <summary>Fired by ExperimentManager when a trial has begun. Expects null</summary>
 		public static string EvTrialBegin 			= "EvTrialBegin";
 

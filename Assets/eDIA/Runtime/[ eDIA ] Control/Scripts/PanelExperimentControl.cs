@@ -37,7 +37,8 @@ namespace eDIA {
 			base.Awake();
 
 			EventManager.StartListening(eDIA.Events.Core.EvExperimentConfigSet, 	OnEvExperimentConfigSet);
-			EventManager.StartListening(eDIA.Events.Core.EvTaskConfigSet, 	OnEvTaskConfigSet);
+			EventManager.StartListening(eDIA.Events.Core.EvTaskConfigSet, 		OnEvTaskConfigSet);
+			EventManager.StartListening(eDIA.Events.Core.EvReadyToGo,			OnEvReadyToGo);
 			EventManager.StartListening("EvButtonChangeState", 		OnEvButtonChangeState);
 			EventManager.StartListening("EvStartExperiment", 		OnEvStartExperiment);
 
@@ -70,13 +71,18 @@ namespace eDIA {
 		{
 			EventManager.StopListening(eDIA.Events.Core.EvTaskConfigSet, OnEvTaskConfigSet);
 
+			GetComponent<VerticalLayoutGroup>().enabled = true;
+			ShowPanel();
+		}
+
+		void OnEvReadyToGo(eParam obj)
+		{
+			EventManager.StopListening(eDIA.Events.Core.EvReadyToGo,			OnEvReadyToGo);
+
 			SetupButtons ();
 			btnExperiment.interactable = true;
 
 			blockSlider.description = "ready";
-
-			GetComponent<VerticalLayoutGroup>().enabled = true;
-			ShowPanel();
 
 		}
 

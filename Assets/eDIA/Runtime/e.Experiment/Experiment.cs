@@ -109,9 +109,12 @@ namespace eDIA {
 				throw;
 			}
 
+
 			EventManager.TriggerEvent(eDIA.Events.Core.EvExperimentConfigSet, null);
 			EventManager.TriggerEvent("EvSetDisplayInformation", new eParam( experimentConfig.GetExperimentSummary()) );
 
+			experimentConfig.isReady = true;
+			CheckExperimentReady();
 		}
 
 		/// <summary>Set the eDIA experiment settings with the full JSON config string</summary>
@@ -131,6 +134,15 @@ namespace eDIA {
 			}
 
 			EventManager.TriggerEvent(eDIA.Events.Core.EvTaskConfigSet, null);
+
+			taskConfig.isReady = true;
+			CheckExperimentReady();
+		}
+
+		// TODO: Validate configs and show correct panels in control 
+		void CheckExperimentReady () {
+			if (experimentConfig.isReady && taskConfig.isReady)
+				EventManager.TriggerEvent(eDIA.Events.Core.EvReadyToGo, null);
 		}
 
 
@@ -217,13 +229,13 @@ namespace eDIA {
 		public void StartExperiment () {
 
 			Session.instance.Begin( 
-				experimentConfig.experiment 		== string.Empty ? "N.A." : experimentConfig.experiment,  
+				experimentConfig.experiment == string.Empty ? "N.A." : experimentConfig.experiment,  
 				experimentConfig.GetParticipantID(), 
 				experimentConfig.sessionNumber, 
-				experimentConfig.GetParticipantDetailsAsDict()
+				experimentConfig.GetParticipantDetailsAsDict(),
+				new UXF.Settings(taskConfig.GetTaskSettingsAsDict())
 			); 
-
-			taskConfig.Init();
+			
 		}
 
 		void OnEvStartExperiment (eParam e) {
@@ -343,7 +355,7 @@ namespace eDIA {
 			if ((Session.instance.currentBlockNum != activeBlockUXF) && (Session.instance.currentBlockNum <= Session.instance.blocks.Count)) {
 
 				// Check for block introduction flag
-				showIntroduction = taskConfig.GetBlockIntroduction() != string.Empty;
+				showIntroduction = Session.instance.CurrentBlock.settings.GetString("introduction") != string.Empty;
 
 				// Set new activeBlockUXF value
 				activeBlockUXF = Session.instance.currentBlockNum;

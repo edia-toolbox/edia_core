@@ -50,6 +50,10 @@ namespace eDIA {
 		public int 					sessionNumber 		= 0;
 		public List<SettingsTuple>		participantDetails 	= new List<SettingsTuple>();
 
+		// Local check if this instance is loaded and ready to go
+		public bool 				isReady			= false;
+
+		//? Class helper methods
 		public string[] GetExperimentSummary() {
 			return new string[] { experiment, experimenter, GetParticipantID (), sessionNumber.ToString() };
 		}
@@ -59,10 +63,7 @@ namespace eDIA {
 		}
 
 		public Dictionary<string,object> GetParticipantDetailsAsDict () {
-			Dictionary<string,object> tmp = new Dictionary<string, object>();
-			foreach (SettingsTuple st in participantDetails)
-				tmp.Add(st.key, st.value);
-			return tmp;
+			return Helpers.GetSettingsTupleListAsDict(participantDetails);
 		}
 
 	}
@@ -70,35 +71,30 @@ namespace eDIA {
 	/// <summary> Experiment config container</summary>
 	[System.Serializable]
 	public class TaskConfig {
-		public Dictionary<string,object> 	taskSettings 		= new Dictionary<string,object>();
+		public List<SettingsTuple>		taskSettings 		= new List<SettingsTuple>();
 		public List<int>				breakAfter			= new List<int>(); 
 		public List<ExperimentBlock>		blocks			= new List<ExperimentBlock>();
 
+		// Local check if this instance is loaded and ready to go
+		public bool 				isReady			= false;
 
-		public string GetBlockIntroduction () {
-			return blocks[Session.instance.currentBlockNum-1].introduction == string.Empty ? string.Empty : blocks[Session.instance.currentBlockNum-1].introduction;
-		}
-
-		public void Init () {
-			Session.instance.settings.SetValue("test", "testtt");
-			// Session.instance.settings.UpdateWithDict(taskSettings);
+		//? Class helper methods
+		public Dictionary<string,object> GetTaskSettingsAsDict () {
+			return Helpers.GetSettingsTupleListAsDict(taskSettings);
 		}
 
 		/// <summary>/// Convert JSON formatted definition for the seqence into a UXF format to run in the session/// </summary>
 		public void GenerateUXFSequence() {
 
-			Debug.Log("GenerateUXFSequence");
+			// Reorder the taskblock list in the taskmanager
+			List<TaskBlock> reordered = new List<TaskBlock>();
 			
-			// TODO Reorder the taskblocks to be in the order of the blocks
-			// // Reorder the taskblock list in the taskmanager
-			// List<TaskBlock> reordered = new List<TaskBlock>();
-			
-			// foreach (ExperimentBlock b in blocks) {
-			// 	reordered.Add(TaskManager.Instance.taskBlocks.Find(x => x.name == b.name));
-			// }
+			foreach (ExperimentBlock b in blocks) {
+				reordered.Add(TaskManager.Instance.taskBlocks.Find(x => x.name == b.name));
+			}
 
-			// TaskManager.Instance.taskBlocks.Clear();
-			// TaskManager.Instance.taskBlocks.AddRange(reordered);
+			TaskManager.Instance.taskBlocks.Clear();
+			TaskManager.Instance.taskBlocks.AddRange(reordered);
 
 			// Convert the Taskconfig into UXF blocks and settings
 			foreach (ExperimentBlock b in blocks) {
@@ -128,6 +124,16 @@ namespace eDIA {
 					Session.instance.settingsToLog.Add(k);
 
 			}
+		}
+	}
+
+	public static class Helpers {
+
+		public static Dictionary<string,object> GetSettingsTupleListAsDict (List<SettingsTuple> list) {
+			Dictionary<string,object> tmp = new Dictionary<string, object>();
+			foreach (SettingsTuple st in list)
+				tmp.Add(st.key, st.value);
+			return tmp;
 		}
 	}
 
