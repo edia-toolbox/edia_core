@@ -9,7 +9,7 @@ namespace eDIA {
 	/// <summary> 
 	/// The SystemManager is a Singleton and therefor reachable from whatever script.<br/>
 	/// The script travels along the scenes that are loaded as it is DontDestroyOnLoad. <br/>
-	/// Responsible for loading/unloading, user related actions, top level application stuff.<br/>
+	/// Responsible for loading/unloading, user related actions, top level application.<br/>
 	/// Has references to the XR rig camera and hands for the rest of the application.<br/>
 	/// </summary>
 	public class XRrigManager : MonoBehaviour {

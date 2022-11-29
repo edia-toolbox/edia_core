@@ -47,12 +47,12 @@ namespace eDIA {
 			localSystemSettingsContainer = UnityEngine.JsonUtility.FromJson<SettingsDeclaration> (obj.GetString ());
 
 			// populate the GUI elements with correct values
-			volumeSlider.value = localSystemSettingsContainer.volume;
+			volumeSlider.value 			= localSystemSettingsContainer.volume;
 			interactiveInteractorDropdown.value = (int) localSystemSettingsContainer.InteractiveInteractor;
-			visibleInteractorDropdown.value = (int) localSystemSettingsContainer.VisableInteractor;
-			languageDropdown.value = (int) localSystemSettingsContainer.language;
-			pathToLogfilesField.text = localSystemSettingsContainer.pathToLogfiles;
-			resolutionDropdown.value = localSystemSettingsContainer.screenResolution;
+			visibleInteractorDropdown.value 	= (int) localSystemSettingsContainer.VisableInteractor;
+			languageDropdown.value 			= (int) localSystemSettingsContainer.language;
+			pathToLogfilesField.text 		= localSystemSettingsContainer.pathToLogfiles;
+			resolutionDropdown.value 		= localSystemSettingsContainer.screenResolution;
 			// Show
 			ShowPanel ();
 

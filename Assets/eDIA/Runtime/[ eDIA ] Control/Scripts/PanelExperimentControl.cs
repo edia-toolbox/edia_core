@@ -36,36 +36,48 @@ namespace eDIA {
 
 			base.Awake();
 
-			EventManager.StartListening("EvExperimentInitialised", 	OnEvExperimentInitialised);
+			EventManager.StartListening(eDIA.Events.Core.EvExperimentConfigSet, 	OnEvExperimentConfigSet);
+			EventManager.StartListening(eDIA.Events.Core.EvTaskConfigSet, 	OnEvTaskConfigSet);
 			EventManager.StartListening("EvButtonChangeState", 		OnEvButtonChangeState);
 			EventManager.StartListening("EvStartExperiment", 		OnEvStartExperiment);
 
 		}
 
+
 		void Start() {
 			HidePanel();
+
+
 		}
 
 #region EVENT LISTENERS
 
-		void OnEvExperimentInitialised(eParam obj)
+		void OnEvExperimentConfigSet(eParam obj)
 		{
-			EventManager.StopListening("EvExperimentInitialised", OnEvExperimentInitialised);
+			EventManager.StopListening(eDIA.Events.Core.EvExperimentConfigSet, OnEvExperimentConfigSet);
+
+			GetComponent<VerticalLayoutGroup>().enabled = true;
+			ShowPanel();
+
+			panelIdle.SetActive(false);
+			panelRunning.SetActive(false);
+			panelStatus.SetActive(false);
+
+			EventManager.StartListening("EvSetDisplayInformation", OnEvDisplaySessionInfo);
+		}
+
+		void OnEvTaskConfigSet(eParam obj)
+		{
+			EventManager.StopListening(eDIA.Events.Core.EvTaskConfigSet, OnEvTaskConfigSet);
 
 			SetupButtons ();
 			btnExperiment.interactable = true;
 
 			blockSlider.description = "ready";
 
-			panelIdle.SetActive(true);
-			panelRunning.SetActive(false);
-			panelStatus.SetActive(false);
-			panelInfo.SetActive(false);
 			GetComponent<VerticalLayoutGroup>().enabled = true;
-
 			ShowPanel();
 
-			EventManager.StartListening("EvSetDisplayInformation", OnEvDisplaySessionInfo);
 		}
 
 		void OnEvStartExperiment (eParam e)
@@ -150,14 +162,19 @@ namespace eDIA {
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 
 		void OnDestroy() {
-			EventManager.StopListening("EvExperimentInitialised", OnEvExperimentInitialised);
+			EventManager.StopListening("EvExperimentConfigSet", OnEvExperimentConfigSet);
 			EventManager.StopListening("EvFinalizeSession", OnEvFinalizeSession);
 			EventManager.StopListening("EvStartExperiment", OnEvFinalizeSession);
+
+			btnExperiment.onClick.RemoveListener(		()=>EventManager.TriggerEvent("EvStartExperiment", null));
+			btnPauseExperiment.onClick.RemoveListener(	()=>EventManager.TriggerEvent("EvPauseExperiment", null));
+			btnProceedExperiment.onClick.RemoveListener(	()=>EventManager.TriggerEvent(eDIA.Events.Core.EvProceed, null));
+
 		}
 
 		void SetupButtons () {
 			btnExperiment.transform.GetChild(0).GetComponentInChildren<Text>().text = "Start Experiment";
-			btnExperiment.onClick.AddListener(	()=>EventManager.TriggerEvent("EvStartExperiment", null));
+			btnExperiment.onClick.AddListener(		()=>EventManager.TriggerEvent("EvStartExperiment", null));
 			btnPauseExperiment.onClick.AddListener(	()=>EventManager.TriggerEvent("EvPauseExperiment", null));
 			btnProceedExperiment.onClick.AddListener(	()=>EventManager.TriggerEvent(eDIA.Events.Core.EvProceed, null));
 		}

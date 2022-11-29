@@ -6,30 +6,6 @@ using System;
 
 namespace eDIA {
 
-    /// <summary>Container to hold main settings of the application </summary>
-    [System.Serializable]
-    public class SettingsDeclaration {
-        public Constants.Interactor VisableInteractor = Constants.Interactor.BOTH;
-        public Constants.Interactor InteractiveInteractor = Constants.Interactor.RIGHT;
-        public int screenResolution = 0;
-        public float volume = 50f;
-        public Constants.Languages language = Constants.Languages.ENG;
-
-        public string pathToLogfiles = "logfiles";
-        public static string localConfigDirectoryName = "Configs";
-    }
-
-    [System.Serializable]
-    public class TrialStep {
-        public string title;
-        public Action methodToCall;
-
-        public TrialStep (string title, Action methodToCall) {
-            this.title = title;
-            this.methodToCall = methodToCall;
-        }
-    }
-
     /// <summary>Static definitions</summary>
     public static class Constants {
         public static string localConfigDirectoryName = "Configs";
@@ -48,6 +24,5 @@ namespace eDIA {
             new Vector2 (1920, 1080),
             new Vector2 (2048, 1440)
         };
-
     }
 }

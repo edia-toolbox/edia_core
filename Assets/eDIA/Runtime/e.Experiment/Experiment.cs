@@ -11,85 +11,31 @@ namespace eDIA {
 
 #region DECLARATIONS
 
-	public class ExperimentManager : Singleton<ExperimentManager> {
+	public class Experiment : Singleton<Experiment> {
 
-		// ---
 		[Header("Editor Settings")]
 		public bool showLog = false;
 		public Color taskColor = Color.green;
 
-		/// <summary> Tuple of strings, using this as this is serializable in the inspector and dictionaries are not</summary>
-		[System.Serializable]
-		public class SettingsTuple {
-			[HideInInspector]
-			public string key 	= string.Empty;
-			public string value 	= string.Empty;
-		}
-
-		[System.Serializable]
-		public class ExperimentBlock {
-			public string 				name				= string.Empty;
-			public string 				introduction 		= string.Empty;
-			public List<SettingsTuple>		blockSettings		= new List<SettingsTuple>();
-			public List<string> 			trialKeys 			= new List<string>();
-			public List<TrialChainValues> 	trialChain 			= new List<TrialChainValues>();
-		}
-
-
-		/// <summary> Temp storage of a list of string to use in another class to generate a two dimensional array </summary>
-		[System.Serializable]
-		public class TrialChainValues {
-			public List<string> values = new List<string>();
-		}
-
-		/// <summary> container for (de)serializing a list to JSON</summary>
-		public class TrialChainValuesContainer {
-			public List<TrialChainValues> trialSequenceValues = new List<TrialChainValues>();
-		}
-
-		/// <summary> Main container to store sessions config in, either from disk, editor or network </summary>
-		[System.Serializable]
-		public class ExperimentConfig {
-			public string				experiment			= string.Empty;
-			public string 				experimenter 		= string.Empty;
-			public string 				participantID 		= string.Empty;
-			public int 					sessionNumber 		= 0;
-			public List<SettingsTuple>		participantInfo 		= new List<SettingsTuple>();
-			public List<SettingsTuple>		sessionSettings 		= new List<SettingsTuple>();
-			public List<int>				breakAfter			= new List<int>(); 
-			public List<ExperimentBlock>		blocks			= new List<ExperimentBlock>();
-
-
-			public string GetBlockIntroduction () {
-
-				return blocks[Session.instance.currentBlockNum-1].introduction == string.Empty ? string.Empty : blocks[Session.instance.currentBlockNum-1].introduction;
-			}
-
-			public string[] GetExperimentSummary() {
-				return new string[] { experiment, experimenter, participantID, sessionNumber.ToString() };
-			}
-		}	
-
 		/// The config instance that holds current experimental configuration
 		// [HideInInspector]
 		public ExperimentConfig experimentConfig;
+		public TaskConfig taskConfig;
 		[HideInInspector]
 		public bool experimentInitialized = false;
 
 		// Helpers
 		[Space(20)]
-		public int activeBlockUXF = 0;
+		int activeBlockUXF = 0;
 		bool isPauseRequested = false;
 
-		// UXF related
-		Dictionary<string, object> participantDetails   = new Dictionary<string, object>();
-		UXF.Settings currentUXFSessionSettings = new Settings();
+		// // UXF related
+		// Dictionary<string, object> participantDetails   = new Dictionary<string, object>();
+		// UXF.Settings currentUXFSessionSettings = new Settings();
 
 		// UXF Logging
 		UXF.UXFDataTable executionOrderLog = new UXF.UXFDataTable("timestamp", "executed"); 
 		UXF.UXFDataTable markerLog = new UXF.UXFDataTable("timestamp", "annotation"); 
-
-
 
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
@@ -127,9 +73,13 @@ namespace eDIA {
 		void OnEvLocalConfigSubmitted (eParam e) {
 
 			EventManager.StopListening("EvLocalConfigSubmitted", OnEvLocalConfigSubmitted);
-			string filename = e.GetStrings()[0] + "_" + e.GetStrings()[1] + ".json"; // combine task string and participant string
 			
-			SetExperimentConfig (LoadExperimentConfigFromDisk(filename));
+			string filenameExperiment = e.GetStrings()[0] + "_" + e.GetStrings()[1] + ".json"; // combine task string and participant string
+			SetExperimentConfig (FileManager.ReadStringFromApplicationPathSubfolder(eDIA.Constants.localConfigDirectoryName + "/Participants", filenameExperiment));
+
+			string filenameTask = e.GetStrings()[0] + ".json"; // task string
+			SetTaskConfig (FileManager.ReadStringFromApplicationPathSubfolder(eDIA.Constants.localConfigDirectoryName + "/Tasks", filenameTask));
+
 		}
 
 		/// <summary> Eventlistener which expects the config as JSON file, triggers default config file load if not. </summary>
@@ -144,118 +94,120 @@ namespace eDIA {
 			SetExperimentConfig( e.GetString() );
 		}
 
-		/// <summary>Load JSON configuration locally from configdirectory</summary>
-		/// <returns>JSON string</returns>
-		string LoadExperimentConfigFromDisk (string fileName) {
+		/// <summary>Set the eDIA experiment settings with the full JSON config string</summary>
+		/// <param name="JSONstring">Full config string</param>
+		void SetExperimentConfig (string JSONstring) {
+			// Debug.Log(UnityEngine.JsonUtility.ToJson(experimentConfig, true));
 
-			string experimentJSON = FileManager.ReadStringFromApplicationPathSubfolder(eDIA.Constants.localConfigDirectoryName + "/Participants", fileName);
+			try
+			{
+				experimentConfig = UnityEngine.JsonUtility.FromJson<ExperimentConfig>(JSONstring);
+			}
+			catch (System.Exception)
+			{
+				Debug.Log("Exp Init not ok!");
+				throw;
+			}
 
-			if (experimentJSON == "ERROR")
-				Debug.LogError("Experiment JSON not correctly loaded!");
-			
-			return experimentJSON;
+			EventManager.TriggerEvent(eDIA.Events.Core.EvExperimentConfigSet, null);
+			EventManager.TriggerEvent("EvSetDisplayInformation", new eParam( experimentConfig.GetExperimentSummary()) );
+
 		}
 
 		/// <summary>Set the eDIA experiment settings with the full JSON config string</summary>
 		/// <param name="JSONstring">Full config string</param>
-		void SetExperimentConfig (string JSONstring) {
-			experimentConfig = UnityEngine.JsonUtility.FromJson<ExperimentConfig>(JSONstring);
+		void SetTaskConfig (string JSONstring) {
+			// Debug.Log(UnityEngine.JsonUtility.ToJson(experimentConfig, true));
 
 			try
 			{
-				SetSessionSettings ();
-				SetParticipantDetails ();
-				GenerateUXFSequence(); // Generate sequence for UXF
-
-				experimentInitialized = true;
+				taskConfig = UnityEngine.JsonUtility.FromJson<TaskConfig>(JSONstring);
+				taskConfig.GenerateUXFSequence(); // Generate sequence for UXF
 			}
 			catch (System.Exception)
 			{
-				Debug.Log("Init not ok!");
+				Debug.Log("Task Init not ok!");
 				throw;
 			}
 
-			AddToLog("ExperimentInitialized " + experimentInitialized);
-			EventManager.TriggerEvent("EvExperimentInitialised", new eParam(experimentInitialized));
-			EventManager.TriggerEvent("EvSetDisplayInformation", new eParam( experimentConfig.GetExperimentSummary()) );
-
+			EventManager.TriggerEvent(eDIA.Events.Core.EvTaskConfigSet, null);
 		}
 
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region SESSION SETTINGS
 
-		/// <summary> Set the sessionsettings to use by UXF</summary>
-		void SetSessionSettings () {
-			// Add experimenter to settings
-			currentUXFSessionSettings.SetValue("experimenter", experimentConfig.experimenter);
+		// /// <summary> Set the sessionsettings to use by UXF</summary>
+		// void SetSessionSettings () {
+		// 	// Add experimenter to settings
+		// 	experimentConfig.UXFSessionSettings.SetValue("experimenter", experimentConfig.experimenter);
 
-			// Are there default settings?
-			if (experimentConfig.sessionSettings.Count == 0)
-				return;
+		// 	// Are there default settings?
+		// 	if (experimentConfig.sessionSettings.Count == 0)
+		// 		return;
 			
-			// Add to UXF settings
-			foreach(ExperimentManager.SettingsTuple tuple in experimentConfig.sessionSettings) {
+		// 	// Add to UXF settings
+		// 	foreach(SettingsTuple tuple in experimentConfig.sessionSettings) {
 				
-				if (tuple.value.Contains(',')) { // it's a list!
-					List<string> stringlist = tuple.value.Split(',').ToList();
-					currentUXFSessionSettings.SetValue(tuple.key, stringlist);	
-				} else currentUXFSessionSettings.SetValue(tuple.key, tuple.value);	// normal string
-			}
-		}
+		// 		if (tuple.value.Contains(',')) { // it's a list!
+		// 			List<string> stringlist = tuple.value.Split(',').ToList();
+		// 			experimentConfig.UXFSessionSettings.SetValue(tuple.key, stringlist);	
+		// 		} else experimentConfig.UXFSessionSettings.SetValue(tuple.key, tuple.value);	// normal string
+		// 	}
+		// }
 
-		/// <summary> Set the participant details to use by UXF, if any</summary>
-		void SetParticipantDetails () {
-			if (experimentConfig.participantInfo.Count == 0)
-				return;
+		// /// <summary> Set the participant details to use by UXF, if any</summary>
+		// void SetParticipantDetails () {
+		// 	if (experimentConfig.participantInfo.Count == 0)
+		// 		return;
 
-			for (int i=0;i<experimentConfig.participantInfo.Count; i++) {
-				participantDetails.Add(experimentConfig.participantInfo[i].key, experimentConfig.participantInfo[i].value);
-			}
-		}
+		// 	for (int i=0;i<experimentConfig.participantInfo.Count; i++) {
+		// 		participantDetails.Add(experimentConfig.participantInfo[i].key, experimentConfig.participantInfo[i].value);
+		// 	}
+		// }
 
-		/// <summary>/// Convert JSON formatted definition for the seqence into a UXF format to run in the session/// </summary>
-		void GenerateUXFSequence() {
+		// /// <summary>/// Convert JSON formatted definition for the seqence into a UXF format to run in the session/// </summary>
+		// void GenerateUXFSequence() {
 
-			// Reorder the taskblock list in the taskmanager
-			List<TaskBlock> reordered = new List<TaskBlock>();
+		// 	// Reorder the taskblock list in the taskmanager
+		// 	List<TaskBlock> reordered = new List<TaskBlock>();
 			
-			foreach (ExperimentBlock b in experimentConfig.blocks) {
-				reordered.Add(TaskManager.Instance.taskBlocks.Find(x => x.name == b.name));
-			}
+		// 	foreach (ExperimentBlock b in experimentConfig.blocks) {
+		// 		reordered.Add(TaskManager.Instance.taskBlocks.Find(x => x.name == b.name));
+		// 	}
 
-			TaskManager.Instance.taskBlocks.Clear();
-			TaskManager.Instance.taskBlocks.AddRange(reordered);
+		// 	TaskManager.Instance.taskBlocks.Clear();
+		// 	TaskManager.Instance.taskBlocks.AddRange(reordered);
 
-			// Now set the settings per UXF block
-			foreach (ExperimentBlock b in experimentConfig.blocks) {
+		// 	// Now set the settings per UXF block
+		// 	foreach (ExperimentBlock b in experimentConfig.blocks) {
 				
-				Block newBlock = Session.instance.CreateBlock();
-				newBlock.settings.SetValue("name",b.name);
-				newBlock.settings.SetValue("introduction",b.introduction);
+		// 		Block newBlock = Session.instance.CreateBlock();
+		// 		newBlock.settings.SetValue("name",b.name);
+		// 		newBlock.settings.SetValue("introduction",b.introduction);
 
-				// Assign blocksettings to this UXF block
-				foreach (SettingsTuple s in b.blockSettings)
-					if (s.value.Contains(',')) { // it's a list!
-						List<string> stringlist = s.value.Split(',').ToList();
-						newBlock.settings.SetValue(s.key, stringlist);	
-					} else newBlock.settings.SetValue(s.key, s.value);	// normal string
+		// 		// Assign blocksettings to this UXF block
+		// 		foreach (SettingsTuple s in b.blockSettings)
+		// 			if (s.value.Contains(',')) { // it's a list!
+		// 				List<string> stringlist = s.value.Split(',').ToList();
+		// 				newBlock.settings.SetValue(s.key, stringlist);	
+		// 			} else newBlock.settings.SetValue(s.key, s.value);	// normal string
 
-				foreach (TrialChainValues row in b.trialChain) {
-					Trial newTrial = newBlock.CreateTrial();
+		// 		foreach (ValueList row in b.trialSettings.valueList) {
+		// 			Trial newTrial = newBlock.CreateTrial();
 
-					for (int i = 0; i < b.trialKeys.Count; i++) {
-						newTrial.settings.SetValue(b.trialKeys[i], row.values[i].ToUpper()); // set values to trial
-					}
-				}
+		// 			for (int i = 0; i < row.values.Count; i++) {
+		// 				newTrial.settings.SetValue(b.trialSettings.keys[i], row.values[i].ToUpper()); // set values to trial
+		// 			}
+		// 		}
 
-				// Log all keys
-				foreach (string k in b.trialKeys)
-					Session.instance.settingsToLog.Add(k);
-			}
+		// 		// Log all keys
+		// 		foreach (string k in b.trialSettings.keys)
+		// 			Session.instance.settingsToLog.Add(k);
+		// 	}
 
-			AddToLog("Generated UXF Sequence");
-		}
+		// 	AddToLog("Generated UXF Sequence");
+		// }
 
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
@@ -263,13 +215,15 @@ namespace eDIA {
 
 		/// <summary>Starts the experiment</summary>
 		public void StartExperiment () {
+
 			Session.instance.Begin( 
 				experimentConfig.experiment 		== string.Empty ? "N.A." : experimentConfig.experiment,  
-				experimentConfig.participantID 	== string.Empty ? "N.A." : experimentConfig.participantID, 
+				experimentConfig.GetParticipantID(), 
 				experimentConfig.sessionNumber, 
-				participantDetails, 
-				currentUXFSessionSettings
+				experimentConfig.GetParticipantDetailsAsDict()
 			); 
+
+			taskConfig.Init();
 		}
 
 		void OnEvStartExperiment (eParam e) {
@@ -389,7 +343,7 @@ namespace eDIA {
 			if ((Session.instance.currentBlockNum != activeBlockUXF) && (Session.instance.currentBlockNum <= Session.instance.blocks.Count)) {
 
 				// Check for block introduction flag
-				showIntroduction = experimentConfig.GetBlockIntroduction() != string.Empty;
+				showIntroduction = taskConfig.GetBlockIntroduction() != string.Empty;
 
 				// Set new activeBlockUXF value
 				activeBlockUXF = Session.instance.currentBlockNum;
@@ -443,7 +397,7 @@ namespace eDIA {
 			}
 
 			// Do we take a break or jump to next block?
-			if (experimentConfig.breakAfter.Contains(Session.instance.currentBlockNum)) {
+			if (taskConfig.breakAfter.Contains(Session.instance.currentBlockNum)) {
 				SessionBreak();
 				return;
 			}

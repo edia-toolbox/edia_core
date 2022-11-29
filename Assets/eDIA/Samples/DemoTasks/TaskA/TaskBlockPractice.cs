@@ -37,7 +37,7 @@ namespace TASK {
 
 			XRrigUtilities.SetHandPose("point");
 
-			ExperimentManager.Instance.EnableExperimentPause (true);
+			Experiment.Instance.EnableExperimentPause (true);
 			XRrigUtilities.EnableXRInteraction (false);
 
 			theCube.gameObject.SetActive (true);
@@ -57,7 +57,7 @@ namespace TASK {
 
 			messagePanelInVR.ShowMessage("Click button to continue");
 
-			ExperimentManager.Instance.EnableExperimentProceed (true); // enable proceed button for experiment
+			Experiment.Instance.EnableExperimentProceed (true); // enable proceed button for experiment
 			controllerListener.EnableRemapping("TriggerPressed", true); // enable controller button remapper to proceed
 		}
 
@@ -121,7 +121,7 @@ namespace TASK {
 
 		/// <summary>Called when this block has a introduction text in the json</summary>
 		public override void OnBlockIntroduction() {
-			messagePanelInVR.ShowMessage(ExperimentManager.Instance.experimentConfig.GetBlockIntroduction(), true);
+			messagePanelInVR.ShowMessage(Session.instance.CurrentBlock.settings.GetString("introduction"), true);
 		}
 
 		/// <summary>Called when block resumes</summary>

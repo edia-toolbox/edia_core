@@ -21,8 +21,11 @@ namespace eDIA.Events {
 		/// <summary>Injects a break block after current trial. Expects null</summary>
 		public static string EvPauseExperiment 		= "EvPauseExperiment";
 
-		/// <summary>Fired when the Experiment manager has initiataled OK. Expects result as bool. </summary>
-		public static string EvExperimentInitialised 	= "EvExperimentInitialised";
+		/// <summary>Fired when the Experiment manager has set the experimentconfig. </summary>
+		public static string EvExperimentConfigSet 	= "EvExperimentConfigSet";
+
+		/// <summary>Fired when the Experiment manager has set the taskconfig. </summary>
+		public static string EvTaskConfigSet 		= "EvTaskConfigSet";
 
 		/// <summary>Fired by ExperimentManager when a trial has begun. Expects null</summary>
 		public static string EvTrialBegin 			= "EvTrialBegin";

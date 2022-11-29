@@ -48,7 +48,7 @@ namespace TASK {
 			qpanel.SetActive(true);
 			qpanelTextField.text = "Qtype: " + Session.instance.CurrentBlock.settings.GetStringList("qtypes")[Session.instance.CurrentTrial.settings.GetInt("qtype")];
 
-			ExperimentManager.Instance.EnableExperimentProceed (true); // enable proceed button
+			Experiment.Instance.EnableExperimentProceed (true); // enable proceed button
 			
 			messagePanelInVR.ShowMessage("Now you have to fill in some questions", true);
 			controllerListener.EnableRemapping("TriggerPressed", true);
@@ -92,7 +92,7 @@ namespace TASK {
 
 		/// <summary>Called when this block has a introduction text in the json</summary>
 		public override void OnBlockIntroduction() {
-			messagePanelInVR.ShowMessage(ExperimentManager.Instance.experimentConfig.GetBlockIntroduction(), true);
+			messagePanelInVR.ShowMessage(Session.instance.CurrentBlock.settings.GetString("introduction"), true);
 		}
 
 		/// <summary>Called when block resumes</summary>
