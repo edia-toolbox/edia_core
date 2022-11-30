@@ -103,13 +103,15 @@ namespace eDIA {
 				newBlock.settings.SetValue("name",b.name);
 				newBlock.settings.SetValue("introduction",b.introduction);
 
-				// Assign blocksettings to this UXF block
-				foreach (SettingsTuple s in b.blockSettings) {
-					if (s.value.Contains(',')) { // it's a list!
-						List<string> stringlist = s.value.Split(',').ToList();
-						newBlock.settings.SetValue(s.key, stringlist);	
-					} else newBlock.settings.SetValue(s.key, s.value);	// normal string
-				}
+				newBlock.settings.UpdateWithDict( Helpers.GetSettingsTupleListAsDict(b.blockSettings) );
+
+				// // Assign blocksettings to this UXF block
+				// foreach (SettingsTuple s in b.blockSettings) {
+				// 	if (s.value.Contains(',')) { // it's a list!
+				// 		List<string> stringlist = s.value.Split(',').ToList();
+				// 		newBlock.settings.SetValue(s.key, stringlist);	
+				// 	} else newBlock.settings.SetValue(s.key, s.value);	// normal string
+				// }
 
 				foreach (ValueList row in b.trialSettings.valueList) {
 					Trial newTrial = newBlock.CreateTrial();
@@ -132,7 +134,11 @@ namespace eDIA {
 		public static Dictionary<string,object> GetSettingsTupleListAsDict (List<SettingsTuple> list) {
 			Dictionary<string,object> tmp = new Dictionary<string, object>();
 			foreach (SettingsTuple st in list)
-				tmp.Add(st.key, st.value);
+				if (st.value.Contains(',')) { // it's a list!
+					List<string> stringlist = st.value.Split(',').ToList();
+					tmp.Add(st.key, stringlist);
+				} else tmp.Add(st.key, st.value);	// normal string
+				
 			return tmp;
 		}
 	}
