@@ -105,14 +105,6 @@ namespace eDIA {
 
 				newBlock.settings.UpdateWithDict( Helpers.GetSettingsTupleListAsDict(b.blockSettings) );
 
-				// // Assign blocksettings to this UXF block
-				// foreach (SettingsTuple s in b.blockSettings) {
-				// 	if (s.value.Contains(',')) { // it's a list!
-				// 		List<string> stringlist = s.value.Split(',').ToList();
-				// 		newBlock.settings.SetValue(s.key, stringlist);	
-				// 	} else newBlock.settings.SetValue(s.key, s.value);	// normal string
-				// }
-
 				foreach (ValueList row in b.trialSettings.valueList) {
 					Trial newTrial = newBlock.CreateTrial();
 
