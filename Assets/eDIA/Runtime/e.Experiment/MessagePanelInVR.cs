@@ -12,31 +12,49 @@ namespace TASK {
 		public TextMeshProUGUI msgField = null;
 		Canvas myCanvas = null;
 		Coroutine MessageTimer = null;
+		Coroutine MessageFader = null;
 
 		private void Awake() {
 			myCanvas = GetComponent<Canvas>();
 			myCanvas.enabled = false;
 
 			if (myCanvas.worldCamera == null )
-				Debug.LogError("Event Camera reference to XRCam is missing!");
+				myCanvas.worldCamera = XRrigManager.instance.XRrig_Cam.GetComponent<Camera>();
 		}
 
 		void Start () {
-			EventManager.StartListening ("EvShowMessage", OnEvShowMessage);
+			EventManager.StartListening (eDIA.Events.Core.EvShowMessageToUser, 	OnEvShowMessage);
+			EventManager.StartListening (eDIA.Events.Core.EvProceed, 			OnEvHideMessage); //! assumption: continuing is always hide panel
 		}
 
 		void OnDestroy () {
-			EventManager.StopListening ("EvShowMessage", OnEvShowMessage);
-			EventManager.StopListening ("EvHideMessage", OnEvHideMessage);
+			EventManager.StopListening (eDIA.Events.Core.EvShowMessageToUser, 	OnEvShowMessage);
+			EventManager.StopListening(eDIA.Events.Core.EvProceed, 			OnEvHideMessage);
 		}
 
 
+#region SHOW
+
+		/// <summary>Event catcher</summary>
 		void OnEvShowMessage (eParam e) {
 			ShowMessage(e.GetString ());
 		}
 
-		void OnEvHideMessage (eParam e) {
-			HidePanel();
+		/// <summary>Shows the actual panel</summary>
+		void ShowPanel (bool onOff) {
+			GetComponent<Canvas>().enabled = onOff;
+		}
+
+		/// <summary>Shows the message in VR on a canvas.</summary>
+		/// <param name="msg">Message to show</param>
+		public void ShowMessage (string msg) {
+			if (MessageTimer != null) StopCoroutine ("MessageTimer");
+			if (MessageFader != null) StopCoroutine ("MessageFader");
+
+			msgField.text = msg;
+			MessageFader = StartCoroutine("Fader");
+			
+			ShowPanel(true);
 		}
 
 		/// <summary>Shows the message in VR on a canvas for a certain duration.</summary>
@@ -47,45 +65,48 @@ namespace TASK {
 
 			MessageTimer = StartCoroutine("timer", duration);
 		}
-		
+
+#endregion // -------------------------------------------------------------------------------------------------------------------------------
+#region HIDE
+
+		/// <summary>Event catcher</summary>
+		void OnEvHideMessage (eParam e) {
+			HidePanel();
+		}
+
+		/// <summary>Doublecheck running routines and hides the panel</summary>
+		public void HidePanel () {
+			if (MessageTimer != null) StopCoroutine ("MessageTimer");
+			if (MessageFader != null) StopCoroutine ("MessageFader");
+			ShowPanel(false);
+		}
+
+
+#endregion // -------------------------------------------------------------------------------------------------------------------------------
+#region HANDS
+
 		IEnumerator timer (float duration) {
 			yield return new WaitForSeconds(duration);
 			HidePanel();
 		}
 
-		/// <summary>Shows the message in VR on a canvas until EvProceed event is fired</summary>
-		/// <param name="msg">Message to show</param>
-		/// <param name="hideOnEvProceed">Hide when EvProceed is fired</param>
-		public void ShowMessage (string msg, bool hideOnEvProceed) {
-			ShowMessage(msg);
-			EventManager.StartListening(eDIA.Events.Core.EvProceed, OnEvHideMessage);
+		IEnumerator Fader()
+		{
+			float duration = 1f; //Fade out over 2 seconds.
+			float currentTime = 0f;
+			while (currentTime < duration)
+			{
+				float alpha = Mathf.Lerp(0f, 1f, currentTime / duration);
+				msgField.color = new Color(msgField.color.r, msgField.color.g, msgField.color.b, alpha);
+				currentTime += Time.deltaTime;
+				yield return null;
+			}
+			yield break;
 		}
 
-		/// <summary>Shows the message in VR on a canvas.</summary>
-		/// <param name="msg">Message to show</param>
-		public void ShowMessage (string msg) {
-			Debug.Log("Received: " + msg);
-			if (MessageTimer != null) StopCoroutine ("MessageTimer");
 
-			if (msgField == null)
-				return;
 
-			msgField.text = msg;
-
-			EventManager.StartListening ("EvHideMessage", OnEvHideMessage);
-			
-			ShowPanel(true);
-		}
-
-		void ShowPanel (bool onOff) {
-			GetComponent<Canvas>().enabled = onOff;
-		}
-
-		public void HidePanel () {
-			ShowPanel(false);
-			EventManager.StopListening(eDIA.Events.Core.EvProceed, OnEvHideMessage);
-			EventManager.StartListening ("EvShowMessage", OnEvShowMessage);
-		}
+#endregion // -------------------------------------------------------------------------------------------------------------------------------
 
 	}
 }

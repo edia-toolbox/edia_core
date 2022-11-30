@@ -28,11 +28,10 @@ namespace eDIA {
 		public UnityEvent OnSessionEnd = null;
 
 		/// The config instance that holds current experimental configuration
-		// [HideInInspector]
-		public ExperimentConfig experimentConfig;
-		public TaskConfig taskConfig;
 		[HideInInspector]
-		public bool experimentInitialized = false;
+		public ExperimentConfig experimentConfig;
+		[HideInInspector]
+		public TaskConfig taskConfig;
 
 		// Helpers
 		[Space(20)]
@@ -40,10 +39,11 @@ namespace eDIA {
 		bool isPauseRequested = false;
 
 		// UXF Logging
-		UXF.UXFDataTable executionOrderLog = new UXF.UXFDataTable("timestamp", "executed"); 
-		UXF.UXFDataTable markerLog = new UXF.UXFDataTable("timestamp", "annotation");
+		UXF.UXFDataTable executionOrderLog 	= new UXF.UXFDataTable("timestamp", "executed"); 
+		UXF.UXFDataTable markerLog 		= new UXF.UXFDataTable("timestamp", "annotation");
 
-		public int currentStepNum = -1;
+		// Trial steps
+		int currentStepNum = -1;
 		Coroutine stepTimer = null;
 
 
@@ -51,18 +51,18 @@ namespace eDIA {
 		#region MONO METHODS
 
 		void Awake() {
-			EventManager.StartListening("EvFoundLocalConfigFiles", OnEvFoundLocalConfigFiles);
-			EventManager.StartListening("EvSetExperimentConfig", OnEvSetExperimentConfig);
-			EventManager.StartListening("EvStartExperiment", OnEvStartExperiment);
-			EventManager.StartListening(eDIA.Events.Core.EvQuitApplication, OnEvQuitApplication);
+			EventManager.StartListening(eDIA.Events.Core.EvFoundLocalConfigFiles, 	OnEvFoundLocalConfigFiles);
+			EventManager.StartListening(eDIA.Events.Core.EvSetExperimentConfig, 	OnEvSetExperimentConfig);
+			EventManager.StartListening(eDIA.Events.Core.EvStartExperiment, 		OnEvStartExperiment);
+			EventManager.StartListening(eDIA.Events.Core.EvQuitApplication, 		OnEvQuitApplication);
 		}
 
 		void OnDestroy() {
-			EventManager.StopListening("EvSetExperimentConfig", OnEvSetExperimentConfig);
-			EventManager.StopListening("EvStartExperiment", OnEvStartExperiment);
-			EventManager.StopListening("EvPauseExperiment", OnEvPauseExperiment);
-			EventManager.StopListening("EvFoundLocalConfigFiles", OnEvFoundLocalConfigFiles);
-			EventManager.StopListening(eDIA.Events.Core.EvQuitApplication, OnEvQuitApplication);
+			EventManager.StopListening(eDIA.Events.Core.EvSetExperimentConfig, 	OnEvSetExperimentConfig);
+			EventManager.StopListening(eDIA.Events.Core.EvStartExperiment, 		OnEvStartExperiment);
+			EventManager.StopListening(eDIA.Events.Core.EvPauseExperiment, 		OnEvPauseExperiment);
+			EventManager.StopListening(eDIA.Events.Core.EvFoundLocalConfigFiles, 	OnEvFoundLocalConfigFiles);
+			EventManager.StopListening(eDIA.Events.Core.EvQuitApplication, 		OnEvQuitApplication);
 		}
 
 
@@ -72,7 +72,7 @@ namespace eDIA {
 		/// <summary>Register local mode, listen to submission of config file</summary>
 		void OnEvFoundLocalConfigFiles (eParam e) {
 
-			EventManager.StopListening("EvFoundLocalConfigFiles", OnEvFoundLocalConfigFiles);		
+			EventManager.StopListening(eDIA.Events.Core.EvFoundLocalConfigFiles, OnEvFoundLocalConfigFiles);		
 			AddToLog(e.GetInt() + " local config files added");
 			EventManager.StartListening(eDIA.Events.Core.EvLocalConfigSubmitted, OnEvLocalConfigSubmitted);
 		}
@@ -81,7 +81,7 @@ namespace eDIA {
 		/// <param name="e">String = filename of the configfile</param>
 		void OnEvLocalConfigSubmitted (eParam e) {
 
-			EventManager.StopListening("EvLocalConfigSubmitted", OnEvLocalConfigSubmitted);
+			EventManager.StopListening(eDIA.Events.Core.EvLocalConfigSubmitted, OnEvLocalConfigSubmitted);
 			
 			string filenameExperiment = e.GetStrings()[0] + "_" + e.GetStrings()[1] + ".json"; // combine task string and participant string
 			SetExperimentConfig (FileManager.ReadStringFromApplicationPathSubfolder(eDIA.Constants.localConfigDirectoryName + "/Participants", filenameExperiment));
@@ -106,7 +106,6 @@ namespace eDIA {
 		/// <summary>Set the eDIA experiment settings with the full JSON config string</summary>
 		/// <param name="JSONstring">Full config string</param>
 		void SetExperimentConfig (string JSONstring) {
-			// Debug.Log(UnityEngine.JsonUtility.ToJson(experimentConfig, true));
 
 			try
 			{
@@ -118,9 +117,8 @@ namespace eDIA {
 				throw;
 			}
 
-
 			EventManager.TriggerEvent(eDIA.Events.Core.EvExperimentConfigSet, null);
-			EventManager.TriggerEvent("EvSetDisplayInformation", new eParam( experimentConfig.GetExperimentSummary()) );
+			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateExperimentSummary, new eParam( experimentConfig.GetExperimentSummary()) );
 
 			experimentConfig.isReady = true;
 			CheckExperimentReady();
@@ -163,7 +161,6 @@ namespace eDIA {
 
 			AddXRrigTracking();
 
-
 			Session.instance.Begin( 
 				experimentConfig.experiment == string.Empty ? "N.A." : experimentConfig.experiment,  
 				experimentConfig.GetParticipantID(), 
@@ -175,7 +172,7 @@ namespace eDIA {
 		}
 
 		void OnEvStartExperiment (eParam e) {
-			EventManager.StopListening("EvStartExperiment", OnEvStartExperiment);
+			EventManager.StopListening(eDIA.Events.Core.EvStartExperiment, OnEvStartExperiment);
 			
 			StartExperiment ();
 		}
@@ -183,7 +180,6 @@ namespace eDIA {
 		/// <summary>Sets the PauseExperiment flag to true and logs the call for an extra break</summary>
 		void OnEvPauseExperiment(eParam e)
 		{
-			AddToLog("InjectedSessionBreakCall");
 			AddToExecutionOrderLog("InjectedSessionBreakCall");
 			isPauseRequested = true;
 		}
@@ -196,22 +192,20 @@ namespace eDIA {
 
 
 		public void EnableExperimentPause(bool _onOff) {
-			EventManager.TriggerEvent("EvButtonChangeState", new eParam( new string[] { "PAUSE", _onOff.ToString() }));
+			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvEnableButton, new eParam( new string[] { "PAUSE", _onOff.ToString() }));
 			EventManager.StartListening("EvPauseExperiment", OnEvPauseExperiment);
 		}
 
 		public void EnableExperimentProceed(bool _onOff) {
-			EventManager.TriggerEvent("EvButtonChangeState", new eParam( new string[] { "PROCEED", _onOff.ToString() }));
+			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvEnableButton, new eParam( new string[] { "PROCEED", _onOff.ToString() }));
 
 			if (_onOff) {
-				Debug.Log("<color=#50ee20>[" + name + "]]> OnEvProceed enabled</color>");
 				EventManager.StartListening (eDIA.Events.Core.EvProceed, CatchEvProceed);
 			}
 		}
 
 		void CatchEvProceed (eParam e) {
-			Debug.Log("<color=#50eee0>["+ name +  "]]> OnEvProceed called</color>");
-			EventManager.TriggerEvent("EvButtonChangeState", new eParam( new string[] { "PROCEED", "false" })); // disable button, as OnEvProceed might have come from somewhere else than the button itself
+			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvEnableButton, new eParam( new string[] { "PROCEED", "false" })); // disable button, as OnEvProceed might have come from somewhere else than the button itself
 			EventManager.StopListening(eDIA.Events.Core.EvProceed, CatchEvProceed); // stop listening to avoid doubleclicks
 			NextStep();
 		}
@@ -228,8 +222,8 @@ namespace eDIA {
 			AddToLog("FinalizeSession");
 			
 			// clean
-			EventManager.TriggerEvent("EvFinalizeSession", null);
-			EventManager.TriggerEvent("EvExperimentProgressUpdate", new eParam("Finalize Session"));
+			EventManager.TriggerEvent(eDIA.Events.Core.EvFinalizeSession, null);
+			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvExperimentProgressUpdate, new eParam("Finalize Session"));
 			Session.instance.End();
 		}
 
@@ -242,7 +236,7 @@ namespace eDIA {
 		}
 
 		void AddXRrigTracking () {
-			Session.instance.trackedObjects.Add(XRrigManager.instance.XRrig_MainCamera.GetComponent<Tracker>());
+			Session.instance.trackedObjects.Add(XRrigManager.instance.XRrig_Cam.GetComponent<Tracker>());
 			Session.instance.trackedObjects.Add(XRrigManager.instance.XRrig_RightController.GetComponent<Tracker>());
 			Session.instance.trackedObjects.Add(XRrigManager.instance.XRrig_LeftController.GetComponent<Tracker>());
 		}
@@ -260,17 +254,15 @@ namespace eDIA {
 		void OnSessionBeginUXF() {
 			OnSessionStart?.Invoke();
 			
-			AddToLog("OnSessionBeginUXF");
 			AddToExecutionOrderLog("OnSessionBegin");
 			EventManager.StartListening(eDIA.Events.Core.EvProceed, OnEvStartFirstTrial);
 
-			EventManager.TriggerEvent("EvDisplaySessionInfo", new eParam(experimentConfig.GetExperimentSummary()));
-			EventManager.TriggerEvent("EvExperimentProgressUpdate", new eParam("Welcome"));
-			EventManager.TriggerEvent("EvButtonChangeState", new eParam( new string[] { "PROCEED", "true" }));
+			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateExperimentSummary, new eParam(experimentConfig.GetExperimentSummary()));
+			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvExperimentProgressUpdate, new eParam("Welcome"));
+			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvEnableButton, new eParam( new string[] { "PROCEED", "true" }));
 
 			// eye calibration option enabled
 			EnableEyeCalibrationTrigger(true);
-
 		}
 
 
@@ -282,12 +274,10 @@ namespace eDIA {
 				t.gameObject.SetActive(false);
 			}
 			
-			AddToLog("OnSessionEndUXF");
 			AddToExecutionOrderLog("OnSessionEndUXF");
 
-			EventManager.TriggerEvent("EvExperimentProgressUpdate", new eParam("End"));
-			
-			EventManager.TriggerEvent("EvButtonChangeState", new eParam( new string[] { "PROCEED", "false" }));
+			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvExperimentProgressUpdate, new eParam("End"));
+			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvEnableButton, new eParam( new string[] { "PROCEED", "false" }));
 			EnableExperimentPause(false);
 
 		}
@@ -295,13 +285,11 @@ namespace eDIA {
 		/// <summary>Called from user input. </summary>
 		void OnEvStartFirstTrial (eParam e) {
 			EventManager.StopListening(eDIA.Events.Core.EvProceed, OnEvStartFirstTrial);
-			// Session.instance.Invoke("BeginNextTrial", 0.5f);
 			Session.instance.BeginNextTrial();
 		}
 
 		/// <summary>Called from UXF session. Begin setting things up for the trial that is about to start </summary>
 		void OnTrialBeginUXF(Trial newTrial) {
-			AddToLog("OnTrialBeginUXF");
 			AddToExecutionOrderLog("OnTrialBegin");
 
 			bool showIntroduction = false;
@@ -323,13 +311,12 @@ namespace eDIA {
 				BlockIntroduction ();
 			else {
 				StartTrial();
-				EventManager.TriggerEvent("EvExperimentProgressUpdate", new eParam(Session.instance.CurrentBlock.settings.GetString("name")));
+				EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvExperimentProgressUpdate, new eParam(Session.instance.CurrentBlock.settings.GetString("name")));
 			}
 		}
 
 		/// <summary>Called from UXF session. Checks if to call NextTrial, should start a BREAK before next Block, or End the Session </summary>
 		void OnTrialEndUXF(Trial endedTrial) {
-			AddToLog("OnTrialEndUXF");
 			AddToExecutionOrderLog("OnTrialEnd");
 			SaveCustomDataTables();
 			// EnableExperimentProceed(false);
@@ -393,19 +380,16 @@ namespace eDIA {
 		void BlockEnd () {
 			AddToLog("Block End");
 			taskBlocks[Session.instance.currentBlockNum-1].OnBlockEnd();
-
-			taskBlocks[Session.instance.currentBlockNum-1].OnBlockEnd();
 		}
 
 
 		/// <summary>Called from this manager. </summary>
 		void BlockIntroduction () {
-			AddToLog("BlockIntroduction");
 			AddToExecutionOrderLog("BlockIntroduction");
 
 			EventManager.StartListening(eDIA.Events.Core.EvProceed, BlockResumeAfterIntro); // listener as it event call can come from any script
-			EventManager.TriggerEvent("EvExperimentProgressUpdate", new eParam("Introduction"));
-			EventManager.TriggerEvent("EvButtonChangeState", new eParam( new string[] { "PROCEED", "true" }));
+			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvEnableButton, new eParam( new string[] { "PROCEED", "true" }));
+			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvExperimentProgressUpdate, new eParam("Block Intro"));
 
 			EnableExperimentPause(false);
 			EnableEyeCalibrationTrigger(true);
@@ -415,10 +399,8 @@ namespace eDIA {
 
 		/// <summary>Called from this manager. </summary>
 		void BlockResumeAfterIntro (eParam e) {
-			AddToLog("BlockResumeAfterIntro");
-			AddToExecutionOrderLog("BlockResumeAfterIntro");
-
 			EventManager.StopListening(eDIA.Events.Core.EvProceed, BlockResumeAfterIntro);
+			AddToExecutionOrderLog("BlockResumeAfterIntro");
 			
 			EnableEyeCalibrationTrigger(false);
 
@@ -436,7 +418,7 @@ namespace eDIA {
 			taskBlocks[Session.instance.currentBlockNum-1].OnStartNewTrial();
 			
 			currentStepNum = -1;
-			EventManager.TriggerEvent("EvExperimentProgressUpdate", new eParam(Session.instance.CurrentBlock.settings.GetString("name")));
+			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvExperimentProgressUpdate, new eParam(Session.instance.CurrentBlock.settings.GetString("name")));
 
 			// Fire up the task state machine to run the steps of the trial.
 			NextStep();
@@ -452,28 +434,27 @@ namespace eDIA {
 		}
 
 		/// <summary>Call next step in the trial with delay.</summary>
-		/// <param name="delay">Time to wait before proceeding. Expects float</param>
-		public void NextStep (float delay) {
+		/// <param name="duration">Time to wait before proceeding. Expects float</param>
+		public void NextStep (float duration) {
 			if (stepTimer != null) StopCoroutine(stepTimer); // Kill timer, if any
 
-			stepTimer = StartCoroutine("NextStepTimer", delay);
+			stepTimer = StartCoroutine("NextStepTimer", duration);
 		}
 
 		/// <summary>Coroutine as timer as we can kill that to avoid delayed calls in the statemachine</summary>
-		IEnumerator NextStepTimer (float delay) {
-			yield return new WaitForSeconds(delay);
+		IEnumerator NextStepTimer (float duration) {
+			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvStartTimer, new eParam(duration));
+			yield return new WaitForSeconds(duration);
 			NextStep();
 		}
 
 		/// <summary>Call next step in the trial.</summary>
 		public void NextStep() {
-			Debug.Log("NextStep");
 			if (stepTimer != null) StopCoroutine(stepTimer); // Kill timer, if any
 
 			currentStepNum ++;
 
 			if (currentStepNum < taskBlocks[Session.instance.CurrentBlock.number-1].trialSteps.Count) {
-				Debug.Log("NextStep>currentstep"+ currentStepNum + " < " + taskBlocks[Session.instance.CurrentBlock.number-1].trialSteps.Count);
 				taskBlocks[Session.instance.currentBlockNum-1].OnBetweenSteps();
 				taskBlocks[Session.instance.currentBlockNum-1].trialSteps[currentStepNum].Invoke();
 			}
@@ -486,15 +467,14 @@ namespace eDIA {
 
 		/// <summary>Called from this manager. Invokes onSessionBreak event and starts listener to EvProceed event</summary>
 		void SessionBreak () {
-			AddToLog("SessionBreak");
 			AddToExecutionOrderLog("SessionBreak");
 				
 			EventManager.StartListening(eDIA.Events.Core.EvProceed, SessionResumeAfterBreak);
-			EventManager.TriggerEvent("EvExperimentProgressUpdate", new eParam("Break"));
+			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvExperimentProgressUpdate, new eParam("Break"));
 			
 			OnSessionBreak.Invoke();
 
-			EventManager.TriggerEvent("EvButtonChangeState", new eParam( new string[] { "PROCEED", "true" }));
+			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvEnableButton, new eParam( new string[] { "PROCEED", "true" }));
 			// EnableExperimentProceed(true);
 			EnableExperimentPause(false);
 			EnableEyeCalibrationTrigger(true);
@@ -502,7 +482,6 @@ namespace eDIA {
 
 		/// <summary>Called from EvProceed event. Stops listener, invokes onSessionResume event and calls UXF BeginNextTrial. </summary>
 		void SessionResumeAfterBreak (eParam e) {
-			AddToLog("SessionResume");
 			AddToExecutionOrderLog("SessionResume");
 
 			EventManager.StopListening(eDIA.Events.Core.EvProceed, SessionResumeAfterBreak);
@@ -544,6 +523,7 @@ namespace eDIA {
 		}
 
 		private void AddToExecutionOrderLog (string description) {
+			AddToLog(description);
 			UXF.UXFDataRow newRow = new UXFDataRow();
 			newRow.Add(("timestamp", Time.time)); // Log timestamp
 			newRow.Add(("executed", description)); 

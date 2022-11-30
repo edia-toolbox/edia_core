@@ -26,7 +26,7 @@ namespace TASK {
 		}
 
 		private void Start() {
-			XRrigUtilities.EnableCustomHandPoses(false);
+			XRrigManager.instance.EnableCustomHandPoses(false);
 		}
 
 // -------------------------------------------------------------------------------------------------------------------------------
@@ -35,13 +35,13 @@ namespace TASK {
 		/// <summary>Present Cube</summary>
 		public void TaskStep1 () {
 
-			XRrigUtilities.SetHandPose("point");
+			XRrigManager.instance.SetHandPose("point");
 
 			Experiment.Instance.EnableExperimentPause (true);
-			XRrigUtilities.EnableXRInteraction (false);
+			XRrigManager.instance.EnableXRInteraction (false);
 
 			theCube.gameObject.SetActive (true);
-			theCube.transform.position = new Vector3 (0, XRrigUtilities.GetXRcam().position.y, Session.instance.CurrentBlock.settings.GetFloat ("distanceCube"));
+			theCube.transform.position = new Vector3 (0, XRrigManager.instance.XRrig_Cam.position.y, Session.instance.CurrentBlock.settings.GetFloat ("distanceCube"));
 
 			Experiment.Instance.NextStep (Session.instance.CurrentBlock.settings.GetFloat ("timerShowCube"));
 		}
@@ -53,7 +53,7 @@ namespace TASK {
 				moveRoutine = StartCoroutine ("MoveCube");
 			}
 
-			XRrigUtilities.EnableXRInteraction (true);
+			XRrigManager.instance.EnableXRInteraction (true);
 
 			messagePanelInVR.ShowMessage("Click button to continue");
 
@@ -76,7 +76,7 @@ namespace TASK {
 				theCube.GetComponent<MeshRenderer> ().material.color = newCol;
 			else newCol = Color.magenta;
 
-			XRrigUtilities.SetHandPose("idle");
+			XRrigManager.instance.SetHandPose("idle");
 
 			Experiment.Instance.NextStep();
 		}
@@ -121,7 +121,7 @@ namespace TASK {
 
 		/// <summary>Called when this block has a introduction text in the json</summary>
 		public override void OnBlockIntroduction() {
-			messagePanelInVR.ShowMessage(Session.instance.CurrentBlock.settings.GetString("introduction"), true);
+			messagePanelInVR.ShowMessage(Session.instance.CurrentBlock.settings.GetString("introduction"));
 		}
 
 		public override void OnStartNewTrial () {

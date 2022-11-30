@@ -28,17 +28,17 @@ namespace eDIA {
 			AllowVisible(isVisible);
 			AllowInteractive(isAllowedToInteract);
 			
-			EventManager.StartListening(eDIA.Events.Interaction.EvUpdateVisableInteractor, OnEvUpdateVisableInteractor);
-			EventManager.StartListening(eDIA.Events.Interaction.EvUpdateInteractiveInteractor, OnEvUpdateInteractiveInteractor);
-			EventManager.StartListening(eDIA.Events.Interaction.EvEnableXRInteraction, OnEvEnableXRInteraction);
-			EventManager.StartListening(eDIA.Events.Interaction.EvShowXRController, OnEvShowXRController);
+			EventManager.StartListening(eDIA.Events.XR.EvUpdateVisableInteractor, OnEvUpdateVisableInteractor);
+			EventManager.StartListening(eDIA.Events.XR.EvUpdateInteractiveInteractor, OnEvUpdateInteractiveInteractor);
+			EventManager.StartListening(eDIA.Events.XR.EvEnableXRInteraction, OnEvEnableXRInteraction);
+			EventManager.StartListening(eDIA.Events.XR.EvShowXRController, OnEvShowXRController);
 		}
 
 		void OnDestroy() {
-			EventManager.StopListening(eDIA.Events.Interaction.EvUpdateVisableInteractor, OnEvUpdateVisableInteractor);
-			EventManager.StopListening(eDIA.Events.Interaction.EvUpdateInteractiveInteractor, OnEvUpdateInteractiveInteractor);
-			EventManager.StopListening(eDIA.Events.Interaction.EvEnableXRInteraction, OnEvEnableXRInteraction);
-			EventManager.StopListening(eDIA.Events.Interaction.EvShowXRController, OnEvShowXRController);
+			EventManager.StopListening(eDIA.Events.XR.EvUpdateVisableInteractor, OnEvUpdateVisableInteractor);
+			EventManager.StopListening(eDIA.Events.XR.EvUpdateInteractiveInteractor, OnEvUpdateInteractiveInteractor);
+			EventManager.StopListening(eDIA.Events.XR.EvEnableXRInteraction, OnEvEnableXRInteraction);
+			EventManager.StopListening(eDIA.Events.XR.EvShowXRController, OnEvShowXRController);
 		}
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------

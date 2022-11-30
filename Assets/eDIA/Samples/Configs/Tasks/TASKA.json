@@ -1,8 +1,41 @@
-﻿{
+{
 	"taskSettings":[
-		{"key":"cubeColors","value":"#FFFF00,#F00F0F,#00F500,#004F30"},
-		{"key":"timerShowCube","value":"1"},
-		{"key":"timerWait","value":"1"},
-		{"key":"distanceCube","value":"2.5"}
+		{"key":"somesetting","value":"setting1, setting2"}
+	],
+	"breakAfter":[2],
+	"blocks": [
+		{
+			"name":"Practice",
+			"introduction":"",
+			"blockSettings":[
+				{"key":"cubeColors","value":"#FFFF00,#F00F0F,#00F500,#004F30"},
+				{"key":"timerShowCube","value":"1"},
+				{"key":"timerWait","value":"2"},
+				{"key":"distanceCube","value":"2.5"}
+			],
+			"trialSettings":{
+				"keys": ["direction","color","marker"],
+				"valueList": [
+					{"values":["1","1","43"]},
+					{"values":["-1","2","34"]}
+				] 
+			}
+		},
+		{
+			"name":"Assessement",
+			"introduction":"Fill in thingiez",
+			"blockSettings":[
+				{"key":"qtypes","value":"SUN, another, simular, thing"}
+			],
+			"trialSettings": {
+				"keys": ["qtype","qsettings","qsequence"],
+				"valueList": [
+					{"values":["1","1","1"]},
+					{"values":["2","2","2"]},
+					{"values":["3","1","3"]}
+				]
+			  }
+		}
 	]
 }
+

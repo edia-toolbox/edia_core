@@ -7,7 +7,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 namespace eDIA {
 
 	/// <summary> 
-	/// The SystemManager is a Singleton and therefor reachable from whatever script.<br/>
+	/// The XRrigManager is a Singleton and therefor reachable from whatever script.<br/>
 	/// The script travels along the scenes that are loaded as it is DontDestroyOnLoad. <br/>
 	/// Responsible for loading/unloading, user related actions, top level application.<br/>
 	/// Has references to the XR rig camera and hands for the rest of the application.<br/>
@@ -19,13 +19,14 @@ namespace eDIA {
 		public Color taskColor = Color.cyan;
 		[Space(10f)]
 		[Header ("References")]
-		public Transform XRrig_MainCamera;
+		public Transform XRrig_Cam;
 		public Transform XRrig_LeftController;
 		public Transform XRrig_RightController;
 		public Transform mainMenuHolder;
 
 		/// <summary>Main system manager, provides refs to XR rig components</summary>
 		public static XRrigManager instance = null;
+
 
 		void Awake () {
 
@@ -42,27 +43,51 @@ namespace eDIA {
 			}
 			else if (instance != this) Destroy (this.gameObject);
 		}
-		
+
 		void CheckReferences () {
-			if (XRrig_MainCamera == null) 	Debug.LogError("XRrig_MainCamera reference not set");
+			if (XRrig_Cam == null) 	Debug.LogError("XRrig_MainCamera reference not set");
 			if (XRrig_LeftController == null) 	Debug.LogError("XRrig_LeftController reference not set");
 			if (XRrig_RightController == null) 	Debug.LogError("XRrig_RightController reference not set");
 		}
 		
+#region XR Helper methods
+
 		/// <summary>The pivot of the playare will be set on the location of this Injector</summary>
 		public void MovePlayarea(Transform newTransform) {
 			transform.position = newTransform.position;
 			transform.rotation = newTransform.rotation;
 		}
 
+		/// <summary>Turn XR hand / controller interaction possibility on or off.</summary>
+		/// <param name="_onOff">Boolean</param>
+		public  void EnableXRInteraction (bool _onOff) {
+			EventManager.TriggerEvent(eDIA.Events.XR.EvEnableXRInteraction, new eParam(_onOff));
+		}
 
-	#region MISC	
+#endregion // -------------------------------------------------------------------------------------------------------------------------------
+#region HANDS
+
+		/// <summary>Set the hand pose for the currently hand(s) set as interactives</summary>
+		/// <param name="pose">Pose as string 'point','fist','idle'</param>
+		public  void SetHandPose (string pose) {
+			EventManager.TriggerEvent (eDIA.Events.XR.EvHandPose, new eParam ( pose ));
+		}
+
+		/// <summary>Set the hand pose for the currently hand(s) set as interactives</summary>
+		/// <param name="pose">Pose as string 'point','fist','idle'</param>
+		public  void EnableCustomHandPoses (bool onOff) {
+			EventManager.TriggerEvent (eDIA.Events.XR.EvEnableCustomHandPoses, new eParam ( onOff ));
+		}
+
+#endregion // -------------------------------------------------------------------------------------------------------------------------------
+#region MISC	
 
 		public void AddToLog(string _msg) {
 			if (showLog)
 				LogUtilities.AddToLog(_msg, "eDIA", taskColor);
 		}
 		
-	#endregion	// -------------------------------------------------------------------------------------------------------------------------------
+#endregion	// -------------------------------------------------------------------------------------------------------------------------------
+
 	}
 }

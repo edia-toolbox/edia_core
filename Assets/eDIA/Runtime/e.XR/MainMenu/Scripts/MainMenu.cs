@@ -72,19 +72,15 @@ namespace eDIA {
 	#region Starters
 
 		void Awake() {
-			Debug.Log("StartListening EvMenuPerformed");
-			EventManager.StartListening("EvMenuPerformed", OnEvMenuPerformed);
+			EventManager.StartListening(eDIA.Events.System.EvCallMainMenu, OnEvCallMainMenu);
 		}
 
 		void OnDestroy() {
-			EventManager.StopListening("EvMenuPerformed", OnEvMenuPerformed);
-		}
-
-		void OnEnable() {
+			EventManager.StopListening(eDIA.Events.System.EvCallMainMenu, OnEvCallMainMenu);
 		}
 
 		void Start() {
-			screenFader = eDIA.XRrigUtilities.GetXRcam().GetComponent<ScreenFader>();
+			screenFader = eDIA.XRrigManager.instance.XRrig_Cam.GetComponent<ScreenFader>();
 
 			if (overlayCam != null) {
 				GetSceneList();
@@ -138,7 +134,7 @@ namespace eDIA {
 
 			GameObject startSessionButton = GenerateButtonUI();
 			startSessionButton.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Start Session";
-			startSessionButton.GetComponent<Button>().onClick.AddListener( () => { EventManager.TriggerEvent("EvStartExperiment", null); OpenMenu(false); });
+			startSessionButton.GetComponent<Button>().onClick.AddListener( () => { EventManager.TriggerEvent(eDIA.Events.Core.EvStartExperiment, null); OpenMenu(false); });
 
 			// Footer
 			closeButton.onClick.AddListener( () => { OpenMenu(false); });
@@ -148,7 +144,7 @@ namespace eDIA {
 	#endregion // -------------------------------------------------------------------------------------------------------------------------------
 	#region MENU HANDLERS
 
-		void OnEvMenuPerformed (eParam e) {
+		void OnEvCallMainMenu (eParam e) {
 			OpenMenu(!isOpen);
 		}
 
@@ -213,7 +209,7 @@ namespace eDIA {
 
 		void SetMenuPosition () {
 
-			menuHolder.transform.localPosition = new Vector3(0, eDIA.XRrigUtilities.GetXRcam().position.y, menuDistance);
+			menuHolder.transform.localPosition = new Vector3(0, eDIA.XRrigManager.instance.XRrig_Cam.position.y, menuDistance);
 		}
 
 	#endregion // -------------------------------------------------------------------------------------------------------------------------------

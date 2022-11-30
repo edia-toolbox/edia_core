@@ -15,11 +15,11 @@ namespace TASK {
 		}
 
 		public void OnSessionStart() {
-			messagePanelInVR.ShowMessage("Welcome to the experiment", true);
+			messagePanelInVR.ShowMessage("Welcome to the experiment");
 		}
 
 		public void OnSessionBreak() {
-			messagePanelInVR.ShowMessage("Take a short break, \nClick button to continue", true);
+			messagePanelInVR.ShowMessage("Take a short break");
 		}
 
 		public void OnSessionEnd () {

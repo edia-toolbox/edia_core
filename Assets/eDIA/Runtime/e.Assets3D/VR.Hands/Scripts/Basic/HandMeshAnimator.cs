@@ -41,13 +41,13 @@ public class HandMeshAnimator : MonoBehaviour {
 
 	private void Start()
 	{
-		EventManager.StartListening(eDIA.Events.Interaction.EvHandPose, OnEvHandPose);
-		EventManager.StartListening(eDIA.Events.Interaction.EvEnableCustomHandPoses, EvEnableCustomHandPoses);
+		EventManager.StartListening(eDIA.Events.XR.EvHandPose, OnEvHandPose);
+		EventManager.StartListening(eDIA.Events.XR.EvEnableCustomHandPoses, EvEnableCustomHandPoses);
 	}
 
 	private void OnDestroy() {
-		EventManager.StopListening(eDIA.Events.Interaction.EvHandPose, OnEvHandPose);
-		EventManager.StartListening(eDIA.Events.Interaction.EvEnableCustomHandPoses, EvEnableCustomHandPoses);
+		EventManager.StopListening(eDIA.Events.XR.EvHandPose, OnEvHandPose);
+		EventManager.StartListening(eDIA.Events.XR.EvEnableCustomHandPoses, EvEnableCustomHandPoses);
 	}
 
 

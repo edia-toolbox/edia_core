@@ -4,10 +4,19 @@ using UnityEngine;
 
 namespace eDIA.Events {
 
+
+	public static class System {
+
+		/// <summary>Set experiment config. Expects config as JSON string</summary>
+		public static string EvCallMainMenu 		= "EvCallMainMenu";
+
+
+	}
+
+	//? ========================================================================================================
+
 	/// <summary>Overview of all events in the system. Easier to reference and no typo mistakes by using them.</summary>
 	public static class Core {
-		
-
 
 		/// <summary>Set experiment config. Expects config as JSON string</summary>
 		public static string EvSetExperimentConfig 	= "EvSetExperimentConfig";
@@ -54,17 +63,14 @@ namespace eDIA.Events {
 		/// <summary>Fired by ExperimentManager when a new block is starting. Expects null</summary>
 		public static string EvBlockStart 			= "EvBlockStart";
 
-
 		/// <summary>Set storagepath systemwide. Expects full path as string</summary>
 		public static string EvSetCustomStoragePath 	= "EvSetCustomStoragePath";
-
 
 		/// <summary>Notification that local config files are found on disk. Expects amount as int</summary>
 		public static string EvFoundLocalConfigFiles 	= "EvFoundLocalConfigFiles";
 
 		/// <summary>Local config file was submitted. Expects filename as string</summary>
 		public static string EvLocalConfigSubmitted 	= "EvLocalConfigSubmitted";
-
 
 		/// <summary>Use this to alert the user that something went wrong</summary>
 		public static string EvSystemHalt 			= "EvSystemHalt";
@@ -81,19 +87,36 @@ namespace eDIA.Events {
 		/// <summary>Exit application</summary>
 		public static string EvQuitApplication 		= "EvQuitApplication";
 
+		/// <summary>Shows a message to the VR user</summary>
+		public static string EvShowMessageToUser 		= "EvShowMessageToUser";
+
+	}
+
+
+	//? ========================================================================================================
+	//? Onscreen or inworld control panel methods
+
+	/// <summary>All event related to local or remote control </summary>
+	public class ControlPanel {
+	
+		/// <summary>Set a buttons interactivity, expects string[ [PAUSE/PROCEED], [TRUE/FALSE] ]</summary>
+		public static string EvEnableButton 		= "EvEnableButton";
+
+		/// <summary>Start a visual timer animation</summary>
+		public static string EvStartTimer 			= "EvStartTimer";
+
+		/// <summary>Start a visual timer animation</summary>
+		public static string EvUpdateExperimentSummary 	= "EvUpdateExperimentSummary";
 
 		/// <summary>Send progress update (trial/block)</summary>
 		public static string EvExperimentProgressUpdate = "EvExperimentProgressUpdate";
 
-
-		/// <summary>Broaccast a update in the experiment, useally to show to the user</summary>
-		public static string EvUpdateExperimentInfoToUser 	= "EvUpdateExperimentInfoToUser";
-
-
 	}
 
+
 	//? ========================================================================================================
-	
+	//? Optional eye package methods
+
 	public class Eye {
 		/// <summary>Whatever EYE package is used, it listens to this. Expects boolean</summary>
 		public static string EvEnableEyeCalibrationTrigger 	= "EvEnableEyeCalibrationTrigger";
@@ -103,8 +126,9 @@ namespace eDIA.Events {
 	}
 
 	//? ========================================================================================================
-	
-	public class Interaction {
+	//? XR cam and controller related 
+
+	public class XR {
 
 		/// <summary>The main interactor has changed. Expects a enum PrimaryInteractor as INT</summary>
 		public static string EvUpdateInteractiveInteractor 	= "EvUpdateInteractiveInteractor";
@@ -153,7 +177,7 @@ namespace eDIA.Events {
 
 
 EvButtonChangeState
-EvSetDisplayInformation
+eDIA.Events.ControlPanel.EvUpdateExperimentSummary
 EvExperimentInfoUpdate
 EvEnableEyeCalibrationTrigger
 -----

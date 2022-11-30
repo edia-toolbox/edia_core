@@ -34,7 +34,7 @@ namespace TASK {
 		/// <summary>Present Cube</summary>
 		public void TaskStep1 () {
 
-			XRrigUtilities.EnableXRInteraction (false);
+			XRrigManager.instance.EnableXRInteraction (false);
 
 			messagePanelInVR.ShowMessage("blaaa");
 			Experiment.Instance.NextStep (5f);
@@ -43,14 +43,14 @@ namespace TASK {
 		/// <summary>Move cube, wait on user input</summary>
 		public void TaskStep2 () {
 
-			XRrigUtilities.EnableXRInteraction (true);
+			XRrigManager.instance.EnableXRInteraction (true);
 
 			qpanel.SetActive(true);
 			qpanelTextField.text = "Qtype: " + Session.instance.CurrentBlock.settings.GetStringList("qtypes")[Session.instance.CurrentTrial.settings.GetInt("qtype")];
 
-			Experiment.Instance.EnableExperimentProceed (true); // enable proceed button
 			
-			messagePanelInVR.ShowMessage("Now you have to fill in some questions", true);
+			Experiment.Instance.EnableExperimentProceed (true); // enable proceed button
+			messagePanelInVR.ShowMessage("Now you have to fill in some questions");
 			controllerListener.EnableRemapping("TriggerPressed", true);
 
 		}
@@ -92,15 +92,14 @@ namespace TASK {
 
 		/// <summary>Called when this block has a introduction text in the json</summary>
 		public override void OnBlockIntroduction() {
-			messagePanelInVR.ShowMessage(Session.instance.CurrentBlock.settings.GetString("introduction"), true);
+			messagePanelInVR.ShowMessage(Session.instance.CurrentBlock.settings.GetString("introduction"));
 		}
-
 
 		public override void OnStartNewTrial () {
 		}
 
 		public override void OnBetweenSteps () {
-			// messagePanelInVR.HidePanel();
+			messagePanelInVR.HidePanel();
 		}
 
 		/// <summary>Called when block ends</summary>

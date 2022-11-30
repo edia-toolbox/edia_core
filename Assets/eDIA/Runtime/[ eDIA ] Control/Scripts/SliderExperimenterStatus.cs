@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -12,24 +13,31 @@ public class SliderExperimenterStatus : MonoBehaviour {
 	public TextMeshProUGUI descriptionField;
 	public bool useCapitals = true;
 
+	Coroutine timer = null;
+	Slider mySlider = null;
+
+	private void Awake() {
+		mySlider = GetComponent<Slider>();	
+	}
+
 	public int maxValue {
 		get {
-			return (int)GetComponent<Slider>().maxValue;
+			return (int)mySlider.maxValue;
 		}
 
 		set {
-			GetComponent<Slider>().maxValue = value;
+			mySlider.maxValue = value;
 			maxValueField.text = value.ToString();
 		}
 	}
 
 	public int currentValue {
 		get {
-			return (int)GetComponent<Slider>().value;
+			return (int)mySlider.value;
 		}
 
 		set {
-			GetComponent<Slider>().value = value;
+			mySlider.value = value;
 			currentValueField.text = value.ToString();
 		}
 	}
@@ -44,8 +52,23 @@ public class SliderExperimenterStatus : MonoBehaviour {
 		}
 	}
 
-	void OnEnable() {
-		// currentValue = 0;
+
+	public void StartAnimation (float duration) {
+		gameObject.SetActive(true);
+		timer = StartCoroutine("AnimateSliderOverTime", duration);
+	}
+
+	IEnumerator AnimateSliderOverTime(float duration)
+	{
+		float animationTime = 0f;
+
+		while (animationTime < duration)
+		{
+			animationTime += Time.deltaTime;
+			float lerpValue = animationTime / duration;
+			mySlider.value = Mathf.Lerp(1f, 0f, lerpValue);
+			yield return null;
+		}
 	}
 
 }

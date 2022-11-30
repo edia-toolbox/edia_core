@@ -21,22 +21,15 @@ namespace eDIA {
 
 
 		void Start() {
-			OnEvResetExperimentConfigSelection(null);
+			Reset();
+			UpdateParticipantConfigList();
 
 			EventManager.StartListening(eDIA.Events.Core.EvFoundLocalConfigFiles, OnEvFoundLocalConfigFiles);
-			EventManager.StartListening("EvResetExperimentConfigSelection", OnEvResetExperimentConfigSelection);
 
 		}
 
 		void OnEvFoundLocalConfigFiles (eParam e) {
 			ShowPanel();
-		}
-
-		/// <summary>Repopulate the dropdowns with values</summary>
-		private void OnEvResetExperimentConfigSelection(eParam obj)
-		{
-			Reset();
-			UpdateParticipantConfigList();
 		}
 
 		/// <summary>Clear everything to startstate</summary>
@@ -72,7 +65,7 @@ namespace eDIA {
 			}
 
 			configFilesOptions.AddOptions(fileOptions);
-			EventManager.TriggerEvent("EvFoundLocalConfigFiles", new eParam(configFilesOptions.options.Count));
+			EventManager.TriggerEvent(eDIA.Events.Core.EvFoundLocalConfigFiles, new eParam(configFilesOptions.options.Count));
 
 			btnSubmit.interactable = true;
 		}
