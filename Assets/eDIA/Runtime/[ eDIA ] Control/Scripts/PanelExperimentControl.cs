@@ -75,7 +75,6 @@ namespace eDIA {
 			panelRunning.SetActive(false);
 			panelStatus.SetActive(false);
 
-			EventManager.StartListening(eDIA.Events.ControlPanel.EvUpdateExperimentSummary, OnEvUpdateExperimentSummary);
 		}
 
 		void OnEvTaskConfigSet(eParam obj)
