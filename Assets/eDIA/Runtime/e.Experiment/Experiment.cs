@@ -166,7 +166,7 @@ namespace eDIA {
 			Session.instance.Begin( 
 				experimentConfig.experiment == string.Empty ? "N.A." : experimentConfig.experiment,  
 				experimentConfig.GetParticipantID(), 
-				experimentConfig.sessionNumber, 
+				experimentConfig.session_number, 
 				experimentConfig.GetParticipantDetailsAsDict(),
 				new UXF.Settings(taskConfig.GetTaskSettingsAsDict())
 			); 

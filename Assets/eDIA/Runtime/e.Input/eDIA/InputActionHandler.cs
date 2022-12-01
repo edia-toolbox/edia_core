@@ -84,7 +84,7 @@ namespace eDIA {
 	#region Input action listeners conversion to EventManager triggers
 
 		public void menuPerformed (InputAction.CallbackContext context) {
-			EventManager.TriggerEvent("EvMenuPerformed", null); // Convert it into our eventmanager system
+			EventManager.TriggerEvent(eDIA.Events.System.EvCallMainMenu, null); // Convert it into our eventmanager system
 		}
 
 		public void proceedPerformed (InputAction.CallbackContext context) {
@@ -92,11 +92,11 @@ namespace eDIA {
 		}
 
 		public void actionStartExperimentPerformed (InputAction.CallbackContext context) {
-			EventManager.TriggerEvent("EvStartExperiment", null); // Convert it into our eventmanager system
+			EventManager.TriggerEvent(eDIA.Events.Core.EvStartExperiment, null); // Convert it into our eventmanager system
 		}
 
 		public void actionPauseExperimentPerformed (InputAction.CallbackContext context) {
-			EventManager.TriggerEvent("EvPauseExperiment", null); // Convert it into our eventmanager system
+			EventManager.TriggerEvent(eDIA.Events.Core.EvPauseExperiment, null); // Convert it into our eventmanager system
 		}
 
 	#endregion // -------------------------------------------------------------------------------------------------------------------------------

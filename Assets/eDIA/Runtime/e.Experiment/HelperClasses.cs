@@ -47,7 +47,7 @@ namespace eDIA {
 	public class ExperimentConfig {
 		public string				experiment			= string.Empty;
 		public string 				experimenter 		= string.Empty;
-		public int 					sessionNumber 		= 0;
+		public int 					session_number 		= 0;
 		public List<SettingsTuple>		participantDetails 	= new List<SettingsTuple>();
 
 		// Local check if this instance is loaded and ready to go
@@ -55,7 +55,7 @@ namespace eDIA {
 
 		//? Class helper methods
 		public string[] GetExperimentSummary() {
-			return new string[] { experiment, experimenter, GetParticipantID (), sessionNumber.ToString() };
+			return new string[] { experiment, experimenter, GetParticipantID (), session_number.ToString() };
 		}
 
 		public string GetParticipantID () {
