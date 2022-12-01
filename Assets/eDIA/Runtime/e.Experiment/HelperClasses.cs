@@ -48,7 +48,7 @@ namespace eDIA {
 		public string				experiment			= string.Empty;
 		public string 				experimenter 		= string.Empty;
 		public int 					session_number 		= 0;
-		public List<SettingsTuple>		participantDetails 	= new List<SettingsTuple>();
+		public List<SettingsTuple>		participant_details 	= new List<SettingsTuple>();
 
 		// Local check if this instance is loaded and ready to go
 		public bool 				isReady			= false;
@@ -59,11 +59,11 @@ namespace eDIA {
 		}
 
 		public string GetParticipantID () {
-			return participantDetails.Find(x=>x.key=="ID").value;
+			return participant_details.Find(x=>x.key=="ID").value;
 		}
 
 		public Dictionary<string,object> GetParticipantDetailsAsDict () {
-			return Helpers.GetSettingsTupleListAsDict(participantDetails);
+			return Helpers.GetSettingsTupleListAsDict(participant_details);
 		}
 
 	}
