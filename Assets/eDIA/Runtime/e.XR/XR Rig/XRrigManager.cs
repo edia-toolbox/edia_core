@@ -73,8 +73,7 @@ namespace eDIA {
 			EventManager.TriggerEvent (eDIA.Events.XR.EvHandPose, new eParam ( pose ));
 		}
 
-		/// <summary>Set the hand pose for the currently hand(s) set as interactives</summary>
-		/// <param name="pose">Pose as string 'point','fist','idle'</param>
+		/// <summary>Enable custom fixed handposes, expects boolean</summary>
 		public  void EnableCustomHandPoses (bool onOff) {
 			EventManager.TriggerEvent (eDIA.Events.XR.EvEnableCustomHandPoses, new eParam ( onOff ));
 		}

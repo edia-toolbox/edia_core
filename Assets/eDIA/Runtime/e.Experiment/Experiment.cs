@@ -273,7 +273,7 @@ namespace eDIA {
 			OnSessionEnd?.Invoke();
 
 			foreach(TaskBlock t in taskBlocks) {
-				t.gameObject.SetActive(false);
+				t.enabled = false;
 			}
 			
 			AddToExecutionOrderLog("OnSessionEndUXF");

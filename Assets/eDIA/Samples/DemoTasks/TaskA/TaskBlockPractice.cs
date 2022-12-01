@@ -25,8 +25,8 @@ namespace TASK {
 			AddToTrialSequence(TaskStep4);
 		}
 
-		private void Start() {
-			XRrigManager.instance.EnableCustomHandPoses(false);
+		void OnEnable() {
+			XRrigManager.instance.EnableCustomHandPoses(true);
 		}
 
 // -------------------------------------------------------------------------------------------------------------------------------
@@ -135,6 +135,7 @@ namespace TASK {
 		public override void OnBlockEnd () {
 			// Clean up
 			theCube.gameObject.SetActive (false);
+			XRrigManager.instance.EnableCustomHandPoses(false);
 		}
 
 
