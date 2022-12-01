@@ -27,6 +27,13 @@ namespace TASK {
 			AddToTrialSequence(TaskStep3);
 		}
 
+		// Script gets enabled at the moment it is it's turn in the experiment
+		void OnEnable() {
+		}
+
+		// Script gets disabled at the moment it's turn is over
+		void OnDisable() {
+		}
 
 // -------------------------------------------------------------------------------------------------------------------------------
 #region TASK STEPS

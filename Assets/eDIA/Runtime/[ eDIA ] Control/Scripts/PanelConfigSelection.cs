@@ -16,9 +16,6 @@ namespace eDIA {
 		public Button btnSubmit = null;
 		public TextMeshProUGUI infoTextField;
 
-		// Settings
-		private string selectedTask = "empty";
-
 
 		void Start() {
 			Reset();

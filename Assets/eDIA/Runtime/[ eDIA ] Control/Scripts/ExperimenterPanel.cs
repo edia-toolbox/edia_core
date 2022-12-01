@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace eDIA {
-
+ 
 	/// <summary>Base Panel functionality class</summary>
 	public class ExperimenterPanel : MonoBehaviour {
 		
@@ -26,16 +26,15 @@ namespace eDIA {
 		public void ShowPanel () {
 
 			foreach (Transform tr in children) tr.gameObject.SetActive(true);
-			
-			transform.parent = menuPanel;
+			transform.SetParent(menuPanel, false);
 
 			menuPanel.GetComponent<PanelLayoutManager>().UpdatePanelOrder();
 		}
 
 		public void HidePanel () {
 			foreach (Transform tr in children) tr.gameObject.SetActive(false);
-			transform.parent = nonActivePanel;
-
+			
+			transform.SetParent(nonActivePanel, false);
 			menuPanel.GetComponent<PanelLayoutManager>().UpdatePanelOrder();
 		}
 

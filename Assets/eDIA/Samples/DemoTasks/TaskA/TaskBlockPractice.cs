@@ -25,8 +25,14 @@ namespace TASK {
 			AddToTrialSequence(TaskStep4);
 		}
 
+		// Script gets enabled at the moment it is it's turn in the experiment
 		void OnEnable() {
 			XRrigManager.instance.EnableCustomHandPoses(true);
+		}
+
+		// Script gets disabled at the moment it's turn is over
+		void OnDisable() {
+			XRrigManager.instance.EnableCustomHandPoses(false);
 		}
 
 // -------------------------------------------------------------------------------------------------------------------------------
