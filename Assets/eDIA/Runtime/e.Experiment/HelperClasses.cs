@@ -100,7 +100,8 @@ namespace eDIA {
 			foreach (ExperimentBlock b in blocks) {
 				
 				Block newBlock = Session.instance.CreateBlock();
-				newBlock.settings.SetValue("name",b.name);
+				newBlock.settings.SetValue("blockName",b.name);
+				Session.instance.settingsToLog.Add("blockName");
 				newBlock.settings.SetValue("introduction",b.introduction);
 
 				newBlock.settings.UpdateWithDict( Helpers.GetSettingsTupleListAsDict(b.blockSettings) );
