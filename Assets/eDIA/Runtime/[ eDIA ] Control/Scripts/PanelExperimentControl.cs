@@ -67,6 +67,7 @@ namespace eDIA {
 		void OnEvExperimentConfigSet(eParam obj)
 		{
 			EventManager.StopListening(eDIA.Events.Core.EvExperimentConfigSet, OnEvExperimentConfigSet);
+			EventManager.StartListening(eDIA.Events.ControlPanel.EvUpdateExperimentSummary, 	OnEvUpdateExperimentSummary);
 
 			GetComponent<VerticalLayoutGroup>().enabled = true;
 			ShowPanel();
@@ -113,7 +114,7 @@ namespace eDIA {
 			panelStatus.SetActive(true);
 			GetComponent<VerticalLayoutGroup>().enabled = true;
 
-			EventManager.StartListening(eDIA.Events.ControlPanel.EvUpdateExperimentSummary, 	OnEvUpdateExperimentSummary);
+			
 			EventManager.StartListening(eDIA.Events.ControlPanel.EvExperimentProgressUpdate, 	OnEvExperimentProgressUpdate);
 			EventManager.StartListening(eDIA.Events.Core.EvFinalizeSession, 				OnEvFinalizeSession);
 		}

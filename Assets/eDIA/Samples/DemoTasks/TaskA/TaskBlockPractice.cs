@@ -41,9 +41,9 @@ namespace TASK {
 			XRrigManager.instance.EnableXRInteraction (false);
 
 			theCube.gameObject.SetActive (true);
-			theCube.transform.position = new Vector3 (0, XRrigManager.instance.XRrig_Cam.position.y, Session.instance.CurrentBlock.settings.GetFloat ("distanceCube"));
+			theCube.transform.position = new Vector3 (0, XRrigManager.instance.XRrig_Cam.position.y, Session.instance.CurrentBlock.settings.GetFloat ("distance_cube"));
 
-			Experiment.Instance.NextStep (Session.instance.CurrentBlock.settings.GetFloat ("timerShowCube"));
+			Experiment.Instance.NextStep (Session.instance.CurrentBlock.settings.GetFloat ("timer_showcube"));
 		}
 
 		/// <summary>Move cube, wait on user input</summary>
@@ -72,7 +72,7 @@ namespace TASK {
 			}
 
 			Color newCol;
-			if (ColorUtility.TryParseHtmlString (Session.instance.CurrentBlock.settings.GetStringList ("cubeColors") [Session.instance.CurrentTrial.settings.GetInt ("color")], out newCol))
+			if (ColorUtility.TryParseHtmlString (Session.instance.CurrentBlock.settings.GetStringList ("cube_colors") [Session.instance.CurrentTrial.settings.GetInt ("color")], out newCol))
 				theCube.GetComponent<MeshRenderer> ().material.color = newCol;
 			else newCol = Color.magenta;
 
@@ -83,7 +83,7 @@ namespace TASK {
 
 		/// <summary>Wait</summary>
 		public void TaskStep4 () {
-			Experiment.Instance.NextStep (Session.instance.CurrentBlock.settings.GetFloat ("timerWait"));
+			Experiment.Instance.NextStep (Session.instance.CurrentBlock.settings.GetFloat ("timer_wait"));
 			Debug.Log("TaskStep4 started");
 		}
 
@@ -133,6 +133,8 @@ namespace TASK {
 
 		/// <summary>Called when block ends</summary>
 		public override void OnBlockEnd () {
+			// Clean up
+			theCube.gameObject.SetActive (false);
 		}
 
 

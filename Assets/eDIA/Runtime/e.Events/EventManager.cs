@@ -182,7 +182,7 @@ namespace eDIA {
 	public class EventManager {
 		private static Dictionary<string, Action<eParam>> eventDictionary = new Dictionary<string, Action<eParam>> ();
 
-		private static bool showLog { get; set; } = true;
+		public static bool showLog { get; set; } = false;
 
 		/// <summary>
 		/// Starts a listener to the given <c>eventName</c> string

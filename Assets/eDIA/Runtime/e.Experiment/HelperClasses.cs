@@ -35,10 +35,10 @@ namespace eDIA {
 	/// <summary> Experiment block container  </summary>
 	[System.Serializable]
 	public class ExperimentBlock {
-		public string 				name				= string.Empty;
+		public string 				block_name			= string.Empty;
 		public string 				introduction 		= string.Empty;
-		public List<SettingsTuple>		blockSettings		= new List<SettingsTuple>();
-		public TrialSettings			trialSettings		= new TrialSettings();
+		public List<SettingsTuple>		block_settings		= new List<SettingsTuple>();
+		public TrialSettings			trial_settings		= new TrialSettings();
 	}
 
 
@@ -90,7 +90,7 @@ namespace eDIA {
 			List<TaskBlock> reordered = new List<TaskBlock>();
 			
 			foreach (ExperimentBlock b in blocks) {
-				reordered.Add(Experiment.Instance.taskBlocks.Find(x => x.name == b.name));
+				reordered.Add(Experiment.Instance.taskBlocks.Find(x => x.block_name == b.block_name));
 			}
 
 			Experiment.Instance.taskBlocks.Clear();
@@ -100,22 +100,22 @@ namespace eDIA {
 			foreach (ExperimentBlock b in blocks) {
 				
 				Block newBlock = Session.instance.CreateBlock();
-				newBlock.settings.SetValue("blockName",b.name);
-				Session.instance.settingsToLog.Add("blockName");
+				newBlock.settings.SetValue("block_name",b.block_name);
+				Session.instance.settingsToLog.Add("block_name");
 				newBlock.settings.SetValue("introduction",b.introduction);
 
-				newBlock.settings.UpdateWithDict( Helpers.GetSettingsTupleListAsDict(b.blockSettings) );
+				newBlock.settings.UpdateWithDict( Helpers.GetSettingsTupleListAsDict(b.block_settings) );
 
-				foreach (ValueList row in b.trialSettings.valueList) {
+				foreach (ValueList row in b.trial_settings.valueList) {
 					Trial newTrial = newBlock.CreateTrial();
 
 					for (int i = 0; i < row.values.Count; i++) {
-						newTrial.settings.SetValue( b.trialSettings.keys[i], row.values[i].ToUpper() ); // set values to trial
+						newTrial.settings.SetValue( b.trial_settings.keys[i], row.values[i].ToUpper() ); // set values to trial
 					}
 				}
 
 				// Log all keys
-				foreach (string k in b.trialSettings.keys)
+				foreach (string k in b.trial_settings.keys)
 					Session.instance.settingsToLog.Add(k);
 
 			}

@@ -47,7 +47,7 @@ public class HandMeshAnimator : MonoBehaviour {
 
 	private void OnDestroy() {
 		EventManager.StopListening(eDIA.Events.XR.EvHandPose, OnEvHandPose);
-		EventManager.StartListening(eDIA.Events.XR.EvEnableCustomHandPoses, EvEnableCustomHandPoses);
+		EventManager.StopListening(eDIA.Events.XR.EvEnableCustomHandPoses, EvEnableCustomHandPoses);
 	}
 
 

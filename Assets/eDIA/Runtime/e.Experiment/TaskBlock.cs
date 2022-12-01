@@ -9,7 +9,7 @@ namespace eDIA {
     public class TaskBlock : MonoBehaviour {
 
         [Header ("Block name, use the name defined in the config")]
-        public string name;
+        public string block_name;
 
         [SerializeField]//[HideInInspector]
         public List<Action> trialSteps = new List<Action> ();

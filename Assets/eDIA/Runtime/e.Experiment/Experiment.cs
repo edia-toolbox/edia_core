@@ -55,6 +55,8 @@ namespace eDIA {
 			EventManager.StartListening(eDIA.Events.Core.EvSetExperimentConfig, 	OnEvSetExperimentConfig);
 			EventManager.StartListening(eDIA.Events.Core.EvStartExperiment, 		OnEvStartExperiment);
 			EventManager.StartListening(eDIA.Events.Core.EvQuitApplication, 		OnEvQuitApplication);
+
+			EventManager.showLog = showLog;
 		}
 
 		void OnDestroy() {
@@ -311,7 +313,7 @@ namespace eDIA {
 				BlockIntroduction ();
 			else {
 				StartTrial();
-				EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvExperimentProgressUpdate, new eParam(Session.instance.CurrentBlock.settings.GetString("name")));
+				EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvExperimentProgressUpdate, new eParam(Session.instance.CurrentBlock.settings.GetString("block_name")));
 			}
 		}
 
@@ -370,10 +372,10 @@ namespace eDIA {
 
 			// Disable old block
 			if (Session.instance.currentBlockNum-1 != 0)
-				taskBlocks[Session.instance.currentBlockNum-2].gameObject.SetActive(false);
+				taskBlocks[Session.instance.currentBlockNum-2].enabled = false;
 
 			// enable new block
-			taskBlocks[Session.instance.currentBlockNum-1].gameObject.SetActive(true);
+			taskBlocks[Session.instance.currentBlockNum-1].enabled = true;
 			taskBlocks[Session.instance.currentBlockNum-1].OnBlockStart();
 		}
 
@@ -418,7 +420,7 @@ namespace eDIA {
 			taskBlocks[Session.instance.currentBlockNum-1].OnStartNewTrial();
 			
 			currentStepNum = -1;
-			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvExperimentProgressUpdate, new eParam(Session.instance.CurrentBlock.settings.GetString("name")));
+			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvExperimentProgressUpdate, new eParam(Session.instance.CurrentBlock.settings.GetString("block_name")));
 
 			// Fire up the task state machine to run the steps of the trial.
 			NextStep();
