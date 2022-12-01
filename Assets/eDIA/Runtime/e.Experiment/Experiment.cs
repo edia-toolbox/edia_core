@@ -514,7 +514,7 @@ namespace eDIA {
 			foreach (string[] valuerow in values)
 			{
 				UXFDataRow newRow = new UXFDataRow();
-				for(int s=0;s<valuerow.Length-1;s++) {
+				for(int s=0;s<valuerow.Length;s++) {
 					newRow.Add((UXFheaders[s], valuerow[s]));
 				}
 				data.AddCompleteRow(newRow);
