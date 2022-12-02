@@ -1,22 +1,30 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using eDIA;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace TASK {
 
 	/// <summary>Sample script to show the user a message in VR canvas</summary>
 	public class MessagePanelInVR : MonoBehaviour {
 		
+		[Header("Refs")]
 		public TextMeshProUGUI msgField = null;
+		public Button button = null;
+		public GameObject menuHolder = null;
+
 		Canvas myCanvas = null;
 		Coroutine MessageTimer = null;
 		Coroutine MessageFader = null;
 
+
 		private void Awake() {
 			myCanvas = GetComponent<Canvas>();
 			myCanvas.enabled = false;
+			menuHolder.SetActive(false);
 
 			if (myCanvas.worldCamera == null )
 				myCanvas.worldCamera = XRrigManager.instance.XRrig_Cam.GetComponent<Camera>();
@@ -66,8 +74,17 @@ namespace TASK {
 			MessageTimer = StartCoroutine("timer", duration);
 		}
 
-#endregion // -------------------------------------------------------------------------------------------------------------------------------
-#region HIDE
+		/// <summary>Shows the message in VR on a canvas for a certain duration.</summary>
+		/// <param name="msg">Message to show</param>
+		/// <param name="duration">Duration</param>
+		public void ShowMessage (string msg, bool showButton) {
+			ShowMessage(msg);
+			ShowMenu();
+		}
+
+
+		#endregion // -------------------------------------------------------------------------------------------------------------------------------
+		#region HIDE
 
 		/// <summary>Event catcher</summary>
 		void OnEvHideMessage (eParam e) {
@@ -79,11 +96,27 @@ namespace TASK {
 			if (MessageTimer != null) StopCoroutine ("MessageTimer");
 			if (MessageFader != null) StopCoroutine ("MessageFader");
 			ShowPanel(false);
+			HideMenu();
 		}
 
+#endregion // -------------------------------------------------------------------------------------------------------------------------------
+#region MENU
+
+		void ShowMenu()
+		{
+			menuHolder.SetActive(true);
+			button.onClick.AddListener ( ()=> EventManager.TriggerEvent(eDIA.Events.Core.EvProceed, null));
+		}
+
+		void HideMenu()
+		{
+			menuHolder.SetActive(false);
+			button.onClick.RemoveListener ( ()=> EventManager.TriggerEvent(eDIA.Events.Core.EvProceed, null));
+		}
+	
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
-#region HANDS
+#region TIMERS
 
 		IEnumerator timer (float duration) {
 			yield return new WaitForSeconds(duration);
