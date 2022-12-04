@@ -47,7 +47,7 @@ namespace TASK {
 		/// <summary>Move cube, wait on user input</summary>
 		public void TaskStep2 () {
 
-			XRManager.instance.EnableXRInteraction (true);
+			XRManager.Instance.EnableXRInteraction (true);
 
 			qpanel.SetActive(true);
 			qpanelTextField.text = "Qtype: " + Session.instance.CurrentBlock.settings.GetStringList("qtypes")[Session.instance.CurrentTrial.settings.GetInt("qtype")];
@@ -102,7 +102,7 @@ namespace TASK {
 		}
 
 		public override void OnStartNewTrial () {
-			XRManager.instance.EnableXRInteraction (false);
+			XRManager.Instance.EnableXRInteraction (false);
 		}
 
 		public override void OnBetweenSteps () {

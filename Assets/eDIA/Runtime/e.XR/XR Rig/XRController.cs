@@ -40,6 +40,12 @@ namespace eDIA {
 			EventManager.StopListening(eDIA.Events.XR.EvShowXRController, OnEvShowXRController);
 		}
 
+		private void OnDrawGizmos() {
+			Gizmos.color = Color.cyan;
+			Gizmos.DrawWireCube(transform.position, new Vector3(0.1f,0.02f,0.15f));
+			Gizmos.DrawWireCube(transform.position - (interactorType == eDIA.Constants.Interactor.LEFT ? new Vector3(-0.06f,0.01f,0.05f) : new Vector3(0.06f,0.01f,0.05f)), new Vector3(0.03f,0.02f,0.05f));
+		}
+
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region EVENT LISTENERS
 
@@ -92,37 +98,38 @@ namespace eDIA {
 #region MAIN METHODS
 
 		/// <summary>Show the actual controller of hand visually</summary>
-		/// <param name="_onOff">True/false</param>
-		void AllowVisible (bool _onOff) {
-			isAllowedToBeVisable = _onOff;
+		/// <param name="onOff">True/false</param>
+		void AllowVisible (bool onOff) {
+			isAllowedToBeVisable = onOff;
 		}
 
 		/// <summary>Allow this controller to be interacting with the environment</summary>
-		/// <param name="_onOff">True/false</param>
-		void AllowInteractive (bool _onOff) {
-			isAllowedToInteract = _onOff;
+		/// <param name="onOff">True/false</param>
+		void AllowInteractive (bool onOff) {
+			isAllowedToInteract = onOff;
 		}
 
 		/// <summary>Enable/Disable interaction</summary>
-		/// <param name="_onOff">True/false</param>
-		public void EnableInteraction (bool _onOff) {
+		/// <param name="onOff">True/false</param>
+		public void EnableInteraction (bool onOff) {
 
 			if (!isAllowedToInteract)
 				return;
 
-			rayInteractor.gameObject.SetActive(_onOff);
-			isInteractive = _onOff;
+			Debug.Log("EnableInteraction " + onOff);
+			rayInteractor.gameObject.SetActive(onOff);
+			isInteractive = onOff;
 		}
 
 		/// <summary>Show/Hide controller</summary>
-		/// <param name="_onOff">True/false</param>
-		public void Show (bool _onOff) {
+		/// <param name="onOff">True/false</param>
+		public void Show (bool onOff) {
 
 			if (!isAllowedToBeVisable)
 				return;
  
-			isVisible = _onOff;
-			handSMR.enabled = _onOff;		
+			isVisible = onOff;
+			handSMR.enabled = onOff;		
 		}
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------

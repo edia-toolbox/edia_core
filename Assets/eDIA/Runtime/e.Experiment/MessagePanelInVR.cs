@@ -15,10 +15,12 @@ namespace eDIA {
 		public Button button = null;
 		public GameObject menuHolder = null;
 
+		[Header("Settings")]
+		public bool stickToHMD = true;
+
 		Canvas myCanvas = null;
 		Coroutine MessageTimer = null;
 		Coroutine MessageFader = null;
-
 
 		private void Awake() {
 			myCanvas = GetComponent<Canvas>();
@@ -26,7 +28,13 @@ namespace eDIA {
 			menuHolder.SetActive(false);
 
 			if (myCanvas.worldCamera == null )
-				myCanvas.worldCamera = XRManager.instance.XRCam.GetComponent<Camera>();
+				myCanvas.worldCamera = XRManager.Instance.XRCam.GetComponent<Camera>();
+
+			if (stickToHMD) {
+				transform.SetParent(XRManager.Instance.XRCam, true);
+				transform.localPosition = new Vector3(0,0,transform.localPosition.z);
+			}
+			
 		}
 
 		void Start () {
@@ -37,6 +45,10 @@ namespace eDIA {
 		void OnDestroy () {
 			EventManager.StopListening (eDIA.Events.Core.EvShowMessageToUser, 	OnEvShowMessage);
 			EventManager.StopListening(eDIA.Events.Core.EvProceed, 			OnEvHideMessage);
+		}
+
+		private void OnDrawGizmos() {
+			Gizmos.DrawIcon(new Vector3(transform.position.x, transform.position.y + 0.3f, transform.position.z), "namename", true);
 		}
 
 

@@ -36,12 +36,12 @@ namespace TASK {
 			/*
 				By default the hands are reacting on the trigger and press, but we overrule it here by this method.
 			*/
-			XRManager.instance.EnableCustomHandPoses(true);
+			XRManager.Instance.EnableCustomHandPoses(true);
 		}
 
 		// Script gets disabled when it it's turn is over.
 		void OnDisable() {
-			XRManager.instance.EnableCustomHandPoses(false);
+			XRManager.Instance.EnableCustomHandPoses(false);
 		}
 
 // -------------------------------------------------------------------------------------------------------------------------------
@@ -52,7 +52,7 @@ namespace TASK {
 			This example script represents a task. 
 			A rather useluss one, but the main purpose is to show the options the eDIA framework gives you to work with.
 
-			XRManager.instance.xxxxx => All things XR related
+			XRManager.Instance.xxxxx => All things XR related
 			Experiment.instance.xxxxx => All things related to the progress of the experiment, logging data, etc
 
 
@@ -62,17 +62,17 @@ namespace TASK {
 		public void TaskStep1 () {
 
 			// Set a custom hand pose
-			XRManager.instance.SetHandPose("point");
+			XRManager.Instance.SetHandPose("point");
 
 			// Enable the pause button on the control panel
 			Experiment.Instance.EnablePauseButton (true);
 
 			// Disable XR interaction from the user
-			XRManager.instance.EnableXRInteraction (false);
+			XRManager.Instance.EnableXRInteraction (false);
 
 			// Task stuff
 			theCube.gameObject.SetActive (true);
-			theCube.transform.position = new Vector3 (0, XRManager.instance.XRCam.position.y, Session.instance.CurrentBlock.settings.GetFloat ("distance_cube"));
+			theCube.transform.position = new Vector3 (0, XRManager.Instance.XRCam.position.y, Session.instance.CurrentBlock.settings.GetFloat ("distance_cube"));
 
 			/* 
 				Continue with the next step, either:
@@ -92,7 +92,7 @@ namespace TASK {
 			}
 
 			// Enable interaction from the user. The system will automaticly enable the Ray Interaction for the active hands set in the settings.
-			XRManager.instance.EnableXRInteraction (true);
+			XRManager.Instance.EnableXRInteraction (true);
 
 			// Show message to user and allow proceeding to NextStep by pressing the button.
 			MessagePanelInVR.Instance.ShowMessage("Click button below to continue", true);
@@ -116,10 +116,10 @@ namespace TASK {
 			else newCol = Color.magenta;
 
 			// Reset the handpose to idle state
-			XRManager.instance.SetHandPose("idle");
+			XRManager.Instance.SetHandPose("idle");
 
 			// Disable the ray on the hand(s)
-			XRManager.instance.EnableXRInteraction (false);
+			XRManager.Instance.EnableXRInteraction (false);
 
 			/* 
 				The XRControllerListener is a separate scrtip that allows remapping a XRcontroller input action to a public method.
@@ -183,7 +183,7 @@ namespace TASK {
 		}
 
 		public override void OnStartNewTrial () {
-			XRManager.instance.EnableXRInteraction (false);
+			XRManager.Instance.EnableXRInteraction (false);
 		}
 
 		public override void OnBetweenSteps () {
@@ -193,7 +193,7 @@ namespace TASK {
 		public override void OnBlockEnd () {
 			// Clean up
 			theCube.gameObject.SetActive (false);
-			XRManager.instance.EnableCustomHandPoses(false);
+			XRManager.Instance.EnableCustomHandPoses(false);
 		}
 
 

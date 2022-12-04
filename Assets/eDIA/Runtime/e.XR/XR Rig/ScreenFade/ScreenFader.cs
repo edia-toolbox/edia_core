@@ -12,6 +12,11 @@ namespace eDIA {
         [SerializeField] private Color _color = Color.black;
         [SerializeField] private Material _fadeMaterial = null;
 
+        private void OnDrawGizmos() {
+            Gizmos.color = Color.cyan;
+            Gizmos.DrawWireSphere(transform.position, 0.1f);
+        }
+
         private void OnRenderImage(RenderTexture source, RenderTexture destination)
         {
             _fadeMaterial.SetFloat("_Intensity", _intensity);

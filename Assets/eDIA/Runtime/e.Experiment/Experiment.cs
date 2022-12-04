@@ -51,6 +51,11 @@ namespace eDIA {
 		#region MONO METHODS
 
 		void Awake() {
+			// Disable task block script before anything starts to run
+			foreach(TaskBlock t in taskBlocks) {
+				t.enabled = false;
+			}
+
 			EventManager.StartListening(eDIA.Events.Core.EvFoundLocalConfigFiles, 	OnEvFoundLocalConfigFiles);
 			EventManager.StartListening(eDIA.Events.Core.EvSetExperimentConfig, 	OnEvSetExperimentConfig);
 			EventManager.StartListening(eDIA.Events.Core.EvStartExperiment, 		OnEvStartExperiment);
@@ -235,15 +240,15 @@ namespace eDIA {
 		}
 
 		void AddXRrigTracking () {
-			Session.instance.trackedObjects.Add(XRManager.instance.XRCam.GetComponent<Tracker>());
-			Session.instance.trackedObjects.Add(XRManager.instance.XRRight.GetComponent<Tracker>());
-			Session.instance.trackedObjects.Add(XRManager.instance.XRLeft.GetComponent<Tracker>());
+			Session.instance.trackedObjects.Add(XRManager.Instance.XRCam.GetComponent<Tracker>());
+			Session.instance.trackedObjects.Add(XRManager.Instance.XRRight.GetComponent<Tracker>());
+			Session.instance.trackedObjects.Add(XRManager.Instance.XRLeft.GetComponent<Tracker>());
 		}
 
 		void SaveCustomDataTables()
 		{
-			UXF.Session.instance.SaveDataTable(executionOrderLog, "executionOrder");
-			UXF.Session.instance.SaveDataTable(markerLog, "markerLog");
+			Session.instance.SaveDataTable(executionOrderLog, "executionOrder");
+			Session.instance.SaveDataTable(markerLog, "markerLog");
 		}
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------

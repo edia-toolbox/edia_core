@@ -23,30 +23,12 @@ namespace eDIA {
 		public Transform XRLeft;
 		public Transform XRRight;
 		public Transform mainMenuHolder;
-		public Transform messagePanelInVR;
-
-
-		/// <summary>Main system manager, provides refs to XR rig components</summary>
-		public static XRManager instance = null;
-
 
 		void Awake () {
-
-			// // Make a singleton for this so it's reachable 
-			// if (instance == null) {
-			// 	instance = this;
-			// 	DontDestroyOnLoad (transform.gameObject);
-			
-			// 	// Check if references are filled in the inspector
-			// 	CheckReferences ();
-				
-			// 	// Init the settings, either defaults or stored on disk
-			// 	SystemSettings.InitSystemSettings();
-			// }
-			// else if (instance != this) Destroy (this.gameObject);
-
 			CheckReferences();
 
+			// Start the system with interaction rays disabled
+			EnableXRInteraction(false);
 		}
 
 		void CheckReferences () {
@@ -55,6 +37,12 @@ namespace eDIA {
 			if (XRRight == null) 	Debug.LogError("XR RightController reference not set");
 		}
 		
+
+		private void OnDrawGizmos() {
+			Gizmos.color = Color.cyan;
+			Gizmos.DrawWireCube(transform.position, new Vector3(0.5f,0.0f,0.5f));
+		}
+
 #region XR Helper methods
 
 		/// <summary>The pivot of the player will be set on the location of this Injector</summary>
