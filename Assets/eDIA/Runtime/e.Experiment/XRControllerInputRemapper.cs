@@ -11,7 +11,10 @@ namespace eDIA {
 
 	/// <summary>In order to be flexible for each taskblock, the remapping of a controller key to a method is a separate script</summary>
 	[System.Serializable]
-	public class ControllerInputRemapper : MonoBehaviour {
+	public class XRControllerInputRemapper : MonoBehaviour {
+
+		// TODO Allow multiple input actions to one ID
+		// TODO Input remapping should take systems 'allowed interaction' into considiration
 
 		[System.Serializable]
 		public class ControllerInputRemap {

@@ -80,7 +80,7 @@ namespace eDIA {
 		}
 
 		void Start() {
-			screenFader = eDIA.XRrigManager.instance.XRrig_Cam.GetComponent<ScreenFader>();
+			screenFader = eDIA.XRManager.instance.XRCam.GetComponent<ScreenFader>();
 
 			if (overlayCam != null) {
 				GetSceneList();
@@ -175,7 +175,7 @@ namespace eDIA {
 		}
 
 		private IEnumerator LoadScene(int sceneIndex) {
-			XRrigManager.instance.AddToLog("Loading scene: " + scenes[sceneIndex].name);
+			XRManager.instance.AddToLog("Loading scene: " + scenes[sceneIndex].name);
 			OpenMenu(false);
 
 			isLoading = true;
@@ -209,7 +209,7 @@ namespace eDIA {
 
 		void SetMenuPosition () {
 
-			menuHolder.transform.localPosition = new Vector3(0, eDIA.XRrigManager.instance.XRrig_Cam.position.y, menuDistance);
+			menuHolder.transform.localPosition = new Vector3(0, eDIA.XRManager.instance.XRCam.position.y, menuDistance);
 		}
 
 	#endregion // -------------------------------------------------------------------------------------------------------------------------------

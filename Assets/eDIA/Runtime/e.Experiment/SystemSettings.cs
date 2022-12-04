@@ -48,6 +48,9 @@ namespace eDIA {
 			
 			await Task.Delay(500); // 1 second delay
 			EventManager.TriggerEvent(eDIA.Events.Core.EvUpdateSystemSettings, new eParam(loadedSettings));
+
+			// Start the system with interaction rays disabled
+			XRManager.instance.EnableXRInteraction(false);
 		}
 
 

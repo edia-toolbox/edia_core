@@ -13,12 +13,10 @@ namespace TASK {
 	public class TaskBlockAssessment : TaskBlock {
 
 		[Header (("Task related refs"))]
-		public MessagePanelInVR messagePanelInVR;
 		public GameObject qpanel;
 		public TextMeshProUGUI qpanelTextField;
-		public InputActionReference inputActionSubmit;
 
-		public ControllerInputRemapper controllerListener = null;
+		public XRControllerInputRemapper XRControllerListener = null;
 
 		private void Awake() {
 			// Set up sequence
@@ -41,24 +39,24 @@ namespace TASK {
 		/// <summary>Present Cube</summary>
 		public void TaskStep1 () {
 
-			XRrigManager.instance.EnableXRInteraction (false);
+			MessagePanelInVR.Instance.ShowMessage("You are about to see a Questionnaire");
 
-			messagePanelInVR.ShowMessage("blaaa");
-			Experiment.Instance.NextStep (5f);
+			Experiment.Instance.NextStepWithDelay (2f);
 		}
 
 		/// <summary>Move cube, wait on user input</summary>
 		public void TaskStep2 () {
 
-			XRrigManager.instance.EnableXRInteraction (true);
+			XRManager.instance.EnableXRInteraction (true);
 
 			qpanel.SetActive(true);
 			qpanelTextField.text = "Qtype: " + Session.instance.CurrentBlock.settings.GetStringList("qtypes")[Session.instance.CurrentTrial.settings.GetInt("qtype")];
-
 			
-			Experiment.Instance.EnableExperimentProceed (true); // enable proceed button
-			messagePanelInVR.ShowMessage("Now you have to fill in some questions");
-			controllerListener.EnableRemapping("TriggerPressed", true);
+			MessagePanelInVR.Instance.ShowMessage("Now you have to fill in some questions");
+
+			XRControllerListener.EnableRemapping("TriggerPressed", true);
+
+			Experiment.Instance.WaitOnProceed (); // enable proceed button
 
 		}
 
@@ -67,10 +65,11 @@ namespace TASK {
 
 			qpanel.SetActive(false);
 
-			controllerListener.EnableRemapping("TriggerPressed", false);
+			
 
-			messagePanelInVR.ShowMessage("Thank you for your answer");
-			Experiment.Instance.NextStep(4f);
+			MessagePanelInVR.Instance.ShowMessage("Thank you for your answer");
+
+			Experiment.Instance.NextStepWithDelay(3f);
 		}
 
 
@@ -78,8 +77,8 @@ namespace TASK {
 #region TASK HELPERS
 
 		public void TriggerPressed (InputAction.CallbackContext context) {
-			Debug.Log("TriggerPressed");
-			EventManager.TriggerEvent(eDIA.Events.Core.EvProceed, null);
+			XRControllerListener.EnableRemapping("TriggerPressed", false);
+			Experiment.Instance.NextStep();
 		}
 
 
@@ -99,14 +98,15 @@ namespace TASK {
 
 		/// <summary>Called when this block has a introduction text in the json</summary>
 		public override void OnBlockIntroduction() {
-			messagePanelInVR.ShowMessage(Session.instance.CurrentBlock.settings.GetString("introduction"));
+			MessagePanelInVR.Instance.ShowMessage(Session.instance.CurrentBlock.settings.GetString("introduction"));
 		}
 
 		public override void OnStartNewTrial () {
+			XRManager.instance.EnableXRInteraction (false);
 		}
 
 		public override void OnBetweenSteps () {
-			messagePanelInVR.HidePanel();
+			
 		}
 
 		/// <summary>Called when block ends</summary>

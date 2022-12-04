@@ -1,4 +1,3 @@
-using System.Timers;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -161,12 +160,23 @@ namespace eDIA {
 
 			switch (e.GetStrings()[0].ToUpper()) {
 				case "PAUSE" :
-					btnPauseExperiment.interactable = newState;
+					SetButtonState(btnPauseExperiment, newState);
 				break;
 				case "PROCEED" :
-					btnProceedExperiment.interactable = newState;
+					SetButtonState(btnProceedExperiment, newState);
+					EventManager.StartListening(eDIA.Events.Core.EvProceed, OnEvProceed);
 				break;
 			}
+		}
+
+		void SetButtonState (Button btn, bool state) {
+			btn.interactable = state;
+		}
+
+		//! If the Proceed call comes from another place, disable the button.
+		void OnEvProceed (eParam obj) {
+			EventManager.StopListening(eDIA.Events.Core.EvProceed, OnEvProceed);
+			SetButtonState(btnProceedExperiment, false);
 		}
 
 		void OnEvStartTimer(eParam obj)

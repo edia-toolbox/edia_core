@@ -193,22 +193,19 @@ namespace eDIA {
 		}
 
 
-		public void EnableExperimentPause(bool _onOff) {
+		public void EnablePauseButton(bool _onOff) {
 			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvEnableButton, new eParam( new string[] { "PAUSE", _onOff.ToString() }));
 			EventManager.StartListening("EvPauseExperiment", OnEvPauseExperiment);
 		}
 
-		public void EnableExperimentProceed(bool _onOff) {
-			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvEnableButton, new eParam( new string[] { "PROCEED", _onOff.ToString() }));
-
-			if (_onOff) {
-				EventManager.StartListening (eDIA.Events.Core.EvProceed, CatchEvProceed);
-			}
+		public void WaitOnProceed() {
+			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvEnableButton, new eParam( new string[] { "PROCEED", "TRUE" }));
+			EventManager.StartListening (eDIA.Events.Core.EvProceed, OnEvProceed);
 		}
 
-		void CatchEvProceed (eParam e) {
+		void OnEvProceed (eParam e) {
+			EventManager.StopListening(eDIA.Events.Core.EvProceed, OnEvProceed); // stop listening to avoid doubleclicks
 			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvEnableButton, new eParam( new string[] { "PROCEED", "false" })); // disable button, as OnEvProceed might have come from somewhere else than the button itself
-			EventManager.StopListening(eDIA.Events.Core.EvProceed, CatchEvProceed); // stop listening to avoid doubleclicks
 			NextStep();
 		}
 
@@ -238,9 +235,9 @@ namespace eDIA {
 		}
 
 		void AddXRrigTracking () {
-			Session.instance.trackedObjects.Add(XRrigManager.instance.XRrig_Cam.GetComponent<Tracker>());
-			Session.instance.trackedObjects.Add(XRrigManager.instance.XRrig_RightController.GetComponent<Tracker>());
-			Session.instance.trackedObjects.Add(XRrigManager.instance.XRrig_LeftController.GetComponent<Tracker>());
+			Session.instance.trackedObjects.Add(XRManager.instance.XRCam.GetComponent<Tracker>());
+			Session.instance.trackedObjects.Add(XRManager.instance.XRRight.GetComponent<Tracker>());
+			Session.instance.trackedObjects.Add(XRManager.instance.XRLeft.GetComponent<Tracker>());
 		}
 
 		void SaveCustomDataTables()
@@ -280,7 +277,7 @@ namespace eDIA {
 
 			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvExperimentProgressUpdate, new eParam("End"));
 			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvEnableButton, new eParam( new string[] { "PROCEED", "false" }));
-			EnableExperimentPause(false);
+			EnablePauseButton(false);
 
 		}
 
@@ -393,7 +390,7 @@ namespace eDIA {
 			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvEnableButton, new eParam( new string[] { "PROCEED", "true" }));
 			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvExperimentProgressUpdate, new eParam("Block Intro"));
 
-			EnableExperimentPause(false);
+			EnablePauseButton(false);
 			EnableEyeCalibrationTrigger(true);
 
 			taskBlocks[Session.instance.currentBlockNum-1].OnBlockIntroduction();
@@ -432,12 +429,9 @@ namespace eDIA {
 			Session.instance.EndCurrentTrial(); // tells UXF to end this trial and fire the event that follows
 		}
 
-		public void StartNewTrial() {
-		}
-
 		/// <summary>Call next step in the trial with delay.</summary>
 		/// <param name="duration">Time to wait before proceeding. Expects float</param>
-		public void NextStep (float duration) {
+		public void NextStepWithDelay (float duration) {
 			if (stepTimer != null) StopCoroutine(stepTimer); // Kill timer, if any
 
 			stepTimer = StartCoroutine("NextStepTimer", duration);
@@ -454,13 +448,22 @@ namespace eDIA {
 		public void NextStep() {
 			if (stepTimer != null) StopCoroutine(stepTimer); // Kill timer, if any
 
+			// In case OnProceed was triggered outside of the button
+			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvEnableButton, new eParam(new string[] { "PROCEED", "FALSE"}));
+
 			currentStepNum ++;
 
 			if (currentStepNum < taskBlocks[Session.instance.CurrentBlock.number-1].trialSteps.Count) {
-				taskBlocks[Session.instance.currentBlockNum-1].OnBetweenSteps();
+				OnBetweenSteps();
+				taskBlocks[Session.instance.currentBlockNum-1].OnBetweenSteps(); // In Between to steps of the trial, we might want to clean things up a bit.
 				taskBlocks[Session.instance.currentBlockNum-1].trialSteps[currentStepNum].Invoke();
 			}
 			else EndTrial();
+		}
+
+		/// <summary>In Between to steps of the trial, we might want to clean things up a bit.</summary>
+		void OnBetweenSteps () {
+			MessagePanelInVR.Instance.HidePanel();
 		}
 
 		
@@ -478,7 +481,7 @@ namespace eDIA {
 
 			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvEnableButton, new eParam( new string[] { "PROCEED", "true" }));
 			// EnableExperimentProceed(true);
-			EnableExperimentPause(false);
+			EnablePauseButton(false);
 			EnableEyeCalibrationTrigger(true);
 		}
 

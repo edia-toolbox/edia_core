@@ -12,63 +12,69 @@ namespace eDIA {
 	/// Responsible for loading/unloading, user related actions, top level application.<br/>
 	/// Has references to the XR rig camera and hands for the rest of the application.<br/>
 	/// </summary>
-	public class XRrigManager : MonoBehaviour {
+	public class XRManager : Singleton<XRManager> {
 
 		[Header("Debug")]
 		public bool showLog = false;
 		public Color taskColor = Color.cyan;
 		[Space(10f)]
 		[Header ("References")]
-		public Transform XRrig_Cam;
-		public Transform XRrig_LeftController;
-		public Transform XRrig_RightController;
+		public Transform XRCam;
+		public Transform XRLeft;
+		public Transform XRRight;
 		public Transform mainMenuHolder;
+		public Transform messagePanelInVR;
+
 
 		/// <summary>Main system manager, provides refs to XR rig components</summary>
-		public static XRrigManager instance = null;
+		public static XRManager instance = null;
 
 
 		void Awake () {
 
-			// Make a singleton for this so it's reachable 
-			if (instance == null) {
-				instance = this;
-				DontDestroyOnLoad (transform.gameObject);
+			// // Make a singleton for this so it's reachable 
+			// if (instance == null) {
+			// 	instance = this;
+			// 	DontDestroyOnLoad (transform.gameObject);
 			
-				// Check if references are filled in the inspector
-				CheckReferences ();
+			// 	// Check if references are filled in the inspector
+			// 	CheckReferences ();
 				
-				// Init the settings, either defaults or stored on disk
-				SystemSettings.InitSystemSettings();
-			}
-			else if (instance != this) Destroy (this.gameObject);
+			// 	// Init the settings, either defaults or stored on disk
+			// 	SystemSettings.InitSystemSettings();
+			// }
+			// else if (instance != this) Destroy (this.gameObject);
+
+			CheckReferences();
+
 		}
 
 		void CheckReferences () {
-			if (XRrig_Cam == null) 	Debug.LogError("XRrig_MainCamera reference not set");
-			if (XRrig_LeftController == null) 	Debug.LogError("XRrig_LeftController reference not set");
-			if (XRrig_RightController == null) 	Debug.LogError("XRrig_RightController reference not set");
+			if (XRCam == null) 	Debug.LogError("XR Camera reference not set");
+			if (XRLeft == null) 	Debug.LogError("XR LeftController reference not set");
+			if (XRRight == null) 	Debug.LogError("XR RightController reference not set");
 		}
 		
 #region XR Helper methods
 
-		/// <summary>The pivot of the playare will be set on the location of this Injector</summary>
+		/// <summary>The pivot of the player will be set on the location of this Injector</summary>
 		public void MovePlayarea(Transform newTransform) {
 			transform.position = newTransform.position;
 			transform.rotation = newTransform.rotation;
 		}
 
 		/// <summary>Turn XR hand / controller interaction possibility on or off.</summary>
-		/// <param name="_onOff">Boolean</param>
-		public  void EnableXRInteraction (bool _onOff) {
-			EventManager.TriggerEvent(eDIA.Events.XR.EvEnableXRInteraction, new eParam(_onOff));
+		/// <param name="onOff">Boolean</param>
+		public void EnableXRInteraction (bool onOff) {
+			XRLeft.GetComponent<XRController>().EnableInteraction(onOff);
+			XRRight.GetComponent<XRController>().EnableInteraction(onOff);
 		}
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region HANDS
 
-		/// <summary>Set the hand pose for the currently hand(s) set as interactives</summary>
-		/// <param name="pose">Pose as string 'point','fist','idle'</param>
+		/// <summary>Set the hand pose for the current interactive hand(s). Pose as string 'point','fist','idle'</summary>
+		/// <param name="pose"></param>
 		public  void SetHandPose (string pose) {
 			EventManager.TriggerEvent (eDIA.Events.XR.EvHandPose, new eParam ( pose ));
 		}
@@ -77,6 +83,13 @@ namespace eDIA {
 		public  void EnableCustomHandPoses (bool onOff) {
 			EventManager.TriggerEvent (eDIA.Events.XR.EvEnableCustomHandPoses, new eParam ( onOff ));
 		}
+
+		/// <summary>Shows the hands that are set to be allowed visible on/off</summary>
+		public  void ShowHands (bool onOff) {
+			XRLeft.GetComponent<XRController>().Show(onOff);
+			XRRight.GetComponent<XRController>().Show(onOff);
+		}
+
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region MISC	

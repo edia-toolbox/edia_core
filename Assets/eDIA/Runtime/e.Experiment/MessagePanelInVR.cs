@@ -1,15 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using eDIA;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace TASK {
+namespace eDIA {
 
 	/// <summary>Sample script to show the user a message in VR canvas</summary>
-	public class MessagePanelInVR : MonoBehaviour {
+	public class MessagePanelInVR : Singleton<MessagePanelInVR> {
 		
 		[Header("Refs")]
 		public TextMeshProUGUI msgField = null;
@@ -27,7 +26,7 @@ namespace TASK {
 			menuHolder.SetActive(false);
 
 			if (myCanvas.worldCamera == null )
-				myCanvas.worldCamera = XRrigManager.instance.XRrig_Cam.GetComponent<Camera>();
+				myCanvas.worldCamera = XRManager.instance.XRCam.GetComponent<Camera>();
 		}
 
 		void Start () {
@@ -74,7 +73,7 @@ namespace TASK {
 			MessageTimer = StartCoroutine("timer", duration);
 		}
 
-		/// <summary>Shows the message in VR on a canvas for a certain duration.</summary>
+		/// <summary>Shows the message in VR on a canvas with button to proceed.</summary>
 		/// <param name="msg">Message to show</param>
 		/// <param name="duration">Duration</param>
 		public void ShowMessage (string msg, bool showButton) {

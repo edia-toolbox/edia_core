@@ -6,7 +6,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 namespace eDIA {
 	
-	public class XRrigController : MonoBehaviour	{
+	public class XRController : MonoBehaviour	{
 
 		[Header("Settings")]
 		public eDIA.Constants.Interactor interactorType = eDIA.Constants.Interactor.LEFT;
@@ -17,13 +17,12 @@ namespace eDIA {
 		public bool isInteractive = false;
 
 		SkinnedMeshRenderer handSMR = null;
-		XRInteractorLineVisual lineVisual = null;
+		public Transform rayInteractor = null;
 
 #region SETTING UP
 
 		void Awake() {
 			handSMR = GetComponentInChildren<SkinnedMeshRenderer>(true);
-			lineVisual = GetComponent<XRInteractorLineVisual>();
 
 			AllowVisible(isVisible);
 			AllowInteractive(isAllowedToInteract);
@@ -71,7 +70,7 @@ namespace eDIA {
 			} else { 
 				isAllowedToInteract = false;
 				isInteractive = false;
-				lineVisual.enabled = false;
+				rayInteractor.gameObject.SetActive(false);
 			}
 		}
 
@@ -106,13 +105,13 @@ namespace eDIA {
 
 		/// <summary>Enable/Disable interaction</summary>
 		/// <param name="_onOff">True/false</param>
-		void EnableInteraction (bool _onOff) {
+		public void EnableInteraction (bool _onOff) {
 
 			if (!isAllowedToInteract)
 				return;
 
+			rayInteractor.gameObject.SetActive(_onOff);
 			isInteractive = _onOff;
-			lineVisual.enabled = _onOff;
 		}
 
 		/// <summary>Show/Hide controller</summary>

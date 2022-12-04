@@ -251,5 +251,10 @@ namespace eDIA {
 		{
 			throw new NotImplementedException();
 		}
+
+		internal static void TriggerEvent(string evProceed, object onEvProceed)
+		{
+			throw new NotImplementedException();
+		}
 	}
 }

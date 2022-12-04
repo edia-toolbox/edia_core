@@ -13,65 +13,98 @@ namespace TASK {
 
 		[Header (("Task related refs"))]
 		public GameObject theCube;
-		public MessagePanelInVR messagePanelInVR;
 		private Coroutine moveRoutine = null;
 
-		public ControllerInputRemapper controllerListener = null; // controller button remapper to proceed
+		[Header("Helpers")]
+		[Tooltip("Makes it possible to map controller buttons to methods in this script.")]
+		public XRControllerInputRemapper XRControllerListener = null; 
 
 		private void Awake() {
+
+			/*
+				Each trial exists out of a sequence of steps. 
+				In order to use them, we need to add the methods of this task to the trial sequence.
+			*/
 			AddToTrialSequence(TaskStep1);
 			AddToTrialSequence(TaskStep2);
 			AddToTrialSequence(TaskStep3);
 			AddToTrialSequence(TaskStep4);
 		}
 
-		// Script gets enabled at the moment it is it's turn in the experiment
+		// Script gets enabled when it is it's turn.
 		void OnEnable() {
-			XRrigManager.instance.EnableCustomHandPoses(true);
+			/*
+				By default the hands are reacting on the trigger and press, but we overrule it here by this method.
+			*/
+			XRManager.instance.EnableCustomHandPoses(true);
 		}
 
-		// Script gets disabled at the moment it's turn is over
+		// Script gets disabled when it it's turn is over.
 		void OnDisable() {
-			XRrigManager.instance.EnableCustomHandPoses(false);
+			XRManager.instance.EnableCustomHandPoses(false);
 		}
 
 // -------------------------------------------------------------------------------------------------------------------------------
 #region TASK STEPS
 
+		/*
+
+			This example script represents a task. 
+			A rather useluss one, but the main purpose is to show the options the eDIA framework gives you to work with.
+
+			XRManager.instance.xxxxx => All things XR related
+			Experiment.instance.xxxxx => All things related to the progress of the experiment, logging data, etc
+
+
+		*/
+
 		/// <summary>Present Cube</summary>
 		public void TaskStep1 () {
 
-			XRrigManager.instance.SetHandPose("point");
+			// Set a custom hand pose
+			XRManager.instance.SetHandPose("point");
 
-			Experiment.Instance.EnableExperimentPause (true);
-			XRrigManager.instance.EnableXRInteraction (false);
+			// Enable the pause button on the control panel
+			Experiment.Instance.EnablePauseButton (true);
 
+			// Disable XR interaction from the user
+			XRManager.instance.EnableXRInteraction (false);
+
+			// Task stuff
 			theCube.gameObject.SetActive (true);
-			theCube.transform.position = new Vector3 (0, XRrigManager.instance.XRrig_Cam.position.y, Session.instance.CurrentBlock.settings.GetFloat ("distance_cube"));
+			theCube.transform.position = new Vector3 (0, XRManager.instance.XRCam.position.y, Session.instance.CurrentBlock.settings.GetFloat ("distance_cube"));
 
-			Experiment.Instance.NextStep (Session.instance.CurrentBlock.settings.GetFloat ("timer_showcube"));
+			/* 
+				Continue with the next step, either:
+				Directly: NextStep()
+				Delayed: NextStepWithDelay (seconds as float)
+				
+			*/
+			Experiment.Instance.NextStepWithDelay (Session.instance.CurrentBlock.settings.GetFloat ("timer_showcube"));
 		}
 
 		/// <summary>Move cube, wait on user input</summary>
 		public void TaskStep2 () {
 
+			// Task stuff
 			if (moveRoutine == null) {
 				moveRoutine = StartCoroutine ("MoveCube");
 			}
 
-			XRrigManager.instance.EnableXRInteraction (true);
+			// Enable interaction from the user. The system will automaticly enable the Ray Interaction for the active hands set in the settings.
+			XRManager.instance.EnableXRInteraction (true);
 
-			messagePanelInVR.ShowMessage("Click button to continue");
+			// Show message to user and allow proceeding to NextStep by pressing the button.
+			MessagePanelInVR.Instance.ShowMessage("Click button below to continue", true);
 
-			Experiment.Instance.EnableExperimentProceed (true); // enable proceed button for experiment
-			controllerListener.EnableRemapping("TriggerPressed", true); // enable controller button remapper to proceed
+			// Tell the system to wait on button press. Which will also enable the button on the controlpanel to overrule the user
+			Experiment.Instance.WaitOnProceed (); 
 		}
 
 		/// <summary>Stop moving, change color</summary>
 		public void TaskStep3 () {
 
-			controllerListener.EnableRemapping("TriggerPressed", false);
-
+			// Task stuff
 			if (moveRoutine != null) {
 				StopCoroutine (moveRoutine);
 				moveRoutine = null;
@@ -82,25 +115,45 @@ namespace TASK {
 				theCube.GetComponent<MeshRenderer> ().material.color = newCol;
 			else newCol = Color.magenta;
 
-			XRrigManager.instance.SetHandPose("idle");
+			// Reset the handpose to idle state
+			XRManager.instance.SetHandPose("idle");
 
+			// Disable the ray on the hand(s)
+			XRManager.instance.EnableXRInteraction (false);
+
+			/* 
+				The XRControllerListener is a separate scrtip that allows remapping a XRcontroller input action to a public method.
+				Very usefull to enable input in one or more steps of the trial.
+
+				In this case enabling "TriggerPressed" predefined mapping on the script.
+			*/
+			XRControllerListener.EnableRemapping("TriggerPressed", true);
+
+			// Show message to user
+			MessagePanelInVR.Instance.ShowMessage("To continue click the trigger button on the controller");
+		}
+
+		// Callback method for remapping XR controller input to this method -> see XRControllerInputRemapper script on this object
+		public void TriggerPressed (InputAction.CallbackContext context) {
+			// First switch off the listener
+			XRControllerListener.EnableRemapping("TriggerPressed", false);
+
+			// Continue the trial
 			Experiment.Instance.NextStep();
 		}
 
 		/// <summary>Wait</summary>
 		public void TaskStep4 () {
-			Experiment.Instance.NextStep (Session.instance.CurrentBlock.settings.GetFloat ("timer_wait"));
-			Debug.Log("TaskStep4 started");
+
+			MessagePanelInVR.Instance.ShowMessage("Thank you, end of trial");
+
+			Experiment.Instance.NextStepWithDelay (Session.instance.CurrentBlock.settings.GetFloat ("timer_wait"));
 		}
+
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
+
 #region TASK HELPERS
-
-		public void TriggerPressed (InputAction.CallbackContext context) {
-			Debug.Log("TriggerPressed");
-			EventManager.TriggerEvent(eDIA.Events.Core.EvProceed, null);
-		}
-
 
 		/// <summary>Moves the cube up or down depending on the setting `direction` in the trial settings.</summary>
 		IEnumerator MoveCube () {
@@ -116,7 +169,6 @@ namespace TASK {
 #region OPTIONAL METHODS FOR YOUR TASK
  /*  
 
-	GUIDELINES	
 	* Dont use any call to EvProceed in these, the statemachine for that is handled 
 
  */
@@ -127,21 +179,21 @@ namespace TASK {
 
 		/// <summary>Called when this block has a introduction text in the json</summary>
 		public override void OnBlockIntroduction() {
-			messagePanelInVR.ShowMessage(Session.instance.CurrentBlock.settings.GetString("introduction"));
+			MessagePanelInVR.Instance.ShowMessage(Session.instance.CurrentBlock.settings.GetString("introduction"));
 		}
 
 		public override void OnStartNewTrial () {
+			XRManager.instance.EnableXRInteraction (false);
 		}
 
 		public override void OnBetweenSteps () {
-			messagePanelInVR.HidePanel();
 		}
 
 		/// <summary>Called when block ends</summary>
 		public override void OnBlockEnd () {
 			// Clean up
 			theCube.gameObject.SetActive (false);
-			XRrigManager.instance.EnableCustomHandPoses(false);
+			XRManager.instance.EnableCustomHandPoses(false);
 		}
 
 
