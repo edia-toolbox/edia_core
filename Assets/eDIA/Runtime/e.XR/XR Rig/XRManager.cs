@@ -7,8 +7,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 namespace eDIA {
 
 	/// <summary> 
-	/// The XRrigManager is a Singleton and therefor reachable from whatever script.<br/>
-	/// The script travels along the scenes that are loaded as it is DontDestroyOnLoad. <br/>
+	/// This singleton script travels along the scenes that are loaded as it is DontDestroyOnLoad. <br/>
 	/// Responsible for loading/unloading, user related actions, top level application.<br/>
 	/// Has references to the XR rig camera and hands for the rest of the application.<br/>
 	/// </summary>
@@ -16,7 +15,7 @@ namespace eDIA {
 
 		[Header("Debug")]
 		public bool showLog = false;
-		public Color taskColor = Color.cyan;
+		public Color logColor = Color.cyan;
 		[Space(10f)]
 		[Header ("References")]
 		public Transform XRCam;
@@ -93,7 +92,7 @@ namespace eDIA {
 
 		public void AddToLog(string _msg) {
 			if (showLog)
-				LogUtilities.AddToLog(_msg, "eDIA", taskColor);
+				LogUtilities.AddToLog(_msg, "eDIA", logColor);
 		}
 		
 #endregion	// -------------------------------------------------------------------------------------------------------------------------------
