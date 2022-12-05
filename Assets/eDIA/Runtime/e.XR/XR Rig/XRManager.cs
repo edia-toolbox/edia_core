@@ -24,6 +24,8 @@ namespace eDIA {
 		public Transform XRRight;
 		public Transform mainMenuHolder;
 
+		[ContextMenu("TurnOnRayInteractor")]
+
 		void Awake () {
 			CheckReferences();
 
@@ -43,6 +45,13 @@ namespace eDIA {
 			Gizmos.DrawWireCube(transform.position, new Vector3(0.5f,0.0f,0.5f));
 		}
 
+#region Inspector debug calls
+
+		public void TurnOnRayInteractor () {
+			EnableXRInteraction(true);
+		}
+
+#endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region XR Helper methods
 
 		/// <summary>The pivot of the player will be set on the location of this Injector</summary>
