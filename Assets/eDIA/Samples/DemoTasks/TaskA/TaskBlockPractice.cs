@@ -152,8 +152,9 @@ namespace TASK {
 
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
-
 #region TASK HELPERS
+
+
 
 		/// <summary>Moves the cube up or down depending on the setting `direction` in the trial settings.</summary>
 		IEnumerator MoveCube () {
@@ -165,11 +166,13 @@ namespace TASK {
 			}
 		}
 
+
+
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region OPTIONAL METHODS FOR YOUR TASK
  /*  
 
-	* Dont use any call to EvProceed in these, the statemachine for that is handled 
+	* Statemachine methods that can be used for the task.
 
  */
 			
@@ -177,23 +180,26 @@ namespace TASK {
 		public override void OnBlockStart () {
 		}
 
-		/// <summary>Called when this block has a introduction text in the json</summary>
+		/// <summary>Called when this block has a introduction text</summary>
 		public override void OnBlockIntroduction() {
 			MessagePanelInVR.Instance.ShowMessage(Session.instance.CurrentBlock.settings.GetString("introduction"));
 		}
 
+		/// <summary>Called when trial starts</summary>	
 		public override void OnStartNewTrial () {
 			XRManager.Instance.EnableXRInteraction (false);
 		}
 
+		/// <summary>Called inbetween steps</summary>
 		public override void OnBetweenSteps () {
 		}
 
 		/// <summary>Called when block ends</summary>
 		public override void OnBlockEnd () {
-			// Clean up
+
 			theCube.gameObject.SetActive (false);
 			XRManager.Instance.EnableCustomHandPoses(false);
+
 		}
 
 
