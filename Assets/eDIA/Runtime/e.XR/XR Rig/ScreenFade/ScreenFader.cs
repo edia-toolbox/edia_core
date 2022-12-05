@@ -14,7 +14,9 @@ namespace eDIA {
 
         private void OnDrawGizmos() {
             Gizmos.color = Color.cyan;
-            Gizmos.DrawWireSphere(transform.position, 0.1f);
+            Gizmos.matrix = transform.localToWorldMatrix;
+            Gizmos.DrawWireSphere(Vector3.zero, 0.1f);
+            Gizmos.DrawLine(Vector3.zero, Vector3.forward);
         }
 
         private void OnRenderImage(RenderTexture source, RenderTexture destination)

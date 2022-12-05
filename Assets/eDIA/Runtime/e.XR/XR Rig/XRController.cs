@@ -42,8 +42,10 @@ namespace eDIA {
 
 		private void OnDrawGizmos() {
 			Gizmos.color = Color.cyan;
-			Gizmos.DrawWireCube(transform.position, new Vector3(0.1f,0.02f,0.15f));
-			Gizmos.DrawWireCube(transform.position - (interactorType == eDIA.Constants.Interactor.LEFT ? new Vector3(-0.06f,0.01f,0.05f) : new Vector3(0.06f,0.01f,0.05f)), new Vector3(0.03f,0.02f,0.05f));
+			// GizmoHelpers.DrawWireCubeOriented(transform.position,transform.localRotation,0.1f);
+			Gizmos.matrix = transform.localToWorldMatrix;
+			Gizmos.DrawWireCube(Vector3.zero, new Vector3(0.1f,0.02f,0.15f));
+			Gizmos.DrawWireCube(Vector3.zero - (interactorType == eDIA.Constants.Interactor.LEFT ? new Vector3(-0.06f,0.01f,0.05f) : new Vector3(0.06f,0.01f,0.05f)), new Vector3(0.03f,0.02f,0.05f));
 		}
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
