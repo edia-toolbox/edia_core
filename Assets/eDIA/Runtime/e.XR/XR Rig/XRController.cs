@@ -118,7 +118,6 @@ namespace eDIA {
 			if (!isAllowedToInteract)
 				return;
 
-			Debug.Log("EnableInteraction " + onOff);
 			rayInteractor.gameObject.SetActive(onOff);
 			isInteractive = onOff;
 		}

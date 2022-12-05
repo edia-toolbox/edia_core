@@ -24,7 +24,6 @@ namespace eDIA {
 		public Transform XRRight;
 		public Transform mainMenuHolder;
 
-		[ContextMenu("TurnOnRayInteractor")]
 
 		void Awake () {
 			CheckReferences();
@@ -47,6 +46,7 @@ namespace eDIA {
 
 #region Inspector debug calls
 
+		[ContextMenu("TurnOnRayInteractor")]
 		public void TurnOnRayInteractor () {
 			EnableXRInteraction(true);
 		}
