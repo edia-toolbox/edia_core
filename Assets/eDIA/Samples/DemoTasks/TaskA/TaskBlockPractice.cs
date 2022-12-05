@@ -105,8 +105,6 @@ namespace TASK {
 			*/
 			MessagePanelInVR.Instance.ShowMessage("Click button below to continue", true);
 
-			// Tell the system to wait on button press. Which will also enable the button on the controlpanel to overrule the user
-			Experiment.Instance.WaitOnProceed (); 
 		}
 
 		/// <summary>Move cube, wait on user input</summary>
@@ -117,11 +115,11 @@ namespace TASK {
 				That's all it does
 
 			*/
-			MessagePanelInVR.Instance.ShowMessage("Click button below to continue");
+			MessagePanelInVR.Instance.ShowMessage("Wait on the experimenter button click");
 
 			/* 
 				Tell the system to wait on button press. 
-				Which will also enable the button on the controlpanel to overrule the user
+				Which will enable the button on the controlpanel
 
 			*/
 			Experiment.Instance.WaitOnProceed (); 
