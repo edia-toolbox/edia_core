@@ -209,6 +209,7 @@ namespace eDIA {
 		}
 
 		void OnEvProceed (eParam e) {
+			Debug.Log("Exp: OnEvProceed called");
 			EventManager.StopListening(eDIA.Events.Core.EvProceed, OnEvProceed); // stop listening to avoid doubleclicks
 			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvEnableButton, new eParam( new string[] { "PROCEED", "false" })); // disable button, as OnEvProceed might have come from somewhere else than the button itself
 			NextStep();
@@ -501,11 +502,6 @@ namespace eDIA {
 			//? Why the delay here ?
 			Session.instance.Invoke("BeginNextTrialSafe", 0.5f);
 		}
-
-#endregion // -------------------------------------------------------------------------------------------------------------------------------
-#region BLOCK INTRODUCTION
-
-
 
 #endregion	// -------------------------------------------------------------------------------------------------------------------------------
 #region LOGGING	

@@ -164,19 +164,12 @@ namespace eDIA {
 				break;
 				case "PROCEED" :
 					SetButtonState(btnProceedExperiment, newState);
-					EventManager.StartListening(eDIA.Events.Core.EvProceed, OnEvProceed);
 				break;
 			}
 		}
 
 		void SetButtonState (Button btn, bool state) {
 			btn.interactable = state;
-		}
-
-		//! If the Proceed call comes from another place, disable the button.
-		void OnEvProceed (eParam obj) {
-			EventManager.StopListening(eDIA.Events.Core.EvProceed, OnEvProceed);
-			SetButtonState(btnProceedExperiment, false);
 		}
 
 		void OnEvStartTimer(eParam obj)
