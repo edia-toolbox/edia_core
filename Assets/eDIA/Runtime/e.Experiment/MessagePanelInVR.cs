@@ -116,15 +116,21 @@ namespace eDIA {
 		void ShowMenu()
 		{
 			menuHolder.SetActive(true);
-			button.onClick.AddListener ( ()=> EventManager.TriggerEvent(eDIA.Events.Core.EvProceed, null));
+			button.onClick.AddListener ( BtnPressed );
+
+			// Also trigger proceed button on control panel
+			Experiment.Instance.WaitOnProceed();
 		}
 
 		void HideMenu()
 		{
 			menuHolder.SetActive(false);
-			button.onClick.RemoveListener ( ()=> EventManager.TriggerEvent(eDIA.Events.Core.EvProceed, null));
+			button.onClick.RemoveListener ( BtnPressed );
 		}
 	
+		public void BtnPressed () {
+			EventManager.TriggerEvent(eDIA.Events.Core.EvProceed, null);
+		}
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region TIMERS

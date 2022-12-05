@@ -29,6 +29,7 @@ namespace TASK {
 			AddToTrialSequence(TaskStep2);
 			AddToTrialSequence(TaskStep3);
 			AddToTrialSequence(TaskStep4);
+			AddToTrialSequence(TaskStep5);
 		}
 
 		// Script gets enabled when it is it's turn.
@@ -80,6 +81,7 @@ namespace TASK {
 				Delayed: NextStepWithDelay (seconds as float)
 				
 			*/
+
 			Experiment.Instance.NextStepWithDelay (Session.instance.CurrentBlock.settings.GetFloat ("timer_showcube"));
 		}
 
@@ -94,15 +96,39 @@ namespace TASK {
 			// Enable interaction from the user. The system will automaticly enable the Ray Interaction for the active hands set in the settings.
 			XRManager.Instance.EnableXRInteraction (true);
 
-			// Show message to user and allow proceeding to NextStep by pressing the button.
+			/*
+				Show message to user and allow proceeding to NextStep by pressing the button.
+				The messagepanel automatically enables the PROCEED button in the controlpanel
+
+				The system automatically waits OnProceed
+
+			*/
 			MessagePanelInVR.Instance.ShowMessage("Click button below to continue", true);
 
 			// Tell the system to wait on button press. Which will also enable the button on the controlpanel to overrule the user
 			Experiment.Instance.WaitOnProceed (); 
 		}
 
-		/// <summary>Stop moving, change color</summary>
+		/// <summary>Move cube, wait on user input</summary>
 		public void TaskStep3 () {
+
+			/*
+				Show message to user.
+				That's all it does
+
+			*/
+			MessagePanelInVR.Instance.ShowMessage("Click button below to continue");
+
+			/* 
+				Tell the system to wait on button press. 
+				Which will also enable the button on the controlpanel to overrule the user
+
+			*/
+			Experiment.Instance.WaitOnProceed (); 
+		}
+
+		/// <summary>Stop moving, change color</summary>
+		public void TaskStep4 () {
 
 			// Task stuff
 			if (moveRoutine != null) {
@@ -143,7 +169,7 @@ namespace TASK {
 		}
 
 		/// <summary>Wait</summary>
-		public void TaskStep4 () {
+		public void TaskStep5 () {
 
 			MessagePanelInVR.Instance.ShowMessage("Thank you, end of trial");
 
