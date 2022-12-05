@@ -72,6 +72,8 @@ namespace eDIA {
 	#region Starters
 
 		void Awake() {
+			gameObject.layer = LayerMask.NameToLayer("CamOverlay");
+			
 			EventManager.StartListening(eDIA.Events.System.EvCallMainMenu, OnEvCallMainMenu);
 		}
 

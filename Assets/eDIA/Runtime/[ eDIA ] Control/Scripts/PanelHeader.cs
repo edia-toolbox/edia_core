@@ -12,6 +12,11 @@ namespace eDIA {
 		public Image logo = null;
 		public TextMeshProUGUI titleField = null;
 
+		void Awake () {
+			//! Set the control panel gameobject on correct layer
+			transform.root.gameObject.layer = LayerMask.NameToLayer("ControlUI");
+		}
+
 		void OnEnable() {
 			EventManager.StartListening(eDIA.Events.Core.EvLocalConfigSubmitted, OnEvLocalConfigSubmitted );
 		}
