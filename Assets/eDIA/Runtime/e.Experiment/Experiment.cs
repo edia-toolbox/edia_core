@@ -298,36 +298,14 @@ namespace eDIA {
 		void OnTrialBeginUXF(Trial newTrial) {
 			AddToExecutionOrderLog("OnTrialBegin");
 
-			// bool showIntroduction = false;
-
-			bool isNewBlock = false;
-
-			// Is this a new block?
-			if ((Session.instance.currentBlockNum != activeBlockUXF) && (Session.instance.currentBlockNum <= Session.instance.blocks.Count)) {
-
-				isNewBlock = true;
-
-			// 	// Check for block introduction flag
-			// 	showIntroduction = Session.instance.CurrentBlock.settings.GetString("intro") != string.Empty;
-
-			// 	// Set new activeBlockUXF value
-			// 	activeBlockUXF = Session.instance.currentBlockNum;
-			}
-
+			bool isNewBlock = (Session.instance.currentBlockNum != activeBlockUXF) && (Session.instance.currentBlockNum <= Session.instance.blocks.Count);
+			
 			if (isNewBlock) {
 				BlockStart();
 			} else {
 				StartTrial();
 				EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvExperimentProgressUpdate, new eParam(Session.instance.CurrentBlock.settings.GetString("block_name")));
 			}
-
-			// Inject introduction step or continue UXF sequence
-			// if (showIntroduction)
-			// 	BlockIntroduction ();
-			// else {
-			// 	StartTrial();
-			// 	EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvExperimentProgressUpdate, new eParam(Session.instance.CurrentBlock.settings.GetString("block_name")));
-			// }
 		}
 
 		/// <summary>Called from UXF session. Checks if to call NextTrial, should start a BREAK before next Block, or End the Session </summary>
@@ -356,7 +334,10 @@ namespace eDIA {
 			if (Session.instance.CurrentBlock.lastTrial != endedTrial) { // NO
 				Session.instance.BeginNextTrialSafe();
 				return;
-			} else taskBlocks[Session.instance.currentBlockNum-1].OnBlockEnd(); // YES
+			} else {
+				BlockEnd(); // YES
+				return;
+			}
 
 			// Is this then the last trial of the session?
 			if (Session.instance.LastTrial == endedTrial) {
@@ -395,11 +376,13 @@ namespace eDIA {
 			activeBlockUXF = Session.instance.currentBlockNum;
 
 			// Check for block introduction flag
-			bool showIntroduction = Session.instance.CurrentBlock.settings.GetString("intro") != string.Empty;
+			bool hasIntro = Session.instance.CurrentBlock.settings.GetString("intro") != string.Empty;
 
 			// Inject introduction step or continue UXF sequence
-			if (showIntroduction)
-				BlockIntroduction ();
+			if (hasIntro) {
+				EventManager.StartListening(eDIA.Events.Core.EvProceed, BlockContinueAfterIntro); // listener as it event call can come from any script
+				ShowMessageToUser (Session.instance.CurrentBlock.settings.GetString("intro"));
+			}
 			else {
 				StartTrial();
 				EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvExperimentProgressUpdate, new eParam(Session.instance.CurrentBlock.settings.GetString("block_name")));
@@ -410,34 +393,56 @@ namespace eDIA {
 		void BlockEnd () {
 			AddToLog("Block End");
 			taskBlocks[Session.instance.currentBlockNum-1].OnBlockEnd();
+
+			// Check for block outro flag
+			bool hasOutro = Session.instance.CurrentBlock.settings.GetString("outro") != string.Empty;
+
+			// Inject introduction step or continue UXF sequence
+			if (hasOutro) {
+				EventManager.StartListening(eDIA.Events.Core.EvProceed, BlockContinueAfterOutro); // listener as it event call can come from any script
+				ShowMessageToUser (Session.instance.CurrentBlock.settings.GetString("outro"));
+			}
+			else {
+				StartTrial();
+				EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvExperimentProgressUpdate, new eParam(Session.instance.CurrentBlock.settings.GetString("block_name")));
+			}
 		}
 
 
 		/// <summary>Called from this manager. </summary>
-		void BlockIntroduction () {
-			AddToExecutionOrderLog("BlockIntroduction");
+		void ShowMessageToUser (string msg) {
+			AddToExecutionOrderLog("ShowMessageToUser");
 
-			EventManager.StartListening(eDIA.Events.Core.EvProceed, BlockResumeAfterIntro); // listener as it event call can come from any script
 			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvEnableButton, new eParam( new string[] { "PROCEED", "true" }));
-			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvExperimentProgressUpdate, new eParam("Block Intro"));
+			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvExperimentProgressUpdate, new eParam("Block Info"));
 
 			EnablePauseButton(false);
 			EnableEyeCalibrationTrigger(true);
 
 			if (MessagePanelInVR.Instance != null)
-				MessagePanelInVR.Instance.ShowMessage (Session.instance.CurrentBlock.settings.GetString("intro"));
+				MessagePanelInVR.Instance.ShowMessage (msg);
 			else Debug.LogError("No MessagePanelInVR instance found");
 		}
 
 		/// <summary>Called from this manager. </summary>
-		void BlockResumeAfterIntro (eParam e) {
-			EventManager.StopListening(eDIA.Events.Core.EvProceed, BlockResumeAfterIntro);
-			AddToExecutionOrderLog("BlockResumeAfterIntro");
+		void BlockContinueAfterIntro (eParam e) {
+			EventManager.StopListening(eDIA.Events.Core.EvProceed, BlockContinueAfterIntro);
+			AddToExecutionOrderLog("BlockContinueAfterIntro");
 			
 			EnableEyeCalibrationTrigger(false);
 
 			StartTrial();
 		}
+
+				/// <summary>Called from this manager. </summary>
+		void BlockContinueAfterOutro (eParam e) {
+			EventManager.StopListening(eDIA.Events.Core.EvProceed, BlockContinueAfterOutro);
+			AddToExecutionOrderLog("BlockContinueAfterOutro");
+			
+			Session.instance.BeginNextTrialSafe();
+		}
+
+
 
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------

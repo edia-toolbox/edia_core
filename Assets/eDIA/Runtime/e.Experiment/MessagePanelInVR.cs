@@ -71,7 +71,7 @@ namespace eDIA {
 			if (MessageFader != null) StopCoroutine ("MessageFader");
 
 			msgField.text = msg;
-			MessageFader = StartCoroutine("Fader");
+			MessageFader = StartCoroutine(Fader());
 			
 			ShowPanel(true);
 		}
