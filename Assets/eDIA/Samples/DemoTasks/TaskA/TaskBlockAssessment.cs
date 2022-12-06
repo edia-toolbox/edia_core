@@ -92,21 +92,19 @@ namespace TASK {
 
  */
 			
-		/// <summary>Called when block starts</summary>
 		public override void OnBlockStart () {
 		}
 
-		/// <summary>Called when trial starts</summary>	
-		public override void OnStartNewTrial () {
+		public override void OnStartTrial () {
 			XRManager.Instance.EnableXRInteraction (false);
 		}
 
-		/// <summary>Called inbetween steps</summary>
-		public override void OnBetweenSteps () {
-			
+		public override void OnEndTrial () {
 		}
 
-		/// <summary>Called when block ends</summary>
+		public override void OnBetweenSteps () {
+		}
+
 		public override void OnBlockEnd () {
 		}
 

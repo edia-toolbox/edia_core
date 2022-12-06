@@ -21,8 +21,8 @@ namespace eDIA {
     #region EVENT HOOKS
 
         public virtual void OnBlockStart () { }
-        public virtual void OnBlockIntroduction () { }
-        public virtual void OnStartNewTrial () { }
+        public virtual void OnStartTrial () { }
+        public virtual void OnEndTrial () { }
         public virtual void OnBetweenSteps () { }
         public virtual void OnBlockEnd () { }
 

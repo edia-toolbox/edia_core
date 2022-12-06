@@ -200,20 +200,20 @@ namespace TASK {
 
  */
 			
-		/// <summary>Called when block starts</summary>
 		public override void OnBlockStart () {
 		}
 
-		/// <summary>Called when trial starts</summary>	
-		public override void OnStartNewTrial () {
+		public override void OnStartTrial () {
 			XRManager.Instance.EnableXRInteraction (false);
 		}
 
-		/// <summary>Called inbetween steps</summary>
+		public override void OnEndTrial () {
+			
+		}
+
 		public override void OnBetweenSteps () {
 		}
 
-		/// <summary>Called when block ends</summary>
 		public override void OnBlockEnd () {
 
 			theCube.gameObject.SetActive (false);

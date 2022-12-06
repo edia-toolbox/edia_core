@@ -110,7 +110,7 @@ namespace TASK {
 		}
 
 		/// <summary>Called when trial starts</summary>	
-		public override void OnStartNewTrial () {
+		public override void OnStartTrial () {
 		}
 
 		/// <summary>Called inbetween steps</summary>

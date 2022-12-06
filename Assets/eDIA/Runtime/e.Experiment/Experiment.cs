@@ -254,7 +254,7 @@ namespace eDIA {
 		}
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
-#region UXF STATE MACHINE
+#region STATEMACHINE UXF SESSION
 
 		/// <summary>Start of the UXF session. </summary>
 		void OnSessionBeginUXF() {
@@ -288,78 +288,9 @@ namespace eDIA {
 
 		}
 
-		/// <summary>Called from user input. </summary>
-		void OnEvStartFirstTrial (eParam e) {
-			EventManager.StopListening(eDIA.Events.Core.EvProceed, OnEvStartFirstTrial);
-			Session.instance.BeginNextTrial();
-		}
-
-		/// <summary>Called from UXF session. Begin setting things up for the trial that is about to start </summary>
-		void OnTrialBeginUXF(Trial newTrial) {
-			AddToExecutionOrderLog("OnTrialBegin");
-
-			bool isNewBlock = (Session.instance.currentBlockNum != activeBlockUXF) && (Session.instance.currentBlockNum <= Session.instance.blocks.Count);
-			
-			if (isNewBlock) {
-				BlockStart();
-			} else {
-				StartTrial();
-				EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvExperimentProgressUpdate, new eParam(Session.instance.CurrentBlock.settings.GetString("block_name")));
-			}
-		}
-
-		/// <summary>Called from UXF session. Checks if to call NextTrial, should start a BREAK before next Block, or End the Session </summary>
-		void OnTrialEndUXF(Trial endedTrial) {
-			AddToExecutionOrderLog("OnTrialEnd");
-			SaveCustomDataTables();
-			// EnableExperimentProceed(false);
-
-			// Are we ending?
-			if (Session.instance.isEnding)
-				return;
-			
-			// Is there a PAUSE requested right now?
-			if (isPauseRequested) {
-				isPauseRequested = false;
-				
-				if (endedTrial == Session.instance.LastTrial)
-					return;
-
-				AddToExecutionOrderLog("Injected SessionBreak");
-				SessionBreak();
-				return;
-			}
-
-			// Reached last trial in a block?
-			if (Session.instance.CurrentBlock.lastTrial != endedTrial) { // NO
-				Session.instance.BeginNextTrialSafe();
-				return;
-			} else {
-				BlockEnd(); // YES
-				return;
-			}
-
-			// // Is this then the last trial of the session?
-			// if (Session.instance.LastTrial == endedTrial) {
-			// 	AddToLog("Reached end of trials ");
-			// 	FinalizeSession();
-			// 	return;
-			// }
-
-			// Do we take a break or jump to next block?
-			// if (taskConfig.breakAfter.Contains(Session.instance.currentBlockNum)) {
-			// 	SessionBreak();
-			// 	return;
-			// }
-			
-			// If we reach here it's just a normal trial and we continue
-			// Session.instance.BeginNextTrialSafe();
-		}
-
-
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
-#region BLOCKS
+#region STATEMACHINE BLOCKS
 
 		void BlockStart () {
 			AddToLog("Block Start");
@@ -403,11 +334,11 @@ namespace eDIA {
 				ShowMessageToUser (Session.instance.CurrentBlock.settings.GetString("outro"));
 			}
 			else {
-				BlockCheck();
+				BlockCheckAndContinue();
 			}
 		}
 
-		void BlockCheck () {
+		void BlockCheckAndContinue () {
 			// Is this then the last trial of the session?
 			if (Session.instance.LastTrial == Session.instance.CurrentTrial) {
 				AddToLog("Reached end of trials ");
@@ -455,20 +386,76 @@ namespace eDIA {
 			EventManager.StopListening(eDIA.Events.Core.EvProceed, BlockContinueAfterOutro);
 			AddToExecutionOrderLog("BlockContinueAfterOutro");
 			
-			BlockCheck();
+			BlockCheckAndContinue();
 		}
 
 
 
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
-#region TRIAL STATEMACHINE
+#region STATEMACHINE UXF TRIAL
+		/// <summary>Called from user input. </summary>
+		void OnEvStartFirstTrial (eParam e) {
+			EventManager.StopListening(eDIA.Events.Core.EvProceed, OnEvStartFirstTrial);
+			Session.instance.BeginNextTrial();
+		}
+
+		/// <summary>Called from UXF session. Begin setting things up for the trial that is about to start </summary>
+		void OnTrialBeginUXF(Trial newTrial) {
+			AddToExecutionOrderLog("OnTrialBegin");
+
+			bool isNewBlock = (Session.instance.currentBlockNum != activeBlockUXF) && (Session.instance.currentBlockNum <= Session.instance.blocks.Count);
+			
+			if (isNewBlock) {
+				BlockStart();
+			} else {
+				StartTrial();
+				EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvExperimentProgressUpdate, new eParam(Session.instance.CurrentBlock.settings.GetString("block_name")));
+			}
+		}
+
+		/// <summary>Called from UXF session. Checks if to call NextTrial, should start a BREAK before next Block, or End the Session </summary>
+		void OnTrialEndUXF(Trial endedTrial) {
+			AddToExecutionOrderLog("OnTrialEnd");
+			SaveCustomDataTables();
+
+			taskBlocks[Session.instance.currentBlockNum-1].OnEndTrial();
+
+			// Are we ending?
+			if (Session.instance.isEnding)
+				return;
+			
+			// Is there a PAUSE requested right now?
+			if (isPauseRequested) {
+				isPauseRequested = false;
+				
+				if (endedTrial == Session.instance.LastTrial)
+					return;
+
+				AddToExecutionOrderLog("Injected SessionBreak");
+				SessionBreak();
+				return;
+			}
+
+			// Reached last trial in a block?
+			if (Session.instance.CurrentBlock.lastTrial != endedTrial) { // NO
+				Session.instance.BeginNextTrialSafe();
+				return;
+			} else {
+				BlockEnd(); // YES
+				return;
+			}
+		}
+
+
+#endregion // -------------------------------------------------------------------------------------------------------------------------------
+#region STATEMACHINE STEPS
 		//? Methods controlling the current trial
 
 		void StartTrial() {
 
 			AddToLog("StartTrial");
-			taskBlocks[Session.instance.currentBlockNum-1].OnStartNewTrial();
+			taskBlocks[Session.instance.currentBlockNum-1].OnStartTrial();
 			
 			currentStepNum = -1;
 			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvExperimentProgressUpdate, new eParam(Session.instance.CurrentBlock.settings.GetString("block_name")));
