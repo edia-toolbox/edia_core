@@ -1434,6 +1434,7 @@ GameObject:
   - component: {fileID: 4141873968138023009}
   - component: {fileID: 8000025258921680124}
   - component: {fileID: 3021305910424464225}
+  - component: {fileID: 8095455348919038898}
   m_Layer: 0
   m_Name: XRCam
   m_TagString: MainCamera
@@ -1657,6 +1658,28 @@ MonoBehaviour:
   _intensity: 0
   _color: {r: 0, g: 0, b: 0, a: 1}
   _fadeMaterial: {fileID: 2100000, guid: 9244b76a326569c45b232514502a9735, type: 2}
+--- !u!114 &8095455348919038898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8000025258272287619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13dbc7aef009231419c2e645c8e8579b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectName: xrcam
+  measurementDescriptor: movement
+  customHeader:
+  - pos_x
+  - pos_y
+  - pos_z
+  - rot_x
+  - rot_y
+  - rot_z
+  updateType: 0
 --- !u!1 &8000025258442869506
 GameObject:
   m_ObjectHideFlags: 0
@@ -1670,6 +1693,7 @@ GameObject:
   - component: {fileID: 8000025258442869510}
   - component: {fileID: 6059937340888226645}
   - component: {fileID: 1724542416879896364}
+  - component: {fileID: 5018218707795881754}
   m_Layer: 0
   m_Name: RightHand
   m_TagString: Untagged
@@ -1967,9 +1991,31 @@ MonoBehaviour:
   interactorType: 1
   isAllowedToBeVisable: 1
   isAllowedToInteract: 1
-  isVisible: 0
+  isVisible: 1
   isInteractive: 0
   rayInteractor: {fileID: 8687850768386689528}
+--- !u!114 &5018218707795881754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8000025258442869506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13dbc7aef009231419c2e645c8e8579b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectName: righthand
+  measurementDescriptor: movement
+  customHeader:
+  - pos_x
+  - pos_y
+  - pos_z
+  - rot_x
+  - rot_y
+  - rot_z
+  updateType: 0
 --- !u!1 &8000025258449418144
 GameObject:
   m_ObjectHideFlags: 0
@@ -2017,6 +2063,7 @@ GameObject:
   - component: {fileID: 8000025258853796838}
   - component: {fileID: 4431470748506647226}
   - component: {fileID: 2708930740787415140}
+  - component: {fileID: 8331605467684746694}
   m_Layer: 0
   m_Name: LeftHand
   m_TagString: Untagged
@@ -2315,9 +2362,31 @@ MonoBehaviour:
   interactorType: 0
   isAllowedToBeVisable: 1
   isAllowedToInteract: 1
-  isVisible: 0
+  isVisible: 1
   isInteractive: 0
   rayInteractor: {fileID: 6546058090990104938}
+--- !u!114 &8331605467684746694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8000025258853796861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13dbc7aef009231419c2e645c8e8579b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectName: lefthand
+  measurementDescriptor: movement
+  customHeader:
+  - pos_x
+  - pos_y
+  - pos_z
+  - rot_x
+  - rot_y
+  - rot_z
+  updateType: 0
 --- !u!1 &8602536929453141272
 GameObject:
   m_ObjectHideFlags: 0

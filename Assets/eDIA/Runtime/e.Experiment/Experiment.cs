@@ -241,6 +241,7 @@ namespace eDIA {
 		}
 
 		void AddXRrigTracking () {
+			
 			Session.instance.trackedObjects.Add(XRManager.Instance.XRCam.GetComponent<Tracker>());
 			Session.instance.trackedObjects.Add(XRManager.Instance.XRRight.GetComponent<Tracker>());
 			Session.instance.trackedObjects.Add(XRManager.Instance.XRLeft.GetComponent<Tracker>());
