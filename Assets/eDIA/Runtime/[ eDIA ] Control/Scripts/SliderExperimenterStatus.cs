@@ -58,6 +58,10 @@ public class SliderExperimenterStatus : MonoBehaviour {
 		timer = StartCoroutine("AnimateSliderOverTime", duration);
 	}
 
+	public void StopAnimation () {
+		StopCoroutine( "AnimateSliderOverTime");
+	}
+
 	IEnumerator AnimateSliderOverTime(float duration)
 	{
 		float animationTime = 0f;

@@ -67,8 +67,9 @@ namespace eDIA {
 		/// <summary>Shows the message in VR on a canvas.</summary>
 		/// <param name="msg">Message to show</param>
 		public void ShowMessage (string msg) {
-			if (MessageTimer != null) StopCoroutine ("MessageTimer");
-			if (MessageFader != null) StopCoroutine ("MessageFader");
+
+			if (MessageTimer != null) StopCoroutine (MessageTimer);
+			if (MessageFader != null) StopCoroutine (MessageFader);
 
 			msgField.text = msg;
 			MessageFader = StartCoroutine(Fader());
@@ -104,8 +105,8 @@ namespace eDIA {
 
 		/// <summary>Doublecheck running routines and hides the panel</summary>
 		public void HidePanel () {
-			if (MessageTimer != null) StopCoroutine ("MessageTimer");
-			if (MessageFader != null) StopCoroutine ("MessageFader");
+			if (MessageTimer != null) StopCoroutine (MessageTimer);
+			if (MessageFader != null) StopCoroutine (MessageFader);
 			ShowPanel(false);
 			HideMenu();
 		}
@@ -142,7 +143,7 @@ namespace eDIA {
 
 		IEnumerator Fader()
 		{
-			float duration = 1f; //Fade out over 2 seconds.
+			float duration = 0.5f; 
 			float currentTime = 0f;
 			while (currentTime < duration)
 			{

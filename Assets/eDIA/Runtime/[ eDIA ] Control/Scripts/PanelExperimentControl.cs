@@ -174,18 +174,23 @@ namespace eDIA {
 
 		void OnEvStartTimer(eParam obj)
 		{
+			EventManager.StartListening(eDIA.Events.ControlPanel.EvStopTimer, OnEvStopTimer);
 			timerSlider.gameObject.SetActive(true);
 			timerSlider.StartAnimation(obj.GetFloat());
 		}
 
+		private void OnEvStopTimer(eParam obj)
+		{
+			EventManager.StopListening(eDIA.Events.ControlPanel.EvStopTimer, OnEvStopTimer);
+			timerSlider.StopAnimation();
+		}
 
 
+		#endregion // -------------------------------------------------------------------------------------------------------------------------------
+		#region BUTTONPRESSES
 
-#endregion // -------------------------------------------------------------------------------------------------------------------------------
-#region BUTTONPRESSES
 
-
-#endregion // -------------------------------------------------------------------------------------------------------------------------------
+		#endregion // -------------------------------------------------------------------------------------------------------------------------------
 
 
 		void SetupButtons () {

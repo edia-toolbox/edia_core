@@ -105,6 +105,9 @@ namespace eDIA.Events {
 		/// <summary>Start a visual timer animation</summary>
 		public static string EvStartTimer 			= "EvStartTimer";
 
+		/// <summary>Stops a visual timer animation</summary>
+		public static string EvStopTimer 			= "EvStopTimer";
+
 		/// <summary>Start a visual timer animation</summary>
 		public static string EvUpdateExperimentSummary 	= "EvUpdateExperimentSummary";
 
