@@ -339,21 +339,21 @@ namespace eDIA {
 				return;
 			}
 
-			// Is this then the last trial of the session?
-			if (Session.instance.LastTrial == endedTrial) {
-				AddToLog("Reached end of trials ");
-				FinalizeSession();
-				return;
-			}
+			// // Is this then the last trial of the session?
+			// if (Session.instance.LastTrial == endedTrial) {
+			// 	AddToLog("Reached end of trials ");
+			// 	FinalizeSession();
+			// 	return;
+			// }
 
 			// Do we take a break or jump to next block?
-			if (taskConfig.breakAfter.Contains(Session.instance.currentBlockNum)) {
-				SessionBreak();
-				return;
-			}
+			// if (taskConfig.breakAfter.Contains(Session.instance.currentBlockNum)) {
+			// 	SessionBreak();
+			// 	return;
+			// }
 			
 			// If we reach here it's just a normal trial and we continue
-			Session.instance.BeginNextTrialSafe();
+			// Session.instance.BeginNextTrialSafe();
 		}
 
 
@@ -403,9 +403,25 @@ namespace eDIA {
 				ShowMessageToUser (Session.instance.CurrentBlock.settings.GetString("outro"));
 			}
 			else {
-				StartTrial();
-				EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvExperimentProgressUpdate, new eParam(Session.instance.CurrentBlock.settings.GetString("block_name")));
+				BlockCheck();
 			}
+		}
+
+		void BlockCheck () {
+			// Is this then the last trial of the session?
+			if (Session.instance.LastTrial == Session.instance.CurrentTrial) {
+				AddToLog("Reached end of trials ");
+				FinalizeSession();
+				return;
+			}
+
+			// Do we take a break or jump to next block?
+			if (taskConfig.breakAfter.Contains(Session.instance.currentBlockNum)) {
+				SessionBreak();
+				return;
+			}
+
+			Session.instance.BeginNextTrialSafe();
 		}
 
 
@@ -439,7 +455,7 @@ namespace eDIA {
 			EventManager.StopListening(eDIA.Events.Core.EvProceed, BlockContinueAfterOutro);
 			AddToExecutionOrderLog("BlockContinueAfterOutro");
 			
-			Session.instance.BeginNextTrialSafe();
+			BlockCheck();
 		}
 
 
