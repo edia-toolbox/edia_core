@@ -101,23 +101,18 @@ namespace TASK {
 			Methods from the statemachine that can be used in the task.
 		*/
 			
-		/// <summary>Called when block starts</summary>
 		public override void OnBlockStart () {
 		}
 
-		/// <summary>Called when this block has a introduction text</summary>
-		public override void OnBlockIntroduction() {
-		}
-
-		/// <summary>Called when trial starts</summary>	
 		public override void OnStartTrial () {
 		}
 
-		/// <summary>Called inbetween steps</summary>
+		public override void OnEndTrial () {
+		}
+
 		public override void OnBetweenSteps () {
 		}
 
-		/// <summary>Called when block ends</summary>
 		public override void OnBlockEnd () {
 		}
 
