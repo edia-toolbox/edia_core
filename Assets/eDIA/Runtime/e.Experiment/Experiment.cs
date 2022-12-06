@@ -447,7 +447,7 @@ namespace eDIA {
 		/// <summary>Coroutine as timer as we can kill that to avoid delayed calls in the statemachine</summary>
 		IEnumerator NextStepTimer (float duration) {
 			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvStartTimer, new eParam(duration));
-			yield return new WaitForSeconds(duration);
+			yield return new WaitForSecondsRealtime(duration);
 			NextStep();
 		}
 
