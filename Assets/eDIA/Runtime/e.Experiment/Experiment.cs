@@ -487,7 +487,10 @@ namespace eDIA {
 
 		/// <summary>Call next step in the trial.</summary>
 		public void NextStep() {
-			if (stepTimer != null) StopCoroutine(stepTimer); // Kill timer, if any
+			if (stepTimer != null) {
+				StopCoroutine(stepTimer); // Kill timer, if any
+				EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvStopTimer, null);
+			}
 
 			// In case OnProceed was triggered outside of the button
 			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvEnableButton, new eParam(new string[] { "PROCEED", "FALSE"}));
