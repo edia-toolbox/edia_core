@@ -96,11 +96,6 @@ namespace TASK {
 		public override void OnBlockStart () {
 		}
 
-		/// <summary>Called when this block has a introduction text</summary>
-		public override void OnBlockIntroduction() {
-			MessagePanelInVR.Instance.ShowMessage(Session.instance.CurrentBlock.settings.GetString("introduction"));
-		}
-
 		/// <summary>Called when trial starts</summary>	
 		public override void OnStartNewTrial () {
 			XRManager.Instance.EnableXRInteraction (false);

@@ -36,7 +36,8 @@ namespace eDIA {
 	[System.Serializable]
 	public class ExperimentBlock {
 		public string 				block_name			= string.Empty;
-		public string 				introduction 		= string.Empty;
+		public string 				intro 			= string.Empty;
+		public string 				outro 			= string.Empty;
 		public List<SettingsTuple>		block_settings		= new List<SettingsTuple>();
 		public TrialSettings			trial_settings		= new TrialSettings();
 	}
@@ -102,7 +103,8 @@ namespace eDIA {
 				Block newBlock = Session.instance.CreateBlock();
 				newBlock.settings.SetValue("block_name",b.block_name);
 				Session.instance.settingsToLog.Add("block_name");
-				newBlock.settings.SetValue("introduction",b.introduction);
+				newBlock.settings.SetValue("intro",b.intro);
+				newBlock.settings.SetValue("outro",b.outro);
 
 				newBlock.settings.UpdateWithDict( Helpers.GetSettingsTupleListAsDict(b.block_settings) );
 

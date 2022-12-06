@@ -196,17 +196,12 @@ namespace TASK {
 #region OPTIONAL METHODS FOR YOUR TASK
  /*  
 
-	* Statemachine methods that can be used for the task.
+	Statemachine methods that can be used for the task.
 
  */
 			
 		/// <summary>Called when block starts</summary>
 		public override void OnBlockStart () {
-		}
-
-		/// <summary>Called when this block has a introduction text</summary>
-		public override void OnBlockIntroduction() {
-			MessagePanelInVR.Instance.ShowMessage(Session.instance.CurrentBlock.settings.GetString("introduction"));
 		}
 
 		/// <summary>Called when trial starts</summary>	
