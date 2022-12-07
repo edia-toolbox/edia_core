@@ -1,28 +1,30 @@
 ﻿# Changelog
+***
+> High level changes overview for the eDIA framework 
 
-All notable changes to this project will be documented in this file.
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+## [unreleased] 
+#### Added
+- Pinch+Grip hand pose animation&poses
+- Systemsettings Custom logfile path
+- System Settings implemented and stored as `settings.json` file
+- Control panel experiment progress updates + minor upgrades
+- Samples/Templates/ to package
 
-[](README.md)
+#### Changed
+- Approach of `tasks` => `taskblocks`
+- Several package dependencies -> updated in `package.json`
+- `MessagepanelInVR` singleton as part of the basic XR Rig
+- XR Rig overhauled to new version
+- Switched to **snake case** convention for keys that are exposed to user 
+- Moved all helper classes to `HelperClasses.cs`
+- Made `Experiment.cs` the main class
 
-## [unreleased] - 2022-05-02
-### Added
-- Pinch+Grip hand pose animation
+#### Removed
+- `TaskManager.cs` 
 
-## [Changed] - 0.2.0
-###  including package.json
-- "Edia folder is now root eDIA framework package
-
-###  resolution.
-Systemsettings Custom logfile path
-
-## [Added] - 0.2.0
-###  stored on disk"
-- "System Settings implemented
 
 ## [0.2.0] - 2022-03-29
-### Added
+#### Added
 - edia.eye edia.lsl
 - eDIA Control prefab + panels ‘experimentcontrol’ ‘messagebox’ ‘configselection’ ‘applicationsettings’
 - Experimenter canvas PREFAB
@@ -31,18 +33,17 @@ Systemsettings Custom logfile path
 - Implemented URP
 - XR interaction toolkit pre.0.8
 
-### Changed
+#### Changed
 - Eyetracking extracted into separate package project
 - Exp canvas > trigger listening on ExperimentManager level
 - "Merged StereoFEM sprint code changes. Fixed framerate + Eyetracking + copy configs to build folder "
 - Defined 'DocSRC' as docfx source and 'Documentation' folder as result (=website)
 
-### Removed
+#### Removed
 - Pico package
 - Tobii package
 
 ## [0.1.0] - 2021-10-27
-### Changed
-- Updated README.md [](README.md)
+#### Changed
+- Updated [readme](README.md)
 
-.
