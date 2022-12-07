@@ -546,7 +546,7 @@ namespace eDIA {
 
 		/// <summary>Converts given data to a UXF Table, and stores the data to disk linked to the active trial at the time</summary>
 		/// <param name="headers">Headers of the data</param>
-		/// <param name="values">Data</param>
+		/// <param name="values">Data as List<string>[]</param>
 		/// <param name="filename">Name to store the data with</param>
 		public void ConvertAndSaveDataToUXF(string[] headers, List<string[]> values, string filename)
 		{
@@ -568,7 +568,7 @@ namespace eDIA {
 
 		/// <summary>Converts given data to a UXF Table, and stores the data to disk linked to the active trial at the time</summary>
 		/// <param name="headers">Headers of the data</param>
-		/// <param name="values">Data</param>
+		/// <param name="values">Data as List<int></param>
 		/// <param name="filename">Name to store the data with</param>
 		public void ConvertAndSaveDataToUXF(string[] headers, List<int[]> values, string filename)
 		{
