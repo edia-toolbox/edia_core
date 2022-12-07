@@ -113,7 +113,7 @@ namespace eDIA {
 
 		/// <summary>Set the eDIA experiment settings with the full JSON config string</summary>
 		/// <param name="JSONstring">Full config string</param>
-		void SetExperimentConfig (string JSONstring) {
+		public void SetExperimentConfig (string JSONstring) {
 
 			try
 			{
@@ -134,7 +134,7 @@ namespace eDIA {
 
 		/// <summary>Set the eDIA experiment settings with the full JSON config string</summary>
 		/// <param name="JSONstring">Full config string</param>
-		void SetTaskConfig (string JSONstring) {
+		public void SetTaskConfig (string JSONstring) {
 			// Debug.Log(UnityEngine.JsonUtility.ToJson(experimentConfig, true));
 
 			try

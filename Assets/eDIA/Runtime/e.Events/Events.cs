@@ -108,9 +108,10 @@ namespace eDIA.Events {
 		/// <summary>Stops a visual timer animation</summary>
 		public static string EvStopTimer 			= "EvStopTimer";
 
-		/// <summary>Start a visual timer animation</summary>
+		/// <summary>Experiment summary as string[]</summary>
 		public static string EvUpdateExperimentSummary 	= "EvUpdateExperimentSummary";
 
+		// TODO: convert progress into array [block][trial][step] => it's now used for text update
 		/// <summary>Send progress update (trial/block)</summary>
 		public static string EvExperimentProgressUpdate = "EvExperimentProgressUpdate";
 
@@ -165,7 +166,15 @@ namespace eDIA.Events {
 
 		/// <summary>Send a marker to the system, any listener can pick it up and handle it. Expects marker as string</summary>
 		public static string EvSendMarker 				= "EvSendMarker";
- 
+
+	}
+
+	//? ========================================================================================================
+	
+	public class Casting {
+
+		/// <summary>Send a marker to the system, any listener can pick it up and handle it. Expects marker as string</summary>
+		public static string EvEnableCasting 			= "EvEnableCasting";
 
 	}
 
