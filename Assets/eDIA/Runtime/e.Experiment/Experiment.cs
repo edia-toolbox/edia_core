@@ -566,6 +566,22 @@ namespace eDIA {
 			Session.instance.CurrentTrial.SaveDataTable(data,filename);
 		}
 
+		/// <summary>Converts given data to a UXF Table, and stores the data to disk linked to the active trial at the time</summary>
+		/// <param name="headers">Headers of the data</param>
+		/// <param name="values">Data</param>
+		/// <param name="filename">Name to store the data with</param>
+		public void ConvertAndSaveDataToUXF(string[] headers, List<int[]> values, string filename)
+		{
+			List<string[]> converted = new List<string[]>();
+			
+			for(int i=0;i<values.Count;i++) {
+				converted.Add(new string[] { i.ToString(), values[i].ToString() });	
+			}
+			
+			ConvertAndSaveDataToUXF(headers, converted, filename);
+		}
+
+		
 		private void AddToExecutionOrderLog (string description) {
 			AddToLog(description);
 			UXF.UXFDataRow newRow = new UXFDataRow();
