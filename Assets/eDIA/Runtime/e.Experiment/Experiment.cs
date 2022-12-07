@@ -42,8 +42,9 @@ namespace eDIA {
 		UXF.UXFDataTable executionOrderLog 	= new UXF.UXFDataTable("timestamp", "executed"); 
 		UXF.UXFDataTable markerLog 		= new UXF.UXFDataTable("timestamp", "annotation");
 
-		// Trial steps
-		int currentStepNum = -1;
+		/// <summary> Currently active step number. </summary>
+		[HideInInspector] public int currentStepNum = -1;
+
 		Coroutine stepTimer = null;
 
 
@@ -312,7 +313,7 @@ namespace eDIA {
 			// Inject introduction step or continue UXF sequence
 			if (hasIntro) {
 				EventManager.StartListening(eDIA.Events.Core.EvProceed, BlockContinueAfterIntro); // listener as it event call can come from any script
-				ShowMessageToUser (Session.instance.CurrentBlock.settings.GetString("intro"));
+				ShowMessageToUser (Session.instance.CurrentBlock.settings.GetString("intro"), "Block Intro");
 			}
 			else {
 				StartTrial();
@@ -331,7 +332,7 @@ namespace eDIA {
 			// Inject introduction step or continue UXF sequence
 			if (hasOutro) {
 				EventManager.StartListening(eDIA.Events.Core.EvProceed, BlockContinueAfterOutro); // listener as it event call can come from any script
-				ShowMessageToUser (Session.instance.CurrentBlock.settings.GetString("outro"));
+				ShowMessageToUser (Session.instance.CurrentBlock.settings.GetString("outro"), "Block Outro");
 			}
 			else {
 				BlockCheckAndContinue();
@@ -357,7 +358,7 @@ namespace eDIA {
 
 
 		/// <summary>Called from this manager. </summary>
-		void ShowMessageToUser (string msg) {
+		void ShowMessageToUser (string msg, string description) {
 			AddToExecutionOrderLog("ShowMessageToUser");
 
 			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvEnableButton, new eParam( new string[] { "PROCEED", "true" }));
@@ -449,8 +450,7 @@ namespace eDIA {
 
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
-#region STATEMACHINE STEPS
-		//? Methods controlling the current trial
+#region STATEMACHINE CURRENT TRIAL STEPS
 
 		void StartTrial() {
 
@@ -458,7 +458,6 @@ namespace eDIA {
 			taskBlocks[Session.instance.currentBlockNum-1].OnStartTrial();
 			
 			currentStepNum = -1;
-			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvExperimentProgressUpdate, new eParam(Session.instance.CurrentBlock.settings.GetString("block_name")));
 
 			// Fire up the task state machine to run the steps of the trial.
 			NextStep();
@@ -500,6 +499,9 @@ namespace eDIA {
 			if (currentStepNum < taskBlocks[Session.instance.CurrentBlock.number-1].trialSteps.Count) {
 				OnBetweenSteps();
 				taskBlocks[Session.instance.currentBlockNum-1].OnBetweenSteps(); // In Between to steps of the trial, we might want to clean things up a bit.
+
+				// update progress
+				EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvExperimentProgressUpdate, new eParam(Session.instance.CurrentBlock.settings.GetString("block_name")));
 				taskBlocks[Session.instance.currentBlockNum-1].trialSteps[currentStepNum].Invoke();
 			}
 			else EndTrial();

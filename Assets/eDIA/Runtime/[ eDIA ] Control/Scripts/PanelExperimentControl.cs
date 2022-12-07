@@ -1,3 +1,4 @@
+using System.Text;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,6 +24,7 @@ namespace eDIA {
 		public GameObject panelInfo = null;
 
 		[Header("Experiment status")]
+		public SliderExperimenterStatus stepSlider;
 		public SliderExperimenterStatus trialSlider;
 		public SliderExperimenterStatus blockSlider;
 		public SliderExperimenterStatus timerSlider;
@@ -49,13 +51,13 @@ namespace eDIA {
 		void OnDestroy() {
 			EventManager.StopListening("EvExperimentConfigSet", OnEvExperimentConfigSet);
 			EventManager.StopListening(eDIA.Events.ControlPanel.EvStartTimer, 	OnEvStartTimer);
+			EventManager.StopListening(eDIA.Events.ControlPanel.EvStopTimer,		OnEvStopTimer);
 
 			btnExperiment.onClick.RemoveListener(		()=>EventManager.TriggerEvent(eDIA.Events.Core.EvStartExperiment, null));
 			btnPauseExperiment.onClick.RemoveListener(	()=>EventManager.TriggerEvent(eDIA.Events.Core.EvPauseExperiment, null));
 			btnProceedExperiment.onClick.RemoveListener(	()=>EventManager.TriggerEvent(eDIA.Events.Core.EvProceed, null));
 
 		}
-
 
 		void Start() {
 			HidePanel();
@@ -93,13 +95,16 @@ namespace eDIA {
 			btnExperiment.interactable = true;
 
 			blockSlider.description = "ready";
-
 		}
 
 		void OnEvStartExperiment (eParam e)
 		{
 			EventManager.StopListening(eDIA.Events.Core.EvStartExperiment, OnEvStartExperiment);
 			btnExperiment.onClick.RemoveAllListeners();
+
+			// Setting up sliders
+			stepSlider.maxValue = Experiment.Instance.taskBlocks[0].trialSteps.Count;
+			stepSlider.description = "Steps";
 
 			// Setting up sliders
 			trialSlider.maxValue = Session.instance.LastTrial.number;
@@ -148,7 +153,10 @@ namespace eDIA {
 		}
 
 		void OnEvExperimentProgressUpdate (eParam e) {
-			trialSlider.currentValue = Session.instance.currentTrialNum; //TODO not modular yet! so won't work if it's on a remote tablet or something
+ 			//TODO not modular yet! so won't work if it's on a remote tablet or something	
+			stepSlider.maxValue 	= Experiment.Instance.taskBlocks[Session.instance.currentBlockNum].trialSteps.Count;
+			stepSlider.currentValue = Experiment.Instance.currentStepNum == -1 ? 0 : Experiment.Instance.currentStepNum;
+			trialSlider.currentValue = Session.instance.currentTrialNum;
 			blockSlider.currentValue = Session.instance.currentBlockNum;
 
 			blockSlider.description = e == null ? "" : blockSlider.description = e.GetString();
@@ -194,7 +202,6 @@ namespace eDIA {
 
 
 		void SetupButtons () {
-			Debug.Log("SetupButtons");
 			btnExperiment.transform.GetChild(0).GetComponentInChildren<Text>().text = "Start Experiment";
 			btnExperiment.onClick.AddListener(		()=>EventManager.TriggerEvent(eDIA.Events.Core.EvStartExperiment, null));
 			btnPauseExperiment.onClick.AddListener(	()=>EventManager.TriggerEvent(eDIA.Events.Core.EvPauseExperiment, null));
