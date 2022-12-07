@@ -97,12 +97,14 @@ namespace eDIA {
 			Experiment.Instance.taskBlocks.Clear();
 			Experiment.Instance.taskBlocks.AddRange(reordered);
 
+			// Add block level settings to log
+			Session.instance.settingsToLog.Add("block_name");
+
 			// Convert the Taskconfig into UXF blocks and settings
 			foreach (ExperimentBlock b in blocks) {
 				
 				Block newBlock = Session.instance.CreateBlock();
 				newBlock.settings.SetValue("block_name",b.block_name);
-				Session.instance.settingsToLog.Add("block_name");
 				newBlock.settings.SetValue("intro",b.intro);
 				newBlock.settings.SetValue("outro",b.outro);
 
@@ -116,7 +118,7 @@ namespace eDIA {
 					}
 				}
 
-				// Log all unique keys
+				// Log all unique trial settings keys
 				foreach (string k in b.trial_settings.keys) {
 					if (!Session.instance.settingsToLog.Contains(k))
 						Session.instance.settingsToLog.Add(k);
