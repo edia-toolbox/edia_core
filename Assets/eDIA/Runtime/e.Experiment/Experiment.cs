@@ -570,7 +570,7 @@ namespace eDIA {
 		/// <param name="headers">Headers of the data</param>
 		/// <param name="values">Data as List<int></param>
 		/// <param name="filename">Name to store the data with</param>
-		public void ConvertAndSaveDataToUXF(string[] headers, List<int[]> values, string filename)
+		public void ConvertAndSaveDataToUXF(string[] headers, List<int> values, string filename)
 		{
 			List<string[]> converted = new List<string[]>();
 			
