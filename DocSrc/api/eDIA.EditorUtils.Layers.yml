@@ -1,0 +1,280 @@
+### YamlMime:ManagedReference
+items:
+- uid: eDIA.EditorUtils.Layers
+  commentId: T:eDIA.EditorUtils.Layers
+  id: Layers
+  parent: eDIA.EditorUtils
+  children:
+  - eDIA.EditorUtils.Layers.CreateLayer(System.Int32,System.String)
+  - eDIA.EditorUtils.Layers.CreateLayer(System.String)
+  - eDIA.EditorUtils.Layers.LayerExists(System.String)
+  - eDIA.EditorUtils.Layers.NewLayer(System.String)
+  - eDIA.EditorUtils.Layers.RemoveLayer(System.String)
+  langs:
+  - csharp
+  - vb
+  name: Layers
+  nameWithType: Layers
+  fullName: eDIA.EditorUtils.Layers
+  type: Class
+  source:
+    id: Layers
+    path: ''
+    startLine: 534
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA.EditorUtils
+  syntax:
+    content: public class Layers
+    content.vb: Public Class Layers
+  inheritance:
+  - System.Object
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+- uid: eDIA.EditorUtils.Layers.CreateLayer(System.String)
+  commentId: M:eDIA.EditorUtils.Layers.CreateLayer(System.String)
+  id: CreateLayer(System.String)
+  parent: eDIA.EditorUtils.Layers
+  langs:
+  - csharp
+  - vb
+  name: CreateLayer(String)
+  nameWithType: Layers.CreateLayer(String)
+  fullName: eDIA.EditorUtils.Layers.CreateLayer(System.String)
+  type: Method
+  source:
+    id: CreateLayer
+    path: ''
+    startLine: 544
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA.EditorUtils
+  summary: "\nAdds the layer.\n"
+  example: []
+  syntax:
+    content: public static bool CreateLayer(string layerName)
+    parameters:
+    - id: layerName
+      type: System.String
+      description: Layer name.
+    return:
+      type: System.Boolean
+      description: <code>true</code>, if layer was added, <code>false</code> otherwise.
+    content.vb: Public Shared Function CreateLayer(layerName As String) As Boolean
+  overload: eDIA.EditorUtils.Layers.CreateLayer*
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: eDIA.EditorUtils.Layers.CreateLayer(System.Int32,System.String)
+  commentId: M:eDIA.EditorUtils.Layers.CreateLayer(System.Int32,System.String)
+  id: CreateLayer(System.Int32,System.String)
+  parent: eDIA.EditorUtils.Layers
+  langs:
+  - csharp
+  - vb
+  name: CreateLayer(Int32, String)
+  nameWithType: Layers.CreateLayer(Int32, String)
+  fullName: eDIA.EditorUtils.Layers.CreateLayer(System.Int32, System.String)
+  type: Method
+  source:
+    id: CreateLayer
+    path: ''
+    startLine: 577
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA.EditorUtils
+  summary: "\nAdds the layer.\n"
+  example: []
+  syntax:
+    content: public static bool CreateLayer(int layerIndex, string layerName)
+    parameters:
+    - id: layerIndex
+      type: System.Int32
+    - id: layerName
+      type: System.String
+      description: Layer name.
+    return:
+      type: System.Boolean
+      description: <code>true</code>, if layer was added, <code>false</code> otherwise.
+    content.vb: Public Shared Function CreateLayer(layerIndex As Integer, layerName As String) As Boolean
+  overload: eDIA.EditorUtils.Layers.CreateLayer*
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: eDIA.EditorUtils.Layers.NewLayer(System.String)
+  commentId: M:eDIA.EditorUtils.Layers.NewLayer(System.String)
+  id: NewLayer(System.String)
+  parent: eDIA.EditorUtils.Layers
+  langs:
+  - csharp
+  - vb
+  name: NewLayer(String)
+  nameWithType: Layers.NewLayer(String)
+  fullName: eDIA.EditorUtils.Layers.NewLayer(System.String)
+  type: Method
+  source:
+    id: NewLayer
+    path: ''
+    startLine: 595
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA.EditorUtils
+  syntax:
+    content: public static string NewLayer(string name)
+    parameters:
+    - id: name
+      type: System.String
+    return:
+      type: System.String
+    content.vb: Public Shared Function NewLayer(name As String) As String
+  overload: eDIA.EditorUtils.Layers.NewLayer*
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: eDIA.EditorUtils.Layers.RemoveLayer(System.String)
+  commentId: M:eDIA.EditorUtils.Layers.RemoveLayer(System.String)
+  id: RemoveLayer(System.String)
+  parent: eDIA.EditorUtils.Layers
+  langs:
+  - csharp
+  - vb
+  name: RemoveLayer(String)
+  nameWithType: Layers.RemoveLayer(String)
+  fullName: eDIA.EditorUtils.Layers.RemoveLayer(System.String)
+  type: Method
+  source:
+    id: RemoveLayer
+    path: ''
+    startLine: 608
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA.EditorUtils
+  summary: "\nRemoves the layer.\n"
+  example: []
+  syntax:
+    content: public static bool RemoveLayer(string layerName)
+    parameters:
+    - id: layerName
+      type: System.String
+      description: Layer name.
+    return:
+      type: System.Boolean
+      description: <code>true</code>, if layer was removed, <code>false</code> otherwise.
+    content.vb: Public Shared Function RemoveLayer(layerName As String) As Boolean
+  overload: eDIA.EditorUtils.Layers.RemoveLayer*
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: eDIA.EditorUtils.Layers.LayerExists(System.String)
+  commentId: M:eDIA.EditorUtils.Layers.LayerExists(System.String)
+  id: LayerExists(System.String)
+  parent: eDIA.EditorUtils.Layers
+  langs:
+  - csharp
+  - vb
+  name: LayerExists(String)
+  nameWithType: Layers.LayerExists(String)
+  fullName: eDIA.EditorUtils.Layers.LayerExists(System.String)
+  type: Method
+  source:
+    id: LayerExists
+    path: ''
+    startLine: 644
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA.EditorUtils
+  summary: "\nChecks to see if layer exists by layername.\n"
+  example: []
+  syntax:
+    content: public static bool LayerExists(string layerName)
+    parameters:
+    - id: layerName
+      type: System.String
+      description: Layer name.
+    return:
+      type: System.Boolean
+      description: <code>true</code>, if layer exists, <code>false</code> otherwise.
+    content.vb: Public Shared Function LayerExists(layerName As String) As Boolean
+  overload: eDIA.EditorUtils.Layers.LayerExists*
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+references:
+- uid: eDIA.EditorUtils
+  commentId: N:eDIA.EditorUtils
+  name: eDIA.EditorUtils
+  nameWithType: eDIA.EditorUtils
+  fullName: eDIA.EditorUtils
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: eDIA.EditorUtils.Layers.CreateLayer*
+  commentId: Overload:eDIA.EditorUtils.Layers.CreateLayer
+  name: CreateLayer
+  nameWithType: Layers.CreateLayer
+  fullName: eDIA.EditorUtils.Layers.CreateLayer
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  name: String
+  nameWithType: String
+  fullName: System.String
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  name: Boolean
+  nameWithType: Boolean
+  fullName: System.Boolean
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  name: Int32
+  nameWithType: Int32
+  fullName: System.Int32
+- uid: eDIA.EditorUtils.Layers.NewLayer*
+  commentId: Overload:eDIA.EditorUtils.Layers.NewLayer
+  name: NewLayer
+  nameWithType: Layers.NewLayer
+  fullName: eDIA.EditorUtils.Layers.NewLayer
+- uid: eDIA.EditorUtils.Layers.RemoveLayer*
+  commentId: Overload:eDIA.EditorUtils.Layers.RemoveLayer
+  name: RemoveLayer
+  nameWithType: Layers.RemoveLayer
+  fullName: eDIA.EditorUtils.Layers.RemoveLayer
+- uid: eDIA.EditorUtils.Layers.LayerExists*
+  commentId: Overload:eDIA.EditorUtils.Layers.LayerExists
+  name: LayerExists
+  nameWithType: Layers.LayerExists
+  fullName: eDIA.EditorUtils.Layers.LayerExists

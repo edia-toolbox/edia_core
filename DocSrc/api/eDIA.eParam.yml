@@ -14,6 +14,7 @@ items:
   - eDIA.eParam.#ctor(System.Single)
   - eDIA.eParam.#ctor(System.Single[])
   - eDIA.eParam.#ctor(System.String)
+  - eDIA.eParam.#ctor(System.String,System.Boolean)
   - eDIA.eParam.#ctor(System.String[])
   - eDIA.eParam.#ctor(Transform)
   - eDIA.eParam.#ctor(Vector3)
@@ -30,12 +31,15 @@ items:
   - eDIA.eParam.GetInts
   - eDIA.eParam.GetObject
   - eDIA.eParam.GetString
+  - eDIA.eParam.GetStringBoolBool
+  - eDIA.eParam.GetStringBoolString
   - eDIA.eParam.GetStrings
   - eDIA.eParam.GetTransform
   - eDIA.eParam.GetVector3
   - eDIA.eParam.intP
   - eDIA.eParam.intPs
   - eDIA.eParam.objectP
+  - eDIA.eParam.stringBool
   - eDIA.eParam.stringP
   - eDIA.eParam.stringPs
   - eDIA.eParam.transformP
@@ -51,7 +55,7 @@ items:
   source:
     id: eParam
     path: ''
-    startLine: 277
+    startLine: 5419
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -82,7 +86,7 @@ items:
   source:
     id: .ctor
     path: ''
-    startLine: 280
+    startLine: 5422
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -110,7 +114,7 @@ items:
   source:
     id: floatP
     path: ''
-    startLine: 285
+    startLine: 5427
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -137,7 +141,7 @@ items:
   source:
     id: floatPs
     path: ''
-    startLine: 286
+    startLine: 5428
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -164,7 +168,7 @@ items:
   source:
     id: .ctor
     path: ''
-    startLine: 289
+    startLine: 5431
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -195,7 +199,7 @@ items:
   source:
     id: GetFloat
     path: ''
-    startLine: 293
+    startLine: 5435
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -223,7 +227,7 @@ items:
   source:
     id: .ctor
     path: ''
-    startLine: 298
+    startLine: 5440
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -257,7 +261,7 @@ items:
   source:
     id: GetFloats
     path: ''
-    startLine: 302
+    startLine: 5444
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -285,7 +289,7 @@ items:
   source:
     id: stringP
     path: ''
-    startLine: 307
+    startLine: 5449
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -312,7 +316,7 @@ items:
   source:
     id: stringPs
     path: ''
-    startLine: 308
+    startLine: 5450
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -339,7 +343,7 @@ items:
   source:
     id: .ctor
     path: ''
-    startLine: 310
+    startLine: 5452
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -368,7 +372,7 @@ items:
   source:
     id: GetString
     path: ''
-    startLine: 314
+    startLine: 5456
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -396,7 +400,7 @@ items:
   source:
     id: .ctor
     path: ''
-    startLine: 319
+    startLine: 5461
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -430,7 +434,7 @@ items:
   source:
     id: GetStrings
     path: ''
-    startLine: 322
+    startLine: 5464
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -458,7 +462,7 @@ items:
   source:
     id: intP
     path: ''
-    startLine: 327
+    startLine: 5469
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -485,7 +489,7 @@ items:
   source:
     id: intPs
     path: ''
-    startLine: 328
+    startLine: 5470
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -512,7 +516,7 @@ items:
   source:
     id: .ctor
     path: ''
-    startLine: 330
+    startLine: 5472
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -541,7 +545,7 @@ items:
   source:
     id: GetInt
     path: ''
-    startLine: 334
+    startLine: 5476
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -569,7 +573,7 @@ items:
   source:
     id: .ctor
     path: ''
-    startLine: 339
+    startLine: 5481
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -603,7 +607,7 @@ items:
   source:
     id: GetInts
     path: ''
-    startLine: 343
+    startLine: 5485
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -631,7 +635,7 @@ items:
   source:
     id: GetIntAt
     path: ''
-    startLine: 347
+    startLine: 5489
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -662,7 +666,7 @@ items:
   source:
     id: boolP
     path: ''
-    startLine: 352
+    startLine: 5494
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -689,7 +693,7 @@ items:
   source:
     id: boolPs
     path: ''
-    startLine: 353
+    startLine: 5495
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -716,7 +720,7 @@ items:
   source:
     id: .ctor
     path: ''
-    startLine: 355
+    startLine: 5497
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -745,7 +749,7 @@ items:
   source:
     id: GetBool
     path: ''
-    startLine: 359
+    startLine: 5501
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -773,7 +777,7 @@ items:
   source:
     id: .ctor
     path: ''
-    startLine: 364
+    startLine: 5506
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -807,7 +811,7 @@ items:
   source:
     id: GetBools
     path: ''
-    startLine: 368
+    startLine: 5510
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -835,7 +839,7 @@ items:
   source:
     id: vector3P
     path: ''
-    startLine: 373
+    startLine: 5515
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -862,7 +866,7 @@ items:
   source:
     id: vector3Ps
     path: ''
-    startLine: 374
+    startLine: 5516
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -889,7 +893,7 @@ items:
   source:
     id: .ctor
     path: ''
-    startLine: 376
+    startLine: 5518
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -918,7 +922,7 @@ items:
   source:
     id: GetVector3
     path: ''
-    startLine: 380
+    startLine: 5522
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -946,7 +950,7 @@ items:
   source:
     id: objectP
     path: ''
-    startLine: 385
+    startLine: 5527
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -973,7 +977,7 @@ items:
   source:
     id: .ctor
     path: ''
-    startLine: 387
+    startLine: 5529
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -1002,7 +1006,7 @@ items:
   source:
     id: GetObject
     path: ''
-    startLine: 391
+    startLine: 5533
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -1030,7 +1034,7 @@ items:
   source:
     id: transformP
     path: ''
-    startLine: 396
+    startLine: 5538
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -1057,7 +1061,7 @@ items:
   source:
     id: .ctor
     path: ''
-    startLine: 398
+    startLine: 5540
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -1086,7 +1090,7 @@ items:
   source:
     id: GetTransform
     path: ''
-    startLine: 402
+    startLine: 5544
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -1096,6 +1100,120 @@ items:
       type: Global.Transform
     content.vb: Public Function GetTransform As Transform
   overload: eDIA.eParam.GetTransform*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.eParam.stringBool
+  commentId: F:eDIA.eParam.stringBool
+  id: stringBool
+  parent: eDIA.eParam
+  langs:
+  - csharp
+  - vb
+  name: stringBool
+  nameWithType: eParam.stringBool
+  fullName: eDIA.eParam.stringBool
+  type: Field
+  source:
+    id: stringBool
+    path: ''
+    startLine: 5554
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public eParam.StringBool stringBool
+    return:
+      type: eDIA.eParam.StringBool
+    content.vb: Public stringBool As eParam.StringBool
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.eParam.#ctor(System.String,System.Boolean)
+  commentId: M:eDIA.eParam.#ctor(System.String,System.Boolean)
+  id: '#ctor(System.String,System.Boolean)'
+  parent: eDIA.eParam
+  langs:
+  - csharp
+  - vb
+  name: eParam(String, Boolean)
+  nameWithType: eParam.eParam(String, Boolean)
+  fullName: eDIA.eParam.eParam(System.String, System.Boolean)
+  type: Constructor
+  source:
+    id: .ctor
+    path: ''
+    startLine: 5555
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public eParam(string _string, bool _bool)
+    parameters:
+    - id: _string
+      type: System.String
+    - id: _bool
+      type: System.Boolean
+    content.vb: Public Sub New(_string As String, _bool As Boolean)
+  overload: eDIA.eParam.#ctor*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.eParam.GetStringBoolString
+  commentId: M:eDIA.eParam.GetStringBoolString
+  id: GetStringBoolString
+  parent: eDIA.eParam
+  langs:
+  - csharp
+  - vb
+  name: GetStringBoolString()
+  nameWithType: eParam.GetStringBoolString()
+  fullName: eDIA.eParam.GetStringBoolString()
+  type: Method
+  source:
+    id: GetStringBoolString
+    path: ''
+    startLine: 5560
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public string GetStringBoolString()
+    return:
+      type: System.String
+    content.vb: Public Function GetStringBoolString As String
+  overload: eDIA.eParam.GetStringBoolString*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.eParam.GetStringBoolBool
+  commentId: M:eDIA.eParam.GetStringBoolBool
+  id: GetStringBoolBool
+  parent: eDIA.eParam
+  langs:
+  - csharp
+  - vb
+  name: GetStringBoolBool()
+  nameWithType: eParam.GetStringBoolBool()
+  fullName: eDIA.eParam.GetStringBoolBool()
+  type: Method
+  source:
+    id: GetStringBoolBool
+    path: ''
+    startLine: 5564
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public bool GetStringBoolBool()
+    return:
+      type: System.Boolean
+    content.vb: Public Function GetStringBoolBool As Boolean
+  overload: eDIA.eParam.GetStringBoolBool*
   modifiers.csharp:
   - public
   modifiers.vb:
@@ -1352,3 +1470,19 @@ references:
   name: GetTransform
   nameWithType: eParam.GetTransform
   fullName: eDIA.eParam.GetTransform
+- uid: eDIA.eParam.StringBool
+  commentId: T:eDIA.eParam.StringBool
+  parent: eDIA
+  name: eParam.StringBool
+  nameWithType: eParam.StringBool
+  fullName: eDIA.eParam.StringBool
+- uid: eDIA.eParam.GetStringBoolString*
+  commentId: Overload:eDIA.eParam.GetStringBoolString
+  name: GetStringBoolString
+  nameWithType: eParam.GetStringBoolString
+  fullName: eDIA.eParam.GetStringBoolString
+- uid: eDIA.eParam.GetStringBoolBool*
+  commentId: Overload:eDIA.eParam.GetStringBoolBool
+  name: GetStringBoolBool
+  nameWithType: eParam.GetStringBoolBool
+  fullName: eDIA.eParam.GetStringBoolBool

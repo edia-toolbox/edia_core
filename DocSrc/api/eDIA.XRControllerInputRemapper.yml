@@ -1,0 +1,312 @@
+### YamlMime:ManagedReference
+items:
+- uid: eDIA.XRControllerInputRemapper
+  commentId: T:eDIA.XRControllerInputRemapper
+  id: XRControllerInputRemapper
+  parent: eDIA
+  children:
+  - eDIA.XRControllerInputRemapper.EnableRemapping(System.String,System.Boolean)
+  - eDIA.XRControllerInputRemapper.GetControllerRemappings
+  - eDIA.XRControllerInputRemapper.Redirectors
+  langs:
+  - csharp
+  - vb
+  name: XRControllerInputRemapper
+  nameWithType: XRControllerInputRemapper
+  fullName: eDIA.XRControllerInputRemapper
+  type: Class
+  source:
+    id: XRControllerInputRemapper
+    path: ''
+    startLine: 7072
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  summary: In order to be flexible for each taskblock, the remapping of a controller key to a method is a separate script
+  example: []
+  syntax:
+    content: >-
+      [Serializable]
+
+      public class XRControllerInputRemapper : MonoBehaviour
+    content.vb: >-
+      <Serializable>
+
+      Public Class XRControllerInputRemapper
+          Inherits MonoBehaviour
+  inheritance:
+  - System.Object
+  attributes:
+  - type: System.SerializableAttribute
+    ctor: System.SerializableAttribute.#ctor
+    arguments: []
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+- uid: eDIA.XRControllerInputRemapper.Redirectors
+  commentId: F:eDIA.XRControllerInputRemapper.Redirectors
+  id: Redirectors
+  parent: eDIA.XRControllerInputRemapper
+  langs:
+  - csharp
+  - vb
+  name: Redirectors
+  nameWithType: XRControllerInputRemapper.Redirectors
+  fullName: eDIA.XRControllerInputRemapper.Redirectors
+  type: Field
+  source:
+    id: Redirectors
+    path: ''
+    startLine: 7085
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public List<XRControllerInputRemapper.ControllerInputRemap> Redirectors
+    return:
+      type: System.Collections.Generic.List{eDIA.XRControllerInputRemapper.ControllerInputRemap}
+    content.vb: Public Redirectors As List(Of XRControllerInputRemapper.ControllerInputRemap)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.XRControllerInputRemapper.GetControllerRemappings
+  commentId: M:eDIA.XRControllerInputRemapper.GetControllerRemappings
+  id: GetControllerRemappings
+  parent: eDIA.XRControllerInputRemapper
+  langs:
+  - csharp
+  - vb
+  name: GetControllerRemappings()
+  nameWithType: XRControllerInputRemapper.GetControllerRemappings()
+  fullName: eDIA.XRControllerInputRemapper.GetControllerRemappings()
+  type: Method
+  source:
+    id: GetControllerRemappings
+    path: ''
+    startLine: 7087
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public List<string> GetControllerRemappings()
+    return:
+      type: System.Collections.Generic.List{System.String}
+    content.vb: Public Function GetControllerRemappings As List(Of String)
+  overload: eDIA.XRControllerInputRemapper.GetControllerRemappings*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.XRControllerInputRemapper.EnableRemapping(System.String,System.Boolean)
+  commentId: M:eDIA.XRControllerInputRemapper.EnableRemapping(System.String,System.Boolean)
+  id: EnableRemapping(System.String,System.Boolean)
+  parent: eDIA.XRControllerInputRemapper
+  langs:
+  - csharp
+  - vb
+  name: EnableRemapping(String, Boolean)
+  nameWithType: XRControllerInputRemapper.EnableRemapping(String, Boolean)
+  fullName: eDIA.XRControllerInputRemapper.EnableRemapping(System.String, System.Boolean)
+  type: Method
+  source:
+    id: EnableRemapping
+    path: ''
+    startLine: 7099
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  summary: Enables predefined controller inputaction to custom unity event
+  example: []
+  syntax:
+    content: public void EnableRemapping(string id, bool onOff)
+    parameters:
+    - id: id
+      type: System.String
+      description: indentifier
+    - id: onOff
+      type: System.Boolean
+      description: active
+    content.vb: Public Sub EnableRemapping(id As String, onOff As Boolean)
+  overload: eDIA.XRControllerInputRemapper.EnableRemapping*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+references:
+- uid: eDIA
+  commentId: N:eDIA
+  name: eDIA
+  nameWithType: eDIA
+  fullName: eDIA
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: System.Collections.Generic.List{eDIA.XRControllerInputRemapper.ControllerInputRemap}
+  commentId: T:System.Collections.Generic.List{eDIA.XRControllerInputRemapper.ControllerInputRemap}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  name: List<XRControllerInputRemapper.ControllerInputRemap>
+  nameWithType: List<XRControllerInputRemapper.ControllerInputRemap>
+  fullName: System.Collections.Generic.List<eDIA.XRControllerInputRemapper.ControllerInputRemap>
+  nameWithType.vb: List(Of XRControllerInputRemapper.ControllerInputRemap)
+  fullName.vb: System.Collections.Generic.List(Of eDIA.XRControllerInputRemapper.ControllerInputRemap)
+  name.vb: List(Of XRControllerInputRemapper.ControllerInputRemap)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    nameWithType: List
+    fullName: System.Collections.Generic.List
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: eDIA.XRControllerInputRemapper.ControllerInputRemap
+    name: XRControllerInputRemapper.ControllerInputRemap
+    nameWithType: XRControllerInputRemapper.ControllerInputRemap
+    fullName: eDIA.XRControllerInputRemapper.ControllerInputRemap
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    nameWithType: List
+    fullName: System.Collections.Generic.List
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: eDIA.XRControllerInputRemapper.ControllerInputRemap
+    name: XRControllerInputRemapper.ControllerInputRemap
+    nameWithType: XRControllerInputRemapper.ControllerInputRemap
+    fullName: eDIA.XRControllerInputRemapper.ControllerInputRemap
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic.List`1
+  commentId: T:System.Collections.Generic.List`1
+  isExternal: true
+  name: List<T>
+  nameWithType: List<T>
+  fullName: System.Collections.Generic.List<T>
+  nameWithType.vb: List(Of T)
+  fullName.vb: System.Collections.Generic.List(Of T)
+  name.vb: List(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    nameWithType: List
+    fullName: System.Collections.Generic.List
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    nameWithType: List
+    fullName: System.Collections.Generic.List
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+- uid: eDIA.XRControllerInputRemapper.GetControllerRemappings*
+  commentId: Overload:eDIA.XRControllerInputRemapper.GetControllerRemappings
+  name: GetControllerRemappings
+  nameWithType: XRControllerInputRemapper.GetControllerRemappings
+  fullName: eDIA.XRControllerInputRemapper.GetControllerRemappings
+- uid: System.Collections.Generic.List{System.String}
+  commentId: T:System.Collections.Generic.List{System.String}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  name: List<String>
+  nameWithType: List<String>
+  fullName: System.Collections.Generic.List<System.String>
+  nameWithType.vb: List(Of String)
+  fullName.vb: System.Collections.Generic.List(Of System.String)
+  name.vb: List(Of String)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    nameWithType: List
+    fullName: System.Collections.Generic.List
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    nameWithType: List
+    fullName: System.Collections.Generic.List
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: eDIA.XRControllerInputRemapper.EnableRemapping*
+  commentId: Overload:eDIA.XRControllerInputRemapper.EnableRemapping
+  name: EnableRemapping
+  nameWithType: XRControllerInputRemapper.EnableRemapping
+  fullName: eDIA.XRControllerInputRemapper.EnableRemapping
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  name: String
+  nameWithType: String
+  fullName: System.String
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  name: Boolean
+  nameWithType: Boolean
+  fullName: System.Boolean

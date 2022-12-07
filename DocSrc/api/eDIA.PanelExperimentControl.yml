@@ -1,0 +1,658 @@
+### YamlMime:ManagedReference
+items:
+- uid: eDIA.PanelExperimentControl
+  commentId: T:eDIA.PanelExperimentControl
+  id: PanelExperimentControl
+  parent: eDIA
+  children:
+  - eDIA.PanelExperimentControl.Awake
+  - eDIA.PanelExperimentControl.blockSlider
+  - eDIA.PanelExperimentControl.btnExperiment
+  - eDIA.PanelExperimentControl.btnPauseExperiment
+  - eDIA.PanelExperimentControl.btnProceedExperiment
+  - eDIA.PanelExperimentControl.experimenterField
+  - eDIA.PanelExperimentControl.experimentNameField
+  - eDIA.PanelExperimentControl.panelIdle
+  - eDIA.PanelExperimentControl.panelInfo
+  - eDIA.PanelExperimentControl.panelRunning
+  - eDIA.PanelExperimentControl.panelStatus
+  - eDIA.PanelExperimentControl.participantIDField
+  - eDIA.PanelExperimentControl.sessionNumberField
+  - eDIA.PanelExperimentControl.stepSlider
+  - eDIA.PanelExperimentControl.timerSlider
+  - eDIA.PanelExperimentControl.trialSlider
+  langs:
+  - csharp
+  - vb
+  name: PanelExperimentControl
+  nameWithType: PanelExperimentControl
+  fullName: eDIA.PanelExperimentControl
+  type: Class
+  source:
+    id: PanelExperimentControl
+    path: ''
+    startLine: 9218
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: 'public class PanelExperimentControl : ExperimenterPanel'
+    content.vb: >-
+      Public Class PanelExperimentControl
+          Inherits ExperimenterPanel
+  inheritance:
+  - System.Object
+  - eDIA.ExperimenterPanel
+  inheritedMembers:
+  - eDIA.ExperimenterPanel.children
+  - eDIA.ExperimenterPanel.ShowPanel
+  - eDIA.ExperimenterPanel.HidePanel
+  - eDIA.ExperimenterPanel.ApplyTheme
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+- uid: eDIA.PanelExperimentControl.btnExperiment
+  commentId: F:eDIA.PanelExperimentControl.btnExperiment
+  id: btnExperiment
+  parent: eDIA.PanelExperimentControl
+  langs:
+  - csharp
+  - vb
+  name: btnExperiment
+  nameWithType: PanelExperimentControl.btnExperiment
+  fullName: eDIA.PanelExperimentControl.btnExperiment
+  type: Field
+  source:
+    id: btnExperiment
+    path: ''
+    startLine: 9222
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public Button btnExperiment
+    return:
+      type: Global.Button
+    content.vb: Public btnExperiment As Button
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.PanelExperimentControl.btnPauseExperiment
+  commentId: F:eDIA.PanelExperimentControl.btnPauseExperiment
+  id: btnPauseExperiment
+  parent: eDIA.PanelExperimentControl
+  langs:
+  - csharp
+  - vb
+  name: btnPauseExperiment
+  nameWithType: PanelExperimentControl.btnPauseExperiment
+  fullName: eDIA.PanelExperimentControl.btnPauseExperiment
+  type: Field
+  source:
+    id: btnPauseExperiment
+    path: ''
+    startLine: 9223
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public Button btnPauseExperiment
+    return:
+      type: Global.Button
+    content.vb: Public btnPauseExperiment As Button
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.PanelExperimentControl.btnProceedExperiment
+  commentId: F:eDIA.PanelExperimentControl.btnProceedExperiment
+  id: btnProceedExperiment
+  parent: eDIA.PanelExperimentControl
+  langs:
+  - csharp
+  - vb
+  name: btnProceedExperiment
+  nameWithType: PanelExperimentControl.btnProceedExperiment
+  fullName: eDIA.PanelExperimentControl.btnProceedExperiment
+  type: Field
+  source:
+    id: btnProceedExperiment
+    path: ''
+    startLine: 9224
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public Button btnProceedExperiment
+    return:
+      type: Global.Button
+    content.vb: Public btnProceedExperiment As Button
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.PanelExperimentControl.panelIdle
+  commentId: F:eDIA.PanelExperimentControl.panelIdle
+  id: panelIdle
+  parent: eDIA.PanelExperimentControl
+  langs:
+  - csharp
+  - vb
+  name: panelIdle
+  nameWithType: PanelExperimentControl.panelIdle
+  fullName: eDIA.PanelExperimentControl.panelIdle
+  type: Field
+  source:
+    id: panelIdle
+    path: ''
+    startLine: 9227
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public GameObject panelIdle
+    return:
+      type: Global.GameObject
+    content.vb: Public panelIdle As GameObject
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.PanelExperimentControl.panelRunning
+  commentId: F:eDIA.PanelExperimentControl.panelRunning
+  id: panelRunning
+  parent: eDIA.PanelExperimentControl
+  langs:
+  - csharp
+  - vb
+  name: panelRunning
+  nameWithType: PanelExperimentControl.panelRunning
+  fullName: eDIA.PanelExperimentControl.panelRunning
+  type: Field
+  source:
+    id: panelRunning
+    path: ''
+    startLine: 9228
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public GameObject panelRunning
+    return:
+      type: Global.GameObject
+    content.vb: Public panelRunning As GameObject
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.PanelExperimentControl.panelStatus
+  commentId: F:eDIA.PanelExperimentControl.panelStatus
+  id: panelStatus
+  parent: eDIA.PanelExperimentControl
+  langs:
+  - csharp
+  - vb
+  name: panelStatus
+  nameWithType: PanelExperimentControl.panelStatus
+  fullName: eDIA.PanelExperimentControl.panelStatus
+  type: Field
+  source:
+    id: panelStatus
+    path: ''
+    startLine: 9229
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public GameObject panelStatus
+    return:
+      type: Global.GameObject
+    content.vb: Public panelStatus As GameObject
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.PanelExperimentControl.panelInfo
+  commentId: F:eDIA.PanelExperimentControl.panelInfo
+  id: panelInfo
+  parent: eDIA.PanelExperimentControl
+  langs:
+  - csharp
+  - vb
+  name: panelInfo
+  nameWithType: PanelExperimentControl.panelInfo
+  fullName: eDIA.PanelExperimentControl.panelInfo
+  type: Field
+  source:
+    id: panelInfo
+    path: ''
+    startLine: 9230
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public GameObject panelInfo
+    return:
+      type: Global.GameObject
+    content.vb: Public panelInfo As GameObject
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.PanelExperimentControl.stepSlider
+  commentId: F:eDIA.PanelExperimentControl.stepSlider
+  id: stepSlider
+  parent: eDIA.PanelExperimentControl
+  langs:
+  - csharp
+  - vb
+  name: stepSlider
+  nameWithType: PanelExperimentControl.stepSlider
+  fullName: eDIA.PanelExperimentControl.stepSlider
+  type: Field
+  source:
+    id: stepSlider
+    path: ''
+    startLine: 9233
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public SliderExperimenterStatus stepSlider
+    return:
+      type: Global.SliderExperimenterStatus
+    content.vb: Public stepSlider As SliderExperimenterStatus
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.PanelExperimentControl.trialSlider
+  commentId: F:eDIA.PanelExperimentControl.trialSlider
+  id: trialSlider
+  parent: eDIA.PanelExperimentControl
+  langs:
+  - csharp
+  - vb
+  name: trialSlider
+  nameWithType: PanelExperimentControl.trialSlider
+  fullName: eDIA.PanelExperimentControl.trialSlider
+  type: Field
+  source:
+    id: trialSlider
+    path: ''
+    startLine: 9234
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public SliderExperimenterStatus trialSlider
+    return:
+      type: Global.SliderExperimenterStatus
+    content.vb: Public trialSlider As SliderExperimenterStatus
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.PanelExperimentControl.blockSlider
+  commentId: F:eDIA.PanelExperimentControl.blockSlider
+  id: blockSlider
+  parent: eDIA.PanelExperimentControl
+  langs:
+  - csharp
+  - vb
+  name: blockSlider
+  nameWithType: PanelExperimentControl.blockSlider
+  fullName: eDIA.PanelExperimentControl.blockSlider
+  type: Field
+  source:
+    id: blockSlider
+    path: ''
+    startLine: 9235
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public SliderExperimenterStatus blockSlider
+    return:
+      type: Global.SliderExperimenterStatus
+    content.vb: Public blockSlider As SliderExperimenterStatus
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.PanelExperimentControl.timerSlider
+  commentId: F:eDIA.PanelExperimentControl.timerSlider
+  id: timerSlider
+  parent: eDIA.PanelExperimentControl
+  langs:
+  - csharp
+  - vb
+  name: timerSlider
+  nameWithType: PanelExperimentControl.timerSlider
+  fullName: eDIA.PanelExperimentControl.timerSlider
+  type: Field
+  source:
+    id: timerSlider
+    path: ''
+    startLine: 9236
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public SliderExperimenterStatus timerSlider
+    return:
+      type: Global.SliderExperimenterStatus
+    content.vb: Public timerSlider As SliderExperimenterStatus
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.PanelExperimentControl.experimentNameField
+  commentId: F:eDIA.PanelExperimentControl.experimentNameField
+  id: experimentNameField
+  parent: eDIA.PanelExperimentControl
+  langs:
+  - csharp
+  - vb
+  name: experimentNameField
+  nameWithType: PanelExperimentControl.experimentNameField
+  fullName: eDIA.PanelExperimentControl.experimentNameField
+  type: Field
+  source:
+    id: experimentNameField
+    path: ''
+    startLine: 9239
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public TextMeshProUGUI experimentNameField
+    return:
+      type: Global.TextMeshProUGUI
+    content.vb: Public experimentNameField As TextMeshProUGUI
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.PanelExperimentControl.experimenterField
+  commentId: F:eDIA.PanelExperimentControl.experimenterField
+  id: experimenterField
+  parent: eDIA.PanelExperimentControl
+  langs:
+  - csharp
+  - vb
+  name: experimenterField
+  nameWithType: PanelExperimentControl.experimenterField
+  fullName: eDIA.PanelExperimentControl.experimenterField
+  type: Field
+  source:
+    id: experimenterField
+    path: ''
+    startLine: 9240
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public TextMeshProUGUI experimenterField
+    return:
+      type: Global.TextMeshProUGUI
+    content.vb: Public experimenterField As TextMeshProUGUI
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.PanelExperimentControl.participantIDField
+  commentId: F:eDIA.PanelExperimentControl.participantIDField
+  id: participantIDField
+  parent: eDIA.PanelExperimentControl
+  langs:
+  - csharp
+  - vb
+  name: participantIDField
+  nameWithType: PanelExperimentControl.participantIDField
+  fullName: eDIA.PanelExperimentControl.participantIDField
+  type: Field
+  source:
+    id: participantIDField
+    path: ''
+    startLine: 9241
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public TextMeshProUGUI participantIDField
+    return:
+      type: Global.TextMeshProUGUI
+    content.vb: Public participantIDField As TextMeshProUGUI
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.PanelExperimentControl.sessionNumberField
+  commentId: F:eDIA.PanelExperimentControl.sessionNumberField
+  id: sessionNumberField
+  parent: eDIA.PanelExperimentControl
+  langs:
+  - csharp
+  - vb
+  name: sessionNumberField
+  nameWithType: PanelExperimentControl.sessionNumberField
+  fullName: eDIA.PanelExperimentControl.sessionNumberField
+  type: Field
+  source:
+    id: sessionNumberField
+    path: ''
+    startLine: 9242
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public TextMeshProUGUI sessionNumberField
+    return:
+      type: Global.TextMeshProUGUI
+    content.vb: Public sessionNumberField As TextMeshProUGUI
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.PanelExperimentControl.Awake
+  commentId: M:eDIA.PanelExperimentControl.Awake
+  id: Awake
+  parent: eDIA.PanelExperimentControl
+  langs:
+  - csharp
+  - vb
+  name: Awake()
+  nameWithType: PanelExperimentControl.Awake()
+  fullName: eDIA.PanelExperimentControl.Awake()
+  type: Method
+  source:
+    id: Awake
+    path: ''
+    startLine: 9244
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public override void Awake()
+    content.vb: Public Overrides Sub Awake
+  overridden: eDIA.ExperimenterPanel.Awake
+  overload: eDIA.PanelExperimentControl.Awake*
+  modifiers.csharp:
+  - public
+  - override
+  modifiers.vb:
+  - Public
+  - Overrides
+references:
+- uid: eDIA
+  commentId: N:eDIA
+  name: eDIA
+  nameWithType: eDIA
+  fullName: eDIA
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: eDIA.ExperimenterPanel
+  commentId: T:eDIA.ExperimenterPanel
+  parent: eDIA
+  name: ExperimenterPanel
+  nameWithType: ExperimenterPanel
+  fullName: eDIA.ExperimenterPanel
+- uid: eDIA.ExperimenterPanel.children
+  commentId: F:eDIA.ExperimenterPanel.children
+  parent: eDIA.ExperimenterPanel
+  name: children
+  nameWithType: ExperimenterPanel.children
+  fullName: eDIA.ExperimenterPanel.children
+- uid: eDIA.ExperimenterPanel.ShowPanel
+  commentId: M:eDIA.ExperimenterPanel.ShowPanel
+  parent: eDIA.ExperimenterPanel
+  name: ShowPanel()
+  nameWithType: ExperimenterPanel.ShowPanel()
+  fullName: eDIA.ExperimenterPanel.ShowPanel()
+  spec.csharp:
+  - uid: eDIA.ExperimenterPanel.ShowPanel
+    name: ShowPanel
+    nameWithType: ExperimenterPanel.ShowPanel
+    fullName: eDIA.ExperimenterPanel.ShowPanel
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: eDIA.ExperimenterPanel.ShowPanel
+    name: ShowPanel
+    nameWithType: ExperimenterPanel.ShowPanel
+    fullName: eDIA.ExperimenterPanel.ShowPanel
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: eDIA.ExperimenterPanel.HidePanel
+  commentId: M:eDIA.ExperimenterPanel.HidePanel
+  parent: eDIA.ExperimenterPanel
+  name: HidePanel()
+  nameWithType: ExperimenterPanel.HidePanel()
+  fullName: eDIA.ExperimenterPanel.HidePanel()
+  spec.csharp:
+  - uid: eDIA.ExperimenterPanel.HidePanel
+    name: HidePanel
+    nameWithType: ExperimenterPanel.HidePanel
+    fullName: eDIA.ExperimenterPanel.HidePanel
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: eDIA.ExperimenterPanel.HidePanel
+    name: HidePanel
+    nameWithType: ExperimenterPanel.HidePanel
+    fullName: eDIA.ExperimenterPanel.HidePanel
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: eDIA.ExperimenterPanel.ApplyTheme
+  commentId: M:eDIA.ExperimenterPanel.ApplyTheme
+  parent: eDIA.ExperimenterPanel
+  name: ApplyTheme()
+  nameWithType: ExperimenterPanel.ApplyTheme()
+  fullName: eDIA.ExperimenterPanel.ApplyTheme()
+  spec.csharp:
+  - uid: eDIA.ExperimenterPanel.ApplyTheme
+    name: ApplyTheme
+    nameWithType: ExperimenterPanel.ApplyTheme
+    fullName: eDIA.ExperimenterPanel.ApplyTheme
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: eDIA.ExperimenterPanel.ApplyTheme
+    name: ApplyTheme
+    nameWithType: ExperimenterPanel.ApplyTheme
+    fullName: eDIA.ExperimenterPanel.ApplyTheme
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Global.Button
+  isExternal: true
+  name: Button
+  nameWithType: Button
+  fullName: Button
+- uid: Global.GameObject
+  isExternal: true
+  name: GameObject
+  nameWithType: GameObject
+  fullName: GameObject
+- uid: Global.SliderExperimenterStatus
+  commentId: T:Global.SliderExperimenterStatus
+  name: SliderExperimenterStatus
+  nameWithType: SliderExperimenterStatus
+  fullName: SliderExperimenterStatus
+- uid: Global.TextMeshProUGUI
+  isExternal: true
+  name: TextMeshProUGUI
+  nameWithType: TextMeshProUGUI
+  fullName: TextMeshProUGUI
+- uid: eDIA.ExperimenterPanel.Awake
+  commentId: M:eDIA.ExperimenterPanel.Awake
+  parent: eDIA.ExperimenterPanel
+  name: Awake()
+  nameWithType: ExperimenterPanel.Awake()
+  fullName: eDIA.ExperimenterPanel.Awake()
+  spec.csharp:
+  - uid: eDIA.ExperimenterPanel.Awake
+    name: Awake
+    nameWithType: ExperimenterPanel.Awake
+    fullName: eDIA.ExperimenterPanel.Awake
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: eDIA.ExperimenterPanel.Awake
+    name: Awake
+    nameWithType: ExperimenterPanel.Awake
+    fullName: eDIA.ExperimenterPanel.Awake
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: eDIA.PanelExperimentControl.Awake*
+  commentId: Overload:eDIA.PanelExperimentControl.Awake
+  name: Awake
+  nameWithType: PanelExperimentControl.Awake
+  fullName: eDIA.PanelExperimentControl.Awake

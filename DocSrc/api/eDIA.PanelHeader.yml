@@ -1,0 +1,152 @@
+### YamlMime:ManagedReference
+items:
+- uid: eDIA.PanelHeader
+  commentId: T:eDIA.PanelHeader
+  id: PanelHeader
+  parent: eDIA
+  children:
+  - eDIA.PanelHeader.logo
+  - eDIA.PanelHeader.LogoClicked
+  - eDIA.PanelHeader.titleField
+  langs:
+  - csharp
+  - vb
+  name: PanelHeader
+  nameWithType: PanelHeader
+  fullName: eDIA.PanelHeader
+  type: Class
+  source:
+    id: PanelHeader
+    path: ''
+    startLine: 9435
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: 'public class PanelHeader : MonoBehaviour'
+    content.vb: >-
+      Public Class PanelHeader
+          Inherits MonoBehaviour
+  inheritance:
+  - System.Object
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+- uid: eDIA.PanelHeader.logo
+  commentId: F:eDIA.PanelHeader.logo
+  id: logo
+  parent: eDIA.PanelHeader
+  langs:
+  - csharp
+  - vb
+  name: logo
+  nameWithType: PanelHeader.logo
+  fullName: eDIA.PanelHeader.logo
+  type: Field
+  source:
+    id: logo
+    path: ''
+    startLine: 9437
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public Image logo
+    return:
+      type: Global.Image
+    content.vb: Public logo As Image
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.PanelHeader.titleField
+  commentId: F:eDIA.PanelHeader.titleField
+  id: titleField
+  parent: eDIA.PanelHeader
+  langs:
+  - csharp
+  - vb
+  name: titleField
+  nameWithType: PanelHeader.titleField
+  fullName: eDIA.PanelHeader.titleField
+  type: Field
+  source:
+    id: titleField
+    path: ''
+    startLine: 9438
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public TextMeshProUGUI titleField
+    return:
+      type: Global.TextMeshProUGUI
+    content.vb: Public titleField As TextMeshProUGUI
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.PanelHeader.LogoClicked
+  commentId: M:eDIA.PanelHeader.LogoClicked
+  id: LogoClicked
+  parent: eDIA.PanelHeader
+  langs:
+  - csharp
+  - vb
+  name: LogoClicked()
+  nameWithType: PanelHeader.LogoClicked()
+  fullName: eDIA.PanelHeader.LogoClicked()
+  type: Method
+  source:
+    id: LogoClicked
+    path: ''
+    startLine: 9449
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public void LogoClicked()
+    content.vb: Public Sub LogoClicked
+  overload: eDIA.PanelHeader.LogoClicked*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+references:
+- uid: eDIA
+  commentId: N:eDIA
+  name: eDIA
+  nameWithType: eDIA
+  fullName: eDIA
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Global.Image
+  commentId: '!:Global.Image'
+  isExternal: true
+  name: Image
+  nameWithType: Image
+  fullName: Image
+- uid: Global.TextMeshProUGUI
+  isExternal: true
+  name: TextMeshProUGUI
+  nameWithType: TextMeshProUGUI
+  fullName: TextMeshProUGUI
+- uid: eDIA.PanelHeader.LogoClicked*
+  commentId: Overload:eDIA.PanelHeader.LogoClicked
+  name: LogoClicked
+  nameWithType: PanelHeader.LogoClicked
+  fullName: eDIA.PanelHeader.LogoClicked

@@ -1,0 +1,829 @@
+### YamlMime:ManagedReference
+items:
+- uid: eDIA.Events.Core
+  commentId: T:eDIA.Events.Core
+  id: Core
+  parent: eDIA.Events
+  children:
+  - eDIA.Events.Core.EvBlockIntroduction
+  - eDIA.Events.Core.EvBlockResumeAfterIntro
+  - eDIA.Events.Core.EvBlockStart
+  - eDIA.Events.Core.EvExperimentConfigSet
+  - eDIA.Events.Core.EvFinalizeSession
+  - eDIA.Events.Core.EvFoundLocalConfigFiles
+  - eDIA.Events.Core.EvLocalConfigSubmitted
+  - eDIA.Events.Core.EvOpenSystemSettings
+  - eDIA.Events.Core.EvPauseExperiment
+  - eDIA.Events.Core.EvProceed
+  - eDIA.Events.Core.EvQuitApplication
+  - eDIA.Events.Core.EvReadyToGo
+  - eDIA.Events.Core.EvRequestSystemSettings
+  - eDIA.Events.Core.EvSessionBreak
+  - eDIA.Events.Core.EvSessionResume
+  - eDIA.Events.Core.EvSetCustomStoragePath
+  - eDIA.Events.Core.EvSetExperimentConfig
+  - eDIA.Events.Core.EvSetTaskConfig
+  - eDIA.Events.Core.EvShowMessageToUser
+  - eDIA.Events.Core.EvStartExperiment
+  - eDIA.Events.Core.EvSystemHalt
+  - eDIA.Events.Core.EvTaskConfigSet
+  - eDIA.Events.Core.EvTrialBegin
+  - eDIA.Events.Core.EvUpdateSystemSettings
+  langs:
+  - csharp
+  - vb
+  name: Core
+  nameWithType: Core
+  fullName: eDIA.Events.Core
+  type: Class
+  source:
+    id: Core
+    path: ''
+    startLine: 5678
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA.Events
+  summary: Overview of all events in the system. Easier to reference and no typo mistakes by using them.
+  example: []
+  syntax:
+    content: public static class Core
+    content.vb: Public Module Core
+  inheritance:
+  - System.Object
+  modifiers.csharp:
+  - public
+  - static
+  - class
+  modifiers.vb:
+  - Public
+  - Module
+- uid: eDIA.Events.Core.EvSetExperimentConfig
+  commentId: F:eDIA.Events.Core.EvSetExperimentConfig
+  id: EvSetExperimentConfig
+  parent: eDIA.Events.Core
+  langs:
+  - csharp
+  - vb
+  name: EvSetExperimentConfig
+  nameWithType: Core.EvSetExperimentConfig
+  fullName: eDIA.Events.Core.EvSetExperimentConfig
+  type: Field
+  source:
+    id: EvSetExperimentConfig
+    path: ''
+    startLine: 5681
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA.Events
+  summary: Set experiment config. Expects config as JSON string
+  example: []
+  syntax:
+    content: public static string EvSetExperimentConfig
+    return:
+      type: System.String
+    content.vb: Public Shared EvSetExperimentConfig As String
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: eDIA.Events.Core.EvSetTaskConfig
+  commentId: F:eDIA.Events.Core.EvSetTaskConfig
+  id: EvSetTaskConfig
+  parent: eDIA.Events.Core
+  langs:
+  - csharp
+  - vb
+  name: EvSetTaskConfig
+  nameWithType: Core.EvSetTaskConfig
+  fullName: eDIA.Events.Core.EvSetTaskConfig
+  type: Field
+  source:
+    id: EvSetTaskConfig
+    path: ''
+    startLine: 5684
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA.Events
+  summary: Set task config. Expects config as JSON string
+  example: []
+  syntax:
+    content: public static string EvSetTaskConfig
+    return:
+      type: System.String
+    content.vb: Public Shared EvSetTaskConfig As String
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: eDIA.Events.Core.EvStartExperiment
+  commentId: F:eDIA.Events.Core.EvStartExperiment
+  id: EvStartExperiment
+  parent: eDIA.Events.Core
+  langs:
+  - csharp
+  - vb
+  name: EvStartExperiment
+  nameWithType: Core.EvStartExperiment
+  fullName: eDIA.Events.Core.EvStartExperiment
+  type: Field
+  source:
+    id: EvStartExperiment
+    path: ''
+    startLine: 5687
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA.Events
+  summary: Starts the experiment. Expects null
+  example: []
+  syntax:
+    content: public static string EvStartExperiment
+    return:
+      type: System.String
+    content.vb: Public Shared EvStartExperiment As String
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: eDIA.Events.Core.EvPauseExperiment
+  commentId: F:eDIA.Events.Core.EvPauseExperiment
+  id: EvPauseExperiment
+  parent: eDIA.Events.Core
+  langs:
+  - csharp
+  - vb
+  name: EvPauseExperiment
+  nameWithType: Core.EvPauseExperiment
+  fullName: eDIA.Events.Core.EvPauseExperiment
+  type: Field
+  source:
+    id: EvPauseExperiment
+    path: ''
+    startLine: 5690
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA.Events
+  summary: Injects a break block after current trial. Expects null
+  example: []
+  syntax:
+    content: public static string EvPauseExperiment
+    return:
+      type: System.String
+    content.vb: Public Shared EvPauseExperiment As String
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: eDIA.Events.Core.EvExperimentConfigSet
+  commentId: F:eDIA.Events.Core.EvExperimentConfigSet
+  id: EvExperimentConfigSet
+  parent: eDIA.Events.Core
+  langs:
+  - csharp
+  - vb
+  name: EvExperimentConfigSet
+  nameWithType: Core.EvExperimentConfigSet
+  fullName: eDIA.Events.Core.EvExperimentConfigSet
+  type: Field
+  source:
+    id: EvExperimentConfigSet
+    path: ''
+    startLine: 5693
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA.Events
+  summary: 'Fired when the Experiment manager has set the experimentconfig. '
+  example: []
+  syntax:
+    content: public static string EvExperimentConfigSet
+    return:
+      type: System.String
+    content.vb: Public Shared EvExperimentConfigSet As String
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: eDIA.Events.Core.EvTaskConfigSet
+  commentId: F:eDIA.Events.Core.EvTaskConfigSet
+  id: EvTaskConfigSet
+  parent: eDIA.Events.Core
+  langs:
+  - csharp
+  - vb
+  name: EvTaskConfigSet
+  nameWithType: Core.EvTaskConfigSet
+  fullName: eDIA.Events.Core.EvTaskConfigSet
+  type: Field
+  source:
+    id: EvTaskConfigSet
+    path: ''
+    startLine: 5696
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA.Events
+  summary: 'Fired when the Experiment manager has set the taskconfig. '
+  example: []
+  syntax:
+    content: public static string EvTaskConfigSet
+    return:
+      type: System.String
+    content.vb: Public Shared EvTaskConfigSet As String
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: eDIA.Events.Core.EvReadyToGo
+  commentId: F:eDIA.Events.Core.EvReadyToGo
+  id: EvReadyToGo
+  parent: eDIA.Events.Core
+  langs:
+  - csharp
+  - vb
+  name: EvReadyToGo
+  nameWithType: Core.EvReadyToGo
+  fullName: eDIA.Events.Core.EvReadyToGo
+  type: Field
+  source:
+    id: EvReadyToGo
+    path: ''
+    startLine: 5699
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA.Events
+  summary: 'Fired when both configs are set '
+  example: []
+  syntax:
+    content: public static string EvReadyToGo
+    return:
+      type: System.String
+    content.vb: Public Shared EvReadyToGo As String
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: eDIA.Events.Core.EvTrialBegin
+  commentId: F:eDIA.Events.Core.EvTrialBegin
+  id: EvTrialBegin
+  parent: eDIA.Events.Core
+  langs:
+  - csharp
+  - vb
+  name: EvTrialBegin
+  nameWithType: Core.EvTrialBegin
+  fullName: eDIA.Events.Core.EvTrialBegin
+  type: Field
+  source:
+    id: EvTrialBegin
+    path: ''
+    startLine: 5702
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA.Events
+  summary: Fired by ExperimentManager when a trial has begun. Expects null
+  example: []
+  syntax:
+    content: public static string EvTrialBegin
+    return:
+      type: System.String
+    content.vb: Public Shared EvTrialBegin As String
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: eDIA.Events.Core.EvFinalizeSession
+  commentId: F:eDIA.Events.Core.EvFinalizeSession
+  id: EvFinalizeSession
+  parent: eDIA.Events.Core
+  langs:
+  - csharp
+  - vb
+  name: EvFinalizeSession
+  nameWithType: Core.EvFinalizeSession
+  fullName: eDIA.Events.Core.EvFinalizeSession
+  type: Field
+  source:
+    id: EvFinalizeSession
+    path: ''
+    startLine: 5705
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA.Events
+  summary: Fired by ExperimentManager when the session had Finialized. Expects null
+  example: []
+  syntax:
+    content: public static string EvFinalizeSession
+    return:
+      type: System.String
+    content.vb: Public Shared EvFinalizeSession As String
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: eDIA.Events.Core.EvSessionBreak
+  commentId: F:eDIA.Events.Core.EvSessionBreak
+  id: EvSessionBreak
+  parent: eDIA.Events.Core
+  langs:
+  - csharp
+  - vb
+  name: EvSessionBreak
+  nameWithType: Core.EvSessionBreak
+  fullName: eDIA.Events.Core.EvSessionBreak
+  type: Field
+  source:
+    id: EvSessionBreak
+    path: ''
+    startLine: 5708
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA.Events
+  summary: Fired by ExperimentManager when the session starts a break. Expects null
+  example: []
+  syntax:
+    content: public static string EvSessionBreak
+    return:
+      type: System.String
+    content.vb: Public Shared EvSessionBreak As String
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: eDIA.Events.Core.EvSessionResume
+  commentId: F:eDIA.Events.Core.EvSessionResume
+  id: EvSessionResume
+  parent: eDIA.Events.Core
+  langs:
+  - csharp
+  - vb
+  name: EvSessionResume
+  nameWithType: Core.EvSessionResume
+  fullName: eDIA.Events.Core.EvSessionResume
+  type: Field
+  source:
+    id: EvSessionResume
+    path: ''
+    startLine: 5711
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA.Events
+  summary: Fired by ExperimentManager when the session continues. Expects null
+  example: []
+  syntax:
+    content: public static string EvSessionResume
+    return:
+      type: System.String
+    content.vb: Public Shared EvSessionResume As String
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: eDIA.Events.Core.EvBlockIntroduction
+  commentId: F:eDIA.Events.Core.EvBlockIntroduction
+  id: EvBlockIntroduction
+  parent: eDIA.Events.Core
+  langs:
+  - csharp
+  - vb
+  name: EvBlockIntroduction
+  nameWithType: Core.EvBlockIntroduction
+  fullName: eDIA.Events.Core.EvBlockIntroduction
+  type: Field
+  source:
+    id: EvBlockIntroduction
+    path: ''
+    startLine: 5714
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA.Events
+  summary: Fired by ExperimentManager when a blockintroduction is found. Expects null
+  example: []
+  syntax:
+    content: public static string EvBlockIntroduction
+    return:
+      type: System.String
+    content.vb: Public Shared EvBlockIntroduction As String
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: eDIA.Events.Core.EvBlockResumeAfterIntro
+  commentId: F:eDIA.Events.Core.EvBlockResumeAfterIntro
+  id: EvBlockResumeAfterIntro
+  parent: eDIA.Events.Core
+  langs:
+  - csharp
+  - vb
+  name: EvBlockResumeAfterIntro
+  nameWithType: Core.EvBlockResumeAfterIntro
+  fullName: eDIA.Events.Core.EvBlockResumeAfterIntro
+  type: Field
+  source:
+    id: EvBlockResumeAfterIntro
+    path: ''
+    startLine: 5717
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA.Events
+  summary: Fired by ExperimentManager when the session resumes after an i.e. introduction. Expects null
+  example: []
+  syntax:
+    content: public static string EvBlockResumeAfterIntro
+    return:
+      type: System.String
+    content.vb: Public Shared EvBlockResumeAfterIntro As String
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: eDIA.Events.Core.EvProceed
+  commentId: F:eDIA.Events.Core.EvProceed
+  id: EvProceed
+  parent: eDIA.Events.Core
+  langs:
+  - csharp
+  - vb
+  name: EvProceed
+  nameWithType: Core.EvProceed
+  fullName: eDIA.Events.Core.EvProceed
+  type: Field
+  source:
+    id: EvProceed
+    path: ''
+    startLine: 5720
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA.Events
+  summary: Event indicating that the system can proceed, useally from experimenter. Expects null
+  example: []
+  syntax:
+    content: public static string EvProceed
+    return:
+      type: System.String
+    content.vb: Public Shared EvProceed As String
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: eDIA.Events.Core.EvBlockStart
+  commentId: F:eDIA.Events.Core.EvBlockStart
+  id: EvBlockStart
+  parent: eDIA.Events.Core
+  langs:
+  - csharp
+  - vb
+  name: EvBlockStart
+  nameWithType: Core.EvBlockStart
+  fullName: eDIA.Events.Core.EvBlockStart
+  type: Field
+  source:
+    id: EvBlockStart
+    path: ''
+    startLine: 5723
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA.Events
+  summary: Fired by ExperimentManager when a new block is starting. Expects null
+  example: []
+  syntax:
+    content: public static string EvBlockStart
+    return:
+      type: System.String
+    content.vb: Public Shared EvBlockStart As String
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: eDIA.Events.Core.EvSetCustomStoragePath
+  commentId: F:eDIA.Events.Core.EvSetCustomStoragePath
+  id: EvSetCustomStoragePath
+  parent: eDIA.Events.Core
+  langs:
+  - csharp
+  - vb
+  name: EvSetCustomStoragePath
+  nameWithType: Core.EvSetCustomStoragePath
+  fullName: eDIA.Events.Core.EvSetCustomStoragePath
+  type: Field
+  source:
+    id: EvSetCustomStoragePath
+    path: ''
+    startLine: 5726
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA.Events
+  summary: Set storagepath systemwide. Expects full path as string
+  example: []
+  syntax:
+    content: public static string EvSetCustomStoragePath
+    return:
+      type: System.String
+    content.vb: Public Shared EvSetCustomStoragePath As String
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: eDIA.Events.Core.EvFoundLocalConfigFiles
+  commentId: F:eDIA.Events.Core.EvFoundLocalConfigFiles
+  id: EvFoundLocalConfigFiles
+  parent: eDIA.Events.Core
+  langs:
+  - csharp
+  - vb
+  name: EvFoundLocalConfigFiles
+  nameWithType: Core.EvFoundLocalConfigFiles
+  fullName: eDIA.Events.Core.EvFoundLocalConfigFiles
+  type: Field
+  source:
+    id: EvFoundLocalConfigFiles
+    path: ''
+    startLine: 5729
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA.Events
+  summary: Notification that local config files are found on disk. Expects amount as int
+  example: []
+  syntax:
+    content: public static string EvFoundLocalConfigFiles
+    return:
+      type: System.String
+    content.vb: Public Shared EvFoundLocalConfigFiles As String
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: eDIA.Events.Core.EvLocalConfigSubmitted
+  commentId: F:eDIA.Events.Core.EvLocalConfigSubmitted
+  id: EvLocalConfigSubmitted
+  parent: eDIA.Events.Core
+  langs:
+  - csharp
+  - vb
+  name: EvLocalConfigSubmitted
+  nameWithType: Core.EvLocalConfigSubmitted
+  fullName: eDIA.Events.Core.EvLocalConfigSubmitted
+  type: Field
+  source:
+    id: EvLocalConfigSubmitted
+    path: ''
+    startLine: 5732
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA.Events
+  summary: Local config file was submitted. Expects filename as string
+  example: []
+  syntax:
+    content: public static string EvLocalConfigSubmitted
+    return:
+      type: System.String
+    content.vb: Public Shared EvLocalConfigSubmitted As String
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: eDIA.Events.Core.EvSystemHalt
+  commentId: F:eDIA.Events.Core.EvSystemHalt
+  id: EvSystemHalt
+  parent: eDIA.Events.Core
+  langs:
+  - csharp
+  - vb
+  name: EvSystemHalt
+  nameWithType: Core.EvSystemHalt
+  fullName: eDIA.Events.Core.EvSystemHalt
+  type: Field
+  source:
+    id: EvSystemHalt
+    path: ''
+    startLine: 5735
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA.Events
+  summary: Use this to alert the user that something went wrong
+  example: []
+  syntax:
+    content: public static string EvSystemHalt
+    return:
+      type: System.String
+    content.vb: Public Shared EvSystemHalt As String
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: eDIA.Events.Core.EvRequestSystemSettings
+  commentId: F:eDIA.Events.Core.EvRequestSystemSettings
+  id: EvRequestSystemSettings
+  parent: eDIA.Events.Core
+  langs:
+  - csharp
+  - vb
+  name: EvRequestSystemSettings
+  nameWithType: Core.EvRequestSystemSettings
+  fullName: eDIA.Events.Core.EvRequestSystemSettings
+  type: Field
+  source:
+    id: EvRequestSystemSettings
+    path: ''
+    startLine: 5738
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA.Events
+  summary: Request to show system settings. Expects null
+  example: []
+  syntax:
+    content: public static string EvRequestSystemSettings
+    return:
+      type: System.String
+    content.vb: Public Shared EvRequestSystemSettings As String
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: eDIA.Events.Core.EvOpenSystemSettings
+  commentId: F:eDIA.Events.Core.EvOpenSystemSettings
+  id: EvOpenSystemSettings
+  parent: eDIA.Events.Core
+  langs:
+  - csharp
+  - vb
+  name: EvOpenSystemSettings
+  nameWithType: Core.EvOpenSystemSettings
+  fullName: eDIA.Events.Core.EvOpenSystemSettings
+  type: Field
+  source:
+    id: EvOpenSystemSettings
+    path: ''
+    startLine: 5741
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA.Events
+  summary: Open system settings panel. Expects full package of SettingsDeclaration as JSON
+  example: []
+  syntax:
+    content: public static string EvOpenSystemSettings
+    return:
+      type: System.String
+    content.vb: Public Shared EvOpenSystemSettings As String
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: eDIA.Events.Core.EvUpdateSystemSettings
+  commentId: F:eDIA.Events.Core.EvUpdateSystemSettings
+  id: EvUpdateSystemSettings
+  parent: eDIA.Events.Core
+  langs:
+  - csharp
+  - vb
+  name: EvUpdateSystemSettings
+  nameWithType: Core.EvUpdateSystemSettings
+  fullName: eDIA.Events.Core.EvUpdateSystemSettings
+  type: Field
+  source:
+    id: EvUpdateSystemSettings
+    path: ''
+    startLine: 5744
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA.Events
+  summary: SystemSettings have been updated. Expects full package of SettingsDeclaration as JSON
+  example: []
+  syntax:
+    content: public static string EvUpdateSystemSettings
+    return:
+      type: System.String
+    content.vb: Public Shared EvUpdateSystemSettings As String
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: eDIA.Events.Core.EvQuitApplication
+  commentId: F:eDIA.Events.Core.EvQuitApplication
+  id: EvQuitApplication
+  parent: eDIA.Events.Core
+  langs:
+  - csharp
+  - vb
+  name: EvQuitApplication
+  nameWithType: Core.EvQuitApplication
+  fullName: eDIA.Events.Core.EvQuitApplication
+  type: Field
+  source:
+    id: EvQuitApplication
+    path: ''
+    startLine: 5747
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA.Events
+  summary: Exit application
+  example: []
+  syntax:
+    content: public static string EvQuitApplication
+    return:
+      type: System.String
+    content.vb: Public Shared EvQuitApplication As String
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: eDIA.Events.Core.EvShowMessageToUser
+  commentId: F:eDIA.Events.Core.EvShowMessageToUser
+  id: EvShowMessageToUser
+  parent: eDIA.Events.Core
+  langs:
+  - csharp
+  - vb
+  name: EvShowMessageToUser
+  nameWithType: Core.EvShowMessageToUser
+  fullName: eDIA.Events.Core.EvShowMessageToUser
+  type: Field
+  source:
+    id: EvShowMessageToUser
+    path: ''
+    startLine: 5750
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA.Events
+  summary: Shows a message to the VR user
+  example: []
+  syntax:
+    content: public static string EvShowMessageToUser
+    return:
+      type: System.String
+    content.vb: Public Shared EvShowMessageToUser As String
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+references:
+- uid: eDIA.Events
+  commentId: N:eDIA.Events
+  name: eDIA.Events
+  nameWithType: eDIA.Events
+  fullName: eDIA.Events
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  name: String
+  nameWithType: String
+  fullName: System.String

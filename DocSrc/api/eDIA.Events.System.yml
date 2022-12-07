@@ -1,0 +1,91 @@
+### YamlMime:ManagedReference
+items:
+- uid: eDIA.Events.System
+  commentId: T:eDIA.Events.System
+  id: System
+  parent: eDIA.Events
+  children:
+  - eDIA.Events.System.EvCallMainMenu
+  langs:
+  - csharp
+  - vb
+  name: System
+  nameWithType: System
+  fullName: eDIA.Events.System
+  type: Class
+  source:
+    id: System
+    path: ''
+    startLine: 5667
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA.Events
+  syntax:
+    content: public static class System
+    content.vb: Public Module System
+  inheritance:
+  - System.Object
+  modifiers.csharp:
+  - public
+  - static
+  - class
+  modifiers.vb:
+  - Public
+  - Module
+- uid: eDIA.Events.System.EvCallMainMenu
+  commentId: F:eDIA.Events.System.EvCallMainMenu
+  id: EvCallMainMenu
+  parent: eDIA.Events.System
+  langs:
+  - csharp
+  - vb
+  name: EvCallMainMenu
+  nameWithType: System.EvCallMainMenu
+  fullName: eDIA.Events.System.EvCallMainMenu
+  type: Field
+  source:
+    id: EvCallMainMenu
+    path: ''
+    startLine: 5670
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA.Events
+  summary: Set experiment config. Expects config as JSON string
+  example: []
+  syntax:
+    content: public static string EvCallMainMenu
+    return:
+      type: System.String
+    content.vb: Public Shared EvCallMainMenu As String
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+references:
+- uid: eDIA.Events
+  commentId: N:eDIA.Events
+  name: eDIA.Events
+  nameWithType: eDIA.Events
+  fullName: eDIA.Events
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  name: String
+  nameWithType: String
+  fullName: System.String

@@ -1,0 +1,473 @@
+### YamlMime:ManagedReference
+items:
+- uid: TASK.TaskBlockAssessment
+  commentId: T:TASK.TaskBlockAssessment
+  id: TaskBlockAssessment
+  parent: TASK
+  children:
+  - TASK.TaskBlockAssessment.OnBetweenSteps
+  - TASK.TaskBlockAssessment.OnBlockEnd
+  - TASK.TaskBlockAssessment.OnBlockStart
+  - TASK.TaskBlockAssessment.OnEndTrial
+  - TASK.TaskBlockAssessment.OnStartTrial
+  - TASK.TaskBlockAssessment.qpanel
+  - TASK.TaskBlockAssessment.qpanelTextField
+  - TASK.TaskBlockAssessment.TaskStep1
+  - TASK.TaskBlockAssessment.TaskStep2
+  - TASK.TaskBlockAssessment.TaskStep3
+  - TASK.TaskBlockAssessment.TriggerPressed(InputAction.CallbackContext)
+  - TASK.TaskBlockAssessment.XRControllerListener
+  langs:
+  - csharp
+  - vb
+  name: TaskBlockAssessment
+  nameWithType: TaskBlockAssessment
+  fullName: TASK.TaskBlockAssessment
+  type: Class
+  source:
+    id: TaskBlockAssessment
+    path: ''
+    startLine: 22754
+  assemblies:
+  - cs.temp.dll
+  namespace: TASK
+  syntax:
+    content: >-
+      [Serializable]
+
+      public class TaskBlockAssessment : TaskBlock
+    content.vb: >-
+      <Serializable>
+
+      Public Class TaskBlockAssessment
+          Inherits TaskBlock
+  inheritance:
+  - System.Object
+  attributes:
+  - type: System.SerializableAttribute
+    ctor: System.SerializableAttribute.#ctor
+    arguments: []
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+- uid: TASK.TaskBlockAssessment.qpanel
+  commentId: F:TASK.TaskBlockAssessment.qpanel
+  id: qpanel
+  parent: TASK.TaskBlockAssessment
+  langs:
+  - csharp
+  - vb
+  name: qpanel
+  nameWithType: TaskBlockAssessment.qpanel
+  fullName: TASK.TaskBlockAssessment.qpanel
+  type: Field
+  source:
+    id: qpanel
+    path: ''
+    startLine: 22758
+  assemblies:
+  - cs.temp.dll
+  namespace: TASK
+  syntax:
+    content: public GameObject qpanel
+    return:
+      type: Global.GameObject
+    content.vb: Public qpanel As GameObject
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: TASK.TaskBlockAssessment.qpanelTextField
+  commentId: F:TASK.TaskBlockAssessment.qpanelTextField
+  id: qpanelTextField
+  parent: TASK.TaskBlockAssessment
+  langs:
+  - csharp
+  - vb
+  name: qpanelTextField
+  nameWithType: TaskBlockAssessment.qpanelTextField
+  fullName: TASK.TaskBlockAssessment.qpanelTextField
+  type: Field
+  source:
+    id: qpanelTextField
+    path: ''
+    startLine: 22759
+  assemblies:
+  - cs.temp.dll
+  namespace: TASK
+  syntax:
+    content: public TextMeshProUGUI qpanelTextField
+    return:
+      type: Global.TextMeshProUGUI
+    content.vb: Public qpanelTextField As TextMeshProUGUI
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: TASK.TaskBlockAssessment.XRControllerListener
+  commentId: F:TASK.TaskBlockAssessment.XRControllerListener
+  id: XRControllerListener
+  parent: TASK.TaskBlockAssessment
+  langs:
+  - csharp
+  - vb
+  name: XRControllerListener
+  nameWithType: TaskBlockAssessment.XRControllerListener
+  fullName: TASK.TaskBlockAssessment.XRControllerListener
+  type: Field
+  source:
+    id: XRControllerListener
+    path: ''
+    startLine: 22761
+  assemblies:
+  - cs.temp.dll
+  namespace: TASK
+  syntax:
+    content: public XRControllerInputRemapper XRControllerListener
+    return:
+      type: Global.XRControllerInputRemapper
+    content.vb: Public XRControllerListener As XRControllerInputRemapper
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: TASK.TaskBlockAssessment.TaskStep1
+  commentId: M:TASK.TaskBlockAssessment.TaskStep1
+  id: TaskStep1
+  parent: TASK.TaskBlockAssessment
+  langs:
+  - csharp
+  - vb
+  name: TaskStep1()
+  nameWithType: TaskBlockAssessment.TaskStep1()
+  fullName: TASK.TaskBlockAssessment.TaskStep1()
+  type: Method
+  source:
+    id: TaskStep1
+    path: ''
+    startLine: 22782
+  assemblies:
+  - cs.temp.dll
+  namespace: TASK
+  summary: Present Cube
+  example: []
+  syntax:
+    content: public void TaskStep1()
+    content.vb: Public Sub TaskStep1
+  overload: TASK.TaskBlockAssessment.TaskStep1*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: TASK.TaskBlockAssessment.TaskStep2
+  commentId: M:TASK.TaskBlockAssessment.TaskStep2
+  id: TaskStep2
+  parent: TASK.TaskBlockAssessment
+  langs:
+  - csharp
+  - vb
+  name: TaskStep2()
+  nameWithType: TaskBlockAssessment.TaskStep2()
+  fullName: TASK.TaskBlockAssessment.TaskStep2()
+  type: Method
+  source:
+    id: TaskStep2
+    path: ''
+    startLine: 22790
+  assemblies:
+  - cs.temp.dll
+  namespace: TASK
+  summary: Move cube, wait on user input
+  example: []
+  syntax:
+    content: public void TaskStep2()
+    content.vb: Public Sub TaskStep2
+  overload: TASK.TaskBlockAssessment.TaskStep2*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: TASK.TaskBlockAssessment.TaskStep3
+  commentId: M:TASK.TaskBlockAssessment.TaskStep3
+  id: TaskStep3
+  parent: TASK.TaskBlockAssessment
+  langs:
+  - csharp
+  - vb
+  name: TaskStep3()
+  nameWithType: TaskBlockAssessment.TaskStep3()
+  fullName: TASK.TaskBlockAssessment.TaskStep3()
+  type: Method
+  source:
+    id: TaskStep3
+    path: ''
+    startLine: 22806
+  assemblies:
+  - cs.temp.dll
+  namespace: TASK
+  summary: Stop moving, change color
+  example: []
+  syntax:
+    content: public void TaskStep3()
+    content.vb: Public Sub TaskStep3
+  overload: TASK.TaskBlockAssessment.TaskStep3*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: TASK.TaskBlockAssessment.TriggerPressed(InputAction.CallbackContext)
+  commentId: M:TASK.TaskBlockAssessment.TriggerPressed(InputAction.CallbackContext)
+  id: TriggerPressed(InputAction.CallbackContext)
+  parent: TASK.TaskBlockAssessment
+  langs:
+  - csharp
+  - vb
+  name: TriggerPressed(InputAction.CallbackContext)
+  nameWithType: TaskBlockAssessment.TriggerPressed(InputAction.CallbackContext)
+  fullName: TASK.TaskBlockAssessment.TriggerPressed(InputAction.CallbackContext)
+  type: Method
+  source:
+    id: TriggerPressed
+    path: ''
+    startLine: 22821
+  assemblies:
+  - cs.temp.dll
+  namespace: TASK
+  syntax:
+    content: public void TriggerPressed(InputAction.CallbackContext context)
+    parameters:
+    - id: context
+      type: Global.InputAction.CallbackContext
+    content.vb: Public Sub TriggerPressed(context As InputAction.CallbackContext)
+  overload: TASK.TaskBlockAssessment.TriggerPressed*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: TASK.TaskBlockAssessment.OnBlockStart
+  commentId: M:TASK.TaskBlockAssessment.OnBlockStart
+  id: OnBlockStart
+  parent: TASK.TaskBlockAssessment
+  langs:
+  - csharp
+  - vb
+  name: OnBlockStart()
+  nameWithType: TaskBlockAssessment.OnBlockStart()
+  fullName: TASK.TaskBlockAssessment.OnBlockStart()
+  type: Method
+  source:
+    id: OnBlockStart
+    path: ''
+    startLine: 22837
+  assemblies:
+  - cs.temp.dll
+  namespace: TASK
+  syntax:
+    content: public override void OnBlockStart()
+    content.vb: Public Overrides Sub OnBlockStart
+  overload: TASK.TaskBlockAssessment.OnBlockStart*
+  modifiers.csharp:
+  - public
+  - override
+  modifiers.vb:
+  - Public
+  - Overrides
+- uid: TASK.TaskBlockAssessment.OnStartTrial
+  commentId: M:TASK.TaskBlockAssessment.OnStartTrial
+  id: OnStartTrial
+  parent: TASK.TaskBlockAssessment
+  langs:
+  - csharp
+  - vb
+  name: OnStartTrial()
+  nameWithType: TaskBlockAssessment.OnStartTrial()
+  fullName: TASK.TaskBlockAssessment.OnStartTrial()
+  type: Method
+  source:
+    id: OnStartTrial
+    path: ''
+    startLine: 22840
+  assemblies:
+  - cs.temp.dll
+  namespace: TASK
+  syntax:
+    content: public override void OnStartTrial()
+    content.vb: Public Overrides Sub OnStartTrial
+  overload: TASK.TaskBlockAssessment.OnStartTrial*
+  modifiers.csharp:
+  - public
+  - override
+  modifiers.vb:
+  - Public
+  - Overrides
+- uid: TASK.TaskBlockAssessment.OnEndTrial
+  commentId: M:TASK.TaskBlockAssessment.OnEndTrial
+  id: OnEndTrial
+  parent: TASK.TaskBlockAssessment
+  langs:
+  - csharp
+  - vb
+  name: OnEndTrial()
+  nameWithType: TaskBlockAssessment.OnEndTrial()
+  fullName: TASK.TaskBlockAssessment.OnEndTrial()
+  type: Method
+  source:
+    id: OnEndTrial
+    path: ''
+    startLine: 22844
+  assemblies:
+  - cs.temp.dll
+  namespace: TASK
+  syntax:
+    content: public override void OnEndTrial()
+    content.vb: Public Overrides Sub OnEndTrial
+  overload: TASK.TaskBlockAssessment.OnEndTrial*
+  modifiers.csharp:
+  - public
+  - override
+  modifiers.vb:
+  - Public
+  - Overrides
+- uid: TASK.TaskBlockAssessment.OnBetweenSteps
+  commentId: M:TASK.TaskBlockAssessment.OnBetweenSteps
+  id: OnBetweenSteps
+  parent: TASK.TaskBlockAssessment
+  langs:
+  - csharp
+  - vb
+  name: OnBetweenSteps()
+  nameWithType: TaskBlockAssessment.OnBetweenSteps()
+  fullName: TASK.TaskBlockAssessment.OnBetweenSteps()
+  type: Method
+  source:
+    id: OnBetweenSteps
+    path: ''
+    startLine: 22847
+  assemblies:
+  - cs.temp.dll
+  namespace: TASK
+  syntax:
+    content: public override void OnBetweenSteps()
+    content.vb: Public Overrides Sub OnBetweenSteps
+  overload: TASK.TaskBlockAssessment.OnBetweenSteps*
+  modifiers.csharp:
+  - public
+  - override
+  modifiers.vb:
+  - Public
+  - Overrides
+- uid: TASK.TaskBlockAssessment.OnBlockEnd
+  commentId: M:TASK.TaskBlockAssessment.OnBlockEnd
+  id: OnBlockEnd
+  parent: TASK.TaskBlockAssessment
+  langs:
+  - csharp
+  - vb
+  name: OnBlockEnd()
+  nameWithType: TaskBlockAssessment.OnBlockEnd()
+  fullName: TASK.TaskBlockAssessment.OnBlockEnd()
+  type: Method
+  source:
+    id: OnBlockEnd
+    path: ''
+    startLine: 22850
+  assemblies:
+  - cs.temp.dll
+  namespace: TASK
+  syntax:
+    content: public override void OnBlockEnd()
+    content.vb: Public Overrides Sub OnBlockEnd
+  overload: TASK.TaskBlockAssessment.OnBlockEnd*
+  modifiers.csharp:
+  - public
+  - override
+  modifiers.vb:
+  - Public
+  - Overrides
+references:
+- uid: TASK
+  commentId: N:TASK
+  name: TASK
+  nameWithType: TASK
+  fullName: TASK
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Global.GameObject
+  isExternal: true
+  name: GameObject
+  nameWithType: GameObject
+  fullName: GameObject
+- uid: Global.TextMeshProUGUI
+  isExternal: true
+  name: TextMeshProUGUI
+  nameWithType: TextMeshProUGUI
+  fullName: TextMeshProUGUI
+- uid: Global.XRControllerInputRemapper
+  isExternal: true
+  name: XRControllerInputRemapper
+  nameWithType: XRControllerInputRemapper
+  fullName: XRControllerInputRemapper
+- uid: TASK.TaskBlockAssessment.TaskStep1*
+  commentId: Overload:TASK.TaskBlockAssessment.TaskStep1
+  name: TaskStep1
+  nameWithType: TaskBlockAssessment.TaskStep1
+  fullName: TASK.TaskBlockAssessment.TaskStep1
+- uid: TASK.TaskBlockAssessment.TaskStep2*
+  commentId: Overload:TASK.TaskBlockAssessment.TaskStep2
+  name: TaskStep2
+  nameWithType: TaskBlockAssessment.TaskStep2
+  fullName: TASK.TaskBlockAssessment.TaskStep2
+- uid: TASK.TaskBlockAssessment.TaskStep3*
+  commentId: Overload:TASK.TaskBlockAssessment.TaskStep3
+  name: TaskStep3
+  nameWithType: TaskBlockAssessment.TaskStep3
+  fullName: TASK.TaskBlockAssessment.TaskStep3
+- uid: TASK.TaskBlockAssessment.TriggerPressed*
+  commentId: Overload:TASK.TaskBlockAssessment.TriggerPressed
+  name: TriggerPressed
+  nameWithType: TaskBlockAssessment.TriggerPressed
+  fullName: TASK.TaskBlockAssessment.TriggerPressed
+- uid: Global.InputAction.CallbackContext
+  isExternal: true
+  name: InputAction.CallbackContext
+  nameWithType: InputAction.CallbackContext
+  fullName: InputAction.CallbackContext
+- uid: TASK.TaskBlockAssessment.OnBlockStart*
+  commentId: Overload:TASK.TaskBlockAssessment.OnBlockStart
+  name: OnBlockStart
+  nameWithType: TaskBlockAssessment.OnBlockStart
+  fullName: TASK.TaskBlockAssessment.OnBlockStart
+- uid: TASK.TaskBlockAssessment.OnStartTrial*
+  commentId: Overload:TASK.TaskBlockAssessment.OnStartTrial
+  name: OnStartTrial
+  nameWithType: TaskBlockAssessment.OnStartTrial
+  fullName: TASK.TaskBlockAssessment.OnStartTrial
+- uid: TASK.TaskBlockAssessment.OnEndTrial*
+  commentId: Overload:TASK.TaskBlockAssessment.OnEndTrial
+  name: OnEndTrial
+  nameWithType: TaskBlockAssessment.OnEndTrial
+  fullName: TASK.TaskBlockAssessment.OnEndTrial
+- uid: TASK.TaskBlockAssessment.OnBetweenSteps*
+  commentId: Overload:TASK.TaskBlockAssessment.OnBetweenSteps
+  name: OnBetweenSteps
+  nameWithType: TaskBlockAssessment.OnBetweenSteps
+  fullName: TASK.TaskBlockAssessment.OnBetweenSteps
+- uid: TASK.TaskBlockAssessment.OnBlockEnd*
+  commentId: Overload:TASK.TaskBlockAssessment.OnBlockEnd
+  name: OnBlockEnd
+  nameWithType: TaskBlockAssessment.OnBlockEnd
+  fullName: TASK.TaskBlockAssessment.OnBlockEnd

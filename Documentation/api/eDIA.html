@@ -87,34 +87,43 @@
   <div class="markdown level0 remarks"></div>
     <h3 id="classes">Classes
   </h3>
+      <h4><a class="xref" href="eDIA.Constants.html">Constants</a></h4>
+      <section><p>Static definitions</p>
+</section>
+      <h4><a class="xref" href="eDIA.ControlPanelManager.html">ControlPanelManager</a></h4>
+      <section></section>
       <h4><a class="xref" href="eDIA.eParam.html">eParam</a></h4>
       <section><p>Parameter package definition to send along with an event. </p>
 </section>
+      <h4><a class="xref" href="eDIA.eParam.StringBool.html">eParam.StringBool</a></h4>
+      <section></section>
       <h4><a class="xref" href="eDIA.EventManager.html">EventManager</a></h4>
       <section><p>EventManager handles eventlisteners and fire events when triggered.<br>
 It uses <code>eparam</code> class to be able to send custom packages along with the event.</p>
 </section>
-      <h4><a class="xref" href="eDIA.ExperimentManager.html">ExperimentManager</a></h4>
-      <section><p>Core manager of the experiment. Singleton so available throughout the system. </p>
+      <h4><a class="xref" href="eDIA.Experiment.html">Experiment</a></h4>
+      <section></section>
+      <h4><a class="xref" href="eDIA.ExperimentBlock.html">ExperimentBlock</a></h4>
+      <section><p>Experiment block container  </p>
 </section>
-      <h4><a class="xref" href="eDIA.ExperimentManager.ExperimentConfig.html">ExperimentManager.ExperimentConfig</a></h4>
-      <section><p>Main container to store sessions config, either from disk, editor or network </p>
+      <h4><a class="xref" href="eDIA.ExperimentConfig.html">ExperimentConfig</a></h4>
+      <section><p>Experiment config container</p>
 </section>
-      <h4><a class="xref" href="eDIA.ExperimentManager.SettingsTuple.html">ExperimentManager.SettingsTuple</a></h4>
-      <section><p>Tuple of strings. Serializable in the inspector and dictionaries are not</p>
-</section>
-      <h4><a class="xref" href="eDIA.ExperimentManager.TrialSequenceValues.html">ExperimentManager.TrialSequenceValues</a></h4>
-      <section><p>Stringlist with trial setting values</p>
-</section>
-      <h4><a class="xref" href="eDIA.ExperimentManager.TrialSequenceValuesContainer.html">ExperimentManager.TrialSequenceValuesContainer</a></h4>
-      <section><p>Container for (de)serializing a list to JSON</p>
+      <h4><a class="xref" href="eDIA.ExperimenterPanel.html">ExperimenterPanel</a></h4>
+      <section><p>Base Panel functionality class</p>
 </section>
       <h4><a class="xref" href="eDIA.FileManager.html">FileManager</a></h4>
       <section><p>Static class to handle file IO</p>
 </section>
+      <h4><a class="xref" href="eDIA.Helpers.html">Helpers</a></h4>
+      <section></section>
       <h4><a class="xref" href="eDIA.InputActionHandler.html">InputActionHandler</a></h4>
       <section><p>Mapping new Input system <code>InputAction</code> to eDIA <code>EventManager</code></p>
 </section>
+      <h4><a class="xref" href="eDIA.InputRemapper.html">InputRemapper</a></h4>
+      <section></section>
+      <h4><a class="xref" href="eDIA.LogUtilities.html">LogUtilities</a></h4>
+      <section></section>
       <h4><a class="xref" href="eDIA.MainMenu.html">MainMenu</a></h4>
       <section><p>Main menu can be opened in the app with the action &apos;Menu&apos;<br>
 It generates a list of scenes (which are tasks) and the default &apos;continue&apos; and &apos;quit&apos; option</p>
@@ -122,35 +131,85 @@ It generates a list of scenes (which are tasks) and the default &apos;continue&a
       <h4><a class="xref" href="eDIA.MainMenu.aScene.html">MainMenu.aScene</a></h4>
       <section><p>A scene menuitem container</p>
 </section>
+      <h4><a class="xref" href="eDIA.MessagePanelInVR.html">MessagePanelInVR</a></h4>
+      <section><p>Sample script to show the user a message in VR canvas</p>
+</section>
       <h4><a class="xref" href="eDIA.NetworkComManager.html">NetworkComManager</a></h4>
       <section><p>Communication manager interface. Translates internal commands into network packages and viseversa</p>
 </section>
       <h4><a class="xref" href="eDIA.NetworkManager.html">NetworkManager</a></h4>
       <section><p>Manages network connections, disconnections, auto connect, etc</p>
 </section>
+      <h4><a class="xref" href="eDIA.PanelApplicationSettings.html">PanelApplicationSettings</a></h4>
+      <section></section>
+      <h4><a class="xref" href="eDIA.PanelConfigSelection.html">PanelConfigSelection</a></h4>
+      <section><p>GUI element that enables the user to choose from a dropdown of found experiment config files</p>
+</section>
+      <h4><a class="xref" href="eDIA.PanelExperimentControl.html">PanelExperimentControl</a></h4>
+      <section></section>
+      <h4><a class="xref" href="eDIA.PanelHeader.html">PanelHeader</a></h4>
+      <section></section>
+      <h4><a class="xref" href="eDIA.PanelLayoutManager.html">PanelLayoutManager</a></h4>
+      <section></section>
+      <h4><a class="xref" href="eDIA.PanelMessageBox.html">PanelMessageBox</a></h4>
+      <section></section>
+      <h4><a class="xref" href="eDIA.PanelTaskControl.html">PanelTaskControl</a></h4>
+      <section></section>
       <h4><a class="xref" href="eDIA.ScreenFader.html">ScreenFader</a></h4>
       <section><p>Handles fading the camera view </p>
 </section>
-      <h4><a class="xref" href="eDIA.SystemManager.html">SystemManager</a></h4>
-      <section><p>The SystemManager is a Singleton and therefor reachable from whatever script.<br>
-The script travels along the scenes that are loaded as it is DontDestroyOnLoad. <br>
-Responsible for loading/unloading, user related actions, top level application stuff.<br>
+      <h4><a class="xref" href="eDIA.SettingsDeclaration.html">SettingsDeclaration</a></h4>
+      <section><p>Container to hold main settings of the application </p>
+</section>
+      <h4><a class="xref" href="eDIA.SettingsTuple.html">SettingsTuple</a></h4>
+      <section><p>Tuple of strings, this is serializable in the inspector and dictionaries are not</p>
+</section>
+      <h4><a class="xref" href="eDIA.SystemSettings.html">SystemSettings</a></h4>
+      <section><p>Global settings of the application</p>
+</section>
+      <h4><a class="xref" href="eDIA.TaskBlock.html">TaskBlock</a></h4>
+      <section></section>
+      <h4><a class="xref" href="eDIA.TaskConfig.html">TaskConfig</a></h4>
+      <section><p>Experiment config container</p>
+</section>
+      <h4><a class="xref" href="eDIA.Tooltip.html">Tooltip</a></h4>
+      <section><p>Enables a tooltip on the component this is on.</p>
+</section>
+      <h4><a class="xref" href="eDIA.TooltipManager.html">TooltipManager</a></h4>
+      <section></section>
+      <h4><a class="xref" href="eDIA.TrialSettings.html">TrialSettings</a></h4>
+      <section><p>Experiment trial settings container</p>
+</section>
+      <h4><a class="xref" href="eDIA.TrialStep.html">TrialStep</a></h4>
+      <section><p>One step of a trial</p>
+</section>
+      <h4><a class="xref" href="eDIA.ValueList.html">ValueList</a></h4>
+      <section><p>List of string values, in a class to make it serializable by JSON</p>
+</section>
+      <h4><a class="xref" href="eDIA.XRController.html">XRController</a></h4>
+      <section></section>
+      <h4><a class="xref" href="eDIA.XRControllerInputRemapper.html">XRControllerInputRemapper</a></h4>
+      <section><p>In order to be flexible for each taskblock, the remapping of a controller key to a method is a separate script</p>
+</section>
+      <h4><a class="xref" href="eDIA.XRControllerInputRemapper.ControllerInputRemap.html">XRControllerInputRemapper.ControllerInputRemap</a></h4>
+      <section></section>
+      <h4><a class="xref" href="eDIA.XRManager.html">XRManager</a></h4>
+      <section><p>This singleton script travels along the scenes that are loaded as it is DontDestroyOnLoad. <br>
+Responsible for loading/unloading, user related actions, top level application.<br>
 Has references to the XR rig camera and hands for the rest of the application.<br></p>
 </section>
-      <h4><a class="xref" href="eDIA.TaskManagerBase.html">TaskManagerBase</a></h4>
-      <section><p>Link between <code>ExperimentManager</code> and the custom user task. <br>
-Hidden base where the custom task template is build upon.</p>
-</section>
-      <h4><a class="xref" href="eDIA.TaskManagerBase.TaskSettingsContainer.html">TaskManagerBase.TaskSettingsContainer</a></h4>
-      <section><p>Each task has it&apos;s own settings. <br>
-Container to deserialize the <code>TaskSettings.json</code> file in</p>
-</section>
-      <h4><a class="xref" href="eDIA.TaskManagerBase.TrialStep.html">TaskManagerBase.TrialStep</a></h4>
-      <section><p>A task trial exists out of one of more <code>steps</code> </p>
-</section>
       <h4><a class="xref" href="eDIA.XRrigInitialiser.html">XRrigInitialiser</a></h4>
+      <section><p>Injects eDIA XRrig prefab in the current loaded scene at Awake and positions the playarea on this gameobjects transform. </p>
+</section>
+    <h3 id="enums">Enums
+  </h3>
+      <h4><a class="xref" href="eDIA.Constants.Interactor.html">Constants.Interactor</a></h4>
       <section></section>
-      <h4><a class="xref" href="eDIA.XRrigUtilities.html">XRrigUtilities</a></h4>
+      <h4><a class="xref" href="eDIA.Constants.Languages.html">Constants.Languages</a></h4>
+      <section></section>
+      <h4><a class="xref" href="eDIA.Constants.TargetHZ.html">Constants.TargetHZ</a></h4>
+      <section></section>
+      <h4><a class="xref" href="eDIA.ControlPanelManager.ControlPanelModes.html">ControlPanelManager.ControlPanelModes</a></h4>
       <section></section>
 </article>
           </div>

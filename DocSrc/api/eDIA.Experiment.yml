@@ -1,0 +1,1005 @@
+### YamlMime:ManagedReference
+items:
+- uid: eDIA.Experiment
+  commentId: T:eDIA.Experiment
+  id: Experiment
+  parent: eDIA
+  children:
+  - eDIA.Experiment.AddToTrialResults(System.String,System.String)
+  - eDIA.Experiment.ConvertAndSaveDataToUXF(System.String[],System.Collections.Generic.List{System.Int32},System.String)
+  - eDIA.Experiment.ConvertAndSaveDataToUXF(System.String[],System.Collections.Generic.List{System.String[]},System.String)
+  - eDIA.Experiment.currentStepNum
+  - eDIA.Experiment.EnableEyeCalibrationTrigger(System.Boolean)
+  - eDIA.Experiment.EnablePauseButton(System.Boolean)
+  - eDIA.Experiment.experimentConfig
+  - eDIA.Experiment.NextStep
+  - eDIA.Experiment.NextStepWithDelay(System.Single)
+  - eDIA.Experiment.OnSessionBreak
+  - eDIA.Experiment.OnSessionEnd
+  - eDIA.Experiment.OnSessionStart
+  - eDIA.Experiment.SendMarker(System.String)
+  - eDIA.Experiment.showLog
+  - eDIA.Experiment.StartExperiment
+  - eDIA.Experiment.taskBlocks
+  - eDIA.Experiment.taskColor
+  - eDIA.Experiment.taskConfig
+  - eDIA.Experiment.WaitOnProceed
+  langs:
+  - csharp
+  - vb
+  name: Experiment
+  nameWithType: Experiment
+  fullName: eDIA.Experiment
+  type: Class
+  source:
+    id: Experiment
+    path: ''
+    startLine: 5899
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: 'public class Experiment : Singleton<Experiment>'
+    content.vb: >-
+      Public Class Experiment
+          Inherits Singleton(Of Experiment)
+  inheritance:
+  - System.Object
+  - Global.Singleton{eDIA.Experiment}
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+- uid: eDIA.Experiment.showLog
+  commentId: F:eDIA.Experiment.showLog
+  id: showLog
+  parent: eDIA.Experiment
+  langs:
+  - csharp
+  - vb
+  name: showLog
+  nameWithType: Experiment.showLog
+  fullName: eDIA.Experiment.showLog
+  type: Field
+  source:
+    id: showLog
+    path: ''
+    startLine: 5902
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public bool showLog
+    return:
+      type: System.Boolean
+    content.vb: Public showLog As Boolean
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.Experiment.taskColor
+  commentId: F:eDIA.Experiment.taskColor
+  id: taskColor
+  parent: eDIA.Experiment
+  langs:
+  - csharp
+  - vb
+  name: taskColor
+  nameWithType: Experiment.taskColor
+  fullName: eDIA.Experiment.taskColor
+  type: Field
+  source:
+    id: taskColor
+    path: ''
+    startLine: 5903
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public Color taskColor
+    return:
+      type: Global.Color
+    content.vb: Public taskColor As Color
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.Experiment.taskBlocks
+  commentId: F:eDIA.Experiment.taskBlocks
+  id: taskBlocks
+  parent: eDIA.Experiment
+  langs:
+  - csharp
+  - vb
+  name: taskBlocks
+  nameWithType: Experiment.taskBlocks
+  fullName: eDIA.Experiment.taskBlocks
+  type: Field
+  source:
+    id: taskBlocks
+    path: ''
+    startLine: 5906
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public List<TaskBlock> taskBlocks
+    return:
+      type: System.Collections.Generic.List{eDIA.TaskBlock}
+    content.vb: Public taskBlocks As List(Of TaskBlock)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.Experiment.OnSessionStart
+  commentId: F:eDIA.Experiment.OnSessionStart
+  id: OnSessionStart
+  parent: eDIA.Experiment
+  langs:
+  - csharp
+  - vb
+  name: OnSessionStart
+  nameWithType: Experiment.OnSessionStart
+  fullName: eDIA.Experiment.OnSessionStart
+  type: Field
+  source:
+    id: OnSessionStart
+    path: ''
+    startLine: 5910
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public UnityEvent OnSessionStart
+    return:
+      type: Global.UnityEvent
+    content.vb: Public OnSessionStart As UnityEvent
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.Experiment.OnSessionBreak
+  commentId: F:eDIA.Experiment.OnSessionBreak
+  id: OnSessionBreak
+  parent: eDIA.Experiment
+  langs:
+  - csharp
+  - vb
+  name: OnSessionBreak
+  nameWithType: Experiment.OnSessionBreak
+  fullName: eDIA.Experiment.OnSessionBreak
+  type: Field
+  source:
+    id: OnSessionBreak
+    path: ''
+    startLine: 5911
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public UnityEvent OnSessionBreak
+    return:
+      type: Global.UnityEvent
+    content.vb: Public OnSessionBreak As UnityEvent
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.Experiment.OnSessionEnd
+  commentId: F:eDIA.Experiment.OnSessionEnd
+  id: OnSessionEnd
+  parent: eDIA.Experiment
+  langs:
+  - csharp
+  - vb
+  name: OnSessionEnd
+  nameWithType: Experiment.OnSessionEnd
+  fullName: eDIA.Experiment.OnSessionEnd
+  type: Field
+  source:
+    id: OnSessionEnd
+    path: ''
+    startLine: 5912
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public UnityEvent OnSessionEnd
+    return:
+      type: Global.UnityEvent
+    content.vb: Public OnSessionEnd As UnityEvent
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.Experiment.experimentConfig
+  commentId: F:eDIA.Experiment.experimentConfig
+  id: experimentConfig
+  parent: eDIA.Experiment
+  langs:
+  - csharp
+  - vb
+  name: experimentConfig
+  nameWithType: Experiment.experimentConfig
+  fullName: eDIA.Experiment.experimentConfig
+  type: Field
+  source:
+    id: experimentConfig
+    path: ''
+    startLine: 5916
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  example: []
+  syntax:
+    content: public ExperimentConfig experimentConfig
+    return:
+      type: eDIA.ExperimentConfig
+    content.vb: Public experimentConfig As ExperimentConfig
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.Experiment.taskConfig
+  commentId: F:eDIA.Experiment.taskConfig
+  id: taskConfig
+  parent: eDIA.Experiment
+  langs:
+  - csharp
+  - vb
+  name: taskConfig
+  nameWithType: Experiment.taskConfig
+  fullName: eDIA.Experiment.taskConfig
+  type: Field
+  source:
+    id: taskConfig
+    path: ''
+    startLine: 5918
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public TaskConfig taskConfig
+    return:
+      type: eDIA.TaskConfig
+    content.vb: Public taskConfig As TaskConfig
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.Experiment.currentStepNum
+  commentId: F:eDIA.Experiment.currentStepNum
+  id: currentStepNum
+  parent: eDIA.Experiment
+  langs:
+  - csharp
+  - vb
+  name: currentStepNum
+  nameWithType: Experiment.currentStepNum
+  fullName: eDIA.Experiment.currentStepNum
+  type: Field
+  source:
+    id: currentStepNum
+    path: ''
+    startLine: 5930
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  summary: 'Currently active step number. '
+  example: []
+  syntax:
+    content: public int currentStepNum
+    return:
+      type: System.Int32
+    content.vb: Public currentStepNum As Integer
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.Experiment.StartExperiment
+  commentId: M:eDIA.Experiment.StartExperiment
+  id: StartExperiment
+  parent: eDIA.Experiment
+  langs:
+  - csharp
+  - vb
+  name: StartExperiment()
+  nameWithType: Experiment.StartExperiment()
+  fullName: eDIA.Experiment.StartExperiment()
+  type: Method
+  source:
+    id: StartExperiment
+    path: ''
+    startLine: 6052
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  summary: Starts the experiment
+  example: []
+  syntax:
+    content: public void StartExperiment()
+    content.vb: Public Sub StartExperiment
+  overload: eDIA.Experiment.StartExperiment*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.Experiment.EnablePauseButton(System.Boolean)
+  commentId: M:eDIA.Experiment.EnablePauseButton(System.Boolean)
+  id: EnablePauseButton(System.Boolean)
+  parent: eDIA.Experiment
+  langs:
+  - csharp
+  - vb
+  name: EnablePauseButton(Boolean)
+  nameWithType: Experiment.EnablePauseButton(Boolean)
+  fullName: eDIA.Experiment.EnablePauseButton(System.Boolean)
+  type: Method
+  source:
+    id: EnablePauseButton
+    path: ''
+    startLine: 6086
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public void EnablePauseButton(bool _onOff)
+    parameters:
+    - id: _onOff
+      type: System.Boolean
+    content.vb: Public Sub EnablePauseButton(_onOff As Boolean)
+  overload: eDIA.Experiment.EnablePauseButton*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.Experiment.WaitOnProceed
+  commentId: M:eDIA.Experiment.WaitOnProceed
+  id: WaitOnProceed
+  parent: eDIA.Experiment
+  langs:
+  - csharp
+  - vb
+  name: WaitOnProceed()
+  nameWithType: Experiment.WaitOnProceed()
+  fullName: eDIA.Experiment.WaitOnProceed()
+  type: Method
+  source:
+    id: WaitOnProceed
+    path: ''
+    startLine: 6091
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public void WaitOnProceed()
+    content.vb: Public Sub WaitOnProceed
+  overload: eDIA.Experiment.WaitOnProceed*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.Experiment.EnableEyeCalibrationTrigger(System.Boolean)
+  commentId: M:eDIA.Experiment.EnableEyeCalibrationTrigger(System.Boolean)
+  id: EnableEyeCalibrationTrigger(System.Boolean)
+  parent: eDIA.Experiment
+  langs:
+  - csharp
+  - vb
+  name: EnableEyeCalibrationTrigger(Boolean)
+  nameWithType: Experiment.EnableEyeCalibrationTrigger(Boolean)
+  fullName: eDIA.Experiment.EnableEyeCalibrationTrigger(System.Boolean)
+  type: Method
+  source:
+    id: EnableEyeCalibrationTrigger
+    path: ''
+    startLine: 6105
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  summary: Set system open for calibration call from event or button
+  example: []
+  syntax:
+    content: public void EnableEyeCalibrationTrigger(bool _onOff)
+    parameters:
+    - id: _onOff
+      type: System.Boolean
+    content.vb: Public Sub EnableEyeCalibrationTrigger(_onOff As Boolean)
+  overload: eDIA.Experiment.EnableEyeCalibrationTrigger*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.Experiment.AddToTrialResults(System.String,System.String)
+  commentId: M:eDIA.Experiment.AddToTrialResults(System.String,System.String)
+  id: AddToTrialResults(System.String,System.String)
+  parent: eDIA.Experiment
+  langs:
+  - csharp
+  - vb
+  name: AddToTrialResults(String, String)
+  nameWithType: Experiment.AddToTrialResults(String, String)
+  fullName: eDIA.Experiment.AddToTrialResults(System.String, System.String)
+  type: Method
+  source:
+    id: AddToTrialResults
+    path: ''
+    startLine: 6124
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public void AddToTrialResults(string key, string value)
+    parameters:
+    - id: key
+      type: System.String
+    - id: value
+      type: System.String
+    content.vb: Public Sub AddToTrialResults(key As String, value As String)
+  overload: eDIA.Experiment.AddToTrialResults*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.Experiment.NextStepWithDelay(System.Single)
+  commentId: M:eDIA.Experiment.NextStepWithDelay(System.Single)
+  id: NextStepWithDelay(System.Single)
+  parent: eDIA.Experiment
+  langs:
+  - csharp
+  - vb
+  name: NextStepWithDelay(Single)
+  nameWithType: Experiment.NextStepWithDelay(Single)
+  fullName: eDIA.Experiment.NextStepWithDelay(System.Single)
+  type: Method
+  source:
+    id: NextStepWithDelay
+    path: ''
+    startLine: 6358
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  summary: Call next step in the trial with delay.
+  example: []
+  syntax:
+    content: public void NextStepWithDelay(float duration)
+    parameters:
+    - id: duration
+      type: System.Single
+      description: Time to wait before proceeding. Expects float
+    content.vb: Public Sub NextStepWithDelay(duration As Single)
+  overload: eDIA.Experiment.NextStepWithDelay*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.Experiment.NextStep
+  commentId: M:eDIA.Experiment.NextStep
+  id: NextStep
+  parent: eDIA.Experiment
+  langs:
+  - csharp
+  - vb
+  name: NextStep()
+  nameWithType: Experiment.NextStep()
+  fullName: eDIA.Experiment.NextStep()
+  type: Method
+  source:
+    id: NextStep
+    path: ''
+    startLine: 6372
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  summary: Call next step in the trial.
+  example: []
+  syntax:
+    content: public void NextStep()
+    content.vb: Public Sub NextStep
+  overload: eDIA.Experiment.NextStep*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.Experiment.ConvertAndSaveDataToUXF(System.String[],System.Collections.Generic.List{System.String[]},System.String)
+  commentId: M:eDIA.Experiment.ConvertAndSaveDataToUXF(System.String[],System.Collections.Generic.List{System.String[]},System.String)
+  id: ConvertAndSaveDataToUXF(System.String[],System.Collections.Generic.List{System.String[]},System.String)
+  parent: eDIA.Experiment
+  langs:
+  - csharp
+  - vb
+  name: ConvertAndSaveDataToUXF(String[], List<String[]>, String)
+  nameWithType: Experiment.ConvertAndSaveDataToUXF(String[], List<String[]>, String)
+  fullName: eDIA.Experiment.ConvertAndSaveDataToUXF(System.String[], System.Collections.Generic.List<System.String[]>, System.String)
+  type: Method
+  source:
+    id: ConvertAndSaveDataToUXF
+    path: ''
+    startLine: 6437
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public void ConvertAndSaveDataToUXF(string[] headers, List<string[]> values, string filename)
+    parameters:
+    - id: headers
+      type: System.String[]
+    - id: values
+      type: System.Collections.Generic.List{System.String[]}
+    - id: filename
+      type: System.String
+    content.vb: Public Sub ConvertAndSaveDataToUXF(headers As String(), values As List(Of String()), filename As String)
+  overload: eDIA.Experiment.ConvertAndSaveDataToUXF*
+  nameWithType.vb: Experiment.ConvertAndSaveDataToUXF(String(), List(Of String()), String)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: eDIA.Experiment.ConvertAndSaveDataToUXF(System.String(), System.Collections.Generic.List(Of System.String()), System.String)
+  name.vb: ConvertAndSaveDataToUXF(String(), List(Of String()), String)
+- uid: eDIA.Experiment.ConvertAndSaveDataToUXF(System.String[],System.Collections.Generic.List{System.Int32},System.String)
+  commentId: M:eDIA.Experiment.ConvertAndSaveDataToUXF(System.String[],System.Collections.Generic.List{System.Int32},System.String)
+  id: ConvertAndSaveDataToUXF(System.String[],System.Collections.Generic.List{System.Int32},System.String)
+  parent: eDIA.Experiment
+  langs:
+  - csharp
+  - vb
+  name: ConvertAndSaveDataToUXF(String[], List<Int32>, String)
+  nameWithType: Experiment.ConvertAndSaveDataToUXF(String[], List<Int32>, String)
+  fullName: eDIA.Experiment.ConvertAndSaveDataToUXF(System.String[], System.Collections.Generic.List<System.Int32>, System.String)
+  type: Method
+  source:
+    id: ConvertAndSaveDataToUXF
+    path: ''
+    startLine: 6459
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public void ConvertAndSaveDataToUXF(string[] headers, List<int> values, string filename)
+    parameters:
+    - id: headers
+      type: System.String[]
+    - id: values
+      type: System.Collections.Generic.List{System.Int32}
+    - id: filename
+      type: System.String
+    content.vb: Public Sub ConvertAndSaveDataToUXF(headers As String(), values As List(Of Integer), filename As String)
+  overload: eDIA.Experiment.ConvertAndSaveDataToUXF*
+  nameWithType.vb: Experiment.ConvertAndSaveDataToUXF(String(), List(Of Int32), String)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: eDIA.Experiment.ConvertAndSaveDataToUXF(System.String(), System.Collections.Generic.List(Of System.Int32), System.String)
+  name.vb: ConvertAndSaveDataToUXF(String(), List(Of Int32), String)
+- uid: eDIA.Experiment.SendMarker(System.String)
+  commentId: M:eDIA.Experiment.SendMarker(System.String)
+  id: SendMarker(System.String)
+  parent: eDIA.Experiment
+  langs:
+  - csharp
+  - vb
+  name: SendMarker(String)
+  nameWithType: Experiment.SendMarker(String)
+  fullName: eDIA.Experiment.SendMarker(System.String)
+  type: Method
+  source:
+    id: SendMarker
+    path: ''
+    startLine: 6483
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  summary: "\nSaves a marker with a timestamp\n"
+  example: []
+  syntax:
+    content: public void SendMarker(string annotation)
+    parameters:
+    - id: annotation
+      type: System.String
+      description: Annotation to store
+    content.vb: Public Sub SendMarker(annotation As String)
+  overload: eDIA.Experiment.SendMarker*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+references:
+- uid: eDIA
+  commentId: N:eDIA
+  name: eDIA
+  nameWithType: eDIA
+  fullName: eDIA
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: Global.Singleton{eDIA.Experiment}
+  commentId: T:Global.Singleton{eDIA.Experiment}
+  definition: Global.Singleton`1
+  name: Singleton<Experiment>
+  nameWithType: Singleton<Experiment>
+  fullName: Singleton<eDIA.Experiment>
+  nameWithType.vb: Singleton(Of Experiment)
+  fullName.vb: Singleton(Of eDIA.Experiment)
+  name.vb: Singleton(Of Experiment)
+  spec.csharp:
+  - uid: Global.Singleton`1
+    name: Singleton
+    nameWithType: Singleton
+    fullName: Singleton
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: eDIA.Experiment
+    name: Experiment
+    nameWithType: Experiment
+    fullName: eDIA.Experiment
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: Global.Singleton`1
+    name: Singleton
+    nameWithType: Singleton
+    fullName: Singleton
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: eDIA.Experiment
+    name: Experiment
+    nameWithType: Experiment
+    fullName: eDIA.Experiment
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Global.Singleton`1
+  commentId: T:Global.Singleton`1
+  name: Singleton<T>
+  nameWithType: Singleton<T>
+  fullName: Singleton<T>
+  nameWithType.vb: Singleton(Of T)
+  fullName.vb: Singleton(Of T)
+  name.vb: Singleton(Of T)
+  spec.csharp:
+  - uid: Global.Singleton`1
+    name: Singleton
+    nameWithType: Singleton
+    fullName: Singleton
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: Global.Singleton`1
+    name: Singleton
+    nameWithType: Singleton
+    fullName: Singleton
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  name: Boolean
+  nameWithType: Boolean
+  fullName: System.Boolean
+- uid: Global.Color
+  isExternal: true
+  name: Color
+  nameWithType: Color
+  fullName: Color
+- uid: System.Collections.Generic.List{eDIA.TaskBlock}
+  commentId: T:System.Collections.Generic.List{eDIA.TaskBlock}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  name: List<TaskBlock>
+  nameWithType: List<TaskBlock>
+  fullName: System.Collections.Generic.List<eDIA.TaskBlock>
+  nameWithType.vb: List(Of TaskBlock)
+  fullName.vb: System.Collections.Generic.List(Of eDIA.TaskBlock)
+  name.vb: List(Of TaskBlock)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    nameWithType: List
+    fullName: System.Collections.Generic.List
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: eDIA.TaskBlock
+    name: TaskBlock
+    nameWithType: TaskBlock
+    fullName: eDIA.TaskBlock
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    nameWithType: List
+    fullName: System.Collections.Generic.List
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: eDIA.TaskBlock
+    name: TaskBlock
+    nameWithType: TaskBlock
+    fullName: eDIA.TaskBlock
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic.List`1
+  commentId: T:System.Collections.Generic.List`1
+  isExternal: true
+  name: List<T>
+  nameWithType: List<T>
+  fullName: System.Collections.Generic.List<T>
+  nameWithType.vb: List(Of T)
+  fullName.vb: System.Collections.Generic.List(Of T)
+  name.vb: List(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    nameWithType: List
+    fullName: System.Collections.Generic.List
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    nameWithType: List
+    fullName: System.Collections.Generic.List
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+- uid: Global.UnityEvent
+  isExternal: true
+  name: UnityEvent
+  nameWithType: UnityEvent
+  fullName: UnityEvent
+- uid: eDIA.ExperimentConfig
+  commentId: T:eDIA.ExperimentConfig
+  parent: eDIA
+  name: ExperimentConfig
+  nameWithType: ExperimentConfig
+  fullName: eDIA.ExperimentConfig
+- uid: eDIA.TaskConfig
+  commentId: T:eDIA.TaskConfig
+  parent: eDIA
+  name: TaskConfig
+  nameWithType: TaskConfig
+  fullName: eDIA.TaskConfig
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  name: Int32
+  nameWithType: Int32
+  fullName: System.Int32
+- uid: eDIA.Experiment.StartExperiment*
+  commentId: Overload:eDIA.Experiment.StartExperiment
+  name: StartExperiment
+  nameWithType: Experiment.StartExperiment
+  fullName: eDIA.Experiment.StartExperiment
+- uid: eDIA.Experiment.EnablePauseButton*
+  commentId: Overload:eDIA.Experiment.EnablePauseButton
+  name: EnablePauseButton
+  nameWithType: Experiment.EnablePauseButton
+  fullName: eDIA.Experiment.EnablePauseButton
+- uid: eDIA.Experiment.WaitOnProceed*
+  commentId: Overload:eDIA.Experiment.WaitOnProceed
+  name: WaitOnProceed
+  nameWithType: Experiment.WaitOnProceed
+  fullName: eDIA.Experiment.WaitOnProceed
+- uid: eDIA.Experiment.EnableEyeCalibrationTrigger*
+  commentId: Overload:eDIA.Experiment.EnableEyeCalibrationTrigger
+  name: EnableEyeCalibrationTrigger
+  nameWithType: Experiment.EnableEyeCalibrationTrigger
+  fullName: eDIA.Experiment.EnableEyeCalibrationTrigger
+- uid: eDIA.Experiment.AddToTrialResults*
+  commentId: Overload:eDIA.Experiment.AddToTrialResults
+  name: AddToTrialResults
+  nameWithType: Experiment.AddToTrialResults
+  fullName: eDIA.Experiment.AddToTrialResults
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  name: String
+  nameWithType: String
+  fullName: System.String
+- uid: eDIA.Experiment.NextStepWithDelay*
+  commentId: Overload:eDIA.Experiment.NextStepWithDelay
+  name: NextStepWithDelay
+  nameWithType: Experiment.NextStepWithDelay
+  fullName: eDIA.Experiment.NextStepWithDelay
+- uid: System.Single
+  commentId: T:System.Single
+  parent: System
+  isExternal: true
+  name: Single
+  nameWithType: Single
+  fullName: System.Single
+- uid: eDIA.Experiment.NextStep*
+  commentId: Overload:eDIA.Experiment.NextStep
+  name: NextStep
+  nameWithType: Experiment.NextStep
+  fullName: eDIA.Experiment.NextStep
+- uid: eDIA.Experiment.ConvertAndSaveDataToUXF*
+  commentId: Overload:eDIA.Experiment.ConvertAndSaveDataToUXF
+  name: ConvertAndSaveDataToUXF
+  nameWithType: Experiment.ConvertAndSaveDataToUXF
+  fullName: eDIA.Experiment.ConvertAndSaveDataToUXF
+- uid: System.String[]
+  isExternal: true
+  name: String[]
+  nameWithType: String[]
+  fullName: System.String[]
+  nameWithType.vb: String()
+  fullName.vb: System.String()
+  name.vb: String()
+  spec.csharp:
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: '[]'
+    nameWithType: '[]'
+    fullName: '[]'
+  spec.vb:
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: ()
+    nameWithType: ()
+    fullName: ()
+- uid: System.Collections.Generic.List{System.String[]}
+  commentId: T:System.Collections.Generic.List{System.String[]}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  name: List<String[]>
+  nameWithType: List<String[]>
+  fullName: System.Collections.Generic.List<System.String[]>
+  nameWithType.vb: List(Of String())
+  fullName.vb: System.Collections.Generic.List(Of System.String())
+  name.vb: List(Of String())
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    nameWithType: List
+    fullName: System.Collections.Generic.List
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: '[]'
+    nameWithType: '[]'
+    fullName: '[]'
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    nameWithType: List
+    fullName: System.Collections.Generic.List
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: ()
+    nameWithType: ()
+    fullName: ()
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic.List{System.Int32}
+  commentId: T:System.Collections.Generic.List{System.Int32}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  name: List<Int32>
+  nameWithType: List<Int32>
+  fullName: System.Collections.Generic.List<System.Int32>
+  nameWithType.vb: List(Of Int32)
+  fullName.vb: System.Collections.Generic.List(Of System.Int32)
+  name.vb: List(Of Int32)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    nameWithType: List
+    fullName: System.Collections.Generic.List
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    nameWithType: List
+    fullName: System.Collections.Generic.List
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: eDIA.Experiment.SendMarker*
+  commentId: Overload:eDIA.Experiment.SendMarker
+  name: SendMarker
+  nameWithType: Experiment.SendMarker
+  fullName: eDIA.Experiment.SendMarker

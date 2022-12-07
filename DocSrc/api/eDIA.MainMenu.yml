@@ -7,13 +7,16 @@ items:
   children:
   - eDIA.MainMenu.buttonHolder
   - eDIA.MainMenu.buttonPrefab
+  - eDIA.MainMenu.closeButton
   - eDIA.MainMenu.isDebug
   - eDIA.MainMenu.menuDistance
   - eDIA.MainMenu.menuHolder
   - eDIA.MainMenu.OnLoadBegin
   - eDIA.MainMenu.OnLoadEnd
   - eDIA.MainMenu.OpenMenu(System.Boolean)
+  - eDIA.MainMenu.overlayCam
   - eDIA.MainMenu.overLayer
+  - eDIA.MainMenu.quitButton
   - eDIA.MainMenu.startOpen
   langs:
   - csharp
@@ -25,7 +28,7 @@ items:
   source:
     id: MainMenu
     path: ''
-    startLine: 2629
+    startLine: 8332
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -58,7 +61,7 @@ items:
   source:
     id: startOpen
     path: ''
-    startLine: 2653
+    startLine: 8356
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -85,7 +88,7 @@ items:
   source:
     id: menuDistance
     path: ''
-    startLine: 2654
+    startLine: 8357
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -112,10 +115,12 @@ items:
   source:
     id: overLayer
     path: ''
-    startLine: 2656
+    startLine: 8360
   assemblies:
   - cs.temp.dll
   namespace: eDIA
+  summary: Layer to put the canvas on to draw on top of everything else
+  example: []
   syntax:
     content: public int overLayer
     return:
@@ -139,7 +144,7 @@ items:
   source:
     id: isDebug
     path: ''
-    startLine: 2657
+    startLine: 8361
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -148,6 +153,33 @@ items:
     return:
       type: System.Boolean
     content.vb: Public isDebug As Boolean
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.MainMenu.overlayCam
+  commentId: F:eDIA.MainMenu.overlayCam
+  id: overlayCam
+  parent: eDIA.MainMenu
+  langs:
+  - csharp
+  - vb
+  name: overlayCam
+  nameWithType: MainMenu.overlayCam
+  fullName: eDIA.MainMenu.overlayCam
+  type: Field
+  source:
+    id: overlayCam
+    path: ''
+    startLine: 8364
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public Camera overlayCam
+    return:
+      type: Global.Camera
+    content.vb: Public overlayCam As Camera
   modifiers.csharp:
   - public
   modifiers.vb:
@@ -166,7 +198,7 @@ items:
   source:
     id: menuHolder
     path: ''
-    startLine: 2660
+    startLine: 8365
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -193,7 +225,7 @@ items:
   source:
     id: buttonHolder
     path: ''
-    startLine: 2661
+    startLine: 8366
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -220,7 +252,7 @@ items:
   source:
     id: buttonPrefab
     path: ''
-    startLine: 2662
+    startLine: 8367
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -229,6 +261,60 @@ items:
     return:
       type: Global.GameObject
     content.vb: Public buttonPrefab As GameObject
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.MainMenu.closeButton
+  commentId: F:eDIA.MainMenu.closeButton
+  id: closeButton
+  parent: eDIA.MainMenu
+  langs:
+  - csharp
+  - vb
+  name: closeButton
+  nameWithType: MainMenu.closeButton
+  fullName: eDIA.MainMenu.closeButton
+  type: Field
+  source:
+    id: closeButton
+    path: ''
+    startLine: 8370
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public Button closeButton
+    return:
+      type: Global.Button
+    content.vb: Public closeButton As Button
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.MainMenu.quitButton
+  commentId: F:eDIA.MainMenu.quitButton
+  id: quitButton
+  parent: eDIA.MainMenu
+  langs:
+  - csharp
+  - vb
+  name: quitButton
+  nameWithType: MainMenu.quitButton
+  fullName: eDIA.MainMenu.quitButton
+  type: Field
+  source:
+    id: quitButton
+    path: ''
+    startLine: 8371
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public Button quitButton
+    return:
+      type: Global.Button
+    content.vb: Public quitButton As Button
   modifiers.csharp:
   - public
   modifiers.vb:
@@ -247,7 +333,7 @@ items:
   source:
     id: OnLoadBegin
     path: ''
-    startLine: 2665
+    startLine: 8374
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -274,7 +360,7 @@ items:
   source:
     id: OnLoadEnd
     path: ''
-    startLine: 2666
+    startLine: 8375
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -301,7 +387,7 @@ items:
   source:
     id: OpenMenu
     path: ''
-    startLine: 2755
+    startLine: 8465
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -356,6 +442,12 @@ references:
   name: Int32
   nameWithType: Int32
   fullName: System.Int32
+- uid: Global.Camera
+  commentId: '!:Global.Camera'
+  isExternal: true
+  name: Camera
+  nameWithType: Camera
+  fullName: Camera
 - uid: Global.Transform
   isExternal: true
   name: Transform
@@ -372,6 +464,11 @@ references:
   name: GameObject
   nameWithType: GameObject
   fullName: GameObject
+- uid: Global.Button
+  isExternal: true
+  name: Button
+  nameWithType: Button
+  fullName: Button
 - uid: Global.UnityEvent
   isExternal: true
   name: UnityEvent

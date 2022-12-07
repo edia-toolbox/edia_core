@@ -18,6 +18,7 @@
 - Switched to **snake case** convention for keys that are exposed to user 
 - Moved all helper classes to `HelperClasses.cs`
 - Made `Experiment.cs` the main class
+- Updated auto documentation
 
 #### Removed
 - `TaskManager.cs` 
@@ -36,7 +37,7 @@
 #### Changed
 - Eyetracking extracted into separate package project
 - Exp canvas > trigger listening on ExperimentManager level
-- "Merged StereoFEM sprint code changes. Fixed framerate + Eyetracking + copy configs to build folder "
+- Merged StereoFEM sprint code changes. Fixed framerate + Eyetracking + copy configs to build folder
 - Defined 'DocSRC' as docfx source and 'Documentation' folder as result (=website)
 
 #### Removed

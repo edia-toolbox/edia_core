@@ -5,9 +5,18 @@ items:
   id: FileManager
   parent: eDIA
   children:
+  - eDIA.FileManager.CopyAll(DirectoryInfo,DirectoryInfo,System.String)
+  - eDIA.FileManager.CopyDirectory(System.String,System.String)
+  - eDIA.FileManager.CopyDirectory(System.String,System.String,System.String)
+  - eDIA.FileManager.CopyFileTo(System.String,System.String,System.String)
   - eDIA.FileManager.CreateFolder(System.String)
+  - eDIA.FileManager.FileExists(System.String)
+  - eDIA.FileManager.GetAllFilenamesFrom(System.String)
+  - eDIA.FileManager.GetAllFilenamesWithExtensionFrom(System.String,System.String)
+  - eDIA.FileManager.GetAllSubFolders(System.String)
   - eDIA.FileManager.ReadString(System.String)
   - eDIA.FileManager.ReadStringFromApplicationPath(System.String)
+  - eDIA.FileManager.ReadStringFromApplicationPathSubfolder(System.String,System.String)
   - eDIA.FileManager.WriteString(System.String,System.String,System.Boolean)
   langs:
   - csharp
@@ -19,7 +28,7 @@ items:
   source:
     id: FileManager
     path: ''
-    startLine: 1675
+    startLine: 7409
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -37,6 +46,253 @@ items:
   modifiers.vb:
   - Public
   - Module
+- uid: eDIA.FileManager.GetAllFilenamesWithExtensionFrom(System.String,System.String)
+  commentId: M:eDIA.FileManager.GetAllFilenamesWithExtensionFrom(System.String,System.String)
+  id: GetAllFilenamesWithExtensionFrom(System.String,System.String)
+  parent: eDIA.FileManager
+  langs:
+  - csharp
+  - vb
+  name: GetAllFilenamesWithExtensionFrom(String, String)
+  nameWithType: FileManager.GetAllFilenamesWithExtensionFrom(String, String)
+  fullName: eDIA.FileManager.GetAllFilenamesWithExtensionFrom(System.String, System.String)
+  type: Method
+  source:
+    id: GetAllFilenamesWithExtensionFrom
+    path: ''
+    startLine: 7414
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  summary: Get all filenames with a certain extension from the applications given subfolder
+  example: []
+  syntax:
+    content: public static string[] GetAllFilenamesWithExtensionFrom(string subFolder, string extension)
+    parameters:
+    - id: subFolder
+      type: System.String
+    - id: extension
+      type: System.String
+    return:
+      type: System.String[]
+    content.vb: Public Shared Function GetAllFilenamesWithExtensionFrom(subFolder As String, extension As String) As String()
+  overload: eDIA.FileManager.GetAllFilenamesWithExtensionFrom*
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: eDIA.FileManager.GetAllFilenamesFrom(System.String)
+  commentId: M:eDIA.FileManager.GetAllFilenamesFrom(System.String)
+  id: GetAllFilenamesFrom(System.String)
+  parent: eDIA.FileManager
+  langs:
+  - csharp
+  - vb
+  name: GetAllFilenamesFrom(String)
+  nameWithType: FileManager.GetAllFilenamesFrom(String)
+  fullName: eDIA.FileManager.GetAllFilenamesFrom(System.String)
+  type: Method
+  source:
+    id: GetAllFilenamesFrom
+    path: ''
+    startLine: 7442
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  summary: Get all filenames with a certain extension from the applications given subfolder
+  example: []
+  syntax:
+    content: public static string[] GetAllFilenamesFrom(string subFolder)
+    parameters:
+    - id: subFolder
+      type: System.String
+    return:
+      type: System.String[]
+    content.vb: Public Shared Function GetAllFilenamesFrom(subFolder As String) As String()
+  overload: eDIA.FileManager.GetAllFilenamesFrom*
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: eDIA.FileManager.GetAllSubFolders(System.String)
+  commentId: M:eDIA.FileManager.GetAllSubFolders(System.String)
+  id: GetAllSubFolders(System.String)
+  parent: eDIA.FileManager
+  langs:
+  - csharp
+  - vb
+  name: GetAllSubFolders(String)
+  nameWithType: FileManager.GetAllSubFolders(String)
+  fullName: eDIA.FileManager.GetAllSubFolders(System.String)
+  type: Method
+  source:
+    id: GetAllSubFolders
+    path: ''
+    startLine: 7468
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public static string[] GetAllSubFolders(string subFolder)
+    parameters:
+    - id: subFolder
+      type: System.String
+    return:
+      type: System.String[]
+    content.vb: Public Shared Function GetAllSubFolders(subFolder As String) As String()
+  overload: eDIA.FileManager.GetAllSubFolders*
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: eDIA.FileManager.CopyDirectory(System.String,System.String,System.String)
+  commentId: M:eDIA.FileManager.CopyDirectory(System.String,System.String,System.String)
+  id: CopyDirectory(System.String,System.String,System.String)
+  parent: eDIA.FileManager
+  langs:
+  - csharp
+  - vb
+  name: CopyDirectory(String, String, String)
+  nameWithType: FileManager.CopyDirectory(String, String, String)
+  fullName: eDIA.FileManager.CopyDirectory(System.String, System.String, System.String)
+  type: Method
+  source:
+    id: CopyDirectory
+    path: ''
+    startLine: 7499
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  summary: "\nCopy directory\n"
+  example: []
+  syntax:
+    content: public static void CopyDirectory(string sourceDirectory, string targetDirectory, string exclude)
+    parameters:
+    - id: sourceDirectory
+      type: System.String
+      description: ''
+    - id: targetDirectory
+      type: System.String
+      description: ''
+    - id: exclude
+      type: System.String
+    content.vb: Public Shared Sub CopyDirectory(sourceDirectory As String, targetDirectory As String, exclude As String)
+  overload: eDIA.FileManager.CopyDirectory*
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: eDIA.FileManager.CopyDirectory(System.String,System.String)
+  commentId: M:eDIA.FileManager.CopyDirectory(System.String,System.String)
+  id: CopyDirectory(System.String,System.String)
+  parent: eDIA.FileManager
+  langs:
+  - csharp
+  - vb
+  name: CopyDirectory(String, String)
+  nameWithType: FileManager.CopyDirectory(String, String)
+  fullName: eDIA.FileManager.CopyDirectory(System.String, System.String)
+  type: Method
+  source:
+    id: CopyDirectory
+    path: ''
+    startLine: 7507
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public static void CopyDirectory(string sourceDirectory, string targetDirectory)
+    parameters:
+    - id: sourceDirectory
+      type: System.String
+    - id: targetDirectory
+      type: System.String
+    content.vb: Public Shared Sub CopyDirectory(sourceDirectory As String, targetDirectory As String)
+  overload: eDIA.FileManager.CopyDirectory*
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: eDIA.FileManager.CopyAll(DirectoryInfo,DirectoryInfo,System.String)
+  commentId: M:eDIA.FileManager.CopyAll(DirectoryInfo,DirectoryInfo,System.String)
+  id: CopyAll(DirectoryInfo,DirectoryInfo,System.String)
+  parent: eDIA.FileManager
+  langs:
+  - csharp
+  - vb
+  name: CopyAll(DirectoryInfo, DirectoryInfo, String)
+  nameWithType: FileManager.CopyAll(DirectoryInfo, DirectoryInfo, String)
+  fullName: eDIA.FileManager.CopyAll(DirectoryInfo, DirectoryInfo, System.String)
+  type: Method
+  source:
+    id: CopyAll
+    path: ''
+    startLine: 7516
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public static void CopyAll(DirectoryInfo source, DirectoryInfo target, string exclude)
+    parameters:
+    - id: source
+      type: Global.DirectoryInfo
+    - id: target
+      type: Global.DirectoryInfo
+    - id: exclude
+      type: System.String
+    content.vb: Public Shared Sub CopyAll(source As DirectoryInfo, target As DirectoryInfo, exclude As String)
+  overload: eDIA.FileManager.CopyAll*
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: eDIA.FileManager.ReadStringFromApplicationPathSubfolder(System.String,System.String)
+  commentId: M:eDIA.FileManager.ReadStringFromApplicationPathSubfolder(System.String,System.String)
+  id: ReadStringFromApplicationPathSubfolder(System.String,System.String)
+  parent: eDIA.FileManager
+  langs:
+  - csharp
+  - vb
+  name: ReadStringFromApplicationPathSubfolder(String, String)
+  nameWithType: FileManager.ReadStringFromApplicationPathSubfolder(String, String)
+  fullName: eDIA.FileManager.ReadStringFromApplicationPathSubfolder(System.String, System.String)
+  type: Method
+  source:
+    id: ReadStringFromApplicationPathSubfolder
+    path: ''
+    startLine: 7538
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public static string ReadStringFromApplicationPathSubfolder(string _subfolder, string _fileName)
+    parameters:
+    - id: _subfolder
+      type: System.String
+    - id: _fileName
+      type: System.String
+    return:
+      type: System.String
+    content.vb: Public Shared Function ReadStringFromApplicationPathSubfolder(_subfolder As String, _fileName As String) As String
+  overload: eDIA.FileManager.ReadStringFromApplicationPathSubfolder*
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
 - uid: eDIA.FileManager.ReadStringFromApplicationPath(System.String)
   commentId: M:eDIA.FileManager.ReadStringFromApplicationPath(System.String)
   id: ReadStringFromApplicationPath(System.String)
@@ -51,7 +307,7 @@ items:
   source:
     id: ReadStringFromApplicationPath
     path: ''
-    startLine: 1677
+    startLine: 7545
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -64,6 +320,39 @@ items:
       type: System.String
     content.vb: Public Shared Function ReadStringFromApplicationPath(_fileName As String) As String
   overload: eDIA.FileManager.ReadStringFromApplicationPath*
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: eDIA.FileManager.FileExists(System.String)
+  commentId: M:eDIA.FileManager.FileExists(System.String)
+  id: FileExists(System.String)
+  parent: eDIA.FileManager
+  langs:
+  - csharp
+  - vb
+  name: FileExists(String)
+  nameWithType: FileManager.FileExists(String)
+  fullName: eDIA.FileManager.FileExists(System.String)
+  type: Method
+  source:
+    id: FileExists
+    path: ''
+    startLine: 7551
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public static bool FileExists(string _fileName)
+    parameters:
+    - id: _fileName
+      type: System.String
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Function FileExists(_fileName As String) As Boolean
+  overload: eDIA.FileManager.FileExists*
   modifiers.csharp:
   - public
   - static
@@ -84,7 +373,7 @@ items:
   source:
     id: ReadString
     path: ''
-    startLine: 1686
+    startLine: 7559
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -106,6 +395,41 @@ items:
   modifiers.vb:
   - Public
   - Shared
+- uid: eDIA.FileManager.CopyFileTo(System.String,System.String,System.String)
+  commentId: M:eDIA.FileManager.CopyFileTo(System.String,System.String,System.String)
+  id: CopyFileTo(System.String,System.String,System.String)
+  parent: eDIA.FileManager
+  langs:
+  - csharp
+  - vb
+  name: CopyFileTo(String, String, String)
+  nameWithType: FileManager.CopyFileTo(String, String, String)
+  fullName: eDIA.FileManager.CopyFileTo(System.String, System.String, System.String)
+  type: Method
+  source:
+    id: CopyFileTo
+    path: ''
+    startLine: 7576
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public static void CopyFileTo(string _sourcePath, string _filename, string _destinationPath)
+    parameters:
+    - id: _sourcePath
+      type: System.String
+    - id: _filename
+      type: System.String
+    - id: _destinationPath
+      type: System.String
+    content.vb: Public Shared Sub CopyFileTo(_sourcePath As String, _filename As String, _destinationPath As String)
+  overload: eDIA.FileManager.CopyFileTo*
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
 - uid: eDIA.FileManager.WriteString(System.String,System.String,System.Boolean)
   commentId: M:eDIA.FileManager.WriteString(System.String,System.String,System.Boolean)
   id: WriteString(System.String,System.String,System.Boolean)
@@ -120,7 +444,7 @@ items:
   source:
     id: WriteString
     path: ''
-    startLine: 1707
+    startLine: 7587
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -157,7 +481,7 @@ items:
   source:
     id: CreateFolder
     path: ''
-    startLine: 1722
+    startLine: 7602
   assemblies:
   - cs.temp.dll
   namespace: eDIA
@@ -195,11 +519,11 @@ references:
   name: System
   nameWithType: System
   fullName: System
-- uid: eDIA.FileManager.ReadStringFromApplicationPath*
-  commentId: Overload:eDIA.FileManager.ReadStringFromApplicationPath
-  name: ReadStringFromApplicationPath
-  nameWithType: FileManager.ReadStringFromApplicationPath
-  fullName: eDIA.FileManager.ReadStringFromApplicationPath
+- uid: eDIA.FileManager.GetAllFilenamesWithExtensionFrom*
+  commentId: Overload:eDIA.FileManager.GetAllFilenamesWithExtensionFrom
+  name: GetAllFilenamesWithExtensionFrom
+  nameWithType: FileManager.GetAllFilenamesWithExtensionFrom
+  fullName: eDIA.FileManager.GetAllFilenamesWithExtensionFrom
 - uid: System.String
   commentId: T:System.String
   parent: System
@@ -207,16 +531,72 @@ references:
   name: String
   nameWithType: String
   fullName: System.String
-- uid: eDIA.FileManager.ReadString*
-  commentId: Overload:eDIA.FileManager.ReadString
-  name: ReadString
-  nameWithType: FileManager.ReadString
-  fullName: eDIA.FileManager.ReadString
-- uid: eDIA.FileManager.WriteString*
-  commentId: Overload:eDIA.FileManager.WriteString
-  name: WriteString
-  nameWithType: FileManager.WriteString
-  fullName: eDIA.FileManager.WriteString
+- uid: System.String[]
+  isExternal: true
+  name: String[]
+  nameWithType: String[]
+  fullName: System.String[]
+  nameWithType.vb: String()
+  fullName.vb: System.String()
+  name.vb: String()
+  spec.csharp:
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: '[]'
+    nameWithType: '[]'
+    fullName: '[]'
+  spec.vb:
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: ()
+    nameWithType: ()
+    fullName: ()
+- uid: eDIA.FileManager.GetAllFilenamesFrom*
+  commentId: Overload:eDIA.FileManager.GetAllFilenamesFrom
+  name: GetAllFilenamesFrom
+  nameWithType: FileManager.GetAllFilenamesFrom
+  fullName: eDIA.FileManager.GetAllFilenamesFrom
+- uid: eDIA.FileManager.GetAllSubFolders*
+  commentId: Overload:eDIA.FileManager.GetAllSubFolders
+  name: GetAllSubFolders
+  nameWithType: FileManager.GetAllSubFolders
+  fullName: eDIA.FileManager.GetAllSubFolders
+- uid: eDIA.FileManager.CopyDirectory*
+  commentId: Overload:eDIA.FileManager.CopyDirectory
+  name: CopyDirectory
+  nameWithType: FileManager.CopyDirectory
+  fullName: eDIA.FileManager.CopyDirectory
+- uid: eDIA.FileManager.CopyAll*
+  commentId: Overload:eDIA.FileManager.CopyAll
+  name: CopyAll
+  nameWithType: FileManager.CopyAll
+  fullName: eDIA.FileManager.CopyAll
+- uid: Global.DirectoryInfo
+  isExternal: true
+  name: DirectoryInfo
+  nameWithType: DirectoryInfo
+  fullName: DirectoryInfo
+- uid: eDIA.FileManager.ReadStringFromApplicationPathSubfolder*
+  commentId: Overload:eDIA.FileManager.ReadStringFromApplicationPathSubfolder
+  name: ReadStringFromApplicationPathSubfolder
+  nameWithType: FileManager.ReadStringFromApplicationPathSubfolder
+  fullName: eDIA.FileManager.ReadStringFromApplicationPathSubfolder
+- uid: eDIA.FileManager.ReadStringFromApplicationPath*
+  commentId: Overload:eDIA.FileManager.ReadStringFromApplicationPath
+  name: ReadStringFromApplicationPath
+  nameWithType: FileManager.ReadStringFromApplicationPath
+  fullName: eDIA.FileManager.ReadStringFromApplicationPath
+- uid: eDIA.FileManager.FileExists*
+  commentId: Overload:eDIA.FileManager.FileExists
+  name: FileExists
+  nameWithType: FileManager.FileExists
+  fullName: eDIA.FileManager.FileExists
 - uid: System.Boolean
   commentId: T:System.Boolean
   parent: System
@@ -224,6 +604,21 @@ references:
   name: Boolean
   nameWithType: Boolean
   fullName: System.Boolean
+- uid: eDIA.FileManager.ReadString*
+  commentId: Overload:eDIA.FileManager.ReadString
+  name: ReadString
+  nameWithType: FileManager.ReadString
+  fullName: eDIA.FileManager.ReadString
+- uid: eDIA.FileManager.CopyFileTo*
+  commentId: Overload:eDIA.FileManager.CopyFileTo
+  name: CopyFileTo
+  nameWithType: FileManager.CopyFileTo
+  fullName: eDIA.FileManager.CopyFileTo
+- uid: eDIA.FileManager.WriteString*
+  commentId: Overload:eDIA.FileManager.WriteString
+  name: WriteString
+  nameWithType: FileManager.WriteString
+  fullName: eDIA.FileManager.WriteString
 - uid: eDIA.FileManager.CreateFolder*
   commentId: Overload:eDIA.FileManager.CreateFolder
   name: CreateFolder

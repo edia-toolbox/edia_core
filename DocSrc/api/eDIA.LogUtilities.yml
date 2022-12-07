@@ -1,0 +1,105 @@
+### YamlMime:ManagedReference
+items:
+- uid: eDIA.LogUtilities
+  commentId: T:eDIA.LogUtilities
+  id: LogUtilities
+  parent: eDIA
+  children:
+  - eDIA.LogUtilities.AddToLog(System.String,System.String,Color)
+  langs:
+  - csharp
+  - vb
+  name: LogUtilities
+  nameWithType: LogUtilities
+  fullName: eDIA.LogUtilities
+  type: Class
+  source:
+    id: LogUtilities
+    path: ''
+    startLine: 8118
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public static class LogUtilities
+    content.vb: Public Module LogUtilities
+  inheritance:
+  - System.Object
+  modifiers.csharp:
+  - public
+  - static
+  - class
+  modifiers.vb:
+  - Public
+  - Module
+- uid: eDIA.LogUtilities.AddToLog(System.String,System.String,Color)
+  commentId: M:eDIA.LogUtilities.AddToLog(System.String,System.String,Color)
+  id: AddToLog(System.String,System.String,Color)
+  parent: eDIA.LogUtilities
+  langs:
+  - csharp
+  - vb
+  name: AddToLog(String, String, Color)
+  nameWithType: LogUtilities.AddToLog(String, String, Color)
+  fullName: eDIA.LogUtilities.AddToLog(System.String, System.String, Color)
+  type: Method
+  source:
+    id: AddToLog
+    path: ''
+    startLine: 8119
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public static void AddToLog(string message, string indicator, Color color)
+    parameters:
+    - id: message
+      type: System.String
+    - id: indicator
+      type: System.String
+    - id: color
+      type: Global.Color
+    content.vb: Public Shared Sub AddToLog(message As String, indicator As String, color As Color)
+  overload: eDIA.LogUtilities.AddToLog*
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+references:
+- uid: eDIA
+  commentId: N:eDIA
+  name: eDIA
+  nameWithType: eDIA
+  fullName: eDIA
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: eDIA.LogUtilities.AddToLog*
+  commentId: Overload:eDIA.LogUtilities.AddToLog
+  name: AddToLog
+  nameWithType: LogUtilities.AddToLog
+  fullName: eDIA.LogUtilities.AddToLog
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  name: String
+  nameWithType: String
+  fullName: System.String
+- uid: Global.Color
+  isExternal: true
+  name: Color
+  nameWithType: Color
+  fullName: Color

@@ -1,0 +1,232 @@
+### YamlMime:ManagedReference
+items:
+- uid: TASK.TaskBlockTemplate
+  commentId: T:TASK.TaskBlockTemplate
+  id: TaskBlockTemplate
+  parent: TASK
+  children:
+  - TASK.TaskBlockTemplate.OnBetweenSteps
+  - TASK.TaskBlockTemplate.OnBlockEnd
+  - TASK.TaskBlockTemplate.OnBlockStart
+  - TASK.TaskBlockTemplate.OnEndTrial
+  - TASK.TaskBlockTemplate.OnStartTrial
+  langs:
+  - csharp
+  - vb
+  name: TaskBlockTemplate
+  nameWithType: TaskBlockTemplate
+  fullName: TASK.TaskBlockTemplate
+  type: Class
+  source:
+    id: TaskBlockTemplate
+    path: ''
+    startLine: 23097
+  assemblies:
+  - cs.temp.dll
+  namespace: TASK
+  syntax:
+    content: >-
+      [Serializable]
+
+      public class TaskBlockTemplate : TaskBlock
+    content.vb: >-
+      <Serializable>
+
+      Public Class TaskBlockTemplate
+          Inherits TaskBlock
+  inheritance:
+  - System.Object
+  attributes:
+  - type: System.SerializableAttribute
+    ctor: System.SerializableAttribute.#ctor
+    arguments: []
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+- uid: TASK.TaskBlockTemplate.OnBlockStart
+  commentId: M:TASK.TaskBlockTemplate.OnBlockStart
+  id: OnBlockStart
+  parent: TASK.TaskBlockTemplate
+  langs:
+  - csharp
+  - vb
+  name: OnBlockStart()
+  nameWithType: TaskBlockTemplate.OnBlockStart()
+  fullName: TASK.TaskBlockTemplate.OnBlockStart()
+  type: Method
+  source:
+    id: OnBlockStart
+    path: ''
+    startLine: 23190
+  assemblies:
+  - cs.temp.dll
+  namespace: TASK
+  syntax:
+    content: public override void OnBlockStart()
+    content.vb: Public Overrides Sub OnBlockStart
+  overload: TASK.TaskBlockTemplate.OnBlockStart*
+  modifiers.csharp:
+  - public
+  - override
+  modifiers.vb:
+  - Public
+  - Overrides
+- uid: TASK.TaskBlockTemplate.OnStartTrial
+  commentId: M:TASK.TaskBlockTemplate.OnStartTrial
+  id: OnStartTrial
+  parent: TASK.TaskBlockTemplate
+  langs:
+  - csharp
+  - vb
+  name: OnStartTrial()
+  nameWithType: TaskBlockTemplate.OnStartTrial()
+  fullName: TASK.TaskBlockTemplate.OnStartTrial()
+  type: Method
+  source:
+    id: OnStartTrial
+    path: ''
+    startLine: 23193
+  assemblies:
+  - cs.temp.dll
+  namespace: TASK
+  syntax:
+    content: public override void OnStartTrial()
+    content.vb: Public Overrides Sub OnStartTrial
+  overload: TASK.TaskBlockTemplate.OnStartTrial*
+  modifiers.csharp:
+  - public
+  - override
+  modifiers.vb:
+  - Public
+  - Overrides
+- uid: TASK.TaskBlockTemplate.OnEndTrial
+  commentId: M:TASK.TaskBlockTemplate.OnEndTrial
+  id: OnEndTrial
+  parent: TASK.TaskBlockTemplate
+  langs:
+  - csharp
+  - vb
+  name: OnEndTrial()
+  nameWithType: TaskBlockTemplate.OnEndTrial()
+  fullName: TASK.TaskBlockTemplate.OnEndTrial()
+  type: Method
+  source:
+    id: OnEndTrial
+    path: ''
+    startLine: 23196
+  assemblies:
+  - cs.temp.dll
+  namespace: TASK
+  syntax:
+    content: public override void OnEndTrial()
+    content.vb: Public Overrides Sub OnEndTrial
+  overload: TASK.TaskBlockTemplate.OnEndTrial*
+  modifiers.csharp:
+  - public
+  - override
+  modifiers.vb:
+  - Public
+  - Overrides
+- uid: TASK.TaskBlockTemplate.OnBetweenSteps
+  commentId: M:TASK.TaskBlockTemplate.OnBetweenSteps
+  id: OnBetweenSteps
+  parent: TASK.TaskBlockTemplate
+  langs:
+  - csharp
+  - vb
+  name: OnBetweenSteps()
+  nameWithType: TaskBlockTemplate.OnBetweenSteps()
+  fullName: TASK.TaskBlockTemplate.OnBetweenSteps()
+  type: Method
+  source:
+    id: OnBetweenSteps
+    path: ''
+    startLine: 23199
+  assemblies:
+  - cs.temp.dll
+  namespace: TASK
+  syntax:
+    content: public override void OnBetweenSteps()
+    content.vb: Public Overrides Sub OnBetweenSteps
+  overload: TASK.TaskBlockTemplate.OnBetweenSteps*
+  modifiers.csharp:
+  - public
+  - override
+  modifiers.vb:
+  - Public
+  - Overrides
+- uid: TASK.TaskBlockTemplate.OnBlockEnd
+  commentId: M:TASK.TaskBlockTemplate.OnBlockEnd
+  id: OnBlockEnd
+  parent: TASK.TaskBlockTemplate
+  langs:
+  - csharp
+  - vb
+  name: OnBlockEnd()
+  nameWithType: TaskBlockTemplate.OnBlockEnd()
+  fullName: TASK.TaskBlockTemplate.OnBlockEnd()
+  type: Method
+  source:
+    id: OnBlockEnd
+    path: ''
+    startLine: 23202
+  assemblies:
+  - cs.temp.dll
+  namespace: TASK
+  syntax:
+    content: public override void OnBlockEnd()
+    content.vb: Public Overrides Sub OnBlockEnd
+  overload: TASK.TaskBlockTemplate.OnBlockEnd*
+  modifiers.csharp:
+  - public
+  - override
+  modifiers.vb:
+  - Public
+  - Overrides
+references:
+- uid: TASK
+  commentId: N:TASK
+  name: TASK
+  nameWithType: TASK
+  fullName: TASK
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: TASK.TaskBlockTemplate.OnBlockStart*
+  commentId: Overload:TASK.TaskBlockTemplate.OnBlockStart
+  name: OnBlockStart
+  nameWithType: TaskBlockTemplate.OnBlockStart
+  fullName: TASK.TaskBlockTemplate.OnBlockStart
+- uid: TASK.TaskBlockTemplate.OnStartTrial*
+  commentId: Overload:TASK.TaskBlockTemplate.OnStartTrial
+  name: OnStartTrial
+  nameWithType: TaskBlockTemplate.OnStartTrial
+  fullName: TASK.TaskBlockTemplate.OnStartTrial
+- uid: TASK.TaskBlockTemplate.OnEndTrial*
+  commentId: Overload:TASK.TaskBlockTemplate.OnEndTrial
+  name: OnEndTrial
+  nameWithType: TaskBlockTemplate.OnEndTrial
+  fullName: TASK.TaskBlockTemplate.OnEndTrial
+- uid: TASK.TaskBlockTemplate.OnBetweenSteps*
+  commentId: Overload:TASK.TaskBlockTemplate.OnBetweenSteps
+  name: OnBetweenSteps
+  nameWithType: TaskBlockTemplate.OnBetweenSteps
+  fullName: TASK.TaskBlockTemplate.OnBetweenSteps
+- uid: TASK.TaskBlockTemplate.OnBlockEnd*
+  commentId: Overload:TASK.TaskBlockTemplate.OnBlockEnd
+  name: OnBlockEnd
+  nameWithType: TaskBlockTemplate.OnBlockEnd
+  fullName: TASK.TaskBlockTemplate.OnBlockEnd

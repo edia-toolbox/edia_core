@@ -4,9 +4,10 @@ items:
   commentId: N:TASK
   id: TASK
   children:
-  - TASK.TaskManagerDemo
-  - TASK.TaskManagerTemplate
-  - TASK.UserMessageHandler
+  - TASK.MessagesToUser
+  - TASK.TaskBlockAssessment
+  - TASK.TaskBlockPractice
+  - TASK.TaskBlockTemplate
   langs:
   - csharp
   - vb
@@ -17,18 +18,23 @@ items:
   assemblies:
   - cs.temp.dll
 references:
-- uid: TASK.TaskManagerTemplate
-  commentId: T:TASK.TaskManagerTemplate
-  name: TaskManagerTemplate
-  nameWithType: TaskManagerTemplate
-  fullName: TASK.TaskManagerTemplate
-- uid: TASK.TaskManagerDemo
-  commentId: T:TASK.TaskManagerDemo
-  name: TaskManagerDemo
-  nameWithType: TaskManagerDemo
-  fullName: TASK.TaskManagerDemo
-- uid: TASK.UserMessageHandler
-  commentId: T:TASK.UserMessageHandler
-  name: UserMessageHandler
-  nameWithType: UserMessageHandler
-  fullName: TASK.UserMessageHandler
+- uid: TASK.MessagesToUser
+  commentId: T:TASK.MessagesToUser
+  name: MessagesToUser
+  nameWithType: MessagesToUser
+  fullName: TASK.MessagesToUser
+- uid: TASK.TaskBlockAssessment
+  commentId: T:TASK.TaskBlockAssessment
+  name: TaskBlockAssessment
+  nameWithType: TaskBlockAssessment
+  fullName: TASK.TaskBlockAssessment
+- uid: TASK.TaskBlockPractice
+  commentId: T:TASK.TaskBlockPractice
+  name: TaskBlockPractice
+  nameWithType: TaskBlockPractice
+  fullName: TASK.TaskBlockPractice
+- uid: TASK.TaskBlockTemplate
+  commentId: T:TASK.TaskBlockTemplate
+  name: TaskBlockTemplate
+  nameWithType: TaskBlockTemplate
+  fullName: TASK.TaskBlockTemplate

@@ -1,0 +1,90 @@
+### YamlMime:ManagedReference
+items:
+- uid: eDIA.Events.DataHandlers
+  commentId: T:eDIA.Events.DataHandlers
+  id: DataHandlers
+  parent: eDIA.Events
+  children:
+  - eDIA.Events.DataHandlers.EvSendMarker
+  langs:
+  - csharp
+  - vb
+  name: DataHandlers
+  nameWithType: DataHandlers
+  fullName: eDIA.Events.DataHandlers
+  type: Class
+  source:
+    id: DataHandlers
+    path: ''
+    startLine: 5823
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA.Events
+  syntax:
+    content: public class DataHandlers
+    content.vb: Public Class DataHandlers
+  inheritance:
+  - System.Object
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+- uid: eDIA.Events.DataHandlers.EvSendMarker
+  commentId: F:eDIA.Events.DataHandlers.EvSendMarker
+  id: EvSendMarker
+  parent: eDIA.Events.DataHandlers
+  langs:
+  - csharp
+  - vb
+  name: EvSendMarker
+  nameWithType: DataHandlers.EvSendMarker
+  fullName: eDIA.Events.DataHandlers.EvSendMarker
+  type: Field
+  source:
+    id: EvSendMarker
+    path: ''
+    startLine: 5826
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA.Events
+  summary: Send a marker to the system, any listener can pick it up and handle it. Expects marker as string
+  example: []
+  syntax:
+    content: public static string EvSendMarker
+    return:
+      type: System.String
+    content.vb: Public Shared EvSendMarker As String
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+references:
+- uid: eDIA.Events
+  commentId: N:eDIA.Events
+  name: eDIA.Events
+  nameWithType: eDIA.Events
+  fullName: eDIA.Events
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  name: String
+  nameWithType: String
+  fullName: System.String
