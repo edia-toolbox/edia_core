@@ -116,9 +116,11 @@ namespace eDIA {
 					}
 				}
 
-				// Log all keys
-				foreach (string k in b.trial_settings.keys)
-					Session.instance.settingsToLog.Add(k);
+				// Log all unique keys
+				foreach (string k in b.trial_settings.keys) {
+					if (!Session.instance.settingsToLog.Contains(k))
+						Session.instance.settingsToLog.Add(k);
+				}
 
 			}
 		}
