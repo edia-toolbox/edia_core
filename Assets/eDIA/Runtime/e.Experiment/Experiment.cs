@@ -575,7 +575,7 @@ namespace eDIA {
 			List<string[]> converted = new List<string[]>();
 			
 			for(int i=0;i<values.Count;i++) {
-				converted.Add(new string[] { i.ToString(), values[i].ToString() });	
+				converted.Add(new string[] { (i+1).ToString(), values[i].ToString() });	
 			}
 			
 			ConvertAndSaveDataToUXF(headers, converted, filename);
