@@ -103,7 +103,6 @@ namespace eDIA {
 			btnExperiment.onClick.RemoveAllListeners();
 
 			// Setting up sliders
-			stepSlider.maxValue = Experiment.Instance.taskBlocks[0].trialSteps.Count;
 			stepSlider.description = "Steps";
 
 			// Setting up sliders
@@ -154,7 +153,15 @@ namespace eDIA {
 
 		void OnEvExperimentProgressUpdate (eParam e) {
  			//TODO not modular yet! so won't work if it's on a remote tablet or something	
-			stepSlider.maxValue 	= Experiment.Instance.taskBlocks[Session.instance.currentBlockNum].trialSteps.Count;
+			if (Experiment.Instance.currentStepNum == -1) {
+				stepSlider.currentValue = 0;
+				stepSlider.maxValue 	= 0;
+			}
+			else {
+				stepSlider.maxValue 	= Experiment.Instance.taskBlocks[Session.instance.currentBlockNum-1].trialSteps.Count;
+				stepSlider.currentValue = Experiment.Instance.currentStepNum;
+			}
+
 			stepSlider.currentValue = Experiment.Instance.currentStepNum == -1 ? 0 : Experiment.Instance.currentStepNum;
 			trialSlider.currentValue = Session.instance.currentTrialNum;
 			blockSlider.currentValue = Session.instance.currentBlockNum;
