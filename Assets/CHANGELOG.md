@@ -4,17 +4,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+[](README.md)
 
 ## [unreleased] - 2022-05-02
 ### Added
 - Pinch+Grip hand pose animation
 
 ## [Changed] - 0.2.0
-###  including package.json"
+###  including package.json
 - "Edia folder is now root eDIA framework package
 
-###  resolution."
-- "Systemsettings Custom logfile path
+###  resolution.
+Systemsettings Custom logfile path
 
 ## [Added] - 0.2.0
 ###  stored on disk"
@@ -44,3 +45,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Updated README.md
 
+.. sdfsdf 
