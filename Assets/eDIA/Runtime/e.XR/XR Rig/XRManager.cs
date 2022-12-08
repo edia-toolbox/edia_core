@@ -25,6 +25,8 @@ namespace eDIA {
 
 
 		void Awake () {
+			SystemSettings.InitSystemSettings();
+			
 			CheckReferences();
 
 			// Start the system with interaction rays disabled
