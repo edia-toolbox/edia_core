@@ -25,7 +25,6 @@ namespace eDIA {
 
 
 		void Awake () {
-			SystemSettings.InitSystemSettings();
 			
 			CheckReferences();
 
