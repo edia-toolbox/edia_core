@@ -314,6 +314,7 @@ namespace eDIA {
 			if (hasIntro) {
 				EventManager.StartListening(eDIA.Events.Core.EvProceed, BlockContinueAfterIntro); // listener as it event call can come from any script
 				ShowMessageToUser (Session.instance.CurrentBlock.settings.GetString("intro"), "Block Intro");
+				taskBlocks[Session.instance.currentBlockNum-1].OnBlockIntro();
 			}
 			else {
 				StartTrial();
@@ -333,6 +334,7 @@ namespace eDIA {
 			if (hasOutro) {
 				EventManager.StartListening(eDIA.Events.Core.EvProceed, BlockContinueAfterOutro); // listener as it event call can come from any script
 				ShowMessageToUser (Session.instance.CurrentBlock.settings.GetString("outro"), "Block Outro");
+				taskBlocks[Session.instance.currentBlockNum-1].OnBlockOutro();
 			}
 			else {
 				BlockCheckAndContinue();

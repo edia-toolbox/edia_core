@@ -203,6 +203,9 @@ namespace TASK {
 		public override void OnBlockStart () {
 		}
 
+		public override void OnBlockIntro () {
+		}
+
 		public override void OnStartTrial () {
 			XRManager.Instance.EnableXRInteraction (false);
 		}
@@ -212,6 +215,9 @@ namespace TASK {
 		}
 
 		public override void OnBetweenSteps () {
+		}
+
+		public override void OnBlockOutro () {
 		}
 
 		public override void OnBlockEnd () {
