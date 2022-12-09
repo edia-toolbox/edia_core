@@ -172,7 +172,7 @@ namespace eDIA {
 		public float volume = 50f;
 		public Constants.Languages language = Constants.Languages.ENG;
 
-		public string pathToLogfiles = "logfiles";
+		public string pathToLogfiles = "C:\\";
 		public static string localConfigDirectoryName = "Configs";
 		
 	}
