@@ -166,7 +166,7 @@ namespace eDIA {
 	[System.Serializable]
 	public class SettingsDeclaration {
 
-		public Constants.Interactor VisableInteractor = Constants.Interactor.BOTH;
+		public Constants.Interactor VisableInteractor = Constants.Interactor.NONE;
 		public Constants.Interactor InteractiveInteractor = Constants.Interactor.RIGHT;
 		public int screenResolution = 0;
 		public float volume = 50f;

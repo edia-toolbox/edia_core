@@ -22,7 +22,7 @@ namespace eDIA {
 #region SETTING UP
 
 		void Awake() {
-			// handSMR = GetComponentInChildren<SkinnedMeshRenderer>(true);
+			handSMR = GetComponentInChildren<SkinnedMeshRenderer>(true);
 
 			AllowVisible(isVisible);
 			AllowInteractive(isAllowedToInteract);
