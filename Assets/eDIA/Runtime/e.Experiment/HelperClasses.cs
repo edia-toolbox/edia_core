@@ -135,6 +135,10 @@ namespace eDIA {
 			foreach (SettingsTuple st in list)
 				if (st.value.Contains(',')) { // it's a list!
 					List<string> stringlist = st.value.Split(',').ToList();
+					for (int s=0;s<stringlist.Count;s++) { 
+						string newstring = stringlist[s].Replace(" ",string.Empty); // remove spaces 
+						stringlist[s] = newstring;  
+					} 
 					tmp.Add(st.key, stringlist);
 				} else tmp.Add(st.key, st.value);	// normal string
 				

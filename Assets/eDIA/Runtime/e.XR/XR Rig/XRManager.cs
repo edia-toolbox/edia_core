@@ -25,11 +25,11 @@ namespace eDIA {
 
 
 		void Awake () {
-			
 			CheckReferences();
+		}
 
-			// Start the system with interaction rays disabled
-			EnableXRInteraction(false);
+		private void Start() {
+			EnableXRInteraction(false); // Start the system with interaction rays disabled
 		}
 
 		void CheckReferences () {
