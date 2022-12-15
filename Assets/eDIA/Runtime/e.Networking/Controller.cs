@@ -2,22 +2,22 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using eDIA;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.Events;
 
 namespace eDIA.Manager {
 
 	/// <summary> In project version of the connector to a remote interface </summary>
-	public class Controller : MonoBehaviour {
+	public class Controller {
 
 		//* IN
-		public RectTransform buttonPanel = null;
-		public GameObject buttonPrefab = null;
+		// public RectTransform buttonPanel = null;
+		// public GameObject buttonPrefab = null;
 
 		//* OUT
-		public TextMeshProUGUI outField = null;
+		// public TextMeshProUGUI outField = null;
+
+		public UnityEvent<string> OnTextOutput = null;
 
 		private void Start() {
 			ListenToSystem();
@@ -97,23 +97,23 @@ namespace eDIA.Manager {
 		}
 
 		private void OnEvEnableButton (eParam obj) {
-			outField.text = "OnEvEnableButton: " + obj.GetStrings()[0] + "\n" + outField.text;
+			// OnTextOutput?Invoke("OnEvEnableButton: " + obj.GetStrings()[0]);
 		}
 
 		private void OnEvStartTimer (eParam obj) {
-			outField.text = "OnEvStartTimer\n" + outField.text;
+			// outField.text = "OnEvStartTimer\n" + outField.text;
 		}
 		
 		private void OnEvStopTimer (eParam obj) {
-			outField.text = "OnEvStopTimer\n" + outField.text;
+			// outField.text = "OnEvStopTimer\n" + outField.text;
 		}
 
 		private void OnEvExperimentProgressUpdate (eParam obj) {
-			outField.text = "OnEvExperimentProgressUpdate: " + obj.GetString() + "\n"  + outField.text;
+			// outField.text = "OnEvExperimentProgressUpdate: " + obj.GetString() + "\n"  + outField.text;
 		}
 
 		private void OnEvUpdateExperimentSummary (eParam obj) {
-			outField.text = "OnEvUpdateExperimentSummary: " + obj.GetStrings()[0] + "\n" + outField.text;
+			// outField.text = "OnEvUpdateExperimentSummary: " + obj.GetStrings()[0] + "\n" + outField.text;
 		}
 
 		/*

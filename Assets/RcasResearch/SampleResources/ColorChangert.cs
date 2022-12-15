@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using RCAS;
 
-public class ColorChanger : MonoBehaviour
+public class ColorChangert : MonoBehaviour
 {
     public Material m1, m2;
 
-    public static ColorChanger Instance;
+    public static ColorChangert Instance;
 
     private void Awake()
     {

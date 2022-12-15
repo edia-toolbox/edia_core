@@ -4,22 +4,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using RCAS;
 
-//! Experimental to see if this 'hooking into events' in the inspector helps for decoupling
-[System.Serializable]
-public class StringEvent 	: UnityEvent<string>{}
+// [System.Serializable]
+// public class StringEvent 	: UnityEvent<string>{}
 
-[System.Serializable]
-public class BoolEvent 		: UnityEvent<bool>{}
+// [System.Serializable]
+// public class BoolEvent 		: UnityEvent<bool>{}
 
-[System.Serializable]
-public class BoolStringEvent 	: UnityEvent<bool,string>{}
+// [System.Serializable]
+// public class BoolStringEvent 	: UnityEvent<bool,string>{}
 
-[System.Serializable]
-public class ComObjectEvent 	: UnityEvent<object>{}
+// [System.Serializable]
+// public class ComObjectEvent 	: UnityEvent<object>{}
 
-[System.Serializable]
-public class DefaultEvent 	: UnityEvent{}
+// [System.Serializable]
+// public class DefaultEvent 	: UnityEvent{}
 
 // Communication manager interface. Translates internal commands into network packages and viseversa
 // ==============================================================================================================================================
@@ -28,8 +28,28 @@ namespace eDIA {
 	/// <summary>
 	/// Communication manager interface. Translates internal commands into network packages and viseversa
 	/// </summary>
-	public class NetworkComManager : MonoBehaviour
+	public class RCASListener : MonoBehaviour
 	{
+
+
+		[RCAS_RemoteEvent("poke")]
+		static void Poke() {
+		Debug.Log("You got poked!");
+		}
+
+		[RCAS_RemoteEvent("SetConfig")]
+		static void SetConfig (string message) {
+		Debug.Log("Someone whispers us a message: "+message);
+
+		// Controller.SetConfig(message);
+		}
+
+		[RCAS_RemoteEvent("set_params")]
+		static void SetParams(string [] args) {
+		Debug.Log($"Parameters received: {args[0]}, {args[1]}, {args[2]}");
+		}
+
+
 		// public TextMeshProUGUI connectionStatus;
 		/*
 

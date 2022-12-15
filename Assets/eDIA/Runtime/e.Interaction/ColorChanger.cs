@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-public class ColorChanger : MonoBehaviour
+public class ColorChangert : MonoBehaviour
 {
     public Material greymat = null;
     public Material pinkMat = null;
