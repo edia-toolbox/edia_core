@@ -39,6 +39,7 @@ namespace eDIA {
 
 		[RCAS_RemoteEvent("SetConfig")]
 		static void SetConfig (string message) {
+		Debug.Log("string length: " + message.Length);
 		Debug.Log("Someone whispers us a message: "+message);
 
 		// Controller.SetConfig(message);

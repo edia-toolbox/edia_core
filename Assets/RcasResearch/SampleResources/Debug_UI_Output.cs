@@ -31,6 +31,7 @@ public class Debug_UI_Output : MonoBehaviour
         output = logString + "\n" + output;
         if (type != LogType.Log)
         {
+            Debug.Log("String length:" + logString.Length);
             output += stackTrace + "\n" + output;
         }
         if (output.Length > 5000) output = "";
