@@ -6,7 +6,7 @@ using System.Linq;
 using TMPro;
 using System;
 
-namespace eDIA {
+namespace eDIA.Manager {
 
 	/// <summary>GUI element that enables the user to choose from a dropdown of found experiment config files</summary>
 	public class PanelConfigSelection : ExperimenterPanel {
@@ -17,11 +17,11 @@ namespace eDIA {
 		public TextMeshProUGUI infoTextField;
 
 
-		void Start() {
-			Reset();
-			UpdateParticipantConfigList();
+		public void Init() {
 
+			Reset();
 			EventManager.StartListening(eDIA.Events.Core.EvFoundLocalConfigFiles, OnEvFoundLocalConfigFiles);
+			GenerateParticipantConfigList();
 
 		}
 
@@ -35,23 +35,22 @@ namespace eDIA {
 			infoTextField.text = "eDIA";
 			configFilesOptions.ClearOptions();
 
-			ShowPanel();
+			// ShowPanel();
 		}
 
 		/// <summary>Update the participants list of selected task.</summary>
-		public void UpdateParticipantConfigList() {
+		public void GenerateParticipantConfigList() {
 
 			infoTextField.text = "Looking for configs";
 
 			string[] filelist = FileManager.GetAllFilenamesWithExtensionFrom(	eDIA.Constants.localConfigDirectoryName + "/Participants","json" );
 
 			if (filelist == null || filelist.Length == 0) {
-				Debug.Log("Local config files not found");
-				infoTextField.text = "Nothing found!";
+				ControlPanel.Instance.ShowMessage("No files found", true);
+				infoTextField.text = "No files found!";
 				return;
 			}
 
-			infoTextField.text = "Choose config file";
 
 			// got filenames, fill the dropdown
 			List<TMP_Dropdown.OptionData> fileOptions = new List<TMP_Dropdown.OptionData>();
@@ -60,6 +59,14 @@ namespace eDIA {
 				if (isFileValid(filelist[s]))
 					fileOptions.Add(new TMP_Dropdown.OptionData(filelist[s].Split('.')[0].Split('_')[1])); // Fileformat: EXPERIMENTNAME_PARTICIPANTID.json
 			}
+
+			if (fileOptions.Count is 0) {
+				infoTextField.text = "no valids!";
+				ControlPanel.Instance.ShowMessage("No valid configs found", false);
+				return;
+			}
+
+			infoTextField.text = "Choose config file";
 
 			configFilesOptions.AddOptions(fileOptions);
 			EventManager.TriggerEvent(eDIA.Events.Core.EvFoundLocalConfigFiles, new eParam(configFilesOptions.options.Count));

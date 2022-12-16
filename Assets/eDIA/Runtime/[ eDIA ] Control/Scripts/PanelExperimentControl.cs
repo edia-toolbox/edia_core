@@ -7,7 +7,7 @@ using TMPro;
 using System;
 using UXF;
 
-namespace eDIA {
+namespace eDIA.Manager {
 
 	public class PanelExperimentControl : ExperimenterPanel {
 

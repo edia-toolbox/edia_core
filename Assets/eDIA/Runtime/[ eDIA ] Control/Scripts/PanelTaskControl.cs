@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 
-namespace eDIA {
+namespace eDIA.Manager {
 
 	public class PanelTaskControl : ExperimenterPanel {
 

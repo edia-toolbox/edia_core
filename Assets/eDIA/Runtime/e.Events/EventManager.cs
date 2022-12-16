@@ -159,11 +159,11 @@ namespace eDIA {
 			stringBool.boolP 		= _bool;
 		}
 
-		public string GetStringBoolString () {
+		public string GetStringBool_String () {
 			return stringBool.stringP;
 		}
 
-		public bool GetStringBoolBool () {
+		public bool GetStringBool_Bool () {
 			return stringBool.boolP;
 		}
 

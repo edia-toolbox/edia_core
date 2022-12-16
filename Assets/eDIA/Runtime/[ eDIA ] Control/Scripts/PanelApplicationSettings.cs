@@ -5,8 +5,9 @@ using SimpleFileBrowser;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using eDIA;
 
-namespace eDIA {
+namespace eDIA.Manager {
 
 	public class PanelApplicationSettings : ExperimenterPanel {
 
@@ -97,9 +98,9 @@ namespace eDIA {
 		void UpdateLocalSettings () {
 
 			localSystemSettingsContainer.volume = volumeSlider.value;
-			localSystemSettingsContainer.InteractiveInteractor = (Constants.Interactor) interactiveInteractorDropdown.value;
-			localSystemSettingsContainer.VisableInteractor = (Constants.Interactor) visibleInteractorDropdown.value;
-			localSystemSettingsContainer.language = (Constants.Languages) languageDropdown.value;
+			localSystemSettingsContainer.InteractiveInteractor = (eDIA.Constants.Interactor) interactiveInteractorDropdown.value;
+			localSystemSettingsContainer.VisableInteractor = (eDIA.Constants.Interactor) visibleInteractorDropdown.value;
+			localSystemSettingsContainer.language = (eDIA.Constants.Languages) languageDropdown.value;
 			localSystemSettingsContainer.screenResolution = resolutionDropdown.value;
 		}
 
@@ -108,7 +109,7 @@ namespace eDIA {
 			btnClose.onClick.AddListener (() => HidePanel ());
 			btnBrowse.onClick.AddListener (() => OpenFileBrowser ());
 
-			foreach (Vector2 s in Constants.screenResolutions) {
+			foreach (Vector2 s in eDIA.Constants.screenResolutions) {
 				TMP_Dropdown.OptionData n = new TMP_Dropdown.OptionData(String.Format("{0}x{1}", s.x, s.y));
 				resolutionDropdown.options.Add(n);
 			}
