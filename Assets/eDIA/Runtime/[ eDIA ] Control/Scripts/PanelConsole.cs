@@ -34,7 +34,7 @@ namespace eDIA.Manager {
 		}
 
 		public void ShowConsole (bool onOff) {
-			gameObject.SetActive(onOff);
+			textfield.gameObject.SetActive(onOff);
 		}
 
 		[ContextMenu("ShowConsole")]
@@ -45,6 +45,10 @@ namespace eDIA.Manager {
 		[ContextMenu("HideConsole")]
 		public void HideConsole () {
 			ShowConsole(false);
+		}
+
+		public void Toggle() {
+			ShowConsole(!textfield.gameObject.activeSelf);
 		}
 
 	}

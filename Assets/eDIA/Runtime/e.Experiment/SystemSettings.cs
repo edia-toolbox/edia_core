@@ -13,11 +13,13 @@ namespace eDIA {
 
 		/// <summary>Instance of the Settings declaration class in order to (de)serialize to JSON</summary>
 		public SettingsDeclaration systemSettings = new SettingsDeclaration();
-		SettingsDeclaration receivedSettings = new SettingsDeclaration();
+		static SettingsDeclaration receivedSettings = new SettingsDeclaration();
 
 		public UXF.LocalFileDataHander UXFFilesaver = null;
 
 		private void Awake() {
+
+
 			InitSystemSettings();
 		}		
 
@@ -28,6 +30,8 @@ namespace eDIA {
 
 		/// <summary>Gets called from XRrigmanager to init the system. </summary>
 		public void InitSystemSettings () {
+
+			UXFFilesaver = GameObject.FindObjectOfType<UXF.LocalFileDataHander>();
 
 			// Listen to update settings requests
 			EventManager.StartListening(eDIA.Events.Core.EvUpdateSystemSettings, OnEvUpdateSystemSettings);

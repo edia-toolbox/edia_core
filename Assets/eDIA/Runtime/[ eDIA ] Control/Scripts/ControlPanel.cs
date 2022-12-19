@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace eDIA.Manager {
 
@@ -16,12 +17,12 @@ namespace eDIA.Manager {
 		public ControlSettings Settings;
 
 		private PanelMessageBox 		_pMessageBox = null;
-		private PanelConfigSelection 		_pConfigSelction = null;
+		private PanelConfigSelection 		_pConfigSelection = null;
 		private PanelHeader 			_pHeader = null;
 		private PanelApplicationSettings 	_pApplicationSettings = null;
 		private PanelExperimentControl 	_pExperimentControl = null;
 		private PanelConsole			_pConsole = null;
-		
+		private GameObject			_eventSystem = null;
 		private List<Transform> 		_currentPanelOrder = new List<Transform>();
 
 
@@ -30,8 +31,7 @@ namespace eDIA.Manager {
 
 			GetPanelReferences();
 
-			if (Settings.AutoInitialise)
-				Init ();
+			Init ();
 	
 		}
 
@@ -43,8 +43,11 @@ namespace eDIA.Manager {
 			}
 
 			// Settings
+			_eventSystem.SetActive(Settings.ControlMode is ControlMode.Remote);
+
+
 			if (Settings.LookForLocalConfigs)
-				_pConfigSelction.Init();
+				_pConfigSelection.Init();
 
 			_pConsole.ShowConsole(Settings.ShowConsole);
 			
@@ -57,11 +60,12 @@ namespace eDIA.Manager {
 		void GetPanelReferences () {
 
 			_pMessageBox 		= GetComponentInChildren<PanelMessageBox>();
-			_pConfigSelction 		= GetComponentInChildren<PanelConfigSelection>();
+			_pConfigSelection 	= GetComponentInChildren<PanelConfigSelection>();
 			_pHeader 			= GetComponentInChildren<PanelHeader>();
 			_pApplicationSettings 	= GetComponentInChildren<PanelApplicationSettings>();
 			_pExperimentControl 	= GetComponentInChildren<PanelExperimentControl>();
 			_pConsole			= GetComponentInChildren<PanelConsole>();
+			_eventSystem		= GetComponentInChildren<EventSystem>().gameObject;
 			
 		}
 
