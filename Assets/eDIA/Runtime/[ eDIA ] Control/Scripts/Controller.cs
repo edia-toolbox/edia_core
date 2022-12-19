@@ -93,7 +93,7 @@ namespace eDIA.Manager {
 		public void ListenToSystem () {
 
 			EventManager.StartListening (eDIA.Events.ControlPanel.EvUpdateExperimentSummary, OnEvUpdateExperimentSummary);
-			EventManager.StartListening (eDIA.Events.ControlPanel.EvExperimentProgressUpdate, OnEvExperimentProgressUpdate);
+			EventManager.StartListening (eDIA.Events.ControlPanel.EvUpdateProgressDescription, OnEvExperimentProgressUpdate);
 			EventManager.StartListening (eDIA.Events.ControlPanel.EvStartTimer, OnEvStartTimer);
 			EventManager.StartListening (eDIA.Events.ControlPanel.EvStopTimer, OnEvStopTimer);
 			EventManager.StartListening (eDIA.Events.ControlPanel.EvEnableButton, OnEvEnableButton);

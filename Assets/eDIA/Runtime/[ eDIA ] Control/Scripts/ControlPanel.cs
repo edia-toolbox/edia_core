@@ -20,8 +20,9 @@ namespace eDIA.Manager {
 		private PanelHeader 			_pHeader = null;
 		private PanelApplicationSettings 	_pApplicationSettings = null;
 		private PanelExperimentControl 	_pExperimentControl = null;
+		private PanelConsole			_pConsole = null;
 		
-		public List<Transform> 			_currentPanelOrder = new List<Transform>();
+		private List<Transform> 		_currentPanelOrder = new List<Transform>();
 
 
 
@@ -32,7 +33,6 @@ namespace eDIA.Manager {
 			if (Settings.AutoInitialise)
 				Init ();
 	
-			// EventManager.StartListening(eDIA.Events.GUI.EvSetControlPanelMode, OnEvSetControlPanelMode);
 		}
 
 		private void Init()
@@ -43,15 +43,14 @@ namespace eDIA.Manager {
 			}
 
 			// Settings
-			if (Settings.LookForConfigs)
+			if (Settings.LookForLocalConfigs)
 				_pConfigSelction.Init();
 
+			_pConsole.ShowConsole(Settings.ShowConsole);
 			
-
 		}
 
 		private void OnDestroy() {
-			// EventManager.StopListening(eDIA.Events.GUI.EvSetControlPanelMode, OnEvSetControlPanelMode);
 		}
 
 
@@ -62,13 +61,13 @@ namespace eDIA.Manager {
 			_pHeader 			= GetComponentInChildren<PanelHeader>();
 			_pApplicationSettings 	= GetComponentInChildren<PanelApplicationSettings>();
 			_pExperimentControl 	= GetComponentInChildren<PanelExperimentControl>();
+			_pConsole			= GetComponentInChildren<PanelConsole>();
 			
 		}
 
 		public void ShowPanel (Transform panel, bool onOff) {
 			
 			panel.SetParent(onOff? MenuPanelHolder : NonActivePanelHolder, true);
-			// panel.parent = onOff? MenuPanelHolder : NonActivePanelHolder;
 			UpdatePanelOrder();
 		}
 		
@@ -89,14 +88,10 @@ namespace eDIA.Manager {
 			_pMessageBox.ShowMessage(msg, autoHide);
 		}
 
-		// private void OnEvSetControlPanelMode(eParam obj)
-		// {
-		// 	Debug.Log("OnEvSetControlPanelMode");
-		// 	SetControlPanelMode(obj.GetInt());
-		// }
+		public void Add2Console (string msg) {
+			_pConsole.Add2Console(msg);
+		}
 
-		// public void SetControlPanelMode (int mode) {
-		// 	Debug.Log("SetControlPanelMode");
-		// }
+
 	}
 }

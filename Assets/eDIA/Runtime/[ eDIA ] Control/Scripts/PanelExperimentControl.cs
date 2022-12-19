@@ -28,6 +28,7 @@ namespace eDIA.Manager {
 		public SliderExperimenterStatus trialSlider;
 		public SliderExperimenterStatus blockSlider;
 		public SliderExperimenterStatus timerSlider;
+		public TextMeshProUGUI statusText;
 
 		[Header("Session info")]
 		public TextMeshProUGUI experimentNameField = null;
@@ -44,12 +45,12 @@ namespace eDIA.Manager {
 			EventManager.StartListening(eDIA.Events.Core.EvReadyToGo,			OnEvReadyToGo);
 			EventManager.StartListening(eDIA.Events.ControlPanel.EvEnableButton, 	OnEvEnableButton);
 			EventManager.StartListening(eDIA.Events.ControlPanel.EvStartTimer, 	OnEvStartTimer);
-			EventManager.StartListening(eDIA.Events.Core.EvStartExperiment, 		OnEvStartExperiment);
+
 		}
 
 
 		void OnDestroy() {
-			EventManager.StopListening("EvExperimentConfigSet", OnEvExperimentConfigSet);
+			EventManager.StopListening(eDIA.Events.Core.EvExperimentConfigSet, 	OnEvExperimentConfigSet);
 			EventManager.StopListening(eDIA.Events.ControlPanel.EvStartTimer, 	OnEvStartTimer);
 			EventManager.StopListening(eDIA.Events.ControlPanel.EvStopTimer,		OnEvStopTimer);
 
@@ -67,11 +68,10 @@ namespace eDIA.Manager {
 
 		void OnEvExperimentConfigSet(eParam obj)
 		{
-			EventManager.StopListening(eDIA.Events.Core.EvExperimentConfigSet, OnEvExperimentConfigSet);
+			EventManager.StopListening(eDIA.Events.Core.EvExperimentConfigSet, 			OnEvExperimentConfigSet);
 			EventManager.StartListening(eDIA.Events.ControlPanel.EvUpdateExperimentSummary, 	OnEvUpdateExperimentSummary);
 
-			GetComponent<VerticalLayoutGroup>().enabled = true;
-			ShowPanel();
+			ControlPanel.Instance.Add2Console("Experiment config set");
 
 			panelIdle.SetActive(false);
 			panelRunning.SetActive(false);
@@ -82,9 +82,8 @@ namespace eDIA.Manager {
 		void OnEvTaskConfigSet(eParam obj)
 		{
 			EventManager.StopListening(eDIA.Events.Core.EvTaskConfigSet, OnEvTaskConfigSet);
+			ControlPanel.Instance.Add2Console("Task config set");
 
-			GetComponent<VerticalLayoutGroup>().enabled = true;
-			ShowPanel();
 		}
 
 		void OnEvReadyToGo(eParam obj)
@@ -94,7 +93,10 @@ namespace eDIA.Manager {
 			SetupButtons ();
 			btnExperiment.interactable = true;
 
-			blockSlider.description = "ready";
+			statusText.text = "ready";
+			ShowPanel();
+
+			EventManager.StartListening(eDIA.Events.Core.EvStartExperiment, 		OnEvStartExperiment);
 		}
 
 		void OnEvStartExperiment (eParam e)
@@ -102,23 +104,16 @@ namespace eDIA.Manager {
 			EventManager.StopListening(eDIA.Events.Core.EvStartExperiment, OnEvStartExperiment);
 			btnExperiment.onClick.RemoveAllListeners();
 
-			// Setting up sliders
-			stepSlider.description = "Steps";
-
-			// Setting up sliders
-			trialSlider.maxValue = Session.instance.LastTrial.number;
-			trialSlider.description = "Trials";
-
-			blockSlider.maxValue = Session.instance.blocks.Count;
-			blockSlider.description = "Started";
-
+			ControlPanel.Instance.Add2Console("StartExperiment");
 			panelIdle.SetActive(false);
 			panelRunning.SetActive(true);
 			panelStatus.SetActive(true);
 			GetComponent<VerticalLayoutGroup>().enabled = true;
-
 			
-			EventManager.StartListening(eDIA.Events.ControlPanel.EvExperimentProgressUpdate, 	OnEvExperimentProgressUpdate);
+			EventManager.StartListening(eDIA.Events.ControlPanel.EvUpdateProgressDescription, 	OnEvExperimentProgressUpdate);
+			EventManager.StartListening(eDIA.Events.ControlPanel.EvUpdateBlockProgress, 		OnEvUpdateBlockProgress);
+			EventManager.StartListening(eDIA.Events.ControlPanel.EvUpdateTrialProgress, 		OnEvUpdateTrialProgress);
+			EventManager.StartListening(eDIA.Events.ControlPanel.EvUpdateStepProgress, 		OnEvUpdateStepProgress);
 			EventManager.StartListening(eDIA.Events.Core.EvFinalizeSession, 				OnEvFinalizeSession);
 		}
 
@@ -151,23 +146,32 @@ namespace eDIA.Manager {
 			GetComponent<VerticalLayoutGroup>().enabled = true;
 		}
 
-		void OnEvExperimentProgressUpdate (eParam e) {
- 			//TODO not modular yet! so won't work if it's on a remote tablet or something	
-			if (Experiment.Instance.currentStepNum == -1) {
-				stepSlider.currentValue = 0;
-				stepSlider.maxValue 	= 0;
-			}
-			else {
-				stepSlider.maxValue 	= Experiment.Instance.taskBlocks[Session.instance.currentBlockNum-1].trialSteps.Count;
-				stepSlider.currentValue = Experiment.Instance.currentStepNum;
-			}
-
-			stepSlider.currentValue = Experiment.Instance.currentStepNum == -1 ? 0 : Experiment.Instance.currentStepNum;
-			trialSlider.currentValue = Session.instance.currentTrialNum;
-			blockSlider.currentValue = Session.instance.currentBlockNum;
-
-			blockSlider.description = e == null ? "" : blockSlider.description = e.GetString();
+		void OnEvExperimentProgressUpdate (eParam e)
+		{ 
+			Debug.Log("OnEvExperimentProgressUpdate " + e.GetString());
+			statusText.text = e is null ? "" : statusText.text = e.GetString();
 		}
+
+		private void OnEvUpdateBlockProgress (eParam e)
+		{
+			blockSlider.currentValue 	= e.GetInts()[0] < 0 ? 0 : e.GetInts()[0];
+			blockSlider.maxValue 		= e.GetInts()[1];
+		}
+
+		private void OnEvUpdateTrialProgress (eParam e)
+		{
+			Debug.Log("OnEvUpdateTrialProgress " + e.GetInts()[0]);
+			trialSlider.currentValue 	= e.GetInts()[0] < 0 ? 0 : e.GetInts()[0];
+			trialSlider.maxValue 		= e.GetInts()[1];
+		}
+
+		private void OnEvUpdateStepProgress (eParam e)
+		{
+			Debug.Log("OnEvUpdateStepProgress " + e.GetInts()[0]);
+			stepSlider.currentValue 	= e.GetInts()[0] < 0 ? 0 : e.GetInts()[0];
+			stepSlider.maxValue 		= e.GetInts()[1];
+		}
+
 
 		void OnEvEnableButton (eParam e) {
 

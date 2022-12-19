@@ -404,11 +404,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3318bf2d13267cb4e8402c9e45d867d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  NonActivePanelHolder: {fileID: 0}
+  MenuPanelHolder: {fileID: 569577418113657864}
   Settings:
     ControlMode: 0
     PanelMode: 1
-    LookForConfigs: 1
+    LookForLocalConfigs: 1
     AutoInitialise: 1
+    ShowConsole: 0
 --- !u!1 &152133683413994375
 GameObject:
   m_ObjectHideFlags: 0
@@ -500,7 +503,6 @@ GameObject:
   - component: {fileID: 608175578828057485}
   - component: {fileID: 3624907920904179614}
   - component: {fileID: 2082805260}
-  - component: {fileID: 334639496}
   m_Layer: 6
   m_Name: MenuPanel [ DROP COMPONENTS IN HERE ]
   m_TagString: Untagged
@@ -606,20 +608,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
   m_VerticalFit: 2
---- !u!114 &334639496
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 318544942223077113}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0cdf650781860041ad50d3847cd8375, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentPanelOrder: []
-  nonActivePanelHolder: {fileID: 569577418113657864}
 --- !u!1 &2521292643493452759
 GameObject:
   m_ObjectHideFlags: 0

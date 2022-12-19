@@ -100,20 +100,29 @@ namespace eDIA.Events {
 	public class ControlPanel {
 	
 		/// <summary>Set a buttons interactivity, expects string[ [PAUSE/PROCEED], [TRUE/FALSE] ]</summary>
-		public static string EvEnableButton 		= "EvEnableButton";
+		public static string EvEnableButton 			= "EvEnableButton";
 
 		/// <summary>Start a visual timer animation</summary>
-		public static string EvStartTimer 			= "EvStartTimer";
+		public static string EvStartTimer 				= "EvStartTimer";
 
 		/// <summary>Stops a visual timer animation</summary>
-		public static string EvStopTimer 			= "EvStopTimer";
+		public static string EvStopTimer 				= "EvStopTimer";
 
 		/// <summary>Experiment summary as string[]</summary>
-		public static string EvUpdateExperimentSummary 	= "EvUpdateExperimentSummary";
+		public static string EvUpdateExperimentSummary 		= "EvUpdateExperimentSummary";
 
-		// TODO: convert progress into array [block][trial][step] => it's now used for text update
 		/// <summary>Send progress update (trial/block)</summary>
-		public static string EvExperimentProgressUpdate = "EvExperimentProgressUpdate";
+		public static string EvUpdateProgressDescription 	= "EvUpdateProgressDescription";
+
+		/// <summary>Send progress update block, expects [currentblocknum, maxblocks]</summary>
+		public static string EvUpdateBlockProgress 		= "EvUpdateBlockProgress";
+
+		/// <summary>Send progress update trial, expects [currenttrialnum, maxtrials]</summary>
+		public static string EvUpdateTrialProgress 		= "EvUpdateTrialProgress";
+
+		/// <summary>Send progress update step, expects [currentstepnum, maxsteps]</summary>
+		public static string EvUpdateStepProgress 		= "EvUpdateStepProgress";
+
 
 	}
 

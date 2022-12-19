@@ -35,7 +35,6 @@ namespace eDIA.Manager {
 			infoTextField.text = "eDIA";
 			configFilesOptions.ClearOptions();
 
-			// ShowPanel();
 		}
 
 		/// <summary>Update the participants list of selected task.</summary>
@@ -46,11 +45,10 @@ namespace eDIA.Manager {
 			string[] filelist = FileManager.GetAllFilenamesWithExtensionFrom(	eDIA.Constants.localConfigDirectoryName + "/Participants","json" );
 
 			if (filelist == null || filelist.Length == 0) {
-				ControlPanel.Instance.ShowMessage("No files found", true);
+				ControlPanel.Instance.Add2Console("No files found");
 				infoTextField.text = "No files found!";
 				return;
 			}
-
 
 			// got filenames, fill the dropdown
 			List<TMP_Dropdown.OptionData> fileOptions = new List<TMP_Dropdown.OptionData>();
@@ -61,8 +59,8 @@ namespace eDIA.Manager {
 			}
 
 			if (fileOptions.Count is 0) {
-				infoTextField.text = "no valids!";
-				ControlPanel.Instance.ShowMessage("No valid configs found", false);
+				infoTextField.text = "No valid configs found!";
+				ControlPanel.Instance.Add2Console("No valid configs found");
 				return;
 			}
 
