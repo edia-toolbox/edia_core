@@ -28,14 +28,14 @@ namespace eDIA {
 			StopAllCoroutines ();
 			
 			if (isShowing)
-				EventManager.TriggerEvent(eDIA.Events.GUI.EvHideTooltip, null);
+				EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvHideTooltip, null);
 			
 			isShowing = false;
 		}
 
 		void ShowMessage () {
 			isShowing = true;
-			EventManager.TriggerEvent(eDIA.Events.GUI.EvShowTooltip, new eParam(message));
+			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvShowTooltip, new eParam(message));
 		}
 
 		IEnumerator StartTimer () {

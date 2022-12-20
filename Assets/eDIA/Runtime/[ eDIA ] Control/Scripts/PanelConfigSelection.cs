@@ -20,7 +20,7 @@ namespace eDIA.Manager {
 		public void Init() {
 
 			Reset();
-			EventManager.StartListening(eDIA.Events.Core.EvFoundLocalConfigFiles, OnEvFoundLocalConfigFiles);
+			EventManager.StartListening(eDIA.Events.Config.EvFoundLocalConfigFiles, OnEvFoundLocalConfigFiles);
 			GenerateParticipantConfigList();
 
 		}
@@ -67,7 +67,7 @@ namespace eDIA.Manager {
 			infoTextField.text = "Choose config file";
 
 			configFilesOptions.AddOptions(fileOptions);
-			EventManager.TriggerEvent(eDIA.Events.Core.EvFoundLocalConfigFiles, new eParam(configFilesOptions.options.Count));
+			EventManager.TriggerEvent(eDIA.Events.Config.EvFoundLocalConfigFiles, new eParam(configFilesOptions.options.Count));
 
 			btnSubmit.interactable = true;
 		}
@@ -85,7 +85,7 @@ namespace eDIA.Manager {
 			// Set up param as: TASK / PARTICIPANT
 			string[] param = new string[] { UnityEngine.SceneManagement.SceneManager.GetActiveScene().name, configFilesOptions.options[configFilesOptions.value].text };
 			
-			EventManager.TriggerEvent(eDIA.Events.Core.EvLocalConfigSubmitted, new eParam(param)); 
+			EventManager.TriggerEvent(eDIA.Events.Config.EvLocalConfigSubmitted, new eParam(param)); 
 			
 			HidePanel();
 		}

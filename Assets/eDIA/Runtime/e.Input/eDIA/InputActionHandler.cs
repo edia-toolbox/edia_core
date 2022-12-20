@@ -88,15 +88,15 @@ namespace eDIA {
 		}
 
 		public void proceedPerformed (InputAction.CallbackContext context) {
-			EventManager.TriggerEvent(eDIA.Events.Core.EvProceed, null); // Convert it into our eventmanager system
+			EventManager.TriggerEvent(eDIA.Events.StateMachine.EvProceed, null); // Convert it into our eventmanager system
 		}
 
 		public void actionStartExperimentPerformed (InputAction.CallbackContext context) {
-			EventManager.TriggerEvent(eDIA.Events.Core.EvStartExperiment, null); // Convert it into our eventmanager system
+			EventManager.TriggerEvent(eDIA.Events.StateMachine.EvStartExperiment, null); // Convert it into our eventmanager system
 		}
 
 		public void actionPauseExperimentPerformed (InputAction.CallbackContext context) {
-			EventManager.TriggerEvent(eDIA.Events.Core.EvPauseExperiment, null); // Convert it into our eventmanager system
+			EventManager.TriggerEvent(eDIA.Events.StateMachine.EvPauseExperiment, null); // Convert it into our eventmanager system
 		}
 
 	#endregion // -------------------------------------------------------------------------------------------------------------------------------

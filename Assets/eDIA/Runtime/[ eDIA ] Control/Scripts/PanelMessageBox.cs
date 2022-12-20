@@ -22,7 +22,7 @@ namespace eDIA.Manager
 		{
 			base.Awake();
 
-			EventManager.StartListening(eDIA.Events.GUI.EvShowMessageBox, OnEvShowMessageBox);
+			EventManager.StartListening(eDIA.Events.ControlPanel.EvShowMessageBox, OnEvShowMessageBox);
 			panelButton.onClick.AddListener(buttonClicked);
 		}
 
@@ -33,7 +33,7 @@ namespace eDIA.Manager
 
 		void OnDestroy()
 		{
-			EventManager.StopListening(eDIA.Events.GUI.EvShowMessageBox, OnEvShowMessageBox);
+			EventManager.StopListening(eDIA.Events.ControlPanel.EvShowMessageBox, OnEvShowMessageBox);
 		}
 
 #region MESSAGE PANEL

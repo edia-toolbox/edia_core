@@ -136,7 +136,7 @@ namespace eDIA {
 
 			GameObject startSessionButton = GenerateButtonUI();
 			startSessionButton.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Start Session";
-			startSessionButton.GetComponent<Button>().onClick.AddListener( () => { EventManager.TriggerEvent(eDIA.Events.Core.EvStartExperiment, null); OpenMenu(false); });
+			startSessionButton.GetComponent<Button>().onClick.AddListener( () => { EventManager.TriggerEvent(eDIA.Events.StateMachine.EvStartExperiment, null); OpenMenu(false); });
 
 			// Footer
 			closeButton.onClick.AddListener( () => { OpenMenu(false); });

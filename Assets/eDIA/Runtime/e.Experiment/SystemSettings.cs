@@ -34,8 +34,8 @@ namespace eDIA {
 			UXFFilesaver = GameObject.FindObjectOfType<UXF.LocalFileDataHander>();
 
 			// Listen to update settings requests
-			EventManager.StartListening(eDIA.Events.Core.EvUpdateSystemSettings, OnEvUpdateSystemSettings);
-			EventManager.StartListening(eDIA.Events.Core.EvRequestSystemSettings, OnEvRequestSystemSettings);
+			EventManager.StartListening(eDIA.Events.Settings.EvUpdateSystemSettings, OnEvUpdateSystemSettings);
+			EventManager.StartListening(eDIA.Events.Settings.EvRequestSystemSettings, OnEvRequestSystemSettings);
 			
 			// Set time and location to avoid comma / period issues
 			System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
@@ -61,7 +61,7 @@ namespace eDIA {
 			await Task.Delay(500); // 1 second delay
 
 			//! Send with event so it can go over the network to the manager
-			EventManager.TriggerEvent(eDIA.Events.Core.EvUpdateSystemSettings, new eParam(loadedSettings));
+			EventManager.TriggerEvent(eDIA.Events.Settings.EvUpdateSystemSettings, new eParam(loadedSettings));
 
 			//! Locally
 			OnEvUpdateSystemSettings(new eParam(loadedSettings));
@@ -92,7 +92,7 @@ namespace eDIA {
 			// Save Path for logfiles
 			systemSettings.pathToLogfiles = receivedSettings.pathToLogfiles;
 			
-			EventManager.TriggerEvent(eDIA.Events.Core.EvSetCustomStoragePath, new eParam(receivedSettings.pathToLogfiles));
+			EventManager.TriggerEvent(eDIA.Events.Settings.EvSetCustomStoragePath, new eParam(receivedSettings.pathToLogfiles));
 			UXFFilesaver.storagePath = systemSettings.pathToLogfiles;
 
 			// Volume of the app
@@ -115,7 +115,7 @@ namespace eDIA {
 		/// <summary> Catches request to show system settings, collects them and send them out with a OPEN settings panel event. </summary>
 		private void OnEvRequestSystemSettings(eParam obj)
 		{
-			EventManager.TriggerEvent(eDIA.Events.Core.EvOpenSystemSettings, new eParam( GetSettingsAsJSONstring()));
+			EventManager.TriggerEvent(eDIA.Events.Settings.EvOpenSystemSettings, new eParam( GetSettingsAsJSONstring()));
 		}
 
 

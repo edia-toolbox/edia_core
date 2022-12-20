@@ -236,6 +236,7 @@ namespace eDIA {
 		/// <param name="eventName">String definition of the event</param>
 		/// <param name="eventParam">Parameter package to pass along</param>
 		public static void TriggerEvent (string eventName, eParam eventParam) {
+		
 			Action<eParam> thisEvent = null;
 
 			if (eventDictionary.TryGetValue (eventName, out thisEvent)) {
@@ -245,6 +246,10 @@ namespace eDIA {
 			} else {
 				Debug.Log("No listener for:" + eventName);
 			}
+		}
+
+		public static void TriggerEvent (string eventName) {
+			TriggerEvent (eventName, null);
 		}
 
 		internal static void StartListening(object evPointMode)

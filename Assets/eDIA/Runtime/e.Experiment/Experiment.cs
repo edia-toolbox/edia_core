@@ -57,19 +57,21 @@ namespace eDIA {
 				t.enabled = false;
 			}
 
-			EventManager.StartListening(eDIA.Events.Core.EvFoundLocalConfigFiles, 	OnEvFoundLocalConfigFiles);
-			EventManager.StartListening(eDIA.Events.Core.EvSetExperimentConfig, 	OnEvSetExperimentConfig);
-			EventManager.StartListening(eDIA.Events.Core.EvStartExperiment, 		OnEvStartExperiment);
+			EventManager.StartListening(eDIA.Events.Config.EvFoundLocalConfigFiles, OnEvFoundLocalConfigFiles);
+			EventManager.StartListening(eDIA.Events.Config.EvSetExperimentConfig, 	OnEvSetExperimentConfig);
+			EventManager.StartListening(eDIA.Events.Config.EvSetTaskConfig, 		OnEvSetTaskConfig);
+			EventManager.StartListening(eDIA.Events.StateMachine.EvStartExperiment, OnEvStartExperiment);
 			EventManager.StartListening(eDIA.Events.Core.EvQuitApplication, 		OnEvQuitApplication);
 
 			EventManager.showLog = showLog;
 		}
 
 		void OnDestroy() {
-			EventManager.StopListening(eDIA.Events.Core.EvSetExperimentConfig, 	OnEvSetExperimentConfig);
-			EventManager.StopListening(eDIA.Events.Core.EvStartExperiment, 		OnEvStartExperiment);
-			EventManager.StopListening(eDIA.Events.Core.EvPauseExperiment, 		OnEvPauseExperiment);
-			EventManager.StopListening(eDIA.Events.Core.EvFoundLocalConfigFiles, 	OnEvFoundLocalConfigFiles);
+			EventManager.StopListening(eDIA.Events.Config.EvSetExperimentConfig, 	OnEvSetExperimentConfig);
+			EventManager.StopListening(eDIA.Events.Config.EvSetTaskConfig, 		OnEvSetTaskConfig);
+			EventManager.StopListening(eDIA.Events.StateMachine.EvStartExperiment, 	OnEvStartExperiment);
+			EventManager.StopListening(eDIA.Events.StateMachine.EvPauseExperiment, 	OnEvPauseExperiment);
+			EventManager.StopListening(eDIA.Events.Config.EvFoundLocalConfigFiles, 	OnEvFoundLocalConfigFiles);
 			EventManager.StopListening(eDIA.Events.Core.EvQuitApplication, 		OnEvQuitApplication);
 		}
 
@@ -80,16 +82,16 @@ namespace eDIA {
 		/// <summary>Register local mode, listen to submission of config file</summary>
 		void OnEvFoundLocalConfigFiles (eParam e) {
 
-			EventManager.StopListening(eDIA.Events.Core.EvFoundLocalConfigFiles, OnEvFoundLocalConfigFiles);		
+			EventManager.StopListening(eDIA.Events.Config.EvFoundLocalConfigFiles, OnEvFoundLocalConfigFiles);		
 			AddToLog(e.GetInt() + " local config files added");
-			EventManager.StartListening(eDIA.Events.Core.EvLocalConfigSubmitted, OnEvLocalConfigSubmitted);
+			EventManager.StartListening(eDIA.Events.Config.EvLocalConfigSubmitted, OnEvLocalConfigSubmitted);
 		}
 
 		/// <summary>Look up given index in the localConfigFiles list and give content of that file to system </summary>
 		/// <param name="e">String = filename of the configfile</param>
 		void OnEvLocalConfigSubmitted (eParam e) {
 
-			EventManager.StopListening(eDIA.Events.Core.EvLocalConfigSubmitted, OnEvLocalConfigSubmitted);
+			EventManager.StopListening(eDIA.Events.Config.EvLocalConfigSubmitted, OnEvLocalConfigSubmitted);
 			
 			string filenameExperiment = e.GetStrings()[0] + "_" + e.GetStrings()[1] + ".json"; // combine task string and participant string
 			SetExperimentConfig (FileManager.ReadStringFromApplicationPathSubfolder(eDIA.Constants.localConfigDirectoryName + "/Participants", filenameExperiment));
@@ -115,6 +117,8 @@ namespace eDIA {
 		/// <param name="JSONstring">Full config string</param>
 		public void SetExperimentConfig (string JSONstring) {
 
+			EventManager.StopListening(eDIA.Events.Config.EvSetExperimentConfig, 	OnEvSetExperimentConfig);
+
 			try
 			{
 				experimentConfig = UnityEngine.JsonUtility.FromJson<ExperimentConfig>(JSONstring);
@@ -125,17 +129,31 @@ namespace eDIA {
 				throw;
 			}
 
-			EventManager.TriggerEvent(eDIA.Events.Core.EvExperimentConfigSet, null);
-			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateExperimentSummary, new eParam( experimentConfig.GetExperimentSummary()) );
+			EventManager.TriggerEvent(eDIA.Events.Config.EvExperimentConfigSet, null);
+			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateSessionSummary, new eParam( experimentConfig.GetExperimentSummary()) );
 
 			experimentConfig.isReady = true;
 			CheckExperimentReady();
 		}
 
+
+		/// <summary> Eventlistener which expects the config as JSON file, triggers default config file load if not. </summary>
+		/// <param name="e">JSON config as string</param>
+		void OnEvSetTaskConfig( eParam e) {
+
+			if (e == null) {
+				EventManager.TriggerEvent(eDIA.Events.Core.EvSystemHalt, new eParam("No JSON config received!"));
+				return;
+			}
+
+			SetTaskConfig ( e.GetString() );
+		}
+
 		/// <summary>Set the eDIA experiment settings with the full JSON config string</summary>
 		/// <param name="JSONstring">Full config string</param>
 		public void SetTaskConfig (string JSONstring) {
-			// Debug.Log(UnityEngine.JsonUtility.ToJson(experimentConfig, true));
+
+			EventManager.StopListening(eDIA.Events.Config.EvSetTaskConfig, 		OnEvSetTaskConfig);
 
 			try
 			{
@@ -148,7 +166,7 @@ namespace eDIA {
 				throw;
 			}
 
-			EventManager.TriggerEvent(eDIA.Events.Core.EvTaskConfigSet, null);
+			EventManager.TriggerEvent(eDIA.Events.Config.EvTaskConfigSet, null);
 
 			taskConfig.isReady = true;
 			CheckExperimentReady();
@@ -157,7 +175,7 @@ namespace eDIA {
 		// TODO: Validate configs and show correct panels in control 
 		void CheckExperimentReady () {
 			if (experimentConfig.isReady && taskConfig.isReady)
-				EventManager.TriggerEvent(eDIA.Events.Core.EvReadyToGo, null);
+				EventManager.TriggerEvent(eDIA.Events.Config.EvReadyToGo, null);
 		}
 
 
@@ -180,7 +198,7 @@ namespace eDIA {
 		}
 
 		void OnEvStartExperiment (eParam e) {
-			EventManager.StopListening(eDIA.Events.Core.EvStartExperiment, OnEvStartExperiment);
+			EventManager.StopListening(eDIA.Events.StateMachine.EvStartExperiment, OnEvStartExperiment);
 			
 			StartExperiment ();
 		}
@@ -206,12 +224,12 @@ namespace eDIA {
 
 		public void WaitOnProceed() {
 			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvEnableButton, new eParam( new string[] { "PROCEED", "TRUE" }));
-			EventManager.StartListening (eDIA.Events.Core.EvProceed, OnEvProceed);
+			EventManager.StartListening (eDIA.Events.StateMachine.EvProceed, OnEvProceed);
 		}
 
 		void OnEvProceed (eParam e) {
 			Debug.Log("Exp: OnEvProceed called");
-			EventManager.StopListening(eDIA.Events.Core.EvProceed, OnEvProceed); // stop listening to avoid doubleclicks
+			EventManager.StopListening(eDIA.Events.StateMachine.EvProceed, OnEvProceed); // stop listening to avoid doubleclicks
 			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvEnableButton, new eParam( new string[] { "PROCEED", "false" })); // disable button, as OnEvProceed might have come from somewhere else than the button itself
 			NextStep();
 		}
@@ -228,8 +246,8 @@ namespace eDIA {
 			AddToLog("FinalizeSession");
 			
 			// clean
-			EventManager.TriggerEvent(eDIA.Events.Core.EvFinalizeSession, null);
-			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateProgressDescription, new eParam("Finalize Session"));
+			EventManager.TriggerEvent(eDIA.Events.StateMachine.EvFinalizeSession, null);
+			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateProgressInfo, new eParam("Finalize Session"));
 			Session.instance.End();
 		}
 
@@ -262,11 +280,11 @@ namespace eDIA {
 			OnSessionStart?.Invoke();
 			
 			AddToExecutionOrderLog("OnSessionBegin");
-			EventManager.StartListening(eDIA.Events.Core.EvProceed, OnEvStartFirstTrial);
+			EventManager.StartListening(eDIA.Events.StateMachine.EvProceed, OnEvStartFirstTrial);
 
 			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateBlockProgress, new eParam(new int[] {Session.instance.currentBlockNum, Session.instance.blocks.Count} ));
-			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateExperimentSummary, new eParam(experimentConfig.GetExperimentSummary()));
-			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateProgressDescription,new eParam("Welcome"));
+			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateSessionSummary, new eParam(experimentConfig.GetExperimentSummary()));
+			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateProgressInfo,new eParam("Welcome"));
 			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvEnableButton, new eParam( new string[] { "PROCEED", "true" }));
 
 			// eye calibration option enabled
@@ -284,7 +302,7 @@ namespace eDIA {
 			
 			AddToExecutionOrderLog("OnSessionEndUXF");
 
-			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateProgressDescription, new eParam("End"));
+			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateProgressInfo, new eParam("End"));
 			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvEnableButton, new eParam( new string[] { "PROCEED", "false" }));
 			EnablePauseButton(false);
 
@@ -316,13 +334,13 @@ namespace eDIA {
 
 			// Inject introduction step or continue UXF sequence
 			if (hasIntro) {
-				EventManager.StartListening(eDIA.Events.Core.EvProceed, BlockContinueAfterIntro); // listener as it event call can come from any script
+				EventManager.StartListening(eDIA.Events.StateMachine.EvProceed, BlockContinueAfterIntro); // listener as it event call can come from any script
 				ShowMessageToUser (Session.instance.CurrentBlock.settings.GetString("intro"), "Block Intro");
 				taskBlocks[Session.instance.currentBlockNum-1].OnBlockIntro();
 			}
 			else {
 				StartTrial();
-				EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateProgressDescription, Session.instance.CurrentBlock.settings.GetString("block_name"));
+				EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateProgressInfo, Session.instance.CurrentBlock.settings.GetString("block_name"));
 			}
 
 		}
@@ -336,7 +354,7 @@ namespace eDIA {
 
 			// Inject introduction step or continue UXF sequence
 			if (hasOutro) {
-				EventManager.StartListening(eDIA.Events.Core.EvProceed, BlockContinueAfterOutro); // listener as it event call can come from any script
+				EventManager.StartListening(eDIA.Events.StateMachine.EvProceed, BlockContinueAfterOutro); // listener as it event call can come from any script
 				ShowMessageToUser (Session.instance.CurrentBlock.settings.GetString("outro"), "Block Outro");
 				taskBlocks[Session.instance.currentBlockNum-1].OnBlockOutro();
 			}
@@ -368,7 +386,7 @@ namespace eDIA {
 			AddToExecutionOrderLog("ShowMessageToUser");
 
 			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvEnableButton, new eParam( new string[] { "PROCEED", "true" }));
-			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateProgressDescription, new eParam("Block Info"));
+			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateProgressInfo, new eParam("Block Info"));
 
 			EnablePauseButton(false);
 			EnableEyeCalibrationTrigger(true);
@@ -380,7 +398,7 @@ namespace eDIA {
 
 		/// <summary>Called from this manager. </summary>
 		void BlockContinueAfterIntro (eParam e) {
-			EventManager.StopListening(eDIA.Events.Core.EvProceed, BlockContinueAfterIntro);
+			EventManager.StopListening(eDIA.Events.StateMachine.EvProceed, BlockContinueAfterIntro);
 			AddToExecutionOrderLog("BlockContinueAfterIntro");
 			
 			EnableEyeCalibrationTrigger(false);
@@ -390,7 +408,7 @@ namespace eDIA {
 
 				/// <summary>Called from this manager. </summary>
 		void BlockContinueAfterOutro (eParam e) {
-			EventManager.StopListening(eDIA.Events.Core.EvProceed, BlockContinueAfterOutro);
+			EventManager.StopListening(eDIA.Events.StateMachine.EvProceed, BlockContinueAfterOutro);
 			AddToExecutionOrderLog("BlockContinueAfterOutro");
 			
 			BlockCheckAndContinue();
@@ -403,7 +421,7 @@ namespace eDIA {
 #region STATEMACHINE UXF TRIAL
 		/// <summary>Called from user input. </summary>
 		void OnEvStartFirstTrial (eParam e) {
-			EventManager.StopListening(eDIA.Events.Core.EvProceed, OnEvStartFirstTrial);
+			EventManager.StopListening(eDIA.Events.StateMachine.EvProceed, OnEvStartFirstTrial);
 			
 			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateTrialProgress, new eParam(new int[] {Session.instance.currentTrialNum, Session.instance.Trials.Count()} ));
 
@@ -420,7 +438,7 @@ namespace eDIA {
 				BlockStart();
 			} else {
 				StartTrial();
-				EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateProgressDescription,Session.instance.CurrentBlock.settings.GetString("block_name"));
+				EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateProgressInfo,Session.instance.CurrentBlock.settings.GetString("block_name"));
 			}
 		}
 
@@ -532,8 +550,8 @@ namespace eDIA {
 		void SessionBreak () {
 			AddToExecutionOrderLog("SessionBreak");
 				
-			EventManager.StartListening(eDIA.Events.Core.EvProceed, SessionResumeAfterBreak);
-			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateProgressDescription, new eParam("Break"));
+			EventManager.StartListening(eDIA.Events.StateMachine.EvProceed, SessionResumeAfterBreak);
+			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateProgressInfo, new eParam("Break"));
 			
 			OnSessionBreak.Invoke();
 
@@ -547,7 +565,7 @@ namespace eDIA {
 		void SessionResumeAfterBreak (eParam e) {
 			AddToExecutionOrderLog("SessionResume");
 
-			EventManager.StopListening(eDIA.Events.Core.EvProceed, SessionResumeAfterBreak);
+			EventManager.StopListening(eDIA.Events.StateMachine.EvProceed, SessionResumeAfterBreak);
 
 			EnableEyeCalibrationTrigger(false);
 

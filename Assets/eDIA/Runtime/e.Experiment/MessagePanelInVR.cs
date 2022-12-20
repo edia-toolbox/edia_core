@@ -39,12 +39,12 @@ namespace eDIA {
 
 		void Start () {
 			EventManager.StartListening (eDIA.Events.Core.EvShowMessageToUser, 	OnEvShowMessage);
-			EventManager.StartListening (eDIA.Events.Core.EvProceed, 			OnEvHideMessage); //! assumption: continuing is always hide panel
+			EventManager.StartListening (eDIA.Events.StateMachine.EvProceed, 			OnEvHideMessage); //! assumption: continuing is always hide panel
 		}
 
 		void OnDestroy () {
 			EventManager.StopListening (eDIA.Events.Core.EvShowMessageToUser, 	OnEvShowMessage);
-			EventManager.StopListening(eDIA.Events.Core.EvProceed, 			OnEvHideMessage);
+			EventManager.StopListening(eDIA.Events.StateMachine.EvProceed, 			OnEvHideMessage);
 		}
 
 		private void OnDrawGizmos() {
@@ -130,7 +130,7 @@ namespace eDIA {
 		}
 	
 		public void BtnPressed () {
-			EventManager.TriggerEvent(eDIA.Events.Core.EvProceed, null);
+			EventManager.TriggerEvent(eDIA.Events.StateMachine.EvProceed, null);
 		}
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------

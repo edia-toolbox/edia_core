@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Threading;
+using System.Linq;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -28,19 +29,55 @@ namespace eDIA {
 	/// <summary>
 	/// Communication manager interface. Translates internal commands into network packages and viseversa
 	/// </summary>
-	public class RCASListener : MonoBehaviour
+	public class ExperimentConnector : MonoBehaviour
 	{
+
+
+		private void Awake() {
+			StartForwarder();
+		}
+
+// ==============================================================================================================================================
+
+		// * >> TO APP
+
+		[RCAS_RemoteEvent("NwEvSetTaskConfig")]
+		static void NwEvSetTaskConfig(string tConfig) {
+			AddToLog("NwEvSetTaskConfig:" + tConfig);
+			EventManager.TriggerEvent(eDIA.Events.Config.EvSetTaskConfig, new eParam(tConfig));
+		}
+
+		[RCAS_RemoteEvent("NwEvSetExpConfig")]
+		static void NwEvSetExpConfig(string eConfig) {
+			AddToLog("NwEvSetExpConfig" + eConfig);
+			EventManager.TriggerEvent(eDIA.Events.Config.EvSetExperimentConfig, new eParam(eConfig));
+		}
+
+		[RCAS_RemoteEvent("NwEvStartExperiment")]
+		static void NwEvStartExperiment() {
+			AddToLog("NwEvStartExperiment");
+			EventManager.TriggerEvent(eDIA.Events.StateMachine.EvStartExperiment, null);
+		}
+
+		[RCAS_RemoteEvent("NwEvProceed")]
+		static void NwEvProceed() {
+			AddToLog("NwEvProceed");
+			EventManager.TriggerEvent(eDIA.Events.StateMachine.EvProceed, null);
+		}
+
+
+
 
 
 		[RCAS_RemoteEvent("poke")]
 		static void Poke() {
-		Debug.Log("You got poked!");
+			Debug.Log("You got poked!");
 		}
 
 		[RCAS_RemoteEvent("SetConfig")]
 		static void SetConfig (string message) {
-		Debug.Log("string length: " + message.Length);
-		Debug.Log("Someone whispers us a message: "+message);
+			Debug.Log("string length: " + message.Length);
+			Debug.Log("Someone whispers us a message: "+message);
 
 		// Controller.SetConfig(message);
 		}
@@ -51,8 +88,137 @@ namespace eDIA {
 		}
 
 
-		// public TextMeshProUGUI connectionStatus;
+		private static void AddToLog(string _msg) {
+				eDIA.LogUtilities.AddToLog(_msg, "EXP", Color.cyan);
+		}
+
+
+
+
+
+
+
+
+// ==============================================================================================================================================
+
+		// * TO MANAGER >>
+
+		private void StartForwarder () {
+
+			// Configs
+			EventManager.StartListening(eDIA.Events.Config.EvTaskConfigSet, 			NwEvTaskConfigSet);
+			EventManager.StartListening(eDIA.Events.Config.EvExperimentConfigSet, 		NwEvExperimentConfigSet);
+			EventManager.StartListening(eDIA.Events.Config.EvReadyToGo,				NwEvReadyToGo);
+
+			// Control panel
+			EventManager.StartListening(eDIA.Events.ControlPanel.EvEnableButton,		NwEvEnableButton);
+			EventManager.StartListening(eDIA.Events.ControlPanel.EvUpdateStepProgress,	NwEvUpdateStepProgress);
+			EventManager.StartListening(eDIA.Events.ControlPanel.EvUpdateTrialProgress,	NwEvUpdateTrialProgress);
+			EventManager.StartListening(eDIA.Events.ControlPanel.EvUpdateBlockProgress,	NwEvUpdateBlockProgress);
+			EventManager.StartListening(eDIA.Events.ControlPanel.EvUpdateSessionSummary,	NwEvUpdateSessionSummary);
+			EventManager.StartListening(eDIA.Events.ControlPanel.EvUpdateProgressInfo,	NwEvUpdateProgressInfo);
+			EventManager.StartListening(eDIA.Events.ControlPanel.EvStartTimer,		NwEvStartTimer);
+			EventManager.StartListening(eDIA.Events.ControlPanel.EvStopTimer,			NwEvStopTimer);
+
+			// Eye
+			EventManager.StartListening(eDIA.Events.Eye.EvEnableEyeCalibrationTrigger,	NwEvEnableEyeCalibrationTrigger);
+
+		}
+
+
+		private void NwEvTaskConfigSet(eParam obj)
+		{
+			RCAS_Peer.Instance.TriggerRemoteEvent(eDIA.Events.Network.NwEvTaskConfigSet);
+		}
+
+		private void NwEvExperimentConfigSet(eParam obj)
+		{
+			RCAS_Peer.Instance.TriggerRemoteEvent(eDIA.Events.Network.NwEvExperimentConfigSet);
+		}
+
+		private void NwEvReadyToGo(eParam obj)
+		{
+			RCAS_Peer.Instance.TriggerRemoteEvent(eDIA.Events.Network.NwEvReadyToGo);
+		}
+
+		private void NwEvEnableButton(eParam obj)
+		{
+			RCAS_Peer.Instance.TriggerRemoteEvent(eDIA.Events.Network.NwEvEnableButton, obj.GetStrings());
+		}
+
+
+
+		private void NwEvUpdateTrialProgress(eParam obj)
+		{
+			RCAS_Peer.Instance.TriggerRemoteEvent(eDIA.Events.Network.NwEvUpdateTrialProgress, obj.GetStrings());
+		}
+
+		private void NwEvUpdateBlockProgress(eParam obj)
+		{
+			RCAS_Peer.Instance.TriggerRemoteEvent(eDIA.Events.Network.NwEvUpdateBlockProgress, obj.GetStrings());
+		}
+
+		private void NwEvUpdateSessionSummary(eParam obj)
+		{
+			RCAS_Peer.Instance.TriggerRemoteEvent(eDIA.Events.Network.NwEvUpdateSessionSummary, obj.GetStrings());
+		}
+
+		private void NwEvUpdateProgressInfo(eParam obj)
+		{
+			RCAS_Peer.Instance.TriggerRemoteEvent(eDIA.Events.Network.NwEvUpdateProgressInfo, obj.GetStrings());
+		}
+
+		private void NwEvEnableEyeCalibrationTrigger(eParam obj)
+		{
+			RCAS_Peer.Instance.TriggerRemoteEvent(eDIA.Events.Network.NwEvEnableEyeCalibrationTrigger, obj.GetStrings());
+		}
+
+		private void NwEvUpdateStepProgress(eParam obj)
+		{
+			RCAS_Peer.Instance.TriggerRemoteEvent(eDIA.Events.Network.NwEvUpdateStepProgress, obj.GetStrings());
+		}
+
+		private void NwEvStartTimer(eParam obj)
+		{
+			RCAS_Peer.Instance.TriggerRemoteEvent(eDIA.Events.Network.NwEvStartTimer, obj.GetStrings());
+		}
+
+		private void NwEvStopTimer(eParam obj)
+		{
+			RCAS_Peer.Instance.TriggerRemoteEvent(eDIA.Events.Network.NwEvStopTimer, obj.GetStrings());
+		}
+
 		/*
+
+
+
+
+		// public TextMeshProUGUI connectionStatus;
+
+
+
+		    public void TriggerEvent(string eventName)
+    {
+        RCAS_Peer.Instance.TriggerRemoteEvent(eventName);
+    }
+
+    public void TriggerEvent(string eventName, string arg)
+    {
+        RCAS_Peer.Instance.TriggerRemoteEvent(eventName, arg);
+    }
+
+    public void TriggerEvent(string eventName, string[] args)
+    {
+        RCAS_Peer.Instance.TriggerRemoteEvent(eventName, args);
+    }
+
+    public void TriggerEvent_Color_To_Custom(TMPro.TMP_InputField color_input)
+    {
+        RCAS_Peer.Instance.TriggerRemoteEvent("change_color_to_custom", color_input.text);
+    }
+
+
+
 
 		#######################################################################################################################
 		####

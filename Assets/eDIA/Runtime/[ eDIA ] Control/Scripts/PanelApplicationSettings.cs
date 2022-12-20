@@ -34,11 +34,11 @@ namespace eDIA.Manager {
 			HidePanel ();
 			SetupPanels ();
 
-			EventManager.StartListening (eDIA.Events.Core.EvOpenSystemSettings, OnEvOpenSystemSettings);
+			EventManager.StartListening (eDIA.Events.Settings.EvOpenSystemSettings, OnEvOpenSystemSettings);
 		}
 
 		void OnDestroy () {
-			EventManager.StopListening (eDIA.Events.Core.EvOpenSystemSettings, OnEvOpenSystemSettings);
+			EventManager.StopListening (eDIA.Events.Settings.EvOpenSystemSettings, OnEvOpenSystemSettings);
 		}
 
 #region EVENT LISTENERS
@@ -72,7 +72,7 @@ namespace eDIA.Manager {
 			// Something has changed
 			UpdateLocalSettings ();
 
-			EventManager.TriggerEvent (eDIA.Events.Core.EvUpdateSystemSettings, new eParam (UnityEngine.JsonUtility.ToJson (localSystemSettingsContainer, false)));
+			EventManager.TriggerEvent (eDIA.Events.Settings.EvUpdateSystemSettings, new eParam (UnityEngine.JsonUtility.ToJson (localSystemSettingsContainer, false)));
 		}
 
 		void OpenFileBrowser () {

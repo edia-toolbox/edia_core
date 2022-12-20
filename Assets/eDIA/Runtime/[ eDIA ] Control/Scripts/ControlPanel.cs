@@ -22,6 +22,9 @@ namespace eDIA.Manager {
 		private PanelApplicationSettings 	_pApplicationSettings = null;
 		private PanelExperimentControl 	_pExperimentControl = null;
 		private PanelConsole			_pConsole = null;
+
+		private PanelConfigMaker		_pConfigMaker = null;
+
 		private GameObject			_eventSystem = null;
 		private List<Transform> 		_currentPanelOrder = new List<Transform>();
 
@@ -42,15 +45,17 @@ namespace eDIA.Manager {
 				tr.name = tr.GetSiblingIndex().ToString() + "_" + tr.name;
 			}
 
-			// Settings
-			_eventSystem.SetActive(Settings.ControlMode is ControlMode.Remote);
-
-
+			// General
 			if (Settings.LookForLocalConfigs)
 				_pConfigSelection.Init();
 
 			_pConsole.ShowConsole(Settings.ShowConsole);
-			
+
+			// Remote
+			_eventSystem.SetActive(Settings.ControlMode is ControlMode.Remote);
+			if (Settings.ControlMode is ControlMode.Remote) _pConfigMaker.Init();
+
+			Add2Console("Init done");
 		}
 
 		private void OnDestroy() {
@@ -59,6 +64,7 @@ namespace eDIA.Manager {
 
 		void GetPanelReferences () {
 
+			// General
 			_pMessageBox 		= GetComponentInChildren<PanelMessageBox>();
 			_pConfigSelection 	= GetComponentInChildren<PanelConfigSelection>();
 			_pHeader 			= GetComponentInChildren<PanelHeader>();
@@ -67,6 +73,9 @@ namespace eDIA.Manager {
 			_pConsole			= GetComponentInChildren<PanelConsole>();
 			_eventSystem		= GetComponentInChildren<EventSystem>().gameObject;
 			
+			// Remote
+			_pConfigMaker		= GetComponentInChildren<PanelConfigMaker>();
+
 		}
 
 		public void ShowPanel (Transform panel, bool onOff) {
