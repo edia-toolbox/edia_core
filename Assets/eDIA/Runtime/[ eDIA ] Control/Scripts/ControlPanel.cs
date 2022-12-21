@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using RCAS;
 
 namespace eDIA.Manager {
 
@@ -11,8 +12,10 @@ namespace eDIA.Manager {
 	{
 		[HideInInspector]
 		public Transform 				NonActivePanelHolder = null;
+		[HideInInspector]
 		public Transform 				MenuPanelHolder = null;
-		
+		public bool 				showEventLog = true;
+
 		[Space(20)]
 		public ControlSettings Settings;
 
@@ -35,11 +38,12 @@ namespace eDIA.Manager {
 			GetPanelReferences();
 
 			Init ();
-	
 		}
 
 		private void Init()
 		{
+			EventManager.showLog = showEventLog;
+
 			// Panel control
 			foreach (Transform tr in NonActivePanelHolder) {
 				tr.name = tr.GetSiblingIndex().ToString() + "_" + tr.name;
@@ -53,12 +57,24 @@ namespace eDIA.Manager {
 
 			// Remote
 			_eventSystem.SetActive(Settings.ControlMode is ControlMode.Remote);
-			if (Settings.ControlMode is ControlMode.Remote) _pConfigMaker.Init();
-
+			
 			Add2Console("Init done");
 		}
 
+		private void Start() {
+			if (Settings.ControlMode is ControlMode.Remote) 
+				RCAS_Peer.Instance.OnConnectionEstablished += Connected;
+			
+		}
+
 		private void OnDestroy() {
+		}
+
+
+		void Connected(System.Net.EndPoint EP)
+		{
+			RCAS_Peer.Instance.OnConnectionEstablished -= Connected;
+			_pConfigMaker.Init();
 		}
 
 

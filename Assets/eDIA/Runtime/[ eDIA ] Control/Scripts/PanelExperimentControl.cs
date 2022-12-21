@@ -127,7 +127,7 @@ namespace eDIA.Manager {
 			participantIDField.text = displayInformation[2];
 			sessionNumberField.text = displayInformation[3];
 
-			panelInfo.SetActive(true);
+			// panelInfo.SetActive(true);
 			GetComponent<VerticalLayoutGroup>().enabled = true;
 		}
 
@@ -149,7 +149,7 @@ namespace eDIA.Manager {
 
 		void OnEvExperimentProgressUpdate (eParam e)
 		{ 
-			Debug.Log("OnEvExperimentProgressUpdate " + e.GetString());
+			Debug.Log("OnEvExperimentProgressUpdate: " + e.GetString());
 			statusText.text = e is null ? "" : statusText.text = e.GetString();
 		}
 
@@ -161,14 +161,12 @@ namespace eDIA.Manager {
 
 		private void OnEvUpdateTrialProgress (eParam e)
 		{
-			Debug.Log("OnEvUpdateTrialProgress " + e.GetInts()[0]);
 			trialSlider.currentValue 	= e.GetInts()[0] < 0 ? 0 : e.GetInts()[0];
 			trialSlider.maxValue 		= e.GetInts()[1];
 		}
 
 		private void OnEvUpdateStepProgress (eParam e)
 		{
-			Debug.Log("OnEvUpdateStepProgress " + e.GetInts()[0]);
 			stepSlider.currentValue 	= e.GetInts()[0] < 0 ? 0 : e.GetInts()[0];
 			stepSlider.maxValue 		= e.GetInts()[1];
 		}

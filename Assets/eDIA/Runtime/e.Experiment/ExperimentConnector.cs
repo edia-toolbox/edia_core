@@ -1,11 +1,11 @@
-﻿using System.Threading;
-using System.Linq;
+﻿using System.Linq;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using RCAS;
+using eDIA.Utilities;
 
 // [System.Serializable]
 // public class StringEvent 	: UnityEvent<string>{}
@@ -39,27 +39,27 @@ namespace eDIA {
 
 // ==============================================================================================================================================
 
-		// * >> TO APP
+		// * FROM MANAGER <<
 
-		[RCAS_RemoteEvent("NwEvSetTaskConfig")]
+		[RCAS_RemoteEvent(eDIA.Events.Network.NwEvSetTaskConfig)]
 		static void NwEvSetTaskConfig(string tConfig) {
 			AddToLog("NwEvSetTaskConfig:" + tConfig);
 			EventManager.TriggerEvent(eDIA.Events.Config.EvSetTaskConfig, new eParam(tConfig));
 		}
 
-		[RCAS_RemoteEvent("NwEvSetExpConfig")]
+		[RCAS_RemoteEvent(eDIA.Events.Network.NwEvSetExpConfig)]
 		static void NwEvSetExpConfig(string eConfig) {
 			AddToLog("NwEvSetExpConfig" + eConfig);
 			EventManager.TriggerEvent(eDIA.Events.Config.EvSetExperimentConfig, new eParam(eConfig));
 		}
 
-		[RCAS_RemoteEvent("NwEvStartExperiment")]
+		[RCAS_RemoteEvent(eDIA.Events.Network.NwEvStartExperiment)]
 		static void NwEvStartExperiment() {
 			AddToLog("NwEvStartExperiment");
 			EventManager.TriggerEvent(eDIA.Events.StateMachine.EvStartExperiment, null);
 		}
 
-		[RCAS_RemoteEvent("NwEvProceed")]
+		[RCAS_RemoteEvent(eDIA.Events.Network.NwEvProceed)]
 		static void NwEvProceed() {
 			AddToLog("NwEvProceed");
 			EventManager.TriggerEvent(eDIA.Events.StateMachine.EvProceed, null);
@@ -126,6 +126,8 @@ namespace eDIA {
 		}
 
 
+		// Configs
+
 		private void NwEvTaskConfigSet(eParam obj)
 		{
 			RCAS_Peer.Instance.TriggerRemoteEvent(eDIA.Events.Network.NwEvTaskConfigSet);
@@ -141,21 +143,27 @@ namespace eDIA {
 			RCAS_Peer.Instance.TriggerRemoteEvent(eDIA.Events.Network.NwEvReadyToGo);
 		}
 
+
+		// Control panel
+
 		private void NwEvEnableButton(eParam obj)
 		{
 			RCAS_Peer.Instance.TriggerRemoteEvent(eDIA.Events.Network.NwEvEnableButton, obj.GetStrings());
 		}
 
-
+		private void NwEvUpdateStepProgress(eParam obj)
+		{
+			RCAS_Peer.Instance.TriggerRemoteEvent(eDIA.Events.Network.NwEvUpdateStepProgress, ArrayTools.ConvertIntsToStrings(obj.GetInts()));
+		}
 
 		private void NwEvUpdateTrialProgress(eParam obj)
 		{
-			RCAS_Peer.Instance.TriggerRemoteEvent(eDIA.Events.Network.NwEvUpdateTrialProgress, obj.GetStrings());
+			RCAS_Peer.Instance.TriggerRemoteEvent(eDIA.Events.Network.NwEvUpdateTrialProgress, ArrayTools.ConvertIntsToStrings(obj.GetInts()));
 		}
 
 		private void NwEvUpdateBlockProgress(eParam obj)
 		{
-			RCAS_Peer.Instance.TriggerRemoteEvent(eDIA.Events.Network.NwEvUpdateBlockProgress, obj.GetStrings());
+			RCAS_Peer.Instance.TriggerRemoteEvent(eDIA.Events.Network.NwEvUpdateBlockProgress, ArrayTools.ConvertIntsToStrings(obj.GetInts()));
 		}
 
 		private void NwEvUpdateSessionSummary(eParam obj)
@@ -165,28 +173,31 @@ namespace eDIA {
 
 		private void NwEvUpdateProgressInfo(eParam obj)
 		{
-			RCAS_Peer.Instance.TriggerRemoteEvent(eDIA.Events.Network.NwEvUpdateProgressInfo, obj.GetStrings());
-		}
-
-		private void NwEvEnableEyeCalibrationTrigger(eParam obj)
-		{
-			RCAS_Peer.Instance.TriggerRemoteEvent(eDIA.Events.Network.NwEvEnableEyeCalibrationTrigger, obj.GetStrings());
-		}
-
-		private void NwEvUpdateStepProgress(eParam obj)
-		{
-			RCAS_Peer.Instance.TriggerRemoteEvent(eDIA.Events.Network.NwEvUpdateStepProgress, obj.GetStrings());
+			RCAS_Peer.Instance.TriggerRemoteEvent(eDIA.Events.Network.NwEvUpdateProgressInfo, obj.GetString());
 		}
 
 		private void NwEvStartTimer(eParam obj)
 		{
-			RCAS_Peer.Instance.TriggerRemoteEvent(eDIA.Events.Network.NwEvStartTimer, obj.GetStrings());
+			RCAS_Peer.Instance.TriggerRemoteEvent(eDIA.Events.Network.NwEvStartTimer, obj.GetFloat().ToString());
 		}
 
 		private void NwEvStopTimer(eParam obj)
 		{
-			RCAS_Peer.Instance.TriggerRemoteEvent(eDIA.Events.Network.NwEvStopTimer, obj.GetStrings());
+			RCAS_Peer.Instance.TriggerRemoteEvent(eDIA.Events.Network.NwEvStopTimer);
 		}
+
+
+		// Eye
+
+		private void NwEvEnableEyeCalibrationTrigger(eParam obj)
+		{
+			RCAS_Peer.Instance.TriggerRemoteEvent(eDIA.Events.Network.NwEvEnableEyeCalibrationTrigger, obj.GetBool().ToString());
+		}
+
+
+
+
+
 
 		/*
 

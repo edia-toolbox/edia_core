@@ -23,6 +23,13 @@ namespace eDIA.Manager {
 			Reset();
 			ShowPanel();
 
+			EventManager.StartListening(eDIA.Events.Config.EvReadyToGo, OnEvReadyToGo);
+		}
+
+		private void OnEvReadyToGo(eParam obj)
+		{
+			EventManager.StopListening(eDIA.Events.Config.EvReadyToGo, OnEvReadyToGo);
+			HidePanel();
 		}
 
 

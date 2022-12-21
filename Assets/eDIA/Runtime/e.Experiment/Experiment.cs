@@ -518,7 +518,7 @@ namespace eDIA {
 		public void NextStep() {
 			if (stepTimer != null) {
 				StopCoroutine(stepTimer); // Kill timer, if any
-				EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvStopTimer, null);
+				EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvStopTimer);
 			}
 
 			// In case OnProceed was triggered outside of the button

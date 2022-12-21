@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using RCAS;
+using System;
+using System.Net;
 
 // Ms C# Coding Conventions
 //
@@ -19,38 +22,76 @@ using TMPro;
 // var var2 = 27;
 //
 
-namespace eDIA.Manager {
+namespace eDIA.Manager
+{
 
 	public class PanelConsole : MonoBehaviour
 	{
-		public TextMeshProUGUI textfield = null;
 
-		private void Awake() {
-			textfield = GetComponentInChildren<TextMeshProUGUI>();
+		[HideInInspector]
+		public GameObject holder = null;
+		public Image connectionIcon = null;
+		public TextMeshProUGUI textfield;
+
+
+		private void Start()
+		{
+			RCAS_Peer.Instance.OnReceivedPairingOffer += PairingOfferReceived;
+			RCAS_Peer.Instance.OnConnectionEstablished += Connected;
+			RCAS_Peer.Instance.OnConnectionLost += Disconnected;
 		}
 
-		public void Add2Console (string msg) {
+		private void Disconnected(IPEndPoint EP)
+		{
+			connectionIcon.color = Color.red;
+		}
+
+		private void Connected(IPEndPoint EP)
+		{
+			connectionIcon.color = Color.green;
+		}
+
+		private void PairingOfferReceived(string IPAddress, int Port, string DeviceInfo)
+		{
+			connectionIcon.color = Color.yellow;
+		}
+
+		private void OnDestroy()
+		{
+			RCAS_Peer.Instance.OnReceivedPairingOffer -= PairingOfferReceived;
+			RCAS_Peer.Instance.OnConnectionEstablished -= Connected;
+			RCAS_Peer.Instance.OnConnectionLost -= Disconnected;
+		}
+
+
+		public void Add2Console(string msg)
+		{
 			textfield.text = msg + "\n" + textfield.text;
 		}
 
-		public void ShowConsole (bool onOff) {
-			textfield.gameObject.SetActive(onOff);
+		public void ShowConsole(bool onOff)
+		{
+			// textfield.gameObject.SetActive(onOff);
+			holder.SetActive(onOff);
 		}
 
 		[ContextMenu("ShowConsole")]
-		public void ShowConsole() {
+		public void ShowConsole()
+		{
 			ShowConsole(true);
 		}
 
 		[ContextMenu("HideConsole")]
-		public void HideConsole () {
+		public void HideConsole()
+		{
 			ShowConsole(false);
 		}
 
-		public void Toggle() {
-			ShowConsole(!textfield.gameObject.activeSelf);
+		public void Toggle()
+		{
+			ShowConsole(!holder.gameObject.activeSelf);
 		}
 
 	}
-	
+
 }
