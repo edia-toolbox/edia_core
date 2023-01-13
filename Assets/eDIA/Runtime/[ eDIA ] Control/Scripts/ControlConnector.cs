@@ -113,7 +113,6 @@ namespace eDIA.Manager
 		[RCAS_RemoteEvent(eDIA.Events.Network.NwEvUpdateTrialProgress)]
 		static void NwEvUpdateTrialProgress(string[] args)
 		{
-			Debug.Log(args[0] + " " + args[1]);
 			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateTrialProgress, new eParam(ArrayTools.ConvertStringsIntoInts(args)));
 		}
 

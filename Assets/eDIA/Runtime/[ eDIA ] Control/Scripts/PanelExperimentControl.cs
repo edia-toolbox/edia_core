@@ -69,10 +69,11 @@ namespace eDIA.Manager {
 
 		void OnEvExperimentConfigSet(eParam obj)
 		{
+			Debug.Log("OnEvExperimentConfigSet");
 			EventManager.StopListening(eDIA.Events.Config.EvExperimentConfigSet, 		OnEvExperimentConfigSet);
 			EventManager.StartListening(eDIA.Events.ControlPanel.EvUpdateSessionSummary, 	OnEvUpdateExperimentSummary);
 
-			ControlPanel.Instance.Add2Console("Experiment config set");
+			ControlPanel.Instance.Add2ConsoleIn("Experiment config set");
 
 			panelIdle.SetActive(false);
 			panelRunning.SetActive(false);
@@ -83,7 +84,7 @@ namespace eDIA.Manager {
 		void OnEvTaskConfigSet(eParam obj)
 		{
 			EventManager.StopListening(eDIA.Events.Config.EvTaskConfigSet, 			OnEvTaskConfigSet);
-			ControlPanel.Instance.Add2Console("Task config set");
+			ControlPanel.Instance.Add2ConsoleIn("Task config set");
 
 		}
 
@@ -105,7 +106,7 @@ namespace eDIA.Manager {
 			EventManager.StopListening(eDIA.Events.StateMachine.EvStartExperiment, 		OnEvStartExperiment);
 			btnExperiment.onClick.RemoveAllListeners();
 
-			ControlPanel.Instance.Add2Console("StartExperiment");
+			ControlPanel.Instance.Add2ConsoleOut("StartExperiment");
 			panelIdle.SetActive(false);
 			panelRunning.SetActive(true);
 			panelStatus.SetActive(true);
@@ -149,7 +150,6 @@ namespace eDIA.Manager {
 
 		void OnEvExperimentProgressUpdate (eParam e)
 		{ 
-			Debug.Log("OnEvExperimentProgressUpdate: " + e.GetString());
 			statusText.text = e is null ? "" : statusText.text = e.GetString();
 		}
 
@@ -175,6 +175,8 @@ namespace eDIA.Manager {
 		void OnEvEnableButton (eParam e) {
 
 			bool newState = e.GetStrings()[1].ToUpper() == "TRUE";
+
+			ControlPanel.Instance.Add2ConsoleIn("Btn: " + e.GetStrings()[0] + " to " + e.GetStrings()[1]);
 
 			switch (e.GetStrings()[0].ToUpper()) {
 				case "PAUSE" :

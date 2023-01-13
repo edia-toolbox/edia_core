@@ -6,38 +6,42 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using RCAS;
 
-namespace eDIA.Manager {
+namespace eDIA.Manager
+{
 
 	public class ControlPanel : Singleton<ControlPanel>
 	{
-		[HideInInspector]
-		public Transform 				NonActivePanelHolder = null;
-		[HideInInspector]
-		public Transform 				MenuPanelHolder = null;
-		public bool 				showEventLog = true;
+		// [HideInInspector]
+		public Transform NonActivePanelHolder = null;
+		// [HideInInspector]
+		public Transform MenuPanelHolder = null;
+		public bool showEventLog = true;
 
 		[Space(20)]
 		public ControlSettings Settings;
 
-		private PanelMessageBox 		_pMessageBox = null;
-		private PanelConfigSelection 		_pConfigSelection = null;
-		private PanelHeader 			_pHeader = null;
-		private PanelApplicationSettings 	_pApplicationSettings = null;
-		private PanelExperimentControl 	_pExperimentControl = null;
-		private PanelConsole			_pConsole = null;
+		// Local
+		private PanelMessageBox _pMessageBox = null;
+		private PanelConfigSelection _pConfigSelection = null;
+		private PanelHeader _pHeader = null;
+		private PanelApplicationSettings _pApplicationSettings = null;
+		private PanelExperimentControl _pExperimentControl = null;
+		private PanelConsole _pConsole = null;
 
-		private PanelConfigMaker		_pConfigMaker = null;
+		// Remote
+		private PanelConfigMaker _pConfigMaker = null;
 
-		private GameObject			_eventSystem = null;
-		private List<Transform> 		_currentPanelOrder = new List<Transform>();
+		// private GameObject _eventSystem = null;
+		private List<Transform> _currentPanelOrder = new List<Transform>();
 
 
 
-		private void Awake() {
+		private void Awake()
+		{
 
 			GetPanelReferences();
 
-			Init ();
+			Init();
 		}
 
 		private void Init()
@@ -45,7 +49,8 @@ namespace eDIA.Manager {
 			EventManager.showLog = showEventLog;
 
 			// Panel control
-			foreach (Transform tr in NonActivePanelHolder) {
+			foreach (Transform tr in NonActivePanelHolder)
+			{
 				tr.name = tr.GetSiblingIndex().ToString() + "_" + tr.name;
 			}
 
@@ -56,18 +61,20 @@ namespace eDIA.Manager {
 			_pConsole.ShowConsole(Settings.ShowConsole);
 
 			// Remote
-			_eventSystem.SetActive(Settings.ControlMode is ControlMode.Remote);
-			
+			// _eventSystem.SetActive(Settings.ControlMode is ControlMode.Remote);
+
 			Add2Console("Init done");
 		}
 
-		private void Start() {
-			if (Settings.ControlMode is ControlMode.Remote) 
+		private void Start()
+		{
+			if (Settings.ControlMode is ControlMode.Remote)
 				RCAS_Peer.Instance.OnConnectionEstablished += Connected;
-			
+
 		}
 
-		private void OnDestroy() {
+		private void OnDestroy()
+		{
 		}
 
 
@@ -78,48 +85,68 @@ namespace eDIA.Manager {
 		}
 
 
-		void GetPanelReferences () {
-
+		void GetPanelReferences()
+		{
 			// General
 			_pMessageBox 		= GetComponentInChildren<PanelMessageBox>();
 			_pConfigSelection 	= GetComponentInChildren<PanelConfigSelection>();
 			_pHeader 			= GetComponentInChildren<PanelHeader>();
 			_pApplicationSettings 	= GetComponentInChildren<PanelApplicationSettings>();
 			_pExperimentControl 	= GetComponentInChildren<PanelExperimentControl>();
-			_pConsole			= GetComponentInChildren<PanelConsole>();
-			_eventSystem		= GetComponentInChildren<EventSystem>().gameObject;
-			
+			_pConsole 			= GetComponentInChildren<PanelConsole>();
+
+			if (Settings.ControlMode is ControlMode.Remote)
+				//TODO Create eventsystem in the scene, as we need to click on the buttons
+
 			// Remote
-			_pConfigMaker		= GetComponentInChildren<PanelConfigMaker>();
+			_pConfigMaker = GetComponentInChildren<PanelConfigMaker>();
 
 		}
 
-		public void ShowPanel (Transform panel, bool onOff) {
-			
-			panel.SetParent(onOff? MenuPanelHolder : NonActivePanelHolder, true);
+		public void ShowPanel(Transform panel, bool onOff)
+		{	
+			panel.SetParent(onOff ? MenuPanelHolder : NonActivePanelHolder, true);
 			UpdatePanelOrder();
 		}
-		
 
-		public void UpdatePanelOrder () {
+
+		public void UpdatePanelOrder()
+		{
 
 			_currentPanelOrder.Clear();
 			_currentPanelOrder = MenuPanelHolder.Cast<Transform>().ToList();
 			_currentPanelOrder.Sort((Transform t1, Transform t2) => { return t1.name.CompareTo(t2.name); });
 
-			for (int i=0; i<_currentPanelOrder.Count; ++i) {
+			for (int i = 0; i < _currentPanelOrder.Count; ++i)
+			{
 				_currentPanelOrder[i].SetSiblingIndex(i);
 			}
 		}
 
 
-		public void ShowMessage (string msg, bool autoHide) {
+		public void ShowMessage(string msg, bool autoHide)
+		{
 			_pMessageBox.ShowMessage(msg, autoHide);
 		}
 
-		public void Add2Console (string msg) {
+
+		public void Add2Console(string msg)
+		{
 			_pConsole.Add2Console(msg);
 		}
+
+
+		public void Add2ConsoleIn(string msg)
+		{
+			Add2Console ("< " + msg);
+		}
+
+
+		public void Add2ConsoleOut(string msg)
+		{
+			Add2Console ("> " + msg);
+		}
+
 
 
 	}

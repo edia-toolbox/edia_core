@@ -46,7 +46,6 @@ namespace TASK {
 
 		/// <summary>Move cube, wait on user input</summary>
 		public void TaskStep2 () {
-
 			XRManager.Instance.EnableXRInteraction (true);
 
 			qpanel.SetActive(true);

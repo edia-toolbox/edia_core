@@ -8,6 +8,10 @@ namespace eDIA {
     [System.Serializable]
     public class TaskBlock : MonoBehaviour {
 
+        [Header("Debug")]
+        public bool showLog = false;
+        Color taskColor = Color.blue;
+
         [Header ("Block name, use the name defined in the config")]
         public string block_name;
 
@@ -17,6 +21,12 @@ namespace eDIA {
         public void AddToTrialSequence (Action methodStep) {
             trialSteps.Add(methodStep);
         }
+
+		private void AddToLog(string _msg) {
+			if (showLog)
+				eDIA.LogUtilities.AddToLog(_msg, "EXP", taskColor);
+		}
+		
 
     #region EVENT HOOKS
 

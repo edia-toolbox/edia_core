@@ -57,7 +57,6 @@ namespace eDIA {
 				t.enabled = false;
 			}
 
-			EventManager.StartListening(eDIA.Events.Config.EvFoundLocalConfigFiles, OnEvFoundLocalConfigFiles);
 			EventManager.StartListening(eDIA.Events.Config.EvSetExperimentConfig, 	OnEvSetExperimentConfig);
 			EventManager.StartListening(eDIA.Events.Config.EvSetTaskConfig, 		OnEvSetTaskConfig);
 			EventManager.StartListening(eDIA.Events.StateMachine.EvStartExperiment, OnEvStartExperiment);
@@ -71,35 +70,12 @@ namespace eDIA {
 			EventManager.StopListening(eDIA.Events.Config.EvSetTaskConfig, 		OnEvSetTaskConfig);
 			EventManager.StopListening(eDIA.Events.StateMachine.EvStartExperiment, 	OnEvStartExperiment);
 			EventManager.StopListening(eDIA.Events.StateMachine.EvPauseExperiment, 	OnEvPauseExperiment);
-			EventManager.StopListening(eDIA.Events.Config.EvFoundLocalConfigFiles, 	OnEvFoundLocalConfigFiles);
 			EventManager.StopListening(eDIA.Events.Core.EvQuitApplication, 		OnEvQuitApplication);
 		}
 
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region SETUP CONFIGS 
-
-		/// <summary>Register local mode, listen to submission of config file</summary>
-		void OnEvFoundLocalConfigFiles (eParam e) {
-
-			EventManager.StopListening(eDIA.Events.Config.EvFoundLocalConfigFiles, OnEvFoundLocalConfigFiles);		
-			AddToLog(e.GetInt() + " local config files added");
-			EventManager.StartListening(eDIA.Events.Config.EvLocalConfigSubmitted, OnEvLocalConfigSubmitted);
-		}
-
-		/// <summary>Look up given index in the localConfigFiles list and give content of that file to system </summary>
-		/// <param name="e">String = filename of the configfile</param>
-		void OnEvLocalConfigSubmitted (eParam e) {
-
-			EventManager.StopListening(eDIA.Events.Config.EvLocalConfigSubmitted, OnEvLocalConfigSubmitted);
-			
-			string filenameExperiment = e.GetStrings()[0] + "_" + e.GetStrings()[1] + ".json"; // combine task string and participant string
-			SetExperimentConfig (FileManager.ReadStringFromApplicationPathSubfolder(eDIA.Constants.localConfigDirectoryName + "/Participants", filenameExperiment));
-
-			string filenameTask = e.GetStrings()[0] + ".json"; // task string
-			SetTaskConfig (FileManager.ReadStringFromApplicationPathSubfolder(eDIA.Constants.localConfigDirectoryName + "/Tasks", filenameTask));
-
-		}
 
 		/// <summary> Eventlistener which expects the config as JSON file, triggers default config file load if not. </summary>
 		/// <param name="e">JSON config as string</param>

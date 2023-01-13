@@ -32,13 +32,21 @@ namespace eDIA.Manager
 		public GameObject holder = null;
 		public Image connectionIcon = null;
 		public TextMeshProUGUI textfield;
+		public int maxLines = 20;
 
+		private List<string> consoleLog = new List<string>();
+
+		private void Awake() {
+			textfield.text = "";
+		}
 
 		private void Start()
 		{
 			RCAS_Peer.Instance.OnReceivedPairingOffer += PairingOfferReceived;
 			RCAS_Peer.Instance.OnConnectionEstablished += Connected;
 			RCAS_Peer.Instance.OnConnectionLost += Disconnected;
+
+			
 		}
 
 		private void Disconnected(IPEndPoint EP)
@@ -66,7 +74,17 @@ namespace eDIA.Manager
 
 		public void Add2Console(string msg)
 		{
-			textfield.text = msg + "\n" + textfield.text;
+			consoleLog.Add(msg);
+			textfield.text = GetConsoleLogData();
+		}
+
+		string GetConsoleLogData () {
+			string tmp = "";
+
+			for (int i=0;i<consoleLog.Count;i++)
+				tmp += tmp + "\n" + consoleLog[i];
+
+			return tmp;
 		}
 
 		public void ShowConsole(bool onOff)

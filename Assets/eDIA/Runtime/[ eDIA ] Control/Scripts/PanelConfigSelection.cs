@@ -15,10 +15,9 @@ namespace eDIA.Manager {
 		public TMP_Dropdown configFilesOptions;
 		public Button btnSubmit = null;
 		public TextMeshProUGUI infoTextField;
-
+		public string configFileTaskName = "TASK";
 
 		public void Init() {
-
 			Reset();
 			EventManager.StartListening(eDIA.Events.Config.EvFoundLocalConfigFiles, OnEvFoundLocalConfigFiles);
 			GenerateParticipantConfigList();
@@ -44,6 +43,8 @@ namespace eDIA.Manager {
 
 			string[] filelist = FileManager.GetAllFilenamesWithExtensionFrom(	eDIA.Constants.localConfigDirectoryName + "/Participants","json" );
 
+			ControlPanel.Instance.Add2Console("Configs files found: " + filelist.Length);
+
 			if (filelist == null || filelist.Length == 0) {
 				ControlPanel.Instance.Add2Console("No files found");
 				infoTextField.text = "No files found!";
@@ -52,13 +53,16 @@ namespace eDIA.Manager {
 
 			// got filenames, fill the dropdown
 			List<TMP_Dropdown.OptionData> fileOptions = new List<TMP_Dropdown.OptionData>();
-			
+
 			for (int s=0;s<filelist.Length;s++) {
 				if (isFileValid(filelist[s]))
 					fileOptions.Add(new TMP_Dropdown.OptionData(filelist[s].Split('.')[0].Split('_')[1])); // Fileformat: EXPERIMENTNAME_PARTICIPANTID.json
 			}
+			
+			foreach (TMP_Dropdown.OptionData t in fileOptions) 
+				Debug.Log(t.text);
 
-			if (fileOptions.Count is 0) {
+			if (fileOptions.Count == 0) {
 				infoTextField.text = "No valid configs found!";
 				ControlPanel.Instance.Add2Console("No valid configs found");
 				return;
@@ -75,17 +79,30 @@ namespace eDIA.Manager {
 
 		bool isFileValid (string fileNameToCheck) {
 
-			bool isValid = fileNameToCheck.ToUpper().Contains(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name.ToUpper()) & fileNameToCheck.Contains('_');
-			// Debug.LogWarning("[SKIPPED] " + fileNameToCheck);
+			bool isValid = fileNameToCheck.ToUpper().Contains(configFileTaskName.ToUpper()) & fileNameToCheck.Contains('_');
+			// if (!isValid) Debug.LogWarning("[SKIPPED] " + fileNameToCheck);
 
 			return isValid;
 		}
 
 		public void BtnSubmitPressed () {
-			// Set up param as: TASK / PARTICIPANT
-			string[] param = new string[] { UnityEngine.SceneManagement.SceneManager.GetActiveScene().name, configFilesOptions.options[configFilesOptions.value].text };
 			
-			EventManager.TriggerEvent(eDIA.Events.Config.EvLocalConfigSubmitted, new eParam(param)); 
+			string filenameExperiment = configFileTaskName + "_" + configFilesOptions.options[configFilesOptions.value].text + ".json"; // combine task string and participant string
+			
+			EventManager.TriggerEvent( eDIA.Events.Config.EvSetExperimentConfig, 
+				new eParam( 
+					FileManager.ReadStringFromApplicationPathSubfolder(eDIA.Constants.localConfigDirectoryName + "/Participants", filenameExperiment)
+				)
+			);
+
+			string filenameTask = configFileTaskName + ".json"; // task string
+			
+			EventManager.TriggerEvent(
+				eDIA.Events.Config.EvSetTaskConfig, 
+				new eParam (
+					FileManager.ReadStringFromApplicationPathSubfolder(eDIA.Constants.localConfigDirectoryName + "/Tasks", filenameTask)
+				)
+			);
 			
 			HidePanel();
 		}

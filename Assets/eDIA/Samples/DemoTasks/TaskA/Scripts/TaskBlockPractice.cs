@@ -152,7 +152,8 @@ namespace TASK {
 				In this case enabling "TriggerPressed" predefined mapping on the script.
 			*/
 			XRControllerListener.EnableRemapping("TriggerPressed", true);
-
+			Experiment.Instance.WaitOnProceed (); 
+			
 			// Show message to user
 			MessagePanelInVR.Instance.ShowMessage("To continue click the trigger button on the controller");
 		}
