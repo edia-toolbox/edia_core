@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using RCAS;
 using System;
 using System.Net;
+using System.Linq;
 
 // Ms C# Coding Conventions
 //
@@ -39,41 +39,30 @@ namespace eDIA.Manager
 			textfield.text = "";
 		}
 
-		private void Start()
-		{
-			RCAS_Peer.Instance.OnReceivedPairingOffer += PairingOfferReceived;
-
-		}
-
-
-		private void PairingOfferReceived(string IPAddress, int Port, string DeviceInfo)
-		{
-		}
-
-		private void OnDestroy()
-		{
-			RCAS_Peer.Instance.OnReceivedPairingOffer -= PairingOfferReceived;
-		}
-
-
 		public void Add2Console(string msg)
 		{
-			consoleLog.Add(msg);
-			textfield.text = GetConsoleLogData();
+			consoleLog.Insert(0,msg);
+			textfield.text = GetConsoleLogDataTrimmed();
 		}
 
-		string GetConsoleLogData () {
-			string tmp = "";
+		public List<string> GetConsoleLogData () {
+			return consoleLog;
+		}
 
+		string GetConsoleLogDataTrimmed () {
+
+			string tmp = "";
+			
 			for (int i=0;i<consoleLog.Count;i++)
-				if (i < maxLines)
-					tmp += tmp + "\n" + consoleLog[i];
+				if (i < maxLines) {
+					tmp = consoleLog[i] + "\n" + tmp;
+				}
+
 			return tmp;
 		}
 
 		public void ShowConsole(bool onOff)
 		{
-			// textfield.gameObject.SetActive(onOff);
 			holder.SetActive(onOff);
 		}
 

@@ -114,19 +114,19 @@ namespace eDIA.Manager
 
 		public void Add2Console(string msg)
 		{
-			_pConsole.Add2Console(msg);
+			_pConsole.Add2Console("[ ] " + msg);
 		}
 
 
 		public void Add2ConsoleIn(string msg)
 		{
-			Add2Console ("< " + msg);
+			Add2Console ("[<] " + msg);
 		}
 
 
 		public void Add2ConsoleOut(string msg)
 		{
-			Add2Console ("> " + msg); 
+			Add2Console ("[>] " + msg); 
 		}
 
 

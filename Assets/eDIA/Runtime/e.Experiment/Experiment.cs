@@ -28,7 +28,7 @@ namespace eDIA {
 		public UnityEvent OnSessionEnd = null;
 
 		/// The config instance that holds current experimental configuration
-		// [HideInInspector]
+		[HideInInspector]
 		public ExperimentConfig experimentConfig;
 		[HideInInspector]
 		public TaskConfig taskConfig;
@@ -316,7 +316,7 @@ namespace eDIA {
 			}
 			else {
 				StartTrial();
-				EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateProgressInfo, Session.instance.CurrentBlock.settings.GetString("block_name"));
+				EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateProgressInfo, new eParam(Session.instance.CurrentBlock.settings.GetString("block_name")));
 			}
 
 		}
@@ -614,6 +614,7 @@ namespace eDIA {
 		}
 
 		private void AddToLog(string _msg) {
+			
 			if (showLog)
 				eDIA.LogUtilities.AddToLog(_msg, "EXP", taskColor);
 		}

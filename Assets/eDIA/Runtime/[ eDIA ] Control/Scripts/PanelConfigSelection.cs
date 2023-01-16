@@ -59,9 +59,6 @@ namespace eDIA.Manager {
 					fileOptions.Add(new TMP_Dropdown.OptionData(filelist[s].Split('.')[0].Split('_')[1])); // Fileformat: EXPERIMENTNAME_PARTICIPANTID.json
 			}
 			
-			foreach (TMP_Dropdown.OptionData t in fileOptions) 
-				Debug.Log(t.text);
-
 			if (fileOptions.Count == 0) {
 				infoTextField.text = "No valid configs found!";
 				ControlPanel.Instance.Add2Console("No valid configs found");
