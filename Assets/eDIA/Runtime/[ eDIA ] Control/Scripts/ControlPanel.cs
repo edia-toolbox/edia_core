@@ -4,7 +4,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-// using RCAS; 
 
 namespace eDIA.Manager
 {
@@ -35,7 +34,6 @@ namespace eDIA.Manager
 		private List<Transform> _currentPanelOrder = new List<Transform>();
 
 
-
 		private void Awake()
 		{
 
@@ -60,28 +58,15 @@ namespace eDIA.Manager
 
 			_pConsole.ShowConsole(Settings.ShowConsole);
 
-			// Remote
-			// _eventSystem.SetActive(Settings.ControlMode is ControlMode.Remote);
-
 			Add2Console("Init done");
 		}
 
 		private void Start()
 		{
-			if (Settings.ControlMode is ControlMode.Remote)
-				RCAS_Peer.Instance.OnConnectionEstablished += Connected;
-
 		}
 
 		private void OnDestroy()
 		{
-		}
-
-
-		void Connected(System.Net.EndPoint EP)
-		{
-			RCAS_Peer.Instance.OnConnectionEstablished -= Connected;
-			_pConfigMaker.Init();
 		}
 
 
@@ -95,11 +80,8 @@ namespace eDIA.Manager
 			_pExperimentControl 	= GetComponentInChildren<PanelExperimentControl>();
 			_pConsole 			= GetComponentInChildren<PanelConsole>();
 
-			if (Settings.ControlMode is ControlMode.Remote)
+			// if (Settings.ControlMode is ControlMode.Remote)
 				//TODO Create eventsystem in the scene, as we need to click on the buttons
-
-			// Remote
-			_pConfigMaker = GetComponentInChildren<PanelConfigMaker>();
 
 		}
 
@@ -144,7 +126,7 @@ namespace eDIA.Manager
 
 		public void Add2ConsoleOut(string msg)
 		{
-			Add2Console ("> " + msg);
+			Add2Console ("> " + msg); 
 		}
 
 

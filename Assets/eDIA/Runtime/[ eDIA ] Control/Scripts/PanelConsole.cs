@@ -30,7 +30,6 @@ namespace eDIA.Manager
 
 		[HideInInspector]
 		public GameObject holder = null;
-		public Image connectionIcon = null;
 		public TextMeshProUGUI textfield;
 		public int maxLines = 20;
 
@@ -43,32 +42,17 @@ namespace eDIA.Manager
 		private void Start()
 		{
 			RCAS_Peer.Instance.OnReceivedPairingOffer += PairingOfferReceived;
-			RCAS_Peer.Instance.OnConnectionEstablished += Connected;
-			RCAS_Peer.Instance.OnConnectionLost += Disconnected;
 
-			
 		}
 
-		private void Disconnected(IPEndPoint EP)
-		{
-			connectionIcon.color = Color.red;
-		}
-
-		private void Connected(IPEndPoint EP)
-		{
-			connectionIcon.color = Color.green;
-		}
 
 		private void PairingOfferReceived(string IPAddress, int Port, string DeviceInfo)
 		{
-			connectionIcon.color = Color.yellow;
 		}
 
 		private void OnDestroy()
 		{
 			RCAS_Peer.Instance.OnReceivedPairingOffer -= PairingOfferReceived;
-			RCAS_Peer.Instance.OnConnectionEstablished -= Connected;
-			RCAS_Peer.Instance.OnConnectionLost -= Disconnected;
 		}
 
 
@@ -82,8 +66,8 @@ namespace eDIA.Manager
 			string tmp = "";
 
 			for (int i=0;i<consoleLog.Count;i++)
-				tmp += tmp + "\n" + consoleLog[i];
-
+				if (i < maxLines)
+					tmp += tmp + "\n" + consoleLog[i];
 			return tmp;
 		}
 

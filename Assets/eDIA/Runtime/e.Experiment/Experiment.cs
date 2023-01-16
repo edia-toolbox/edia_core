@@ -414,7 +414,7 @@ namespace eDIA {
 				BlockStart();
 			} else {
 				StartTrial();
-				EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateProgressInfo,Session.instance.CurrentBlock.settings.GetString("block_name"));
+				EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateProgressInfo, new eParam(Session.instance.CurrentBlock.settings.GetString("block_name")));
 			}
 		}
 
