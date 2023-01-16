@@ -507,7 +507,7 @@ namespace eDIA {
 				taskBlocks[Session.instance.currentBlockNum-1].OnBetweenSteps(); // In Between to steps of the trial, we might want to clean things up a bit.
 
 				// update progress
-				EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateStepProgress, new eParam(new int[] { currentStepNum, taskBlocks[Session.instance.currentBlockNum].trialSteps.Count }));
+				EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateStepProgress, new eParam(new int[] { currentStepNum, taskBlocks[Session.instance.currentBlockNum-1].trialSteps.Count }));
 				taskBlocks[Session.instance.currentBlockNum-1].trialSteps[currentStepNum].Invoke();
 			}
 			else EndTrial();
