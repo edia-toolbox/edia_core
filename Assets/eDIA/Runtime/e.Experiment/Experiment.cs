@@ -28,7 +28,7 @@ namespace eDIA {
 		public UnityEvent OnSessionEnd = null;
 
 		/// The config instance that holds current experimental configuration
-		[HideInInspector]
+		// [HideInInspector]
 		public ExperimentConfig experimentConfig;
 		[HideInInspector]
 		public TaskConfig taskConfig;
