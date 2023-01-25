@@ -92,6 +92,7 @@ namespace eDIA {
 				GetSceneList();
 				GenerateMenu ();
 				OpenMenu(startOpen);
+				overlayCam.enabled = isDebug;
 			} else Debug.LogError("Reference the XROrigin Overlay camera in MainMenu!");
 		}
 
