@@ -22,7 +22,7 @@ namespace eDIA {
 		public Transform XRLeft;
 		public Transform XRRight;
 		public Transform mainMenuHolder;
-
+		public Transform camOverlay;
 
 		void Awake () {
 			CheckReferences();
@@ -36,8 +36,8 @@ namespace eDIA {
 			if (XRCam == null) 	Debug.LogError("XR Camera reference not set");
 			if (XRLeft == null) 	Debug.LogError("XR LeftController reference not set");
 			if (XRRight == null) 	Debug.LogError("XR RightController reference not set");
+			if (camOverlay == null) Debug.LogError("camOverlay reference not set");
 		}
-		
 
 		private void OnDrawGizmos() {
 			Gizmos.color = Color.cyan;

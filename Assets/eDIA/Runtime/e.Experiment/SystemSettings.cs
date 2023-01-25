@@ -15,10 +15,9 @@ namespace eDIA {
 		public SettingsDeclaration systemSettings = new SettingsDeclaration();
 		static SettingsDeclaration receivedSettings = new SettingsDeclaration();
 
-		public UXF.LocalFileDataHander UXFFilesaver = null;
+		static UXF.LocalFileDataHander UXFFilesaver = null;
 
 		private void Awake() {
-
 
 			InitSystemSettings();
 		}		

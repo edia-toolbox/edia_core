@@ -28,7 +28,7 @@ namespace eDIA {
 			menuHolder.SetActive(false);
 
 			if (myCanvas.worldCamera == null )
-				myCanvas.worldCamera = XRManager.Instance.XRCam.GetComponent<Camera>();
+				myCanvas.worldCamera = XRManager.Instance.camOverlay.GetComponent<Camera>();
 
 			if (stickToHMD) {
 				transform.SetParent(XRManager.Instance.XRCam, true);
@@ -39,12 +39,13 @@ namespace eDIA {
 
 		void Start () {
 			EventManager.StartListening (eDIA.Events.Core.EvShowMessageToUser, 	OnEvShowMessage);
-			EventManager.StartListening (eDIA.Events.StateMachine.EvProceed, 			OnEvHideMessage); //! assumption: continuing is always hide panel
+			EventManager.StartListening (eDIA.Events.StateMachine.EvProceed, 		OnEvHideMessage); //! assumption: continuing is always hide panel
+
 		}
 
 		void OnDestroy () {
 			EventManager.StopListening (eDIA.Events.Core.EvShowMessageToUser, 	OnEvShowMessage);
-			EventManager.StopListening(eDIA.Events.StateMachine.EvProceed, 			OnEvHideMessage);
+			EventManager.StopListening(eDIA.Events.StateMachine.EvProceed, 		OnEvHideMessage);
 		}
 
 		private void OnDrawGizmos() {
@@ -62,6 +63,7 @@ namespace eDIA {
 		/// <summary>Shows the actual panel</summary>
 		void ShowPanel (bool onOff) {
 			GetComponent<Canvas>().enabled = onOff;
+			myCanvas.worldCamera.enabled = onOff;
 		}
 
 		/// <summary>Shows the message in VR on a canvas.</summary>
