@@ -29,9 +29,9 @@ namespace eDIA {
 
 		/// The config instance that holds current experimental configuration
 		[HideInInspector]
-		public ExperimentConfig experimentConfig;
+		public ExperimentConfig experimentConfig = new ExperimentConfig();
 		[HideInInspector]
-		public TaskConfig taskConfig;
+		public TaskConfig taskConfig = new TaskConfig();
 
 		// Helpers
 		[Space(20)]
