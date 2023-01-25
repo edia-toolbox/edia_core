@@ -17,6 +17,7 @@ namespace eDIA {
 
 		[Header("Settings")]
 		public bool stickToHMD = true;
+		public bool disableOverlayCamOnHide = false;
 
 		Canvas myCanvas = null;
 		Coroutine MessageTimer = null;
@@ -63,7 +64,8 @@ namespace eDIA {
 		/// <summary>Shows the actual panel</summary>
 		void ShowPanel (bool onOff) {
 			GetComponent<Canvas>().enabled = onOff;
-			myCanvas.worldCamera.enabled = onOff;
+
+			myCanvas.worldCamera.enabled = (disableOverlayCamOnHide && !onOff);
 		}
 
 		/// <summary>Shows the message in VR on a canvas.</summary>
