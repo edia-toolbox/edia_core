@@ -53,8 +53,8 @@ namespace eDIA.Manager
 			}
 
 			// General
-			if (Settings.LookForLocalConfigs)
-				_pConfigSelection.Init();
+			// if (Settings.LookForLocalConfigs)
+			_pConfigSelection.Init();
 
 			_pConsole.ShowConsole(Settings.ShowConsole);
 
