@@ -10,11 +10,11 @@ namespace eDIA.Manager
 
 	public class ControlPanel : Singleton<ControlPanel>
 	{
-		// [HideInInspector]
 		public Transform NonActivePanelHolder = null;
-		// [HideInInspector]
 		public Transform MenuPanelHolder = null;
+		public Transform consolePanel = null;
 		public bool showEventLog = true;
+		public bool ShowConsole = false;
 
 		[Space(20)]
 		public ControlSettings Settings;
@@ -25,18 +25,15 @@ namespace eDIA.Manager
 		private PanelHeader _pHeader = null;
 		private PanelApplicationSettings _pApplicationSettings = null;
 		private PanelExperimentControl _pExperimentControl = null;
-		private PanelConsole _pConsole = null;
 
 		// Remote
 		private PanelConfigMaker _pConfigMaker = null;
 
-		// private GameObject _eventSystem = null;
 		private List<Transform> _currentPanelOrder = new List<Transform>();
 
 
 		private void Awake()
 		{
-
 			GetPanelReferences();
 
 			Init();
@@ -52,23 +49,12 @@ namespace eDIA.Manager
 				tr.name = tr.GetSiblingIndex().ToString() + "_" + tr.name;
 			}
 
-			// General
-			// if (Settings.LookForLocalConfigs)
 			_pConfigSelection.Init();
 
-			_pConsole.ShowConsole(Settings.ShowConsole);
+			consolePanel.gameObject.SetActive(ShowConsole);
 
-			Add2Console("Init done");
+			Debug.Log("Init done");
 		}
-
-		private void Start()
-		{
-		}
-
-		private void OnDestroy()
-		{
-		}
-
 
 		void GetPanelReferences()
 		{
@@ -78,7 +64,6 @@ namespace eDIA.Manager
 			_pHeader 			= GetComponentInChildren<PanelHeader>();
 			_pApplicationSettings 	= GetComponentInChildren<PanelApplicationSettings>();
 			_pExperimentControl 	= GetComponentInChildren<PanelExperimentControl>();
-			_pConsole 			= GetComponentInChildren<PanelConsole>();
 
 			// if (Settings.ControlMode is ControlMode.Remote)
 				//TODO Create eventsystem in the scene, as we need to click on the buttons
@@ -94,7 +79,6 @@ namespace eDIA.Manager
 
 		public void UpdatePanelOrder()
 		{
-
 			_currentPanelOrder.Clear();
 			_currentPanelOrder = MenuPanelHolder.Cast<Transform>().ToList();
 			_currentPanelOrder.Sort((Transform t1, Transform t2) => { return t1.name.CompareTo(t2.name); });
@@ -110,26 +94,6 @@ namespace eDIA.Manager
 		{
 			_pMessageBox.ShowMessage(msg, autoHide);
 		}
-
-
-		public void Add2Console(string msg)
-		{
-			_pConsole.Add2Console("[ ] " + msg);
-		}
-
-
-		public void Add2ConsoleIn(string msg)
-		{
-			Add2Console ("[<] " + msg);
-		}
-
-
-		public void Add2ConsoleOut(string msg)
-		{
-			Add2Console ("[>] " + msg); 
-		}
-
-
 
 	}
 }

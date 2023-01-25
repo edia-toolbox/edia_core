@@ -45,7 +45,7 @@ namespace eDIA {
 		public float menuDistance = 2f;
 		/// <summary> Layer to put the canvas on to draw on top of everything else</summary>
 		[Tooltip("Layer to put the canvas on to draw on top of everything else")]
-		public int overLayer = 10;
+		int overLayer = 6;
 		public bool isDebug = false;
 
 		[Header("Menu Generation")]
@@ -53,6 +53,7 @@ namespace eDIA {
 		public Transform menuHolder;
 		public RectTransform buttonHolder;
 		public GameObject buttonPrefab;
+		public Transform debugPanel;
 
 		[Header("Static buttons")]
 		public Button closeButton;
@@ -72,8 +73,11 @@ namespace eDIA {
 	#region Starters
 
 		void Awake() {
-			gameObject.layer = LayerMask.NameToLayer("CamOverlay");
+			overLayer = LayerMask.NameToLayer("CamOverlay");
+			gameObject.layer = overLayer;
 			
+			debugPanel.gameObject.SetActive(isDebug);
+
 			EventManager.StartListening(eDIA.Events.System.EvCallMainMenu, OnEvCallMainMenu);
 		}
 

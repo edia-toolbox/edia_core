@@ -14,7 +14,6 @@ namespace eDIA.Manager {
 		public ControlMode ControlMode = ControlMode.Local;
 		public PanelMode PanelMode = PanelMode.OnScreen;
 		// public bool LookForLocalConfigs = true;
-		public bool ShowConsole = false;
 		public ScreenSize ScreenSize = ScreenSize.Default;	
 	}
 

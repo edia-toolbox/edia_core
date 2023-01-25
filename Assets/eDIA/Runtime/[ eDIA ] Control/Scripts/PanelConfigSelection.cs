@@ -43,10 +43,10 @@ namespace eDIA.Manager {
 
 			string[] filelist = FileManager.GetAllFilenamesWithExtensionFrom(	eDIA.Constants.localConfigDirectoryName + "/Participants","json" );
 
-			ControlPanel.Instance.Add2Console("Configs files found: " + filelist.Length);
+			Debug.Log("Configs files found: " + filelist.Length);
 
 			if (filelist == null || filelist.Length == 0) {
-				ControlPanel.Instance.Add2Console("No files found");
+				Debug.Log("No files found");
 				infoTextField.text = "No files found!";
 				return;
 			}
@@ -61,7 +61,7 @@ namespace eDIA.Manager {
 			
 			if (fileOptions.Count == 0) {
 				infoTextField.text = "No valid configs found!";
-				ControlPanel.Instance.Add2Console("No valid configs found");
+				Debug.Log("No valid configs found");
 				return;
 			}
 
