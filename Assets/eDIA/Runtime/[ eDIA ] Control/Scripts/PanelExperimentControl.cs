@@ -176,7 +176,7 @@ namespace eDIA.Manager {
 
 			bool newState = e.GetStrings()[1].ToUpper() == "TRUE";
 
-			Debug.Log("Btn: " + e.GetStrings()[0] + " to " + e.GetStrings()[1]);
+			// Debug.Log("Btn: " + e.GetStrings()[0] + " to " + e.GetStrings()[1]);
 
 			switch (e.GetStrings()[0].ToUpper()) {
 				case "PAUSE" :

@@ -1,3 +1,4 @@
+using System;
 using System.IO.IsolatedStorage;
 using System.Collections;
 using System.Collections.Generic;
@@ -22,9 +23,11 @@ using TMPro;
 
 public class DebugConsoleDisplay : MonoBehaviour
 {
-	Dictionary<string, string> debugLogs = new Dictionary<string, string>();
+	public List<string> debugs = new List<string>();
+
 	public TextMeshProUGUI display;
 	private bool isOn = true;
+	private int maxLogSize = 20;
 
 	public void ToggleConsole () {
 		isOn = !isOn;
@@ -33,16 +36,18 @@ public class DebugConsoleDisplay : MonoBehaviour
 	}
 
 	private void OnEnable() {
+		Application.logMessageReceived += HandleLog;
+
 		ShowConsole();
+	}
+
+	private void OnDestroy() {
+		Application.logMessageReceived -= HandleLog;
 	}
 
 	public void ShowConsole () {
 		display.gameObject.SetActive(isOn);
 		GetComponent<Image>().enabled = isOn;
-
-		if (isOn) Application.logMessageReceived += HandleLog;
-		else Application.logMessageReceived -= HandleLog;
-		
 	}
 
 	void HandleLog(string logString, string stackTrace, LogType type)
@@ -54,19 +59,13 @@ public class DebugConsoleDisplay : MonoBehaviour
 		string debugKey = splitString[0];
 		string debugValue = splitString.Length > 1 ? splitString[1] : "";
 
-		if (debugLogs.ContainsKey(debugKey))
-			debugLogs[debugKey] = debugValue;
-		else
-			debugLogs.Add(debugKey, debugValue);
-
+		debugs.Add(String.Concat (debugKey, debugValue));
+		if (debugs.Count > maxLogSize) debugs.RemoveAt(0);
 
 		string displayText = "";
-		foreach (KeyValuePair<string, string> log in debugLogs)
+		foreach(string s in debugs) 
 		{
-			if (log.Value == "")
-				displayText += log.Key + "\n";
-			else
-				displayText += log.Key + ": " + log.Value + "\n";
+			displayText += s + "\n";
 		}
 
 		display.text = displayText;
