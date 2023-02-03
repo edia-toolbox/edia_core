@@ -19,7 +19,9 @@ namespace eDIA.Manager {
 
 		public void Init() {
 			Reset();
+
 			EventManager.StartListening(eDIA.Events.Config.EvFoundLocalConfigFiles, OnEvFoundLocalConfigFiles);
+			
 			GenerateParticipantConfigList();
 
 		}
@@ -88,7 +90,8 @@ namespace eDIA.Manager {
 			
 			EventManager.TriggerEvent( eDIA.Events.Config.EvSetExperimentConfig, 
 				new eParam( 
-					FileManager.ReadStringFromApplicationPathSubfolder(eDIA.Constants.localConfigDirectoryName + "/Participants", filenameExperiment)
+					@" {""experiment"":""TaskA"",""experimenter"":""eDIA"",""session_number"":0,""participant_details"":[{""key"":""ID"",""value"":""SOMEID""},{""key"":""Age"",""value"":""23""},{""key"":""Name"",""value"":""Heinrich""}]} "
+					// FileManager.ReadStringFromApplicationPathSubfolder(eDIA.Constants.localConfigDirectoryName + "/Participants", filenameExperiment)
 				)
 			);
 

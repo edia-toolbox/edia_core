@@ -86,6 +86,8 @@ namespace eDIA {
 				return;
 			}
 
+			Debug.Log("Event received: " + e.GetString());
+			
 			SetExperimentConfig( e.GetString() );
 		}
 
@@ -94,6 +96,8 @@ namespace eDIA {
 		public void SetExperimentConfig (string JSONstring) {
 
 			EventManager.StopListening(eDIA.Events.Config.EvSetExperimentConfig, 	OnEvSetExperimentConfig);
+
+			Debug.Log("Method received: " + JSONstring);
 
 			try
 			{
@@ -106,7 +110,6 @@ namespace eDIA {
 			}
 
 			EventManager.TriggerEvent(eDIA.Events.Config.EvExperimentConfigSet, null);
-			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateSessionSummary, new eParam( experimentConfig.GetExperimentSummary()) );
 
 			experimentConfig.isReady = true;
 			CheckExperimentReady();
@@ -148,9 +151,16 @@ namespace eDIA {
 			CheckExperimentReady();
 		}
 
-		// TODO: Validate configs and show correct panels in control 
 		void CheckExperimentReady () {
-			if (experimentConfig.isReady && taskConfig.isReady)
+			
+			if (experimentConfig.isReady && taskConfig.isReady) {
+				EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateSessionSummary, new eParam( experimentConfig.GetExperimentSummary()) );
+				Invoke("DelayedSending", 1.5f);
+			}
+
+		}
+
+		void DelayedSending () {
 				EventManager.TriggerEvent(eDIA.Events.Config.EvReadyToGo, null);
 		}
 
@@ -258,13 +268,26 @@ namespace eDIA {
 			AddToExecutionOrderLog("OnSessionBegin");
 			EventManager.StartListening(eDIA.Events.StateMachine.EvProceed, OnEvStartFirstTrial);
 
-			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateBlockProgress, new eParam(new int[] {Session.instance.currentBlockNum, Session.instance.blocks.Count} ));
+			// EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateBlockProgress, new eParam(new int[] {Session.instance.currentBlockNum, Session.instance.blocks.Count} ));
+			Invoke ("DelayedOnSessionBegintUXFEvent", 0.05f);
 			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateSessionSummary, new eParam(experimentConfig.GetExperimentSummary()));
 			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateProgressInfo,new eParam("Welcome"));
-			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvEnableButton, new eParam( new string[] { "PROCEED", "true" }));
+
+			// EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvEnableButton, new eParam( new string[] { "PROCEED", "true" }));
+			Invoke ("DelayedOnSessionBegintUXFEvent02", 0.05f);
 
 			// eye calibration option enabled
 			EnableEyeCalibrationTrigger(true);
+		}
+
+		//! TEMPORARY TO DELAY A NETWORK MESSAGE WITH ARRAY AS PARAM
+		void DelayedOnSessionBegintUXFEvent () {
+			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateBlockProgress, new eParam(new int[] {Session.instance.currentBlockNum, Session.instance.blocks.Count} ));
+		}
+
+		//! TEMPORARY TO DELAY A NETWORK MESSAGE WITH ARRAY AS PARAM
+		void DelayedOnSessionBegintUXFEvent02 () {
+			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvEnableButton, new eParam( new string[] { "PROCEED", "true" }));
 		}
 
 
@@ -279,10 +302,18 @@ namespace eDIA {
 			AddToExecutionOrderLog("OnSessionEndUXF");
 
 			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateProgressInfo, new eParam("End"));
-			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvEnableButton, new eParam( new string[] { "PROCEED", "false" }));
+			// EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvEnableButton, new eParam( new string[] { "PROCEED", "false" }));
+			Invoke ("DelayedOnSessionEndUXFEvent", 0.05f);
+
 			EnablePauseButton(false);
 
 		}
+
+		//! TEMPORARY TO DELAY A NETWORK MESSAGE WITH ARRAY AS PARAM
+		void DelayedOnSessionEndUXFEvent () {
+			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvEnableButton, new eParam( new string[] { "PROCEED", "false" }));
+		}
+
 
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
@@ -303,7 +334,8 @@ namespace eDIA {
 			activeBlockUXF = Session.instance.currentBlockNum;
 
 			// Update block progress
-			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateBlockProgress, new eParam(new int[] {Session.instance.currentBlockNum, Session.instance.blocks.Count} ));
+			// EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateBlockProgress, new eParam(new int[] {Session.instance.currentBlockNum, Session.instance.blocks.Count} ));
+			Invoke ("DelayedBlockStartEvent", 0.05f);
 
 			// Check for block introduction flag
 			bool hasIntro = Session.instance.CurrentBlock.settings.GetString("intro") != string.Empty;
@@ -319,6 +351,11 @@ namespace eDIA {
 				EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateProgressInfo, new eParam(Session.instance.CurrentBlock.settings.GetString("block_name")));
 			}
 
+		}
+
+		//! TEMPORARY TO DELAY A NETWORK MESSAGE WITH ARRAY AS PARAM
+		void DelayedBlockStartEvent () {
+			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateBlockProgress, new eParam(new int[] {Session.instance.currentBlockNum, Session.instance.blocks.Count} ));
 		}
 
 		void BlockEnd () {
@@ -361,7 +398,8 @@ namespace eDIA {
 		void ShowMessageToUser (string msg, string description) {
 			AddToExecutionOrderLog("ShowMessageToUser");
 
-			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvEnableButton, new eParam( new string[] { "PROCEED", "true" }));
+			// EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvEnableButton, new eParam( new string[] { "PROCEED", "true" }));
+			Invoke("DelayedShowMessageToUserEvent", 0.05f);
 			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateProgressInfo, new eParam("Block Info"));
 
 			EnablePauseButton(false);
@@ -370,6 +408,11 @@ namespace eDIA {
 			if (MessagePanelInVR.Instance != null)
 				MessagePanelInVR.Instance.ShowMessage (msg);
 			else Debug.LogError("No MessagePanelInVR instance found");
+		}
+
+		//! TEMPORARY TO DELAY A NETWORK MESSAGE WITH ARRAY AS PARAM
+		void DelayedShowMessageToUserEvent () {
+			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvEnableButton, new eParam( new string[] { "PROCEED", "true" }));
 		}
 
 		/// <summary>Called from this manager. </summary>

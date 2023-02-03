@@ -69,11 +69,11 @@ namespace eDIA.Manager {
 
 		void OnEvExperimentConfigSet(eParam obj)
 		{
-			Debug.Log("OnEvExperimentConfigSet");
+			// Debug.Log("OnEvExperimentConfigSet");
 			EventManager.StopListening(eDIA.Events.Config.EvExperimentConfigSet, 		OnEvExperimentConfigSet);
 			EventManager.StartListening(eDIA.Events.ControlPanel.EvUpdateSessionSummary, 	OnEvUpdateExperimentSummary);
 
-			Debug.Log("Experiment config set");
+			// Debug.Log("Experiment config set");
 
 			panelIdle.SetActive(false);
 			panelRunning.SetActive(false);
@@ -122,6 +122,8 @@ namespace eDIA.Manager {
 		private void OnEvUpdateExperimentSummary(eParam e)
 		{
 			string[] displayInformation = e.GetStrings();
+
+			Debug.Log("OnEvUpdateExperimentSummary: " + e.GetStrings()[0]);
 			
 			experimentNameField.text = displayInformation[0];
 			experimenterField.text = displayInformation[1];
@@ -176,7 +178,7 @@ namespace eDIA.Manager {
 
 			bool newState = e.GetStrings()[1].ToUpper() == "TRUE";
 
-			// Debug.Log("Btn: " + e.GetStrings()[0] + " to " + e.GetStrings()[1]);
+			Debug.Log("Btn: " + e.GetStrings()[0] + " to " + e.GetStrings()[1]);
 
 			switch (e.GetStrings()[0].ToUpper()) {
 				case "PAUSE" :
