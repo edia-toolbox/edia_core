@@ -155,13 +155,9 @@ namespace eDIA {
 			
 			if (experimentConfig.isReady && taskConfig.isReady) {
 				EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateSessionSummary, new eParam( experimentConfig.GetExperimentSummary()) );
-				Invoke("DelayedSending", 1.5f);
+				EventManager.TriggerEvent(eDIA.Events.Config.EvReadyToGo, null);
 			}
 
-		}
-
-		void DelayedSending () {
-				EventManager.TriggerEvent(eDIA.Events.Config.EvReadyToGo, null);
 		}
 
 
@@ -214,7 +210,6 @@ namespace eDIA {
 		}
 
 		void OnEvProceed (eParam e) {
-			Debug.Log("Exp: OnEvProceed called");
 			EventManager.StopListening(eDIA.Events.StateMachine.EvProceed, OnEvProceed); // stop listening to avoid doubleclicks
 			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvEnableButton, new eParam( new string[] { "PROCEED", "false" })); // disable button, as OnEvProceed might have come from somewhere else than the button itself
 			NextStep();
@@ -268,27 +263,25 @@ namespace eDIA {
 			AddToExecutionOrderLog("OnSessionBegin");
 			EventManager.StartListening(eDIA.Events.StateMachine.EvProceed, OnEvStartFirstTrial);
 
-			// EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateBlockProgress, new eParam(new int[] {Session.instance.currentBlockNum, Session.instance.blocks.Count} ));
-			Invoke ("DelayedOnSessionBegintUXFEvent", 0.05f);
+			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateBlockProgress, new eParam(new int[] {Session.instance.currentBlockNum, Session.instance.blocks.Count} ));
 			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateSessionSummary, new eParam(experimentConfig.GetExperimentSummary()));
 			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateProgressInfo,new eParam("Welcome"));
 
-			// EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvEnableButton, new eParam( new string[] { "PROCEED", "true" }));
-			Invoke ("DelayedOnSessionBegintUXFEvent02", 0.05f);
+			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvEnableButton, new eParam( new string[] { "PROCEED", "true" }));
 
 			// eye calibration option enabled
 			EnableEyeCalibrationTrigger(true);
 		}
 
-		//! TEMPORARY TO DELAY A NETWORK MESSAGE WITH ARRAY AS PARAM
-		void DelayedOnSessionBegintUXFEvent () {
-			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateBlockProgress, new eParam(new int[] {Session.instance.currentBlockNum, Session.instance.blocks.Count} ));
-		}
+		// //! TEMPORARY TO DELAY A NETWORK MESSAGE WITH ARRAY AS PARAM
+		// void DelayedOnSessionBegintUXFEvent () {
+		// 	EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateBlockProgress, new eParam(new int[] {Session.instance.currentBlockNum, Session.instance.blocks.Count} ));
+		// }
 
-		//! TEMPORARY TO DELAY A NETWORK MESSAGE WITH ARRAY AS PARAM
-		void DelayedOnSessionBegintUXFEvent02 () {
-			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvEnableButton, new eParam( new string[] { "PROCEED", "true" }));
-		}
+		// //! TEMPORARY TO DELAY A NETWORK MESSAGE WITH ARRAY AS PARAM
+		// void DelayedOnSessionBegintUXFEvent02 () {
+		// 	EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvEnableButton, new eParam( new string[] { "PROCEED", "true" }));
+		// }
 
 
 		/// <summary>Called from UXF session. </summary>
@@ -302,17 +295,16 @@ namespace eDIA {
 			AddToExecutionOrderLog("OnSessionEndUXF");
 
 			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateProgressInfo, new eParam("End"));
-			// EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvEnableButton, new eParam( new string[] { "PROCEED", "false" }));
-			Invoke ("DelayedOnSessionEndUXFEvent", 0.05f);
+			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvEnableButton, new eParam( new string[] { "PROCEED", "false" }));
 
 			EnablePauseButton(false);
 
 		}
 
-		//! TEMPORARY TO DELAY A NETWORK MESSAGE WITH ARRAY AS PARAM
-		void DelayedOnSessionEndUXFEvent () {
-			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvEnableButton, new eParam( new string[] { "PROCEED", "false" }));
-		}
+		// //! TEMPORARY TO DELAY A NETWORK MESSAGE WITH ARRAY AS PARAM
+		// void DelayedOnSessionEndUXFEvent () {
+		// 	EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvEnableButton, new eParam( new string[] { "PROCEED", "false" }));
+		// }
 
 
 
@@ -334,8 +326,7 @@ namespace eDIA {
 			activeBlockUXF = Session.instance.currentBlockNum;
 
 			// Update block progress
-			// EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateBlockProgress, new eParam(new int[] {Session.instance.currentBlockNum, Session.instance.blocks.Count} ));
-			Invoke ("DelayedBlockStartEvent", 0.05f);
+			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateBlockProgress, new eParam(new int[] {Session.instance.currentBlockNum, Session.instance.blocks.Count} ));
 
 			// Check for block introduction flag
 			bool hasIntro = Session.instance.CurrentBlock.settings.GetString("intro") != string.Empty;
@@ -353,10 +344,10 @@ namespace eDIA {
 
 		}
 
-		//! TEMPORARY TO DELAY A NETWORK MESSAGE WITH ARRAY AS PARAM
-		void DelayedBlockStartEvent () {
-			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateBlockProgress, new eParam(new int[] {Session.instance.currentBlockNum, Session.instance.blocks.Count} ));
-		}
+		// //! TEMPORARY TO DELAY A NETWORK MESSAGE WITH ARRAY AS PARAM
+		// void DelayedBlockStartEvent () {
+		// 	EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateBlockProgress, new eParam(new int[] {Session.instance.currentBlockNum, Session.instance.blocks.Count} ));
+		// }
 
 		void BlockEnd () {
 			AddToLog("Block End");
@@ -398,8 +389,7 @@ namespace eDIA {
 		void ShowMessageToUser (string msg, string description) {
 			AddToExecutionOrderLog("ShowMessageToUser");
 
-			// EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvEnableButton, new eParam( new string[] { "PROCEED", "true" }));
-			Invoke("DelayedShowMessageToUserEvent", 0.05f);
+			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvEnableButton, new eParam( new string[] { "PROCEED", "true" }));
 			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateProgressInfo, new eParam("Block Info"));
 
 			EnablePauseButton(false);
@@ -410,10 +400,10 @@ namespace eDIA {
 			else Debug.LogError("No MessagePanelInVR instance found");
 		}
 
-		//! TEMPORARY TO DELAY A NETWORK MESSAGE WITH ARRAY AS PARAM
-		void DelayedShowMessageToUserEvent () {
-			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvEnableButton, new eParam( new string[] { "PROCEED", "true" }));
-		}
+		// //! TEMPORARY TO DELAY A NETWORK MESSAGE WITH ARRAY AS PARAM
+		// void DelayedShowMessageToUserEvent () {
+		// 	EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvEnableButton, new eParam( new string[] { "PROCEED", "true" }));
+		// }
 
 		/// <summary>Called from this manager. </summary>
 		void BlockContinueAfterIntro (eParam e) {

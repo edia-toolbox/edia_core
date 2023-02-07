@@ -14,10 +14,11 @@ namespace eDIA {
 		public TextMeshProUGUI msgField = null;
 		public Button button = null;
 		public GameObject menuHolder = null;
+		private Image bg = null;
 
 		[Header("Settings")]
 		public bool stickToHMD = true;
-		public bool disableOverlayCamOnHide = false;
+		public bool hasSolidBackground = true;
 
 		Canvas myCanvas = null;
 		Coroutine MessageTimer = null;
@@ -27,6 +28,7 @@ namespace eDIA {
 			myCanvas = GetComponent<Canvas>();
 			myCanvas.enabled = false;
 			menuHolder.SetActive(false);
+			bg = transform.GetChild(0).GetComponent<Image>();
 
 			if (myCanvas.worldCamera == null )
 				myCanvas.worldCamera = XRManager.Instance.camOverlay.GetComponent<Camera>();
@@ -65,7 +67,8 @@ namespace eDIA {
 		void ShowPanel (bool onOff) {
 			GetComponent<Canvas>().enabled = onOff;
 
-			myCanvas.worldCamera.enabled = (disableOverlayCamOnHide && !onOff);
+			// myCanvas.worldCamera.enabled = (disableOverlayCamOnHide && !onOff);
+			myCanvas.worldCamera.enabled = onOff;
 		}
 
 		/// <summary>Shows the message in VR on a canvas.</summary>
@@ -151,8 +154,11 @@ namespace eDIA {
 			float currentTime = 0f;
 			while (currentTime < duration)
 			{
+				// float alpha = Mathf.Lerp(0f, hasSolidBackground ? 1f : 0.5f, currentTime / duration);
 				float alpha = Mathf.Lerp(0f, 1f, currentTime / duration);
 				msgField.color = new Color(msgField.color.r, msgField.color.g, msgField.color.b, alpha);
+				float alphaBg = Mathf.Lerp(0f, hasSolidBackground ? 1f : 0.5f, currentTime / duration);
+				bg.color = new Color(bg.color.r, bg.color.g, bg.color.b, alphaBg);
 				currentTime += Time.deltaTime;
 				yield return null;
 			}

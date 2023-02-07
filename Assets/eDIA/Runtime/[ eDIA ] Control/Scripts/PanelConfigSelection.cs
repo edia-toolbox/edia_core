@@ -27,7 +27,7 @@ namespace eDIA.Manager {
 		}
 
 		void OnEvFoundLocalConfigFiles (eParam e) {
-			ShowPanel();
+			Invoke("ShowPanel", 0.1f); // Small delay to be sure the Awake method collected all child transforms to toggle
 		}
 
 		/// <summary>Clear everything to startstate</summary>
@@ -73,7 +73,10 @@ namespace eDIA.Manager {
 			EventManager.TriggerEvent(eDIA.Events.Config.EvFoundLocalConfigFiles, new eParam(configFilesOptions.options.Count));
 
 			btnSubmit.interactable = true;
+
 		}
+
+
 
 
 		bool isFileValid (string fileNameToCheck) {
