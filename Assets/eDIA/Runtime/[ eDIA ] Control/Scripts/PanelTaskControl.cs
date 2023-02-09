@@ -9,6 +9,12 @@ namespace eDIA.Manager {
 
 	public class PanelTaskControl : ExperimenterPanel {
 
+		[Tooltip("If the panel needs to be active at start")]
+		public bool showPanelAtStart = false;
+
+		private void Start() {
+			ShowPanel(showPanelAtStart);
+		}
 	
 	}
 }
