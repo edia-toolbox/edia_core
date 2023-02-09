@@ -84,7 +84,6 @@ namespace eDIA.Manager {
 		void OnEvTaskConfigSet(eParam obj)
 		{
 			EventManager.StopListening(eDIA.Events.Config.EvTaskConfigSet, 			OnEvTaskConfigSet);
-			Debug.Log("Task config set");
 
 		}
 
@@ -106,7 +105,6 @@ namespace eDIA.Manager {
 			EventManager.StopListening(eDIA.Events.StateMachine.EvStartExperiment, 		OnEvStartExperiment);
 			btnExperiment.onClick.RemoveAllListeners();
 
-			Debug.Log("StartExperiment");
 			panelIdle.SetActive(false);
 			panelRunning.SetActive(true);
 			panelStatus.SetActive(true);
@@ -123,8 +121,6 @@ namespace eDIA.Manager {
 		{
 			string[] displayInformation = e.GetStrings();
 
-			Debug.Log("OnEvUpdateExperimentSummary: " + e.GetStrings()[0]);
-			
 			experimentNameField.text = displayInformation[0];
 			experimenterField.text = displayInformation[1];
 			participantIDField.text = displayInformation[2];
@@ -177,8 +173,6 @@ namespace eDIA.Manager {
 		void OnEvEnableButton (eParam e) {
 
 			bool newState = e.GetStrings()[1].ToUpper() == "TRUE";
-
-			Debug.Log("Btn: " + e.GetStrings()[0] + " to " + e.GetStrings()[1]);
 
 			switch (e.GetStrings()[0].ToUpper()) {
 				case "PAUSE" :
