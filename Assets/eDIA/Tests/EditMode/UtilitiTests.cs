@@ -33,5 +33,31 @@ public class UtilityTests
 
     }
 
+    [Test]
+    public void _123_As_StringsArray_Returns_123_As_FloatsArray()
+    {
+        string[] testlist = { "1", "2","3" };
+
+        float value = 1.0f;
+
+        float[] floatArray = ArrayTools.ConvertStringsIntoFloats(testlist);
+
+        Assert.AreEqual(value, floatArray[0]);
+
+    }
+
+    [Test]
+    public void _123_As_FloatsArray_Returns_123_As_StringsArray()
+    {
+        float[] testlist = { 1.0f, 2.0f, 3.0f };
+
+        string value = "1";
+
+        string[] stringArray = ArrayTools.ConvertFloatsToStrings(testlist);
+
+        Assert.AreEqual(value, stringArray[0]);
+
+    }
+
 
 }

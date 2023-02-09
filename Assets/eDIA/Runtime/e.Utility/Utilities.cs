@@ -38,6 +38,22 @@ namespace eDIA.Utilities {
 			return result.ToArray<int>();
 		}
 
+
+		public static string[] ConvertFloatsToStrings (float[] floats) {
+			List<string> result = new List<string>();
+			foreach (int i in floats.ToList<float>())
+				result.Add(i.ToString());
+			return result.ToArray<string>();
+		}
+
+
+		public static float[] ConvertStringsIntoFloats (string[] strings) {
+			List<float> result = new List<float>();
+			foreach (string s in strings.ToList<string>()) 
+				result.Add(int.Parse(s));
+			return result.ToArray<float>();
+		}
+
 	}
 	
 }
