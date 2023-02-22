@@ -43,15 +43,23 @@ namespace eDIA.Manager
 		{
 			EventManager.showLog = showEventLog;
 
-			// Panel control
+			// Move all panels from task first to non visuable holder
+			foreach (Transform t in MenuPanelHolder) { 
+				t.SetParent(NonActivePanelHolder, true);
+			}
+
+			// Panels renaming
 			foreach (Transform tr in NonActivePanelHolder)
 			{
 				tr.name = tr.GetSiblingIndex().ToString() + "_" + tr.name;
 			}
 
-			_pConfigSelection.Init();
-
 			consolePanel.gameObject.SetActive(ShowConsole);
+
+			if (Settings.ControlMode is ControlMode.Remote)
+				return;	
+				
+			_pConfigSelection.Init();
 
 			Debug.Log("Init done");
 		}
@@ -65,8 +73,7 @@ namespace eDIA.Manager
 			_pApplicationSettings 	= GetComponentInChildren<PanelApplicationSettings>();
 			_pExperimentControl 	= GetComponentInChildren<PanelExperimentControl>();
 
-			// if (Settings.ControlMode is ControlMode.Remote)
-				//TODO Create eventsystem in the scene, as we need to click on the buttons
+
 
 		}
 
