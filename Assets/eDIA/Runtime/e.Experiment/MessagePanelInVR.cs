@@ -18,6 +18,7 @@ namespace eDIA {
 
 		[Header("Settings")]
 		public bool stickToHMD = true;
+		public float distanceFromHMD = 2f;
 		public bool hasSolidBackground = true;
 
 		Canvas myCanvas = null;
@@ -35,7 +36,7 @@ namespace eDIA {
 
 			if (stickToHMD) {
 				transform.SetParent(XRManager.Instance.XRCam, true);
-				transform.localPosition = new Vector3(0,0,transform.localPosition.z);
+				transform.localPosition = new Vector3(0,0,distanceFromHMD);
 			}
 			
 		}
@@ -103,7 +104,7 @@ namespace eDIA {
 
 
 		#endregion // -------------------------------------------------------------------------------------------------------------------------------
-		#region HIDE
+#region HIDE
 
 		/// <summary>Event catcher</summary>
 		void OnEvHideMessage (eParam e) {
