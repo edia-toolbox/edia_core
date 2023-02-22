@@ -1,5 +1,4 @@
 using System;
-using System.IO.IsolatedStorage;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -26,8 +25,11 @@ public class DebugConsoleDisplay : MonoBehaviour
 	public List<string> debugs = new List<string>();
 
 	public TextMeshProUGUI display;
+	public TextMeshProUGUI fpsField;
 	private bool isOn = true;
 	private int maxLogSize = 20;
+	private float count;
+	Coroutine fpsRoutine = null;
 
 	public void ToggleConsole () {
 		isOn = !isOn;
@@ -48,6 +50,25 @@ public class DebugConsoleDisplay : MonoBehaviour
 	public void ShowConsole () {
 		display.gameObject.SetActive(isOn);
 		GetComponent<Image>().enabled = isOn;
+
+		if (isOn)
+		{
+			fpsRoutine = StartCoroutine("FPScounter");
+		} else if (fpsRoutine != null)
+		{
+			StopCoroutine(fpsRoutine);
+		}
+	}
+
+	private IEnumerator FPScounter()
+	{
+		while (true)
+		{
+			count = 1f / Time.unscaledDeltaTime;
+			fpsField.text = Math.Floor(count).ToString();
+			yield return new WaitForSeconds(0.25f);
+		}
+
 	}
 
 	void HandleLog(string logString, string stackTrace, LogType type)
@@ -71,6 +92,7 @@ public class DebugConsoleDisplay : MonoBehaviour
 		display.text = displayText;
 	}
 }
+
 
 
 
