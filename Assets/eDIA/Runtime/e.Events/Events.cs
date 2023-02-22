@@ -254,8 +254,12 @@ namespace eDIA.Events {
  		/// <summary>System found XR hands and HMD objects. Expects null</summary>
 		public const string EvFoundXRrigReferences		= "EvFoundXRrigReferences";
 
-	//? ========================================================================================================
-	//? Hands
+		/// <summary>Enable interaction with UI presented on layer 'camoverlay'</summary>
+		public const string EvEnableRayForCamOverlayer = "EvEnableRayForCamOverlayer";
+
+
+		//? ========================================================================================================
+		//? Hands
 
 		/// <summary>Animate the handmodel is this pose, expects string 'idle' 'point' 'fist' ...</summary>
 		public const string EvHandPose				= "EvHandPose";

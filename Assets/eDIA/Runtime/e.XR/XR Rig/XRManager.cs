@@ -41,8 +41,9 @@ namespace eDIA {
 
 		private void OnDrawGizmos() {
 			Gizmos.color = Color.cyan;
-			Gizmos.DrawWireCube(transform.position, new Vector3(0.5f,0.0f,0.5f));
-			Gizmos.DrawLine(transform.position, Vector3.forward);
+			Gizmos.matrix = transform.localToWorldMatrix;
+			Gizmos.DrawWireCube(Vector3.zero, new Vector3(0.5f,0.0f,0.5f));
+			Gizmos.DrawLine(Vector3.zero, Vector3.forward);
 		}
 
 #region Inspector debug calls

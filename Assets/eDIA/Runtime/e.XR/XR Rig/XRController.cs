@@ -31,6 +31,9 @@ namespace eDIA {
 			EventManager.StartListening(eDIA.Events.XR.EvUpdateInteractiveInteractor, OnEvUpdateInteractiveInteractor);
 			EventManager.StartListening(eDIA.Events.XR.EvEnableXRInteraction, OnEvEnableXRInteraction);
 			EventManager.StartListening(eDIA.Events.XR.EvShowXRController, OnEvShowXRController);
+			EventManager.StartListening(eDIA.Events.XR.EvEnableRayForCamOverlayer, OnEvEnableRayForCamOverlayer);
+
+			Debug.Log(rayInteractor.GetComponent<XRRayInteractor>().raycastMask.value.ToString());
 		}
 
 		void OnDestroy() {
@@ -38,6 +41,7 @@ namespace eDIA {
 			EventManager.StopListening(eDIA.Events.XR.EvUpdateInteractiveInteractor, OnEvUpdateInteractiveInteractor);
 			EventManager.StopListening(eDIA.Events.XR.EvEnableXRInteraction, OnEvEnableXRInteraction);
 			EventManager.StopListening(eDIA.Events.XR.EvShowXRController, OnEvShowXRController);
+			EventManager.StopListening(eDIA.Events.XR.EvEnableRayForCamOverlayer, OnEvEnableRayForCamOverlayer);
 		}
 
 		private void OnDrawGizmos() {
@@ -48,8 +52,14 @@ namespace eDIA {
 			Gizmos.DrawWireCube(Vector3.zero - (interactorType == eDIA.Constants.Interactor.LEFT ? new Vector3(-0.06f,0.01f,0.05f) : new Vector3(0.06f,0.01f,0.05f)), new Vector3(0.03f,0.02f,0.05f));
 		}
 
-#endregion // -------------------------------------------------------------------------------------------------------------------------------
-#region EVENT LISTENERS
+		#endregion // -------------------------------------------------------------------------------------------------------------------------------
+		#region EVENT LISTENERS
+
+		/// <summary>Enable interaction with UI presented on layer 'camoverlay'</summary>
+		private void OnEvEnableRayForCamOverlayer(eParam obj)
+		{
+			//rayInteractor.GetComponent<XRRayInteractor>().raycastMask = 
+		}
 
 		/// <summary>Change the controller / interactor that is visible</summary>
 		/// <param name="obj">Interactor enum index</param>
