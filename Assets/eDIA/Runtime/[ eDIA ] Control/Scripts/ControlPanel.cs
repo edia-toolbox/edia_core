@@ -72,6 +72,7 @@ namespace eDIA.Manager
 
 		void OnEvConnectionEstablished(eParam obj)
 		{
+			EventManager.StopListening(eDIA.Events.ControlPanel.EvConnectionEstablished, OnEvConnectionEstablished);
 			InitConfigFileSearch();
 		}
 
