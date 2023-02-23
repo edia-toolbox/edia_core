@@ -39,9 +39,14 @@ namespace eDIA.Manager
 			Init();
 		}
 
+		private void OnDestroy()
+		{
+			EventManager.StopListening (eDIA.Events.ControlPanel.EvConnectionEstablished, OnEvConnectionEstablished);
+		}
+
 		private void Init()
 		{
-			EventManager.showLog = showEventLog;
+			EventManager.showLog = showEventLog; // Eventmanager to show debug in console
 
 			// Move all panels from task first to non visuable holder
 			foreach (Transform t in MenuPanelHolder) { 
@@ -57,11 +62,22 @@ namespace eDIA.Manager
 			consolePanel.gameObject.SetActive(ShowConsole);
 
 			if (Settings.ControlMode is ControlMode.Remote)
-				return;	
-				
-			_pConfigSelection.Init();
+			{
+				EventManager.StartListening(eDIA.Events.ControlPanel.EvConnectionEstablished, OnEvConnectionEstablished);
+			} else InitConfigFileSearch();
 
 			Debug.Log("Init done");
+		}
+
+
+		void OnEvConnectionEstablished(eParam obj)
+		{
+			InitConfigFileSearch();
+		}
+
+		void InitConfigFileSearch()
+		{
+			_pConfigSelection.Init();
 		}
 
 		void GetPanelReferences()

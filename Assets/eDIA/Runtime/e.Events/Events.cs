@@ -163,8 +163,13 @@ namespace eDIA.Events {
 		// Fired when mouse hovers over a GUI item that has 'tooltip' script on it. Expects null.
 		public const string EvHideTooltip 				= "EvHideTooltip";
 
+		// Fired when pairing panel gets a connection
+		public const string EvConnectionEstablished	= "EvConnectionEstablished ";
+
+
 		/// <summary>Sets the controlpanelmode. Exprects int. 0=hidden, 1=2Dcanvas, 2=3Dcanvas</summary>
 		// public const string EvSetControlPanelMode = "EvSetControlPanelMode";
+
 
 
 
