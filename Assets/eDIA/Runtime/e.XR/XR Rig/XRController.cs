@@ -33,7 +33,6 @@ namespace eDIA {
 			EventManager.StartListening(eDIA.Events.XR.EvShowXRController, OnEvShowXRController);
 			EventManager.StartListening(eDIA.Events.XR.EvEnableRayForCamOverlayer, OnEvEnableRayForCamOverlayer);
 
-			Debug.Log(rayInteractor.GetComponent<XRRayInteractor>().raycastMask.value.ToString());
 		}
 
 		void OnDestroy() {
