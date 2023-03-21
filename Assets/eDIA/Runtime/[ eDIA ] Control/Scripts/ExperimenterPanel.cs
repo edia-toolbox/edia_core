@@ -10,8 +10,11 @@ namespace eDIA.Manager {
 		
 		[HideInInspector]
 		public List<Transform> children = new List<Transform>();
+		[HideInInspector]
+		public Transform myParent = null;
 
 		public virtual void Awake() {
+			myParent = transform.parent;
 			GetComponent<Image>().enabled = false;
 			foreach (Transform tr in transform) children.Add(tr); // get a list of all children of this subpanel
 		}

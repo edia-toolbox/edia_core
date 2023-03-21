@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace eDIA.Manager
 {
@@ -11,7 +12,9 @@ namespace eDIA.Manager
 	public class ControlPanel : Singleton<ControlPanel>
 	{
 		public Transform NonActivePanelHolder = null;
-		public Transform MenuPanelHolder = null;
+		public Transform panelsHolder = null;
+		public Transform remotePanel = null;
+		public Transform remotePanelsHolder = null;
 		public Transform consolePanel = null;
 		public bool showEventLog = true;
 		public bool ShowConsole = false;
@@ -49,7 +52,7 @@ namespace eDIA.Manager
 			EventManager.showLog = showEventLog; // Eventmanager to show debug in console
 
 			// Move all panels from task first to non visuable holder
-			foreach (Transform t in MenuPanelHolder) { 
+			foreach (Transform t in panelsHolder) { 
 				t.SetParent(NonActivePanelHolder, true);
 			}
 
@@ -60,11 +63,13 @@ namespace eDIA.Manager
 			}
 
 			consolePanel.gameObject.SetActive(ShowConsole);
+			remotePanel.gameObject.SetActive(Settings.ControlMode is ControlMode.Remote);
 
 			if (Settings.ControlMode is ControlMode.Remote)
 			{
 				EventManager.StartListening(eDIA.Events.ControlPanel.EvConnectionEstablished, OnEvConnectionEstablished);
-			} else InitConfigFileSearch();
+			} else 
+				InitConfigFileSearch();
 
 			Debug.Log("Init done");
 		}
@@ -84,19 +89,17 @@ namespace eDIA.Manager
 		void GetPanelReferences()
 		{
 			// General
-			_pMessageBox 		= GetComponentInChildren<PanelMessageBox>();
-			_pConfigSelection 	= GetComponentInChildren<PanelConfigSelection>();
-			_pHeader 			= GetComponentInChildren<PanelHeader>();
+			_pMessageBox 			= GetComponentInChildren<PanelMessageBox>();
+			_pConfigSelection 		= GetComponentInChildren<PanelConfigSelection>();
+			_pHeader 				= GetComponentInChildren<PanelHeader>();
 			_pApplicationSettings 	= GetComponentInChildren<PanelApplicationSettings>();
 			_pExperimentControl 	= GetComponentInChildren<PanelExperimentControl>();
-
-
 
 		}
 
 		public void ShowPanel(Transform panel, bool onOff)
 		{	
-			panel.SetParent(onOff ? MenuPanelHolder : NonActivePanelHolder, true);
+			panel.SetParent(onOff ? panel.GetComponent<ExperimenterPanel>().myParent : NonActivePanelHolder, true);
 			UpdatePanelOrder();
 		}
 
@@ -104,7 +107,7 @@ namespace eDIA.Manager
 		public void UpdatePanelOrder()
 		{
 			_currentPanelOrder.Clear();
-			_currentPanelOrder = MenuPanelHolder.Cast<Transform>().ToList();
+			_currentPanelOrder = panelsHolder.Cast<Transform>().ToList();
 			_currentPanelOrder.Sort((Transform t1, Transform t2) => { return t1.name.CompareTo(t2.name); });
 
 			for (int i = 0; i < _currentPanelOrder.Count; ++i)
