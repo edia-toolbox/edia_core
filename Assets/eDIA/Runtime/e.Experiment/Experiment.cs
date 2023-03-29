@@ -94,7 +94,9 @@ namespace eDIA {
 			string filenameExperiment = e.GetStrings()[0] + "_" + e.GetStrings()[1] + ".json"; // combine task string and participant string
 			SetExperimentConfig (FileManager.ReadStringFromApplicationPathSubfolder(eDIA.Constants.localConfigDirectoryName + "/Participants", filenameExperiment));
 
-			string filenameTask = e.GetStrings()[0] + ".json"; // task string
+
+			//string filenameTask = e.GetStrings()[0] + ".json"; // task string
+			string filenameTask = filenameExperiment; //! Hack to make task json same filename in from different directory
 			SetTaskConfig (FileManager.ReadStringFromApplicationPathSubfolder(eDIA.Constants.localConfigDirectoryName + "/Tasks", filenameTask));
 
 		}
