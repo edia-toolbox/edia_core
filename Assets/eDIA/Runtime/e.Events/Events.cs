@@ -131,7 +131,7 @@ namespace eDIA.Events {
 	public static class ControlPanel {
 	
 		/// <summary>Set a buttons interactivity, expects string[ [PAUSE/PROCEED], [TRUE/FALSE] ]</summary>
-		public const string EvEnableButton 			= "EvEnableButton";
+		public const string EvEnableButton 				= "EvEnableButton";
 
 		/// <summary>Start a visual timer animation</summary>
 		public const string EvStartTimer 				= "EvStartTimer";
@@ -140,10 +140,10 @@ namespace eDIA.Events {
 		public const string EvStopTimer 				= "EvStopTimer";
 
 		/// <summary>Experiment summary as string[]</summary>
-		public const string EvUpdateSessionSummary 		= "EvUpdateExperimentSummary";
+		public const string EvUpdateSessionSummary 	= "EvUpdateExperimentSummary";
 
 		/// <summary>Send progress update (trial/block)</summary>
-		public const string EvUpdateProgressInfo 	= "EvUpdateProgressDescription";
+		public const string EvUpdateProgressInfo 		= "EvUpdateProgressDescription";
 
 		/// <summary>Send progress update block, expects [currentblocknum, maxblocks]</summary>
 		public const string EvUpdateBlockProgress 		= "EvUpdateBlockProgress";
@@ -163,7 +163,7 @@ namespace eDIA.Events {
 		// Fired when mouse hovers over a GUI item that has 'tooltip' script on it. Expects null.
 		public const string EvHideTooltip 				= "EvHideTooltip";
 
-		// Fired when pairing panel gets a connection
+		// Fired when pairing panel gets a connection. Expects int as HMD index
 		public const string EvConnectionEstablished	= "EvConnectionEstablished ";
 
 
@@ -183,39 +183,39 @@ namespace eDIA.Events {
 
 		// * TO APP >>
 
-		public const string NwEvSetTaskConfig 		= "NwEvSetTaskConfig";
+		public const string NwEvSetTaskConfig 			= "NwEvSetTaskConfig";
 
-		public const string NwEvSetExpConfig 		= "NwEvSetExpConfig";
+		public const string NwEvSetExpConfig 			= "NwEvSetExpConfig";
 
 		public const string NwEvStartExperiment 		= "NwEvStartExperiment";
 
 		public const string NwEvPauseExperiment 		= "NwEvPauseExperiment";
 
-		public const string NwEvProceed 			= "NwEvProceed";
+		public const string NwEvProceed 				= "NwEvProceed";
 
-		public const string NwEvEnableCasting 		= "NwEvEnableCasting";
+		public const string NwEvEnableCasting 			= "NwEvEnableCasting";
 
 
 		// * TO MANAGER >>
 
-		public const string NwEvTaskConfigSet 		= "NwEvTaskConfigSet";
+		public const string NwEvTaskConfigSet 			= "NwEvTaskConfigSet";
 
 		public const string NwEvExperimentConfigSet 	= "NwEvExperimentConfigSet";
 
-		public const string NwEvReadyToGo 			= "NwEvReadyToGo";
+		public const string NwEvReadyToGo 				= "NwEvReadyToGo";
 
-		public const string NwEvEnableButton 		= "NwEvEnableButton";
+		public const string NwEvEnableButton 			= "NwEvEnableButton";
 
 
-		public const string NwEvUpdateStepProgress 		= "NwEvUpdateStepProgress";
+		public const string NwEvUpdateStepProgress 	= "NwEvUpdateStepProgress";
 
-		public const string NwEvUpdateTrialProgress 		= "NwEvUpdateTrialProgress";
+		public const string NwEvUpdateTrialProgress 	= "NwEvUpdateTrialProgress";
 
-		public const string NwEvUpdateBlockProgress 		= "NwEvUpdateBlockProgress";
+		public const string NwEvUpdateBlockProgress 	= "NwEvUpdateBlockProgress";
 
-		public const string NwEvUpdateSessionSummary 		= "NwEvUpdateSessionSummary";
+		public const string NwEvUpdateSessionSummary 	= "NwEvUpdateSessionSummary";
 
-		public const string NwEvUpdateProgressInfo 		= "NwEvUpdateProgressInfo";
+		public const string NwEvUpdateProgressInfo 	= "NwEvUpdateProgressInfo";
 
 		public const string NwEvStartTimer 				= "NwEvStartTimer";
 
