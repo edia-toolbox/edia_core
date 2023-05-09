@@ -50,6 +50,7 @@ public class DebugConsoleDisplay : MonoBehaviour
 	public void ShowConsole () {
 		display.gameObject.SetActive(isOn);
 		GetComponent<Image>().enabled = isOn;
+		fpsField.gameObject.SetActive (isOn);
 
 		if (isOn)
 		{
