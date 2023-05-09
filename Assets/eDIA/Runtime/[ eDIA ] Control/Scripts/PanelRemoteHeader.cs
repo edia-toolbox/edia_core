@@ -23,15 +23,11 @@ namespace eDIA {
 
 		private void OnEvConnectionEstablished(eParam obj)
 		{
-			//SetTitle(obj.GetString());
-		}
+			if (obj.GetInt() is -1)
+				return;
 
-		public void SetLogo (Sprite logoImage) {
-			logo.sprite = logoImage;
-		}
-
-		public void SetTitle (string title) {
-			titleField.text = title;
+			logo.sprite = XRManager.Instance.GetXRDeviceIcon(obj.GetInt());
+			titleField.text = XRManager.Instance.GetXRDeviceName(obj.GetInt());
 		}
 
 	}

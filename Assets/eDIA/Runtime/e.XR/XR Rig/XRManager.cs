@@ -100,6 +100,11 @@ namespace eDIA {
 			return devices.XRDevices[index].icon;
 		}
 
+		public String GetXRDeviceName(int index)
+		{
+			return devices.XRDevices[index].name;
+		}
+
 		public int GetXRDeviceIndex (string deviceInfo)
 		{
 			return devices.XRDevices.FindIndex(x => x.name == deviceInfo);
