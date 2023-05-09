@@ -24,6 +24,8 @@ namespace eDIA {
 
 		private void OnEvConnectionEstablished(eParam obj)
 		{
+			Debug.Log("OnEvConnectionEstablished:" + obj.GetInt());
+
 			if (obj.GetInt() is -1)
 				return;
 
