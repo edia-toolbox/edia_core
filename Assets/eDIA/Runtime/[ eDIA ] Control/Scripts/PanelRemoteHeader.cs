@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using eDIA.Manager;
 
 namespace eDIA {
 
@@ -26,8 +27,8 @@ namespace eDIA {
 			if (obj.GetInt() is -1)
 				return;
 
-			logo.sprite = XRManager.Instance.GetXRDeviceIcon(obj.GetInt());
-			titleField.text = XRManager.Instance.GetXRDeviceName(obj.GetInt());
+			logo.sprite = ControlPanel.Instance.GetXRDeviceIcon(obj.GetInt());
+			titleField.text = ControlPanel.Instance.GetXRDeviceName(obj.GetInt());
 		}
 
 	}

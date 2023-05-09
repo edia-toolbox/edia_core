@@ -24,8 +24,6 @@ namespace eDIA {
 		public Transform mainMenuHolder;
 		public Transform camOverlay;
 
-		public XRDevicesSOBJ devices; // Database with available HMD hardware
-
 		void Awake () {
 			CheckReferences();
 		}
@@ -93,26 +91,7 @@ namespace eDIA {
 
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
-#region XR Devices database
-
-		public Sprite GetXRDeviceIcon (int index)
-		{
-			return devices.XRDevices[index].icon;
-		}
-
-		public String GetXRDeviceName(int index)
-		{
-			return devices.XRDevices[index].name;
-		}
-
-		public int GetXRDeviceIndex (string deviceInfo)
-		{
-			return devices.XRDevices.FindIndex(x => x.name == deviceInfo);
-		}
-
-
-		#endregion // -------------------------------------------------------------------------------------------------------------------------------                                                                                                                                    
-		#region MISC	
+	#region MISC	
 
 		public void AddToLog(string _msg) {
 			if (showLog)

@@ -35,6 +35,8 @@ namespace eDIA.Manager
 
 		private List<Transform> _currentPanelOrder = new List<Transform>();
 
+		public XRDevicesSOBJ devices; // Database with available HMD hardware
+
 
 		private void Awake()
 		{
@@ -122,6 +124,28 @@ namespace eDIA.Manager
 		{
 			_pMessageBox.ShowMessage(msg, autoHide);
 		}
+
+
+	#region XR Devices database
+
+		public Sprite GetXRDeviceIcon(int index)
+		{
+			return devices.XRDevices[index].icon;
+		}
+
+		public String GetXRDeviceName(int index)
+		{
+			return devices.XRDevices[index].name;
+		}
+
+		public int GetXRDeviceIndex(string deviceInfo)
+		{
+			return devices.XRDevices.FindIndex(x => x.name == deviceInfo);
+		}
+
+
+	#endregion // -------------------------------------------------------------------------------------------------------------------------------                                                                                                                                    
+
 
 	}
 }
