@@ -11,14 +11,6 @@ namespace eDIA.Manager
 
 	public class ControlPanel : Singleton<ControlPanel>
 	{
-		[System.Serializable]
-		public struct HMD
-		{
-			public string type;
-			public Sprite icon;
-		}
-
-		public List<HMD> HMDs = new List<HMD>();
 
 		public Transform NonActivePanelHolder = null;
 		public Transform panelsHolder = null;
