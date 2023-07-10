@@ -193,7 +193,7 @@ namespace eDIA.Events {
 
 		public const string NwEvProceed 				= "NwEvProceed";
 
-		public const string NwEvEnableCasting 			= "NwEvEnableCasting";
+		public const string NwEvToggleCasting 			= "NwEvToggleCasting";
 
 
 		// * TO MANAGER >>
@@ -288,7 +288,7 @@ namespace eDIA.Events {
 	public static class Casting {
 
 		/// <summary>Send a marker to the system, any listener can pick it up and handle it. Expects marker as string</summary>
-		public const string EvEnableCasting 			= "EvEnableCasting";
+		public const string EvToggleCasting 			= "EvToggleCasting";
 
 	}
 
