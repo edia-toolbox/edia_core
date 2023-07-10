@@ -4,129 +4,291 @@ using UnityEngine;
 
 namespace eDIA.Events {
 
-	/// <summary>Overview of all events in the system. Easier to reference and no typo mistakes by using them.</summary>
-	public static class Core {
-		
 
+	public static class System {
 
 		/// <summary>Set experiment config. Expects config as JSON string</summary>
-		public static string EvSetExperimentConfig 	= "EvSetExperimentConfig";
-
-		/// <summary>Set task config. Expects config as JSON string</summary>
-		public static string EvSetTaskConfig 		= "EvSetTaskConfig";
-
-		/// <summary>Starts the experiment. Expects null</summary>
-		public static string EvStartExperiment 		= "EvStartExperiment";
-
-		/// <summary>Injects a break block after current trial. Expects null</summary>
-		public static string EvPauseExperiment 		= "EvPauseExperiment";
-
-		/// <summary>Fired when the Experiment manager has initiataled OK. Expects result as bool. </summary>
-		public static string EvExperimentInitialised 	= "EvExperimentInitialised";
-
-		/// <summary>Fired by ExperimentManager when a trial has begun. Expects null</summary>
-		public static string EvTrialBegin 			= "EvTrialBegin";
-
-		/// <summary>Fired by ExperimentManager when the session had Finialized. Expects null</summary>
-		public static string EvFinalizeSession 		= "EvFinalizeSession";
-
-		/// <summary>Fired by ExperimentManager when the session starts a break. Expects null</summary>
-		public static string EvSessionBreak 		= "EvSessionBreak";
-
-		/// <summary>Fired by ExperimentManager when the session continues. Expects null</summary>
-		public static string EvSessionResume 		= "EvSessionResume";
-
-		/// <summary>Fired by ExperimentManager when a blockintroduction is found. Expects null</summary>
-		public static string EvBlockIntroduction 		= "EvBlockIntroduction";
-
-		/// <summary>Fired by ExperimentManager when the session resumes after an i.e. introduction. Expects null</summary>
-		public static string EvBlockResume 			= "EvBlockResume";
-
-		/// <summary>Event indicating that the system can proceed, useally from experimenter. Expects null</summary>
-		public static string EvProceed 			= "EvProceed";
+		public const string EvCallMainMenu 		= "EvCallMainMenu";
 
 
-		/// <summary>Set storagepath systemwide. Expects full path as string</summary>
-		public static string EvSetCustomStoragePath 	= "EvSetCustomStoragePath";
+	}
 
+	//? ========================================================================================================
 
-		/// <summary>Notification that local config files are found on disk. Expects amount as int</summary>
-		public static string EvFoundLocalConfigFiles 	= "EvFoundLocalConfigFiles";
+	/// <summary>Overview of all events in the system. Easier to reference and no typo mistakes by using them.</summary>
+	public static class Core {
 
-		/// <summary>Local config file was submitted. Expects filename as string</summary>
-		public static string EvLocalConfigSubmitted 	= "EvLocalConfigSubmitted";
 
 
 		/// <summary>Use this to alert the user that something went wrong</summary>
-		public static string EvSystemHalt 			= "EvSystemHalt";
-
-		/// <summary>Request to show system settings. Expects null</summary>
-		public static string EvRequestSystemSettings 	= "EvRequestSystemSettings";
-
-		/// <summary>Open system settings panel. Expects full package of SettingsDeclaration as JSON</summary>
-		public static string EvOpenSystemSettings 	= "EvOpenSystemSettings";
-
-		/// <summary>SystemSettings have been updated. Expects full package of SettingsDeclaration as JSON</summary>
-		public static string EvUpdateSystemSettings 	= "EvUpdateSystemSettings";
+		public const string EvSystemHalt 			= "EvSystemHalt";
 
 		/// <summary>Exit application</summary>
-		public static string EvQuitApplication 		= "EvQuitApplication";
+		public const string EvQuitApplication 		= "EvQuitApplication";
+
+		/// <summary>Shows a message to the VR user</summary>
+		public const string EvShowMessageToUser 		= "EvShowMessageToUser";
+
+	}
+
+	//? ========================================================================================================
+	//? 
+
+	/// <summary>All event related to controlling the state machine of the experiment </summary>
+	public static class Settings {
+
+		/// <summary>Set storagepath systemwide. Expects full path as string</summary>
+		public const string EvSetCustomStoragePath 	= "EvSetCustomStoragePath";
+
+		/// <summary>Request to show system settings. Expects null</summary>
+		public const string EvRequestSystemSettings 	= "EvRequestSystemSettings";
+
+		/// <summary>Open system settings panel. Expects full package of SettingsDeclaration as JSON</summary>
+		public const string EvOpenSystemSettings 	= "EvOpenSystemSettings";
+
+		/// <summary>SystemSettings have been updated. Expects full package of SettingsDeclaration as JSON</summary>
+		public const string EvUpdateSystemSettings 	= "EvUpdateSystemSettings";
+
+
+	}
+
+
+	//? ========================================================================================================
+	//? 
+
+	/// <summary>All event related to controlling the state machine of the experiment </summary>
+	public static class Config {
+
+		/// <summary>Set experiment config. Expects config as JSON string</summary>
+		public const string EvSetExperimentConfig 	= "EvSetExperimentConfig";
+
+		/// <summary>Set task config. Expects config as JSON string</summary>
+		public const string EvSetTaskConfig 		= "EvSetTaskConfig";
+
+		/// <summary>Fired when the Experiment manager has set the experimentconfig. </summary>
+		public const string EvExperimentConfigSet 	= "EvExperimentConfigSet";
+
+		/// <summary>Fired when the Experiment manager has set the taskconfig. </summary>
+		public const string EvTaskConfigSet 		= "EvTaskConfigSet";
+
+		/// <summary>Fired when both configs are set </summary>
+		public const string EvReadyToGo 			= "EvReadyToGo";
+
+		/// <summary>Notification that local config files are found on disk. Expects amount as int</summary>
+		public const string EvFoundLocalConfigFiles 	= "EvFoundLocalConfigFiles";
+
+		/// <summary>Local config file was submitted. Expects filename as string</summary>
+		public const string EvLocalConfigSubmitted 	= "EvLocalConfigSubmitted";
+
+
+	}
 
 
 
-		/// <summary>Broaccast a update in the experiment, useally to show to the user</summary>
-		public static string EvUpdateExperimentInfoToUser 	= "EvUpdateExperimentInfoToUser";
+	//? ========================================================================================================
+	//? 
+
+	/// <summary>All event related to controlling the state machine of the experiment </summary>
+	public static class StateMachine {
+
+		/// <summary>Starts the experiment. Expects null</summary>
+		public const string EvStartExperiment 		= "EvStartExperiment";
+
+		/// <summary>Injects a break block after current trial. Expects null</summary>
+		public const string EvPauseExperiment 		= "EvPauseExperiment";
+
+		/// <summary>Fired by ExperimentManager when a trial has begun. Expects null</summary>
+		public const string EvTrialBegin 			= "EvTrialBegin";
+
+		/// <summary>Fired by ExperimentManager when the session had Finialized. Expects null</summary>
+		public const string EvFinalizeSession 		= "EvFinalizeSession";
+
+		/// <summary>Fired by ExperimentManager when the session starts a break. Expects null</summary>
+		public const string EvSessionBreak 		= "EvSessionBreak";
+
+		/// <summary>Fired by ExperimentManager when the session continues. Expects null</summary>
+		public const string EvSessionResume 		= "EvSessionResume";
+
+		/// <summary>Fired by ExperimentManager when a blockintroduction is found. Expects null</summary>
+		public const string EvBlockIntroduction 		= "EvBlockIntroduction";
+
+		/// <summary>Fired by ExperimentManager when the session resumes after an i.e. introduction. Expects null</summary>
+		public const string EvBlockResumeAfterIntro 	= "EvBlockResumeAfterIntro";
+
+		/// <summary>Event indicating that the system can proceed, useally from experimenter. Expects null</summary>
+		public const string EvProceed 			= "EvProceed";
+
+		/// <summary>Fired by ExperimentManager when a new block is starting. Expects null</summary>
+		public const string EvBlockStart 			= "EvBlockStart";
+
+	}
+
+
+	//? ========================================================================================================
+	//? Onscreen or inworld control panel methods
+
+	/// <summary>All event related to local or remote control </summary>
+	public static class ControlPanel {
+	
+		/// <summary>Set a buttons interactivity, expects string[ [PAUSE/PROCEED], [TRUE/FALSE] ]</summary>
+		public const string EvEnableButton 				= "EvEnableButton";
+
+		/// <summary>Start a visual timer animation</summary>
+		public const string EvStartTimer 				= "EvStartTimer";
+
+		/// <summary>Stops a visual timer animation</summary>
+		public const string EvStopTimer 				= "EvStopTimer";
+
+		/// <summary>Experiment summary as string[]</summary>
+		public const string EvUpdateSessionSummary 	= "EvUpdateExperimentSummary";
+
+		/// <summary>Send progress update (trial/block)</summary>
+		public const string EvUpdateProgressInfo 		= "EvUpdateProgressDescription";
+
+		/// <summary>Send progress update block, expects [currentblocknum, maxblocks]</summary>
+		public const string EvUpdateBlockProgress 		= "EvUpdateBlockProgress";
+
+		/// <summary>Send progress update trial, expects [currenttrialnum, maxtrials]</summary>
+		public const string EvUpdateTrialProgress 		= "EvUpdateTrialProgress";
+
+		/// <summary>Send progress update step, expects [currentstepnum, maxsteps]</summary>
+		public const string EvUpdateStepProgress 		= "EvUpdateStepProgress";
+
+		/// <summary>Shows message to experimenter canvas. Expects message as string, autohide as bool</summary>
+		public const string EvShowMessageBox 			= "EvShowMessageBox";
+
+		// Fired when mouse hovers over a GUI item that has 'tooltip' script on it. Expects null.
+		public const string EvShowTooltip 				= "EvShowTooltip";
+
+		// Fired when mouse hovers over a GUI item that has 'tooltip' script on it. Expects null.
+		public const string EvHideTooltip 				= "EvHideTooltip";
+
+		// Fired when pairing panel gets a connection. Expects int as HMD index
+		public const string EvConnectionEstablished	= "EvConnectionEstablished ";
+
+
+		/// <summary>Sets the controlpanelmode. Exprects int. 0=hidden, 1=2Dcanvas, 2=3Dcanvas</summary>
+		// public const string EvSetControlPanelMode = "EvSetControlPanelMode";
+
+
 
 
 	}
 
 	//? ========================================================================================================
-	
-	public class Eye {
+	//? 
+
+	/// <summary>All event related to controlling the state machine of the experiment </summary>
+	public static class Network {
+
+		// * TO APP >>
+
+		public const string NwEvSetTaskConfig 			= "NwEvSetTaskConfig";
+
+		public const string NwEvSetExpConfig 			= "NwEvSetExpConfig";
+
+		public const string NwEvStartExperiment 		= "NwEvStartExperiment";
+
+		public const string NwEvPauseExperiment 		= "NwEvPauseExperiment";
+
+		public const string NwEvProceed 				= "NwEvProceed";
+
+		public const string NwEvToggleCasting 			= "NwEvToggleCasting";
+
+
+		// * TO MANAGER >>
+
+		public const string NwEvTaskConfigSet 			= "NwEvTaskConfigSet";
+
+		public const string NwEvExperimentConfigSet 	= "NwEvExperimentConfigSet";
+
+		public const string NwEvReadyToGo 				= "NwEvReadyToGo";
+
+		public const string NwEvEnableButton 			= "NwEvEnableButton";
+
+
+		public const string NwEvUpdateStepProgress 	= "NwEvUpdateStepProgress";
+
+		public const string NwEvUpdateTrialProgress 	= "NwEvUpdateTrialProgress";
+
+		public const string NwEvUpdateBlockProgress 	= "NwEvUpdateBlockProgress";
+
+		public const string NwEvUpdateSessionSummary 	= "NwEvUpdateSessionSummary";
+
+		public const string NwEvUpdateProgressInfo 	= "NwEvUpdateProgressInfo";
+
+		public const string NwEvStartTimer 				= "NwEvStartTimer";
+
+		public const string NwEvStopTimer 				= "NwEvStopTimer";
+
+
+		public const string NwEvEnableEyeCalibrationTrigger 	= "NwEvEnableEyeCalibrationTrigger";
+
+	}
+
+
+
+	//? ========================================================================================================
+	//? Optional eye package methods
+
+	public static class Eye {
 		/// <summary>Whatever EYE package is used, it listens to this. Expects boolean</summary>
-		public static string EvEnableEyeCalibrationTrigger 	= "EvEnableEyeCalibrationTrigger";
+		public const string EvEnableEyeCalibrationTrigger 	= "EvEnableEyeCalibrationTrigger";
 
 		/// <summary>Eye calibration request. Expects null</summary>
-		public static string EvEyeCalibrationRequested 	= "EvEyeCalibrationRequested";
+		public const string EvEyeCalibrationRequested 		= "EvEyeCalibrationRequested";
 	}
 
 	//? ========================================================================================================
-	
-	public class Interaction {
+	//? XR cam and controller related 
+
+	public static class XR {
 
 		/// <summary>The main interactor has changed. Expects a enum PrimaryInteractor as INT</summary>
-		public static string EvUpdateInteractiveInteractor 	= "EvUpdateInteractiveInteractor";
+		public const string EvUpdateInteractiveInteractor 	= "EvUpdateInteractiveInteractor";
  
 		/// <summary>Which controllers are active in the application. Expects a enum AvailableController as INT</summary>
-		public static string EvUpdateVisableInteractor 		= "EvUpdateVisableInteractor";
+		public const string EvUpdateVisableInteractor 		= "EvUpdateVisableInteractor";
  
  		/// <summary>Turn XR hand / controller interaction possibility on or off. Expects boolean</summary>
-		public static string EvEnableXRInteraction		= "EvEnableXRInteraction";
+		public const string EvEnableXRInteraction		= "EvEnableXRInteraction";
 
  		/// <summary>Shows XR hand / controller on or off. Expects boolean</summary>
-		public static string EvShowXRController			= "EvShowXRController";
+		public const string EvShowXRController			= "EvShowXRController";
 
  		/// <summary>System found XR hands and HMD objects. Expects null</summary>
-		public static string EvFoundXRrigReferences		= "EvFoundXRrigReferences";
+		public const string EvFoundXRrigReferences		= "EvFoundXRrigReferences";
 
-	//? ========================================================================================================
-	//? Hands
+		/// <summary>Enable interaction with UI presented on layer 'camoverlay'</summary>
+		public const string EvEnableRayForCamOverlayer = "EvEnableRayForCamOverlayer";
+
+
+		//? ========================================================================================================
+		//? Hands
 
 		/// <summary>Animate the handmodel is this pose, expects string 'idle' 'point' 'fist' ...</summary>
-		public static string EvHandPose				= "EvHandPose";
+		public const string EvHandPose				= "EvHandPose";
 
 		/// <summary>Handmodel pose reacts live to controller state, expects bool</summary>
-		public static string EvHandModelReacts			= "EvHandModelReacts";
+		public const string EvEnableCustomHandPoses		= "EvEnableCustomHandPoses";
 
 	}
 
 	//? ========================================================================================================
 	
-	public class DataHandlers {
+	public static class DataHandlers {
 
 		/// <summary>Send a marker to the system, any listener can pick it up and handle it. Expects marker as string</summary>
-		public static string EvSendMarker 				= "EvSendMarker";
- 
+		public const string EvSendMarker 				= "EvSendMarker";
+
+	}
+
+	//? ========================================================================================================
+	
+	public static class Casting {
+
+		/// <summary>Send a marker to the system, any listener can pick it up and handle it. Expects marker as string</summary>
+		public const string EvToggleCasting 			= "EvToggleCasting";
 
 	}
 
@@ -135,23 +297,4 @@ namespace eDIA.Events {
 }
 
 
-
-/*
-
-
-
-EvButtonChangeState
-EvSetDisplayInformation
-EvExperimentInfoUpdate
-EvEnableEyeCalibrationTrigger
------
-
-
-EvSetExperimentConfig
-EvStartExperiment
-EvPauseExperiment
-EvFoundLocalConfigFiles
-EvLocalConfigSubmitted
-
-*/
 

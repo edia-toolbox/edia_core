@@ -21,13 +21,13 @@ namespace eDIA {
 		}
 
 		void OnEnable() {
-			EventManager.StartListening(eDIA.Events.GUI.EvShowTooltip, OnEvShowTooltip);
-			EventManager.StartListening(eDIA.Events.GUI.EvHideTooltip, OnEvHideTooltip);
+			EventManager.StartListening(eDIA.Events.ControlPanel.EvShowTooltip, OnEvShowTooltip);
+			EventManager.StartListening(eDIA.Events.ControlPanel.EvHideTooltip, OnEvHideTooltip);
 		}
 
 		void OnDestroy() {
-			EventManager.StopListening(eDIA.Events.GUI.EvShowTooltip, OnEvShowTooltip);
-			EventManager.StopListening(eDIA.Events.GUI.EvHideTooltip, OnEvHideTooltip);
+			EventManager.StopListening(eDIA.Events.ControlPanel.EvShowTooltip, OnEvShowTooltip);
+			EventManager.StopListening(eDIA.Events.ControlPanel.EvHideTooltip, OnEvHideTooltip);
 		}
 
 		void Start() {

@@ -1,0 +1,122 @@
+### YamlMime:ManagedReference
+items:
+- uid: eDIA.Events.Eye
+  commentId: T:eDIA.Events.Eye
+  id: Eye
+  parent: eDIA.Events
+  children:
+  - eDIA.Events.Eye.EvEnableEyeCalibrationTrigger
+  - eDIA.Events.Eye.EvEyeCalibrationRequested
+  langs:
+  - csharp
+  - vb
+  name: Eye
+  nameWithType: Eye
+  fullName: eDIA.Events.Eye
+  type: Class
+  source:
+    id: Eye
+    path: ''
+    startLine: 5782
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA.Events
+  syntax:
+    content: public class Eye
+    content.vb: Public Class Eye
+  inheritance:
+  - System.Object
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+- uid: eDIA.Events.Eye.EvEnableEyeCalibrationTrigger
+  commentId: F:eDIA.Events.Eye.EvEnableEyeCalibrationTrigger
+  id: EvEnableEyeCalibrationTrigger
+  parent: eDIA.Events.Eye
+  langs:
+  - csharp
+  - vb
+  name: EvEnableEyeCalibrationTrigger
+  nameWithType: Eye.EvEnableEyeCalibrationTrigger
+  fullName: eDIA.Events.Eye.EvEnableEyeCalibrationTrigger
+  type: Field
+  source:
+    id: EvEnableEyeCalibrationTrigger
+    path: ''
+    startLine: 5784
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA.Events
+  summary: Whatever EYE package is used, it listens to this. Expects boolean
+  example: []
+  syntax:
+    content: public static string EvEnableEyeCalibrationTrigger
+    return:
+      type: System.String
+    content.vb: Public Shared EvEnableEyeCalibrationTrigger As String
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: eDIA.Events.Eye.EvEyeCalibrationRequested
+  commentId: F:eDIA.Events.Eye.EvEyeCalibrationRequested
+  id: EvEyeCalibrationRequested
+  parent: eDIA.Events.Eye
+  langs:
+  - csharp
+  - vb
+  name: EvEyeCalibrationRequested
+  nameWithType: Eye.EvEyeCalibrationRequested
+  fullName: eDIA.Events.Eye.EvEyeCalibrationRequested
+  type: Field
+  source:
+    id: EvEyeCalibrationRequested
+    path: ''
+    startLine: 5787
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA.Events
+  summary: Eye calibration request. Expects null
+  example: []
+  syntax:
+    content: public static string EvEyeCalibrationRequested
+    return:
+      type: System.String
+    content.vb: Public Shared EvEyeCalibrationRequested As String
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+references:
+- uid: eDIA.Events
+  commentId: N:eDIA.Events
+  name: eDIA.Events
+  nameWithType: eDIA.Events
+  fullName: eDIA.Events
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  name: String
+  nameWithType: String
+  fullName: System.String

@@ -12,12 +12,17 @@ namespace eDIA {
 		public Image logo = null;
 		public TextMeshProUGUI titleField = null;
 
+		void Awake () {
+			//! Set the control panel gameobject on correct layer
+			transform.root.gameObject.layer = LayerMask.NameToLayer("ControlUI");
+		}
+
 		void OnEnable() {
-			EventManager.StartListening(eDIA.Events.Core.EvLocalConfigSubmitted, OnEvLocalConfigSubmitted );
+			EventManager.StartListening(eDIA.Events.Config.EvLocalConfigSubmitted, OnEvLocalConfigSubmitted );
 		}
 
 		public void LogoClicked() {
-			EventManager.TriggerEvent(eDIA.Events.Core.EvRequestSystemSettings, null);
+			EventManager.TriggerEvent(eDIA.Events.Settings.EvRequestSystemSettings, null);
 		}
 
 		// Received a file name to load, so we know now what task this is as it's part of the param

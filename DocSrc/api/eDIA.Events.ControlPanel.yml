@@ -1,0 +1,220 @@
+### YamlMime:ManagedReference
+items:
+- uid: eDIA.Events.ControlPanel
+  commentId: T:eDIA.Events.ControlPanel
+  id: ControlPanel
+  parent: eDIA.Events
+  children:
+  - eDIA.Events.ControlPanel.EvEnableButton
+  - eDIA.Events.ControlPanel.EvExperimentProgressUpdate
+  - eDIA.Events.ControlPanel.EvStartTimer
+  - eDIA.Events.ControlPanel.EvStopTimer
+  - eDIA.Events.ControlPanel.EvUpdateExperimentSummary
+  langs:
+  - csharp
+  - vb
+  name: ControlPanel
+  nameWithType: ControlPanel
+  fullName: eDIA.Events.ControlPanel
+  type: Class
+  source:
+    id: ControlPanel
+    path: ''
+    startLine: 5759
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA.Events
+  summary: 'All event related to local or remote control '
+  example: []
+  syntax:
+    content: public class ControlPanel
+    content.vb: Public Class ControlPanel
+  inheritance:
+  - System.Object
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+- uid: eDIA.Events.ControlPanel.EvEnableButton
+  commentId: F:eDIA.Events.ControlPanel.EvEnableButton
+  id: EvEnableButton
+  parent: eDIA.Events.ControlPanel
+  langs:
+  - csharp
+  - vb
+  name: EvEnableButton
+  nameWithType: ControlPanel.EvEnableButton
+  fullName: eDIA.Events.ControlPanel.EvEnableButton
+  type: Field
+  source:
+    id: EvEnableButton
+    path: ''
+    startLine: 5762
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA.Events
+  summary: Set a buttons interactivity, expects string[ [PAUSE/PROCEED], [TRUE/FALSE] ]
+  example: []
+  syntax:
+    content: public static string EvEnableButton
+    return:
+      type: System.String
+    content.vb: Public Shared EvEnableButton As String
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: eDIA.Events.ControlPanel.EvStartTimer
+  commentId: F:eDIA.Events.ControlPanel.EvStartTimer
+  id: EvStartTimer
+  parent: eDIA.Events.ControlPanel
+  langs:
+  - csharp
+  - vb
+  name: EvStartTimer
+  nameWithType: ControlPanel.EvStartTimer
+  fullName: eDIA.Events.ControlPanel.EvStartTimer
+  type: Field
+  source:
+    id: EvStartTimer
+    path: ''
+    startLine: 5765
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA.Events
+  summary: Start a visual timer animation
+  example: []
+  syntax:
+    content: public static string EvStartTimer
+    return:
+      type: System.String
+    content.vb: Public Shared EvStartTimer As String
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: eDIA.Events.ControlPanel.EvStopTimer
+  commentId: F:eDIA.Events.ControlPanel.EvStopTimer
+  id: EvStopTimer
+  parent: eDIA.Events.ControlPanel
+  langs:
+  - csharp
+  - vb
+  name: EvStopTimer
+  nameWithType: ControlPanel.EvStopTimer
+  fullName: eDIA.Events.ControlPanel.EvStopTimer
+  type: Field
+  source:
+    id: EvStopTimer
+    path: ''
+    startLine: 5768
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA.Events
+  summary: Stops a visual timer animation
+  example: []
+  syntax:
+    content: public static string EvStopTimer
+    return:
+      type: System.String
+    content.vb: Public Shared EvStopTimer As String
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: eDIA.Events.ControlPanel.EvUpdateExperimentSummary
+  commentId: F:eDIA.Events.ControlPanel.EvUpdateExperimentSummary
+  id: EvUpdateExperimentSummary
+  parent: eDIA.Events.ControlPanel
+  langs:
+  - csharp
+  - vb
+  name: EvUpdateExperimentSummary
+  nameWithType: ControlPanel.EvUpdateExperimentSummary
+  fullName: eDIA.Events.ControlPanel.EvUpdateExperimentSummary
+  type: Field
+  source:
+    id: EvUpdateExperimentSummary
+    path: ''
+    startLine: 5771
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA.Events
+  summary: Start a visual timer animation
+  example: []
+  syntax:
+    content: public static string EvUpdateExperimentSummary
+    return:
+      type: System.String
+    content.vb: Public Shared EvUpdateExperimentSummary As String
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: eDIA.Events.ControlPanel.EvExperimentProgressUpdate
+  commentId: F:eDIA.Events.ControlPanel.EvExperimentProgressUpdate
+  id: EvExperimentProgressUpdate
+  parent: eDIA.Events.ControlPanel
+  langs:
+  - csharp
+  - vb
+  name: EvExperimentProgressUpdate
+  nameWithType: ControlPanel.EvExperimentProgressUpdate
+  fullName: eDIA.Events.ControlPanel.EvExperimentProgressUpdate
+  type: Field
+  source:
+    id: EvExperimentProgressUpdate
+    path: ''
+    startLine: 5774
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA.Events
+  summary: Send progress update (trial/block)
+  example: []
+  syntax:
+    content: public static string EvExperimentProgressUpdate
+    return:
+      type: System.String
+    content.vb: Public Shared EvExperimentProgressUpdate As String
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+references:
+- uid: eDIA.Events
+  commentId: N:eDIA.Events
+  name: eDIA.Events
+  nameWithType: eDIA.Events
+  fullName: eDIA.Events
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  name: String
+  nameWithType: String
+  fullName: System.String

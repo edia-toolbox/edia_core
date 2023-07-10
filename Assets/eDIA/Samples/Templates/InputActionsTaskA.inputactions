@@ -1,0 +1,136 @@
+{
+    "name": "InputActionsTaskA",
+    "maps": [
+        {
+            "name": "TASK",
+            "id": "f3347e48-1476-4dbc-bc32-b05ae24e9777",
+            "actions": [
+                {
+                    "name": "SelectEmotion1",
+                    "type": "Button",
+                    "id": "8a4b71ce-8845-4e26-8755-0b2a9d1288e4",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SelectEmotion2",
+                    "type": "Button",
+                    "id": "f3525cdd-4801-4f8e-851c-b56d26936aa7",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SelectEmotion3",
+                    "type": "Button",
+                    "id": "f73a6315-4a05-4fef-8558-5b0888538eb1",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SelectEmotion4",
+                    "type": "Button",
+                    "id": "2583fdea-20b1-4ff5-8848-594dfbfeb0a3",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "EvProceedFromController",
+                    "type": "Button",
+                    "id": "59ecc021-9485-44a5-aca1-66fa0e211321",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "4feb81ad-bca3-498e-a892-e54cd91f9842",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SelectEmotion1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c9403161-e5ca-4b51-849c-8362472b7006",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SelectEmotion2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6a0d31bc-bea9-4f64-9afe-161dea01666f",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SelectEmotion3",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "dec16331-04ba-4ea4-b237-d9e71168f4b2",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SelectEmotion4",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d34a3f4b-d82d-439e-9216-f6fb37d07323",
+                    "path": "<XRController>{RightHand}/triggerPressed",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "EvProceedFromController",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "420182aa-ea04-4341-9fe4-c49b899bc502",
+                    "path": "<XRController>{LeftHand}/triggerPressed",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "EvProceedFromController",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c6a7c7d6-e107-4553-997a-39c9f9236371",
+                    "path": "<ViveController>/triggerPressed",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "EvProceedFromController",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

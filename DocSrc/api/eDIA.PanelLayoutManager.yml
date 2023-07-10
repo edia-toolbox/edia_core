@@ -1,0 +1,235 @@
+### YamlMime:ManagedReference
+items:
+- uid: eDIA.PanelLayoutManager
+  commentId: T:eDIA.PanelLayoutManager
+  id: PanelLayoutManager
+  parent: eDIA
+  children:
+  - eDIA.PanelLayoutManager.currentPanelOrder
+  - eDIA.PanelLayoutManager.nonActivePanelHolder
+  - eDIA.PanelLayoutManager.UpdatePanelOrder
+  langs:
+  - csharp
+  - vb
+  name: PanelLayoutManager
+  nameWithType: PanelLayoutManager
+  fullName: eDIA.PanelLayoutManager
+  type: Class
+  source:
+    id: PanelLayoutManager
+    path: ''
+    startLine: 9476
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: 'public class PanelLayoutManager : MonoBehaviour'
+    content.vb: >-
+      Public Class PanelLayoutManager
+          Inherits MonoBehaviour
+  inheritance:
+  - System.Object
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+- uid: eDIA.PanelLayoutManager.currentPanelOrder
+  commentId: F:eDIA.PanelLayoutManager.currentPanelOrder
+  id: currentPanelOrder
+  parent: eDIA.PanelLayoutManager
+  langs:
+  - csharp
+  - vb
+  name: currentPanelOrder
+  nameWithType: PanelLayoutManager.currentPanelOrder
+  fullName: eDIA.PanelLayoutManager.currentPanelOrder
+  type: Field
+  source:
+    id: currentPanelOrder
+    path: ''
+    startLine: 9478
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public List<Transform> currentPanelOrder
+    return:
+      type: System.Collections.Generic.List{Transform}
+    content.vb: Public currentPanelOrder As List(Of Transform)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.PanelLayoutManager.nonActivePanelHolder
+  commentId: F:eDIA.PanelLayoutManager.nonActivePanelHolder
+  id: nonActivePanelHolder
+  parent: eDIA.PanelLayoutManager
+  langs:
+  - csharp
+  - vb
+  name: nonActivePanelHolder
+  nameWithType: PanelLayoutManager.nonActivePanelHolder
+  fullName: eDIA.PanelLayoutManager.nonActivePanelHolder
+  type: Field
+  source:
+    id: nonActivePanelHolder
+    path: ''
+    startLine: 9479
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public Transform nonActivePanelHolder
+    return:
+      type: Global.Transform
+    content.vb: Public nonActivePanelHolder As Transform
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.PanelLayoutManager.UpdatePanelOrder
+  commentId: M:eDIA.PanelLayoutManager.UpdatePanelOrder
+  id: UpdatePanelOrder
+  parent: eDIA.PanelLayoutManager
+  langs:
+  - csharp
+  - vb
+  name: UpdatePanelOrder()
+  nameWithType: PanelLayoutManager.UpdatePanelOrder()
+  fullName: eDIA.PanelLayoutManager.UpdatePanelOrder()
+  type: Method
+  source:
+    id: UpdatePanelOrder
+    path: ''
+    startLine: 9487
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public void UpdatePanelOrder()
+    content.vb: Public Sub UpdatePanelOrder
+  overload: eDIA.PanelLayoutManager.UpdatePanelOrder*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+references:
+- uid: eDIA
+  commentId: N:eDIA
+  name: eDIA
+  nameWithType: eDIA
+  fullName: eDIA
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: System.Collections.Generic.List{Transform}
+  commentId: T:System.Collections.Generic.List{Transform}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  name: List<Transform>
+  nameWithType: List<Transform>
+  fullName: System.Collections.Generic.List<Transform>
+  nameWithType.vb: List(Of Transform)
+  fullName.vb: System.Collections.Generic.List(Of Transform)
+  name.vb: List(Of Transform)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    nameWithType: List
+    fullName: System.Collections.Generic.List
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: Global.Transform
+    name: Transform
+    nameWithType: Transform
+    fullName: Transform
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    nameWithType: List
+    fullName: System.Collections.Generic.List
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: Global.Transform
+    name: Transform
+    nameWithType: Transform
+    fullName: Transform
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic.List`1
+  commentId: T:System.Collections.Generic.List`1
+  isExternal: true
+  name: List<T>
+  nameWithType: List<T>
+  fullName: System.Collections.Generic.List<T>
+  nameWithType.vb: List(Of T)
+  fullName.vb: System.Collections.Generic.List(Of T)
+  name.vb: List(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    nameWithType: List
+    fullName: System.Collections.Generic.List
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    nameWithType: List
+    fullName: System.Collections.Generic.List
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+- uid: Global.Transform
+  isExternal: true
+  name: Transform
+  nameWithType: Transform
+  fullName: Transform
+- uid: eDIA.PanelLayoutManager.UpdatePanelOrder*
+  commentId: Overload:eDIA.PanelLayoutManager.UpdatePanelOrder
+  name: UpdatePanelOrder
+  nameWithType: PanelLayoutManager.UpdatePanelOrder
+  fullName: eDIA.PanelLayoutManager.UpdatePanelOrder

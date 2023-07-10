@@ -1,0 +1,184 @@
+### YamlMime:ManagedReference
+items:
+- uid: eDIA.Events.GUI
+  commentId: T:eDIA.Events.GUI
+  id: GUI
+  parent: eDIA.Events
+  children:
+  - eDIA.Events.GUI.EvHideTooltip
+  - eDIA.Events.GUI.EvSetControlPanelMode
+  - eDIA.Events.GUI.EvShowMessageBox
+  - eDIA.Events.GUI.EvShowTooltip
+  langs:
+  - csharp
+  - vb
+  name: GUI
+  nameWithType: GUI
+  fullName: eDIA.Events.GUI
+  type: Class
+  source:
+    id: GUI
+    path: ''
+    startLine: 8937
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA.Events
+  summary: 'UI related events '
+  example: []
+  syntax:
+    content: public class GUI
+    content.vb: Public Class GUI
+  inheritance:
+  - System.Object
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+- uid: eDIA.Events.GUI.EvShowMessageBox
+  commentId: F:eDIA.Events.GUI.EvShowMessageBox
+  id: EvShowMessageBox
+  parent: eDIA.Events.GUI
+  langs:
+  - csharp
+  - vb
+  name: EvShowMessageBox
+  nameWithType: GUI.EvShowMessageBox
+  fullName: eDIA.Events.GUI.EvShowMessageBox
+  type: Field
+  source:
+    id: EvShowMessageBox
+    path: ''
+    startLine: 8940
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA.Events
+  summary: Shows message to experimenter canvas. Expects message as string, autohide as bool
+  example: []
+  syntax:
+    content: public static string EvShowMessageBox
+    return:
+      type: System.String
+    content.vb: Public Shared EvShowMessageBox As String
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: eDIA.Events.GUI.EvShowTooltip
+  commentId: F:eDIA.Events.GUI.EvShowTooltip
+  id: EvShowTooltip
+  parent: eDIA.Events.GUI
+  langs:
+  - csharp
+  - vb
+  name: EvShowTooltip
+  nameWithType: GUI.EvShowTooltip
+  fullName: eDIA.Events.GUI.EvShowTooltip
+  type: Field
+  source:
+    id: EvShowTooltip
+    path: ''
+    startLine: 8943
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA.Events
+  syntax:
+    content: public static string EvShowTooltip
+    return:
+      type: System.String
+    content.vb: Public Shared EvShowTooltip As String
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: eDIA.Events.GUI.EvHideTooltip
+  commentId: F:eDIA.Events.GUI.EvHideTooltip
+  id: EvHideTooltip
+  parent: eDIA.Events.GUI
+  langs:
+  - csharp
+  - vb
+  name: EvHideTooltip
+  nameWithType: GUI.EvHideTooltip
+  fullName: eDIA.Events.GUI.EvHideTooltip
+  type: Field
+  source:
+    id: EvHideTooltip
+    path: ''
+    startLine: 8946
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA.Events
+  syntax:
+    content: public static string EvHideTooltip
+    return:
+      type: System.String
+    content.vb: Public Shared EvHideTooltip As String
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: eDIA.Events.GUI.EvSetControlPanelMode
+  commentId: F:eDIA.Events.GUI.EvSetControlPanelMode
+  id: EvSetControlPanelMode
+  parent: eDIA.Events.GUI
+  langs:
+  - csharp
+  - vb
+  name: EvSetControlPanelMode
+  nameWithType: GUI.EvSetControlPanelMode
+  fullName: eDIA.Events.GUI.EvSetControlPanelMode
+  type: Field
+  source:
+    id: EvSetControlPanelMode
+    path: ''
+    startLine: 8949
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA.Events
+  summary: Sets the controlpanelmode. Exprects int. 0=hidden, 1=2Dcanvas, 2=3Dcanvas
+  example: []
+  syntax:
+    content: public static string EvSetControlPanelMode
+    return:
+      type: System.String
+    content.vb: Public Shared EvSetControlPanelMode As String
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+references:
+- uid: eDIA.Events
+  commentId: N:eDIA.Events
+  name: eDIA.Events
+  nameWithType: eDIA.Events
+  fullName: eDIA.Events
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  name: String
+  nameWithType: String
+  fullName: System.String

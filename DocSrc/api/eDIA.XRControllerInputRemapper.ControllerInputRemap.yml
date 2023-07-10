@@ -1,0 +1,240 @@
+### YamlMime:ManagedReference
+items:
+- uid: eDIA.XRControllerInputRemapper.ControllerInputRemap
+  commentId: T:eDIA.XRControllerInputRemapper.ControllerInputRemap
+  id: XRControllerInputRemapper.ControllerInputRemap
+  parent: eDIA
+  children:
+  - eDIA.XRControllerInputRemapper.ControllerInputRemap.id
+  - eDIA.XRControllerInputRemapper.ControllerInputRemap.inputActionSubmit
+  - eDIA.XRControllerInputRemapper.ControllerInputRemap.methodToCall
+  langs:
+  - csharp
+  - vb
+  name: XRControllerInputRemapper.ControllerInputRemap
+  nameWithType: XRControllerInputRemapper.ControllerInputRemap
+  fullName: eDIA.XRControllerInputRemapper.ControllerInputRemap
+  type: Class
+  source:
+    id: ControllerInputRemap
+    path: ''
+    startLine: 7078
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: >-
+      [Serializable]
+
+      public class ControllerInputRemap
+    content.vb: >-
+      <Serializable>
+
+      Public Class ControllerInputRemap
+  inheritance:
+  - System.Object
+  attributes:
+  - type: System.SerializableAttribute
+    ctor: System.SerializableAttribute.#ctor
+    arguments: []
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+- uid: eDIA.XRControllerInputRemapper.ControllerInputRemap.id
+  commentId: F:eDIA.XRControllerInputRemapper.ControllerInputRemap.id
+  id: id
+  parent: eDIA.XRControllerInputRemapper.ControllerInputRemap
+  langs:
+  - csharp
+  - vb
+  name: id
+  nameWithType: XRControllerInputRemapper.ControllerInputRemap.id
+  fullName: eDIA.XRControllerInputRemapper.ControllerInputRemap.id
+  type: Field
+  source:
+    id: id
+    path: ''
+    startLine: 7080
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public string id
+    return:
+      type: System.String
+    content.vb: Public id As String
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.XRControllerInputRemapper.ControllerInputRemap.inputActionSubmit
+  commentId: F:eDIA.XRControllerInputRemapper.ControllerInputRemap.inputActionSubmit
+  id: inputActionSubmit
+  parent: eDIA.XRControllerInputRemapper.ControllerInputRemap
+  langs:
+  - csharp
+  - vb
+  name: inputActionSubmit
+  nameWithType: XRControllerInputRemapper.ControllerInputRemap.inputActionSubmit
+  fullName: eDIA.XRControllerInputRemapper.ControllerInputRemap.inputActionSubmit
+  type: Field
+  source:
+    id: inputActionSubmit
+    path: ''
+    startLine: 7081
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public InputActionReference inputActionSubmit
+    return:
+      type: Global.InputActionReference
+    content.vb: Public inputActionSubmit As InputActionReference
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.XRControllerInputRemapper.ControllerInputRemap.methodToCall
+  commentId: F:eDIA.XRControllerInputRemapper.ControllerInputRemap.methodToCall
+  id: methodToCall
+  parent: eDIA.XRControllerInputRemapper.ControllerInputRemap
+  langs:
+  - csharp
+  - vb
+  name: methodToCall
+  nameWithType: XRControllerInputRemapper.ControllerInputRemap.methodToCall
+  fullName: eDIA.XRControllerInputRemapper.ControllerInputRemap.methodToCall
+  type: Field
+  source:
+    id: methodToCall
+    path: ''
+    startLine: 7082
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public UnityEvent<InputAction.CallbackContext> methodToCall
+    return:
+      type: Global.UnityEvent{InputAction.CallbackContext}
+    content.vb: Public methodToCall As UnityEvent(Of InputAction.CallbackContext)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+references:
+- uid: eDIA
+  commentId: N:eDIA
+  name: eDIA
+  nameWithType: eDIA
+  fullName: eDIA
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  name: String
+  nameWithType: String
+  fullName: System.String
+- uid: Global.InputActionReference
+  commentId: '!:Global.InputActionReference'
+  isExternal: true
+  name: InputActionReference
+  nameWithType: InputActionReference
+  fullName: InputActionReference
+- uid: Global.UnityEvent{InputAction.CallbackContext}
+  commentId: '!:Global.UnityEvent{InputAction.CallbackContext}'
+  definition: Global.UnityEvent`1
+  name: UnityEvent<InputAction.CallbackContext>
+  nameWithType: UnityEvent<InputAction.CallbackContext>
+  fullName: UnityEvent<InputAction.CallbackContext>
+  nameWithType.vb: UnityEvent(Of InputAction.CallbackContext)
+  fullName.vb: UnityEvent(Of InputAction.CallbackContext)
+  name.vb: UnityEvent(Of InputAction.CallbackContext)
+  spec.csharp:
+  - uid: Global.UnityEvent`1
+    name: UnityEvent
+    nameWithType: UnityEvent
+    fullName: UnityEvent
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: Global.InputAction.CallbackContext
+    name: InputAction.CallbackContext
+    nameWithType: InputAction.CallbackContext
+    fullName: InputAction.CallbackContext
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: Global.UnityEvent`1
+    name: UnityEvent
+    nameWithType: UnityEvent
+    fullName: UnityEvent
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: Global.InputAction.CallbackContext
+    name: InputAction.CallbackContext
+    nameWithType: InputAction.CallbackContext
+    fullName: InputAction.CallbackContext
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Global.UnityEvent`1
+  commentId: '!:Global.UnityEvent`1'
+  isExternal: true
+  name: UnityEvent<>
+  nameWithType: UnityEvent<>
+  fullName: UnityEvent<>
+  nameWithType.vb: UnityEvent(Of )
+  fullName.vb: UnityEvent(Of )
+  name.vb: UnityEvent(Of )
+  spec.csharp:
+  - uid: Global.UnityEvent`1
+    name: UnityEvent
+    nameWithType: UnityEvent
+    fullName: UnityEvent
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: ''
+    nameWithType: ''
+    fullName: ''
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: Global.UnityEvent`1
+    name: UnityEvent
+    nameWithType: UnityEvent
+    fullName: UnityEvent
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: ''
+    nameWithType: ''
+    fullName: ''
+  - name: )
+    nameWithType: )
+    fullName: )

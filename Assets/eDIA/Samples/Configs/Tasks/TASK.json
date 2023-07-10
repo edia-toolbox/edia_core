@@ -1,0 +1,62 @@
+{
+	"taskSettings":[
+		{"key":"somesetting","value":"setting1, setting2"}
+	],
+	"breakAfter":[1],
+	"blocks": [
+		{
+			"block_name":"Practice",
+			"intro":"Start of practice block",
+			"outro":"End of practice block",
+			"block_settings":[
+				{"key":"cube_colors","value":"#FFFF00,#F00F0F,#00F500,#004F30"},
+				{"key":"timer_showcube","value":"1"},
+				{"key":"timer_wait","value":"2"},
+				{"key":"distance_cube","value":"2.5"}
+			],
+			"trial_settings":{
+				"keys": ["direction","color","marker"],
+				"valueList": [
+					{"values":["1","1","43"]},
+					{"values":["-1","2","34"]}
+				] 
+			}
+		},
+		{
+			"block_name":"Assessement",
+			"intro":"",
+			"outro":"Thanks for being so honest",
+			"block_settings":[
+				{"key":"qtypes","value":"SUN, another, simular, thing"}
+			],
+			"trial_settings": {
+				"keys": ["qtype","qsettings","qsequence"],
+				"valueList": [
+					{"values":["1","1","1"]},
+					{"values":["2","2","2"]},
+					{"values":["3","1","3"]}
+				]
+			  }
+		},
+		{
+			"block_name":"Practice",
+			"intro":"Start of second practice block",
+			"outro":"End of practice block",
+			"block_settings":[
+				{"key":"cube_colors","value":"#FFFF00,#F00F0F,#00F500,#004F30"},
+				{"key":"timer_showcube","value":"1"},
+				{"key":"timer_wait","value":"2"},
+				{"key":"distance_cube","value":"2.5"}
+			],
+			"trial_settings":{
+				"keys": ["direction","color","marker"],
+				"valueList": [
+					{"values":["-1","2","34"]},
+					{"values":["1","1","43"]},
+					{"values":["1","1","43"]}
+				] 
+			}
+		}
+	]
+}
+

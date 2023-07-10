@@ -1,0 +1,308 @@
+### YamlMime:ManagedReference
+items:
+- uid: eDIA.ExperimenterPanel
+  commentId: T:eDIA.ExperimenterPanel
+  id: ExperimenterPanel
+  parent: eDIA
+  children:
+  - eDIA.ExperimenterPanel.ApplyTheme
+  - eDIA.ExperimenterPanel.Awake
+  - eDIA.ExperimenterPanel.children
+  - eDIA.ExperimenterPanel.HidePanel
+  - eDIA.ExperimenterPanel.ShowPanel
+  langs:
+  - csharp
+  - vb
+  name: ExperimenterPanel
+  nameWithType: ExperimenterPanel
+  fullName: eDIA.ExperimenterPanel
+  type: Class
+  source:
+    id: ExperimenterPanel
+    path: ''
+    startLine: 8962
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  summary: Base Panel functionality class
+  example: []
+  syntax:
+    content: 'public class ExperimenterPanel : MonoBehaviour'
+    content.vb: >-
+      Public Class ExperimenterPanel
+          Inherits MonoBehaviour
+  inheritance:
+  - System.Object
+  derivedClasses:
+  - eDIA.PanelApplicationSettings
+  - eDIA.PanelConfigSelection
+  - eDIA.PanelExperimentControl
+  - eDIA.PanelMessageBox
+  - eDIA.PanelTaskControl
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+- uid: eDIA.ExperimenterPanel.children
+  commentId: F:eDIA.ExperimenterPanel.children
+  id: children
+  parent: eDIA.ExperimenterPanel
+  langs:
+  - csharp
+  - vb
+  name: children
+  nameWithType: ExperimenterPanel.children
+  fullName: eDIA.ExperimenterPanel.children
+  type: Field
+  source:
+    id: children
+    path: ''
+    startLine: 8968
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public List<Transform> children
+    return:
+      type: System.Collections.Generic.List{Transform}
+    content.vb: Public children As List(Of Transform)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.ExperimenterPanel.Awake
+  commentId: M:eDIA.ExperimenterPanel.Awake
+  id: Awake
+  parent: eDIA.ExperimenterPanel
+  langs:
+  - csharp
+  - vb
+  name: Awake()
+  nameWithType: ExperimenterPanel.Awake()
+  fullName: eDIA.ExperimenterPanel.Awake()
+  type: Method
+  source:
+    id: Awake
+    path: ''
+    startLine: 8971
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public virtual void Awake()
+    content.vb: Public Overridable Sub Awake
+  overload: eDIA.ExperimenterPanel.Awake*
+  modifiers.csharp:
+  - public
+  - virtual
+  modifiers.vb:
+  - Public
+  - Overridable
+- uid: eDIA.ExperimenterPanel.ShowPanel
+  commentId: M:eDIA.ExperimenterPanel.ShowPanel
+  id: ShowPanel
+  parent: eDIA.ExperimenterPanel
+  langs:
+  - csharp
+  - vb
+  name: ShowPanel()
+  nameWithType: ExperimenterPanel.ShowPanel()
+  fullName: eDIA.ExperimenterPanel.ShowPanel()
+  type: Method
+  source:
+    id: ShowPanel
+    path: ''
+    startLine: 8979
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public void ShowPanel()
+    content.vb: Public Sub ShowPanel
+  overload: eDIA.ExperimenterPanel.ShowPanel*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.ExperimenterPanel.HidePanel
+  commentId: M:eDIA.ExperimenterPanel.HidePanel
+  id: HidePanel
+  parent: eDIA.ExperimenterPanel
+  langs:
+  - csharp
+  - vb
+  name: HidePanel()
+  nameWithType: ExperimenterPanel.HidePanel()
+  fullName: eDIA.ExperimenterPanel.HidePanel()
+  type: Method
+  source:
+    id: HidePanel
+    path: ''
+    startLine: 8988
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public void HidePanel()
+    content.vb: Public Sub HidePanel
+  overload: eDIA.ExperimenterPanel.HidePanel*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.ExperimenterPanel.ApplyTheme
+  commentId: M:eDIA.ExperimenterPanel.ApplyTheme
+  id: ApplyTheme
+  parent: eDIA.ExperimenterPanel
+  langs:
+  - csharp
+  - vb
+  name: ApplyTheme()
+  nameWithType: ExperimenterPanel.ApplyTheme()
+  fullName: eDIA.ExperimenterPanel.ApplyTheme()
+  type: Method
+  source:
+    id: ApplyTheme
+    path: ''
+    startLine: 8995
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public void ApplyTheme()
+    content.vb: Public Sub ApplyTheme
+  overload: eDIA.ExperimenterPanel.ApplyTheme*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+references:
+- uid: eDIA
+  commentId: N:eDIA
+  name: eDIA
+  nameWithType: eDIA
+  fullName: eDIA
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: System.Collections.Generic.List{Transform}
+  commentId: T:System.Collections.Generic.List{Transform}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  name: List<Transform>
+  nameWithType: List<Transform>
+  fullName: System.Collections.Generic.List<Transform>
+  nameWithType.vb: List(Of Transform)
+  fullName.vb: System.Collections.Generic.List(Of Transform)
+  name.vb: List(Of Transform)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    nameWithType: List
+    fullName: System.Collections.Generic.List
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: Global.Transform
+    name: Transform
+    nameWithType: Transform
+    fullName: Transform
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    nameWithType: List
+    fullName: System.Collections.Generic.List
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: Global.Transform
+    name: Transform
+    nameWithType: Transform
+    fullName: Transform
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic.List`1
+  commentId: T:System.Collections.Generic.List`1
+  isExternal: true
+  name: List<T>
+  nameWithType: List<T>
+  fullName: System.Collections.Generic.List<T>
+  nameWithType.vb: List(Of T)
+  fullName.vb: System.Collections.Generic.List(Of T)
+  name.vb: List(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    nameWithType: List
+    fullName: System.Collections.Generic.List
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    nameWithType: List
+    fullName: System.Collections.Generic.List
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+- uid: eDIA.ExperimenterPanel.Awake*
+  commentId: Overload:eDIA.ExperimenterPanel.Awake
+  name: Awake
+  nameWithType: ExperimenterPanel.Awake
+  fullName: eDIA.ExperimenterPanel.Awake
+- uid: eDIA.ExperimenterPanel.ShowPanel*
+  commentId: Overload:eDIA.ExperimenterPanel.ShowPanel
+  name: ShowPanel
+  nameWithType: ExperimenterPanel.ShowPanel
+  fullName: eDIA.ExperimenterPanel.ShowPanel
+- uid: eDIA.ExperimenterPanel.HidePanel*
+  commentId: Overload:eDIA.ExperimenterPanel.HidePanel
+  name: HidePanel
+  nameWithType: ExperimenterPanel.HidePanel
+  fullName: eDIA.ExperimenterPanel.HidePanel
+- uid: eDIA.ExperimenterPanel.ApplyTheme*
+  commentId: Overload:eDIA.ExperimenterPanel.ApplyTheme
+  name: ApplyTheme
+  nameWithType: ExperimenterPanel.ApplyTheme
+  fullName: eDIA.ExperimenterPanel.ApplyTheme

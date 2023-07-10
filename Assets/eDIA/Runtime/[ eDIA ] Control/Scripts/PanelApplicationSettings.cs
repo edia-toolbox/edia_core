@@ -5,8 +5,9 @@ using SimpleFileBrowser;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using eDIA;
 
-namespace eDIA {
+namespace eDIA.Manager {
 
 	public class PanelApplicationSettings : ExperimenterPanel {
 
@@ -33,11 +34,11 @@ namespace eDIA {
 			HidePanel ();
 			SetupPanels ();
 
-			EventManager.StartListening (eDIA.Events.Core.EvOpenSystemSettings, OnEvOpenSystemSettings);
+			EventManager.StartListening (eDIA.Events.Settings.EvOpenSystemSettings, OnEvOpenSystemSettings);
 		}
 
 		void OnDestroy () {
-			EventManager.StopListening (eDIA.Events.Core.EvOpenSystemSettings, OnEvOpenSystemSettings);
+			EventManager.StopListening (eDIA.Events.Settings.EvOpenSystemSettings, OnEvOpenSystemSettings);
 		}
 
 #region EVENT LISTENERS
@@ -47,12 +48,12 @@ namespace eDIA {
 			localSystemSettingsContainer = UnityEngine.JsonUtility.FromJson<SettingsDeclaration> (obj.GetString ());
 
 			// populate the GUI elements with correct values
-			volumeSlider.value = localSystemSettingsContainer.volume;
+			volumeSlider.value 			= localSystemSettingsContainer.volume;
 			interactiveInteractorDropdown.value = (int) localSystemSettingsContainer.InteractiveInteractor;
-			visibleInteractorDropdown.value = (int) localSystemSettingsContainer.VisableInteractor;
-			languageDropdown.value = (int) localSystemSettingsContainer.language;
-			pathToLogfilesField.text = localSystemSettingsContainer.pathToLogfiles;
-			resolutionDropdown.value = localSystemSettingsContainer.screenResolution;
+			visibleInteractorDropdown.value 	= (int) localSystemSettingsContainer.VisableInteractor;
+			languageDropdown.value 			= (int) localSystemSettingsContainer.language;
+			pathToLogfilesField.text 		= localSystemSettingsContainer.pathToLogfiles;
+			resolutionDropdown.value 		= localSystemSettingsContainer.screenResolution;
 			// Show
 			ShowPanel ();
 
@@ -71,7 +72,7 @@ namespace eDIA {
 			// Something has changed
 			UpdateLocalSettings ();
 
-			EventManager.TriggerEvent (eDIA.Events.Core.EvUpdateSystemSettings, new eParam (UnityEngine.JsonUtility.ToJson (localSystemSettingsContainer, false)));
+			EventManager.TriggerEvent (eDIA.Events.Settings.EvUpdateSystemSettings, new eParam (UnityEngine.JsonUtility.ToJson (localSystemSettingsContainer, false)));
 		}
 
 		void OpenFileBrowser () {
@@ -97,9 +98,9 @@ namespace eDIA {
 		void UpdateLocalSettings () {
 
 			localSystemSettingsContainer.volume = volumeSlider.value;
-			localSystemSettingsContainer.InteractiveInteractor = (Constants.Interactor) interactiveInteractorDropdown.value;
-			localSystemSettingsContainer.VisableInteractor = (Constants.Interactor) visibleInteractorDropdown.value;
-			localSystemSettingsContainer.language = (Constants.Languages) languageDropdown.value;
+			localSystemSettingsContainer.InteractiveInteractor = (eDIA.Constants.Interactor) interactiveInteractorDropdown.value;
+			localSystemSettingsContainer.VisableInteractor = (eDIA.Constants.Interactor) visibleInteractorDropdown.value;
+			localSystemSettingsContainer.language = (eDIA.Constants.Languages) languageDropdown.value;
 			localSystemSettingsContainer.screenResolution = resolutionDropdown.value;
 		}
 
@@ -108,7 +109,7 @@ namespace eDIA {
 			btnClose.onClick.AddListener (() => HidePanel ());
 			btnBrowse.onClick.AddListener (() => OpenFileBrowser ());
 
-			foreach (Vector2 s in Constants.screenResolutions) {
+			foreach (Vector2 s in eDIA.Constants.screenResolutions) {
 				TMP_Dropdown.OptionData n = new TMP_Dropdown.OptionData(String.Format("{0}x{1}", s.x, s.y));
 				resolutionDropdown.options.Add(n);
 			}

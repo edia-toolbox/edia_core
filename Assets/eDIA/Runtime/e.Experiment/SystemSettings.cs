@@ -7,23 +7,34 @@ using UnityEngine;
 namespace eDIA {
 
 	/// <summary>Global settings of the application</summary>
-	public static class SystemSettings {
+	public class SystemSettings : MonoBehaviour {
 
 #region DECLARATIONS
 
 		/// <summary>Instance of the Settings declaration class in order to (de)serialize to JSON</summary>
-		public static SettingsDeclaration systemSettings = new SettingsDeclaration();
+		public SettingsDeclaration systemSettings = new SettingsDeclaration();
 		static SettingsDeclaration receivedSettings = new SettingsDeclaration();
-		
+
+		static UXF.LocalFileDataHander UXFFilesaver = null;
+
+		private void Awake() {
+
+			InitSystemSettings();
+		}		
+
+
+
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region MAIN METHODS
 
 		/// <summary>Gets called from XRrigmanager to init the system. </summary>
-		public static void InitSystemSettings () {
+		public void InitSystemSettings () {
+
+			UXFFilesaver = GameObject.FindObjectOfType<UXF.LocalFileDataHander>();
 
 			// Listen to update settings requests
-			EventManager.StartListening(eDIA.Events.Core.EvUpdateSystemSettings, OnEvUpdateSystemSettings);
-			EventManager.StartListening(eDIA.Events.Core.EvRequestSystemSettings, OnEvRequestSystemSettings);
+			EventManager.StartListening(eDIA.Events.Settings.EvUpdateSystemSettings, OnEvUpdateSystemSettings);
+			EventManager.StartListening(eDIA.Events.Settings.EvRequestSystemSettings, OnEvRequestSystemSettings);
 			
 			// Set time and location to avoid comma / period issues
 			System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
@@ -32,11 +43,11 @@ namespace eDIA {
 			LoadSettings();
 		}
 
-		static void SaveSettings () {
+		void SaveSettings () {
 			FileManager.WriteString("settings.json", UnityEngine.JsonUtility.ToJson(systemSettings,true), true);
 		}
 
-		async static void LoadSettings () {
+		async void LoadSettings () {
 
 			if (!FileManager.FileExists("settings.json")) {
 				Debug.Log("Settings file not found, saving defaults");
@@ -47,23 +58,28 @@ namespace eDIA {
 			string loadedSettings = FileManager.ReadStringFromApplicationPath("settings.json");
 			
 			await Task.Delay(500); // 1 second delay
-			EventManager.TriggerEvent(eDIA.Events.Core.EvUpdateSystemSettings, new eParam(loadedSettings));
+
+			//! Send with event so it can go over the network to the manager
+			EventManager.TriggerEvent(eDIA.Events.Settings.EvUpdateSystemSettings, new eParam(loadedSettings));
+
+			//! Locally
+			OnEvUpdateSystemSettings(new eParam(loadedSettings));
 		}
 
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region EVENT LISTENERS
 
-		public static void OnEvUpdateSystemSettings (eParam obj) {
+		public void OnEvUpdateSystemSettings (eParam obj) {
 			
 			receivedSettings = new SettingsDeclaration();
 			receivedSettings = UnityEngine.JsonUtility.FromJson<SettingsDeclaration>(obj.GetString());
 
 			systemSettings.VisableInteractor = receivedSettings.VisableInteractor;
-			EventManager.TriggerEvent(eDIA.Events.Interaction.EvUpdateVisableInteractor, new eParam((int)receivedSettings.VisableInteractor));
+			EventManager.TriggerEvent(eDIA.Events.XR.EvUpdateVisableInteractor, new eParam((int)receivedSettings.VisableInteractor));
 
 			systemSettings.InteractiveInteractor = receivedSettings.InteractiveInteractor;
-			EventManager.TriggerEvent(eDIA.Events.Interaction.EvUpdateInteractiveInteractor, new eParam((int)receivedSettings.InteractiveInteractor));
+			EventManager.TriggerEvent(eDIA.Events.XR.EvUpdateInteractiveInteractor, new eParam((int)receivedSettings.InteractiveInteractor));
 
 			// Resolution of the app
 			if (systemSettings.screenResolution != receivedSettings.screenResolution) {
@@ -74,8 +90,9 @@ namespace eDIA {
 
 			// Save Path for logfiles
 			systemSettings.pathToLogfiles = receivedSettings.pathToLogfiles;
-			EventManager.TriggerEvent(eDIA.Events.Core.EvSetCustomStoragePath, new eParam(receivedSettings.pathToLogfiles));
-
+			
+			EventManager.TriggerEvent(eDIA.Events.Settings.EvSetCustomStoragePath, new eParam(receivedSettings.pathToLogfiles));
+			UXFFilesaver.storagePath = systemSettings.pathToLogfiles;
 
 			// Volume of the app
 			if (systemSettings.volume != receivedSettings.volume) {
@@ -95,9 +112,9 @@ namespace eDIA {
 		}
 
 		/// <summary> Catches request to show system settings, collects them and send them out with a OPEN settings panel event. </summary>
-		private static void OnEvRequestSystemSettings(eParam obj)
+		private void OnEvRequestSystemSettings(eParam obj)
 		{
-			EventManager.TriggerEvent(eDIA.Events.Core.EvOpenSystemSettings, new eParam( GetSettingsAsJSONstring()));
+			EventManager.TriggerEvent(eDIA.Events.Settings.EvOpenSystemSettings, new eParam( GetSettingsAsJSONstring()));
 		}
 
 
@@ -106,7 +123,7 @@ namespace eDIA {
 
 		/// <summary>Gets all settings from the 'SettingsDeclaration' instance 'systemSettings' as a JSON string</summary>
 		/// <returns>JSON string</returns>
-		public static string GetSettingsAsJSONstring () {
+		public string GetSettingsAsJSONstring () {
 			return UnityEngine.JsonUtility.ToJson(systemSettings,false);
 		}
 

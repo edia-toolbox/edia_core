@@ -1,9 +1,9 @@
 {
-  "name": "edia.core",
-  "displayName": "eDIA framework",
+  "name": "com.edia.core",
+  "displayName": "eDIA core",
   "version": "0.2.1",
-  "unity": "2020.3",
-  "description": "eDia framework to base experiments on.\nAdditional features are separated packages. \n\nIncluded in this package are: \n-DemoTasks: Two different tasks you can use as guide.\n-DemoConfig files: Config files needed for DemoTasks, or as base for own config files. \n NOTE: Move the whole folder /Samples/Configs to  /Assets/Configs !!\n-URP materials: Simple example materials to get you started with URP",
+  "unity": "2021.3",
+  "description": "eDia framework to base experiments on.\nAdditional features are separated packages.\n\nSee Samples for examples ",
   "keywords": [
     "eDIA",
     "xr",
@@ -11,18 +11,20 @@
     "experiment"
   ],
   "author": {
-    "name": "eDIA"
+    "name": "thefirstfloor",
+    "email": "info@thefirstfloor.nl",
+    "url": "https://thefirstfloor.nl"
   },
   "dependencies": {
-    "com.unity.inputsystem": "1.2.0",
-    "com.unity.xr.interaction.toolkit": "2.0.0-pre.5",
+    "com.unity.inputsystem": "1.3.0",
+    "com.unity.xr.interaction.toolkit": "2.0.0",
     "com.unity.xr.management": "4.2.0",
     "com.unity.render-pipelines.universal": "12.1.7"
   },
   "samples": [
-    {
-      "displayName": "DemoTasks",
-      "description": "Scenes with a sample task that runs through the complete experiment.",
+   {
+      "displayName": "DemoTask",
+      "description": "Scene with a sample task that runs through the complete experiment.",
       "path": "Samples/DemoTasks"
    },
    {
@@ -34,7 +36,12 @@
      "displayName": "URP Materials",
      "description": "Simple example materials to get you started with URP",
      "path": "Samples/URP_Materials"
-     }
+     },
+     {
+      "displayName": "Templates",
+      "description": "Template scripts for own development of tasks",
+      "path": "Samples/Templates"
+      }
   ],
   "hideInEditor": false
 }

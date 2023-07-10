@@ -2,57 +2,126 @@
 - uid: eDIA
   name: eDIA
   items:
+  - uid: eDIA.Constants
+    name: Constants
+  - uid: eDIA.Constants.Interactor
+    name: Constants.Interactor
+  - uid: eDIA.Constants.Languages
+    name: Constants.Languages
+  - uid: eDIA.Constants.TargetHZ
+    name: Constants.TargetHZ
+  - uid: eDIA.ControlPanelManager
+    name: ControlPanelManager
+  - uid: eDIA.ControlPanelManager.ControlPanelModes
+    name: ControlPanelManager.ControlPanelModes
   - uid: eDIA.eParam
     name: eParam
+  - uid: eDIA.eParam.StringBool
+    name: eParam.StringBool
   - uid: eDIA.EventManager
     name: EventManager
-  - uid: eDIA.ExperimentManager
-    name: ExperimentManager
-  - uid: eDIA.ExperimentManager.ExperimentConfig
-    name: ExperimentManager.ExperimentConfig
-  - uid: eDIA.ExperimentManager.SettingsTuple
-    name: ExperimentManager.SettingsTuple
-  - uid: eDIA.ExperimentManager.TrialSequenceValues
-    name: ExperimentManager.TrialSequenceValues
-  - uid: eDIA.ExperimentManager.TrialSequenceValuesContainer
-    name: ExperimentManager.TrialSequenceValuesContainer
+  - uid: eDIA.Experiment
+    name: Experiment
+  - uid: eDIA.ExperimentBlock
+    name: ExperimentBlock
+  - uid: eDIA.ExperimentConfig
+    name: ExperimentConfig
+  - uid: eDIA.ExperimenterPanel
+    name: ExperimenterPanel
   - uid: eDIA.FileManager
     name: FileManager
+  - uid: eDIA.Helpers
+    name: Helpers
   - uid: eDIA.InputActionHandler
     name: InputActionHandler
+  - uid: eDIA.InputRemapper
+    name: InputRemapper
+  - uid: eDIA.LogUtilities
+    name: LogUtilities
   - uid: eDIA.MainMenu
     name: MainMenu
   - uid: eDIA.MainMenu.aScene
     name: MainMenu.aScene
+  - uid: eDIA.MessagePanelInVR
+    name: MessagePanelInVR
   - uid: eDIA.NetworkComManager
     name: NetworkComManager
   - uid: eDIA.NetworkManager
     name: NetworkManager
+  - uid: eDIA.PanelApplicationSettings
+    name: PanelApplicationSettings
+  - uid: eDIA.PanelConfigSelection
+    name: PanelConfigSelection
+  - uid: eDIA.PanelExperimentControl
+    name: PanelExperimentControl
+  - uid: eDIA.PanelHeader
+    name: PanelHeader
+  - uid: eDIA.PanelLayoutManager
+    name: PanelLayoutManager
+  - uid: eDIA.PanelMessageBox
+    name: PanelMessageBox
+  - uid: eDIA.PanelTaskControl
+    name: PanelTaskControl
   - uid: eDIA.ScreenFader
     name: ScreenFader
-  - uid: eDIA.SystemManager
-    name: SystemManager
-  - uid: eDIA.TaskManagerBase
-    name: TaskManagerBase
-  - uid: eDIA.TaskManagerBase.TaskSettingsContainer
-    name: TaskManagerBase.TaskSettingsContainer
-  - uid: eDIA.TaskManagerBase.TrialStep
-    name: TaskManagerBase.TrialStep
+  - uid: eDIA.SettingsDeclaration
+    name: SettingsDeclaration
+  - uid: eDIA.SettingsTuple
+    name: SettingsTuple
+  - uid: eDIA.SystemSettings
+    name: SystemSettings
+  - uid: eDIA.TaskBlock
+    name: TaskBlock
+  - uid: eDIA.TaskConfig
+    name: TaskConfig
+  - uid: eDIA.Tooltip
+    name: Tooltip
+  - uid: eDIA.TooltipManager
+    name: TooltipManager
+  - uid: eDIA.TrialSettings
+    name: TrialSettings
+  - uid: eDIA.TrialStep
+    name: TrialStep
+  - uid: eDIA.ValueList
+    name: ValueList
+  - uid: eDIA.XRController
+    name: XRController
+  - uid: eDIA.XRControllerInputRemapper
+    name: XRControllerInputRemapper
+  - uid: eDIA.XRControllerInputRemapper.ControllerInputRemap
+    name: XRControllerInputRemapper.ControllerInputRemap
+  - uid: eDIA.XRManager
+    name: XRManager
   - uid: eDIA.XRrigInitialiser
     name: XRrigInitialiser
-  - uid: eDIA.XRrigUtilities
-    name: XRrigUtilities
 - uid: eDIA.EditorUtils
   name: eDIA.EditorUtils
   items:
   - uid: eDIA.EditorUtils.eDIAcontrolPanel
     name: eDIAcontrolPanel
-  - uid: eDIA.EditorUtils.LogUtilities
-    name: LogUtilities
+  - uid: eDIA.EditorUtils.Layers
+    name: Layers
   - uid: eDIA.EditorUtils.ReadOnlyAttribute
     name: ReadOnlyAttribute
   - uid: eDIA.EditorUtils.ReadOnlyDrawer
     name: ReadOnlyDrawer
+- uid: eDIA.Events
+  name: eDIA.Events
+  items:
+  - uid: eDIA.Events.ControlPanel
+    name: ControlPanel
+  - uid: eDIA.Events.Core
+    name: Core
+  - uid: eDIA.Events.DataHandlers
+    name: DataHandlers
+  - uid: eDIA.Events.Eye
+    name: Eye
+  - uid: eDIA.Events.GUI
+    name: GUI
+  - uid: eDIA.Events.System
+    name: System
+  - uid: eDIA.Events.XR
+    name: XR
 - uid: eDIA.Utilities
   name: eDIA.Utilities
   items:
@@ -63,9 +132,11 @@
 - uid: TASK
   name: TASK
   items:
-  - uid: TASK.TaskManagerDemo
-    name: TaskManagerDemo
-  - uid: TASK.TaskManagerTemplate
-    name: TaskManagerTemplate
-  - uid: TASK.UserMessageHandler
-    name: UserMessageHandler
+  - uid: TASK.MessagesToUser
+    name: MessagesToUser
+  - uid: TASK.TaskBlockAssessment
+    name: TaskBlockAssessment
+  - uid: TASK.TaskBlockPractice
+    name: TaskBlockPractice
+  - uid: TASK.TaskBlockTemplate
+    name: TaskBlockTemplate

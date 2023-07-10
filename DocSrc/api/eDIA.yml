@@ -4,26 +4,52 @@ items:
   commentId: N:eDIA
   id: eDIA
   children:
+  - eDIA.Constants
+  - eDIA.Constants.Interactor
+  - eDIA.Constants.Languages
+  - eDIA.Constants.TargetHZ
+  - eDIA.ControlPanelManager
+  - eDIA.ControlPanelManager.ControlPanelModes
   - eDIA.eParam
+  - eDIA.eParam.StringBool
   - eDIA.EventManager
-  - eDIA.ExperimentManager
-  - eDIA.ExperimentManager.ExperimentConfig
-  - eDIA.ExperimentManager.SettingsTuple
-  - eDIA.ExperimentManager.TrialSequenceValues
-  - eDIA.ExperimentManager.TrialSequenceValuesContainer
+  - eDIA.Experiment
+  - eDIA.ExperimentBlock
+  - eDIA.ExperimentConfig
+  - eDIA.ExperimenterPanel
   - eDIA.FileManager
+  - eDIA.Helpers
   - eDIA.InputActionHandler
+  - eDIA.InputRemapper
+  - eDIA.LogUtilities
   - eDIA.MainMenu
   - eDIA.MainMenu.aScene
+  - eDIA.MessagePanelInVR
   - eDIA.NetworkComManager
   - eDIA.NetworkManager
+  - eDIA.PanelApplicationSettings
+  - eDIA.PanelConfigSelection
+  - eDIA.PanelExperimentControl
+  - eDIA.PanelHeader
+  - eDIA.PanelLayoutManager
+  - eDIA.PanelMessageBox
+  - eDIA.PanelTaskControl
   - eDIA.ScreenFader
-  - eDIA.SystemManager
-  - eDIA.TaskManagerBase
-  - eDIA.TaskManagerBase.TaskSettingsContainer
-  - eDIA.TaskManagerBase.TrialStep
+  - eDIA.SettingsDeclaration
+  - eDIA.SettingsTuple
+  - eDIA.SystemSettings
+  - eDIA.TaskBlock
+  - eDIA.TaskConfig
+  - eDIA.Tooltip
+  - eDIA.TooltipManager
+  - eDIA.TrialSettings
+  - eDIA.TrialStep
+  - eDIA.ValueList
+  - eDIA.XRController
+  - eDIA.XRControllerInputRemapper
+  - eDIA.XRControllerInputRemapper.ControllerInputRemap
+  - eDIA.XRManager
   - eDIA.XRrigInitialiser
-  - eDIA.XRrigUtilities
   langs:
   - csharp
   - vb
@@ -40,52 +66,119 @@ references:
   name: eParam
   nameWithType: eParam
   fullName: eDIA.eParam
+- uid: eDIA.eParam.StringBool
+  commentId: T:eDIA.eParam.StringBool
+  parent: eDIA
+  name: eParam.StringBool
+  nameWithType: eParam.StringBool
+  fullName: eDIA.eParam.StringBool
 - uid: eDIA.EventManager
   commentId: T:eDIA.EventManager
   name: EventManager
   nameWithType: EventManager
   fullName: eDIA.EventManager
-- uid: eDIA.ExperimentManager
-  commentId: T:eDIA.ExperimentManager
-  name: ExperimentManager
-  nameWithType: ExperimentManager
-  fullName: eDIA.ExperimentManager
-- uid: eDIA.ExperimentManager.SettingsTuple
-  commentId: T:eDIA.ExperimentManager.SettingsTuple
-  name: ExperimentManager.SettingsTuple
-  nameWithType: ExperimentManager.SettingsTuple
-  fullName: eDIA.ExperimentManager.SettingsTuple
-- uid: eDIA.ExperimentManager.TrialSequenceValues
-  commentId: T:eDIA.ExperimentManager.TrialSequenceValues
-  name: ExperimentManager.TrialSequenceValues
-  nameWithType: ExperimentManager.TrialSequenceValues
-  fullName: eDIA.ExperimentManager.TrialSequenceValues
-- uid: eDIA.ExperimentManager.TrialSequenceValuesContainer
-  commentId: T:eDIA.ExperimentManager.TrialSequenceValuesContainer
-  name: ExperimentManager.TrialSequenceValuesContainer
-  nameWithType: ExperimentManager.TrialSequenceValuesContainer
-  fullName: eDIA.ExperimentManager.TrialSequenceValuesContainer
-- uid: eDIA.ExperimentManager.ExperimentConfig
-  commentId: T:eDIA.ExperimentManager.ExperimentConfig
+- uid: eDIA.Constants
+  commentId: T:eDIA.Constants
+  name: Constants
+  nameWithType: Constants
+  fullName: eDIA.Constants
+- uid: eDIA.Constants.Interactor
+  commentId: T:eDIA.Constants.Interactor
   parent: eDIA
-  name: ExperimentManager.ExperimentConfig
-  nameWithType: ExperimentManager.ExperimentConfig
-  fullName: eDIA.ExperimentManager.ExperimentConfig
-- uid: eDIA.TaskManagerBase
-  commentId: T:eDIA.TaskManagerBase
-  name: TaskManagerBase
-  nameWithType: TaskManagerBase
-  fullName: eDIA.TaskManagerBase
-- uid: eDIA.TaskManagerBase.TaskSettingsContainer
-  commentId: T:eDIA.TaskManagerBase.TaskSettingsContainer
-  name: TaskManagerBase.TaskSettingsContainer
-  nameWithType: TaskManagerBase.TaskSettingsContainer
-  fullName: eDIA.TaskManagerBase.TaskSettingsContainer
-- uid: eDIA.TaskManagerBase.TrialStep
-  commentId: T:eDIA.TaskManagerBase.TrialStep
-  name: TaskManagerBase.TrialStep
-  nameWithType: TaskManagerBase.TrialStep
-  fullName: eDIA.TaskManagerBase.TrialStep
+  name: Constants.Interactor
+  nameWithType: Constants.Interactor
+  fullName: eDIA.Constants.Interactor
+- uid: eDIA.Constants.TargetHZ
+  commentId: T:eDIA.Constants.TargetHZ
+  parent: eDIA
+  name: Constants.TargetHZ
+  nameWithType: Constants.TargetHZ
+  fullName: eDIA.Constants.TargetHZ
+- uid: eDIA.Constants.Languages
+  commentId: T:eDIA.Constants.Languages
+  parent: eDIA
+  name: Constants.Languages
+  nameWithType: Constants.Languages
+  fullName: eDIA.Constants.Languages
+- uid: eDIA.Experiment
+  commentId: T:eDIA.Experiment
+  name: Experiment
+  nameWithType: Experiment
+  fullName: eDIA.Experiment
+- uid: eDIA.SettingsTuple
+  commentId: T:eDIA.SettingsTuple
+  name: SettingsTuple
+  nameWithType: SettingsTuple
+  fullName: eDIA.SettingsTuple
+- uid: eDIA.ValueList
+  commentId: T:eDIA.ValueList
+  name: ValueList
+  nameWithType: ValueList
+  fullName: eDIA.ValueList
+- uid: eDIA.TrialSettings
+  commentId: T:eDIA.TrialSettings
+  parent: eDIA
+  name: TrialSettings
+  nameWithType: TrialSettings
+  fullName: eDIA.TrialSettings
+- uid: eDIA.ExperimentBlock
+  commentId: T:eDIA.ExperimentBlock
+  name: ExperimentBlock
+  nameWithType: ExperimentBlock
+  fullName: eDIA.ExperimentBlock
+- uid: eDIA.ExperimentConfig
+  commentId: T:eDIA.ExperimentConfig
+  parent: eDIA
+  name: ExperimentConfig
+  nameWithType: ExperimentConfig
+  fullName: eDIA.ExperimentConfig
+- uid: eDIA.TaskConfig
+  commentId: T:eDIA.TaskConfig
+  parent: eDIA
+  name: TaskConfig
+  nameWithType: TaskConfig
+  fullName: eDIA.TaskConfig
+- uid: eDIA.Helpers
+  commentId: T:eDIA.Helpers
+  name: Helpers
+  nameWithType: Helpers
+  fullName: eDIA.Helpers
+- uid: eDIA.TrialStep
+  commentId: T:eDIA.TrialStep
+  name: TrialStep
+  nameWithType: TrialStep
+  fullName: eDIA.TrialStep
+- uid: eDIA.SettingsDeclaration
+  commentId: T:eDIA.SettingsDeclaration
+  parent: eDIA
+  name: SettingsDeclaration
+  nameWithType: SettingsDeclaration
+  fullName: eDIA.SettingsDeclaration
+- uid: eDIA.MessagePanelInVR
+  commentId: T:eDIA.MessagePanelInVR
+  name: MessagePanelInVR
+  nameWithType: MessagePanelInVR
+  fullName: eDIA.MessagePanelInVR
+- uid: eDIA.SystemSettings
+  commentId: T:eDIA.SystemSettings
+  name: SystemSettings
+  nameWithType: SystemSettings
+  fullName: eDIA.SystemSettings
+- uid: eDIA.TaskBlock
+  commentId: T:eDIA.TaskBlock
+  name: TaskBlock
+  nameWithType: TaskBlock
+  fullName: eDIA.TaskBlock
+- uid: eDIA.XRControllerInputRemapper
+  commentId: T:eDIA.XRControllerInputRemapper
+  name: XRControllerInputRemapper
+  nameWithType: XRControllerInputRemapper
+  fullName: eDIA.XRControllerInputRemapper
+- uid: eDIA.XRControllerInputRemapper.ControllerInputRemap
+  commentId: T:eDIA.XRControllerInputRemapper.ControllerInputRemap
+  name: XRControllerInputRemapper.ControllerInputRemap
+  nameWithType: XRControllerInputRemapper.ControllerInputRemap
+  fullName: eDIA.XRControllerInputRemapper.ControllerInputRemap
 - uid: eDIA.InputActionHandler
   commentId: T:eDIA.InputActionHandler
   name: InputActionHandler
@@ -106,21 +199,11 @@ references:
   name: NetworkManager
   nameWithType: NetworkManager
   fullName: eDIA.NetworkManager
-- uid: eDIA.ScreenFader
-  commentId: T:eDIA.ScreenFader
-  name: ScreenFader
-  nameWithType: ScreenFader
-  fullName: eDIA.ScreenFader
-- uid: eDIA.XRrigInitialiser
-  commentId: T:eDIA.XRrigInitialiser
-  name: XRrigInitialiser
-  nameWithType: XRrigInitialiser
-  fullName: eDIA.XRrigInitialiser
-- uid: eDIA.XRrigUtilities
-  commentId: T:eDIA.XRrigUtilities
-  name: XRrigUtilities
-  nameWithType: XRrigUtilities
-  fullName: eDIA.XRrigUtilities
+- uid: eDIA.LogUtilities
+  commentId: T:eDIA.LogUtilities
+  name: LogUtilities
+  nameWithType: LogUtilities
+  fullName: eDIA.LogUtilities
 - uid: eDIA.MainMenu
   commentId: T:eDIA.MainMenu
   name: MainMenu
@@ -131,12 +214,93 @@ references:
   name: MainMenu.aScene
   nameWithType: MainMenu.aScene
   fullName: eDIA.MainMenu.aScene
-- uid: eDIA.SystemManager
-  commentId: T:eDIA.SystemManager
+- uid: eDIA.XRController
+  commentId: T:eDIA.XRController
+  name: XRController
+  nameWithType: XRController
+  fullName: eDIA.XRController
+- uid: eDIA.XRManager
+  commentId: T:eDIA.XRManager
+  name: XRManager
+  nameWithType: XRManager
+  fullName: eDIA.XRManager
+- uid: eDIA.XRrigInitialiser
+  commentId: T:eDIA.XRrigInitialiser
+  name: XRrigInitialiser
+  nameWithType: XRrigInitialiser
+  fullName: eDIA.XRrigInitialiser
+- uid: eDIA.ScreenFader
+  commentId: T:eDIA.ScreenFader
+  name: ScreenFader
+  nameWithType: ScreenFader
+  fullName: eDIA.ScreenFader
+- uid: eDIA.ControlPanelManager
+  commentId: T:eDIA.ControlPanelManager
+  name: ControlPanelManager
+  nameWithType: ControlPanelManager
+  fullName: eDIA.ControlPanelManager
+- uid: eDIA.ControlPanelManager.ControlPanelModes
+  commentId: T:eDIA.ControlPanelManager.ControlPanelModes
   parent: eDIA
-  name: SystemManager
-  nameWithType: SystemManager
-  fullName: eDIA.SystemManager
+  name: ControlPanelManager.ControlPanelModes
+  nameWithType: ControlPanelManager.ControlPanelModes
+  fullName: eDIA.ControlPanelManager.ControlPanelModes
+- uid: eDIA.ExperimenterPanel
+  commentId: T:eDIA.ExperimenterPanel
+  parent: eDIA
+  name: ExperimenterPanel
+  nameWithType: ExperimenterPanel
+  fullName: eDIA.ExperimenterPanel
+- uid: eDIA.PanelApplicationSettings
+  commentId: T:eDIA.PanelApplicationSettings
+  name: PanelApplicationSettings
+  nameWithType: PanelApplicationSettings
+  fullName: eDIA.PanelApplicationSettings
+- uid: eDIA.PanelConfigSelection
+  commentId: T:eDIA.PanelConfigSelection
+  name: PanelConfigSelection
+  nameWithType: PanelConfigSelection
+  fullName: eDIA.PanelConfigSelection
+- uid: eDIA.PanelExperimentControl
+  commentId: T:eDIA.PanelExperimentControl
+  name: PanelExperimentControl
+  nameWithType: PanelExperimentControl
+  fullName: eDIA.PanelExperimentControl
+- uid: eDIA.PanelHeader
+  commentId: T:eDIA.PanelHeader
+  name: PanelHeader
+  nameWithType: PanelHeader
+  fullName: eDIA.PanelHeader
+- uid: eDIA.PanelLayoutManager
+  commentId: T:eDIA.PanelLayoutManager
+  name: PanelLayoutManager
+  nameWithType: PanelLayoutManager
+  fullName: eDIA.PanelLayoutManager
+- uid: eDIA.PanelMessageBox
+  commentId: T:eDIA.PanelMessageBox
+  name: PanelMessageBox
+  nameWithType: PanelMessageBox
+  fullName: eDIA.PanelMessageBox
+- uid: eDIA.PanelTaskControl
+  commentId: T:eDIA.PanelTaskControl
+  name: PanelTaskControl
+  nameWithType: PanelTaskControl
+  fullName: eDIA.PanelTaskControl
+- uid: eDIA.Tooltip
+  commentId: T:eDIA.Tooltip
+  name: Tooltip
+  nameWithType: Tooltip
+  fullName: eDIA.Tooltip
+- uid: eDIA.TooltipManager
+  commentId: T:eDIA.TooltipManager
+  name: TooltipManager
+  nameWithType: TooltipManager
+  fullName: eDIA.TooltipManager
+- uid: eDIA.InputRemapper
+  commentId: T:eDIA.InputRemapper
+  name: InputRemapper
+  nameWithType: InputRemapper
+  fullName: eDIA.InputRemapper
 - uid: eDIA
   commentId: N:eDIA
   name: eDIA

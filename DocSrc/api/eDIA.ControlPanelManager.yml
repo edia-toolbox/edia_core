@@ -1,0 +1,129 @@
+### YamlMime:ManagedReference
+items:
+- uid: eDIA.ControlPanelManager
+  commentId: T:eDIA.ControlPanelManager
+  id: ControlPanelManager
+  parent: eDIA
+  children:
+  - eDIA.ControlPanelManager.ControlPanelMode
+  - eDIA.ControlPanelManager.SetControlPanelMode(System.Int32)
+  langs:
+  - csharp
+  - vb
+  name: ControlPanelManager
+  nameWithType: ControlPanelManager
+  fullName: eDIA.ControlPanelManager
+  type: Class
+  source:
+    id: ControlPanelManager
+    path: ''
+    startLine: 8872
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: 'public class ControlPanelManager : MonoBehaviour'
+    content.vb: >-
+      Public Class ControlPanelManager
+          Inherits MonoBehaviour
+  inheritance:
+  - System.Object
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+- uid: eDIA.ControlPanelManager.ControlPanelMode
+  commentId: F:eDIA.ControlPanelManager.ControlPanelMode
+  id: ControlPanelMode
+  parent: eDIA.ControlPanelManager
+  langs:
+  - csharp
+  - vb
+  name: ControlPanelMode
+  nameWithType: ControlPanelManager.ControlPanelMode
+  fullName: eDIA.ControlPanelManager.ControlPanelMode
+  type: Field
+  source:
+    id: ControlPanelMode
+    path: ''
+    startLine: 8875
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public ControlPanelManager.ControlPanelModes ControlPanelMode
+    return:
+      type: eDIA.ControlPanelManager.ControlPanelModes
+    content.vb: Public ControlPanelMode As ControlPanelManager.ControlPanelModes
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.ControlPanelManager.SetControlPanelMode(System.Int32)
+  commentId: M:eDIA.ControlPanelManager.SetControlPanelMode(System.Int32)
+  id: SetControlPanelMode(System.Int32)
+  parent: eDIA.ControlPanelManager
+  langs:
+  - csharp
+  - vb
+  name: SetControlPanelMode(Int32)
+  nameWithType: ControlPanelManager.SetControlPanelMode(Int32)
+  fullName: eDIA.ControlPanelManager.SetControlPanelMode(System.Int32)
+  type: Method
+  source:
+    id: SetControlPanelMode
+    path: ''
+    startLine: 8891
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public void SetControlPanelMode(int mode)
+    parameters:
+    - id: mode
+      type: System.Int32
+    content.vb: Public Sub SetControlPanelMode(mode As Integer)
+  overload: eDIA.ControlPanelManager.SetControlPanelMode*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+references:
+- uid: eDIA
+  commentId: N:eDIA
+  name: eDIA
+  nameWithType: eDIA
+  fullName: eDIA
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: eDIA.ControlPanelManager.ControlPanelModes
+  commentId: T:eDIA.ControlPanelManager.ControlPanelModes
+  parent: eDIA
+  name: ControlPanelManager.ControlPanelModes
+  nameWithType: ControlPanelManager.ControlPanelModes
+  fullName: eDIA.ControlPanelManager.ControlPanelModes
+- uid: eDIA.ControlPanelManager.SetControlPanelMode*
+  commentId: Overload:eDIA.ControlPanelManager.SetControlPanelMode
+  name: SetControlPanelMode
+  nameWithType: ControlPanelManager.SetControlPanelMode
+  fullName: eDIA.ControlPanelManager.SetControlPanelMode
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  name: Int32
+  nameWithType: Int32
+  fullName: System.Int32

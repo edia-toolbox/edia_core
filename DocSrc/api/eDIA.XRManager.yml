@@ -1,0 +1,577 @@
+### YamlMime:ManagedReference
+items:
+- uid: eDIA.XRManager
+  commentId: T:eDIA.XRManager
+  id: XRManager
+  parent: eDIA
+  children:
+  - eDIA.XRManager.AddToLog(System.String)
+  - eDIA.XRManager.EnableCustomHandPoses(System.Boolean)
+  - eDIA.XRManager.EnableXRInteraction(System.Boolean)
+  - eDIA.XRManager.logColor
+  - eDIA.XRManager.mainMenuHolder
+  - eDIA.XRManager.MovePlayarea(Transform)
+  - eDIA.XRManager.SetHandPose(System.String)
+  - eDIA.XRManager.ShowHands(System.Boolean)
+  - eDIA.XRManager.showLog
+  - eDIA.XRManager.TurnOnRayInteractor
+  - eDIA.XRManager.XRCam
+  - eDIA.XRManager.XRLeft
+  - eDIA.XRManager.XRRight
+  langs:
+  - csharp
+  - vb
+  name: XRManager
+  nameWithType: XRManager
+  fullName: eDIA.XRManager
+  type: Class
+  source:
+    id: XRManager
+    path: ''
+    startLine: 8693
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  summary: "\nThis singleton script travels along the scenes that are loaded as it is DontDestroyOnLoad. <br />\nResponsible for loading/unloading, user related actions, top level application.<br />\nHas references to the XR rig camera and hands for the rest of the application.<br />\n"
+  example: []
+  syntax:
+    content: 'public class XRManager : Singleton<XRManager>'
+    content.vb: >-
+      Public Class XRManager
+          Inherits Singleton(Of XRManager)
+  inheritance:
+  - System.Object
+  - Global.Singleton{eDIA.XRManager}
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+- uid: eDIA.XRManager.showLog
+  commentId: F:eDIA.XRManager.showLog
+  id: showLog
+  parent: eDIA.XRManager
+  langs:
+  - csharp
+  - vb
+  name: showLog
+  nameWithType: XRManager.showLog
+  fullName: eDIA.XRManager.showLog
+  type: Field
+  source:
+    id: showLog
+    path: ''
+    startLine: 8696
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public bool showLog
+    return:
+      type: System.Boolean
+    content.vb: Public showLog As Boolean
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.XRManager.logColor
+  commentId: F:eDIA.XRManager.logColor
+  id: logColor
+  parent: eDIA.XRManager
+  langs:
+  - csharp
+  - vb
+  name: logColor
+  nameWithType: XRManager.logColor
+  fullName: eDIA.XRManager.logColor
+  type: Field
+  source:
+    id: logColor
+    path: ''
+    startLine: 8697
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public Color logColor
+    return:
+      type: Global.Color
+    content.vb: Public logColor As Color
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.XRManager.XRCam
+  commentId: F:eDIA.XRManager.XRCam
+  id: XRCam
+  parent: eDIA.XRManager
+  langs:
+  - csharp
+  - vb
+  name: XRCam
+  nameWithType: XRManager.XRCam
+  fullName: eDIA.XRManager.XRCam
+  type: Field
+  source:
+    id: XRCam
+    path: ''
+    startLine: 8700
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public Transform XRCam
+    return:
+      type: Global.Transform
+    content.vb: Public XRCam As Transform
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.XRManager.XRLeft
+  commentId: F:eDIA.XRManager.XRLeft
+  id: XRLeft
+  parent: eDIA.XRManager
+  langs:
+  - csharp
+  - vb
+  name: XRLeft
+  nameWithType: XRManager.XRLeft
+  fullName: eDIA.XRManager.XRLeft
+  type: Field
+  source:
+    id: XRLeft
+    path: ''
+    startLine: 8701
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public Transform XRLeft
+    return:
+      type: Global.Transform
+    content.vb: Public XRLeft As Transform
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.XRManager.XRRight
+  commentId: F:eDIA.XRManager.XRRight
+  id: XRRight
+  parent: eDIA.XRManager
+  langs:
+  - csharp
+  - vb
+  name: XRRight
+  nameWithType: XRManager.XRRight
+  fullName: eDIA.XRManager.XRRight
+  type: Field
+  source:
+    id: XRRight
+    path: ''
+    startLine: 8702
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public Transform XRRight
+    return:
+      type: Global.Transform
+    content.vb: Public XRRight As Transform
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.XRManager.mainMenuHolder
+  commentId: F:eDIA.XRManager.mainMenuHolder
+  id: mainMenuHolder
+  parent: eDIA.XRManager
+  langs:
+  - csharp
+  - vb
+  name: mainMenuHolder
+  nameWithType: XRManager.mainMenuHolder
+  fullName: eDIA.XRManager.mainMenuHolder
+  type: Field
+  source:
+    id: mainMenuHolder
+    path: ''
+    startLine: 8703
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public Transform mainMenuHolder
+    return:
+      type: Global.Transform
+    content.vb: Public mainMenuHolder As Transform
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.XRManager.TurnOnRayInteractor
+  commentId: M:eDIA.XRManager.TurnOnRayInteractor
+  id: TurnOnRayInteractor
+  parent: eDIA.XRManager
+  langs:
+  - csharp
+  - vb
+  name: TurnOnRayInteractor()
+  nameWithType: XRManager.TurnOnRayInteractor()
+  fullName: eDIA.XRManager.TurnOnRayInteractor()
+  type: Method
+  source:
+    id: TurnOnRayInteractor
+    path: ''
+    startLine: 8727
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public void TurnOnRayInteractor()
+    content.vb: Public Sub TurnOnRayInteractor
+  overload: eDIA.XRManager.TurnOnRayInteractor*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.XRManager.MovePlayarea(Transform)
+  commentId: M:eDIA.XRManager.MovePlayarea(Transform)
+  id: MovePlayarea(Transform)
+  parent: eDIA.XRManager
+  langs:
+  - csharp
+  - vb
+  name: MovePlayarea(Transform)
+  nameWithType: XRManager.MovePlayarea(Transform)
+  fullName: eDIA.XRManager.MovePlayarea(Transform)
+  type: Method
+  source:
+    id: MovePlayarea
+    path: ''
+    startLine: 8736
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  summary: The pivot of the player will be set on the location of this Injector
+  example: []
+  syntax:
+    content: public void MovePlayarea(Transform newTransform)
+    parameters:
+    - id: newTransform
+      type: Global.Transform
+    content.vb: Public Sub MovePlayarea(newTransform As Transform)
+  overload: eDIA.XRManager.MovePlayarea*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.XRManager.EnableXRInteraction(System.Boolean)
+  commentId: M:eDIA.XRManager.EnableXRInteraction(System.Boolean)
+  id: EnableXRInteraction(System.Boolean)
+  parent: eDIA.XRManager
+  langs:
+  - csharp
+  - vb
+  name: EnableXRInteraction(Boolean)
+  nameWithType: XRManager.EnableXRInteraction(Boolean)
+  fullName: eDIA.XRManager.EnableXRInteraction(System.Boolean)
+  type: Method
+  source:
+    id: EnableXRInteraction
+    path: ''
+    startLine: 8743
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  summary: Turn XR hand / controller interaction possibility on or off.
+  example: []
+  syntax:
+    content: public void EnableXRInteraction(bool onOff)
+    parameters:
+    - id: onOff
+      type: System.Boolean
+      description: Boolean
+    content.vb: Public Sub EnableXRInteraction(onOff As Boolean)
+  overload: eDIA.XRManager.EnableXRInteraction*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.XRManager.SetHandPose(System.String)
+  commentId: M:eDIA.XRManager.SetHandPose(System.String)
+  id: SetHandPose(System.String)
+  parent: eDIA.XRManager
+  langs:
+  - csharp
+  - vb
+  name: SetHandPose(String)
+  nameWithType: XRManager.SetHandPose(String)
+  fullName: eDIA.XRManager.SetHandPose(System.String)
+  type: Method
+  source:
+    id: SetHandPose
+    path: ''
+    startLine: 8753
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  summary: Set the hand pose for the current interactive hand(s). Pose as string &apos;point&apos;,&apos;fist&apos;,&apos;idle&apos;
+  example: []
+  syntax:
+    content: public void SetHandPose(string pose)
+    parameters:
+    - id: pose
+      type: System.String
+      description: ''
+    content.vb: Public Sub SetHandPose(pose As String)
+  overload: eDIA.XRManager.SetHandPose*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.XRManager.EnableCustomHandPoses(System.Boolean)
+  commentId: M:eDIA.XRManager.EnableCustomHandPoses(System.Boolean)
+  id: EnableCustomHandPoses(System.Boolean)
+  parent: eDIA.XRManager
+  langs:
+  - csharp
+  - vb
+  name: EnableCustomHandPoses(Boolean)
+  nameWithType: XRManager.EnableCustomHandPoses(Boolean)
+  fullName: eDIA.XRManager.EnableCustomHandPoses(System.Boolean)
+  type: Method
+  source:
+    id: EnableCustomHandPoses
+    path: ''
+    startLine: 8758
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  summary: Enable custom fixed handposes, expects boolean
+  example: []
+  syntax:
+    content: public void EnableCustomHandPoses(bool onOff)
+    parameters:
+    - id: onOff
+      type: System.Boolean
+    content.vb: Public Sub EnableCustomHandPoses(onOff As Boolean)
+  overload: eDIA.XRManager.EnableCustomHandPoses*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.XRManager.ShowHands(System.Boolean)
+  commentId: M:eDIA.XRManager.ShowHands(System.Boolean)
+  id: ShowHands(System.Boolean)
+  parent: eDIA.XRManager
+  langs:
+  - csharp
+  - vb
+  name: ShowHands(Boolean)
+  nameWithType: XRManager.ShowHands(Boolean)
+  fullName: eDIA.XRManager.ShowHands(System.Boolean)
+  type: Method
+  source:
+    id: ShowHands
+    path: ''
+    startLine: 8763
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  summary: Shows the hands that are set to be allowed visible on/off
+  example: []
+  syntax:
+    content: public void ShowHands(bool onOff)
+    parameters:
+    - id: onOff
+      type: System.Boolean
+    content.vb: Public Sub ShowHands(onOff As Boolean)
+  overload: eDIA.XRManager.ShowHands*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: eDIA.XRManager.AddToLog(System.String)
+  commentId: M:eDIA.XRManager.AddToLog(System.String)
+  id: AddToLog(System.String)
+  parent: eDIA.XRManager
+  langs:
+  - csharp
+  - vb
+  name: AddToLog(String)
+  nameWithType: XRManager.AddToLog(String)
+  fullName: eDIA.XRManager.AddToLog(System.String)
+  type: Method
+  source:
+    id: AddToLog
+    path: ''
+    startLine: 8772
+  assemblies:
+  - cs.temp.dll
+  namespace: eDIA
+  syntax:
+    content: public void AddToLog(string _msg)
+    parameters:
+    - id: _msg
+      type: System.String
+    content.vb: Public Sub AddToLog(_msg As String)
+  overload: eDIA.XRManager.AddToLog*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+references:
+- uid: eDIA
+  commentId: N:eDIA
+  name: eDIA
+  nameWithType: eDIA
+  fullName: eDIA
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: Global.Singleton{eDIA.XRManager}
+  commentId: T:Global.Singleton{eDIA.XRManager}
+  definition: Global.Singleton`1
+  name: Singleton<XRManager>
+  nameWithType: Singleton<XRManager>
+  fullName: Singleton<eDIA.XRManager>
+  nameWithType.vb: Singleton(Of XRManager)
+  fullName.vb: Singleton(Of eDIA.XRManager)
+  name.vb: Singleton(Of XRManager)
+  spec.csharp:
+  - uid: Global.Singleton`1
+    name: Singleton
+    nameWithType: Singleton
+    fullName: Singleton
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: eDIA.XRManager
+    name: XRManager
+    nameWithType: XRManager
+    fullName: eDIA.XRManager
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: Global.Singleton`1
+    name: Singleton
+    nameWithType: Singleton
+    fullName: Singleton
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: eDIA.XRManager
+    name: XRManager
+    nameWithType: XRManager
+    fullName: eDIA.XRManager
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Global.Singleton`1
+  commentId: T:Global.Singleton`1
+  name: Singleton<T>
+  nameWithType: Singleton<T>
+  fullName: Singleton<T>
+  nameWithType.vb: Singleton(Of T)
+  fullName.vb: Singleton(Of T)
+  name.vb: Singleton(Of T)
+  spec.csharp:
+  - uid: Global.Singleton`1
+    name: Singleton
+    nameWithType: Singleton
+    fullName: Singleton
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: Global.Singleton`1
+    name: Singleton
+    nameWithType: Singleton
+    fullName: Singleton
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  name: Boolean
+  nameWithType: Boolean
+  fullName: System.Boolean
+- uid: Global.Color
+  isExternal: true
+  name: Color
+  nameWithType: Color
+  fullName: Color
+- uid: Global.Transform
+  isExternal: true
+  name: Transform
+  nameWithType: Transform
+  fullName: Transform
+- uid: eDIA.XRManager.TurnOnRayInteractor*
+  commentId: Overload:eDIA.XRManager.TurnOnRayInteractor
+  name: TurnOnRayInteractor
+  nameWithType: XRManager.TurnOnRayInteractor
+  fullName: eDIA.XRManager.TurnOnRayInteractor
+- uid: eDIA.XRManager.MovePlayarea*
+  commentId: Overload:eDIA.XRManager.MovePlayarea
+  name: MovePlayarea
+  nameWithType: XRManager.MovePlayarea
+  fullName: eDIA.XRManager.MovePlayarea
+- uid: eDIA.XRManager.EnableXRInteraction*
+  commentId: Overload:eDIA.XRManager.EnableXRInteraction
+  name: EnableXRInteraction
+  nameWithType: XRManager.EnableXRInteraction
+  fullName: eDIA.XRManager.EnableXRInteraction
+- uid: eDIA.XRManager.SetHandPose*
+  commentId: Overload:eDIA.XRManager.SetHandPose
+  name: SetHandPose
+  nameWithType: XRManager.SetHandPose
+  fullName: eDIA.XRManager.SetHandPose
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  name: String
+  nameWithType: String
+  fullName: System.String
+- uid: eDIA.XRManager.EnableCustomHandPoses*
+  commentId: Overload:eDIA.XRManager.EnableCustomHandPoses
+  name: EnableCustomHandPoses
+  nameWithType: XRManager.EnableCustomHandPoses
+  fullName: eDIA.XRManager.EnableCustomHandPoses
+- uid: eDIA.XRManager.ShowHands*
+  commentId: Overload:eDIA.XRManager.ShowHands
+  name: ShowHands
+  nameWithType: XRManager.ShowHands
+  fullName: eDIA.XRManager.ShowHands
+- uid: eDIA.XRManager.AddToLog*
+  commentId: Overload:eDIA.XRManager.AddToLog
+  name: AddToLog
+  nameWithType: XRManager.AddToLog
+  fullName: eDIA.XRManager.AddToLog

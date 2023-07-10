@@ -3,41 +3,41 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace eDIA {
+namespace eDIA.Manager {
 
-	/// <summary>Base Panel functionality class</summary>
+	/// <summary>Base Panel functionality</summary>
 	public class ExperimenterPanel : MonoBehaviour {
 		
-		Transform menuPanel;
-		Transform nonActivePanel;
-
 		[HideInInspector]
 		public List<Transform> children = new List<Transform>();
-
+		[HideInInspector]
+		public Transform myParent = null;
 
 		public virtual void Awake() {
-
-			menuPanel = transform.parent; // The main panel all subpanels are childs off
-			nonActivePanel = menuPanel.GetComponent<PanelLayoutManager>().nonActivePanelHolder;
-
+			myParent = transform.parent;
+			GetComponent<Image>().enabled = false;
 			foreach (Transform tr in transform) children.Add(tr); // get a list of all children of this subpanel
 		}
 
-		public void ShowPanel () {
+		public void ShowPanel (bool onOff) {
 
-			foreach (Transform tr in children) tr.gameObject.SetActive(true);
+			foreach (Transform tr in children) tr.gameObject.SetActive(onOff);
 			
-			transform.parent = menuPanel;
+			GetComponent<Image>().enabled = onOff;
+			ControlPanel.Instance.ShowPanel(transform, onOff);
 
-			menuPanel.GetComponent<PanelLayoutManager>().UpdatePanelOrder();
 		}
 
+		[ContextMenu("HidePanel")]
 		public void HidePanel () {
-			foreach (Transform tr in children) tr.gameObject.SetActive(false);
-			transform.parent = nonActivePanel;
-
-			menuPanel.GetComponent<PanelLayoutManager>().UpdatePanelOrder();
+			ShowPanel(false);
 		}
+
+		[ContextMenu("ShowPanel")]
+		public void ShowPanel () {
+			ShowPanel(true);
+		}
+
 
 		public void ApplyTheme () {
 			

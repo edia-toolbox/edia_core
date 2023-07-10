@@ -41,13 +41,13 @@ public class HandMeshAnimator : MonoBehaviour {
 
 	private void Start()
 	{
-		EventManager.StartListening(eDIA.Events.Interaction.EvHandPose, OnEvHandPose);
-		EventManager.StartListening(eDIA.Events.Interaction.EvHandModelReacts, EvHandModelReacts);
+		EventManager.StartListening(eDIA.Events.XR.EvHandPose, OnEvHandPose);
+		EventManager.StartListening(eDIA.Events.XR.EvEnableCustomHandPoses, EvEnableCustomHandPoses);
 	}
 
 	private void OnDestroy() {
-		EventManager.StopListening(eDIA.Events.Interaction.EvHandPose, OnEvHandPose);
-		EventManager.StartListening(eDIA.Events.Interaction.EvHandModelReacts, EvHandModelReacts);
+		EventManager.StopListening(eDIA.Events.XR.EvHandPose, OnEvHandPose);
+		EventManager.StopListening(eDIA.Events.XR.EvEnableCustomHandPoses, EvEnableCustomHandPoses);
 	}
 
 
@@ -55,7 +55,7 @@ public class HandMeshAnimator : MonoBehaviour {
 	#endregion // -------------------------------------------------------------------------------------------------------------------------------
 	#region EVENTHANDLERS
 
-	private void EvHandModelReacts(eParam obj) {
+	private void EvEnableCustomHandPoses(eParam obj) {
 
 		if (obj.GetBool()) {
 	    		gripReference.action.performed += GripPerformed;

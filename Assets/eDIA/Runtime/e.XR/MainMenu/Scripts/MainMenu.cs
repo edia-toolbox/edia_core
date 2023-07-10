@@ -45,7 +45,7 @@ namespace eDIA {
 		public float menuDistance = 2f;
 		/// <summary> Layer to put the canvas on to draw on top of everything else</summary>
 		[Tooltip("Layer to put the canvas on to draw on top of everything else")]
-		public int overLayer = 10;
+		int overLayer = 6;
 		public bool isDebug = false;
 
 		[Header("Menu Generation")]
@@ -53,6 +53,7 @@ namespace eDIA {
 		public Transform menuHolder;
 		public RectTransform buttonHolder;
 		public GameObject buttonPrefab;
+		//public Transform debugPanel;
 
 		[Header("Static buttons")]
 		public Button closeButton;
@@ -72,24 +73,26 @@ namespace eDIA {
 	#region Starters
 
 		void Awake() {
-			Debug.Log("StartListening EvMenuPerformed");
-			EventManager.StartListening("EvMenuPerformed", OnEvMenuPerformed);
+			overLayer = LayerMask.NameToLayer("CamOverlay");
+			gameObject.layer = overLayer;
+			
+			//debugPanel.gameObject.SetActive(isDebug);
+
+			EventManager.StartListening(eDIA.Events.System.EvCallMainMenu, OnEvCallMainMenu);
 		}
 
 		void OnDestroy() {
-			EventManager.StopListening("EvMenuPerformed", OnEvMenuPerformed);
-		}
-
-		void OnEnable() {
+			EventManager.StopListening(eDIA.Events.System.EvCallMainMenu, OnEvCallMainMenu);
 		}
 
 		void Start() {
-			screenFader = eDIA.XRrigUtilities.GetXRcam().GetComponent<ScreenFader>();
+			screenFader = eDIA.XRManager.Instance.XRCam.GetComponent<ScreenFader>();
 
 			if (overlayCam != null) {
 				GetSceneList();
 				GenerateMenu ();
 				OpenMenu(startOpen);
+				overlayCam.enabled = isDebug;
 			} else Debug.LogError("Reference the XROrigin Overlay camera in MainMenu!");
 		}
 
@@ -138,7 +141,7 @@ namespace eDIA {
 
 			GameObject startSessionButton = GenerateButtonUI();
 			startSessionButton.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Start Session";
-			startSessionButton.GetComponent<Button>().onClick.AddListener( () => { EventManager.TriggerEvent("EvStartExperiment", null); OpenMenu(false); });
+			startSessionButton.GetComponent<Button>().onClick.AddListener( () => { EventManager.TriggerEvent(eDIA.Events.StateMachine.EvStartExperiment, null); OpenMenu(false); });
 
 			// Footer
 			closeButton.onClick.AddListener( () => { OpenMenu(false); });
@@ -148,7 +151,7 @@ namespace eDIA {
 	#endregion // -------------------------------------------------------------------------------------------------------------------------------
 	#region MENU HANDLERS
 
-		void OnEvMenuPerformed (eParam e) {
+		void OnEvCallMainMenu (eParam e) {
 			OpenMenu(!isOpen);
 		}
 
@@ -179,7 +182,7 @@ namespace eDIA {
 		}
 
 		private IEnumerator LoadScene(int sceneIndex) {
-			XRrigManager.instance.AddToLog("Loading scene: " + scenes[sceneIndex].name);
+			XRManager.Instance.AddToLog("Loading scene: " + scenes[sceneIndex].name);
 			OpenMenu(false);
 
 			isLoading = true;
@@ -213,7 +216,7 @@ namespace eDIA {
 
 		void SetMenuPosition () {
 
-			menuHolder.transform.localPosition = new Vector3(0, eDIA.XRrigUtilities.GetXRcam().position.y, menuDistance);
+			menuHolder.transform.localPosition = new Vector3(0, eDIA.XRManager.Instance.XRCam.position.y, menuDistance);
 		}
 
 	#endregion // -------------------------------------------------------------------------------------------------------------------------------

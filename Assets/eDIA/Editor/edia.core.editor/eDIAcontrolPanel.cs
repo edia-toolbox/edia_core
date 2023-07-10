@@ -38,14 +38,17 @@ namespace eDIA.EditorUtils {
             window.titleContent = new GUIContent ("eDIA control panel");
             window.Show ();
 
-            // if (File.Exists("Assets/UXF/VERSION.txt"))
-            // {
-            //     version = File.ReadAllText("Assets/UXF/VERSION.txt");
-            // }
-            // else
-            // {
-            //     version = "unknown";
-            // }
+            // TODO Fix the filepath to show the version, or find another solution
+
+            if (File.Exists("./../../VERSION.txt"))
+            {
+                Debug.Log("exists");
+                version = File.ReadAllText("./../../VERSION.txt");
+            }
+            else
+            {
+                version = "unknown";
+            }
         }
 
         static void OnProjectChanged () {
@@ -93,6 +96,19 @@ namespace eDIA.EditorUtils {
             GUILayout.EndHorizontal ();
 
             EditorGUILayout.Separator ();
+            
+            GUILayout.Label ("Editor Settings", EditorStyles.boldLabel);
+            EditorGUILayout.TextArea("For the framework to work, a basic set of layers is needed");
+            
+            if (GUILayout.Button ("Create layers")) {
+                Layers.CreateLayer(3, "Hidden");
+                Layers.CreateLayer(6, "ControlUI");
+                Layers.CreateLayer(7, "CamOverlay");
+                Layers.CreateLayer(8, "GazeCollision");
+            }
+
+
+            EditorGUILayout.Separator ();
 
             GUILayout.Label ("To update the changelog, hit this button", labelStyle);
             if (GUILayout.Button ("Update Changelog from CSV"))
@@ -115,7 +131,7 @@ namespace eDIA.EditorUtils {
             EditorGUILayout.Space ();
             GUILayout.Label ("The framework comes with documentation", labelStyle);
             if (GUILayout.Button ("Open documentation"))
-                Application.OpenURL ("https://github.com/immersivecognition/unity-experiment-framework/wiki");
+                Application.OpenURL ("https://gitlab.gwdg.de/3dia/edia_framework/-/wikis/home");
 
             EditorGUILayout.Separator ();
 
@@ -131,43 +147,20 @@ namespace eDIA.EditorUtils {
 
             EditorGUILayout.Separator ();
 
-            GUILayout.Label ("Compatibility", EditorStyles.boldLabel);
+            // GUILayout.Label ("Compatibility", EditorStyles.boldLabel);
 
-            bool compatible = PlayerSettings.GetApiCompatibilityLevel (BuildTargetGroup.Standalone) == targetApiLevel;
+            // bool compatible = PlayerSettings.GetApiCompatibilityLevel (BuildTargetGroup.Standalone) == targetApiLevel;
 
-            if (compatible) {
-                EditorGUILayout.HelpBox ("API Compatibility Level is set correctly", MessageType.Info);
-            } else {
-                EditorGUILayout.HelpBox ("API Compatibility Level should be set to .NET 2.0 (Older versions of Unity) or .NET 4.x (Unity 2018.3+), expect errors on building", MessageType.Warning);
-                if (GUILayout.Button ("Fix")) {
-                    PlayerSettings.SetApiCompatibilityLevel (BuildTargetGroup.Standalone, targetApiLevel);
-                }
-            }
-
-            //             EditorGUILayout.Separator();
-
-            //             GUILayout.Label("WebGL", EditorStyles.boldLabel);
-
-            //             string expected;
-
-            // #if UNITY_2020_1_OR_NEWER
-            //             expected = "PROJECT:UXF WebGL 2020";
-            // #else
-            //             expected = "PROJECT:UXF WebGL 2019";
-            // #endif
-
-            //             if (PlayerSettings.WebGL.template == expected)
-            //             {
-            //                 EditorGUILayout.HelpBox("UXF WebGL template is set correctly. You may still need to enable WebGL in build settings.", MessageType.Info);
-            //             }
-            //             else
-            //             {
-            //                 EditorGUILayout.HelpBox("Do you plan to run your experiment in a web browser? UXF WebGL template is not selected as the WebGL Template in Player Settings.", MessageType.Warning);
-            //                 if (GUILayout.Button("Fix"))
-            //                 {
-            //                     PlayerSettings.WebGL.template = expected;
-            //                 }
-            //             }
+            // if (compatible) {
+            //     EditorGUILayout.HelpBox ("API Compatibility Level is set correctly", MessageType.Info);
+            // } else {
+            //     EditorGUILayout.HelpBox ("API Compatibility Level should be set to .NET 2.0 (Older versions of Unity) or .NET 4.x (Unity 2018.3+), expect errors on building", MessageType.Warning);
+            //     if (GUILayout.Button ("Fix")) {
+            //         PlayerSettings.SetApiCompatibilityLevel (BuildTargetGroup.Standalone, targetApiLevel);
+            //     }
+            // }
+            
+            
 
             EditorGUILayout.Separator ();
             // EditorGUILayout.HelpBox("To show this window again go to UXF -> Show setup wizard in the menubar.", MessageType.None);
@@ -187,72 +180,7 @@ namespace eDIA.EditorUtils {
 
             Debug.Log("Created Config folders with demo configuration files");
         }
-
-        private static void SetSettingsWindows () {
-            EditorUserBuildSettings.SwitchActiveBuildTarget (BuildTargetGroup.Standalone, BuildTarget.StandaloneWindows64);
-            //Utilities.UXFDebugLog("Setup for Windows/PCVR.");
-        }
-
-        private static void SetSettingsWebGL () {
-            string expected;
-#if UNITY_2020_1_OR_NEWER
-            expected = "PROJECT:UXF WebGL 2020";
-#else
-            expected = "PROJECT:UXF WebGL 2019";
-#endif
-            EditorUserBuildSettings.SwitchActiveBuildTarget (BuildTargetGroup.WebGL, BuildTarget.WebGL);
-            PlayerSettings.WebGL.template = expected;
-            //Utilities.UXFDebugLog("Setup for WebGL.");
-        }
-
-        private static void SetSettingsAndroid () {
-            // Switch to Android build.
-            EditorUserBuildSettings.SwitchActiveBuildTarget (BuildTargetGroup.Android, BuildTarget.Android);
-
-            // If the current build target is Android, then set the write permission to external
-            if (EditorUserBuildSettings.activeBuildTarget == BuildTarget.Android) {
-                // Changes Android write permission to external
-                PlayerSettings.Android.forceSDCardPermission = true;
-
-                // Sets the Texture Compression to Default (Don't override)
-                EditorUserBuildSettings.androidBuildSubtarget = MobileTextureSubtarget.Generic;
-
-                //Utilities.UXFDebugLog("Setup for Android.");
-            }
-
-            // If the build target was not set to Android (it may not be available on the system)
-            else {
-                //Utilities.UXFDebugLog("Android build was not set, check if it is available. If it isn't, add it to the Unity Editor version via the Unity Hub.");
-            }
-        }
-
-        private static void SetSettingsOculus () {
-            // Switch to Android build.
-            EditorUserBuildSettings.SwitchActiveBuildTarget (BuildTargetGroup.Android, BuildTarget.Android);
-
-            // If the current build target is Android, then set the write permission to external, and configure API levels and Texture compression
-            if (EditorUserBuildSettings.activeBuildTarget == BuildTarget.Android) {
-                // Changes Android write permission to external
-                PlayerSettings.Android.forceSDCardPermission = true;
-
-                // Sets the Android API Level to 26
-                PlayerSettings.Android.minSdkVersion = AndroidSdkVersions.AndroidApiLevel26;
-
-                // Sets the Android API Level to Automatic (highest installed)
-                PlayerSettings.Android.targetSdkVersion = AndroidSdkVersions.AndroidApiLevelAuto;
-
-                // Sets the Texture Compression to ASTC
-                EditorUserBuildSettings.androidBuildSubtarget = MobileTextureSubtarget.ASTC;
-
-                //Utilities.UXFDebugLog("Setup for Android VR systems (e.g. Oculus Quest).");
-            }
-
-            // If the build target was not set to Android (it may not be available on the system)
-            else {
-                //Utilities.UXFDebugLog("Android build was not set, check if it is available. If it isn't, add it to the Unity Editor version via the Unity Hub.");
-            }
-        }
-
+       
     }
 
 }

@@ -159,11 +159,11 @@ namespace eDIA {
 			stringBool.boolP 		= _bool;
 		}
 
-		public string GetStringBoolString () {
+		public string GetStringBool_String () {
 			return stringBool.stringP;
 		}
 
-		public bool GetStringBoolBool () {
+		public bool GetStringBool_Bool () {
 			return stringBool.boolP;
 		}
 
@@ -182,7 +182,7 @@ namespace eDIA {
 	public class EventManager {
 		private static Dictionary<string, Action<eParam>> eventDictionary = new Dictionary<string, Action<eParam>> ();
 
-		private static bool showLog { get; set; } = false;
+		public static bool showLog { get; set; } = false;
 
 		/// <summary>
 		/// Starts a listener to the given <c>eventName</c> string
@@ -193,6 +193,9 @@ namespace eDIA {
 			Action<eParam> thisEvent;
 
 			if (eventDictionary.TryGetValue (eventName, out thisEvent)) {
+				if (showLog)
+					UnityEngine.Debug.Log("<color=#00ff00>[ + ]</color> " + eventName);
+
 				//Add more event to the existing one
 				thisEvent += listener;
 
@@ -204,8 +207,6 @@ namespace eDIA {
 				eventDictionary.Add (eventName, thisEvent);
 			}
 
-			if (showLog)
-				UnityEngine.Debug.Log("added listener:" + eventName);
 		}
 
 		/// <summary>
@@ -218,14 +219,14 @@ namespace eDIA {
 			Action<eParam> thisEvent;
 
 			if (eventDictionary.TryGetValue (eventName, out thisEvent)) {
+				if (showLog)
+					UnityEngine.Debug.Log("<color=#FF0000>[ - ]</color> " + eventName);
 				//Remove event from the existing one
 				thisEvent -= listener;
 
 				//Update the Dictionary
 				eventDictionary.Remove(eventName);
 
-				if (showLog)
-					UnityEngine.Debug.Log("Stopped listener:" + eventName);
 			}
 		}
 
@@ -235,18 +236,28 @@ namespace eDIA {
 		/// <param name="eventName">String definition of the event</param>
 		/// <param name="eventParam">Parameter package to pass along</param>
 		public static void TriggerEvent (string eventName, eParam eventParam) {
+		
 			Action<eParam> thisEvent = null;
 
 			if (eventDictionary.TryGetValue (eventName, out thisEvent)) {
-				thisEvent.Invoke (eventParam);
 				if (showLog)
-					Debug.Log ("EVENT >> " + eventName);
+					Debug.Log ("<color=#00ff00>[]> </color>" + eventName);
+				thisEvent.Invoke (eventParam);
 			} else {
 				Debug.Log("No listener for:" + eventName);
 			}
 		}
 
+		public static void TriggerEvent (string eventName) {
+			TriggerEvent (eventName, null);
+		}
+
 		internal static void StartListening(object evPointMode)
+		{
+			throw new NotImplementedException();
+		}
+
+		internal static void TriggerEvent(string evProceed, object onEvProceed)
 		{
 			throw new NotImplementedException();
 		}
