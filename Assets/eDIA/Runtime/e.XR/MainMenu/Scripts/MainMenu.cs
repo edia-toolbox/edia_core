@@ -53,7 +53,7 @@ namespace eDIA {
 		public Transform menuHolder;
 		public RectTransform buttonHolder;
 		public GameObject buttonPrefab;
-		public Transform debugPanel;
+		//public Transform debugPanel;
 
 		[Header("Static buttons")]
 		public Button closeButton;
@@ -76,7 +76,7 @@ namespace eDIA {
 			overLayer = LayerMask.NameToLayer("CamOverlay");
 			gameObject.layer = overLayer;
 			
-			debugPanel.gameObject.SetActive(isDebug);
+			//debugPanel.gameObject.SetActive(isDebug);
 
 			EventManager.StartListening(eDIA.Events.System.EvCallMainMenu, OnEvCallMainMenu);
 		}
