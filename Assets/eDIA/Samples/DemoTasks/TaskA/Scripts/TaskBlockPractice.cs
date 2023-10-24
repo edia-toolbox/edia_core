@@ -139,6 +139,8 @@ namespace TASK {
 				theCube.GetComponent<MeshRenderer> ().material.color = newCol;
 			else newCol = Color.magenta;
 
+			Experiment.Instance.AddToTrialResults("TrialColor", newCol.ToString());
+
 			// Reset the handpose to idle state
 			XRManager.Instance.SetHandPose("idle");
 

@@ -415,7 +415,7 @@ namespace eDIA {
 
 		/// <summary>Called from UXF session. Begin setting things up for the trial that is about to start </summary>
 		void OnTrialBeginUXF(Trial newTrial) {
-			AddToExecutionOrderLog("OnTrialBegin");
+			AddToExecutionOrderLog("OnTrialBeginUXF");
 
 			bool isNewBlock = (Session.instance.currentBlockNum != activeBlockUXF) && (Session.instance.currentBlockNum <= Session.instance.blocks.Count);
 			
