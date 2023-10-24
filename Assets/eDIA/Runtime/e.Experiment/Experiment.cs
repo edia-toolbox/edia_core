@@ -512,8 +512,7 @@ namespace eDIA {
 			currentStepNum ++;
 
 			if (currentStepNum < taskBlocks[Session.instance.CurrentBlock.number-1].trialSteps.Count) {
-				OnBetweenSteps();
-				taskBlocks[Session.instance.currentBlockNum-1].OnBetweenSteps(); // In Between to steps of the trial, we might want to clean things up a bit.
+				InBetweenSteps();
 
 				// update progress
 				EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateStepProgress, new eParam(new int[] { currentStepNum, taskBlocks[Session.instance.currentBlockNum-1].trialSteps.Count }));
@@ -523,7 +522,8 @@ namespace eDIA {
 		}
 
 		/// <summary>In Between to steps of the trial, we might want to clean things up a bit.</summary>
-		void OnBetweenSteps () {
+		void InBetweenSteps () {
+			taskBlocks[Session.instance.currentBlockNum-1].OnBetweenSteps(); // In Between to steps of the trial, we might want to clean things up a bit.
 			MessagePanelInVR.Instance.HidePanel();
 		}
 
