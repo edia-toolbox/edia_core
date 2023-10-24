@@ -273,17 +273,6 @@ namespace eDIA {
 			EnableEyeCalibrationTrigger(true);
 		}
 
-		// //! TEMPORARY TO DELAY A NETWORK MESSAGE WITH ARRAY AS PARAM
-		// void DelayedOnSessionBegintUXFEvent () {
-		// 	EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateBlockProgress, new eParam(new int[] {Session.instance.currentBlockNum, Session.instance.blocks.Count} ));
-		// }
-
-		// //! TEMPORARY TO DELAY A NETWORK MESSAGE WITH ARRAY AS PARAM
-		// void DelayedOnSessionBegintUXFEvent02 () {
-		// 	EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvEnableButton, new eParam( new string[] { "PROCEED", "true" }));
-		// }
-
-
 		/// <summary>Called from UXF session. </summary>
 		void OnSessionEndUXF() {
 			OnSessionEnd?.Invoke();
@@ -300,11 +289,6 @@ namespace eDIA {
 			EnablePauseButton(false);
 
 		}
-
-		// //! TEMPORARY TO DELAY A NETWORK MESSAGE WITH ARRAY AS PARAM
-		// void DelayedOnSessionEndUXFEvent () {
-		// 	EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvEnableButton, new eParam( new string[] { "PROCEED", "false" }));
-		// }
 
 
 
@@ -344,10 +328,6 @@ namespace eDIA {
 
 		}
 
-		// //! TEMPORARY TO DELAY A NETWORK MESSAGE WITH ARRAY AS PARAM
-		// void DelayedBlockStartEvent () {
-		// 	EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateBlockProgress, new eParam(new int[] {Session.instance.currentBlockNum, Session.instance.blocks.Count} ));
-		// }
 
 		void BlockEnd () {
 			AddToLog("Block End");
@@ -400,10 +380,6 @@ namespace eDIA {
 			else Debug.LogError("No MessagePanelInVR instance found");
 		}
 
-		// //! TEMPORARY TO DELAY A NETWORK MESSAGE WITH ARRAY AS PARAM
-		// void DelayedShowMessageToUserEvent () {
-		// 	EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvEnableButton, new eParam( new string[] { "PROCEED", "true" }));
-		// }
 
 		/// <summary>Called from this manager. </summary>
 		void BlockContinueAfterIntro (eParam e) {
@@ -428,7 +404,7 @@ namespace eDIA {
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region STATEMACHINE UXF TRIAL
-		/// <summary>Called from user input. </summary>
+		/// <summary>catching first button press of user </summary>
 		void OnEvStartFirstTrial (eParam e) {
 			EventManager.StopListening(eDIA.Events.StateMachine.EvProceed, OnEvStartFirstTrial);
 			
