@@ -99,7 +99,8 @@ namespace eDIA {
 		/// <param name="duration">Duration</param>
 		public void ShowMessage (string msg, bool showButton) {
 			ShowMessage(msg);
-			ShowMenu();
+			if (showButton)
+				ShowMenu();
 		}
 
 

@@ -9,7 +9,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 namespace TASK {
 	
 	[System.Serializable]
-	public class TaskBlockPractice : TaskBlock {
+	public class TaskBlockPracticeTmp : TaskBlock {
 
 		[Header (("Task related refs"))]
 		public GameObject theCube;
