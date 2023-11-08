@@ -38,7 +38,7 @@ namespace TASK {
 
 		/// <summary>Present Cube</summary>
 		public void TaskStep1 () {
-
+			Debug.Log("TaskStep1 ");
 			MessagePanelInVR.Instance.ShowMessage("You are about to see a Questionnaire");
 
 			Experiment.Instance.NextStepWithDelay (2f);
@@ -46,13 +46,14 @@ namespace TASK {
 
 		/// <summary>Move cube, wait on user input</summary>
 		public void TaskStep2 () {
+			Debug.Log("TaskStep2 ");
 			XRManager.Instance.EnableXRInteraction (true);
 
 			qpanel.SetActive(true);
 			qpanelTextField.text = "Qtype: " + Session.instance.CurrentBlock.settings.GetStringList("qtypes")[Session.instance.CurrentTrial.settings.GetInt("qtype")];
-			
-			MessagePanelInVR.Instance.ShowMessage("Now you have to fill in some questions");
 
+			MessagePanelInVR.Instance.ShowMessage("Now you have to fill in some questions", 2f);
+			
 			XRControllerListener.EnableRemapping("TriggerPressed", true);
 
 			Experiment.Instance.WaitOnProceed (); // enable proceed button
@@ -61,7 +62,7 @@ namespace TASK {
 
 		/// <summary>Stop moving, change color</summary>
 		public void TaskStep3 () {
-
+			Debug.Log("TaskStep3 ");
 			qpanel.SetActive(false);
 
 			
@@ -118,4 +119,4 @@ namespace TASK {
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 	}
 
-}
+};
