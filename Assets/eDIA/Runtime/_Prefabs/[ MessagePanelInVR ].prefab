@@ -136,7 +136,9 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
+  m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -215,6 +217,8 @@ MonoBehaviour:
   button: {fileID: 2470256112148840445}
   menuHolder: {fileID: 220883895862970445}
   stickToHMD: 1
+  distanceFromHMD: 2
+  hasSolidBackground: 1
 --- !u!1 &613201256216516745
 GameObject:
   m_ObjectHideFlags: 0
@@ -761,4 +765,16 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5606226807598621868}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 613201255631203479}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: BtnPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
