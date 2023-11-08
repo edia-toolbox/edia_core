@@ -57,7 +57,7 @@ namespace eDIA.Manager {
 
 			btnExperiment.onClick.RemoveListener(		()=>EventManager.TriggerEvent(eDIA.Events.StateMachine.EvStartExperiment, null));
 			btnPauseExperiment.onClick.RemoveListener(	()=>EventManager.TriggerEvent(eDIA.Events.StateMachine.EvPauseExperiment, null));
-			btnProceedExperiment.onClick.RemoveListener(	()=>EventManager.TriggerEvent(eDIA.Events.StateMachine.EvProceed, null));
+			//btnProceedExperiment.onClick.RemoveListener(	()=>EventManager.TriggerEvent(eDIA.Events.StateMachine.EvProceed, null));
 
 		}
 
@@ -174,23 +174,19 @@ namespace eDIA.Manager {
 
 			bool turnOn = e.GetStrings()[1].ToUpper() == "TRUE";
 
+			Debug.Log("OnEvEnableButton " + e.GetStrings()[0].ToUpper() + ":" + turnOn);
+
 			switch (e.GetStrings()[0].ToUpper()) {
 				case "PAUSE" :
 					SetButtonState(btnPauseExperiment, turnOn);
 				break;
 				case "PROCEED" :
 					SetButtonState(btnProceedExperiment, turnOn);
-
-					if (turnOn)
-						btnProceedExperiment.onClick.AddListener(()=>OnProceedBtnCLicked());
-					else 
-						btnProceedExperiment.onClick.RemoveListener(()=>OnProceedBtnCLicked());
-
 				break;
 			}
 		}
 
-		void OnProceedBtnCLicked ()
+		public void ProceedBtnCLicked ()
 		{
 			Debug.Log("OnProceedBtnCLicked ");
 			EventManager.TriggerEvent(eDIA.Events.StateMachine.EvProceed, null);
@@ -199,7 +195,6 @@ namespace eDIA.Manager {
 
 		void SetButtonState (Button btn, bool state) {
 			btn.interactable = state;
-
 		}
 
 		void OnEvStartTimer(eParam obj)
