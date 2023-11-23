@@ -10,7 +10,7 @@ namespace eDIA.Manager {
 		
 		[HideInInspector]
 		public List<Transform> children = new List<Transform>();
-		[HideInInspector]
+		//[HideInInspector]
 		public Transform myParent = null;
 
 		public virtual void Awake() {
