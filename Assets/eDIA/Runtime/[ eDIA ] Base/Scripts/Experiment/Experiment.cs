@@ -55,6 +55,14 @@ namespace eDIA
 
 		void Awake()
 		{
+			DontDestroyOnLoad(this);
+			
+			Session.instance.onSessionBegin.AddListener(OnSessionBeginUXF);
+			Session.instance.onSessionEnd.AddListener(OnSessionEndUXF);
+			Session.instance.onTrialBegin.AddListener(OnTrialBeginUXF);
+			Session.instance.onTrialEnd.AddListener(OnTrialEndUXF);
+
+
 			// Disable task block script before anything starts to run
 			foreach (TaskBlock t in taskBlocks)
 			{
@@ -67,6 +75,11 @@ namespace eDIA
 			EventManager.StartListening(eDIA.Events.Core.EvQuitApplication, OnEvQuitApplication);
 
 			EventManager.showLog = showLog;
+		}
+
+		private void test(Session arg0)
+		{
+			Debug.Log("Test method");
 		}
 
 		void OnDestroy()
@@ -95,8 +108,6 @@ namespace eDIA
 				return;
 			}
 
-			Debug.Log("Event received: " + e.GetString());
-
 			SetExperimentConfig(e.GetString());
 		}
 
@@ -106,10 +117,7 @@ namespace eDIA
 		public void SetExperimentConfig(string JSONstring)
 		{
 
-			EventManager.StopListening(eDIA.Events.Config.EvSetExperimentConfig,
-											   OnEvSetExperimentConfig);
-
-			Debug.Log("Method received: " + JSONstring);
+			EventManager.StopListening(eDIA.Events.Config.EvSetExperimentConfig, OnEvSetExperimentConfig);
 
 			try
 			{
@@ -285,7 +293,7 @@ namespace eDIA
 		#region STATEMACHINE UXF SESSION
 
 		/// <summary>Start of the UXF session. </summary>
-		void OnSessionBeginUXF()
+		void OnSessionBeginUXF(Session arg0)
 		{
 			OnSessionStart?.Invoke();
 
@@ -303,7 +311,7 @@ namespace eDIA
 		}
 
 		/// <summary>Called from UXF session. </summary>
-		void OnSessionEndUXF()
+		void OnSessionEndUXF(Session arg0)
 		{
 			OnSessionEnd?.Invoke();
 

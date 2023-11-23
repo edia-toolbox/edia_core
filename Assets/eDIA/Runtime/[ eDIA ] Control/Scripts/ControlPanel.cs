@@ -40,6 +40,8 @@ namespace eDIA.Manager
 
 		private void Awake()
 		{
+			DontDestroyOnLoad(this);
+
 			GetPanelReferences();
 
 			Init();
@@ -103,7 +105,7 @@ namespace eDIA.Manager
 		public void ShowPanel(Transform panel, bool onOff)
 		{	
 			panel.SetParent(onOff ? panelsHolder : NonActivePanelHolder, true);  
-			//panel.SetParent(onOff ? panel.GetComponent<ExperimenterPanel>().myParent : NonActivePanelHolder, true);
+			//panel.SetParent(onOff ? panel.GetComponent<ExperimenterPanel>().myParent : NonActivePanelHolder, true); // => disabled as awake is too late to store value of parent
 			UpdatePanelOrder();
 		}
 
