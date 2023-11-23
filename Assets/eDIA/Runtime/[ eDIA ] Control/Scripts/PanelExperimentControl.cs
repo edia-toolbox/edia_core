@@ -188,7 +188,6 @@ namespace eDIA.Manager {
 
 		public void ProceedBtnCLicked ()
 		{
-			Debug.Log("OnProceedBtnCLicked ");
 			EventManager.TriggerEvent(eDIA.Events.StateMachine.EvProceed, null);
 
 		}
