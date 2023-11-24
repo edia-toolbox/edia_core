@@ -3,23 +3,26 @@ using System.Collections.Generic;
 using eDIA;
 using UnityEngine;
 using UXF;
- using UnityEngine.InputSystem;
+using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
 
-namespace TASK {
-	
-	[System.Serializable]
-	public class TaskBlockPractice : TaskBlock {
+namespace TASK
+{
 
-		[Header (("Task related refs"))]
+	[System.Serializable]
+	public class TaskBlockPractice : TaskBlock
+	{
+
+		[Header(("Task related refs"))]
 		public GameObject theCube;
 		private Coroutine moveRoutine = null;
 
 		[Header("Helpers")]
 		[Tooltip("Makes it possible to map controller buttons to methods in this script.")]
-		public XRControllerInputRemapper XRControllerListener = null; 
+		public XRControllerInputRemapper XRControllerListener = null;
 
-		private void Awake() {
+		private void Awake()
+		{
 
 			/*
 				Each trial exists out of a sequence of steps. 
@@ -33,7 +36,8 @@ namespace TASK {
 		}
 
 		// Script gets enabled when it is it's turn.
-		void OnEnable() {
+		void OnEnable()
+		{
 			/*
 				By default the hands are reacting on the trigger and press, but we overrule it here by this method.
 			*/
@@ -41,12 +45,13 @@ namespace TASK {
 		}
 
 		// Script gets disabled when it it's turn is over.
-		void OnDisable() {
+		void OnDisable()
+		{
 			XRManager.Instance.EnableCustomHandPoses(false);
 		}
 
-// -------------------------------------------------------------------------------------------------------------------------------
-#region TASK STEPS
+		// -------------------------------------------------------------------------------------------------------------------------------
+		#region TASK STEPS
 
 		/*
 
@@ -60,20 +65,21 @@ namespace TASK {
 		*/
 
 		/// <summary>Present Cube</summary>
-		public void TaskStep1 () {
+		public void TaskStep1()
+		{
 
 			// Set a custom hand pose
 			XRManager.Instance.SetHandPose("point");
 
 			// Enable the pause button on the control panel
-			Experiment.Instance.EnablePauseButton (true);
+			Experiment.Instance.EnablePauseButton(true);
 
 			// Disable XR interaction from the user
-			XRManager.Instance.EnableXRInteraction (false);
+			XRManager.Instance.EnableXRInteraction(false);
 
 			// Task stuff
-			theCube.gameObject.SetActive (true);
-			theCube.transform.position = new Vector3 (0, XRManager.Instance.XRCam.position.y, Session.instance.CurrentBlock.settings.GetFloat ("distance_cube"));
+			theCube.gameObject.SetActive(true);
+			theCube.transform.position = new Vector3(0, XRManager.Instance.XRCam.position.y, Session.instance.CurrentBlock.settings.GetFloat("distance_cube"));
 
 			/* 
 				Continue with the next step, either:
@@ -82,19 +88,21 @@ namespace TASK {
 				
 			*/
 
-			Experiment.Instance.ProceedWithDelay (Session.instance.CurrentBlock.settings.GetFloat ("timer_showcube"));
+			Experiment.Instance.ProceedWithDelay(Session.instance.CurrentBlock.settings.GetFloat("timer_showcube"));
 		}
 
 		/// <summary>Move cube, wait on user input</summary>
-		public void TaskStep2 () {
+		public void TaskStep2()
+		{
 
 			// Task stuff
-			if (moveRoutine == null) {
-				moveRoutine = StartCoroutine ("MoveCube");
+			if (moveRoutine == null)
+			{
+				moveRoutine = StartCoroutine("MoveCube");
 			}
 
 			// Enable interaction from the user. The system will automaticly enable the Ray Interaction for the active hands set in the settings.
-			XRManager.Instance.EnableXRInteraction (true);
+			XRManager.Instance.EnableXRInteraction(true);
 
 			/*
 				Show message to user and allow proceeding to NextStep by pressing the button.
@@ -108,7 +116,8 @@ namespace TASK {
 		}
 
 		/// <summary>Move cube, wait on user input</summary>
-		public void TaskStep3 () {
+		public void TaskStep3()
+		{
 
 			/*
 				Show message to user.
@@ -122,31 +131,33 @@ namespace TASK {
 				Which will enable the button on the controlpanel
 
 			*/
-			Experiment.Instance.WaitOnProceed (); 
+			Experiment.Instance.WaitOnProceed();
 		}
 
 		/// <summary>Stop moving, change color</summary>
-		public void TaskStep4 () {
+		public void TaskStep4()
+		{
 
 			// Task stuff
-			if (moveRoutine != null) {
-				StopCoroutine (moveRoutine);
+			if (moveRoutine != null)
+			{
+				StopCoroutine(moveRoutine);
 				moveRoutine = null;
 			}
 
 			Color newCol;
-			if (ColorUtility.TryParseHtmlString (Session.instance.CurrentBlock.settings.GetStringList ("cube_colors") [Session.instance.CurrentTrial.settings.GetInt ("color")], out newCol))
-				theCube.GetComponent<MeshRenderer> ().material.color = newCol;
+			if (ColorUtility.TryParseHtmlString(Session.instance.CurrentBlock.settings.GetStringList("cube_colors")[Session.instance.CurrentTrial.settings.GetInt("color")], out newCol))
+				theCube.GetComponent<MeshRenderer>().material.color = newCol;
 			else newCol = Color.magenta;
 
 			Experiment.Instance.AddToTrialResults("TrialColor", newCol.ToString());
 
 			// Reset the handpose to idle state
 			XRManager.Instance.SetHandPose("idle");
-			
+
 
 			// Disable the ray on the hand(s)
-			XRManager.Instance.EnableXRInteraction (false);
+			XRManager.Instance.EnableXRInteraction(false);
 
 			/* 
 				The XRControllerListener is a separate scrtip that allows remapping a XRcontroller input action to a public method.
@@ -155,84 +166,95 @@ namespace TASK {
 				In this case enabling "TriggerPressed" predefined mapping on the script.
 			*/
 			XRControllerListener.EnableRemapping("TriggerPressed", true);
-			Experiment.Instance.WaitOnProceed (); 
-			
+			Experiment.Instance.WaitOnProceed();
+
 			// Show message to user
 			MessagePanelInVR.Instance.ShowMessage("To continue click the trigger button on the controller");
 		}
 
 		// Callback method for remapping XR controller input to this method -> see XRControllerInputRemapper script on this object
-		public void TriggerPressed (InputAction.CallbackContext context) {
+		public void TriggerPressed(InputAction.CallbackContext context)
+		{
 			// First switch off the listener
 			XRControllerListener.EnableRemapping("TriggerPressed", false);
 
 			// Continue the trial
-			Experiment.Instance.NextTrialStep();
+			Experiment.Instance.Proceed();
 		}
 
 		/// <summary>Wait</summary>
-		public void TaskStep5 () {
+		public void TaskStep5()
+		{
 
 			MessagePanelInVR.Instance.ShowMessage("Thank you, end of trial");
 
-			Experiment.Instance.ProceedWithDelay (Session.instance.CurrentBlock.settings.GetFloat ("timer_wait"));
+			Experiment.Instance.ProceedWithDelay(Session.instance.CurrentBlock.settings.GetFloat("timer_wait"));
 		}
 
 
-#endregion // -------------------------------------------------------------------------------------------------------------------------------
-#region TASK HELPERS
+		#endregion // -------------------------------------------------------------------------------------------------------------------------------
+		#region TASK HELPERS
 
 
 
 		/// <summary>Moves the cube up or down depending on the setting `direction` in the trial settings.</summary>
-		IEnumerator MoveCube () {
-			float increment = Session.instance.CurrentTrial.settings.GetInt ("direction") == 1 ? 0.001f : -0.001f;
+		IEnumerator MoveCube()
+		{
+			float increment = Session.instance.CurrentTrial.settings.GetInt("direction") == 1 ? 0.001f : -0.001f;
 
-			while (true) {
-				theCube.transform.Translate (new Vector3 (0, increment, 0), Space.World);
-				yield return new WaitForEndOfFrame ();
+			while (true)
+			{
+				theCube.transform.Translate(new Vector3(0, increment, 0), Space.World);
+				yield return new WaitForEndOfFrame();
 			}
 		}
 
 
 
-#endregion // -------------------------------------------------------------------------------------------------------------------------------
-#region OPTIONAL METHODS FOR YOUR TASK
- /*  
+		#endregion // -------------------------------------------------------------------------------------------------------------------------------
+		#region OPTIONAL METHODS FOR YOUR TASK
+		/*  
 
-	Statemachine methods that can be used for the task.
+		   Statemachine methods that can be used for the task.
 
- */
-			
-		public override void OnBlockStart () {
+		*/
+
+		public override void OnBlockStart()
+		{
 		}
 
-		public override void OnBlockIntro () {
+		public override void OnBlockIntro()
+		{
 		}
 
-		public override void OnStartTrial () {
-			XRManager.Instance.EnableXRInteraction (false);
+		public override void OnStartTrial()
+		{
+			XRManager.Instance.EnableXRInteraction(false);
 		}
 
-		public override void OnEndTrial () {
-			
+		public override void OnEndTrial()
+		{
+
 		}
 
-		public override void OnBetweenSteps () {
+		public override void OnBetweenSteps()
+		{
 		}
 
-		public override void OnBlockOutro () {
+		public override void OnBlockOutro()
+		{
 		}
 
-		public override void OnBlockEnd () {
+		public override void OnBlockEnd()
+		{
 
-			theCube.gameObject.SetActive (false);
+			theCube.gameObject.SetActive(false);
 			XRManager.Instance.EnableCustomHandPoses(false);
 
 		}
 
 
-#endregion // -------------------------------------------------------------------------------------------------------------------------------
+		#endregion // -------------------------------------------------------------------------------------------------------------------------------
 	}
 
 }

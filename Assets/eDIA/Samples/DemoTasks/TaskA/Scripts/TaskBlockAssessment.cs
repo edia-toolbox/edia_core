@@ -78,7 +78,13 @@ namespace TASK {
 
 		public void TriggerPressed (InputAction.CallbackContext context) {
 			XRControllerListener.EnableRemapping("TriggerPressed", false);
-			Experiment.Instance.NextTrialStep();
+			Experiment.Instance.Proceed();
+		}
+
+		public void PanelButtonPressed (int index)
+		{
+			Debug.Log(string.Join("Button pressed: ", index == 0 ? "Left" : "Right"));
+			Experiment.Instance.Proceed();
 		}
 
 

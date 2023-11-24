@@ -4,12 +4,15 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.XR.Interaction.Toolkit.UI;
 
-namespace eDIA {
+namespace eDIA
+{
 
 	/// <summary>Sample script to show the user a message in VR canvas</summary>
-	public class MessagePanelInVR : Singleton<MessagePanelInVR> {
-		
+	public class MessagePanelInVR : Singleton<MessagePanelInVR>
+	{
+
 		[Header("Refs")]
 		public TextMeshProUGUI msgField = null;
 		public Button button = null;
@@ -22,73 +25,92 @@ namespace eDIA {
 		public bool hasSolidBackground = true;
 
 		Canvas myCanvas = null;
+		GraphicRaycaster graphicRaycaster = null;
+		TrackedDeviceGraphicRaycaster trackedDeviceGraphicRaycaster = null;
+
 		Coroutine MessageTimer = null;
 		Coroutine MessageFader = null;
 
-		private void Awake() {
+		private void Awake()
+		{
 			myCanvas = GetComponent<Canvas>();
 			myCanvas.enabled = false;
+			graphicRaycaster = GetComponent<GraphicRaycaster>();
+			graphicRaycaster.enabled = false;
+			trackedDeviceGraphicRaycaster = GetComponent<TrackedDeviceGraphicRaycaster>();
+			trackedDeviceGraphicRaycaster.enabled = false;
+
 			menuHolder.SetActive(false);
 			bg = transform.GetChild(0).GetComponent<Image>();
 
-			if (myCanvas.worldCamera == null )
+			if (myCanvas.worldCamera == null)
 				myCanvas.worldCamera = XRManager.Instance.camOverlay.GetComponent<Camera>();
 
-			if (stickToHMD) {
+			if (stickToHMD)
+			{
 				transform.SetParent(XRManager.Instance.XRCam, true);
-				transform.localPosition = new Vector3(0,0,distanceFromHMD);
+				transform.localPosition = new Vector3(0, 0, distanceFromHMD);
 			}
-			
-		}
-
-		void Start () {
-			EventManager.StartListening (eDIA.Events.Core.EvShowMessageToUser, 	OnEvShowMessage);
-			EventManager.StartListening (eDIA.Events.StateMachine.EvProceed, 		OnEvHideMessage); //! assumption: continuing is always hide panel
 
 		}
 
-		void OnDestroy () {
-			EventManager.StopListening (eDIA.Events.Core.EvShowMessageToUser, 	OnEvShowMessage);
-			EventManager.StopListening(eDIA.Events.StateMachine.EvProceed, 		OnEvHideMessage);
+		void Start()
+		{
+			EventManager.StartListening(eDIA.Events.Core.EvShowMessageToUser, OnEvShowMessage);
+			EventManager.StartListening(eDIA.Events.StateMachine.EvProceed, OnEvHideMessage); //! assumption: continuing is always hide panel
+
 		}
 
-		private void OnDrawGizmos() {
+		void OnDestroy()
+		{
+			EventManager.StopListening(eDIA.Events.Core.EvShowMessageToUser, OnEvShowMessage);
+			EventManager.StopListening(eDIA.Events.StateMachine.EvProceed, OnEvHideMessage);
+		}
+
+		private void OnDrawGizmos()
+		{
 			Gizmos.DrawIcon(new Vector3(transform.position.x, transform.position.y + 0.3f, transform.position.z), "namename", true);
 		}
 
 
-#region SHOW
+		#region SHOW
 
 		/// <summary>Event catcher</summary>
-		void OnEvShowMessage (eParam e) {
-			ShowMessage(e.GetString ());
+		void OnEvShowMessage(eParam e)
+		{
+			ShowMessage(e.GetString());
 		}
 
 		/// <summary>Shows the actual panel</summary>
-		void ShowPanel (bool onOff) {
+		void ShowPanel(bool onOff)
+		{
 			GetComponent<Canvas>().enabled = onOff;
 
 			// myCanvas.worldCamera.enabled = (disableOverlayCamOnHide && !onOff);
 			myCanvas.worldCamera.enabled = onOff;
+			graphicRaycaster.enabled = onOff;
+			trackedDeviceGraphicRaycaster.enabled = onOff;
 		}
 
 		/// <summary>Shows the message in VR on a canvas.</summary>
 		/// <param name="msg">Message to show</param>
-		public void ShowMessage (string msg) {
+		public void ShowMessage(string msg)
+		{
 
-			if (MessageTimer != null) StopCoroutine (MessageTimer);
-			if (MessageFader != null) StopCoroutine (MessageFader);
+			if (MessageTimer != null) StopCoroutine(MessageTimer);
+			if (MessageFader != null) StopCoroutine(MessageFader);
 
 			msgField.text = msg;
 			MessageFader = StartCoroutine(Fader());
-			
+
 			ShowPanel(true);
 		}
 
 		/// <summary>Shows the message in VR on a canvas for a certain duration.</summary>
 		/// <param name="msg">Message to show</param>
 		/// <param name="duration">Duration</param>
-		public void ShowMessage (string msg, float duration) {
+		public void ShowMessage(string msg, float duration)
+		{
 			ShowMessage(msg);
 
 			MessageTimer = StartCoroutine("timer", duration);
@@ -97,7 +119,8 @@ namespace eDIA {
 		/// <summary>Shows the message in VR on a canvas with button to proceed.</summary>
 		/// <param name="msg">Message to show</param>
 		/// <param name="duration">Duration</param>
-		public void ShowMessage (string msg, bool showButton) {
+		public void ShowMessage(string msg, bool showButton)
+		{
 			ShowMessage(msg);
 			if (showButton)
 				ShowMenu();
@@ -105,23 +128,25 @@ namespace eDIA {
 
 
 		#endregion // -------------------------------------------------------------------------------------------------------------------------------
-#region HIDE
+		#region HIDE
 
 		/// <summary>Event catcher</summary>
-		void OnEvHideMessage (eParam e) {
+		void OnEvHideMessage(eParam e)
+		{
 			HidePanel();
 		}
 
 		/// <summary>Doublecheck running routines and hides the panel</summary>
-		public void HidePanel () {
-			if (MessageTimer != null) StopCoroutine (MessageTimer);
-			if (MessageFader != null) StopCoroutine (MessageFader);
+		public void HidePanel()
+		{
+			if (MessageTimer != null) StopCoroutine(MessageTimer);
+			if (MessageFader != null) StopCoroutine(MessageFader);
 			ShowPanel(false);
 			HideMenu();
 		}
 
-#endregion // -------------------------------------------------------------------------------------------------------------------------------
-#region MENU
+		#endregion // -------------------------------------------------------------------------------------------------------------------------------
+		#region MENU
 
 		void ShowMenu()
 		{
@@ -136,24 +161,26 @@ namespace eDIA {
 		void HideMenu()
 		{
 			menuHolder.SetActive(false);
-			button.onClick.RemoveListener ( BtnPressed );
+			button.onClick.RemoveListener(BtnPressed);
 		}
-	
-		public void BtnPressed () {
+
+		public void BtnPressed()
+		{
 			EventManager.TriggerEvent(eDIA.Events.StateMachine.EvProceed, null);
 		}
 
-#endregion // -------------------------------------------------------------------------------------------------------------------------------
-#region TIMERS
+		#endregion // -------------------------------------------------------------------------------------------------------------------------------
+		#region TIMERS
 
-		IEnumerator timer (float duration) {
+		IEnumerator timer(float duration)
+		{
 			yield return new WaitForSeconds(duration);
 			HidePanel();
 		}
 
 		IEnumerator Fader()
 		{
-			float duration = 0.5f; 
+			float duration = 0.5f;
 			float currentTime = 0f;
 			while (currentTime < duration)
 			{
@@ -170,7 +197,7 @@ namespace eDIA {
 
 
 
-#endregion // -------------------------------------------------------------------------------------------------------------------------------
+		#endregion // -------------------------------------------------------------------------------------------------------------------------------
 
 	}
 }

@@ -569,7 +569,7 @@ namespace eDIA
 		}
 
 		/// <summary>Call next step in the trial.</summary>
-		public void NextTrialStep()
+		void NextTrialStep()
 		{
 			if (showLog) AddToLog("Nextstep >");
 
