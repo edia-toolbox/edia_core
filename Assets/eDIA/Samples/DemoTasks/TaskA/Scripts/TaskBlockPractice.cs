@@ -82,7 +82,7 @@ namespace TASK {
 				
 			*/
 
-			Experiment.Instance.NextStepWithDelay (Session.instance.CurrentBlock.settings.GetFloat ("timer_showcube"));
+			Experiment.Instance.ProceedWithDelay (Session.instance.CurrentBlock.settings.GetFloat ("timer_showcube"));
 		}
 
 		/// <summary>Move cube, wait on user input</summary>
@@ -167,7 +167,7 @@ namespace TASK {
 			XRControllerListener.EnableRemapping("TriggerPressed", false);
 
 			// Continue the trial
-			Experiment.Instance.NextStep();
+			Experiment.Instance.NextTrialStep();
 		}
 
 		/// <summary>Wait</summary>
@@ -175,7 +175,7 @@ namespace TASK {
 
 			MessagePanelInVR.Instance.ShowMessage("Thank you, end of trial");
 
-			Experiment.Instance.NextStepWithDelay (Session.instance.CurrentBlock.settings.GetFloat ("timer_wait"));
+			Experiment.Instance.ProceedWithDelay (Session.instance.CurrentBlock.settings.GetFloat ("timer_wait"));
 		}
 
 

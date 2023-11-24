@@ -15,7 +15,7 @@ namespace eDIA {
         [Header ("Block name, use the name defined in the config")]
         public string block_name;
 
-        [SerializeField]//[HideInInspector]
+        [HideInInspector][SerializeField]
         public List<Action> trialSteps = new List<Action> ();
 
         public void AddToTrialSequence (Action methodStep) {

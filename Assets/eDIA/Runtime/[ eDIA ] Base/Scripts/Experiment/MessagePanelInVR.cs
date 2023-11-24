@@ -126,9 +126,10 @@ namespace eDIA {
 		void ShowMenu()
 		{
 			menuHolder.SetActive(true);
-			button.onClick.AddListener ( BtnPressed );
 
 			// Also trigger proceed button on control panel
+			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvEnableButton, new eParam(new string[] { "PROCEED", "true" }));
+
 			Experiment.Instance.WaitOnProceed();
 		}
 

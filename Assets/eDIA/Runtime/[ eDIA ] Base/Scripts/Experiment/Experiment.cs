@@ -48,7 +48,7 @@ namespace eDIA
 		[HideInInspector]
 		public int currentStepNum = -1;
 
-		Coroutine stepTimer = null;
+		Coroutine proceedTimer = null;
 
 		#endregion // -------------------------------------------------------------------------------------------------------------------------------
 		#region MONO METHODS
@@ -57,6 +57,7 @@ namespace eDIA
 		{
 			DontDestroyOnLoad(this);
 			
+			// Hard reference statemachine links between UXF and EXP
 			Session.instance.onSessionBegin.AddListener(OnSessionBeginUXF);
 			Session.instance.onSessionEnd.AddListener(OnSessionEndUXF);
 			Session.instance.onTrialBegin.AddListener(OnTrialBeginUXF);
@@ -103,8 +104,7 @@ namespace eDIA
 
 			if (e == null)
 			{
-				EventManager.TriggerEvent(eDIA.Events.Core.EvSystemHalt,
-								  new eParam("No JSON config received!"));
+				EventManager.TriggerEvent(eDIA.Events.Core.EvSystemHalt, new eParam("No JSON config received!"));
 				return;
 			}
 
@@ -144,8 +144,7 @@ namespace eDIA
 
 			if (e == null)
 			{
-				EventManager.TriggerEvent(eDIA.Events.Core.EvSystemHalt,
-								  new eParam("No JSON config received!"));
+				EventManager.TriggerEvent(eDIA.Events.Core.EvSystemHalt,new eParam("No JSON config received!"));
 				return;
 			}
 
@@ -181,8 +180,7 @@ namespace eDIA
 
 			if (experimentConfig.isReady && taskConfig.isReady)
 			{
-				EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateSessionSummary,
-								  new eParam(experimentConfig.GetExperimentSummary()));
+				EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateSessionSummary,new eParam(experimentConfig.GetExperimentSummary()));
 				EventManager.TriggerEvent(eDIA.Events.Config.EvReadyToGo, null);
 			}
 
@@ -243,9 +241,15 @@ namespace eDIA
 
 		void OnEvProceed(eParam e)
 		{
+			Proceed();
+		}
+
+		public void Proceed()
+		{
 			EventManager.StopListening(eDIA.Events.StateMachine.EvProceed, OnEvProceed); // stop listening to avoid doubleclicks
 			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvEnableButton, new eParam(new string[] { "PROCEED", "false" })); // disable button, as OnEvProceed might have come from somewhere else than the button itself
-			NextStep();
+
+			NextTrialStep();
 		}
 
 		/// <summary> Set system open for calibration call from event or button</summary>
@@ -537,7 +541,7 @@ namespace eDIA
 			currentStepNum = -1;
 
 			// Fire up the task state machine to run the steps of the trial.
-			NextStep();
+			NextTrialStep();
 		}
 
 		/// <summary>Called after the task sequence is done </summary>
@@ -549,29 +553,29 @@ namespace eDIA
 
 		/// <summary>Call next step in the trial with delay.</summary>
 		/// <param name="duration">Time to wait before proceeding. Expects float</param>
-		public void NextStepWithDelay(float duration)
+		public void ProceedWithDelay(float duration)
 		{
-			if (stepTimer != null) StopCoroutine(stepTimer); // Kill timer, if any
-
-			stepTimer = StartCoroutine("NextStepTimer", duration);
+			if (proceedTimer != null) StopCoroutine(proceedTimer); // Kill timer, if any
+			proceedTimer = StartCoroutine("ProceedTimer", duration);
 		}
 
 		/// <summary>Coroutine as timer as we can kill that to avoid delayed calls in the statemachine</summary>
-		IEnumerator NextStepTimer(float duration)
+		IEnumerator ProceedTimer(float duration)
 		{
 			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvStartTimer, new eParam(duration));
 			yield return new WaitForSecondsRealtime(duration);
-			NextStep();
+
+			Proceed();
 		}
 
 		/// <summary>Call next step in the trial.</summary>
-		public void NextStep()
+		public void NextTrialStep()
 		{
 			if (showLog) AddToLog("Nextstep >");
 
-			if (stepTimer != null)
+			if (proceedTimer != null)
 			{
-				StopCoroutine(stepTimer); // Kill timer, if any
+				StopCoroutine(proceedTimer); // Kill timer, if any
 				EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvStopTimer);
 			}
 

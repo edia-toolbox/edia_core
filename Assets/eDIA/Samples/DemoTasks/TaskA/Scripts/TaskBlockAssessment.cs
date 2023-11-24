@@ -41,7 +41,7 @@ namespace TASK {
 			Debug.Log("TaskStep1 ");
 			MessagePanelInVR.Instance.ShowMessage("You are about to see a Questionnaire");
 
-			Experiment.Instance.NextStepWithDelay (2f);
+			Experiment.Instance.ProceedWithDelay (2f);
 		}
 
 		/// <summary>Move cube, wait on user input</summary>
@@ -69,7 +69,7 @@ namespace TASK {
 
 			MessagePanelInVR.Instance.ShowMessage("Thank you for your answer");
 
-			Experiment.Instance.NextStepWithDelay(3f);
+			Experiment.Instance.ProceedWithDelay(3f);
 		}
 
 
@@ -78,7 +78,7 @@ namespace TASK {
 
 		public void TriggerPressed (InputAction.CallbackContext context) {
 			XRControllerListener.EnableRemapping("TriggerPressed", false);
-			Experiment.Instance.NextStep();
+			Experiment.Instance.NextTrialStep();
 		}
 
 
