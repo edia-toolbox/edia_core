@@ -92,7 +92,6 @@ namespace eDIA
 			EventManager.StopListening(eDIA.Events.Core.EvQuitApplication, OnEvQuitApplication);
 		}
 
-
 		#endregion // -------------------------------------------------------------------------------------------------------------------------------
 		#region SETUP CONFIGS 
 
@@ -101,7 +100,6 @@ namespace eDIA
 		/// <param name="e">JSON config as string</param>
 		void OnEvSetExperimentConfig(eParam e)
 		{
-
 			if (e == null)
 			{
 				EventManager.TriggerEvent(eDIA.Events.Core.EvSystemHalt, new eParam("No JSON config received!"));
@@ -114,9 +112,8 @@ namespace eDIA
 
 		/// <summary>Set the eDIA experiment settings with the full JSON config string</summary>
 		/// <param name="JSONstring">Full config string</param>
-		public void SetExperimentConfig(string JSONstring)
+		void SetExperimentConfig(string JSONstring)
 		{
-
 			EventManager.StopListening(eDIA.Events.Config.EvSetExperimentConfig, OnEvSetExperimentConfig);
 
 			try
@@ -153,9 +150,8 @@ namespace eDIA
 
 		/// <summary>Set the eDIA experiment settings with the full JSON config string</summary>
 		/// <param name="JSONstring">Full config string</param>
-		public void SetTaskConfig(string JSONstring)
+		void SetTaskConfig(string JSONstring)
 		{
-
 			EventManager.StopListening(eDIA.Events.Config.EvSetTaskConfig, OnEvSetTaskConfig);
 
 			try
@@ -177,7 +173,6 @@ namespace eDIA
 
 		void CheckExperimentReady()
 		{
-
 			if (experimentConfig.isReady && taskConfig.isReady)
 			{
 				EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateSessionSummary,new eParam(experimentConfig.GetExperimentSummary()));
@@ -186,14 +181,12 @@ namespace eDIA
 
 		}
 
-
 		#endregion // -------------------------------------------------------------------------------------------------------------------------------
 		#region EXPERIMENT CONTROL
 
 		/// <summary>Starts the experiment</summary>
-		public void StartExperiment()
+		void StartExperiment()
 		{
-
 			AddXRrigTracking();
 
 			Session.instance.Begin(
@@ -220,7 +213,7 @@ namespace eDIA
 			isPauseRequested = true;
 		}
 
-		private void OnEvQuitApplication(eParam obj)
+		void OnEvQuitApplication(eParam obj)
 		{
 			AddToLog("Quiting..");
 			Application.Quit();
@@ -281,7 +274,6 @@ namespace eDIA
 
 		void AddXRrigTracking()
 		{
-
 			Session.instance.trackedObjects.Add(XRManager.Instance.XRCam.GetComponent<Tracker>());
 			Session.instance.trackedObjects.Add(XRManager.Instance.XRRight.GetComponent<Tracker>());
 			Session.instance.trackedObjects.Add(XRManager.Instance.XRLeft.GetComponent<Tracker>());
@@ -531,7 +523,6 @@ namespace eDIA
 
 		void StartTrial()
 		{
-
 			AddToLog("StartTrial");
 			taskBlocks[Session.instance.currentBlockNum - 1].OnStartTrial();
 
@@ -693,7 +684,6 @@ namespace eDIA
 		/// <param name="annotation">Annotation to store</param>
 		public void SendMarker(string annotation)
 		{
-
 			// Log it in the UXF way
 			UXF.UXFDataRow newRow = new UXFDataRow();
 			newRow.Add(("timestamp", Time.realtimeSinceStartup)); // Log timestamp
