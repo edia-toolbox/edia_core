@@ -10,8 +10,8 @@ namespace eDIA.Manager {
 		
 		[HideInInspector]
 		public List<Transform> children = new List<Transform>();
-		//[HideInInspector]
-		public Transform myParent = null;
+		[HideInInspector]
+		public Transform myParent = null; // not used but meant for remote panel config
 
 		public virtual void Awake() {
 			myParent = transform.parent;

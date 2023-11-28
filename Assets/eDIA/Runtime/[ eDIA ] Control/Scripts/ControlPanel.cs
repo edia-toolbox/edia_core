@@ -13,11 +13,11 @@ namespace eDIA.Manager
 	{
 
 		public Transform NonActivePanelHolder = null;
-		public Transform panelsHolder = null;
-		public Transform remotePanel = null;
-		public Transform remotePanelsHolder = null;
-		public Transform consolePanel = null;
-		public bool showEventLog = true;
+		public Transform PanelHolder = null;
+		public Transform RemotePanel = null;
+		public Transform RemotePanelHolder = null;
+		public Transform ConsolePanel = null;
+		public bool ShowEventLog = true;
 		public bool ShowConsole = false;
 
 		[Space(20)]
@@ -32,7 +32,6 @@ namespace eDIA.Manager
 
 		// Remote
 		private PanelConfigMaker _pConfigMaker = null;
-
 		private List<Transform> _currentPanelOrder = new List<Transform>();
 
 		public XRDevicesSOBJ devices; // Database with available HMD hardware
@@ -40,6 +39,8 @@ namespace eDIA.Manager
 
 		private void Awake()
 		{
+			DontDestroyOnLoad(this);
+
 			GetPanelReferences();
 
 			Init();
@@ -52,10 +53,10 @@ namespace eDIA.Manager
 
 		private void Init()
 		{
-			EventManager.showLog = showEventLog; // Eventmanager to show debug in console
+			EventManager.showLog = ShowEventLog; // Eventmanager to show debug in console
 
 			// Move all panels from task first to non visuable holder
-			foreach (Transform t in panelsHolder) { 
+			foreach (Transform t in PanelHolder) { 
 				t.SetParent(NonActivePanelHolder, true);
 			}
 
@@ -65,8 +66,8 @@ namespace eDIA.Manager
 				tr.name = tr.GetSiblingIndex().ToString() + "_" + tr.name;
 			}
 
-			consolePanel.gameObject.SetActive(ShowConsole);
-			remotePanel.gameObject.SetActive(Settings.ControlMode is ControlMode.Remote);
+			ConsolePanel.gameObject.SetActive(ShowConsole);
+			RemotePanel.gameObject.SetActive(Settings.ControlMode is ControlMode.Remote);
 
 			if (Settings.ControlMode is ControlMode.Remote)
 			{
@@ -97,21 +98,22 @@ namespace eDIA.Manager
 			_pHeader 				= GetComponentInChildren<PanelHeader>();
 			_pApplicationSettings 	= GetComponentInChildren<PanelApplicationSettings>();
 			_pExperimentControl 	= GetComponentInChildren<PanelExperimentControl>();
-
 		}
 
 		public void ShowPanel(Transform panel, bool onOff)
 		{	
-			panel.SetParent(onOff ? panelsHolder : NonActivePanelHolder, true);  
-			//panel.SetParent(onOff ? panel.GetComponent<ExperimenterPanel>().myParent : NonActivePanelHolder, true);
+			panel.SetParent(onOff ? PanelHolder : NonActivePanelHolder, true);  
 			UpdatePanelOrder();
+
+			// WIP approach for giving a panel a different panel (needed when control panel has multiple columns):
+			//panel.SetParent(onOff ? panel.GetComponent<ExperimenterPanel>().myParent : NonActivePanelHolder, true); // => disabled as awake is too late to store value of parent
 		}
 
 
 		public void UpdatePanelOrder()
 		{
 			_currentPanelOrder.Clear();
-			_currentPanelOrder = panelsHolder.Cast<Transform>().ToList();
+			_currentPanelOrder = PanelHolder.Cast<Transform>().ToList();
 			_currentPanelOrder.Sort((Transform t1, Transform t2) => { return t1.name.CompareTo(t2.name); });
 
 			for (int i = 0; i < _currentPanelOrder.Count; ++i)

@@ -174,7 +174,7 @@ namespace eDIA.Manager {
 
 			bool turnOn = e.GetStrings()[1].ToUpper() == "TRUE";
 
-			Debug.Log("OnEvEnableButton " + e.GetStrings()[0].ToUpper() + ":" + turnOn);
+			//Debug.Log("OnEvEnableButton " + e.GetStrings()[0].ToUpper() + ":" + turnOn);
 
 			switch (e.GetStrings()[0].ToUpper()) {
 				case "PAUSE" :
@@ -188,7 +188,6 @@ namespace eDIA.Manager {
 
 		public void ProceedBtnCLicked ()
 		{
-			Debug.Log("OnProceedBtnCLicked ");
 			EventManager.TriggerEvent(eDIA.Events.StateMachine.EvProceed, null);
 
 		}
