@@ -32,7 +32,6 @@ namespace eDIA.Manager
 
 		// Remote
 		private PanelConfigMaker _pConfigMaker = null;
-
 		private List<Transform> _currentPanelOrder = new List<Transform>();
 
 		public XRDevicesSOBJ devices; // Database with available HMD hardware
@@ -99,7 +98,6 @@ namespace eDIA.Manager
 			_pHeader 				= GetComponentInChildren<PanelHeader>();
 			_pApplicationSettings 	= GetComponentInChildren<PanelApplicationSettings>();
 			_pExperimentControl 	= GetComponentInChildren<PanelExperimentControl>();
-
 		}
 
 		public void ShowPanel(Transform panel, bool onOff)

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &831373270431906391
+--- !u!1 &1916941371920012279
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,93 +8,46 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6324143447368195136}
-  - component: {fileID: 3367951191879500225}
-  - component: {fileID: 408027494213176049}
+  - component: {fileID: 3516084114328006469}
+  - component: {fileID: 3636668164991050430}
   m_Layer: 0
-  m_Name: '[UXF_Rig]'
+  m_Name: '[UXF_DataHandling]'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
---- !u!4 &6324143447368195136
+--- !u!4 &3516084114328006469
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 831373270431906391}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_GameObject: {fileID: 1916941371920012279}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8951578048449725818}
-  m_Father: {fileID: 3133870558569776262}
-  m_RootOrder: -1
+  - {fileID: 2925409602428790199}
+  m_Father: {fileID: 3498426715982193417}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3367951191879500225
+--- !u!114 &3636668164991050430
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 831373270431906391}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa9f2505d11cc9e4aa44357b47b12905, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  endOnQuit: 1
-  endOnDestroy: 1
-  endAfterLastTrial: 0
-  setAsMainInstance: 1
-  dontDestroyOnLoadNewScene: 0
-  storeSessionSettings: 1
-  storeParticipantDetails: 1
-  customHeaders: []
-  settingsToLog: []
-  trackedObjects: []
-  onSessionBegin:
-    m_PersistentCalls:
-      m_Calls: []
-  onTrialBegin:
-    m_PersistentCalls:
-      m_Calls: []
-  onTrialEnd:
-    m_PersistentCalls:
-      m_Calls: []
-  preSessionEnd:
-    m_PersistentCalls:
-      m_Calls: []
-  onSessionEnd:
-    m_PersistentCalls:
-      m_Calls: []
-  _hasInitialised: 0
-  experimentName: 
-  ppid: 
-  number: 0
-  currentTrialNum: 0
-  currentBlockNum: 0
-  dataHandlers:
-  - {fileID: 5630525088560016461}
-  - {fileID: 0}
-  - {fileID: 0}
---- !u!114 &408027494213176049
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 831373270431906391}
+  m_GameObject: {fileID: 1916941371920012279}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 325d8bc56dfbdf4439627ee58ed3a5a4, type: 3}
+  m_Script: {fileID: 11500000, guid: 6e99fcc263e0faa43b398ccdce90eb56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  setAsMainInstance: 1
-  logDebugLogCalls: 1
+  comment: The children of this GameObject store different DataHandlers. The different
+    DataHandlers handle your data in different ways, uploading to a server, or saving
+    to a file, etc.
 --- !u!1 &1972073481796328605
 GameObject:
   m_ObjectHideFlags: 0
@@ -773,7 +726,7 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
---- !u!1 &6862464464018229245
+--- !u!1 &7107100341072364916
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -781,46 +734,165 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8951578048449725818}
-  - component: {fileID: 35704472623301978}
+  - component: {fileID: 3498426715982193417}
+  - component: {fileID: 7449549059215336027}
+  - component: {fileID: 3818928032734044658}
   m_Layer: 0
-  m_Name: '[UXF_DataHandling]'
+  m_Name: '[UXF_Rig]'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
---- !u!4 &8951578048449725818
+--- !u!4 &3498426715982193417
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6862464464018229245}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_GameObject: {fileID: 7107100341072364916}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 956655997050887528}
-  m_Father: {fileID: 6324143447368195136}
-  m_RootOrder: 1
+  - {fileID: 3516084114328006469}
+  m_Father: {fileID: 3133870558569776262}
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &35704472623301978
+--- !u!114 &7449549059215336027
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6862464464018229245}
-  m_Enabled: 1
+  m_GameObject: {fileID: 7107100341072364916}
+  m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e99fcc263e0faa43b398ccdce90eb56, type: 3}
+  m_Script: {fileID: 11500000, guid: fa9f2505d11cc9e4aa44357b47b12905, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  comment: The children of this GameObject store different DataHandlers. The different
-    DataHandlers handle your data in different ways, uploading to a server, or saving
-    to a file, etc.
+  endOnQuit: 1
+  endOnDestroy: 1
+  endAfterLastTrial: 0
+  setAsMainInstance: 0
+  dontDestroyOnLoadNewScene: 0
+  storeSessionSettings: 1
+  storeParticipantDetails: 1
+  customHeaders: []
+  settingsToLog: []
+  trackedObjects: []
+  onSessionBegin:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: OnSessionBeginUXF
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: OnSessionBeginUXF
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onTrialBegin:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: OnTrialBeginUXF
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onTrialEnd:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: OnTrialEndUXF
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  preSessionEnd:
+    m_PersistentCalls:
+      m_Calls: []
+  onSessionEnd:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: OnSessionEndUXF
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: OnSessionEndUXF
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _hasInitialised: 0
+  experimentName: 
+  ppid: 
+  number: 0
+  currentTrialNum: 0
+  currentBlockNum: 0
+  dataHandlers:
+  - {fileID: 4148839019458759875}
+  - {fileID: 0}
+  - {fileID: 0}
+--- !u!114 &3818928032734044658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7107100341072364916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 325d8bc56dfbdf4439627ee58ed3a5a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  setAsMainInstance: 1
+  logDebugLogCalls: 1
 --- !u!1 &7352882322167914717
 GameObject:
   m_ObjectHideFlags: 0
@@ -2685,6 +2757,75 @@ MonoBehaviour:
   - rot_y
   - rot_z
   updateType: 0
+--- !u!1 &8177410689913087711
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2925409602428790199}
+  - component: {fileID: 99107243723551214}
+  - component: {fileID: 4148839019458759875}
+  m_Layer: 0
+  m_Name: File Saver
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 1
+--- !u!4 &2925409602428790199
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8177410689913087711}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3516084114328006469}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &99107243723551214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8177410689913087711}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e99fcc263e0faa43b398ccdce90eb56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  comment: This data handler saves data to files locally on your device, as a mix
+    of CSV, JSON, or TXT files, depending on the data. This is compatible only with
+    PC based studies. The files are automatically named for you and optionally sorted
+    into folders.
+--- !u!114 &4148839019458759875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8177410689913087711}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c998d809839214b438495bbe6d805bd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  active: 1
+  dataSaveLocation: 1
+  storagePath: ../logs
+  onValidateEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  sortDataIntoFolders: 1
+  verboseDebug: 0
 --- !u!1 &8470846540559126524
 GameObject:
   m_ObjectHideFlags: 0
@@ -2770,9 +2911,9 @@ Transform:
   - {fileID: 4729818386187847981}
   - {fileID: 6450594547519882918}
   - {fileID: 8706207964457120476}
-  - {fileID: 6324143447368195136}
+  - {fileID: 3498426715982193417}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6063217185458031566
 MonoBehaviour:
@@ -2792,7 +2933,7 @@ MonoBehaviour:
     screenResolution: 0
     volume: 50
     language: 0
-    pathToLogfiles: C:\
+    pathToLogfiles: ../logs
 --- !u!114 &3668323552276314056
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2879,75 +3020,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4263abe1493a44c45912f7d7af87ba62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &8694699856562155785
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 956655997050887528}
-  - component: {fileID: 4238944749602595104}
-  - component: {fileID: 5630525088560016461}
-  m_Layer: 0
-  m_Name: File Saver
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
---- !u!4 &956655997050887528
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8694699856562155785}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8951578048449725818}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4238944749602595104
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8694699856562155785}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e99fcc263e0faa43b398ccdce90eb56, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  comment: This data handler saves data to files locally on your device, as a mix
-    of CSV, JSON, or TXT files, depending on the data. This is compatible only with
-    PC based studies. The files are automatically named for you and optionally sorted
-    into folders.
---- !u!114 &5630525088560016461
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8694699856562155785}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c998d809839214b438495bbe6d805bd0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  active: 1
-  dataSaveLocation: 1
-  storagePath: https://keeper.mpdl.mpg.de/f/4c9e5daaa8a74a34a3e0/?dl=1
-  onValidateEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  sortDataIntoFolders: 1
-  verboseDebug: 0
 --- !u!1 &8706207964457120479
 GameObject:
   m_ObjectHideFlags: 0

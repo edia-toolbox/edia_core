@@ -62,7 +62,6 @@ namespace eDIA
 			Session.instance.onTrialBegin.AddListener(OnTrialBeginUXF);
 			Session.instance.onTrialEnd.AddListener(OnTrialEndUXF);
 
-
 			// Disable task block script before anything starts to run
 			foreach (TaskBlock t in taskBlocks)
 			{
@@ -77,11 +76,6 @@ namespace eDIA
 			EventManager.showLog = showLog;
 		}
 
-		private void test(Session arg0)
-		{
-			Debug.Log("Test method");
-		}
-
 		void OnDestroy()
 		{
 			EventManager.StopListening(eDIA.Events.Config.EvSetExperimentConfig, OnEvSetExperimentConfig);
@@ -91,7 +85,6 @@ namespace eDIA
 			EventManager.StopListening(eDIA.Events.Core.EvQuitApplication, OnEvQuitApplication);
 		}
 
-
 		#endregion // -------------------------------------------------------------------------------------------------------------------------------
 		#region SETUP CONFIGS 
 
@@ -100,7 +93,6 @@ namespace eDIA
 		/// <param name="e">JSON config as string</param>
 		void OnEvSetExperimentConfig(eParam e)
 		{
-
 			if (e == null)
 			{
 				EventManager.TriggerEvent(eDIA.Events.Core.EvSystemHalt,
@@ -111,12 +103,10 @@ namespace eDIA
 			SetExperimentConfig(e.GetString());
 		}
 
-
 		/// <summary>Set the eDIA experiment settings with the full JSON config string</summary>
 		/// <param name="JSONstring">Full config string</param>
 		public void SetExperimentConfig(string JSONstring)
 		{
-
 			EventManager.StopListening(eDIA.Events.Config.EvSetExperimentConfig, OnEvSetExperimentConfig);
 
 			try
@@ -135,13 +125,11 @@ namespace eDIA
 			CheckExperimentReady();
 		}
 
-
 		/// <summary> Eventlistener which expects the config as JSON file, triggers default config file 
 		/// load if not. </summary>
 		/// <param name="e">JSON config as string</param>
 		void OnEvSetTaskConfig(eParam e)
 		{
-
 			if (e == null)
 			{
 				EventManager.TriggerEvent(eDIA.Events.Core.EvSystemHalt,
@@ -156,7 +144,6 @@ namespace eDIA
 		/// <param name="JSONstring">Full config string</param>
 		public void SetTaskConfig(string JSONstring)
 		{
-
 			EventManager.StopListening(eDIA.Events.Config.EvSetTaskConfig, OnEvSetTaskConfig);
 
 			try
@@ -178,7 +165,6 @@ namespace eDIA
 
 		void CheckExperimentReady()
 		{
-
 			if (experimentConfig.isReady && taskConfig.isReady)
 			{
 				EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateSessionSummary,
@@ -195,7 +181,6 @@ namespace eDIA
 		/// <summary>Starts the experiment</summary>
 		public void StartExperiment()
 		{
-
 			AddXRrigTracking();
 
 			Session.instance.Begin(
@@ -277,7 +262,6 @@ namespace eDIA
 
 		void AddXRrigTracking()
 		{
-
 			Session.instance.trackedObjects.Add(XRManager.Instance.XRCam.GetComponent<Tracker>());
 			Session.instance.trackedObjects.Add(XRManager.Instance.XRRight.GetComponent<Tracker>());
 			Session.instance.trackedObjects.Add(XRManager.Instance.XRLeft.GetComponent<Tracker>());
@@ -293,7 +277,7 @@ namespace eDIA
 		#region STATEMACHINE UXF SESSION
 
 		/// <summary>Start of the UXF session. </summary>
-		void OnSessionBeginUXF(Session arg0)
+		void OnSessionBeginUXF(Session session)
 		{
 			OnSessionStart?.Invoke();
 
@@ -311,7 +295,7 @@ namespace eDIA
 		}
 
 		/// <summary>Called from UXF session. </summary>
-		void OnSessionEndUXF(Session arg0)
+		void OnSessionEndUXF(Session session)
 		{
 			OnSessionEnd?.Invoke();
 
@@ -326,9 +310,7 @@ namespace eDIA
 			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvEnableButton, new eParam(new string[] { "PROCEED", "false" }));
 
 			EnablePauseButton(false);
-
 		}
-
 
 
 		#endregion // -------------------------------------------------------------------------------------------------------------------------------
@@ -367,7 +349,6 @@ namespace eDIA
 				StartTrial();
 				EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateProgressInfo, new eParam(Session.instance.CurrentBlock.settings.GetString("block_name")));
 			}
-
 		}
 
 
@@ -451,10 +432,9 @@ namespace eDIA
 		}
 
 
-
-
 		#endregion // -------------------------------------------------------------------------------------------------------------------------------
 		#region STATEMACHINE UXF TRIAL
+
 		/// <summary>catching first button press of user </summary>
 		void OnEvStartFirstTrial(eParam e)
 		{
@@ -527,7 +507,6 @@ namespace eDIA
 
 		void StartTrial()
 		{
-
 			AddToLog("StartTrial");
 			taskBlocks[Session.instance.currentBlockNum - 1].OnStartTrial();
 
