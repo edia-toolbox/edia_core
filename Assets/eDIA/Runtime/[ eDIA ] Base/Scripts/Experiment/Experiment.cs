@@ -63,7 +63,6 @@ namespace eDIA
 			Session.instance.onTrialBegin.AddListener(OnTrialBeginUXF);
 			Session.instance.onTrialEnd.AddListener(OnTrialEndUXF);
 
-
 			// Disable task block script before anything starts to run
 			foreach (TaskBlock t in taskBlocks)
 			{
@@ -76,11 +75,6 @@ namespace eDIA
 			EventManager.StartListening(eDIA.Events.Core.EvQuitApplication, OnEvQuitApplication);
 
 			EventManager.showLog = showLog;
-		}
-
-		private void test(Session arg0)
-		{
-			Debug.Log("Test method");
 		}
 
 		void OnDestroy()
@@ -109,7 +103,6 @@ namespace eDIA
 			SetExperimentConfig(e.GetString());
 		}
 
-
 		/// <summary>Set the eDIA experiment settings with the full JSON config string</summary>
 		/// <param name="JSONstring">Full config string</param>
 		void SetExperimentConfig(string JSONstring)
@@ -132,13 +125,11 @@ namespace eDIA
 			CheckExperimentReady();
 		}
 
-
 		/// <summary> Eventlistener which expects the config as JSON file, triggers default config file 
 		/// load if not. </summary>
 		/// <param name="e">JSON config as string</param>
 		void OnEvSetTaskConfig(eParam e)
 		{
-
 			if (e == null)
 			{
 				EventManager.TriggerEvent(eDIA.Events.Core.EvSystemHalt,new eParam("No JSON config received!"));
@@ -289,7 +280,7 @@ namespace eDIA
 		#region STATEMACHINE UXF SESSION
 
 		/// <summary>Start of the UXF session. </summary>
-		void OnSessionBeginUXF(Session arg0)
+		void OnSessionBeginUXF(Session session)
 		{
 			OnSessionStart?.Invoke();
 
@@ -307,7 +298,7 @@ namespace eDIA
 		}
 
 		/// <summary>Called from UXF session. </summary>
-		void OnSessionEndUXF(Session arg0)
+		void OnSessionEndUXF(Session session)
 		{
 			OnSessionEnd?.Invoke();
 
@@ -322,9 +313,7 @@ namespace eDIA
 			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvEnableButton, new eParam(new string[] { "PROCEED", "false" }));
 
 			EnablePauseButton(false);
-
 		}
-
 
 
 		#endregion // -------------------------------------------------------------------------------------------------------------------------------
@@ -363,7 +352,6 @@ namespace eDIA
 				StartTrial();
 				EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateProgressInfo, new eParam(Session.instance.CurrentBlock.settings.GetString("block_name")));
 			}
-
 		}
 
 
@@ -447,10 +435,9 @@ namespace eDIA
 		}
 
 
-
-
 		#endregion // -------------------------------------------------------------------------------------------------------------------------------
 		#region STATEMACHINE UXF TRIAL
+
 		/// <summary>catching first button press of user </summary>
 		void OnEvStartFirstTrial(eParam e)
 		{
