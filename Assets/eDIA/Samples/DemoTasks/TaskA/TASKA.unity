@@ -852,10 +852,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1416558614}
         m_TargetAssemblyTypeName: 
-        m_MethodName: NextStep
-        m_Mode: 1
+        m_MethodName: PanelButtonPressed
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1185,11 +1185,6 @@ PrefabInstance:
       propertyPath: m_Value
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 6384614633523594798, guid: 555c3aec1b98f0c4db924b79bd61d2b5,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6592561634467379966, guid: 555c3aec1b98f0c4db924b79bd61d2b5,
         type: 3}
       propertyPath: m_SizeDelta.y
@@ -1198,7 +1193,7 @@ PrefabInstance:
     - target: {fileID: 6592561634467379966, guid: 555c3aec1b98f0c4db924b79bd61d2b5,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: 0.000061035156
       objectReference: {fileID: 0}
     - target: {fileID: 7246406886222785148, guid: 555c3aec1b98f0c4db924b79bd61d2b5,
         type: 3}
@@ -1216,11 +1211,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8802557773224579219, guid: 555c3aec1b98f0c4db924b79bd61d2b5,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9161604153485683821, guid: 555c3aec1b98f0c4db924b79bd61d2b5,
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
@@ -1314,14 +1304,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1416558614}
         m_TargetAssemblyTypeName: 
-        m_MethodName: NextStep
-        m_Mode: 1
+        m_MethodName: PanelButtonPressed
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -1766,8 +1756,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1064142563}
   - {fileID: 943082246}
+  - {fileID: 1064142563}
   m_Father: {fileID: 187626247}
   m_RootOrder: -2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2228,6 +2218,11 @@ PrefabInstance:
     - target: {fileID: 7449549059215336027, guid: 09feef1641974734386136a7a3486945,
         type: 3}
       propertyPath: setAsMainInstance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8429851133809131587, guid: 09feef1641974734386136a7a3486945,
+        type: 3}
+      propertyPath: m_PresetInfoIsWorld
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8602536929453141272, guid: 09feef1641974734386136a7a3486945,

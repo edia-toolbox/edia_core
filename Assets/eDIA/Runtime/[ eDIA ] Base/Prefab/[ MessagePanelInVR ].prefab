@@ -112,7 +112,7 @@ RectTransform:
   m_Children:
   - {fileID: 613201257313271773}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -213,12 +213,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03a3e73c3eb5e3848b2efd360cf1a69b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  msgField: {fileID: 613201256216516747}
-  button: {fileID: 2470256112148840445}
-  menuHolder: {fileID: 220883895862970445}
-  stickToHMD: 1
-  distanceFromHMD: 2
-  hasSolidBackground: 1
+  MsgField: {fileID: 613201256216516747}
+  MenuHolder: {fileID: 220883895862970445}
+  StickToHMD: 1
+  DistanceFromHMD: 2
+  HasSolidBackground: 1
 --- !u!1 &613201256216516745
 GameObject:
   m_ObjectHideFlags: 0
@@ -768,7 +767,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 613201255631203479}
         m_TargetAssemblyTypeName: 
-        m_MethodName: BtnPressed
+        m_MethodName: ProceedBtnPressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

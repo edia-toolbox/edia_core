@@ -41,7 +41,7 @@ namespace TASK {
 			Debug.Log("TaskStep1 ");
 			MessagePanelInVR.Instance.ShowMessage("You are about to see a Questionnaire");
 
-			Experiment.Instance.NextStepWithDelay (2f);
+			Experiment.Instance.ProceedWithDelay (2f);
 		}
 
 		/// <summary>Move cube, wait on user input</summary>
@@ -52,9 +52,7 @@ namespace TASK {
 			qpanel.SetActive(true);
 			qpanelTextField.text = "Qtype: " + Session.instance.CurrentBlock.settings.GetStringList("qtypes")[Session.instance.CurrentTrial.settings.GetInt("qtype")];
 
-			MessagePanelInVR.Instance.ShowMessage("Now you have to fill in some questions", 2f);
-			
-			XRControllerListener.EnableRemapping("TriggerPressed", true);
+			//XRControllerListener.EnableRemapping("TriggerPressed", true);
 
 			Experiment.Instance.WaitOnProceed (); // enable proceed button
 
@@ -65,11 +63,9 @@ namespace TASK {
 			Debug.Log("TaskStep3 ");
 			qpanel.SetActive(false);
 
-			
-
 			MessagePanelInVR.Instance.ShowMessage("Thank you for your answer");
 
-			Experiment.Instance.NextStepWithDelay(3f);
+			Experiment.Instance.ProceedWithDelay(3f);
 		}
 
 
@@ -78,7 +74,13 @@ namespace TASK {
 
 		public void TriggerPressed (InputAction.CallbackContext context) {
 			XRControllerListener.EnableRemapping("TriggerPressed", false);
-			Experiment.Instance.NextStep();
+			Experiment.Instance.Proceed();
+		}
+
+		public void PanelButtonPressed (int index)
+		{
+			Debug.Log(string.Join("Button pressed: ", index == 0 ? "Left" : "Right"));
+			Experiment.Instance.Proceed();
 		}
 
 

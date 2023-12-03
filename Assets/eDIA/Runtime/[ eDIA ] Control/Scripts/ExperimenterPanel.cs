@@ -38,11 +38,5 @@ namespace eDIA.Manager {
 			ShowPanel(true);
 		}
 
-
-		public void ApplyTheme () {
-			
-		}
-
-
 	}
 }
