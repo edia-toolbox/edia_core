@@ -52,9 +52,7 @@ namespace TASK {
 			qpanel.SetActive(true);
 			qpanelTextField.text = "Qtype: " + Session.instance.CurrentBlock.settings.GetStringList("qtypes")[Session.instance.CurrentTrial.settings.GetInt("qtype")];
 
-			MessagePanelInVR.Instance.ShowMessage("Now you have to fill in some questions", 2f);
-			
-			XRControllerListener.EnableRemapping("TriggerPressed", true);
+			//XRControllerListener.EnableRemapping("TriggerPressed", true);
 
 			Experiment.Instance.WaitOnProceed (); // enable proceed button
 
@@ -64,8 +62,6 @@ namespace TASK {
 		public void TaskStep3 () {
 			Debug.Log("TaskStep3 ");
 			qpanel.SetActive(false);
-
-			
 
 			MessagePanelInVR.Instance.ShowMessage("Thank you for your answer");
 

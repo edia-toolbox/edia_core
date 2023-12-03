@@ -8,48 +8,46 @@ using UnityEngine.XR.Interaction.Toolkit.UI;
 
 namespace eDIA
 {
-
 	/// <summary>Sample script to show the user a message in VR canvas</summary>
 	public class MessagePanelInVR : Singleton<MessagePanelInVR>
 	{
 
 		[Header("Refs")]
-		public TextMeshProUGUI msgField = null;
-		public Button button = null;
-		public GameObject menuHolder = null;
-		private Image bg = null;
+		public TextMeshProUGUI MsgField = null;
+		public GameObject MenuHolder = null;
+		private Image _backgroungImg = null;
 
 		[Header("Settings")]
-		public bool stickToHMD = true;
-		public float distanceFromHMD = 2f;
-		public bool hasSolidBackground = true;
+		public bool StickToHMD = true;
+		public float DistanceFromHMD = 2f;
+		public bool HasSolidBackground = true;
 
-		Canvas myCanvas = null;
-		GraphicRaycaster graphicRaycaster = null;
-		TrackedDeviceGraphicRaycaster trackedDeviceGraphicRaycaster = null;
+		Canvas _myCanvas = null;
+		GraphicRaycaster _graphicRaycaster = null;
+		TrackedDeviceGraphicRaycaster _trackedDeviceGraphicRaycaster = null;
 
 		Coroutine MessageTimer = null;
 		Coroutine MessageFader = null;
 
 		private void Awake()
 		{
-			myCanvas = GetComponent<Canvas>();
-			myCanvas.enabled = false;
-			graphicRaycaster = GetComponent<GraphicRaycaster>();
-			graphicRaycaster.enabled = false;
-			trackedDeviceGraphicRaycaster = GetComponent<TrackedDeviceGraphicRaycaster>();
-			trackedDeviceGraphicRaycaster.enabled = false;
+			_myCanvas = GetComponent<Canvas>();
+			_myCanvas.enabled = false;
+			_graphicRaycaster = GetComponent<GraphicRaycaster>();
+			_graphicRaycaster.enabled = false;
+			_trackedDeviceGraphicRaycaster = GetComponent<TrackedDeviceGraphicRaycaster>();
+			_trackedDeviceGraphicRaycaster.enabled = false;
 
-			menuHolder.SetActive(false);
-			bg = transform.GetChild(0).GetComponent<Image>();
+			MenuHolder.SetActive(false);
+			_backgroungImg = transform.GetChild(0).GetComponent<Image>();
 
-			if (myCanvas.worldCamera == null)
-				myCanvas.worldCamera = XRManager.Instance.camOverlay.GetComponent<Camera>();
+			if (_myCanvas.worldCamera == null)
+				_myCanvas.worldCamera = XRManager.Instance.camOverlay.GetComponent<Camera>();
 
-			if (stickToHMD)
+			if (StickToHMD)
 			{
 				transform.SetParent(XRManager.Instance.XRCam, true);
-				transform.localPosition = new Vector3(0, 0, distanceFromHMD);
+				transform.localPosition = new Vector3(0, 0, DistanceFromHMD);
 			}
 
 		}
@@ -87,9 +85,9 @@ namespace eDIA
 			GetComponent<Canvas>().enabled = onOff;
 
 			// myCanvas.worldCamera.enabled = (disableOverlayCamOnHide && !onOff);
-			myCanvas.worldCamera.enabled = onOff;
-			graphicRaycaster.enabled = onOff;
-			trackedDeviceGraphicRaycaster.enabled = onOff;
+			_myCanvas.worldCamera.enabled = onOff;
+			_graphicRaycaster.enabled = onOff;
+			_trackedDeviceGraphicRaycaster.enabled = onOff;
 		}
 
 		/// <summary>Shows the message in VR on a canvas.</summary>
@@ -100,7 +98,7 @@ namespace eDIA
 			if (MessageTimer != null) StopCoroutine(MessageTimer);
 			if (MessageFader != null) StopCoroutine(MessageFader);
 
-			msgField.text = msg;
+			MsgField.text = msg;
 			MessageFader = StartCoroutine(Fader());
 
 			ShowPanel(true);
@@ -150,7 +148,7 @@ namespace eDIA
 
 		void ShowMenu()
 		{
-			menuHolder.SetActive(true);
+			MenuHolder.SetActive(true);
 
 			// Also trigger proceed button on control panel
 			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvEnableButton, new eParam(new string[] { "PROCEED", "true" }));
@@ -160,11 +158,10 @@ namespace eDIA
 
 		void HideMenu()
 		{
-			menuHolder.SetActive(false);
-			button.onClick.RemoveListener(BtnPressed);
+			MenuHolder.SetActive(false);
 		}
 
-		public void BtnPressed()
+		public void ProceedBtnPressed()
 		{
 			EventManager.TriggerEvent(eDIA.Events.StateMachine.EvProceed, null);
 		}
@@ -186,18 +183,15 @@ namespace eDIA
 			{
 				// float alpha = Mathf.Lerp(0f, hasSolidBackground ? 1f : 0.5f, currentTime / duration);
 				float alpha = Mathf.Lerp(0f, 1f, currentTime / duration);
-				msgField.color = new Color(msgField.color.r, msgField.color.g, msgField.color.b, alpha);
-				float alphaBg = Mathf.Lerp(0f, hasSolidBackground ? 1f : 0.5f, currentTime / duration);
-				bg.color = new Color(bg.color.r, bg.color.g, bg.color.b, alphaBg);
+				MsgField.color = new Color(MsgField.color.r, MsgField.color.g, MsgField.color.b, alpha);
+				float alphaBg = Mathf.Lerp(0f, HasSolidBackground ? 1f : 0.5f, currentTime / duration);
+				_backgroungImg.color = new Color(_backgroungImg.color.r, _backgroungImg.color.g, _backgroungImg.color.b, alphaBg);
 				currentTime += Time.deltaTime;
 				yield return null;
 			}
 			yield break;
 		}
 
-
-
 		#endregion // -------------------------------------------------------------------------------------------------------------------------------
-
 	}
 }
