@@ -11,25 +11,11 @@ namespace eDIA.EditorUtils {
 
         public Texture2D eDIAIcon;
         public static bool forceShow = false;
-#if UNITY_2018_3_OR_NEWER
         ApiCompatibilityLevel targetApiLevel = ApiCompatibilityLevel.NET_4_6;
-#else
-        ApiCompatibilityLevel targetApiLevel = ApiCompatibilityLevel.NET_2_0;
-#endif
-        // static string settingsKey { get { return PlayerSettings.productName + ":uxf_seen_wizard"; } }
 
         static string version;
 
         Vector2 scrollPos;
-
-        //         static eDIAcontrolPanel()
-        //         {
-        // #if UNITY_2018_1_OR_NEWER
-        //             EditorApplication.projectChanged += OnProjectChanged;
-        // #else
-        //             EditorApplication.projectWindowChanged += OnProjectChanged;
-        // #endif
-        //         }
 
         [MenuItem ("eDIA/Show control panel")]
         static void Init () {
@@ -51,25 +37,6 @@ namespace eDIA.EditorUtils {
             }
         }
 
-        static void OnProjectChanged () {
-            // bool seen;
-
-            // if (EditorPrefs.HasKey(settingsKey))
-            // {
-            //     seen = EditorPrefs.GetBool(settingsKey);
-            // }
-            // else
-            // {
-            //     seen = false;
-            // }
-
-            // if (forceShow | !seen)
-            // {
-            //     Init();
-            //     EditorPrefs.SetBool(settingsKey, true);
-            // }
-        }
-
         public void OnGUI () {
             scrollPos = EditorGUILayout.BeginScrollView (scrollPos, false, false);
             GUIStyle labelStyle = new GUIStyle (EditorStyles.label);
@@ -85,7 +52,7 @@ namespace eDIA.EditorUtils {
 
             GUILayout.BeginHorizontal ();
             GUILayout.FlexibleSpace ();
-            GUILayout.Label ("eDIA: experiment diagnose", EditorStyles.boldLabel);
+            GUILayout.Label ("eDIA VR Experiment Framework", EditorStyles.boldLabel);
             GUILayout.FlexibleSpace ();
             GUILayout.EndHorizontal ();
 
@@ -101,18 +68,15 @@ namespace eDIA.EditorUtils {
             EditorGUILayout.TextArea("For the framework to work, a basic set of layers is needed");
             
             if (GUILayout.Button ("Create layers")) {
-                Layers.CreateLayer(3, "Hidden");
-                Layers.CreateLayer(6, "ControlUI");
-                Layers.CreateLayer(7, "CamOverlay");
-                Layers.CreateLayer(8, "GazeCollision");
+                LayerTools.SetupLayers();
             }
 
 
-            EditorGUILayout.Separator ();
+            // EditorGUILayout.Separator ();
 
-            GUILayout.Label ("To update the changelog, hit this button", labelStyle);
-            if (GUILayout.Button ("Update Changelog from CSV"))
-                eDIA.Utilities.ProjectFileUtilities.UpdateChangelog ();
+            // GUILayout.Label ("To update the changelog, hit this button", labelStyle);
+            // if (GUILayout.Button ("Update Changelog from CSV"))
+            //     eDIA.Utilities.ProjectFileUtilities.UpdateChangelog ();
 
             EditorGUILayout.Separator ();
 
@@ -168,7 +132,7 @@ namespace eDIA.EditorUtils {
             EditorGUILayout.EndScrollView ();
         }
 
-        private static void CreateConfigFiles () {
+        static void CreateConfigFiles () {
             FileManager.CreateFolder("Configs/Participants");
             FileManager.CreateFolder("Configs/Tasks");
 
