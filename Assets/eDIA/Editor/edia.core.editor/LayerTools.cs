@@ -23,6 +23,7 @@ namespace eDIA.EditorUtils
 				AddLayerAt(layers, 6, "ControlUI", false);
 				AddLayerAt(layers, 7, "CamOverlay", false);
 				AddLayerAt(layers, 10, "GazeCollision", false);
+				AddLayerAt(layers, 31, "Teleport", false);
 
 				serializedObject.ApplyModifiedProperties();
 				serializedObject.Update();
