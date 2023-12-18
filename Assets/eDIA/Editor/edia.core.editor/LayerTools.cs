@@ -25,7 +25,7 @@ namespace eDIA.EditorUtils
 				AddLayerAt(layers, 3, "Hidden", false);
 				AddLayerAt(layers, 6, "ControlUI", false);
 				AddLayerAt(layers, 7, "CamOverlay", false);
-				AddLayerAt(layers, 10, "GazeCollision", false);
+				AddLayerAt(layers, 8, "GazeCollision", false);
 				AddLayerAt(layers, 31, "Teleport", false);
 
 				serializedObject.ApplyModifiedProperties();
@@ -51,7 +51,7 @@ namespace eDIA.EditorUtils
 				if (string.IsNullOrEmpty(element.stringValue))
 				{
 					element.stringValue = layerName;
-					Debug.Log(layerName + " added on index " + index);
+					Debug.Log("<i>" + layerName + "</i> added on index " + index);
 				}
 				else
 				{
