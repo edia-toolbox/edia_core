@@ -7,11 +7,14 @@ namespace eDIA.EditorUtils
 {
 	public static class LayerTools
 	{
+		static int failed;
+
 		public static void SetupLayers()
 		{
 			Debug.Log("<color=#00FFFF>[eDIA]</color> Creating layers ");
 
 			Object[] asset = AssetDatabase.LoadAllAssetsAtPath("ProjectSettings/TagManager.asset");
+			failed = 0;
 
 			if (asset != null && asset.Length > 0)
 			{
@@ -32,33 +35,33 @@ namespace eDIA.EditorUtils
 				return;
 			}
 
-			Debug.Log("<color=#00FFFF>[eDIA]</color> Done");
+			Debug.Log(string.Format("<color=#00FFFF>[eDIA]</color>Layers created with {0} errors", failed));
+		}
+
+		static bool DoesLayerExists (SerializedProperty layers, int index, string layerName) {
+			return layers.GetArrayElementAtIndex(index).stringValue == layerName;
 		}
 
 		static void AddLayerAt(SerializedProperty layers, int index, string layerName, bool tryOtherIndex = true)
 		{
-			// Skip if a layer with the name already exists.
-			for (int i = 0; i < layers.arraySize; i++)
-			{
-				if (layers.GetArrayElementAtIndex(i).stringValue == layerName)
+			if (!DoesLayerExists(layers, index,layerName)) {
+
+				var element = layers.GetArrayElementAtIndex(index);
+
+				if (string.IsNullOrEmpty(element.stringValue))
 				{
-					Debug.Log("<i>" + layerName + " </i> already exists on index " + i + ", skipping");
-					return;
+					element.stringValue = layerName;
+					Debug.Log(layerName + " added on index " + index);
 				}
+				else
+				{
+					failed++;
+					Debug.LogError("Creating <i>" + layerName + "</i> on layer " + index + " failed. Layer contains: <i>" + element.stringValue + "</i>. Please reassign your objects to a layer between 11-30");
+				}
+			} else {
+				Debug.Log("<i>" + layerName + " </i> already exists on layer " + index + ", skipping");
 			}
 
-			// set layer name at index
-			var element = layers.GetArrayElementAtIndex(index);
-
-			if (string.IsNullOrEmpty(element.stringValue))
-			{
-				element.stringValue = layerName;
-				Debug.Log(layerName + " added on index " + index);
-			}
-			else
-			{
-				Debug.LogError("Creating <i>" + layerName + "</i> on " + index + " failed. Layer contains: <i>" + element.stringValue + "</i>. Please reassign your objects to a layer between 11-30");
-			}
 		}
 
 	}
