@@ -69,8 +69,8 @@ namespace eDIA
 				t.enabled = false;
 			}
 
-			EventManager.StartListening(eDIA.Events.Config.EvSetExperimentConfig, OnEvSetExperimentConfig);
-			EventManager.StartListening(eDIA.Events.Config.EvSetTaskConfig, OnEvSetTaskConfig);
+			//EventManager.StartListening(eDIA.Events.Config.EvSetExperimentConfig, OnEvSetExperimentConfig);
+			//EventManager.StartListening(eDIA.Events.Config.EvSetTaskConfig, OnEvSetTaskConfig);
 			EventManager.StartListening(eDIA.Events.StateMachine.EvStartExperiment, OnEvStartExperiment);
 			EventManager.StartListening(eDIA.Events.Core.EvQuitApplication, OnEvQuitApplication);
 
@@ -79,8 +79,8 @@ namespace eDIA
 
 		void OnDestroy()
 		{
-			EventManager.StopListening(eDIA.Events.Config.EvSetExperimentConfig, OnEvSetExperimentConfig);
-			EventManager.StopListening(eDIA.Events.Config.EvSetTaskConfig, OnEvSetTaskConfig);
+			//EventManager.StopListening(eDIA.Events.Config.EvSetExperimentConfig, OnEvSetExperimentConfig);
+			//EventManager.StopListening(eDIA.Events.Config.EvSetTaskConfig, OnEvSetTaskConfig);
 			EventManager.StopListening(eDIA.Events.StateMachine.EvStartExperiment, OnEvStartExperiment);
 			EventManager.StopListening(eDIA.Events.StateMachine.EvPauseExperiment, OnEvPauseExperiment);
 			EventManager.StopListening(eDIA.Events.Core.EvQuitApplication, OnEvQuitApplication);
@@ -107,7 +107,7 @@ namespace eDIA
 		/// <param name="JSONstring">Full config string</param>
 		void SetExperimentConfig(string JSONstring)
 		{
-			EventManager.StopListening(eDIA.Events.Config.EvSetExperimentConfig, OnEvSetExperimentConfig);
+			//EventManager.StopListening(eDIA.Events.Config.EvSetExperimentConfig, OnEvSetExperimentConfig);
 
 			try
 			{
@@ -143,7 +143,7 @@ namespace eDIA
 		/// <param name="JSONstring">Full config string</param>
 		void SetTaskConfig(string JSONstring)
 		{
-			EventManager.StopListening(eDIA.Events.Config.EvSetTaskConfig, OnEvSetTaskConfig);
+			//EventManager.StopListening(eDIA.Events.Config.EvSetTaskConfig, OnEvSetTaskConfig);
 
 			try
 			{

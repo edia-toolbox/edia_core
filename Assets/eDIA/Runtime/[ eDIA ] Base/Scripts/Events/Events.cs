@@ -59,14 +59,18 @@ namespace eDIA.Events {
 	/// <summary>All event related to controlling the state machine of the experiment </summary>
 	public static class Config {
 
-		/// <summary>Set experiment config. Expects config as JSON string</summary>
-		public const string EvSetExperimentConfig 	= "EvSetExperimentConfig";
+	  ///// <summary>Set experiment config. Expects config as JSON string</summary>
+	  public const string EvSetExperimentConfig = "EvSetExperimentConfig";
 
-		/// <summary>Set task config. Expects config as JSON string</summary>
-		public const string EvSetTaskConfig 		= "EvSetTaskConfig";
+	  ///// <summary>Set task config. Expects config as JSON string</summary>
+	  public const string EvSetTaskConfig = "EvSetTaskConfig";
 
-		/// <summary>Fired when the Experiment manager has set the experimentconfig. </summary>
-		public const string EvExperimentConfigSet 	= "EvExperimentConfigSet";
+	  public const string EvSetEBlockSequence = "EvSetEBlockSequence";
+	  public const string EvSetTaskDefinitions = "EvSetTaskDefinitions";
+	  public const string EvSetEBlockDefinitions = "EvSetEBlockDefinitions";
+
+	  /// <summary>Fired when the Experiment manager has set the experimentconfig. </summary>
+	  public const string EvExperimentConfigSet 	= "EvExperimentConfigSet";
 
 		/// <summary>Fired when the Experiment manager has set the taskconfig. </summary>
 		public const string EvTaskConfigSet 		= "EvTaskConfigSet";

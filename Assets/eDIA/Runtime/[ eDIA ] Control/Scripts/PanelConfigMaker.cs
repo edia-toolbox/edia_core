@@ -41,13 +41,13 @@ namespace eDIA.Manager {
 
 
 		public void BtnTSubmitPressed () {
-			EventManager.TriggerEvent(eDIA.Events.Config.EvSetTaskConfig, new eParam(taskConfigField.text)); 
+			//EventManager.TriggerEvent(eDIA.Events.Config.EvSetTaskConfig, new eParam(taskConfigField.text)); 
 			
 			// HidePanel();
 		}
 
 		public void BtnESubmitPressed () {
-			EventManager.TriggerEvent(eDIA.Events.Config.EvSetExperimentConfig, new eParam(expConfigField.text)); 
+			//EventManager.TriggerEvent(eDIA.Events.Config.EvSetExperimentConfig, new eParam(expConfigField.text)); 
 			
 			// HidePanel();
 		}
