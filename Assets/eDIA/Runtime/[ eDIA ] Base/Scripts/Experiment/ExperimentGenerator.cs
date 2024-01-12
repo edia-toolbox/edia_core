@@ -7,14 +7,13 @@ using UXF;
 
 namespace eDIA {
     public class ExperimentGenerator : MonoBehaviour {
-	  public TextAsset EBSequenceJson;
-	  public List<TextAsset> TasksTextAssets = new();
-	  public List<TextAsset> TaskBlockTextAssets = new();
-	  public List<bool> validatedJsons = new();
+	  TextAsset EBSequenceJson;
+	  List<TextAsset> TasksTextAssets = new();
+	  List<TextAsset> TaskBlockTextAssets = new();
+	  List<bool> validatedJsons = new();
 
 	  [Space(20)]
-	  public EBlockSequence EBSequence;
-	  //public BreakBlockDetails breakBlockSettings0;
+	  EBlockSequence EBSequence;
 
 	  [System.Serializable]
 	  public class EBlockSequence {
@@ -37,9 +36,8 @@ namespace eDIA {
 	  }
 
 	  // Internal checkup lists
-	  public List<EBlockBase> Tasks = new();
-	  public List<EBlock> EBlocks = new();
-
+	  List<EBlockBase> Tasks = new();
+	  List<EBlock> EBlocks = new();
 
 	  // Start
 	  private void Start() {
@@ -72,7 +70,6 @@ namespace eDIA {
 		CheckIfReadyAndContinue();
 	  }
 
-
 	  void CheckIfReadyAndContinue() { // TODO: Is there a more elegant way of doing this?
 
 		if (validatedJsons.Count == 3) {
@@ -81,9 +78,6 @@ namespace eDIA {
 		    EventManager.TriggerEvent(eDIA.Events.Config.EvReadyToGo);
 		}
 	  }
-
-	  // ----------
-
 
 	  string GetEBlockType(string blockId) {
 		return blockId.Split("_")[1]; //TODO: this relies on the structure "EBlock_type_subType_Nr"
@@ -196,8 +190,6 @@ namespace eDIA {
 				Session.instance.settingsToLog.Add(k);
 		    }
 		}
-
-		
 	  }
 
 	  private static bool IsValidKeyForTrialResults(string k) {

@@ -13,6 +13,17 @@ namespace eDIA {
     #region DECLARATIONS
 
     public class Experiment : Singleton<Experiment> {
+	  
+	  public enum EState {
+		IDLE,
+		RUNNING,
+		WAITINGONPROCEED,
+		PAUSED,
+		ENDED
+	  }
+
+	  public EState state = EState.IDLE;
+	  EState prevState = EState.IDLE;
 
 	  [Header("Editor Settings")]
 	  public bool showLog = false;
@@ -20,6 +31,7 @@ namespace eDIA {
 
 	  [Space(20)]
 	  public List<TaskBlock> taskBlocks = new();
+	  public List<EBlock> Blocks = new();
 
 	  [Space(20)]
 	  [Header("Event hooks\n\nOptional event hooks to use in your task")]
@@ -52,7 +64,14 @@ namespace eDIA {
 	  #region MONO METHODS
 
 	  void Awake() {
-		DontDestroyOnLoad(this);
+		//DontDestroyOnLoad(this);
+
+		EventManager.showLog = true;
+
+		if (!ValidateBlockAssetList()) {
+		    Debug.LogError("Block list contains invalid naming");
+		    return;
+		}
 
 		// Hard reference statemachine links between UXF and EXP
 		Session.instance.onSessionBegin.AddListener(OnSessionBeginUXF);
@@ -61,9 +80,9 @@ namespace eDIA {
 		Session.instance.onTrialEnd.AddListener(OnTrialEndUXF);
 
 		// Disable task block script before anything starts to run
-		foreach (TaskBlock t in taskBlocks) {
-		    t.enabled = false;
-		}
+		//foreach (TaskBlock t in taskBlocks) {
+		//    t.enabled = false;
+		//}
 
 		//EventManager.StartListening(eDIA.Events.Config.EvSetExperimentConfig, OnEvSetExperimentConfig);
 		//EventManager.StartListening(eDIA.Events.Config.EvSetTaskConfig, OnEvSetTaskConfig);
@@ -81,79 +100,24 @@ namespace eDIA {
 		EventManager.StopListening(eDIA.Events.Core.EvQuitApplication, OnEvQuitApplication);
 	  }
 
-	  #endregion // -------------------------------------------------------------------------------------------------------------------------------
-	  #region SETUP CONFIGS 
+	  private bool ValidateBlockAssetList() {
+		bool _succes = true;
+		foreach (EBlock tb in Blocks) {
+		    string firstPart = tb.name.Split('_')[0];
+		    if ((firstPart != "Break") && (firstPart != "Task")) {
+			  _succes = false;
+		    }
 
-	 // /// <summary> Eventlistener which expects the config as JSON file, triggers default config file 
-	 // /// load if not. </summary>
-	 // /// <param name="e">JSON config as string</param>
-	 // void OnEvSetExperimentConfig(eParam e) {
-		//if (e == null) {
-		//    EventManager.TriggerEvent(eDIA.Events.Core.EvSystemHalt, new eParam("No JSON config received!"));
-		//    return;
-		//}
+		    tb.gameObject.SetActive(false);
+		}
+		return _succes;
+	  }
 
-		//SetExperimentConfig(e.GetString());
-	 // }
-
-	 // /// <summary>Set the eDIA experiment settings with the full JSON config string</summary>
-	 // /// <param name="JSONstring">Full config string</param>
-	 // void SetExperimentConfig(string JSONstring) {
-		////EventManager.StopListening(eDIA.Events.Config.EvSetExperimentConfig, OnEvSetExperimentConfig);
-
-		//try {
-		//    experimentConfig = UnityEngine.JsonUtility.FromJson<ExperimentConfig>(JSONstring);
-		//}
-		//catch (System.Exception) {
-		//    Debug.Log("Exp Init not ok!");
-		//    throw;
-		//}
-
-		//EventManager.TriggerEvent(eDIA.Events.Config.EvExperimentConfigSet, null);
-
-		//experimentConfig.isReady = true;
-		//CheckExperimentReady();
-	 // }
-
-	 // /// <summary> Eventlistener which expects the config as JSON file, triggers default config file 
-	 // /// load if not. </summary>
-	 // /// <param name="e">JSON config as string</param>
-	 // void OnEvSetTaskConfig(eParam e) {
-		//if (e == null) {
-		//    EventManager.TriggerEvent(eDIA.Events.Core.EvSystemHalt, new eParam("No JSON config received!"));
-		//    return;
-		//}
-
-		//SetTaskConfig(e.GetString());
-	 // }
-
-	 // /// <summary>Set the eDIA experiment settings with the full JSON config string</summary>
-	 // /// <param name="JSONstring">Full config string</param>
-	 // void SetTaskConfig(string JSONstring) {
-		////EventManager.StopListening(eDIA.Events.Config.EvSetTaskConfig, OnEvSetTaskConfig);
-
-		//try {
-		//    taskConfig = UnityEngine.JsonUtility.FromJson<TaskConfig>(JSONstring);
-		//    taskConfig.GenerateUXFSequence(); // Generate sequence for UXF
-		//}
-		//catch (System.Exception) {
-		//    Debug.Log("Task Init not ok!");
-		//    throw;
-		//}
-
-		//EventManager.TriggerEvent(eDIA.Events.Config.EvTaskConfigSet, null);
-
-		//taskConfig.isReady = true;
-		//CheckExperimentReady();
-	 // }
-
-	 // void CheckExperimentReady() {
-		//if (experimentConfig.isReady && taskConfig.isReady) {
-		//    EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateSessionSummary, new eParam(experimentConfig.GetExperimentSummary()));
-		//    EventManager.TriggerEvent(eDIA.Events.Config.EvReadyToGo, null);
-		//}
-
-	 // }
+	  private void Update() {
+		if (state != prevState) {
+		    prevState = state;
+		}
+	  }
 
 	  #endregion // -------------------------------------------------------------------------------------------------------------------------------
 	  #region EXPERIMENT CONTROL
@@ -253,6 +217,7 @@ namespace eDIA {
 	  void OnSessionBeginUXF(Session session) {
 		OnSessionStart?.Invoke();
 
+		state = EState.RUNNING;
 		AddToExecutionOrderLog("OnSessionBegin");
 		EventManager.StartListening(eDIA.Events.StateMachine.EvProceed, OnEvStartFirstTrial);
 
