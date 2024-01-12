@@ -44,6 +44,8 @@ namespace eDIA.Manager {
 		OnSubjectValueChanged(0);
 		OnSessValueChanged(0);
 
+		btnSubmit.interactable = true;
+
 		EventManager.TriggerEvent(eDIA.Events.Config.EvFoundLocalConfigFiles);
 	  }
 
@@ -71,8 +73,8 @@ namespace eDIA.Manager {
 		// Send over EBlockDefinitionJson list
 
 		EventManager.TriggerEvent(eDIA.Events.Config.EvSetEBlockSequence, new eParam(EBSequenceJsonString));
-		EventManager.TriggerEvent(eDIA.Events.Config.EvSetTaskDefinitions, new eParam(TaskDefinitionJsonStrings));
-		EventManager.TriggerEvent(eDIA.Events.Config.EvSetEBlockDefinitions, new eParam(EBlockDefinitionJsonStrings));
+		EventManager.TriggerEvent(eDIA.Events.Config.EvSetTaskDefinitions, new eParam(TaskDefinitionJsonStrings.ToArray()));
+		EventManager.TriggerEvent(eDIA.Events.Config.EvSetEBlockDefinitions, new eParam(EBlockDefinitionJsonStrings.ToArray()));
 
 		HidePanel();
 	  }

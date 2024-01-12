@@ -73,7 +73,7 @@ public class ConfigLoader : MonoBehaviour {
 	public void OnStartButtonPressed() {
 		// start session
 		Debug.Log("Start Session");
-		experimentGenerator.StartExperiment();
+		//experimentGenerator.StartExperiment();
 	}
 
 	private void LoadJsons () {
@@ -103,9 +103,9 @@ public class ConfigLoader : MonoBehaviour {
 	}
 
 	private void SendJsonStrings() {
-		experimentGenerator.SetEBSequence(EBSequenceJsonString);
-		experimentGenerator.SetTaskDefinitions(TaskJsonStrings);
-		experimentGenerator.SetEBlockDefinitions(EBlockJsonStrings);
+		//experimentGenerator.SetEBSequence(EBSequenceJsonString);
+		//experimentGenerator.SetTaskDefinitions(TaskJsonStrings);
+		//experimentGenerator.SetEBlockDefinitions(EBlockJsonStrings);
 	}
 }
 
