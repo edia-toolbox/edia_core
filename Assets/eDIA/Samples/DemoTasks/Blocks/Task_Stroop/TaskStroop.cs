@@ -20,18 +20,18 @@ namespace eDia {
         IDisposable _ButtonPressEventListener;
 
 
-		void Awake() {
-			trialSteps.Add(TrialStep1);
-			trialSteps.Add(TrialStep2);
+        void Awake() {
+            trialSteps.Add(TrialStep1);
+            trialSteps.Add(TrialStep2);
             trialSteps.Add(TrialStep3);
 
             StroopCanvas.SetActive(false);
-		}
+        }
 
-		void Start() {
-            // _txtStroopObj = StroopCanvas.GetComponentInChildren<TextMeshProUGUI>();
+        void Start() {
+			// _txtStroopObj = StroopCanvas.GetComponentInChildren<TextMeshProUGUI>();
 
-            foreach (string s in Session.instance.CurrentBlock.settings.GetStringList("_start")) {
+			foreach (string s in Session.instance.CurrentBlock.settings.GetStringList("_start")) {
                 this.Add2Console(s);
             }
         }

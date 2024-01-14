@@ -11,8 +11,6 @@ using Utils;
 using UnityEngine.UI;
 using TMPro;
 
-namespace eDIA
-{
 	/// <summary>
 	/// Controls the start block gameobject
 	/// </summary>
@@ -424,4 +422,3 @@ namespace eDIA
 
 
 	}
-}

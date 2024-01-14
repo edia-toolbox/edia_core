@@ -112,7 +112,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
 --- !u!95 &4211008049570338817
 Animator:
-  serializedVersion: 5
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -126,6 +126,7 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
@@ -2633,10 +2634,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdaa9530a61ec844b8c1c8c3ead22b1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  showLog: 0
-  taskColor: {r: 0, g: 1, b: 0, a: 1}
-  taskBlocks:
-  - {fileID: 0}
+  State: 0
+  ShowLog: 0
+  LogColor: {r: 0, g: 1, b: 0, a: 1}
+  Blocks: []
   OnSessionStart:
     m_PersistentCalls:
       m_Calls:
@@ -2652,21 +2653,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  OnSessionBreak:
+  OnSessionPaused:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8505595065724965268}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: OnSessionBreak
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   OnSessionEnd:
     m_PersistentCalls:
       m_Calls:
@@ -2682,6 +2671,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  taskBlocks:
+  - {fileID: 0}
   experimentConfig:
     experiment: 
     experimenter: 
@@ -2693,7 +2684,6 @@ MonoBehaviour:
     breakAfter: 
     blocks: []
     isReady: 0
-  currentStepNum: -1
 --- !u!114 &8505595065724965268
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3416,7 +3406,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 573763192848871153, guid: 142de5c27643e9a4fa3f29573aedd1f9,
         type: 3}
-      propertyPath: m_Materials.Array.data[0]
+      propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 2c9a56e06fbbe7745b6f696a0c5eab2b, type: 2}
     m_RemovedComponents:
@@ -3476,7 +3466,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8220382581640090814, guid: 50b0ad0913843dc4f820aae6010fc65f,
         type: 3}
-      propertyPath: m_Materials.Array.data[0]
+      propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 2c9a56e06fbbe7745b6f696a0c5eab2b, type: 2}
     - target: {fileID: 8220382583221551336, guid: 50b0ad0913843dc4f820aae6010fc65f,
