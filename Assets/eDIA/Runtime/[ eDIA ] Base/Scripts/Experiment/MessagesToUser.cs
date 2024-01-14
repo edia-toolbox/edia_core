@@ -11,7 +11,7 @@ namespace TASK {
 			MessagePanelInVR.Instance.ShowMessage("Welcome to the experiment");
 		}
 
-		public void OnSessionBreak() {
+		public void OnSessionPaused() {
 			MessagePanelInVR.Instance.ShowMessage("Take a short break");
 		}
 
