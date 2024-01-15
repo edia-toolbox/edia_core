@@ -60,7 +60,7 @@ namespace eDIA.Events {
     public static class Config {
 
 	  ///// <summary>Set experiment config. Expects config as JSON string</summary>
-	  public const string EvSetExperimentConfig = "EvSetExperimentConfig";
+	  public const string EvSetSessionInfo = "EvSetSessionInfo";
 
 	  ///// <summary>Set task config. Expects config as JSON string</summary>
 	  public const string EvSetTaskConfig = "EvSetTaskConfig";

@@ -48,7 +48,7 @@ using TMPro;
 
 		// 
 		public Session session;
-		public ExperimentGenerator experimentGenerator;
+		public SessionGenerator experimentGenerator;
 		public List<EBlock> Blocks;
 
 		int currentStep = -1;

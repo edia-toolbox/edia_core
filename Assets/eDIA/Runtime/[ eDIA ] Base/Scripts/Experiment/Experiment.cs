@@ -55,7 +55,7 @@ namespace eDIA {
 		/// The config instance that holds current experimental configuration
 		public List<TaskBlock> taskBlocks = new();
 		[HideInInspector]
-		public ExperimentConfig experimentConfig = new();
+		public SessionInfo experimentConfig = new();
 		[HideInInspector]
 		public TaskConfig taskConfig = new TaskConfig();
 
@@ -109,6 +109,10 @@ namespace eDIA {
 			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvEnableButton, new eParam(new string[] { "PROCEED", onOff ? "true" : "false" }));
 		}
 
+		void UpdateProgressInfo (string info) {
+			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateProgressInfo, new eParam(info));
+		}
+
 		private void Update() {
 			if (State != prevState) {
 				prevState = State;
@@ -126,9 +130,10 @@ namespace eDIA {
 			  experimentConfig.experiment == string.Empty ? "N.A." : experimentConfig.experiment,
 			  experimentConfig.GetParticipantID(),
 			  experimentConfig.session_number,
-			  experimentConfig.GetParticipantDetailsAsDict(),
-			  new UXF.Settings(taskConfig.GetTaskSettingsAsDict())
+			  experimentConfig.GetParticipantDetailsAsDict()
 			);
+
+
 		}
 
 		void OnEvStartExperiment(eParam e) {
@@ -209,7 +214,7 @@ namespace eDIA {
 			EventManager.StartListening(eDIA.Events.StateMachine.EvProceed, OnEvStartFirstTrial);
 
 			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateBlockProgress, new eParam(new int[] { Session.instance.currentBlockNum, Session.instance.blocks.Count }));
-			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateSessionSummary, new eParam(experimentConfig.GetExperimentSummary()));
+			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateSessionSummary, new eParam(experimentConfig.GetSessionSummary()));
 			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateProgressInfo, new eParam("Welcome"));
 
 			EnableProceedButton(true);

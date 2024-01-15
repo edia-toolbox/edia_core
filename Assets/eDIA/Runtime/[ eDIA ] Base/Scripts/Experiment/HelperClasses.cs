@@ -8,7 +8,7 @@ using UXF;
 
 namespace eDIA {
 
-#region EXPERIMENT CONFIG (JSON SERIALIZABLE)
+#region SESSION CONFIG (JSON SERIALIZABLE)
 
 	/// <summary> Tuple of strings, this is serializable in the inspector and dictionaries are not</summary>
 	[System.Serializable]
@@ -24,38 +24,36 @@ namespace eDIA {
 		public List<string> values = new List<string>();
 	}
 
-	/// <summary> Experiment trial settings container</summary>
+	///// <summary> Experiment trial settings container</summary>
 	[System.Serializable]
 	public class TrialSettings {
 		[HideInInspector]
-		public List<string> 			keys 				= new List<string>();
-		public List<ValueList>			valueList 			= new List<ValueList>();
+		public List<string> keys = new List<string>();
+		public List<ValueList> valueList = new List<ValueList>();
 	}
 
-	/// <summary> Experiment block container  </summary>
-	[System.Serializable]
-	public class ExperimentBlock {
-		public string 				block_name			= string.Empty;
-		public string 				intro 			= string.Empty;
-		public string 				outro 			= string.Empty;
-		public List<SettingsTuple>		block_settings		= new List<SettingsTuple>();
-		public TrialSettings			trial_settings		= new TrialSettings();
-	}
+	///// <summary> Experiment block container  </summary>
+	//[System.Serializable]
+	//public class ExperimentBlock {
+	//	public string 				block_name			= string.Empty;
+	//	public string 				intro 			= string.Empty;
+	//	public string 				outro 			= string.Empty;
+	//	public List<SettingsTuple>		block_settings		= new List<SettingsTuple>();
+	//	public TrialSettings			trial_settings		= new TrialSettings();
+	//}
+
 
 
 	/// <summary> Experiment config container</summary>
 	[System.Serializable]
-	public class ExperimentConfig {
+	public class SessionInfo {
 		public string				experiment			= string.Empty;
 		public string 				experimenter 		= string.Empty;
-		public int 					session_number 		= 0;
-		public List<SettingsTuple>		participant_details 	= new List<SettingsTuple>();
-
-		// Local check if this instance is loaded and ready to go
-		public bool 				isReady			= false;
+		public string				session_number 		= "0";
+		public List<SettingsTuple>	participant_details = new List<SettingsTuple>();
 
 		//? Class helper methods
-		public string[] GetExperimentSummary() {
+		public string[] GetSessionSummary() {
 			return new string[] { experiment, experimenter, GetParticipantID (), session_number.ToString() };
 		}
 
@@ -66,66 +64,65 @@ namespace eDIA {
 		public Dictionary<string,object> GetParticipantDetailsAsDict () {
 			return Helpers.GetSettingsTupleListAsDict(participant_details);
 		}
-
 	}
 
 	/// <summary> Experiment config container</summary>
 	[System.Serializable]
 	public class TaskConfig {
-		public List<SettingsTuple>		taskSettings 		= new List<SettingsTuple>();
-		public List<int>				breakAfter			= new List<int>(); 
-		public List<ExperimentBlock>		blocks			= new List<ExperimentBlock>();
+		//public List<SettingsTuple>		taskSettings 		= new List<SettingsTuple>();
+		//public List<int>				breakAfter			= new List<int>(); 
+		//public List<ExperimentBlock>		blocks			= new List<ExperimentBlock>();
 
-		// Local check if this instance is loaded and ready to go
-		public bool 				isReady			= false;
+		//// Local check if this instance is loaded and ready to go
+		//public bool 				isReady			= false;
 
 		//? Class helper methods
-		public Dictionary<string,object> GetTaskSettingsAsDict () {
-			return Helpers.GetSettingsTupleListAsDict(taskSettings);
-		}
+		//public Dictionary<string,object> GetTaskSettingsAsDict () {
+		//	return Helpers.GetSettingsTupleListAsDict(taskSettings);
+		//}
 
 		/// <summary>/// Convert JSON formatted definition for the seqence into a UXF format to run in the session/// </summary>
-		public void GenerateUXFSequence() {
+		//public void GenerateUXFSequence() {
 
-			// Reorder the taskblock list in the taskmanager
-			List<TaskBlock> reordered = new List<TaskBlock>();
+		//	// Reorder the taskblock list in the taskmanager
+		//	List<TaskBlock> reordered = new List<TaskBlock>();
 			
-			foreach (ExperimentBlock b in blocks) {
-				reordered.Add(Experiment.Instance.taskBlocks.Find(x => x.block_name == b.block_name));
-			}
+		//	foreach (ExperimentBlock b in blocks) {
+		//		reordered.Add(Experiment.Instance.taskBlocks.Find(x => x.block_name == b.block_name));
+		//	}
 
-			Experiment.Instance.taskBlocks.Clear();
-			Experiment.Instance.taskBlocks.AddRange(reordered);
+		//	Experiment.Instance.taskBlocks.Clear();
+		//	Experiment.Instance.taskBlocks.AddRange(reordered);
 
-			// Add block level settings to log
-			Session.instance.settingsToLog.Add("block_name");
+		//	// Add block level settings to log
+		//	Session.instance.settingsToLog.Add("block_name");
 
-			// Convert the Taskconfig into UXF blocks and settings
-			foreach (ExperimentBlock b in blocks) {
+		//	// Convert the Taskconfig into UXF blocks and settings
+		//	foreach (ExperimentBlock b in blocks) {
 				
-				Block newBlock = Session.instance.CreateBlock();
-				newBlock.settings.SetValue("block_name",b.block_name);
-				newBlock.settings.SetValue("intro",b.intro);
-				newBlock.settings.SetValue("outro",b.outro);
+		//		Block newBlock = Session.instance.CreateBlock();
+		//		newBlock.settings.SetValue("block_name",b.block_name);
+		//		newBlock.settings.SetValue("intro",b.intro);
+		//		newBlock.settings.SetValue("outro",b.outro);
 
-				newBlock.settings.UpdateWithDict( Helpers.GetSettingsTupleListAsDict(b.block_settings) );
+		//		newBlock.settings.UpdateWithDict( Helpers.GetSettingsTupleListAsDict(b.block_settings) );
 
-				foreach (ValueList row in b.trial_settings.valueList) {
-					Trial newTrial = newBlock.CreateTrial();
+		//		foreach (ValueList row in b.trial_settings.valueList) {
+		//			Trial newTrial = newBlock.CreateTrial();
 
-					for (int i = 0; i < row.values.Count; i++) {
-						newTrial.settings.SetValue( b.trial_settings.keys[i], row.values[i].ToUpper() ); // set values to trial
-					}
-				}
+		//			for (int i = 0; i < row.values.Count; i++) {
+		//				newTrial.settings.SetValue( b.trial_settings.keys[i], row.values[i].ToUpper() ); // set values to trial
+		//			}
+		//		}
 
-				// Log all unique trial settings keys
-				foreach (string k in b.trial_settings.keys) {
-					if (!Session.instance.settingsToLog.Contains(k))
-						Session.instance.settingsToLog.Add(k);
-				}
+		//		// Log all unique trial settings keys
+		//		foreach (string k in b.trial_settings.keys) {
+		//			if (!Session.instance.settingsToLog.Contains(k))
+		//				Session.instance.settingsToLog.Add(k);
+		//		}
 
-			}
-		}
+		//	}
+		//}
 	}
 
 	public static class Helpers {

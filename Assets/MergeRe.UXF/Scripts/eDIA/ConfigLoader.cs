@@ -23,7 +23,7 @@ public class ConfigLoader : MonoBehaviour {
 	public List<string> TaskJsonStrings = new ();
 	public List<string> EBlockJsonStrings = new ();
 
-	public ExperimentGenerator experimentGenerator;
+	public SessionGenerator experimentGenerator;
 
 	private void Start() {
 		subFolders = FileManager.GetAllSubFolders("Configs/Participants");
