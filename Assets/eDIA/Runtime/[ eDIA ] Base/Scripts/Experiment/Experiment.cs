@@ -50,14 +50,6 @@ namespace eDIA {
 		UXFDataTable _executionOrderLog = new("timestamp", "executed");
 		UXFDataTable _markerLog = new("timestamp", "annotation");
 		
-		
-		//! OLD
-		/// The config instance that holds current experimental configuration
-		public List<TaskBlock> taskBlocks = new();
-		//public SessionInfo experimentConfig = new();
-		//public TaskConfig taskConfig = new TaskConfig();
-
-
 		#endregion // -------------------------------------------------------------------------------------------------------------------------------
 		#region MONO METHODS
 
@@ -71,10 +63,7 @@ namespace eDIA {
 			Session.instance.onTrialBegin.AddListener(OnTrialBeginUXF);
 			Session.instance.onTrialEnd.AddListener(OnTrialEndUXF);
 
-			foreach (EBlock eb in Blocks) {
-				eb.enabled = false;
-				eb.gameObject.SetActive(false);
-			}
+			EnableAllEBlocks(false);
 
 			EventManager.StartListening(eDIA.Events.StateMachine.EvStartExperiment, OnEvStartExperiment);
 			EventManager.StartListening(eDIA.Events.Core.EvQuitApplication, OnEvQuitApplication);
@@ -91,6 +80,13 @@ namespace eDIA {
 
 		void EnableProceedButton (bool onOff) {
 			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvEnableButton, new eParam(new string[] { "PROCEED", onOff ? "true" : "false" }));
+		}
+
+		void EnableAllEBlocks (bool onOff) {
+			foreach (EBlock eb in Blocks) {
+				eb.enabled = onOff;
+				eb.gameObject.SetActive(onOff);
+			}
 		}
 
 		private void Update() {
@@ -114,7 +110,7 @@ namespace eDIA {
 			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateBlockProgress, new eParam(new int[] { Session.instance.currentBlockNum, Session.instance.blocks.Count }));
 		}
 
-		void EvUpdateTrialProgress () {
+		void UpdateTrialProgress () {
 			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateTrialProgress, new eParam(new int[] { Session.instance.currentTrialNum, Session.instance.Trials.Count() }));
 		}
 
@@ -185,7 +181,6 @@ namespace eDIA {
 		}
 
 
-
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region STATEMACHINE PROCEED
 
@@ -243,15 +238,11 @@ namespace eDIA {
 			EnableEyeCalibrationTrigger(true);
 		}
 
-
-
 		/// <summary>Called from UXF session. </summary>
 		void OnSessionEndUXF(Session session) {
 			OnSessionEnd?.Invoke();
 
-			foreach (TaskBlock t in taskBlocks) {
-				t.gameObject.SetActive(false);
-			}
+			EnableAllEBlocks(false);
 
 			AddToExecutionOrderLog("OnSessionEndUXF");
 
@@ -289,24 +280,24 @@ namespace eDIA {
 			UpdateBlockProgress();
 
 			// Check for block introduction flag
-			bool hasIntro = Session.instance.CurrentBlock.settings.GetString("_start") != string.Empty;
+			bool hasIntro = Session.instance.CurrentBlock.settings.GetStringList("_start").Count > 0;
 
 			// Inject introduction step or continue UXF sequence
 			if (hasIntro) {
 				EventManager.StartListening(eDIA.Events.StateMachine.EvProceed, BlockContinueAfterIntro); // listener as it event call can come from any script
 				ShowMessageToUser (Session.instance.CurrentBlock.settings.GetStringList("_start"));
 				UpdateProgressStatus("Block Intro");
-				taskBlocks[Session.instance.currentBlockNum - 1].OnBlockIntro();
+				_activeEBlock.OnBlockIntro();
 			}
 			else {
 				StartTrial();
-				UpdateProgressStatus(Session.instance.CurrentBlock.settings.GetString("block_name"));
+				UpdateProgressStatus(Session.instance.CurrentBlock.settings.GetString("blockId"));
 			}
 		}
 
 		void BlockEnd() {
 			AddToLog("Block End");
-			taskBlocks[Session.instance.currentBlockNum - 1].OnBlockEnd();
+			_activeEBlock.OnBlockEnd();
 
 			// Check for block outro flag
 			bool hasOutro = Session.instance.CurrentBlock.settings.ContainsKey("outro"); // TODO test if block outtro works 
@@ -316,7 +307,7 @@ namespace eDIA {
 				EnableProceedButton(true);
 				ShowMessageToUser(Session.instance.CurrentBlock.settings.GetStringList("outro"));
 				UpdateProgressStatus("Block Outro");
-				Blocks[Session.instance.currentBlockNum - 1].OnBlockOutro();
+				_activeEBlock.OnBlockOutro();
 			}
 			else {
 				BlockCheckAndContinue();
@@ -363,7 +354,7 @@ namespace eDIA {
 		/// <summary>catching first button press of user </summary>
 		void OnEvStartFirstTrial(eParam e) {
 			EventManager.StopListening(eDIA.Events.StateMachine.EvProceed, OnEvStartFirstTrial);
-			EvUpdateTrialProgress();
+			UpdateTrialProgress();
 
 			Session.instance.BeginNextTrial();
 		}
@@ -379,7 +370,7 @@ namespace eDIA {
 			}
 			else {
 				StartTrial();
-				UpdateProgressStatus(Session.instance.CurrentBlock.settings.GetString("block_name"));
+				UpdateProgressStatus(Session.instance.CurrentBlock.settings.GetString("blockId"));
 			}
 		}
 
@@ -388,7 +379,7 @@ namespace eDIA {
 			AddToExecutionOrderLog("OnTrialEnd");
 			SaveCustomDataTables();
 
-			taskBlocks[Session.instance.currentBlockNum - 1].OnEndTrial();
+			_activeEBlock.OnEndTrial();
 
 			// Are we ending?
 			if (Session.instance.isEnding)
@@ -424,8 +415,8 @@ namespace eDIA {
 		void StartTrial() {
 			AddToLog("StartTrial");
 
-			taskBlocks[Session.instance.currentBlockNum - 1].OnStartTrial();
-			EvUpdateTrialProgress();
+			_activeEBlock.OnStartTrial();
+			UpdateTrialProgress();
 			
 			_currentStep = -1;
 			NextTrialStep();
@@ -480,7 +471,7 @@ namespace eDIA {
 
 		/// <summary>In Between to steps of the trial, we might want to clean things up a bit.</summary>
 		void InBetweenSteps() {
-			taskBlocks[Session.instance.currentBlockNum - 1].OnBetweenSteps(); // In Between to steps of the trial, we might want to clean things up a bit.
+			_activeEBlock.OnBetweenSteps(); // In Between to steps of the trial, we might want to clean things up a bit.
 			MessagePanelInVR.Instance.HidePanel();
 		}
 

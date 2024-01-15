@@ -96,21 +96,11 @@ public class TaskD2 : EBlock {
 	public override void OnBlockStart() {
 		base.OnBlockStart();
 
-		List<string> _messageToShow = Session.instance.CurrentBlock.settings.GetStringList("_start");
-
-		foreach (var s in _messageToShow) {
-			this.Add2Console("Info:" + s);
-		}
 	}
 
 	public override void OnBlockEnd() {
 		base.OnBlockEnd();
 
-		List<string> _messageToShow = Session.instance.CurrentBlock.settings.GetStringList("_end");
-
-		foreach (var s in _messageToShow) {
-			this.Add2Console("Info:" + s);
-		}
 	}
 }
 

@@ -131,71 +131,19 @@ namespace eDia {
             }
 
             // Log settings
-
-            // This will be replaced by functionality in the ExpGenerator
-            Session.instance.CurrentTrial.result["word"] = Session.instance.CurrentTrial.settings.GetString("word");
-            Session.instance.CurrentTrial.result["color"] = Session.instance.CurrentTrial.settings.GetString("color");
-            Session.instance.CurrentTrial.result["target"] = Session.instance.CurrentTrial.settings.GetString("target");
+            Experiment.Instance.AddToTrialResults("word", Session.instance.CurrentTrial.settings.GetString("word"));
+			Experiment.Instance.AddToTrialResults("color", Session.instance.CurrentTrial.settings.GetString("color"));
+			Experiment.Instance.AddToTrialResults("target", Session.instance.CurrentTrial.settings.GetString("target"));
 
             // Log results
-            Session.instance.CurrentTrial.result["response"] = response;
+			Experiment.Instance.AddToTrialResults("response",response);
+            
             // Proceed
-
             Experiment.Instance.WaitOnProceed();
 			Experiment.Instance.Proceed();
 
             return;
         }
-
-        //List<MyTrial> SetUpTrialSettings() {
-
-        //    var namesConsistent = new List<string>();
-        //    var colsConsistent = new List<Color>();
-        //    // consistent trials
-        //    foreach (var color in _stroopColors) {
-        //        for (int i = 0; i < 8; i++) {
-        //            // add trial to segment
-        //            namesConsistent.Add(color.Key);
-        //            colsConsistent.Add(color.Value);
-        //        }
-        //    }
-
-        //    var namesInconsistent = new List<string>();
-        //    var colsInconsistent = new List<Color>();
-        //    // inconsistent trials
-        //    foreach (var color in _stroopColors) {
-        //        for (int i = 0; i < 8; i++) {
-        //            // add trial to segment
-        //            namesInconsistent.Add(color.Key);
-        //            // Pick a random color which is not the same as the word
-        //            List<Color> cols = _stroopColors.Values.ToList();
-        //            cols.Remove(color.Value);
-        //            //Pick a random color from the remaining colors
-        //            colsInconsistent.Add(cols[UnityEngine.Random.Range(0, cols.Count)]);
-        //        }
-        //    }
-
-        //    // Concatenate the two lists
-        //    List<string> namesAll = namesConsistent.Concat(namesInconsistent).ToList();
-        //    List<UnityEngine.Color> colsAll = colsConsistent.Concat(colsInconsistent).ToList();
-
-        //    List<MyTrial> trials = new List<MyTrial>();
-        //    for (int i = 0; i < namesAll.Count; i++) {
-        //        trials.Add(new MyTrial() { ColName = namesAll[i], ColValue = colsAll[i], Target = "" });
-        //    }
-
-        //    // Shuffle the list
-        //    trials = trials.OrderBy(_ => UnityEngine.Random.value).ToList();
-
-        //    for (int i = 0; i < trials.Count; i++) {
-        //        var target = i < 50 ? "name" : "color";
-        //        var t = trials[i];
-        //        t.Target = target;
-        //        trials[i] = t;
-        //    }
-
-        //    return trials;
-        //}
 
 
         void InterpretInputNew(InputControl control, out string response, Action<string> callback) {

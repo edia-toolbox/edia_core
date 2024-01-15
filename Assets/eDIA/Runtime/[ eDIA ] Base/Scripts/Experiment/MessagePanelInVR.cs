@@ -53,7 +53,6 @@ namespace eDIA
 				transform.SetParent(XRManager.Instance.XRCam, true);
 				transform.localPosition = new Vector3(0, 0, DistanceFromHMD);
 			}
-
 		}
 
 		void Start()
@@ -143,18 +142,17 @@ namespace eDIA
 		/// <param name="messages"></param>
 		public void ShowMessage (List<string> messages) {
 
-			ButtonToggling(true, false);
-
-			_hasClicked = false;
-
+			ButtonToggling(messages.Count > 1 ? true : false, false);
 			StartCoroutine(MessagesRoutine(messages));
+			ShowPanel(true);
 		}
 
 		IEnumerator MessagesRoutine (List<string> messages) {
 
 			foreach(string msg in messages) {
 				ShowMessage(msg);
-			
+				_hasClicked = false;
+
 				while (!_hasClicked) { 
 					yield return new WaitForEndOfFrame();
 				}
@@ -203,12 +201,7 @@ namespace eDIA
 		void HideMenu()
 		{
 			ButtonToggling(false, false);
-
-			//MenuHolder.SetActive(false);
-			//buttonOK.gameObject.SetActive(false);
-			//buttonProceed.gameObject.SetActive(false);
 		}
-
 
 
 		#endregion // -------------------------------------------------------------------------------------------------------------------------------
