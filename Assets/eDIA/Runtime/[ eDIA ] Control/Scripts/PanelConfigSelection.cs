@@ -27,14 +27,14 @@ namespace eDIA.Manager {
 		public TextMeshProUGUI SubjectField;
 		public TextMeshProUGUI SessionField;
 
-		string _subject = "0";
-		string _session = "0";
+		string _subject = "sub_001";
+		string _session = "sess_001";
 
 		string _pathToParticipantFiles		= "Configs/participants/";
 		string _pathToTaskFiles				= "Configs/task-definitions/";
 		string _eBlockDefinitionsFolderName = "eblock-definitions";
 		string _eBlockSequenceFileName		= "eblock_sequence.json";
-		string _sessionInfoFilenNme			= "session_info.json";
+		string _sessionInfoFilenName		= "session_info.json";
 
 
 		public void Init() {
@@ -63,14 +63,13 @@ namespace eDIA.Manager {
 			SubjectSelectionDropdown.ClearOptions();
 			SessionSelectionDropdown.ClearOptions();
 			SessionSelectionDropdown.interactable = false;
-
 			btnSubmit.interactable = false;
 		}
 
 		public void OnSubmitBtnPressed() {
 			LoadJsons();
 
-			EventManager.TriggerEvent(eDIA.Events.Config.EvSetSessionInfo, new eParam(new string[] { _sessionJsonString, _session, _subject }));
+			EventManager.TriggerEvent(eDIA.Events.Config.EvSetSessionInfo, new eParam(new string[] { _sessionJsonString, _session.Split('-')[1], _subject.Split('-')[1] }));
 			EventManager.TriggerEvent(eDIA.Events.Config.EvSetEBlockSequence, new eParam(_eBSequenceJsonString));
 			EventManager.TriggerEvent(eDIA.Events.Config.EvSetTaskDefinitions, new eParam(_taskDefinitionJsonStrings.ToArray()));
 			EventManager.TriggerEvent(eDIA.Events.Config.EvSetEBlockDefinitions, new eParam(_eBlockDefinitionJsonStrings.ToArray()));
@@ -78,10 +77,9 @@ namespace eDIA.Manager {
 			HidePanel();
 		}
 
-
 		public void OnSubjectValueChanged(int value) {
-			_subject = SubjectSelectionDropdown.options[value].text.Split('_')[1];
-			SubjectField.text = _subject;
+			_subject = SubjectSelectionDropdown.options[value].text;
+			SubjectField.text = _subject.Split('-')[1];
 
 			_sessFolders = FileManager.GetAllSubFolders(_pathToParticipantFiles + SubjectSelectionDropdown.options[value].text);
 			GenerateDropdown(_sessFolders, SessionSelectionDropdown);
@@ -89,8 +87,8 @@ namespace eDIA.Manager {
 		}
 
 		public void OnSessValueChanged(int value) {
-			_session = SessionSelectionDropdown.options[value].text.Split('_')[1];
-			SessionField.text = _session;
+			_session = SessionSelectionDropdown.options[value].text;
+			SessionField.text = _session.Split('-')[1]; 
 		}
 
 		void GenerateDropdown(string[] folderlist, TMP_Dropdown dropDown) {
@@ -116,7 +114,7 @@ namespace eDIA.Manager {
 
 			// Session info
 			string currentPath = _pathToParticipantFiles + _subject + "/" + _session + "/";
-			_sessionJsonString = FileManager.ReadStringFromApplicationPath(currentPath + _sessionInfoFilenNme);
+			_sessionJsonString = FileManager.ReadStringFromApplicationPath(currentPath + _sessionInfoFilenName);
 
 			// Block sequence
 			string eBSequenceFilePath = currentPath + _eBlockSequenceFileName;

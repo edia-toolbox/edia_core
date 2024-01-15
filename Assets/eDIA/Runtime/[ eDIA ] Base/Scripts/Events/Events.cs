@@ -147,7 +147,7 @@ namespace eDIA.Events {
 	  public const string EvUpdateSessionSummary = "EvUpdateExperimentSummary";
 
 	  /// <summary>Send progress update (trial/block)</summary>
-	  public const string EvUpdateProgressInfo = "EvUpdateProgressDescription";
+	  public const string EvUpdateProgressStatus = "EvUpdateProgressStatus";
 
 	  /// <summary>Send progress update block, expects [currentblocknum, maxblocks]</summary>
 	  public const string EvUpdateBlockProgress = "EvUpdateBlockProgress";

@@ -54,10 +54,8 @@ namespace eDIA {
 		//! OLD
 		/// The config instance that holds current experimental configuration
 		public List<TaskBlock> taskBlocks = new();
-		[HideInInspector]
-		public SessionInfo experimentConfig = new();
-		[HideInInspector]
-		public TaskConfig taskConfig = new TaskConfig();
+		//public SessionInfo experimentConfig = new();
+		//public TaskConfig taskConfig = new TaskConfig();
 
 
 		#endregion // -------------------------------------------------------------------------------------------------------------------------------
@@ -90,27 +88,9 @@ namespace eDIA {
 			EventManager.StopListening(eDIA.Events.Core.EvQuitApplication, OnEvQuitApplication);
 		}
 
-		/// <summary>Called from this manager. </summary>
-		void ShowMessageToUser(string msg, string description) {
-			AddToExecutionOrderLog("ShowMessageToUser");
-
-			EnableProceedButton(true);
-			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateProgressInfo, new eParam("Block Info"));
-
-			EnablePauseButton(false);
-			EnableEyeCalibrationTrigger(true);
-
-			if (MessagePanelInVR.Instance != null)
-				MessagePanelInVR.Instance.ShowMessage(msg);
-			else Debug.LogError("No MessagePanelInVR instance found");
-		}
 
 		void EnableProceedButton (bool onOff) {
 			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvEnableButton, new eParam(new string[] { "PROCEED", onOff ? "true" : "false" }));
-		}
-
-		void UpdateProgressInfo (string info) {
-			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateProgressInfo, new eParam(info));
 		}
 
 		private void Update() {
@@ -120,6 +100,45 @@ namespace eDIA {
 		}
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
+#region INFORMATION UPDATES
+
+
+		void UpdateProgressStatus (string info) {
+			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateProgressStatus, new eParam(info));
+		}
+		void UpdateSessionSummary() {
+			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateSessionSummary, new eParam(SessionSettings.sessionInfo.GetSessionSummary()));
+		}
+
+		void UpdateBlockProgress() {
+			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateBlockProgress, new eParam(new int[] { Session.instance.currentBlockNum, Session.instance.blocks.Count }));
+		}
+
+		void EvUpdateTrialProgress () {
+			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateTrialProgress, new eParam(new int[] { Session.instance.currentTrialNum, Session.instance.Trials.Count() }));
+		}
+
+		void UpdateStepProgress () {
+			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateStepProgress, new eParam(new int[] { _currentStep, _activeEBlock.trialSteps.Count }));
+		}
+
+		/// <summary>Called from this manager. </summary>
+		void ShowMessageToUser(string msg, string description) {
+			AddToExecutionOrderLog("ShowMessageToUser");
+
+			EnableProceedButton(true);
+			UpdateProgressStatus("Block Info");
+
+			EnablePauseButton(false);
+			EnableEyeCalibrationTrigger(true);
+
+			if (MessagePanelInVR.Instance != null)
+				MessagePanelInVR.Instance.ShowMessage(msg);
+			else Debug.LogError("No MessagePanelInVR instance found");
+		}
+
+
+#endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region EXPERIMENT CONTROL
 
 		/// <summary>Starts the experiment</summary>
@@ -127,13 +146,11 @@ namespace eDIA {
 			AddXRrigTracking();
 
 			Session.instance.Begin(
-			  experimentConfig.experiment == string.Empty ? "N.A." : experimentConfig.experiment,
-			  experimentConfig.GetParticipantID(),
-			  experimentConfig.session_number,
-			  experimentConfig.GetParticipantDetailsAsDict()
+			  SessionSettings.sessionInfo.experiment == string.Empty ? "N.A." : SessionSettings.sessionInfo.experiment,
+			  SessionSettings.sessionInfo.GetParticipantID(),
+			  SessionSettings.sessionInfo.session_number,
+			  SessionSettings.sessionInfo.GetParticipantDetailsAsDict()
 			);
-
-
 		}
 
 		void OnEvStartExperiment(eParam e) {
@@ -213,15 +230,17 @@ namespace eDIA {
 			AddToExecutionOrderLog("OnSessionBegin");
 			EventManager.StartListening(eDIA.Events.StateMachine.EvProceed, OnEvStartFirstTrial);
 
-			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateBlockProgress, new eParam(new int[] { Session.instance.currentBlockNum, Session.instance.blocks.Count }));
-			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateSessionSummary, new eParam(experimentConfig.GetSessionSummary()));
-			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateProgressInfo, new eParam("Welcome"));
+			UpdateBlockProgress();
+			UpdateSessionSummary();
+			UpdateProgressStatus("Welcome");
 
 			EnableProceedButton(true);
 
 			// eye calibration option enabled
 			EnableEyeCalibrationTrigger(true);
 		}
+
+
 
 		/// <summary>Called from UXF session. </summary>
 		void OnSessionEndUXF(Session session) {
@@ -233,7 +252,7 @@ namespace eDIA {
 
 			AddToExecutionOrderLog("OnSessionEndUXF");
 
-			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateProgressInfo, new eParam("End"));
+			UpdateProgressStatus("End");
 			EnableProceedButton(false);
 
 			EnablePauseButton(false);
@@ -245,7 +264,7 @@ namespace eDIA {
 
 			// clean
 			EventManager.TriggerEvent(eDIA.Events.StateMachine.EvFinalizeSession, null);
-			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateProgressInfo, new eParam("Finalize Session"));
+			UpdateProgressStatus("Finalize Session");
 			Session.instance.End();
 		}
 
@@ -276,18 +295,17 @@ namespace eDIA {
 				new eParam(new int[] { Session.instance.currentBlockNum, Session.instance.blocks.Count }));
 
 			// Check for block introduction flag
-			bool hasIntro = Session.instance.CurrentBlock.settings.GetString("intro") != string.Empty;
+			bool hasIntro = Session.instance.CurrentBlock.settings.GetString("_start") != string.Empty;
 
 			// Inject introduction step or continue UXF sequence
 			if (hasIntro) {
 				EventManager.StartListening(eDIA.Events.StateMachine.EvProceed, BlockContinueAfterIntro); // listener as it event call can come from any script
-				ShowMessageToUser(Session.instance.CurrentBlock.settings.GetString("intro"), "Block Intro");
+				ShowMessageToUser(Session.instance.CurrentBlock.settings.GetString("_start"), "Block Intro");
 				taskBlocks[Session.instance.currentBlockNum - 1].OnBlockIntro();
 			}
 			else {
 				StartTrial();
-				EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateProgressInfo, 
-					new eParam(Session.instance.CurrentBlock.settings.GetString("block_name")));
+				UpdateProgressStatus("block_name");
 			}
 		}
 
@@ -349,8 +367,7 @@ namespace eDIA {
 		/// <summary>catching first button press of user </summary>
 		void OnEvStartFirstTrial(eParam e) {
 			EventManager.StopListening(eDIA.Events.StateMachine.EvProceed, OnEvStartFirstTrial);
-
-			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateTrialProgress, new eParam(new int[] { Session.instance.currentTrialNum, Session.instance.Trials.Count() }));
+			EvUpdateTrialProgress();
 
 			Session.instance.BeginNextTrial();
 		}
@@ -366,7 +383,7 @@ namespace eDIA {
 			}
 			else {
 				StartTrial();
-				EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateProgressInfo, new eParam(Session.instance.CurrentBlock.settings.GetString("block_name")));
+				UpdateProgressStatus(Session.instance.CurrentBlock.settings.GetString("block_name"));
 			}
 		}
 
@@ -412,7 +429,8 @@ namespace eDIA {
 			AddToLog("StartTrial");
 
 			taskBlocks[Session.instance.currentBlockNum - 1].OnStartTrial();
-			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateTrialProgress, new eParam(new int[] { Session.instance.currentTrialNum, Session.instance.Trials.Count() }));
+			EvUpdateTrialProgress();
+			
 			_currentStep = -1;
 			NextTrialStep();
 		}
@@ -457,20 +475,11 @@ namespace eDIA {
 
 			if (_currentStep < _activeEBlock.trialSteps.Count) {
 				InBetweenSteps();
-				EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateStepProgress, new eParam(new int[] { _currentStep, _activeEBlock.trialSteps.Count }));
+				UpdateStepProgress();
 				_activeEBlock.trialSteps[_currentStep].Invoke();
 
 			}
 			else EndTrial();
-
-			//if (currentStep < taskBlocks[Session.instance.CurrentBlock.number - 1].trialSteps.Count) {
-			//	InBetweenSteps();
-
-			//	// update progress
-			//	EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateStepProgress, new eParam(new int[] { currentStep, taskBlocks[Session.instance.currentBlockNum - 1].trialSteps.Count }));
-			//	taskBlocks[Session.instance.currentBlockNum - 1].trialSteps[currentStep].Invoke();
-			//}
-			//else EndTrial();
 		}
 
 		/// <summary>In Between to steps of the trial, we might want to clean things up a bit.</summary>
@@ -488,7 +497,7 @@ namespace eDIA {
 			AddToExecutionOrderLog("SessionPaused");
 
 			EventManager.StartListening(eDIA.Events.StateMachine.EvProceed, SessionResumeAfterBreak);
-			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateProgressInfo, new eParam("Pause"));
+			UpdateProgressStatus("Pause");
 
 			OnSessionPaused.Invoke();
 

@@ -9,25 +9,6 @@ namespace eDIA {
 
 	public class SessionGenerator : MonoBehaviour {
 
-		[System.Serializable]
-		public class EBlockSequence {
-			public List<string> Sequence = new();
-		}
-
-		[System.Serializable]
-		public class EBlockBaseSettings {
-			public string type;
-			public string subType;
-			public List<SettingsTuple> settings = new();
-			public List<SettingsTuple> instructions = new();
-		}
-
-		//! Task list
-		[System.Serializable]
-		public class EBlockSettings : EBlockBaseSettings {
-			public string blockId;
-			public TrialSettings trialSettings = new();
-		}
 
 		// Internal checkup lists
 		List<EBlockBaseSettings> Tasks = new();
@@ -35,8 +16,6 @@ namespace eDIA {
 		List<bool> validatedJsons = new();
 
 		EBlockSequence _eBlockSequence;
-		public SessionInfo _sessionInfo;
-
 
 		private void Awake () {
 			EventManager.StartListening(eDIA.Events.Config.EvSetSessionInfo, OnEvSetSessionInfo);
@@ -52,9 +31,15 @@ namespace eDIA {
 #region EVENT HANDLING
 
 		private void OnEvSetSessionInfo(eParam param) {
-			_sessionInfo = UnityEngine.JsonUtility.FromJson<SessionInfo>(param.GetStrings()[0]);
-			_sessionInfo.session_number = param.GetStrings()[1];
-			_sessionInfo.participant_details.Add ("id", param.GetStrings()[2]);
+
+			SessionSettings.sessionInfo = UnityEngine.JsonUtility.FromJson<SessionInfo>(param.GetStrings()[0]);
+			SessionSettings.sessionInfo.session_number = int.Parse(param.GetStrings()[1]); // UXF wants an int
+			
+			SettingsTuple participantTuple = new SettingsTuple();
+			participantTuple.key = "id";
+			participantTuple.value = param.GetStrings()[2];
+			SessionSettings.sessionInfo.participant_details.Add(participantTuple);
+			 
 			validatedJsons.Add(true);
 			CheckIfReadyAndContinue();
 		}
@@ -119,6 +104,7 @@ namespace eDIA {
 				GenerateUXFSequence();
 
 				EventManager.TriggerEvent(eDIA.Events.Config.EvReadyToGo);
+				EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateSessionSummary, new eParam(SessionSettings.sessionInfo.GetSessionSummary()));
 			}
 		}
 

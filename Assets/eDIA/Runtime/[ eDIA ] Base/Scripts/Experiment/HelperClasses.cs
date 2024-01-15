@@ -14,8 +14,8 @@ namespace eDIA {
 	[System.Serializable]
 	public class SettingsTuple {
 		[HideInInspector]
-		public string key 			= string.Empty;
-		public string value 			= string.Empty;
+		public string key = string.Empty;
+		public string value = string.Empty;
 	}
 
 	/// <summary> List of string values, in a class to make it serializable by JSON</summary>
@@ -32,39 +32,80 @@ namespace eDIA {
 		public List<ValueList> valueList = new List<ValueList>();
 	}
 
-	///// <summary> Experiment block container  </summary>
-	//[System.Serializable]
-	//public class ExperimentBlock {
-	//	public string 				block_name			= string.Empty;
-	//	public string 				intro 			= string.Empty;
-	//	public string 				outro 			= string.Empty;
-	//	public List<SettingsTuple>		block_settings		= new List<SettingsTuple>();
-	//	public TrialSettings			trial_settings		= new TrialSettings();
-	//}
+#endregion // -------------------------------------------------------------------------------------------------------------------------------
+#region UXF SEQUENCE (JSON SERIALIZABLE)
 
+	[System.Serializable]
+	public class EBlockSequence {
+		public List<string> Sequence = new();
+	}
 
+	[System.Serializable]
+	public class EBlockBaseSettings {
+		public string type;
+		public string subType;
+		public List<SettingsTuple> settings = new();
+		public List<SettingsTuple> instructions = new();
+	}
+
+	//! Task list
+	[System.Serializable]
+	public class EBlockSettings : EBlockBaseSettings {
+		public string blockId;
+		public TrialSettings trialSettings = new();
+	}
+
+#endregion // -------------------------------------------------------------------------------------------------------------------------------
+#region SESSION SETTINGS
 
 	/// <summary> Experiment config container</summary>
 	[System.Serializable]
 	public class SessionInfo {
-		public string				experiment			= string.Empty;
-		public string 				experimenter 		= string.Empty;
-		public string				session_number 		= "0";
-		public List<SettingsTuple>	participant_details = new List<SettingsTuple>();
+		public string experiment = string.Empty;
+		public string experimenter = string.Empty;
+		public int session_number = 0;
+		public List<SettingsTuple> participant_details = new List<SettingsTuple>();
 
 		//? Class helper methods
 		public string[] GetSessionSummary() {
-			return new string[] { experiment, experimenter, GetParticipantID (), session_number.ToString() };
+			return new string[] { experiment, experimenter, GetParticipantID(), session_number.ToString() };
 		}
 
-		public string GetParticipantID () {
-			return participant_details.Find(x=>x.key=="ID").value;
+		public string GetParticipantID() {
+			return participant_details.Find(x => x.key == "id").value;
 		}
 
-		public Dictionary<string,object> GetParticipantDetailsAsDict () {
+		public Dictionary<string, object> GetParticipantDetailsAsDict() {
 			return Helpers.GetSettingsTupleListAsDict(participant_details);
 		}
 	}
+
+	public static class SessionSettings {
+		public static SessionInfo sessionInfo = new();	
+	}
+
+#endregion // -------------------------------------------------------------------------------------------------------------------------------
+#region HELPERS
+
+	public static class Helpers {
+
+		public static Dictionary<string, object> GetSettingsTupleListAsDict(List<SettingsTuple> list) {
+			Dictionary<string, object> tmp = new Dictionary<string, object>();
+			foreach (SettingsTuple st in list)
+				if (st.value.Contains(',')) { // it's a list!
+					List<string> stringlist = st.value.Split(',').ToList();
+					for (int s = 0; s < stringlist.Count; s++) {
+						string newstring = stringlist[s].Replace(" ", string.Empty); // remove spaces 
+						stringlist[s] = newstring;
+					}
+					tmp.Add(st.key, stringlist);
+				}
+				else tmp.Add(st.key, st.value); // normal string
+
+			return tmp;
+		}
+	}
+
 
 	/// <summary> Experiment config container</summary>
 	[System.Serializable]
@@ -125,23 +166,6 @@ namespace eDIA {
 		//}
 	}
 
-	public static class Helpers {
-
-		public static Dictionary<string,object> GetSettingsTupleListAsDict (List<SettingsTuple> list) {
-			Dictionary<string,object> tmp = new Dictionary<string, object>();
-			foreach (SettingsTuple st in list)
-				if (st.value.Contains(',')) { // it's a list!
-					List<string> stringlist = st.value.Split(',').ToList();
-					for (int s=0;s<stringlist.Count;s++) { 
-						string newstring = stringlist[s].Replace(" ",string.Empty); // remove spaces 
-						stringlist[s] = newstring;  
-					} 
-					tmp.Add(st.key, stringlist);
-				} else tmp.Add(st.key, st.value);	// normal string
-				
-			return tmp;
-		}
-	}
 
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
