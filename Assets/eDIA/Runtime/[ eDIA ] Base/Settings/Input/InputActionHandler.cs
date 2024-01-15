@@ -88,7 +88,7 @@ namespace eDIA {
 		}
 
 		public void proceedPerformed (InputAction.CallbackContext context) {
-			EventManager.TriggerEvent(eDIA.Events.StateMachine.EvProceed, null); // Convert it into our eventmanager system
+			EventManager.TriggerEvent(eDIA.Events.StateMachine.EvProceed); // Convert it into our eventmanager system
 		}
 
 		public void actionStartExperimentPerformed (InputAction.CallbackContext context) {

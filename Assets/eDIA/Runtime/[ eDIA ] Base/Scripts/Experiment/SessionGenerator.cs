@@ -28,7 +28,7 @@ namespace eDIA {
 			validatedJsons.Clear();
 		}
 
-#region EVENT HANDLING
+		#region EVENT HANDLING
 
 		private void OnEvSetSessionInfo(eParam param) {
 

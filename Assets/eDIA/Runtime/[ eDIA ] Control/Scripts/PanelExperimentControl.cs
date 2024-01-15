@@ -155,7 +155,7 @@ namespace eDIA.Manager {
 	  }
 
 	  public void ProceedBtnCLicked() {
-		EventManager.TriggerEvent(eDIA.Events.StateMachine.EvProceed, null);
+		EventManager.TriggerEvent(eDIA.Events.StateMachine.EvProceed);
 
 	  }
 

@@ -123,23 +123,26 @@ namespace eDIA {
 		}
 
 		/// <summary>Called from this manager. </summary>
-		void ShowMessageToUser(string msg, string description) {
+		void ShowMessageToUser (string msg) {
+			ShowMessageToUserGeneric();
+			MessagePanelInVR.Instance.ShowMessage(msg);
+		}
+
+		void ShowMessageToUser (List<string> msgs) {
+			ShowMessageToUserGeneric();
+			MessagePanelInVR.Instance.ShowMessage(msgs);
+		}
+
+		void ShowMessageToUserGeneric () {
 			AddToExecutionOrderLog("ShowMessageToUser");
-
 			EnableProceedButton(true);
-			UpdateProgressStatus("Block Info");
-
 			EnablePauseButton(false);
 			EnableEyeCalibrationTrigger(true);
-
-			if (MessagePanelInVR.Instance != null)
-				MessagePanelInVR.Instance.ShowMessage(msg);
-			else Debug.LogError("No MessagePanelInVR instance found");
 		}
 
 
-#endregion // -------------------------------------------------------------------------------------------------------------------------------
-#region EXPERIMENT CONTROL
+		#endregion // -------------------------------------------------------------------------------------------------------------------------------
+		#region EXPERIMENT CONTROL
 
 		/// <summary>Starts the experiment</summary>
 		void StartExperiment() {
@@ -275,14 +278,6 @@ namespace eDIA {
 		void BlockStart() {
 			AddToLog("Block Start");
 
-			//// Disable old block
-			//if (Session.instance.currentBlockNum - 1 != 0)
-			//	taskBlocks[Session.instance.currentBlockNum - 2].enabled = false;
-
-			//// enable new block
-			//taskBlocks[Session.instance.currentBlockNum - 1].enabled = true;
-			//taskBlocks[Session.instance.currentBlockNum - 1].OnBlockStart();
-
 			// Set new storedBlockNum value
 			_activeSessionBlockNum = Session.instance.currentBlockNum;
 
@@ -291,8 +286,7 @@ namespace eDIA {
 			_activeEBlock.gameObject.SetActive(true);
 
 			// Update block progress
-			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateBlockProgress, 
-				new eParam(new int[] { Session.instance.currentBlockNum, Session.instance.blocks.Count }));
+			UpdateBlockProgress();
 
 			// Check for block introduction flag
 			bool hasIntro = Session.instance.CurrentBlock.settings.GetString("_start") != string.Empty;
@@ -300,12 +294,13 @@ namespace eDIA {
 			// Inject introduction step or continue UXF sequence
 			if (hasIntro) {
 				EventManager.StartListening(eDIA.Events.StateMachine.EvProceed, BlockContinueAfterIntro); // listener as it event call can come from any script
-				ShowMessageToUser(Session.instance.CurrentBlock.settings.GetString("_start"), "Block Intro");
+				ShowMessageToUser (Session.instance.CurrentBlock.settings.GetStringList("_start"));
+				UpdateProgressStatus("Block Intro");
 				taskBlocks[Session.instance.currentBlockNum - 1].OnBlockIntro();
 			}
 			else {
 				StartTrial();
-				UpdateProgressStatus("block_name");
+				UpdateProgressStatus(Session.instance.CurrentBlock.settings.GetString("block_name"));
 			}
 		}
 
@@ -318,8 +313,9 @@ namespace eDIA {
 			
 			if (hasOutro) {
 				EventManager.StartListening(eDIA.Events.StateMachine.EvProceed, BlockContinueAfterOutro); // listener as it event call can come from any script
-				EnableProceedButton(false);
-				ShowMessageToUser(Session.instance.CurrentBlock.settings.GetString("outro"), "Block Outro");
+				EnableProceedButton(true);
+				ShowMessageToUser(Session.instance.CurrentBlock.settings.GetStringList("outro"));
+				UpdateProgressStatus("Block Outro");
 				Blocks[Session.instance.currentBlockNum - 1].OnBlockOutro();
 			}
 			else {

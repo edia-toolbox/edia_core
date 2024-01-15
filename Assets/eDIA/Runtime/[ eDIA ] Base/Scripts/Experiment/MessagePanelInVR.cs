@@ -11,23 +11,27 @@ namespace eDIA
 	/// <summary>Sample script to show the user a message in VR canvas</summary>
 	public class MessagePanelInVR : Singleton<MessagePanelInVR>
 	{
-
 		[Header("Refs")]
 		public TextMeshProUGUI MsgField = null;
 		public GameObject MenuHolder = null;
+		public Button buttonOK = null;
+		public Button buttonProceed = null;
 		private Image _backgroungImg = null;
 
 		[Header("Settings")]
 		public bool StickToHMD = true;
 		public float DistanceFromHMD = 2f;
 		public bool HasSolidBackground = true;
+		//public float DefaultDuration = 3f;
+
+		bool _hasClicked = false;
 
 		Canvas _myCanvas = null;
 		GraphicRaycaster _graphicRaycaster = null;
 		TrackedDeviceGraphicRaycaster _trackedDeviceGraphicRaycaster = null;
 
-		Coroutine MessageTimer = null;
-		Coroutine MessageFader = null;
+		Coroutine _messageTimer = null;
+		Coroutine _messageFader = null;
 
 		private void Awake()
 		{
@@ -37,9 +41,9 @@ namespace eDIA
 			_graphicRaycaster.enabled = false;
 			_trackedDeviceGraphicRaycaster = GetComponent<TrackedDeviceGraphicRaycaster>();
 			_trackedDeviceGraphicRaycaster.enabled = false;
-
-			MenuHolder.SetActive(false);
 			_backgroungImg = transform.GetChild(0).GetComponent<Image>();
+			
+			ButtonToggling(false,false);
 
 			if (_myCanvas.worldCamera == null)
 				_myCanvas.worldCamera = XRManager.Instance.camOverlay.GetComponent<Camera>();
@@ -71,13 +75,7 @@ namespace eDIA
 		}
 
 
-		#region SHOW
-
-		/// <summary>Event catcher</summary>
-		void OnEvShowMessage(eParam e)
-		{
-			ShowMessage(e.GetString());
-		}
+		#region PANEL
 
 		/// <summary>Shows the actual panel</summary>
 		void ShowPanel(bool onOff)
@@ -90,16 +88,25 @@ namespace eDIA
 			_trackedDeviceGraphicRaycaster.enabled = onOff;
 		}
 
+
+		#endregion
+		#region MESSAGE OPTIONS	
+
+		/// <summary>Event catcher</summary>
+		void OnEvShowMessage(eParam e)
+		{
+			ShowMessage(e.GetString());
+		}
+
 		/// <summary>Shows the message in VR on a canvas.</summary>
 		/// <param name="msg">Message to show</param>
 		public void ShowMessage(string msg)
 		{
-
-			if (MessageTimer != null) StopCoroutine(MessageTimer);
-			if (MessageFader != null) StopCoroutine(MessageFader);
+			if (_messageTimer != null) StopCoroutine(_messageTimer);
+			if (_messageFader != null) StopCoroutine(_messageFader);
 
 			MsgField.text = msg;
-			MessageFader = StartCoroutine(Fader());
+			_messageFader = StartCoroutine(Fader());
 
 			ShowPanel(true);
 		}
@@ -111,17 +118,64 @@ namespace eDIA
 		{
 			ShowMessage(msg);
 
-			MessageTimer = StartCoroutine("timer", duration);
+			_messageTimer = StartCoroutine("timer", duration);
 		}
 
 		/// <summary>Shows the message in VR on a canvas with button to proceed.</summary>
 		/// <param name="msg">Message to show</param>
 		/// <param name="duration">Duration</param>
-		public void ShowMessage(string msg, bool showButton)
+		public void ShowMessage(string msg, bool showProceedButton)
 		{
 			ShowMessage(msg);
-			if (showButton)
-				ShowMenu();
+
+			if (showProceedButton) {
+				ButtonToggling(true, true);
+
+				// Also trigger proceed button on control panel
+				EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvEnableButton, new eParam(new string[] { "PROCEED", "true" }));
+				Experiment.Instance.WaitOnProceed();
+			}
+		}
+
+		/// <summary>
+		/// Shows a series of messages, user has to click OK button to go through them
+		/// </summary>
+		/// <param name="messages"></param>
+		public void ShowMessage (List<string> messages) {
+
+			ButtonToggling(true, false);
+
+			_hasClicked = false;
+
+			StartCoroutine(MessagesRoutine(messages));
+		}
+
+		IEnumerator MessagesRoutine (List<string> messages) {
+
+			foreach(string msg in messages) {
+				ShowMessage(msg);
+			
+				while (!_hasClicked) { 
+					yield return new WaitForEndOfFrame();
+				}
+			}
+
+			ButtonToggling (false, true);
+		}
+
+		void ButtonToggling(bool onOffOk, bool onOffProceed) {
+			buttonOK.gameObject.SetActive(onOffOk);
+			buttonProceed.gameObject.SetActive(onOffProceed);
+			MenuHolder.SetActive(onOffProceed || onOffOk);
+		}
+
+
+		public void OnBtnOKPressed () {
+			_hasClicked = true;
+		}
+
+		public void OnBtnProceedPressed() {
+			EventManager.TriggerEvent(eDIA.Events.StateMachine.EvProceed);
 		}
 
 
@@ -137,8 +191,8 @@ namespace eDIA
 		/// <summary>Doublecheck running routines and hides the panel</summary>
 		public void HidePanel()
 		{
-			if (MessageTimer != null) StopCoroutine(MessageTimer);
-			if (MessageFader != null) StopCoroutine(MessageFader);
+			if (_messageTimer != null) StopCoroutine(_messageTimer);
+			if (_messageFader != null) StopCoroutine(_messageFader);
 			ShowPanel(false);
 			HideMenu();
 		}
@@ -146,25 +200,16 @@ namespace eDIA
 		#endregion // -------------------------------------------------------------------------------------------------------------------------------
 		#region MENU
 
-		void ShowMenu()
-		{
-			MenuHolder.SetActive(true);
-
-			// Also trigger proceed button on control panel
-			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvEnableButton, new eParam(new string[] { "PROCEED", "true" }));
-
-			Experiment.Instance.WaitOnProceed();
-		}
-
 		void HideMenu()
 		{
-			MenuHolder.SetActive(false);
+			ButtonToggling(false, false);
+
+			//MenuHolder.SetActive(false);
+			//buttonOK.gameObject.SetActive(false);
+			//buttonProceed.gameObject.SetActive(false);
 		}
 
-		public void ProceedBtnPressed()
-		{
-			EventManager.TriggerEvent(eDIA.Events.StateMachine.EvProceed, null);
-		}
+
 
 		#endregion // -------------------------------------------------------------------------------------------------------------------------------
 		#region TIMERS
