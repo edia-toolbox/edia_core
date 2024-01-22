@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Utils;
 using UXF;
 
 namespace eDIA {
@@ -12,8 +13,8 @@ namespace eDIA {
 
 		// Internal checkup lists
 		List<EBlockBaseSettings> Tasks = new();
-		List<EBlockSettings> EBlocks = new();
-		List<bool> validatedJsons = new();
+            List<EBlockSettings> EBlocks = new();
+            List<bool> validatedJsons = new();
 
 		EBlockSequence _eBlockSequence;
 
@@ -52,8 +53,8 @@ namespace eDIA {
 
 		private void OnEvSetTaskDefinitions(eParam param) {
 			foreach (string t in param.GetStrings()) {
-				EBlockBaseSettings tba = UnityEngine.JsonUtility.FromJson<EBlockBaseSettings>(t);
-				Tasks.Add(tba);
+				EBlockBaseSettings EBs = UnityEngine.JsonUtility.FromJson<EBlockBaseSettings>(t);
+				Tasks.Add(EBs);
 			}
 			validatedJsons.Add(true);
 			CheckIfReadyAndContinue();
@@ -61,8 +62,8 @@ namespace eDIA {
 
 		private void OnEvSetEBlockDefinitions(eParam param) {
 			foreach (string t in param.GetStrings()) {
-				EBlockSettings tba = UnityEngine.JsonUtility.FromJson<EBlockSettings>(t);
-				EBlocks.Add(tba);
+				EBlockSettings EBs = UnityEngine.JsonUtility.FromJson<EBlockSettings>(t);
+				EBlocks.Add(EBs);
 			}
 			validatedJsons.Add(true);
 			CheckIfReadyAndContinue();
