@@ -275,14 +275,13 @@ namespace eDIA {
 			_activeEBlock = Blocks[Blocks.FindIndex(x => x.name == Session.instance.CurrentBlock.settings.GetString("_assetId"))];
 			_activeEBlock.enabled = true;
 			_activeEBlock.gameObject.SetActive(true);
+			_activeEBlock.OnBlockStart();
 
 			// Update block progress
 			UpdateBlockProgress();
 
 			// Check for block introduction flag
 			bool hasIntro = Session.instance.CurrentBlock.settings.GetStringList("_start").Count > 0;
-
-			_activeEBlock.OnBlockStart();
 
 			// Inject introduction step or continue UXF sequence
 			if (hasIntro) {

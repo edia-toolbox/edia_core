@@ -104,9 +104,6 @@ namespace TASK {
 		public override void OnBlockStart () {
 		}
 
-		public override void OnBlockIntro () {
-		}
-		
 		public override void OnStartTrial () {
 		}
 
