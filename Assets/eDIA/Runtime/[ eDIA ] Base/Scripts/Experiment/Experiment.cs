@@ -10,7 +10,7 @@ using UnityEngine.Events;
 // EXPERIMENT CONTROL 
 namespace eDIA {
 
-	#region DECLARATIONS
+#region DECLARATIONS
 
 	public class Experiment : Singleton<Experiment> {
 
@@ -51,7 +51,7 @@ namespace eDIA {
 		UXFDataTable _markerLog = new("timestamp", "annotation");
 		
 		#endregion // -------------------------------------------------------------------------------------------------------------------------------
-		#region MONO METHODS
+#region MONO METHODS
 
 		void Awake() {
 
@@ -138,7 +138,7 @@ namespace eDIA {
 
 
 		#endregion // -------------------------------------------------------------------------------------------------------------------------------
-		#region EXPERIMENT CONTROL
+#region EXPERIMENT CONTROL
 
 		/// <summary>Starts the experiment</summary>
 		void StartExperiment() {
@@ -216,7 +216,7 @@ namespace eDIA {
 		}
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
-		#region STATEMACHINE UXF SESSION
+#region STATEMACHINE UXF SESSION
 
 		/// <summary>Start of the UXF session. </summary>
 		void OnSessionBeginUXF(Session session) {
@@ -591,9 +591,5 @@ namespace eDIA {
 		}
 
 		#endregion // -------------------------------------------------------------------------------------------------------------------------------
-
-
-
 	}
-
 }

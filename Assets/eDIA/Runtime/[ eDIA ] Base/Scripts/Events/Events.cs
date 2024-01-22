@@ -55,21 +55,17 @@ namespace eDIA.Events {
 	/// <summary>All event related to controlling the state machine of the experiment </summary>
 	public static class Config {
 
-		///// <summary>Set experiment config. Expects config as JSON string</summary>
+		/// <summary>Set session info. Expects JSON string</summary>
 		public const string EvSetSessionInfo = "EvSetSessionInfo";
 
-		///// <summary>Set task config. Expects config as JSON string</summary>
-		//public const string EvSetTaskConfig = "EvSetTaskConfig";
-
+		// <summary>Set sessions block sequence. Expects JSON string</summary>
 		public const string EvSetEBlockSequence = "EvSetEBlockSequence";
+
+		/// <summary>Set sessions block sequence. Expects JSON string</summary>
 		public const string EvSetTaskDefinitions = "EvSetTaskDefinitions";
+
+		/// <summary>Set sessions block sequence. Expects JSON string</summary>
 		public const string EvSetEBlockDefinitions = "EvSetEBlockDefinitions";
-
-		/// <summary>Fired when the Experiment manager has set the experimentconfig. </summary>
-		public const string EvExperimentConfigSet = "EvExperimentConfigSet"; // TODO determin is this is still needed with new system
-
-		/// <summary>Fired when the Experiment manager has set the taskconfig. </summary>
-		public const string EvTaskConfigSet = "EvTaskConfigSet"; // TODO determin is this is still needed with new system
 
 		/// <summary>Fired when both configs are set </summary>
 		public const string EvReadyToGo = "EvReadyToGo";
@@ -180,11 +176,15 @@ namespace eDIA.Events {
 
 		// * TO APP >>
 
-		public const string NwEvSetTaskConfig = "NwEvSetTaskConfig";
+		public const string NwEvSetSessionInfo = "NwEvSetSessionInfo";
 
-		public const string NwEvSetExpConfig = "NwEvSetExpConfig";
+		public const string NwEvSetEBlockSequence = "NwEvSetEBlockSequence";
 
-		public const string NwEvStartExperiment = "NwEvStartExperiment";
+            public const string NwEvSetTaskDefinitions = "NwEvSetTaskDefinitions";
+
+            public const string NwEvSetEBlockDefinitions = "NwEvSetEBlockDefinitions";
+
+            public const string NwEvStartExperiment = "NwEvStartExperiment";
 
 		public const string NwEvPauseExperiment = "NwEvPauseExperiment";
 
@@ -195,14 +195,9 @@ namespace eDIA.Events {
 
 		// * TO MANAGER >>
 
-		public const string NwEvTaskConfigSet = "NwEvTaskConfigSet";
-
-		public const string NwEvExperimentConfigSet = "NwEvExperimentConfigSet";
-
 		public const string NwEvReadyToGo = "NwEvReadyToGo";
 
 		public const string NwEvEnableButton = "NwEvEnableButton";
-
 
 		public const string NwEvUpdateStepProgress = "NwEvUpdateStepProgress";
 
