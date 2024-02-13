@@ -19,11 +19,18 @@ namespace eDIA {
 		[System.Serializable]
 		public class ControllerInputRemap {
 			public string id;
+			public bool isEnabled = false;
 			public InputActionReference inputActionSubmit;
 			public UnityEvent<InputAction.CallbackContext> methodToCall;
-		} 
+		}
 
 		public List<ControllerInputRemap> Redirectors = new List<ControllerInputRemap>();
+
+		private void Start() {
+			foreach (ControllerInputRemap r in Redirectors) {
+				EnableRemapping(r.id, r.isEnabled);
+			}
+		}
 
 		public List<string> GetControllerRemappings () {
 			
