@@ -3,45 +3,41 @@ using System.Collections.Generic;
 using eDIA;
 using UnityEngine;
 using UXF;
- using UnityEngine.InputSystem;
+using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
+using System;
 
-namespace TASK {
-	
+namespace eDia {
+
 	[System.Serializable]
-	public class TaskBlockTemplate : TaskBlock {
+	public class TaskEBlockTemplate : EBlock {
 
 		/*
-
 			Task related parameters
-
 		*/
 
-
+		float UserResponseTime = 0f;
+		float StepStartTime = 0;
+		
 		private void Awake() {
 
 			/*
 				Each trial exists out of a sequence of steps. 
 				In order to use them, we need to add the methods of this task to the trial sequence.
+
+				An common approach of these steps within a trial are as follows:
 			*/
-			AddToTrialSequence(TaskStep1);
-			AddToTrialSequence(TaskStep2);
-			//! etc
-		}
 
-		// Script gets enabled when it is it's turn.
-		void OnEnable() {
-		}
-
-		// Script gets disabled when it it's turn is over.
-		void OnDisable() {
+			AddToTrialSequence(TaskStep1); // In many cases setting up the environment for the task, i.e. Generating Stimuli
+			AddToTrialSequence(TaskStep2); // Input from the user
+			AddToTrialSequence(TaskStep3); // Check input and log
+			AddToTrialSequence(TaskStep4); // Clean up
 		}
 
 // -------------------------------------------------------------------------------------------------------------------------------
 #region TASK STEPS
 
 		/*
-			
 			Methods that define the steps taken in this trial.
 
 			Main scripts to call:
@@ -60,10 +56,12 @@ namespace TASK {
 			XRManager.Instance.EnableXRInteraction (false);
 
 			/* 
-				Continue with the next step, either:
-				* Directly: NextStep()
-				* Delayed: NextStepWithDelay (seconds as float)
+				Continue to the next step:
+				1) Set statemachine in 'wait' mode: Experiment.Instance.WaitOnProceed();
 				
+				Then, either: 
+				* Directly: Experiment.Instance.Proceed();
+				* Delayed: Experiment.Instance.ProceedWithDelay (seconds as float)
 			*/
 
 			Experiment.Instance.ProceedWithDelay (Session.instance.CurrentBlock.settings.GetFloat ("timer_showcube"));
@@ -75,6 +73,8 @@ namespace TASK {
 			// Enable interaction from the user. The system will automaticly enable the Ray Interaction for the active hands set in the settings.
 			XRManager.Instance.EnableXRInteraction (true);
 
+			StepStartTime = Time.time;
+
 			// Show message to user and allow proceeding to NextStep by pressing the button.
 			MessagePanelInVR.Instance.ShowMessage("Click button below to continue", true);
 
@@ -82,25 +82,28 @@ namespace TASK {
 			Experiment.Instance.WaitOnProceed (); 
 		}
 
+		/// <summary>User clicked button</summary>
+		void TaskStep3() {
+			
+			UserResponseTime = Time.time - StepStartTime;
 
-#endregion // -------------------------------------------------------------------------------------------------------------------------------
-#region TASK HELPERS
+			// Add result to log
+			Experiment.Instance.AddToTrialResults("UserResponseTime", UserResponseTime.ToString());
+		}
 
+		/// <summary>Clean up</summary>
+		void TaskStep4() {
 
-		/*
-			Methods related to the task
-		*/
+			XRManager.Instance.EnableXRInteraction(false);
+		}
 
-
-
-
-#endregion // -------------------------------------------------------------------------------------------------------------------------------
-#region STATEMACHINE OVERRIDES
+		#endregion // -------------------------------------------------------------------------------------------------------------------------------
+		#region STATEMACHINE OVERRIDES
 
 		/*  
-			Methods from the statemachine that can be used in the task.
+			Opional overrides
 		*/
-			
+
 		public override void OnBlockStart () {
 		}
 
