@@ -9,7 +9,6 @@ using System;
 
 namespace eDia {
 
-	[System.Serializable]
 	public class TaskEBlockTemplate : EBlock {
 
 		/*
