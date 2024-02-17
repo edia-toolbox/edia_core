@@ -36,7 +36,7 @@ namespace eDIA.Manager {
 		string _eBlockSequenceFileName		= "eblock_sequence.json";
 		string _sessionInfoFilenName		= "session_info.json";
 
-		public string[] filelistTaskBlockDefinitions; // for sanity check
+		public string[] eBlockDefinitionsFileList; // for sanity check
 		public EBlockSequence _eBlockSequence;
 
 		public void Init() {
@@ -126,9 +126,9 @@ namespace eDIA.Manager {
 			}
 
 			// Block Task Definitions
-			filelistTaskBlockDefinitions = FileManager.GetAllFilenamesWithExtensionFrom(currentPath + _eBlockDefinitionsFolderName, "json");
+			eBlockDefinitionsFileList = FileManager.GetAllFilenamesWithExtensionFrom(currentPath + _eBlockDefinitionsFolderName, "json");
 
-			foreach (string s in filelistTaskBlockDefinitions) {
+			foreach (string s in eBlockDefinitionsFileList) {
 				string currentFileName = currentPath + "/" + _eBlockDefinitionsFolderName + "/" + s;
 				_eBlockDefinitionJsonStrings.Add(FileManager.ReadStringFromApplicationPath(currentFileName.ToLower()));
 			}
@@ -138,18 +138,8 @@ namespace eDIA.Manager {
 			// Sanity check - for each entry in the sequence file, there should be a file with the same name
 			_eBlockSequence = UnityEngine.JsonUtility.FromJson<EBlockSequence>(_eBSequenceJsonString);
 
-			foreach (string s in _eBlockSequence.Sequence) {
-				string stringToCheck = s.ToLower() + ".json";
-				string errormsg = "Sequence item `" + stringToCheck + "' config file not found in eblock-definitions!";
-				Debug.Log(filelistTaskBlockDefinitions.Contains(stringToCheck));
-
-				if (!filelistTaskBlockDefinitions.Contains(stringToCheck)) {
-					EventManager.TriggerEvent(eDIA.Events.Core.EvSystemHalt, new eParam(errormsg));
-					Debug.LogError(errormsg);
-					return false;
-				}
-			}
-			
+			Debug.Log( (_eBlockSequence.Sequence[0].ToLower() + " == " + eBlockDefinitionsFileList[0]));
+			Debug.Log(_eBlockSequence.Sequence[0].ToLower() == eBlockDefinitionsFileList[0].Split('.')[0]);
 			return true;	
 		}
 	}
