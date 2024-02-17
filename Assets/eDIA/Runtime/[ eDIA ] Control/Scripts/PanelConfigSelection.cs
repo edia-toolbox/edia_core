@@ -36,7 +36,8 @@ namespace eDIA.Manager {
 		string _eBlockSequenceFileName		= "eblock_sequence.json";
 		string _sessionInfoFilenName		= "session_info.json";
 
-		string[] filelistTaskBlockDefinitions; // for sanity check
+		public string[] filelistTaskBlockDefinitions; // for sanity check
+		public EBlockSequence _eBlockSequence;
 
 		public void Init() {
 			Reset();
@@ -129,23 +130,40 @@ namespace eDIA.Manager {
 
 			foreach (string s in filelistTaskBlockDefinitions) {
 				string currentFileName = currentPath + "/" + _eBlockDefinitionsFolderName + "/" + s;
-				_eBlockDefinitionJsonStrings.Add(FileManager.ReadStringFromApplicationPath(currentFileName));
+				_eBlockDefinitionJsonStrings.Add(FileManager.ReadStringFromApplicationPath(currentFileName.ToLower()));
 			}
 		}
 
 		private bool ValidateConfigs() {
 			// Sanity check - for each entry in the sequence file, there should be a file with the same name
-			EBlockSequence _eBlockSequence = UnityEngine.JsonUtility.FromJson<EBlockSequence>(_eBSequenceJsonString);
+			_eBlockSequence = UnityEngine.JsonUtility.FromJson<EBlockSequence>(_eBSequenceJsonString);
 
 			foreach (string s in _eBlockSequence.Sequence) {
-				if (!filelistTaskBlockDefinitions.Contains(s)) {
-					EventManager.TriggerEvent(eDIA.Events.Core.EvSystemHalt, new eParam(s + ".json not found!"));
-					Debug.LogError(s + ".json not found!");
-					return false; 
+				string stringToCheck = s.ToLower() + ".json";
+				string errormsg = "Sequence item `" + stringToCheck + "' config file not found in eblock-definitions!";
+				Debug.Log(filelistTaskBlockDefinitions.Contains(stringToCheck));
+
+				if (!filelistTaskBlockDefinitions.Contains(stringToCheck)) {
+					EventManager.TriggerEvent(eDIA.Events.Core.EvSystemHalt, new eParam(errormsg));
+					Debug.LogError(errormsg);
+					return false;
 				}
 			}
-
+			
 			return true;	
 		}
 	}
 }
+
+/*
+ * 			
+ * 			foreach (string s in _eBlockSequence.Sequence) {
+				string stringToCheck = s.ToLower() + ".json";
+				string errormsg = "Sequence item `" + stringToCheck + "' config file not found in eblock-definitions!";
+
+				if (!filelistTaskBlockDefinitions.Contains(stringToCheck)) {
+					EventManager.TriggerEvent(eDIA.Events.Core.EvSystemHalt, new eParam(errormsg));
+					Debug.LogError(errormsg);
+					return false; 
+				}
+			}*/
