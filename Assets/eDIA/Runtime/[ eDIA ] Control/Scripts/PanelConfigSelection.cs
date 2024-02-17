@@ -30,13 +30,13 @@ namespace eDIA.Manager {
 		string _subject = "sub_001";
 		string _session = "sess_001";
 
-		string _pathToParticipantFiles		= "Configs/participants/";
-		string _pathToTaskFiles				= "Configs/task-definitions/";
-		string _eBlockDefinitionsFolderName	= "eblock-definitions";
-		string _eBlockSequenceFileName		= "eblock_sequence.json";
-		string _sessionInfoFilenName		= "session_info.json";
+		string _pathToParticipantFiles = "Configs/participants/";
+		string _pathToTaskFiles = "Configs/task-definitions/";
+		string _eBlockDefinitionsFolderName = "eblock-definitions";
+		string _eBlockSequenceFileName = "eblock_sequence.json";
+		string _sessionInfoFilenName = "session_info.json";
 
-		public string[] eBlockDefinitionsFileList; // for sanity check
+		public List<string> eBlockDefinitionsFileList; // for sanity check
 		public EBlockSequence _eBlockSequence;
 
 		public void Init() {
@@ -93,7 +93,7 @@ namespace eDIA.Manager {
 
 		public void OnSessValueChanged(int value) {
 			_session = SessionSelectionDropdown.options[value].text;
-			SessionField.text = _session.Split('-')[1]; 
+			SessionField.text = _session.Split('-')[1];
 		}
 
 		void GenerateDropdown(string[] folderlist, TMP_Dropdown dropDown) {
@@ -126,7 +126,7 @@ namespace eDIA.Manager {
 			}
 
 			// Block Task Definitions
-			eBlockDefinitionsFileList = FileManager.GetAllFilenamesWithExtensionFrom(currentPath + _eBlockDefinitionsFolderName, "json");
+			eBlockDefinitionsFileList = FileManager.GetAllFilenamesWithExtensionFrom(currentPath + _eBlockDefinitionsFolderName, "json").ToList();
 
 			foreach (string s in eBlockDefinitionsFileList) {
 				string currentFileName = currentPath + "/" + _eBlockDefinitionsFolderName + "/" + s;
@@ -138,9 +138,23 @@ namespace eDIA.Manager {
 			// Sanity check - for each entry in the sequence file, there should be a file with the same name
 			_eBlockSequence = UnityEngine.JsonUtility.FromJson<EBlockSequence>(_eBSequenceJsonString);
 
-			Debug.Log( (_eBlockSequence.Sequence[0].ToLower() + " == " + eBlockDefinitionsFileList[0]));
-			Debug.Log(_eBlockSequence.Sequence[0].ToLower() == eBlockDefinitionsFileList[0].Split('.')[0]);
-			return true;	
+			foreach (string s in _eBlockSequence.Sequence) {
+				bool found = false;
+				//Debug.Log(" src: " + s.ToLower() );
+				foreach ( string deffile in eBlockDefinitionsFileList )  {
+					//Debug.Log(" check: " + deffile.Split('.')[0].ToLower());
+					if ( s.ToLower() == deffile.Split('.')[0].ToLower() ) {
+						found = true;
+						break;
+					}
+				}
+				if (!found) { 
+					Debug.LogError("No <b>" + s + ".json</b> config file not found in eblock definitions folder");
+					return false; 
+				}
+			}
+			
+			return true;
 		}
 	}
 }
