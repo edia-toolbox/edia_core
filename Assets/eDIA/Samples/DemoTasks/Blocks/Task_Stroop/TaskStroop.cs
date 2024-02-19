@@ -15,7 +15,6 @@ namespace eDia {
 
         [Space(20)]
         public GameObject StroopCanvas;
-
         public TextMeshProUGUI _txtStroopObj;
 
         IDisposable _ButtonPressEventListener;
