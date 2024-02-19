@@ -10,15 +10,14 @@ namespace eDIA {
 
 	public class SessionGenerator : MonoBehaviour {
 
-
 		// Internal checkup lists
 		List<EBlockBaseSettings> Tasks = new();
-            List<EBlockSettings> EBlocks = new();
-            List<bool> validatedJsons = new();
+		List<EBlockSettings> EBlocks = new();
+		List<bool> validatedJsons = new();
 
 		EBlockSequence _eBlockSequence;
 
-		private void Awake () {
+		private void Awake() {
 			EventManager.StartListening(eDIA.Events.Config.EvSetSessionInfo, OnEvSetSessionInfo);
 			EventManager.StartListening(eDIA.Events.Config.EvSetEBlockSequence, OnEvSetEBlockSequence);
 			EventManager.StartListening(eDIA.Events.Config.EvSetTaskDefinitions, OnEvSetTaskDefinitions);
@@ -35,12 +34,12 @@ namespace eDIA {
 
 			SessionSettings.sessionInfo = UnityEngine.JsonUtility.FromJson<SessionInfo>(param.GetStrings()[0]);
 			SessionSettings.sessionInfo.session_number = int.Parse(param.GetStrings()[1]); // UXF wants an int
-			
+
 			SettingsTuple participantTuple = new SettingsTuple();
 			participantTuple.key = "id";
 			participantTuple.value = param.GetStrings()[2];
 			SessionSettings.sessionInfo.participant_details.Add(participantTuple);
-			 
+
 			validatedJsons.Add(true);
 			CheckIfReadyAndContinue();
 		}
@@ -69,8 +68,8 @@ namespace eDIA {
 			CheckIfReadyAndContinue();
 		}
 
-#endregion // -------------------------------------------------------------------------------------------------------------------------------
-#region DATA GETTERS
+		#endregion // -------------------------------------------------------------------------------------------------------------------------------
+		#region DATA GETTERS
 
 
 		string GetEBlockType(string blockId) {
@@ -78,13 +77,13 @@ namespace eDIA {
 		}
 
 		EBlockBaseSettings GetEBlockBaseByBlockId(string blockId) {
-			int _index = EBlocks.FindIndex(x => x.blockId == blockId); //TODO checks
-			int _returnIndex = Tasks.FindIndex(x => x.subType == EBlocks[_index].subType);
+			int _index = EBlocks.FindIndex(x => x.blockId.ToLower() == blockId.ToLower()); //TODO checks
+			int _returnIndex = Tasks.FindIndex(x => x.subType.ToLower() == EBlocks[_index].subType.ToLower());
 			return _returnIndex == -1 ? null : Tasks[_returnIndex];
 		}
 
 		EBlockSettings GetEBlockByBlockId(string blockId) {
-			int _index = EBlocks.FindIndex(x => x.blockId == blockId);
+			int _index = EBlocks.FindIndex(x => x.blockId.ToLower() == blockId.ToLower());
 			return _index != -1 ? EBlocks[_index] : null;
 		}
 
@@ -96,8 +95,8 @@ namespace eDIA {
 		}
 
 
-#endregion // -------------------------------------------------------------------------------------------------------------------------------
-#region VALIDATORS
+		#endregion // -------------------------------------------------------------------------------------------------------------------------------
+		#region VALIDATORS
 
 		void CheckIfReadyAndContinue() { // TODO: Is there a more elegant way of doing this?
 
@@ -126,8 +125,8 @@ namespace eDIA {
 		}
 
 
-#endregion // -------------------------------------------------------------------------------------------------------------------------------
-#region UXF
+		#endregion // -------------------------------------------------------------------------------------------------------------------------------
+		#region UXF
 
 		/// <summary>
 		/// Generates the UXF sequence based on the supplied Json files and database
@@ -169,14 +168,14 @@ namespace eDIA {
 				// Add settings and trials specific for Break vs Task EBlocks
 				string currentEBlockType = GetEBlockType(blockId);
 
-				switch (currentEBlockType) {
-					case "Break":
+				switch (currentEBlockType.ToLower()) {
+					case "break":
 						newBlock.settings.SetValue("breakType", currentEBlock.subType);
 						newBlock.settings.SetValue("_info", GetValuesListByKey(currentEBlock.instructions, "_info"));
 						Trial breakTrial = newBlock.CreateTrial();
 						break;
 
-					case "Task":
+					case "task":
 						newBlock.settings.SetValue("taskType", currentEBlock.subType);
 
 						// Add trials 
