@@ -13,12 +13,12 @@ using Utils;
 namespace eDia {
     public class TaskStroop : XBlock {
 
+        [Space(20)]
         public GameObject StroopCanvas;
 
         public TextMeshProUGUI _txtStroopObj;
 
         IDisposable _ButtonPressEventListener;
-
 
         void Awake() {
             trialSteps.Add(TrialStep1);
@@ -29,7 +29,6 @@ namespace eDia {
         }
 
         void Start() {
-			// _txtStroopObj = StroopCanvas.GetComponentInChildren<TextMeshProUGUI>();
 
 			foreach (string s in Session.instance.CurrentBlock.settings.GetStringList("_start")) {
                 this.Add2Console(s);

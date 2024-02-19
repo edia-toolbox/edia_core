@@ -11,13 +11,9 @@ namespace eDIA {
 		[Header("Debug")]
 		public bool showLog = false;
 		Color taskColor = Color.blue;
-
 		[HideInInspector]
 		[SerializeField]
 		public List<Action> trialSteps = new List<Action>();
-
-		// Id to find this script in the inspector via the assetID.
-		public string assetId = "";
 
 		public void AddToTrialSequence(Action methodStep) {
 			trialSteps.Add(methodStep);

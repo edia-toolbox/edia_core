@@ -16,10 +16,10 @@ namespace eDIA.Manager {
 
 		public string[] _subFolders;
 		public string[] _sessFolders;
-		public List<string> _taskDefinitionJsonStrings = new();
-		public List<string> _eBlockDefinitionJsonStrings = new();
-		string _eBSequenceJsonString;
-		string _sessionJsonString;
+		public List<string> _xblockDefinitionJsonStrings = new();
+		public List<string> _xBlockDefinitionJsonStrings = new();
+		string _xBlockSequenceJsonString;
+		string _sessionInfoJsonString;
 
 		public TMP_Dropdown SubjectSelectionDropdown;
 		public TMP_Dropdown SessionSelectionDropdown;
@@ -31,13 +31,13 @@ namespace eDIA.Manager {
 		string _session = "sess_001";
 
 		string _pathToParticipantFiles = "Configs/participants/";
-		string _pathToTaskFiles = "Configs/task-definitions/";
-		string _eBlockDefinitionsFolderName = "eblock-definitions";
-		string _eBlockSequenceFileName = "eblock_sequence.json";
+		string _pathToTaskFiles = "Configs/base-definitions/";
+		string _eBlockDefinitionsFolderName = "xblocks";
+		string _eBlockSequenceFileName = "xblock_sequence.json";
 		string _sessionInfoFilenName = "session_info.json";
 
-		public List<string> eBlockDefinitionsFileList; // for sanity check
-		public XBlockSequence _eBlockSequence;
+		public List<string> xBlockDefinitionsFileList; // for sanity check
+		public XBlockSequence _xBlockSequence;
 
 		public void Init() {
 			Reset();
@@ -74,10 +74,10 @@ namespace eDIA.Manager {
 			if (!ValidateConfigs())
 				return;
 
-			EventManager.TriggerEvent(eDIA.Events.Config.EvSetSessionInfo, new eParam(new string[] { _sessionJsonString, _session.Split('-')[1], _subject.Split('-')[1] }));
-			EventManager.TriggerEvent(eDIA.Events.Config.EvSetEBlockSequence, new eParam(_eBSequenceJsonString));
-			EventManager.TriggerEvent(eDIA.Events.Config.EvSetTaskDefinitions, new eParam(_taskDefinitionJsonStrings.ToArray()));
-			EventManager.TriggerEvent(eDIA.Events.Config.EvSetEBlockDefinitions, new eParam(_eBlockDefinitionJsonStrings.ToArray()));
+			EventManager.TriggerEvent(eDIA.Events.Config.EvSetSessionInfo, new eParam(new string[] { _sessionInfoJsonString, _session.Split('-')[1], _subject.Split('-')[1] }));
+			EventManager.TriggerEvent(eDIA.Events.Config.EvSetEBlockSequence, new eParam(_xBlockSequenceJsonString));
+			EventManager.TriggerEvent(eDIA.Events.Config.EvSetTaskDefinitions, new eParam(_xblockDefinitionJsonStrings.ToArray()));
+			EventManager.TriggerEvent(eDIA.Events.Config.EvSetEBlockDefinitions, new eParam(_xBlockDefinitionJsonStrings.ToArray()));
 
 			HidePanel();
 		}
@@ -112,36 +112,36 @@ namespace eDIA.Manager {
 
 			// Session info
 			string currentPath = _pathToParticipantFiles + _subject + "/" + _session + "/";
-			_sessionJsonString = FileManager.ReadStringFromApplicationPath(currentPath + _sessionInfoFilenName);
+			_sessionInfoJsonString = FileManager.ReadStringFromApplicationPath(currentPath + _sessionInfoFilenName);
 
 			// Block sequence
 			string eBSequenceFilePath = currentPath + _eBlockSequenceFileName;
-			_eBSequenceJsonString = FileManager.ReadStringFromApplicationPath(eBSequenceFilePath);
+			_xBlockSequenceJsonString = FileManager.ReadStringFromApplicationPath(eBSequenceFilePath);
 
 			// Task definitions
 			string[] filelist = FileManager.GetAllFilenamesWithExtensionFrom(_pathToTaskFiles, "json");
 
 			foreach (string s in filelist) {
-				_taskDefinitionJsonStrings.Add(FileManager.ReadStringFromApplicationPath(_pathToTaskFiles + s));
+				_xblockDefinitionJsonStrings.Add(FileManager.ReadStringFromApplicationPath(_pathToTaskFiles + s));
 			}
 
 			// Block Task Definitions
-			eBlockDefinitionsFileList = FileManager.GetAllFilenamesWithExtensionFrom(currentPath + _eBlockDefinitionsFolderName, "json").ToList();
+			xBlockDefinitionsFileList = FileManager.GetAllFilenamesWithExtensionFrom(currentPath + _eBlockDefinitionsFolderName, "json").ToList();
 
-			foreach (string s in eBlockDefinitionsFileList) {
+			foreach (string s in xBlockDefinitionsFileList) {
 				string currentFileName = currentPath + "/" + _eBlockDefinitionsFolderName + "/" + s;
-				_eBlockDefinitionJsonStrings.Add(FileManager.ReadStringFromApplicationPath(currentFileName.ToLower()));
+				_xBlockDefinitionJsonStrings.Add(FileManager.ReadStringFromApplicationPath(currentFileName.ToLower()));
 			}
 		}
 
 		private bool ValidateConfigs() {
 			// Sanity check - for each entry in the sequence file, there should be a file with the same name
-			_eBlockSequence = UnityEngine.JsonUtility.FromJson<XBlockSequence>(_eBSequenceJsonString);
+			_xBlockSequence = UnityEngine.JsonUtility.FromJson<XBlockSequence>(_xBlockSequenceJsonString);
 
-			foreach (string s in _eBlockSequence.Sequence) {
+			foreach (string s in _xBlockSequence.Sequence) {
 				bool found = false;
 				//Debug.Log(" src: " + s.ToLower() );
-				foreach ( string deffile in eBlockDefinitionsFileList )  {
+				foreach ( string deffile in xBlockDefinitionsFileList )  {
 					//Debug.Log(" check: " + deffile.Split('.')[0].ToLower());
 					if ( s.ToLower() == deffile.Split('.')[0].ToLower() ) {
 						found = true;
@@ -158,16 +158,3 @@ namespace eDIA.Manager {
 		}
 	}
 }
-
-/*
- * 			
- * 			foreach (string s in _eBlockSequence.Sequence) {
-				string stringToCheck = s.ToLower() + ".json";
-				string errormsg = "Sequence item `" + stringToCheck + "' config file not found in eblock-definitions!";
-
-				if (!filelistTaskBlockDefinitions.Contains(stringToCheck)) {
-					EventManager.TriggerEvent(eDIA.Events.Core.EvSystemHalt, new eParam(errormsg));
-					Debug.LogError(errormsg);
-					return false; 
-				}
-			}*/
