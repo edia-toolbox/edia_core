@@ -154,9 +154,9 @@ namespace eDIA {
 				newBlock.settings.SetValue("_end", GetValuesListByKey(xBlockBase.instructions, "_end")); //
 
 				XBlockSettings currentXBlock = GetXBlockByBlockId(blockId);
-				newBlock.settings.SetValue("blockType", currentXBlock.type);
-				newBlock.settings.SetValue("blockId", currentXBlock.blockId);
-				newBlock.settings.SetValue("_assetId", currentXBlock.type + "_" + currentXBlock.subType);
+				newBlock.settings.SetValue("blockType", currentXBlock.type.ToLower());
+				newBlock.settings.SetValue("blockId", currentXBlock.blockId.ToLower());
+				newBlock.settings.SetValue("_assetId", currentXBlock.type.ToLower() + "_" + currentXBlock.subType.ToLower());
 
 				// Add block specific instructions, if any
 				foreach (string s in new string[] { "_start", "_end" }) {
