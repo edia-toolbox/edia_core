@@ -211,9 +211,9 @@ namespace eDIA {
 			NextTrialStep();
 		}
 
-		public void EnableExperimentProceed(bool onOff) {
-			WaitOnProceed();
-		}
+		//public void EnableExperimentProceed(bool onOff) {
+		//	WaitOnProceed();
+		//}
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region STATEMACHINE UXF SESSION
