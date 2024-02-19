@@ -11,11 +11,11 @@ namespace eDIA {
 	public class SessionGenerator : MonoBehaviour {
 
 		// Internal checkup lists
-		List<XBlockBaseSettings> Tasks = new();
-		List<XBlockSettings> xBlocks = new();
-		List<bool> validatedJsons = new();
+		public List<XBlockBaseSettings> Tasks = new();
+		public List<XBlockSettings> xBlocks = new();
+		public List<bool> validatedJsons = new();
 
-		XBlockSequence _xBlockSequence;
+		public XBlockSequence _xBlockSequence;
 
 		private void Awake() {
 			EventManager.StartListening(eDIA.Events.Config.EvSetSessionInfo, OnEvSetSessionInfo);

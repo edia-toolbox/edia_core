@@ -85,6 +85,8 @@ namespace eDIA {
 
 			// Are the gameobjects in Experiment.blocks properly named? <TYPE>_<SUBTYPE>
 			foreach (XBlock g in Xperiment.Instance.XBlocks) {
+				g.name = g.name.ToLower();
+
 				if (!g.name.Contains('_') || g.name.Split('_').Length != 2) {
 					Debug.LogErrorFormat("<TYPE>_<SUBTYPE> Invalid gameobject naming format found in: <b>{0}</b>", g.name);
 					_succes = false;
@@ -287,7 +289,7 @@ namespace eDIA {
 
 			// Set new storedBlockNum value
 			_activeSessionBlockNum = Session.instance.currentBlockNum;
-
+			Debug.Log("Compare: " + Session.instance.CurrentBlock.settings.GetString("_assetId"));
 			_activeXBlock = XBlocks[XBlocks.FindIndex(x => x.name == Session.instance.CurrentBlock.settings.GetString("_assetId"))];
 			_activeXBlock.enabled = true;
 			_activeXBlock.gameObject.SetActive(true);
