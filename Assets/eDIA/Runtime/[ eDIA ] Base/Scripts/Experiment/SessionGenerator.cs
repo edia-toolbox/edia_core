@@ -11,11 +11,11 @@ namespace eDIA {
 	public class SessionGenerator : MonoBehaviour {
 
 		// Internal checkup lists
-		List<EBlockBaseSettings> Tasks = new();
-		List<EBlockSettings> EBlocks = new();
+		List<XBlockBaseSettings> Tasks = new();
+		List<XBlockSettings> EBlocks = new();
 		List<bool> validatedJsons = new();
 
-		EBlockSequence _eBlockSequence;
+		XBlockSequence _eBlockSequence;
 
 		private void Awake() {
 			EventManager.StartListening(eDIA.Events.Config.EvSetSessionInfo, OnEvSetSessionInfo);
@@ -45,14 +45,14 @@ namespace eDIA {
 		}
 
 		private void OnEvSetEBlockSequence(eParam param) {
-			_eBlockSequence = UnityEngine.JsonUtility.FromJson<EBlockSequence>(param.GetString());
+			_eBlockSequence = UnityEngine.JsonUtility.FromJson<XBlockSequence>(param.GetString());
 			validatedJsons.Add(true);
 			CheckIfReadyAndContinue();
 		}
 
 		private void OnEvSetTaskDefinitions(eParam param) {
 			foreach (string t in param.GetStrings()) {
-				EBlockBaseSettings EBs = UnityEngine.JsonUtility.FromJson<EBlockBaseSettings>(t);
+				XBlockBaseSettings EBs = UnityEngine.JsonUtility.FromJson<XBlockBaseSettings>(t);
 				Tasks.Add(EBs);
 			}
 			validatedJsons.Add(true);
@@ -61,7 +61,7 @@ namespace eDIA {
 
 		private void OnEvSetEBlockDefinitions(eParam param) {
 			foreach (string t in param.GetStrings()) {
-				EBlockSettings EBs = UnityEngine.JsonUtility.FromJson<EBlockSettings>(t);
+				XBlockSettings EBs = UnityEngine.JsonUtility.FromJson<XBlockSettings>(t);
 				EBlocks.Add(EBs);
 			}
 			validatedJsons.Add(true);
@@ -76,13 +76,13 @@ namespace eDIA {
 			return blockId.Split("_")[1]; //TODO: this relies on the structure "EBlock_type_subType_Nr"
 		}
 
-		EBlockBaseSettings GetEBlockBaseByBlockId(string blockId) {
+		XBlockBaseSettings GetEBlockBaseByBlockId(string blockId) {
 			int _index = EBlocks.FindIndex(x => x.blockId.ToLower() == blockId.ToLower()); //TODO checks
 			int _returnIndex = Tasks.FindIndex(x => x.subType.ToLower() == EBlocks[_index].subType.ToLower());
 			return _returnIndex == -1 ? null : Tasks[_returnIndex];
 		}
 
-		EBlockSettings GetEBlockByBlockId(string blockId) {
+		XBlockSettings GetEBlockByBlockId(string blockId) {
 			int _index = EBlocks.FindIndex(x => x.blockId.ToLower() == blockId.ToLower());
 			return _index != -1 ? EBlocks[_index] : null;
 		}
@@ -108,12 +108,15 @@ namespace eDIA {
 			}
 		}
 
+		// Checks if all entries in the sequence, have their detail config loaded
 		bool ValidateBlockList() {
-			bool _succes = false;
+			bool _succes = true;
 
+			// Does all entries in the sequence have their detailed config loaded?
 			foreach (string blockId in _eBlockSequence.Sequence) {
-				if (GetEBlockByBlockId(blockId) != null) {
-					_succes = true;
+				if (GetEBlockByBlockId(blockId) == null) {
+					Debug.LogWarningFormat("No details found for <b>{0}</b>", blockId);
+					_succes = false;
 				}
 			}
 
@@ -144,13 +147,13 @@ namespace eDIA {
 				Block newBlock = Session.instance.CreateBlock();
 
 				// Find the according EBlockBase (e.g., Task or Break definition) and get global settings
-				EBlockBaseSettings eBlockBase = GetEBlockBaseByBlockId(blockId);
+				XBlockBaseSettings eBlockBase = GetEBlockBaseByBlockId(blockId);
 				newBlock.settings.UpdateWithDict(Helpers.GetSettingsTupleListAsDict(eBlockBase.settings));
 
 				newBlock.settings.SetValue("_start", GetValuesListByKey(eBlockBase.instructions, "_start")); //
 				newBlock.settings.SetValue("_end", GetValuesListByKey(eBlockBase.instructions, "_end")); //
 
-				EBlockSettings currentEBlock = GetEBlockByBlockId(blockId);
+				XBlockSettings currentEBlock = GetEBlockByBlockId(blockId);
 				newBlock.settings.SetValue("blockType", currentEBlock.type);
 				newBlock.settings.SetValue("blockId", currentEBlock.blockId);
 				newBlock.settings.SetValue("_assetId", currentEBlock.type + "_" + currentEBlock.subType);

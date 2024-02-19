@@ -7,7 +7,7 @@ using Utils;
 using eDIA;
 using UXF;
 
-public class TaskD2 : EBlock {
+public class TaskD2 : XBlock {
 	
 	public List<StimulusD2> stimuli = new();
 	List<int> validStimuliIndexes = new();
@@ -34,18 +34,18 @@ public class TaskD2 : EBlock {
 
 		TaskCanvas.SetActive(true);
 
-		Experiment.Instance.WaitOnProceed();
-		Experiment.Instance.Proceed();
+		Xperiment.Instance.WaitOnProceed();
+		Xperiment.Instance.Proceed();
 	}
 
 	void RunTask() {
 		// Wait on user to finish
-		Experiment.Instance.WaitOnProceed();
+		Xperiment.Instance.WaitOnProceed();
 	}
 
 	public void TaskDoneBtnPressed() {
 		this.Add2Console("TaskButtonPressed calling Proceed");
-		Experiment.Instance.Proceed();
+		Xperiment.Instance.Proceed();
 	}
 
 	void CheckAndLogResults () {
@@ -66,8 +66,8 @@ public class TaskD2 : EBlock {
 		Session.instance.CurrentTrial.result["correctlyTicked"] = correctlyTicked;
 		Session.instance.CurrentTrial.result["incorrectlyTicked"] = incorrectlyTicked;
 
-		Experiment.Instance.WaitOnProceed();
-		Experiment.Instance.Proceed();
+		Xperiment.Instance.WaitOnProceed();
+		Xperiment.Instance.Proceed();
 	}
 
 	private void CleanUp() {
@@ -77,8 +77,8 @@ public class TaskD2 : EBlock {
 
 		TaskCanvas.SetActive(false);
 
-		Experiment.Instance.WaitOnProceed();
-		Experiment.Instance.Proceed();
+		Xperiment.Instance.WaitOnProceed();
+		Xperiment.Instance.Proceed();
 	}
 
 

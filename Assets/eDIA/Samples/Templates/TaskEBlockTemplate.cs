@@ -9,7 +9,7 @@ using System;
 
 namespace eDia {
 
-	public class TaskEBlockTemplate : EBlock {
+	public class TaskEBlockTemplate : XBlock {
 
 		/*
 			Task related parameters
@@ -49,7 +49,7 @@ namespace eDia {
 		void TaskStep1 () {
 
 			// Enable the pause button on the control panel
-			Experiment.Instance.EnablePauseButton (true);
+			Xperiment.Instance.EnablePauseButton (true);
 
 			// Disable XR interaction from the user
 			XRManager.Instance.EnableXRInteraction (false);
@@ -63,7 +63,7 @@ namespace eDia {
 				* Delayed: Experiment.Instance.ProceedWithDelay (seconds as float)
 			*/
 
-			Experiment.Instance.ProceedWithDelay (Session.instance.CurrentBlock.settings.GetFloat ("timer_showcube"));
+			Xperiment.Instance.ProceedWithDelay (Session.instance.CurrentBlock.settings.GetFloat ("timer_showcube"));
 		}
 
 		/// <summary>Move cube, wait on user input</summary>
@@ -78,7 +78,7 @@ namespace eDia {
 			MessagePanelInVR.Instance.ShowMessage("Click button below to continue", true);
 
 			// Tell the system to wait on button press. Which will also enable the button on the controlpanel to overrule the user
-			Experiment.Instance.WaitOnProceed (); 
+			Xperiment.Instance.WaitOnProceed (); 
 		}
 
 		/// <summary>User clicked button</summary>
@@ -87,7 +87,7 @@ namespace eDia {
 			UserResponseTime = Time.time - StepStartTime;
 
 			// Add result to log
-			Experiment.Instance.AddToTrialResults("UserResponseTime", UserResponseTime.ToString());
+			Xperiment.Instance.AddToTrialResults("UserResponseTime", UserResponseTime.ToString());
 		}
 
 		/// <summary>Clean up</summary>

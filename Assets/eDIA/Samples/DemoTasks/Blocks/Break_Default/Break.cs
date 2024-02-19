@@ -6,14 +6,14 @@ using UXF;
 
 namespace eDIA {
 
-	public class Break : EBlock {
+	public class Break : XBlock {
 		void Awake() {
 			trialSteps.Add(BreakStep1);
 		}
 
 		void BreakStep1() {
 			MessagePanelInVR.Instance.ShowMessage(Session.instance.CurrentBlock.settings.GetStringList("_info"));
-			Experiment.Instance.WaitOnProceed();
+			Xperiment.Instance.WaitOnProceed();
 		}
 	}
 }

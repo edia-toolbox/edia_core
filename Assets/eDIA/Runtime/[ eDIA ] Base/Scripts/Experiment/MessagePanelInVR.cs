@@ -132,7 +132,7 @@ namespace eDIA
 
 				// Also trigger proceed button on control panel
 				EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvEnableButton, new eParam(new string[] { "PROCEED", "true" }));
-				Experiment.Instance.WaitOnProceed();
+				Xperiment.Instance.WaitOnProceed();
 			}
 		}
 

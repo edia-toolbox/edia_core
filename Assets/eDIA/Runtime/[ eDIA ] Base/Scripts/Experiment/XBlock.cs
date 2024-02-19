@@ -6,7 +6,7 @@ using UnityEngine;
 namespace eDIA {
 
 	[System.Serializable]
-	public class EBlock : MonoBehaviour {
+	public class XBlock : MonoBehaviour {
 
 		[Header("Debug")]
 		public bool showLog = false;
@@ -15,6 +15,9 @@ namespace eDIA {
 		[HideInInspector]
 		[SerializeField]
 		public List<Action> trialSteps = new List<Action>();
+
+		// Id to find this script in the inspector via the assetID.
+		public string assetId = "";
 
 		public void AddToTrialSequence(Action methodStep) {
 			trialSteps.Add(methodStep);

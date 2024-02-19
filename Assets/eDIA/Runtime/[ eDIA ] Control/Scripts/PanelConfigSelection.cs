@@ -37,7 +37,7 @@ namespace eDIA.Manager {
 		string _sessionInfoFilenName = "session_info.json";
 
 		public List<string> eBlockDefinitionsFileList; // for sanity check
-		public EBlockSequence _eBlockSequence;
+		public XBlockSequence _eBlockSequence;
 
 		public void Init() {
 			Reset();
@@ -136,7 +136,7 @@ namespace eDIA.Manager {
 
 		private bool ValidateConfigs() {
 			// Sanity check - for each entry in the sequence file, there should be a file with the same name
-			_eBlockSequence = UnityEngine.JsonUtility.FromJson<EBlockSequence>(_eBSequenceJsonString);
+			_eBlockSequence = UnityEngine.JsonUtility.FromJson<XBlockSequence>(_eBSequenceJsonString);
 
 			foreach (string s in _eBlockSequence.Sequence) {
 				bool found = false;

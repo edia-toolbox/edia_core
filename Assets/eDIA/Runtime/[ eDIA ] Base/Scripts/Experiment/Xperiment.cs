@@ -12,9 +12,9 @@ namespace eDIA {
 
 #region DECLARATIONS
 
-	public class Experiment : Singleton<Experiment> {
+	public class Xperiment : Singleton<Xperiment> {
 
-		public enum EState {
+		public enum XState {
 			IDLE,
 			RUNNING,
 			WAITINGONPROCEED,
@@ -22,8 +22,8 @@ namespace eDIA {
 			ENDED
 		}
 
-		public EState State = EState.IDLE;
-		EState prevState = EState.IDLE;
+		public XState State = XState.IDLE;
+		XState prevState = XState.IDLE;
 
 		[Header("Editor Settings")]
 		public bool ShowLog = false;
@@ -31,7 +31,7 @@ namespace eDIA {
 
 		[Space(20)]
 		[Header("Experiment ")]
-		public List<EBlock> Blocks = new();
+		public List<XBlock> XBlocks = new();
 
 		[Space(20)]
 		[Header("Event hooks\n\nOptional event hooks to use in your task")]
@@ -43,7 +43,7 @@ namespace eDIA {
 		int _activeSessionBlockNum = 0;
 		int _currentStep = -1;
 		bool _isPauseRequested = false;
-		EBlock _activeEBlock;
+		XBlock _activeXBlock;
 		Coroutine _proceedTimer = null;
 
 		// UXF Logging
@@ -63,6 +63,9 @@ namespace eDIA {
 			Session.instance.onTrialBegin.AddListener(OnTrialBeginUXF);
 			Session.instance.onTrialEnd.AddListener(OnTrialEndUXF);
 
+			if(!SanityCheck()) 
+				return;
+
 			EnableAllEBlocks(false);
 
 			EventManager.StartListening(eDIA.Events.StateMachine.EvStartExperiment, OnEvStartExperiment);
@@ -77,13 +80,26 @@ namespace eDIA {
 			EventManager.StopListening(eDIA.Events.Core.EvQuitApplication, OnEvQuitApplication);
 		}
 
+		bool SanityCheck() {
+			bool _succes = true;
 
-		void EnableProceedButton (bool onOff) {
+			// Are the gameobjects in Experiment.blocks properly named? <TYPE>_<SUBTYPE>
+			foreach (XBlock g in Xperiment.Instance.XBlocks) {
+				if (!g.name.Contains('_') || g.name.Split('_').Length != 2) {
+					Debug.LogErrorFormat("<TYPE>_<SUBTYPE> Invalid gameobject naming format found in: <b>{0}</b>", g.name);
+					_succes = false;
+				}
+			}
+
+			return _succes;
+		}
+
+			void EnableProceedButton (bool onOff) {
 			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvEnableButton, new eParam(new string[] { "PROCEED", onOff ? "true" : "false" }));
 		}
 
 		void EnableAllEBlocks (bool onOff) {
-			foreach (EBlock eb in Blocks) {
+			foreach (XBlock eb in XBlocks) {
 				eb.enabled = onOff;
 				eb.gameObject.SetActive(onOff);
 			}
@@ -115,7 +131,7 @@ namespace eDIA {
 		}
 
 		void UpdateStepProgress () {
-			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateStepProgress, new eParam(new int[] { _currentStep, _activeEBlock.trialSteps.Count }));
+			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateStepProgress, new eParam(new int[] { _currentStep, _activeXBlock.trialSteps.Count }));
 		}
 
 		/// <summary>Called from this manager. </summary>
@@ -185,7 +201,7 @@ namespace eDIA {
 #region STATEMACHINE PROCEED
 
 		public void WaitOnProceed() {
-			State = EState.WAITINGONPROCEED;
+			State = XState.WAITINGONPROCEED;
 
 			EnableProceedButton(true);
 			EventManager.StartListening(eDIA.Events.StateMachine.EvProceed, OnEvProceed);
@@ -203,7 +219,7 @@ namespace eDIA {
 		}
 
 		void Continue() {
-			State = EState.RUNNING;
+			State = XState.RUNNING;
 
 			EventManager.StopListening(eDIA.Events.StateMachine.EvProceed, OnEvProceed);
 			EnableProceedButton(false);
@@ -222,7 +238,7 @@ namespace eDIA {
 		void OnSessionBeginUXF(Session session) {
 			OnSessionStart?.Invoke();
 
-			State = EState.RUNNING;
+			State = XState.RUNNING;
 			_activeSessionBlockNum = 0;
 
 			AddToExecutionOrderLog("OnSessionBegin");
@@ -272,10 +288,10 @@ namespace eDIA {
 			// Set new storedBlockNum value
 			_activeSessionBlockNum = Session.instance.currentBlockNum;
 
-			_activeEBlock = Blocks[Blocks.FindIndex(x => x.name == Session.instance.CurrentBlock.settings.GetString("_assetId"))];
-			_activeEBlock.enabled = true;
-			_activeEBlock.gameObject.SetActive(true);
-			_activeEBlock.OnBlockStart();
+			_activeXBlock = XBlocks[XBlocks.FindIndex(x => x.name == Session.instance.CurrentBlock.settings.GetString("_assetId"))];
+			_activeXBlock.enabled = true;
+			_activeXBlock.gameObject.SetActive(true);
+			_activeXBlock.OnBlockStart();
 
 			// Update block progress
 			UpdateBlockProgress();
@@ -297,7 +313,7 @@ namespace eDIA {
 
 		void BlockEnd() {
 			AddToLog("Block End");
-			_activeEBlock.OnBlockEnd();
+			_activeXBlock.OnBlockEnd();
 
 			// Check for block outro flag
 			bool hasOutro = Session.instance.CurrentBlock.settings.ContainsKey("outro"); // TODO test if block outtro works 
@@ -307,7 +323,7 @@ namespace eDIA {
 				EnableProceedButton(true);
 				ShowMessageToUser(Session.instance.CurrentBlock.settings.GetStringList("outro"));
 				UpdateProgressStatus("Block Outro");
-				_activeEBlock.OnBlockOutro();
+				_activeXBlock.OnBlockOutro();
 			}
 			else {
 				BlockCheckAndContinue();
@@ -316,8 +332,8 @@ namespace eDIA {
 
 		void BlockCheckAndContinue() {
 
-			_activeEBlock.enabled = false;
-			_activeEBlock.gameObject.SetActive(false);
+			_activeXBlock.enabled = false;
+			_activeXBlock.gameObject.SetActive(false);
 
 			// Is this then the last trial of the session?
 			if (Session.instance.LastTrial == Session.instance.CurrentTrial) {
@@ -379,7 +395,7 @@ namespace eDIA {
 			AddToExecutionOrderLog("OnTrialEnd");
 			SaveCustomDataTables();
 
-			_activeEBlock.OnEndTrial();
+			_activeXBlock.OnEndTrial();
 
 			// Are we ending?
 			if (Session.instance.isEnding)
@@ -415,7 +431,7 @@ namespace eDIA {
 		void StartTrial() {
 			AddToLog("StartTrial");
 
-			_activeEBlock.OnStartTrial();
+			_activeXBlock.OnStartTrial();
 			UpdateTrialProgress();
 			
 			_currentStep = -1;
@@ -460,10 +476,10 @@ namespace eDIA {
 
 			_currentStep++;
 
-			if (_currentStep < _activeEBlock.trialSteps.Count) {
+			if (_currentStep < _activeXBlock.trialSteps.Count) {
 				InBetweenSteps();
 				UpdateStepProgress();
-				_activeEBlock.trialSteps[_currentStep].Invoke();
+				_activeXBlock.trialSteps[_currentStep].Invoke();
 
 			}
 			else EndTrial();
@@ -471,7 +487,7 @@ namespace eDIA {
 
 		/// <summary>In Between to steps of the trial, we might want to clean things up a bit.</summary>
 		void InBetweenSteps() {
-			_activeEBlock.OnBetweenSteps(); // In Between to steps of the trial, we might want to clean things up a bit.
+			_activeXBlock.OnBetweenSteps(); // In Between to steps of the trial, we might want to clean things up a bit.
 			MessagePanelInVR.Instance.HidePanel();
 		}
 

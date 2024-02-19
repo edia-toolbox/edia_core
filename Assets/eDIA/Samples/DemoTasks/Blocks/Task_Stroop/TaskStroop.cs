@@ -11,7 +11,7 @@ using UXF;
 using Utils;
 
 namespace eDia {
-    public class TaskStroop : EBlock {
+    public class TaskStroop : XBlock {
 
         public GameObject StroopCanvas;
 
@@ -73,7 +73,7 @@ namespace eDia {
 			StroopCanvas.SetActive(true);
             _txtStroopObj.text = name;
             _txtStroopObj.color = col;
-            Experiment.Instance.ProceedWithDelay(0.1f);
+            Xperiment.Instance.ProceedWithDelay(0.1f);
 
         }
 
@@ -91,8 +91,8 @@ namespace eDia {
         void TrialStep3() {
             // Clean up
             StroopCanvas.SetActive(false);
-            Experiment.Instance.WaitOnProceed();
-            Experiment.Instance.Proceed();
+            Xperiment.Instance.WaitOnProceed();
+            Xperiment.Instance.Proceed();
             return;
         }
 
@@ -131,16 +131,16 @@ namespace eDia {
             }
 
             // Log settings
-            Experiment.Instance.AddToTrialResults("word", Session.instance.CurrentTrial.settings.GetString("word"));
-			Experiment.Instance.AddToTrialResults("color", Session.instance.CurrentTrial.settings.GetString("color"));
-			Experiment.Instance.AddToTrialResults("target", Session.instance.CurrentTrial.settings.GetString("target"));
+            Xperiment.Instance.AddToTrialResults("word", Session.instance.CurrentTrial.settings.GetString("word"));
+			Xperiment.Instance.AddToTrialResults("color", Session.instance.CurrentTrial.settings.GetString("color"));
+			Xperiment.Instance.AddToTrialResults("target", Session.instance.CurrentTrial.settings.GetString("target"));
 
             // Log results
-			Experiment.Instance.AddToTrialResults("response",response);
+			Xperiment.Instance.AddToTrialResults("response",response);
             
             // Proceed
-            Experiment.Instance.WaitOnProceed();
-			Experiment.Instance.Proceed();
+            Xperiment.Instance.WaitOnProceed();
+			Xperiment.Instance.Proceed();
 
             return;
         }

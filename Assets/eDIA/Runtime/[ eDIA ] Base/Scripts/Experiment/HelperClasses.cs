@@ -36,12 +36,12 @@ namespace eDIA {
 #region UXF SEQUENCE (JSON SERIALIZABLE)
 
 	[System.Serializable]
-	public class EBlockSequence {
+	public class XBlockSequence {
 		public List<string> Sequence = new();
 	}
 
 	[System.Serializable]
-	public class EBlockBaseSettings {
+	public class XBlockBaseSettings {
 		public string type;
 		public string subType;
 		public List<SettingsTuple> settings = new();
@@ -50,7 +50,7 @@ namespace eDIA {
 
 	//! Task list
 	[System.Serializable]
-	public class EBlockSettings : EBlockBaseSettings {
+	public class XBlockSettings : XBlockBaseSettings {
 		public string blockId;
 		public TrialSettings trialSettings = new();
 	}
@@ -107,69 +107,8 @@ namespace eDIA {
 	}
 
 
-	/// <summary> Experiment config container</summary>
-	[System.Serializable]
-	public class TaskConfig {
-		//public List<SettingsTuple>		taskSettings 		= new List<SettingsTuple>();
-		//public List<int>				breakAfter			= new List<int>(); 
-		//public List<ExperimentBlock>		blocks			= new List<ExperimentBlock>();
-
-		//// Local check if this instance is loaded and ready to go
-		//public bool 				isReady			= false;
-
-		//? Class helper methods
-		//public Dictionary<string,object> GetTaskSettingsAsDict () {
-		//	return Helpers.GetSettingsTupleListAsDict(taskSettings);
-		//}
-
-		/// <summary>/// Convert JSON formatted definition for the seqence into a UXF format to run in the session/// </summary>
-		//public void GenerateUXFSequence() {
-
-		//	// Reorder the taskblock list in the taskmanager
-		//	List<TaskBlock> reordered = new List<TaskBlock>();
-			
-		//	foreach (ExperimentBlock b in blocks) {
-		//		reordered.Add(Experiment.Instance.taskBlocks.Find(x => x.block_name == b.block_name));
-		//	}
-
-		//	Experiment.Instance.taskBlocks.Clear();
-		//	Experiment.Instance.taskBlocks.AddRange(reordered);
-
-		//	// Add block level settings to log
-		//	Session.instance.settingsToLog.Add("block_name");
-
-		//	// Convert the Taskconfig into UXF blocks and settings
-		//	foreach (ExperimentBlock b in blocks) {
-				
-		//		Block newBlock = Session.instance.CreateBlock();
-		//		newBlock.settings.SetValue("block_name",b.block_name);
-		//		newBlock.settings.SetValue("intro",b.intro);
-		//		newBlock.settings.SetValue("outro",b.outro);
-
-		//		newBlock.settings.UpdateWithDict( Helpers.GetSettingsTupleListAsDict(b.block_settings) );
-
-		//		foreach (ValueList row in b.trial_settings.valueList) {
-		//			Trial newTrial = newBlock.CreateTrial();
-
-		//			for (int i = 0; i < row.values.Count; i++) {
-		//				newTrial.settings.SetValue( b.trial_settings.keys[i], row.values[i].ToUpper() ); // set values to trial
-		//			}
-		//		}
-
-		//		// Log all unique trial settings keys
-		//		foreach (string k in b.trial_settings.keys) {
-		//			if (!Session.instance.settingsToLog.Contains(k))
-		//				Session.instance.settingsToLog.Add(k);
-		//		}
-
-		//	}
-		//}
-	}
-
-
-
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
-#region TASK RELATED STATE MACHINE
+#region XBLOCK RELATED STATE MACHINE
 
 	/// <summary>One step of a trial</summary>
 	[System.Serializable]
