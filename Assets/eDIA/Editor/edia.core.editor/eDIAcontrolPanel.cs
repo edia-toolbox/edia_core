@@ -13,8 +13,6 @@ namespace eDIA.EditorUtils {
         public static bool forceShow = false;
         ApiCompatibilityLevel targetApiLevel = ApiCompatibilityLevel.NET_4_6;
 
-        static string version;
-
         Vector2 scrollPos;
 
         [MenuItem ("eDIA/Control panel")]
@@ -24,7 +22,6 @@ namespace eDIA.EditorUtils {
             window.titleContent = new GUIContent ("eDIA control panel");
             window.Show ();
 
-			version = FileManager.ReadStringFromApplicationPathSubfolder("eDIA", "VERSION.txt");
         }
 
         public void OnGUI () {
@@ -42,13 +39,7 @@ namespace eDIA.EditorUtils {
 
             GUILayout.BeginHorizontal ();
             GUILayout.FlexibleSpace ();
-            GUILayout.Label ("eDIA VR Experiment Framework", EditorStyles.boldLabel);
-            GUILayout.FlexibleSpace ();
-            GUILayout.EndHorizontal ();
-
-            GUILayout.BeginHorizontal ();
-            GUILayout.FlexibleSpace ();
-            GUILayout.Label ("Version " + version, EditorStyles.boldLabel);
+            GUILayout.Label ("eDIA \nVR Experiment Framework", EditorStyles.boldLabel);
             GUILayout.FlexibleSpace ();
             GUILayout.EndHorizontal ();
 
