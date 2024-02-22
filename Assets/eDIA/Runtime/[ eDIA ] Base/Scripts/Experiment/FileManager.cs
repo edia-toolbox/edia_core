@@ -207,7 +207,7 @@ namespace eDIA {
 
 			if (!Directory.Exists (path)) {
 				Directory.CreateDirectory (path);
-				Debug.Log(string.Format("Created Folder: {0} ", CorrectPath() + "/" + _folderName));
+				Debug.Log(string.Format("<color=#00FFFF>[eDIA]</color>Created Folder: {0} ", CorrectPath() + "/" + _folderName));
 			}
 		}
 

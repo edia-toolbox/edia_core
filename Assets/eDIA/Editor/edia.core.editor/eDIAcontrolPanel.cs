@@ -48,7 +48,7 @@ namespace eDIA.EditorUtils {
             EditorGUILayout.Separator ();
             
             GUILayout.Label ("Editor Settings", EditorStyles.boldLabel);
-            EditorGUILayout.TextArea("For the framework to work, a basic set of layers is needed");
+			GUILayout.Label("For the framework to work, a basic set of layers is needed");
             
             if (GUILayout.Button ("Create layers")) {
                 LayerTools.SetupLayers();
