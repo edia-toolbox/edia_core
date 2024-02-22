@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace eDIA.EditorUtils {
 
@@ -12,8 +13,9 @@ namespace eDIA.EditorUtils {
         public Texture2D eDIAIcon;
         public static bool forceShow = false;
         ApiCompatibilityLevel targetApiLevel = ApiCompatibilityLevel.NET_4_6;
+		string projectName = GetProjectName();
 
-        Vector2 scrollPos;
+		Vector2 scrollPos;
 
         [MenuItem ("eDIA/Control panel")]
         static void Init () {
@@ -54,8 +56,15 @@ namespace eDIA.EditorUtils {
 
             EditorGUILayout.Separator();
 
-            if (GUILayout.Button("Create folder structure")) {
-				CreateFolderStructure();
+            EditorGUILayout.BeginHorizontal ();
+
+            GUILayout.Label("Project name:");
+			projectName = EditorGUILayout.TextField(projectName);
+
+			EditorGUILayout.EndHorizontal();
+
+			if (GUILayout.Button("Create folder structure")) {
+				CreateFolderStructure(projectName);
 			}
 
 			EditorGUILayout.Separator ();
@@ -112,15 +121,31 @@ namespace eDIA.EditorUtils {
             EditorGUILayout.EndScrollView ();
         }
 
-        static void CreateFolderStructure () {
-			FileManager.CreateFolder("Textures");
-			FileManager.CreateFolder("Prefabs");
-			FileManager.CreateFolder("Assets3D");
-			FileManager.CreateFolder("Assets2D");
-			FileManager.CreateFolder("Materials");
-			FileManager.CreateFolder("Scripts");
+		public static string GetProjectName() {
+			// Get the full path of the Unity project directory
+			string projectDirectory = Directory.GetCurrentDirectory();
+
+			// Extract the name of the directory (which should be the project name)
+			string projectName = new DirectoryInfo(projectDirectory).Name;
+
+			return projectName;
+		}
+
+		static void CreateFolderStructure (string projectName) {
+			FileManager.CreateFolder(projectName);
+			FileManager.CreateFolder(projectName + "/Assets2D");
+			FileManager.CreateFolder(projectName + "/Assets2D/Textures");
+			FileManager.CreateFolder(projectName + "/Assets2D/Sprites");
+			FileManager.CreateFolder(projectName + "/Prefabs");
+			FileManager.CreateFolder(projectName + "/Assets3D");
+			FileManager.CreateFolder(projectName + "/Assets3D/Models");
+			FileManager.CreateFolder(projectName + "/Assets3D/Src");
+			FileManager.CreateFolder(projectName + "/Materials");
+			FileManager.CreateFolder(projectName + "/Scripts");
+			FileManager.CreateFolder(projectName + "/Scenes");
 			FileManager.CreateFolder("Editor");
 			FileManager.CreateFolder("ThirdParty");
+			AssetDatabase.Refresh();
 		}
 
 			static void CreateConfigFiles () {
