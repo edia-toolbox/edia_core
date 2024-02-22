@@ -17,7 +17,7 @@ namespace eDIA.EditorUtils {
 
         Vector2 scrollPos;
 
-        [MenuItem ("eDIA/Show control panel")]
+        [MenuItem ("eDIA/Control panel")]
         static void Init () {
             var window = (eDIAcontrolPanel) EditorWindow.GetWindow (typeof (eDIAcontrolPanel), false, "eDIA control panel");
             window.minSize = new Vector2 (300, 400);
