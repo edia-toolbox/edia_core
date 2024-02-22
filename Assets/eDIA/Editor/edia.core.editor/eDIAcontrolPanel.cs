@@ -24,17 +24,7 @@ namespace eDIA.EditorUtils {
             window.titleContent = new GUIContent ("eDIA control panel");
             window.Show ();
 
-            // TODO Fix the filepath to show the version, or find another solution
-
-            if (File.Exists("./../../VERSION.txt"))
-            {
-                Debug.Log("exists");
-                version = File.ReadAllText("./../../VERSION.txt");
-            }
-            else
-            {
-                version = "unknown";
-            }
+			version = FileManager.ReadStringFromApplicationPathSubfolder("eDIA", "VERSION.txt");
         }
 
         public void OnGUI () {
@@ -71,14 +61,13 @@ namespace eDIA.EditorUtils {
                 LayerTools.SetupLayers();
             }
 
+            EditorGUILayout.Separator();
 
-            // EditorGUILayout.Separator ();
+            if (GUILayout.Button("Create folder structure")) {
+				CreateFolderStructure();
+			}
 
-            // GUILayout.Label ("To update the changelog, hit this button", labelStyle);
-            // if (GUILayout.Button ("Update Changelog from CSV"))
-            //     eDIA.Utilities.ProjectFileUtilities.UpdateChangelog ();
-
-            EditorGUILayout.Separator ();
+			EditorGUILayout.Separator ();
 
             // GUILayout.Label("Platform selector", EditorStyles.boldLabel);
             // EditorGUILayout.HelpBox("Click the buttons below to switch to your desired output platform. You will also need to select the Data Handler(s) you wish to use in your UXF Session Component.", MessageType.Info);
@@ -104,12 +93,12 @@ namespace eDIA.EditorUtils {
 
             EditorGUILayout.Separator ();
 
-            GUILayout.Label ("Create basic config files", EditorStyles.boldLabel);
+            //GUILayout.Label ("Create basic config files", EditorStyles.boldLabel);
 
-            if (GUILayout.Button ("Create config folder + demo JSON files"))
-                CreateConfigFiles ();
+            //if (GUILayout.Button ("Create config folder + demo JSON files"))
+            //    CreateConfigFiles ();
 
-            EditorGUILayout.Separator ();
+            //EditorGUILayout.Separator ();
 
             // GUILayout.Label ("Compatibility", EditorStyles.boldLabel);
 
@@ -132,7 +121,18 @@ namespace eDIA.EditorUtils {
             EditorGUILayout.EndScrollView ();
         }
 
-        static void CreateConfigFiles () {
+        static void CreateFolderStructure () {
+			FileManager.CreateFolder("Textures");
+			FileManager.CreateFolder("Prefabs");
+			FileManager.CreateFolder("Assets3D");
+			FileManager.CreateFolder("Assets2D");
+			FileManager.CreateFolder("Materials");
+			FileManager.CreateFolder("Scripts");
+			FileManager.CreateFolder("Editor");
+			FileManager.CreateFolder("ThirdParty");
+		}
+
+			static void CreateConfigFiles () {
             FileManager.CreateFolder("Configs/Participants");
             FileManager.CreateFolder("Configs/Tasks");
 
