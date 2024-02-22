@@ -144,6 +144,7 @@ namespace eDIA.EditorUtils {
 			FileManager.CreateFolder(projectName + "/Scripts");
 			FileManager.CreateFolder(projectName + "/Scenes");
 			FileManager.CreateFolder("Editor");
+			FileManager.CreateFolder("Settings");
 			FileManager.CreateFolder("ThirdParty");
 			AssetDatabase.Refresh();
 		}
