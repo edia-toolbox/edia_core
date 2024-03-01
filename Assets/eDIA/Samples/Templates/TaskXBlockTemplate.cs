@@ -9,7 +9,7 @@ using System;
 
 namespace eDia {
 
-	public class TaskEBlockTemplate : XBlock {
+	public class TaskXBlockTemplate : XBlock {
 
 		/*
 			Task related parameters
