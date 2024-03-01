@@ -12,7 +12,7 @@ namespace eDIA {
 	public class ScreenInVR : MonoBehaviour {
 
 		[Header("Locked to User")]
-		public bool StickToHMD = true;
+		public bool StickToHMD = false;
 		public float DistanceFromHMD = 2f;
 
 		[Header("Settings")]
@@ -42,17 +42,17 @@ namespace eDIA {
 		#region PANEL
 
 		/// <summary>Shows the actual panel</summary>
-		public void ShowPanel(bool onOff) {
+		public void Show(bool onOff) {
 			_myCanvas.enabled = onOff;
-			_myCanvas.worldCamera.enabled = onOff;
 			_graphicRaycaster.enabled = onOff;
 			_trackedDeviceGraphicRaycaster.enabled = onOff;
 		}
 
 		/// <summary>Doublecheck</summary>
 		public void HidePanel() {
-			ShowPanel(false);
+			Show(false);
 		}
 
 		#endregion // -------------------------------------------------------------------------------------------------------------------------------
 	}
+}

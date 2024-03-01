@@ -39,11 +39,12 @@ namespace eDIA {
 				return instance;
 			}
 		}
-		
+
 		// ---
 
-
 		void Start() {
+			_backgroungImg = transform.GetChild(0).GetComponent<Image>();	
+
 			EventManager.StartListening(eDIA.Events.Core.EvShowMessageToUser, OnEvShowMessage);
 			EventManager.StartListening(eDIA.Events.StateMachine.EvProceed, OnEvHideMessage); //! assumption: continuing is always hide panel
 		}
@@ -70,7 +71,7 @@ namespace eDIA {
 			MsgField.text = msg;
 			_messageFader = StartCoroutine(Fader());
 
-			ShowPanel(true);
+			Show(true);
 		}
 
 		/// <summary>Shows the message in VR on a canvas for a certain duration.</summary>
@@ -93,6 +94,7 @@ namespace eDIA {
 
 				// Also trigger proceed button on control panel
 				EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvEnableButton, new eParam(new string[] { "PROCEED", "true" }));
+				XRManager.Instance.EnableXRInteraction(true);
 				Xperiment.Instance.WaitOnProceed();
 			}
 		}
@@ -105,7 +107,7 @@ namespace eDIA {
 
 			ButtonToggling(messages.Count > 1 ? true : false, false);
 			StartCoroutine(MessagesRoutine(messages));
-			ShowPanel(true);
+			Show(true);
 		}
 
 		IEnumerator MessagesRoutine(List<string> messages) {
@@ -143,6 +145,7 @@ namespace eDIA {
 
 		/// <summary>Event catcher</summary>
 		void OnEvHideMessage(eParam e) {
+			XRManager.Instance.EnableXRInteraction(false);
 			HidePanel();
 		}
 
@@ -150,7 +153,7 @@ namespace eDIA {
 		public void HidePanel() {
 			if (_messageTimer != null) StopCoroutine(_messageTimer);
 			if (_messageFader != null) StopCoroutine(_messageFader);
-			ShowPanel(false);
+			Show(false);
 			HideMenu();
 		}
 

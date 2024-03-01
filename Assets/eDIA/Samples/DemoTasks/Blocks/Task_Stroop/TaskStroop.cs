@@ -14,7 +14,7 @@ namespace eDia {
     public class TaskStroop : XBlock {
 
         [Space(20)]
-        public GameObject StroopCanvas;
+        public ScreenInVR StroopCanvas;
         public TextMeshProUGUI _txtStroopObj;
 
         IDisposable _ButtonPressEventListener;
@@ -24,8 +24,8 @@ namespace eDia {
             trialSteps.Add(TrialStep2);
             trialSteps.Add(TrialStep3);
 
-            StroopCanvas.SetActive(false);
-        }
+            StroopCanvas.Show(false);
+		}
 
         void Start() {
 
@@ -68,7 +68,7 @@ namespace eDia {
 
             string name = Session.instance.CurrentTrial.settings.GetString("word");
 
-			StroopCanvas.SetActive(true);
+			StroopCanvas.Show(true);
             _txtStroopObj.text = name;
             _txtStroopObj.color = col;
             Xperiment.Instance.ProceedWithDelay(0.1f);
@@ -88,8 +88,8 @@ namespace eDia {
 
         void TrialStep3() {
             // Clean up
-            StroopCanvas.SetActive(false);
-            Xperiment.Instance.WaitOnProceed();
+            StroopCanvas.Show(false);
+			Xperiment.Instance.WaitOnProceed();
             Xperiment.Instance.Proceed();
             return;
         }

@@ -12,10 +12,10 @@ public class TaskD2 : XBlock {
 	public List<StimulusD2> stimuli = new();
 	List<int> validStimuliIndexes = new();
 	public int validStimuliAmount = 8; // TODO this would be a setting
-	public GameObject TaskCanvas; 
+	public ScreenInVR TaskCanvas; 
 
 	void Awake() {
-		TaskCanvas.SetActive(false);
+		TaskCanvas.Show(false);
 
 		trialSteps.Add(GenerateGrid);
 		trialSteps.Add(RunTask);
@@ -32,13 +32,15 @@ public class TaskD2 : XBlock {
 			stimuli[i].SetValid( validStimuliIndexes.Contains(i) ? true : false );
 		}
 
-		TaskCanvas.SetActive(true);
+		TaskCanvas.Show(true);
 
 		Xperiment.Instance.WaitOnProceed();
 		Xperiment.Instance.Proceed();
 	}
 
 	void RunTask() {
+		XRManager.Instance.EnableXRInteraction(true);
+
 		// Wait on user to finish
 		Xperiment.Instance.WaitOnProceed();
 	}
@@ -49,6 +51,8 @@ public class TaskD2 : XBlock {
 	}
 
 	void CheckAndLogResults () {
+		XRManager.Instance.EnableXRInteraction(false);
+
 		// Check sheets and log to UXF
 		int correctlyTicked = 0;
 		int incorrectlyTicked = 0;
@@ -75,7 +79,7 @@ public class TaskD2 : XBlock {
 			s.Reset();
 		}
 
-		TaskCanvas.SetActive(false);
+		TaskCanvas.Show(false);
 
 		Xperiment.Instance.WaitOnProceed();
 		Xperiment.Instance.Proceed();
