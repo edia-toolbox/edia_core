@@ -21,7 +21,6 @@ namespace eDIA {
 		public Transform XRCam;
 		public Transform XRLeft;
 		public Transform XRRight;
-		public Transform mainMenuHolder;
 		public Transform camOverlay;
 
 		void Awake () {
