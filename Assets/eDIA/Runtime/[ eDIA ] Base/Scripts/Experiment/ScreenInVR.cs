@@ -18,20 +18,10 @@ namespace eDIA {
 		[Header("Settings")]
 		public bool StartVisible = false;
 
-		Canvas _myCanvas = null;
-		GraphicRaycaster _graphicRaycaster = null;
-		TrackedDeviceGraphicRaycaster _trackedDeviceGraphicRaycaster = null;
-
 		private void Awake() {
-			_myCanvas = GetComponent<Canvas>();
-			_myCanvas.enabled = StartVisible;
-			_graphicRaycaster = GetComponent<GraphicRaycaster>();
-			_graphicRaycaster.enabled = StartVisible;
-			_trackedDeviceGraphicRaycaster = GetComponent<TrackedDeviceGraphicRaycaster>();
-			_trackedDeviceGraphicRaycaster.enabled = StartVisible;
 
-			if (_myCanvas.worldCamera == null)
-				_myCanvas.worldCamera = XRManager.Instance.camOverlay.GetComponent<Camera>();
+			if (GetComponent<Canvas>().worldCamera == null)
+				GetComponent<Canvas>().worldCamera = XRManager.Instance.camOverlay.GetComponent<Camera>();
 
 			if (StickToHMD) {
 				transform.SetParent(XRManager.Instance.XRCam, true);
@@ -39,20 +29,16 @@ namespace eDIA {
 			}
 		}
 
-		#region PANEL
-
 		/// <summary>Shows the actual panel</summary>
 		public void Show(bool onOff) {
-			_myCanvas.enabled = onOff;
-			_graphicRaycaster.enabled = onOff;
-			_trackedDeviceGraphicRaycaster.enabled = onOff;
+			GetComponent<Canvas>().enabled = onOff;
+			GetComponent<GraphicRaycaster>().enabled = onOff;
+			GetComponent<TrackedDeviceGraphicRaycaster>().enabled = onOff;
 		}
 
 		/// <summary>Doublecheck</summary>
 		public void HidePanel() {
 			Show(false);
 		}
-
-		#endregion // -------------------------------------------------------------------------------------------------------------------------------
 	}
 }
