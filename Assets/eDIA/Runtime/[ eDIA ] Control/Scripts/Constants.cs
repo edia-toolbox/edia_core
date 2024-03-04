@@ -12,9 +12,8 @@ namespace eDIA.Manager {
 	[System.Serializable]
 	public class ControlSettings {
 		public ControlMode ControlMode = ControlMode.Local;
-		public PanelMode PanelMode = PanelMode.OnScreen;
-		// public bool LookForLocalConfigs = true;
-		public ScreenSize ScreenSize = ScreenSize.Default;	
+		//public PanelMode PanelMode = PanelMode.OnScreen;
+		//public ScreenSize ScreenSize = ScreenSize.Default;	
 	}
 
 

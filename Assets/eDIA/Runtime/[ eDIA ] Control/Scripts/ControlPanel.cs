@@ -34,9 +34,6 @@ namespace eDIA.Manager
 		private PanelConfigMaker _pConfigMaker = null;
 		private List<Transform> _currentPanelOrder = new List<Transform>();
 
-		public XRDevicesSOBJ devices; // Database with available HMD hardware
-
-
 		private void Awake()
 		{
 			DontDestroyOnLoad(this);
@@ -129,25 +126,17 @@ namespace eDIA.Manager
 		}
 
 
-	#region XR Devices database
+		#region XR Devices database
 
-		public Sprite GetXRDeviceIcon(int index)
-		{
-			return devices.XRDevices[index].icon;
-		}
+		//public String GetXRDeviceName(int index) {
+		//	return devices.XRDevices[index].name;
+		//}
 
-		public String GetXRDeviceName(int index)
-		{
-			return devices.XRDevices[index].name;
-		}
+		//public int GetXRDeviceIndex(string deviceInfo) {
+		//	return devices.XRDevices.FindIndex(x => x.name == deviceInfo);
+		//}
 
-		public int GetXRDeviceIndex(string deviceInfo)
-		{
-			return devices.XRDevices.FindIndex(x => x.name == deviceInfo);
-		}
-
-
-	#endregion // -------------------------------------------------------------------------------------------------------------------------------                                                                                                                                    
+		#endregion // -------------------------------------------------------------------------------------------------------------------------------                                                                                                                                    
 
 
 	}

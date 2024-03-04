@@ -29,8 +29,7 @@ namespace eDIA {
 			if (obj.GetInt() is -1)
 				return;
 
-			logo.sprite = ControlPanel.Instance.GetXRDeviceIcon(obj.GetInt());
-			titleField.text = ControlPanel.Instance.GetXRDeviceName(obj.GetInt());
+			//titleField.text = ControlPanel.Instance.GetXRDeviceName(obj.GetInt());
 		}
 
 	}
