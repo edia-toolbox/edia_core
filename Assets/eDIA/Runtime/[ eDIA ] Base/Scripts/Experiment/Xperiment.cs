@@ -55,7 +55,7 @@ namespace eDIA {
 
 		void Awake() {
 
-			EventManager.showLog = true;
+			EventManager.showLog = ShowLog;
 
 			// Hard reference statemachine links between UXF and EXP
 			Session.instance.onSessionBegin.AddListener(OnSessionBeginUXF);
@@ -70,8 +70,6 @@ namespace eDIA {
 
 			EventManager.StartListening(eDIA.Events.StateMachine.EvStartExperiment, OnEvStartExperiment);
 			EventManager.StartListening(eDIA.Events.Core.EvQuitApplication, OnEvQuitApplication);
-
-			EventManager.showLog = ShowLog;
 		}
 
 		void OnDestroy() {
@@ -101,9 +99,9 @@ namespace eDIA {
 		}
 
 		void EnableAllEBlocks (bool onOff) {
-			foreach (XBlock eb in XBlocks) {
-				eb.enabled = onOff;
-				eb.gameObject.SetActive(onOff);
+			foreach (XBlock xb in XBlocks) {
+				xb.enabled = onOff;
+				xb.gameObject.SetActive(onOff);
 			}
 		}
 

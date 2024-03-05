@@ -50,6 +50,10 @@ public class TaskD2 : XBlock {
 		Xperiment.Instance.Proceed();
 	}
 
+	public void OnButtonClick() {
+		Debug.Log("OnButtonClick: ");
+	}
+
 	void CheckAndLogResults () {
 		XRManager.Instance.EnableXRInteraction(false);
 
@@ -58,10 +62,10 @@ public class TaskD2 : XBlock {
 		int incorrectlyTicked = 0;
 
 		foreach (StimulusD2 s in stimuli) {
-			if(s.IsValid && s.IsTicked)
+			if(s.IsValid && s.isTicked)
 				correctlyTicked++;
 
-			if (s.IsTicked && !s.IsValid)
+			if (s.isTicked && !s.IsValid)
 				incorrectlyTicked++;
 		}
 

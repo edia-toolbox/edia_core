@@ -64,6 +64,7 @@ namespace eDIA {
 		/// <summary>Turn XR hand / controller interaction possibility on or off.</summary>
 		/// <param name="onOff">Boolean</param>
 		public void EnableXRInteraction (bool onOff) {
+			AddToLog("EnableXRInteraction " + onOff);
 			XRLeft.GetComponent<XRController>().EnableInteraction(onOff);
 			XRRight.GetComponent<XRController>().EnableInteraction(onOff);
 		}

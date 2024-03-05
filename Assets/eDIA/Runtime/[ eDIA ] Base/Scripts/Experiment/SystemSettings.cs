@@ -7,7 +7,7 @@ using UnityEngine;
 namespace eDIA {
 
 	/// <summary>Global settings of the application</summary>
-	public class SystemSettings : MonoBehaviour {
+	public class SystemSettings : Singleton<SystemSettings> {
 
 #region DECLARATIONS
 
@@ -27,7 +27,6 @@ namespace eDIA {
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region MAIN METHODS
 
-		/// <summary>Gets called from XRrigmanager to init the system. </summary>
 		public void InitSystemSettings () {
 
 			UXFFilesaver = GameObject.FindObjectOfType<UXF.LocalFileDataHander>();

@@ -75,7 +75,7 @@ namespace eDia {
 			StepStartTime = Time.time;
 
 			// Show message to user and allow proceeding to NextStep by pressing the button.
-			MessagePanelInVR.Instance.ShowMessage("Click button below to continue", true);
+			MessagePanelInVR.Instance.ShowMessage("Click button below to continue");
 
 			// Tell the system to wait on button press. Which will also enable the button on the controlpanel to overrule the user
 			Xperiment.Instance.WaitOnProceed (); 

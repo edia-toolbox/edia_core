@@ -59,7 +59,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -151,6 +151,7 @@ GameObject:
   - component: {fileID: 8584668214686677322}
   - component: {fileID: 7199691860511567120}
   - component: {fileID: 2279160359641037010}
+  - component: {fileID: 797860364439139842}
   m_Layer: 5
   m_Name: StimulusD2
   m_TagString: Untagged
@@ -206,10 +207,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
   m_Type: 1
   m_PreserveAspect: 0
-  m_FillCenter: 0
+  m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
   m_FillClockwise: 1
@@ -235,12 +236,12 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 0.77647066, g: 0.78823537, b: 0.8117648, a: 1}
-    m_HighlightedColor: {r: 0.41350168, g: 0.78431374, b: 0, a: 1}
+    m_HighlightedColor: {r: 0.5274092, g: 0.78431374, b: 0, a: 1}
     m_PressedColor: {r: 0.7843138, g: 0.60784316, b: 0, a: 1}
-    m_SelectedColor: {r: 0, g: 0.7025194, b: 1, a: 1}
+    m_SelectedColor: {r: 0.7843138, g: 0.60784316, b: 0, a: 1}
     m_DisabledColor: {r: 0.77647066, g: 0.78823537, b: 0.8117648, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -261,7 +262,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2279160359641037010}
-        m_TargetAssemblyTypeName: StimulusD2, Assembly-CSharp
+        m_TargetAssemblyTypeName: 
         m_MethodName: OnButtonClick
         m_Mode: 1
         m_Arguments:
@@ -284,6 +285,54 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f8fce072efd8654eaf4a12ed4547b9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isTicked: 0
+  isSelected: 0
   IdleColor: {r: 0.77647066, g: 0.78823537, b: 0.8117648, a: 0.61960787}
   TickedColor: {r: 0.7830189, g: 0.60630167, b: 0, a: 1}
+  HighlightedColor: {r: 0.19223928, g: 1, b: 0.30218962, a: 1}
   ValueFieldObj: {fileID: 7457384958576011577}
+--- !u!114 &797860364439139842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8457851887652917559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2279160359641037010}
+          m_TargetAssemblyTypeName: 
+          m_MethodName: OnPointerEnter
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2279160359641037010}
+          m_TargetAssemblyTypeName: 
+          m_MethodName: OnPointerExit
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2

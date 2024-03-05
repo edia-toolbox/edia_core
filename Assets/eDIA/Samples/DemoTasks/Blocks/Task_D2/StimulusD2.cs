@@ -10,12 +10,15 @@ public class StimulusD2 : MonoBehaviour
 	bool isValid { get; set; } = false;
 	public bool IsValid { get { return isValid; } }
 
-	bool isTicked = false;
-	public bool IsTicked { get { return isTicked; } }
+	public bool isTicked = false;
+	//public bool IsTicked { get { return isTicked; } }
+
+	public bool isSelected = false;
 
 	public Color IdleColor = Color.white;
 	public Color TickedColor = Color.white;
-    public TextMeshProUGUI ValueFieldObj;
+	public Color HighlightedColor = Color.white;
+	public TextMeshProUGUI ValueFieldObj;
 
     List<string> validTexts = new List<string>() { "II\nd\n ", "\nd\nII" };
 	List<string> invalidTexts = new List<string>() { "II\np\n ", "I\np\n ", "I\nd\n ", "I\np\nI", "\np\nI", "\np\nII", "I\nd\nI" };
@@ -27,8 +30,22 @@ public class StimulusD2 : MonoBehaviour
 	}
 
 	public void OnButtonClick () {
+		if (!isSelected)
+			return;
+
 		isTicked = !isTicked;
+		Debug.Log("OnButtonClick ticked: " + isTicked);
 		GetComponent<Image>().color = isTicked ? TickedColor : IdleColor;
+	}
+
+	public void OnPointerEnter () {
+		GetComponent<Image>().color = HighlightedColor;
+		isSelected = true;
+	}
+
+	public void OnPointerExit () {
+		GetComponent<Image>().color = isTicked ? TickedColor : IdleColor;
+		isSelected = false;
 	}
 
 	public void Reset() {

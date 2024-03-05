@@ -18,6 +18,9 @@ namespace eDIA {
 		[Header("Settings")]
 		public bool StartVisible = false;
 
+		[HideInInspector]
+		public bool isActive = false;
+
 		private void Awake() {
 
 			if (GetComponent<Canvas>().worldCamera == null)
@@ -27,6 +30,8 @@ namespace eDIA {
 				transform.SetParent(XRManager.Instance.XRCam, true);
 				transform.localPosition = new Vector3(0, 0, DistanceFromHMD);
 			}
+
+			if (!StartVisible) Show(false);
 		}
 
 		/// <summary>Shows the actual panel</summary>
@@ -34,6 +39,7 @@ namespace eDIA {
 			GetComponent<Canvas>().enabled = onOff;
 			GetComponent<GraphicRaycaster>().enabled = onOff;
 			GetComponent<TrackedDeviceGraphicRaycaster>().enabled = onOff;
+			isActive = onOff;
 		}
 
 		/// <summary>Doublecheck</summary>

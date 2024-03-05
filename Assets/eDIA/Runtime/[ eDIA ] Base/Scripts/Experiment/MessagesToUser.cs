@@ -18,8 +18,5 @@ namespace TASK {
 		public void OnSessionEnd () {
 			MessagePanelInVR.Instance.ShowMessage("Session ended, logfiles saved");
 		}
-
-
 	}
-
 }

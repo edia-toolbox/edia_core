@@ -17,6 +17,15 @@ namespace eDia {
         public ScreenInVR StroopCanvas;
         public TextMeshProUGUI _txtStroopObj;
 
+        [Serializable]
+        public struct ColorValueCombo {
+            public Color value;
+            public string ColorName;
+        }
+
+        public List<ColorValueCombo> ColorComboPool;
+        public List<StimuliStroop> Stimulis;
+
         IDisposable _ButtonPressEventListener;
 
         void Awake() {
@@ -59,6 +68,7 @@ namespace eDia {
 
             Color col = Color.white;
 			Color newcol;
+
 			if (ColorUtility.TryParseHtmlString(Session.instance.CurrentTrial.settings.GetString("color"), out newcol))
 				col = newcol;
 
@@ -82,7 +92,7 @@ namespace eDia {
             // Proceed
 
             var response = "";
-            response = ListenToInput();
+            //response = ListenToInput();
             //return;
         }
 
@@ -94,8 +104,15 @@ namespace eDia {
             return;
         }
 
+        public void StimuliSelected (int stimuliIndex) { 
+            
+        }
+
+
         string ListenToInput() {
-            var response = "";
+			XRManager.Instance.EnableXRInteraction(true);
+
+			var response = "";
             _ButtonPressEventListener = InputSystem.onAnyButtonPress.CallOnce(
                 (ctrl) => {
                     InterpretInputNew(ctrl, out response, CheckLogResultsProceed);
@@ -145,7 +162,7 @@ namespace eDia {
 
 
         void InterpretInputNew(InputControl control, out string response, Action<string> callback) {
-            Debug.Log($"Key pressed: {control.displayName.ToLower()}");
+            //Debug.Log($"Key pressed: {control.displayName.ToLower()}");
             var input = control.displayName.ToLower();
             switch (input) {
                 case "r":

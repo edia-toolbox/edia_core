@@ -15,10 +15,10 @@ namespace eDIA {
 		public Button buttonOK = null;
 		public Button buttonProceed = null;
 		public bool HasSolidBackground = true;
-		
+
 		Image _backgroungImg = null;
 		bool _hasClicked = false;
-		
+
 		Coroutine _messageTimer = null;
 		Coroutine _messageFader = null;
 
@@ -43,7 +43,7 @@ namespace eDIA {
 		// ---
 
 		void Start() {
-			_backgroungImg = transform.GetChild(0).GetComponent<Image>();	
+			_backgroungImg = transform.GetChild(0).GetComponent<Image>();
 
 			EventManager.StartListening(eDIA.Events.Core.EvShowMessageToUser, OnEvShowMessage);
 			EventManager.StartListening(eDIA.Events.StateMachine.EvProceed, OnEvHideMessage); //! assumption: continuing is always hide panel
@@ -69,7 +69,10 @@ namespace eDIA {
 			if (_messageFader != null) StopCoroutine(_messageFader);
 
 			MsgField.text = msg;
-			_messageFader = StartCoroutine(Fader());
+			XRManager.Instance.EnableXRInteraction(true);
+			ButtonToggling(false, true);
+
+			_messageFader = isActive ? null : StartCoroutine(Fader());
 
 			Show(true);
 		}
@@ -79,25 +82,24 @@ namespace eDIA {
 		/// <param name="duration">Duration</param>
 		public void ShowMessage(string msg, float duration) {
 			ShowMessage(msg);
-
 			_messageTimer = StartCoroutine("timer", duration);
 		}
 
-		/// <summary>Shows the message in VR on a canvas with button to proceed.</summary>
-		/// <param name="msg">Message to show</param>
-		/// <param name="duration">Duration</param>
-		public void ShowMessage(string msg, bool showProceedButton) {
-			ShowMessage(msg);
+		///// <summary>Shows the message in VR on a canvas with button to proceed.</summary>
+		///// <param name="msg">Message to show</param>
+		///// <param name="duration">Duration</param>
+		//public void ShowMessage(string msg, bool showProceedButton) {
+		//	ShowMessage(msg);
 
-			if (showProceedButton) {
-				ButtonToggling(true, true);
+		//	if (showProceedButton) {
+		//		ButtonToggling(false, true);
 
-				// Also trigger proceed button on control panel
-				EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvEnableButton, new eParam(new string[] { "PROCEED", "true" }));
-				XRManager.Instance.EnableXRInteraction(true);
-				Xperiment.Instance.WaitOnProceed();
-			}
-		}
+		//		// Also trigger proceed button on control panel
+		//		//EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvEnableButton, new eParam(new string[] { "PROCEED", "true" }));
+		//		XRManager.Instance.EnableXRInteraction(true);
+		//		//Xperiment.Instance.WaitOnProceed();
+		//	}
+		//}
 
 		/// <summary>
 		/// Shows a series of messages, user has to click OK button to go through them
@@ -126,16 +128,18 @@ namespace eDIA {
 
 		void ButtonToggling(bool onOffOk, bool onOffProceed) {
 			buttonOK.gameObject.SetActive(onOffOk);
+			buttonOK.interactable = onOffOk;
 			buttonProceed.gameObject.SetActive(onOffProceed);
+			buttonProceed.interactable = onOffProceed;
 			MenuHolder.SetActive(onOffProceed || onOffOk);
 		}
-
 
 		public void OnBtnOKPressed() {
 			_hasClicked = true;
 		}
 
 		public void OnBtnProceedPressed() {
+			Debug.Log("OnBtnProceedPressed");
 			EventManager.TriggerEvent(eDIA.Events.StateMachine.EvProceed);
 		}
 
@@ -151,9 +155,10 @@ namespace eDIA {
 
 		/// <summary>Doublecheck running routines and hides the panel</summary>
 		public void HidePanel() {
+			base.HidePanel();
+
 			if (_messageTimer != null) StopCoroutine(_messageTimer);
 			if (_messageFader != null) StopCoroutine(_messageFader);
-			Show(false);
 			HideMenu();
 		}
 
