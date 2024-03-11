@@ -37,17 +37,6 @@ namespace eDia {
 
 		}
 
-        void Start() {
-
-			foreach (string s in Session.instance.CurrentBlock.settings.GetStringList("_start")) {
-                this.Add2Console(s);
-            }
-        }
-
-
-        private void OnEnable() {
-
-        }
 
         private void OnDisable() {
             if (_ButtonPressEventListener != null) {
@@ -58,7 +47,6 @@ namespace eDia {
         public void TrialStep1() {
 
             Debug.Log("TrialStep1");
-            //Debug.Log($"Trial: {_trialIndex}");
 
             // Get the word and it's color from settings
             // set the properties
@@ -72,10 +60,6 @@ namespace eDia {
 
 			if (ColorUtility.TryParseHtmlString(Session.instance.CurrentTrial.settings.GetString("color"), out newcol))
 				col = newcol;
-
-            //foreach (var s in Session.instance.CurrentBlock.settings.Keys) {
-            //    this.Add2Console(s);
-            //}
 
             string name = Session.instance.CurrentTrial.settings.GetString("word");
 
@@ -102,7 +86,6 @@ namespace eDia {
             StroopCanvas.Show(false);
 			Xperiment.Instance.WaitOnProceed();
             Xperiment.Instance.Proceed();
-            return;
         }
 
         public void StimuliSelected (int stimuliIndex) { 

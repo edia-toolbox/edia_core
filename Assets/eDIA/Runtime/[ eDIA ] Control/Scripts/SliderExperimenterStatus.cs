@@ -12,31 +12,31 @@ public class SliderExperimenterStatus : MonoBehaviour {
 	public TextMeshProUGUI descriptionField;
 	public bool useCapitals = true;
 
-	Coroutine timer = null;
-	Slider mySlider = null;
+	Coroutine _animationRoutine = null;
+	Slider _mySlider = null;
 
 	private void Awake() {
-		mySlider = GetComponent<Slider>();	
+		_mySlider = GetComponent<Slider>();	
 	}
 
 	public int maxValue {
 		get {
-			return (int)mySlider.maxValue;
+			return (int)_mySlider.maxValue;
 		}
 
 		set {
-			mySlider.maxValue = value;
+			_mySlider.maxValue = value;
 			maxValueField.text = value.ToString();
 		}
 	}
 
 	public int currentValue {
 		get {
-			return (int)mySlider.value;
+			return (int)_mySlider.value;
 		}
 
 		set {
-			mySlider.value = value;
+			_mySlider.value = value;
 			currentValueField.text = value.ToString();
 		}
 	}
@@ -51,15 +51,16 @@ public class SliderExperimenterStatus : MonoBehaviour {
 		}
 	}
 
+	// --
 
 	public void StartAnimation (float duration) {
 		gameObject.SetActive(true);
-		timer = StartCoroutine("AnimateSliderOverTime", duration);
+		_animationRoutine = StartCoroutine("AnimateSliderOverTime", duration);
 	}
 
 	public void StopAnimation () {
-		StopCoroutine( "AnimateSliderOverTime");
-		mySlider.value = 0f;
+		StopCoroutine( _animationRoutine );
+		_mySlider.value = 0f;
 	}
 
 	IEnumerator AnimateSliderOverTime(float duration)
@@ -70,7 +71,26 @@ public class SliderExperimenterStatus : MonoBehaviour {
 		{
 			animationTime += Time.deltaTime;
 			float lerpValue = animationTime / duration;
-			mySlider.value = Mathf.Lerp(1f, 0f, lerpValue);
+			_mySlider.value = Mathf.Lerp(1f, 0f, lerpValue);
+			yield return null;
+		}
+	}
+
+	// --
+
+	public void AnimateToValue (float endValue) {
+		_animationRoutine = StartCoroutine("AnimateSliderToValue",endValue);
+	}
+
+	IEnumerator AnimateSliderToValue(float endValue) {
+		float animationTime = 0f;
+		float duration = 0.3f;
+		float oldValue = _mySlider.value;
+
+		while (animationTime < duration) {
+			animationTime += Time.deltaTime;
+			float lerpValue = animationTime / duration;
+			_mySlider.value = Mathf.Lerp(oldValue, endValue, lerpValue);
 			yield return null;
 		}
 	}

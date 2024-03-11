@@ -171,6 +171,10 @@ namespace eDIA {
 			  SessionSettings.sessionInfo.session_number,
 			  SessionSettings.sessionInfo.GetParticipantDetailsAsDict()
 			);
+
+			UpdateProgressStatus("Session started");
+			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateBlockProgress, new eParam(new int[] { 0, Session.instance.blocks.Count }));
+			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateTrialProgress, new eParam(new int[] { 0, 0 }));
 		}
 
 		void OnEvStartExperiment(eParam e) {
