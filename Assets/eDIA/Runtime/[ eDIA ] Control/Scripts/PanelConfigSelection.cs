@@ -33,7 +33,7 @@ namespace eDIA.Manager {
 		string _pathToParticipantFiles = "Configs/participants/";
 		string _pathToTaskFiles = "Configs/base-definitions/";
 		string _eBlockDefinitionsFolderName = "xblocks";
-		string _eBlockSequenceFileName = "xblock_sequence.json";
+		string _eBlockSequenceFileName = "session_sequence.json";
 		string _sessionInfoFilenName = "session_info.json";
 
 		public List<string> xBlockDefinitionsFileList; // for sanity check
