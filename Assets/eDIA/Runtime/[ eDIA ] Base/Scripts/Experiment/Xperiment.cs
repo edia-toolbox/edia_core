@@ -57,25 +57,29 @@ namespace eDIA {
 
 			EventManager.showLog = ShowLog;
 
-			// Hard reference statemachine links between UXF and EXP
-			Session.instance.onSessionBegin.AddListener(OnSessionBeginUXF);
-			Session.instance.onSessionEnd.AddListener(OnSessionEndUXF);
-			Session.instance.onTrialBegin.AddListener(OnTrialBeginUXF);
-			Session.instance.onTrialEnd.AddListener(OnTrialEndUXF);
-
 			if(!SanityCheck()) 
 				return;
 
 			EnableAllEBlocks(false);
 
-			EventManager.StartListening(eDIA.Events.StateMachine.EvStartExperiment, OnEvStartExperiment);
-			EventManager.StartListening(eDIA.Events.Core.EvQuitApplication, OnEvQuitApplication);
 		}
 
 		void OnDestroy() {
 			EventManager.StopListening(eDIA.Events.StateMachine.EvStartExperiment, OnEvStartExperiment);
 			EventManager.StopListening(eDIA.Events.StateMachine.EvPauseExperiment, OnEvPauseExperiment);
 			EventManager.StopListening(eDIA.Events.Core.EvQuitApplication, OnEvQuitApplication);
+		}
+
+		void Start() {
+			// Hard reference statemachine links between UXF and EXP
+			Session.instance.onSessionBegin.AddListener(OnSessionBeginUXF);
+			Session.instance.onSessionEnd.AddListener(OnSessionEndUXF);
+			Session.instance.onTrialBegin.AddListener(OnTrialBeginUXF);
+			Session.instance.onTrialEnd.AddListener(OnTrialEndUXF);
+
+			EventManager.StartListening(eDIA.Events.Core.EvQuitApplication, OnEvQuitApplication);
+			EventManager.StartListening(eDIA.Events.StateMachine.EvStartExperiment, OnEvStartExperiment);
+			
 		}
 
 		bool SanityCheck() {
