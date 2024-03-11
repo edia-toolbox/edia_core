@@ -140,12 +140,12 @@ namespace eDIA {
 		}
 
 		/// <summary>Called from this manager. </summary>
-		void ShowMessageToUser (string msg) {
+		public void ShowMessageToUser (string msg) {
 			ShowMessageToUserGeneric();
 			MessagePanelInVR.Instance.ShowMessage(msg);
 		}
 
-		void ShowMessageToUser (List<string> msgs) {
+		public void ShowMessageToUser (List<string> msgs) {
 			ShowMessageToUserGeneric();
 			MessagePanelInVR.Instance.ShowMessage(msgs);
 		}
@@ -157,6 +157,9 @@ namespace eDIA {
 			EnableEyeCalibrationTrigger(true);
 		}
 
+		void HideMessagePanelButtons () {
+			MessagePanelInVR.Instance.HideMenu();
+		}
 
 		#endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region EXPERIMENT CONTROL
@@ -275,6 +278,8 @@ namespace eDIA {
 			EnableProceedButton(false);
 
 			EnablePauseButton(false);
+
+			HideMessagePanelButtons();
 		}
 
 		/// <summary>Done with all trial, clean up and call UXF to end this session</summary>
@@ -466,7 +471,6 @@ namespace eDIA {
 			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvStartTimer, new eParam(duration));
 			yield return new WaitForSecondsRealtime(duration);
 
-			EventManager.StartListening(eDIA.Events.StateMachine.EvProceed, OnEvProceed);
 			Proceed();
 		}
 

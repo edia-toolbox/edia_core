@@ -3,20 +3,18 @@
   "subType": "stroop_experiment",
   "blockId": "task_stroop_experiment_0",
   "settings": [
-    { "key": "green", "value": "#008000"},
-    { "key": "pink", "value": "#FFC0CB"},
-    { "key": "orange", "value": "#FFA500"},
-    { "key": "target", "value": "color"}
+    { "key": "colors", "value": "#008000,#FFC0CB,#FFA500" },
+    { "key": "words", "value": "green,pink,orange" },
+    { "key": "target", "value": "word" }
   ],
   "instructions": [
-    { "key": "_start", "value": "Please read out the word (irrespective of the ink color)." },
-    { "key": "_pause", "value": "Please read out the ink color (irrespective of what the word says)." }
+    { "key": "_start", "value": "Click the color the word describes." }
   ],
   "trialSettings": {
     "keys": ["word", "color"],
     "valueList": [
       { "values": ["orange", "#FFA500"] },
-      { "values": ["pink", "#FFA500"] },
+      { "values": ["pink", "#FFC0CB"] },
       { "values": ["green", "#008000"] }
     ]
   }

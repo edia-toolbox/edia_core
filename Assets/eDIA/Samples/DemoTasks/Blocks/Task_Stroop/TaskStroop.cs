@@ -4,11 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Utilities;
 using eDIA;
 using UXF;
-using Utils;
+using UnityEngine.UI;
 
 namespace eDia {
     public class TaskStroop : XBlock {
@@ -16,168 +14,86 @@ namespace eDia {
         [Space(20)]
         public ScreenInVR StroopCanvas;
         public TextMeshProUGUI _txtStroopObj;
-
-        [Serializable]
-        public struct ColorValueCombo {
-            public Color value;
-            public string ColorName;
-        }
-
-        public List<ColorValueCombo> ColorComboPool;
         public List<StimuliStroop> Stimulis;
 
-        IDisposable _ButtonPressEventListener;
-
         void Awake() {
-            trialSteps.Add(TrialStep1);
-            trialSteps.Add(TrialStep2);
-            trialSteps.Add(TrialStep3);
+            trialSteps.Add(SetupTaskEnvironment);
+            trialSteps.Add(WaitForUserInput);
+            trialSteps.Add(CleanUp);
 
             StroopCanvas.Show(false);
-
 		}
 
+        public void SetupTaskEnvironment() {
 
-        private void OnDisable() {
-            if (_ButtonPressEventListener != null) {
-                _ButtonPressEventListener.Dispose();
-            }
-        }
+			// Prepare stimuli buttons
+			for (int s=0;s<Stimulis.Count;s++) {
+                Stimulis[s].Init(
+                    Session.instance.CurrentBlock.settings.GetStringList("colors")[s],
+                    Session.instance.CurrentBlock.settings.GetStringList("words")[s],
+                    Session.instance.CurrentBlock.settings.GetString("target"),
+					Session.instance.CurrentBlock.settings.GetString("target") == "color" ? Session.instance.CurrentTrial.settings.GetString("color") : Session.instance.CurrentTrial.settings.GetString("word")
+					);
 
-        public void TrialStep1() {
-
-            Debug.Log("TrialStep1");
-
-            // Get the word and it's color from settings
-            // set the properties
-            // Show the word
-            // Proceed
-            //Color col = _trials[_trialIndex].ColValue;
-            //string name = _trials[_trialIndex].ColName;
+                int forSomeReasonItNeedsANewVar = s;
+				Stimulis[s].GetComponent<Button>().onClick.AddListener(() => StimuliSelected(forSomeReasonItNeedsANewVar));
+                Stimulis[s].GetComponent<Button>().interactable = true;
+			}
 
             Color col = Color.white;
-			Color newcol;
 
-			if (ColorUtility.TryParseHtmlString(Session.instance.CurrentTrial.settings.GetString("color"), out newcol))
-				col = newcol;
+			if (Session.instance.CurrentBlock.settings.GetString("target") == "color")
+                    ColorUtility.TryParseHtmlString(Session.instance.CurrentTrial.settings.GetString("color"), out col);
 
-            string name = Session.instance.CurrentTrial.settings.GetString("word");
+			_txtStroopObj.text  = Session.instance.CurrentTrial.settings.GetString("word");
+            _txtStroopObj.color = col;
 
 			StroopCanvas.Show(true);
-            _txtStroopObj.text = name;
-            _txtStroopObj.color = col;
-            Xperiment.Instance.ProceedWithDelay(0.1f);
 
-        }
-
-        void TrialStep2() {
-            // Wait for response
-            // Evaluate response
-            // Store results
-            // Proceed
-
-            var response = "";
-            //response = ListenToInput();
-            //return;
-        }
-
-        void TrialStep3() {
-            // Clean up
-            StroopCanvas.Show(false);
 			Xperiment.Instance.WaitOnProceed();
-            Xperiment.Instance.Proceed();
-        }
-
-        public void StimuliSelected (int stimuliIndex) { 
-            
+			Xperiment.Instance.ProceedWithDelay(0.1f);
         }
 
 
-        string ListenToInput() {
+        void WaitForUserInput() {
 			XRManager.Instance.EnableXRInteraction(true);
 
-			var response = "";
-            _ButtonPressEventListener = InputSystem.onAnyButtonPress.CallOnce(
-                (ctrl) => {
-                    InterpretInputNew(ctrl, out response, CheckLogResultsProceed);
-                }
-            );
+			Xperiment.Instance.WaitOnProceed();
+        }
 
-            return response;
+        public void StimuliSelected (int stimuliIndex) {
+            //Debug.Log($"Clicked {stimuliIndex} valid: {Stimulis[stimuliIndex].IsValid}");
+
+            CheckLogResultsProceed(stimuliIndex);
+
+			Xperiment.Instance.Proceed();
+		}
+        
+        void CleanUp() {
+            // Clean up
+            foreach (var stimuli in Stimulis)
+				stimuli.GetComponent<Button>().onClick.RemoveAllListeners();
+
+			StroopCanvas.Show(false);
+
+			Xperiment.Instance.WaitOnProceed();
+            Xperiment.Instance.ProceedWithDelay(1f);
         }
 
 
-        void CheckLogResultsProceed(string response) {
+        void CheckLogResultsProceed(int stimuliIndex) {
 
-            _ButtonPressEventListener.Dispose();
-
-            // Evaluate results
-            //var invDict = invertDict();
-
-            string target;
-            string targetDomain = Session.instance.CurrentTrial.settings.GetString("target").ToLower();
-            
-            target = Session.instance.CurrentTrial.settings.GetString(targetDomain).ToLower();
-
-            if (targetDomain == "color") {
-                response = Session.instance.CurrentTrial.settings.GetString(response).ToLower();
-            }
-
-            if (response == target) {
-                Debug.Log("Correct");
-            } else {
-                Debug.Log($"Incorrect --- Correct answer: {target} --- Your answer: {response}");
-            }
+            Debug.Log($"Correct {Stimulis[stimuliIndex].IsValid}");
 
             // Log settings
             Xperiment.Instance.AddToTrialResults("word", Session.instance.CurrentTrial.settings.GetString("word"));
 			Xperiment.Instance.AddToTrialResults("color", Session.instance.CurrentTrial.settings.GetString("color"));
-			Xperiment.Instance.AddToTrialResults("target", Session.instance.CurrentTrial.settings.GetString("target"));
+			Xperiment.Instance.AddToTrialResults("target", Session.instance.CurrentBlock.settings.GetString("target"));
 
             // Log results
-			Xperiment.Instance.AddToTrialResults("response",response);
-            
-            // Proceed
-            Xperiment.Instance.WaitOnProceed();
-			Xperiment.Instance.Proceed();
-
-            return;
+            Xperiment.Instance.AddToTrialResults("response", Stimulis[stimuliIndex].GetValue());
         }
-
-
-        void InterpretInputNew(InputControl control, out string response, Action<string> callback) {
-            //Debug.Log($"Key pressed: {control.displayName.ToLower()}");
-            var input = control.displayName.ToLower();
-            switch (input) {
-                case "r":
-                    response = "red";
-                    break;
-                case "g":
-                    response = "green";
-                    break;
-                case "b":
-                    response = "blue";
-                    break;
-                case "y":
-                    response = "yellow";
-                    break;
-                case "p":
-                    response = "pink";
-                    break;
-                case "o":
-                    response = "orange";
-                    break;
-                default:
-                    response = "";
-                    ListenToInput();
-                    break;
-            }
-            if (response != "") {
-                callback(response);
-            }
-
-        }
-    }
+	}
 }
 
 

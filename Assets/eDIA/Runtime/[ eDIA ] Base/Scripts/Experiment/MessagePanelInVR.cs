@@ -48,22 +48,22 @@ namespace eDIA {
 		void Start() {
 			_backgroungImg = transform.GetChild(0).GetComponent<Image>();
 
-			EventManager.StartListening(eDIA.Events.Core.EvShowMessageToUser, OnEvShowMessage);
+			//EventManager.StartListening(eDIA.Events.Core.EvShowMessageToUser, OnEvShowMessage);
 			EventManager.StartListening(eDIA.Events.StateMachine.EvProceed, OnEvHideMessage); //! assumption: continuing is always hide panel
 		}
 
 		void OnDestroy() {
-			EventManager.StopListening(eDIA.Events.Core.EvShowMessageToUser, OnEvShowMessage);
+			//EventManager.StopListening(eDIA.Events.Core.EvShowMessageToUser, OnEvShowMessage);
 			EventManager.StopListening(eDIA.Events.StateMachine.EvProceed, OnEvHideMessage);
 		}
 
 
 #region MESSAGE OPTIONS	
 
-		/// <summary>Event catcher</summary>
-		void OnEvShowMessage(eParam e) {
-			ShowMessage(e.GetStrings().ToList());
-		}
+		///// <summary>Event catcher</summary>
+		//void OnEvShowMessage(eParam e) {
+		//	ShowMessage(e.GetStrings().ToList());
+		//}
 
 		/// <summary>Shows the message in VR on a canvas for a certain duration.</summary>
 		/// <param name="msg">Message to show</param>
@@ -160,10 +160,10 @@ namespace eDIA {
 			base.HidePanel();
 		}
 
-#endregion // -------------------------------------------------------------------------------------------------------------------------------
-#region MENU
+		#endregion // -------------------------------------------------------------------------------------------------------------------------------
+		#region MENU
 
-		void HideMenu() {
+		public void HideMenu() {
 			ButtonToggling(false, false);
 		}
 
