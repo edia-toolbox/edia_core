@@ -34,6 +34,7 @@ namespace eDia {
             trialSteps.Add(TrialStep3);
 
             StroopCanvas.Show(false);
+
 		}
 
         void Start() {
@@ -72,9 +73,9 @@ namespace eDia {
 			if (ColorUtility.TryParseHtmlString(Session.instance.CurrentTrial.settings.GetString("color"), out newcol))
 				col = newcol;
 
-            foreach (var s in Session.instance.CurrentBlock.settings.Keys) {
-                this.Add2Console(s);
-            }
+            //foreach (var s in Session.instance.CurrentBlock.settings.Keys) {
+            //    this.Add2Console(s);
+            //}
 
             string name = Session.instance.CurrentTrial.settings.GetString("word");
 

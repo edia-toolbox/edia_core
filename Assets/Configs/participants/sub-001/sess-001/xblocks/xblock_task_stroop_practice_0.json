@@ -1,0 +1,23 @@
+{
+  "type": "task",
+  "subType": "stroop_practice",
+  "blockId": "xblock_task_stroop_practice_0",
+  "settings": [
+    { "key": "green", "value": "#008000"},
+    { "key": "pink", "value": "#FFC0CB"},
+    { "key": "orange", "value": "#FFA500"},
+    { "key": "target", "value": "color"}
+  ],
+  "instructions": [
+    { "key": "_start", "value": "Please read out the word (irrespective of the ink color)." },
+    { "key": "_pause", "value": "Please read out the ink color (irrespective of what the word says)." }
+  ],
+  "trialSettings": {
+    "keys": ["word", "color"],
+    "valueList": [
+      { "values": ["orange", "#FFA500"] },
+      { "values": ["pink", "#FFA500"] },
+      { "values": ["green", "#008000"] }
+    ]
+  }
+}

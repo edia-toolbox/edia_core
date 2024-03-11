@@ -61,8 +61,8 @@ namespace eDIA {
 
 		private void OnEvSetEBlockDefinitions(eParam param) {
 			foreach (string t in param.GetStrings()) {
-				XBlockSettings EBs = UnityEngine.JsonUtility.FromJson<XBlockSettings>(t);
-				xBlocks.Add(EBs);
+				XBlockSettings XBs = UnityEngine.JsonUtility.FromJson<XBlockSettings>(t);
+				xBlocks.Add(XBs);
 			}
 			validatedJsons.Add(true);
 			CheckIfReadyAndContinue();
@@ -72,7 +72,7 @@ namespace eDIA {
 		#region DATA GETTERS
 
 
-		string GetEBlockType(string blockId) {
+		string GetXBlockType(string blockId) {
 			return blockId.Split("_")[1]; //TODO: this relies on the structure "EBlock_type_subType_Nr"
 		}
 
@@ -112,7 +112,7 @@ namespace eDIA {
 		bool ValidateBlockList() {
 			bool _succes = true;
 
-			// Does all entries in the sequence have their detailed config loaded?
+			// Do all entries in the sequence have their detailed config loaded?
 			foreach (string blockId in _xBlockSequence.Sequence) {
 				if (GetXBlockByBlockId(blockId) == null) {
 					Debug.LogWarningFormat("No details found for <b>{0}</b>", blockId);
@@ -169,7 +169,7 @@ namespace eDIA {
 				newBlock.settings.UpdateWithDict(Helpers.GetSettingsTupleListAsDict(currentXBlock.settings)); // add block specific settings
 
 				// Add settings and trials specific for Break vs Task EBlocks
-				string currentXBlockType = GetEBlockType(blockId);
+				string currentXBlockType = GetXBlockType(blockId);
 
 				switch (currentXBlockType.ToLower()) {
 					case "break":
