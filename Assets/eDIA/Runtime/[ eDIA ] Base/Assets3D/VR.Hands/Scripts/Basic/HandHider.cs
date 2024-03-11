@@ -16,6 +16,7 @@ public class HandHider : MonoBehaviour
 
     private void OnEnable()
     {
+        // TODO Hand xrbase needs updating, it's obsolete
         interactor.onSelectEntered.AddListener(Hide);
         interactor.onSelectExited.AddListener(Show);
     }
