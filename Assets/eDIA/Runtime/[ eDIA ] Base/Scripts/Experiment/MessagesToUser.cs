@@ -8,7 +8,7 @@ namespace TASK {
 	public class MessagesToUser : MonoBehaviour {
 
 		public void OnSessionStart() {
-			MessagePanelInVR.Instance.ShowMessage("Welcome to the experiment");
+			MessagePanelInVR.Instance.ShowMessage(new List<string>() { "Welcome to the experiment", "Second page for testing" });
 		}
 
 		public void OnSessionPaused() {

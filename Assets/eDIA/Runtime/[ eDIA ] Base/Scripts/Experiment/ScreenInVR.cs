@@ -43,7 +43,7 @@ namespace eDIA {
 		}
 
 		/// <summary>Doublecheck</summary>
-		public void HidePanel() {
+		public virtual void HidePanel() {
 			Show(false);
 		}
 	}
