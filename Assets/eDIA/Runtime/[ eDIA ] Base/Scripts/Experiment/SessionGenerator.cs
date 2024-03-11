@@ -73,7 +73,7 @@ namespace eDIA {
 
 
 		string GetXBlockType(string blockId) {
-			return blockId.Split("_")[1]; //TODO: this relies on the structure "EBlock_type_subType_Nr"
+			return blockId.Split("_")[0];  
 		}
 
 		XBlockBaseSettings GetXBlockBaseByBlockId(string blockId) {
@@ -137,7 +137,7 @@ namespace eDIA {
 		public void GenerateUXFSequence() {
 			// First validate 
 			if (!ValidateBlockList()) {
-				Debug.Log("Supplied blocklist is invalid");
+				Debug.LogError("Supplied blocklist is invalid");
 				return;
 			}
 
