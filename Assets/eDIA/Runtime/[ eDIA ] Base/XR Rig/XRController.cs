@@ -16,36 +16,41 @@ namespace eDIA {
 		public bool isVisible = false;
 		public bool isInteractive = false;
 
-		SkinnedMeshRenderer handSMR = null;
-		public Transform rayInteractor = null;
+		[Header("Models")]
+		public GameObject HandModel = null;
+		public GameObject ControllerModel = null;
 
-#region SETTING UP
+		[Header("Interactives")]
+		public Transform rayInteractor = null;
+		LayerMask _defaultXRRayLayerMask;
+		public LayerMask XRRayOverlayRaycaskMask;
+
+		#region SETTING UP
 
 		void Awake() {
-			handSMR = GetComponentInChildren<SkinnedMeshRenderer>(true);
+			_defaultXRRayLayerMask = rayInteractor.GetComponent<XRRayInteractor>().raycastMask; // store the default layermask config
 
 			AllowVisible(isVisible);
 			AllowInteractive(isAllowedToInteract);
 			
 			EventManager.StartListening(eDIA.Events.XR.EvUpdateVisableInteractor, OnEvUpdateVisableInteractor);
 			EventManager.StartListening(eDIA.Events.XR.EvUpdateInteractiveInteractor, OnEvUpdateInteractiveInteractor);
-			EventManager.StartListening(eDIA.Events.XR.EvEnableXRInteraction, OnEvEnableXRInteraction);
+			EventManager.StartListening(eDIA.Events.XR.EvEnableXRInteraction, OnEvEnableXRRayInteraction);
 			EventManager.StartListening(eDIA.Events.XR.EvShowXRController, OnEvShowXRController);
-			EventManager.StartListening(eDIA.Events.XR.EvEnableRayForCamOverlayer, OnEvEnableRayForCamOverlayer);
+			EventManager.StartListening(eDIA.Events.XR.EvEnableXROverlay, OnEvEnableXROverlay);
 
 		}
 
 		void OnDestroy() {
 			EventManager.StopListening(eDIA.Events.XR.EvUpdateVisableInteractor, OnEvUpdateVisableInteractor);
 			EventManager.StopListening(eDIA.Events.XR.EvUpdateInteractiveInteractor, OnEvUpdateInteractiveInteractor);
-			EventManager.StopListening(eDIA.Events.XR.EvEnableXRInteraction, OnEvEnableXRInteraction);
+			EventManager.StopListening(eDIA.Events.XR.EvEnableXRInteraction, OnEvEnableXRRayInteraction);
 			EventManager.StopListening(eDIA.Events.XR.EvShowXRController, OnEvShowXRController);
-			EventManager.StopListening(eDIA.Events.XR.EvEnableRayForCamOverlayer, OnEvEnableRayForCamOverlayer);
+			EventManager.StopListening(eDIA.Events.XR.EvEnableXROverlay, OnEvEnableXROverlay);
 		}
 
 		private void OnDrawGizmos() {
 			Gizmos.color = Color.cyan;
-			// GizmoHelpers.DrawWireCubeOriented(transform.position,transform.localRotation,0.1f);
 			Gizmos.matrix = transform.localToWorldMatrix;
 			Gizmos.DrawWireCube(Vector3.zero, new Vector3(0.1f,0.02f,0.15f));
 			Gizmos.DrawWireCube(Vector3.zero - (interactorType == eDIA.Constants.Interactor.LEFT ? new Vector3(-0.06f,0.01f,0.05f) : new Vector3(0.06f,0.01f,0.05f)), new Vector3(0.03f,0.02f,0.05f));
@@ -55,9 +60,11 @@ namespace eDIA {
 		#region EVENT LISTENERS
 
 		/// <summary>Enable interaction with UI presented on layer 'camoverlay'</summary>
-		private void OnEvEnableRayForCamOverlayer(eParam obj)
+		private void OnEvEnableXROverlay(eParam obj)
 		{
-			//rayInteractor.GetComponent<XRRayInteractor>().raycastMask = 
+			HandModel.layer = LayerMask.NameToLayer(obj.GetBool() ? "CamOverlay" : "Ignore Raycast");
+			rayInteractor.gameObject.layer = LayerMask.NameToLayer(obj.GetBool() ? "CamOverlay" : "Ignore Raycast");
+			rayInteractor.GetComponent<XRRayInteractor>().raycastMask = obj.GetBool() ? XRRayOverlayRaycaskMask : _defaultXRRayLayerMask; 
 		}
 
 		/// <summary>Change the controller / interactor that is visible</summary>
@@ -68,11 +75,10 @@ namespace eDIA {
 			
 			if ((receivedInteractor == eDIA.Constants.Interactor.BOTH) || (receivedInteractor == interactorType)) {
 				isAllowedToBeVisable = true;
-				Show(true);
+				ShowHandModel(true);
 			} else {
 				isAllowedToBeVisable = false;
 				isVisible = false;
-				handSMR.enabled = false;	
 			}
 		}
 
@@ -93,16 +99,16 @@ namespace eDIA {
 
 		/// <summary>Change the controller / interactor that is visible</summary>
 		/// <param name="obj">Interactor enum index</param>
-		private void OnEvEnableXRInteraction(eParam obj)
+		private void OnEvEnableXRRayInteraction(eParam obj)
 		{
-			EnableInteraction(obj.GetBool());
+			EnableRayInteraction(obj.GetBool());
 		}
 
 		/// <summary>Change the controller / interactor that is visible</summary>
 		/// <param name="obj">Interactor enum index</param>
 		private void OnEvShowXRController(eParam obj)
 		{
-			Show(obj.GetBool());
+			ShowHandModel(obj.GetBool());
 		}
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
@@ -122,7 +128,7 @@ namespace eDIA {
 
 		/// <summary>Enable/Disable interaction</summary>
 		/// <param name="onOff">True/false</param>
-		public void EnableInteraction (bool onOff) {
+		public void EnableRayInteraction (bool onOff) {
 
 			if (!isAllowedToInteract)
 				return;
@@ -131,17 +137,28 @@ namespace eDIA {
 			isInteractive = onOff;
 		}
 
-		/// <summary>Show/Hide controller</summary>
+		/// <summary>Show/Hide hand</summary>
 		/// <param name="onOff">True/false</param>
-		public void Show (bool onOff) {
+		public void ShowHandModel (bool onOff) {
 
 			if (!isAllowedToBeVisable)
 				return;
  
 			isVisible = onOff;
-			handSMR.enabled = onOff;		
+			HandModel.SetActive(onOff);
 		}
 
-#endregion // -------------------------------------------------------------------------------------------------------------------------------
-    	}
+		/// <summary>Show/Hide controller</summary>
+		/// <param name="onOff">True/false</param>
+		public void ShowControllerModel(bool onOff) {
+
+			if (!isAllowedToBeVisable)
+				return;
+
+			isVisible = onOff;
+			ControllerModel.SetActive(onOff);
+		}
+
+		#endregion // -------------------------------------------------------------------------------------------------------------------------------
+	}
 }

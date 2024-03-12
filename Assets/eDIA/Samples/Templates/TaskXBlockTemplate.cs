@@ -52,7 +52,7 @@ namespace eDia {
 			Xperiment.Instance.EnablePauseButton (true);
 
 			// Disable XR interaction from the user
-			XRManager.Instance.EnableXRInteraction (false);
+			XRManager.Instance.EnableXRRayInteraction (false);
 
 			/* 
 				Continue to the next step:
@@ -70,7 +70,7 @@ namespace eDia {
 		void TaskStep2 () {
 
 			// Enable interaction from the user. The system will automaticly enable the Ray Interaction for the active hands set in the settings.
-			XRManager.Instance.EnableXRInteraction (true);
+			XRManager.Instance.EnableXRRayInteraction (true);
 
 			StepStartTime = Time.time;
 
@@ -93,7 +93,7 @@ namespace eDia {
 		/// <summary>Clean up</summary>
 		void TaskStep4() {
 
-			XRManager.Instance.EnableXRInteraction(false);
+			XRManager.Instance.EnableXRRayInteraction(false);
 		}
 
 		#endregion // -------------------------------------------------------------------------------------------------------------------------------

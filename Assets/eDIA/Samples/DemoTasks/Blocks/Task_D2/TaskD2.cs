@@ -39,7 +39,7 @@ public class TaskD2 : XBlock {
 	}
 
 	void RunTask() {
-		XRManager.Instance.EnableXRInteraction(true);
+		XRManager.Instance.EnableXRRayInteraction(true);
 
 		// Wait on user to finish
 		Xperiment.Instance.WaitOnProceed();
@@ -55,7 +55,7 @@ public class TaskD2 : XBlock {
 	}
 
 	void CheckAndLogResults () {
-		XRManager.Instance.EnableXRInteraction(false);
+		XRManager.Instance.EnableXRRayInteraction(false);
 
 		// Check sheets and log to UXF
 		int correctlyTicked = 0;

@@ -28,7 +28,7 @@ namespace eDIA {
 		}
 
 		private void Start() {
-			EnableXRInteraction(false); // Start the system with interaction rays disabled
+			EnableXRRayInteraction(false); // Start the system with interaction rays disabled
 		}
 
 		void CheckReferences () {
@@ -49,11 +49,22 @@ namespace eDIA {
 
 		[ContextMenu("TurnOnRayInteractor")]
 		public void TurnOnRayInteractor () {
-			EnableXRInteraction(true);
+			EnableXRRayInteraction(true);
 		}
 
-#endregion // -------------------------------------------------------------------------------------------------------------------------------
-#region XR Helper methods
+		[ContextMenu("ShowHands")]
+		public void ShowHands() {
+			ShowHands(true);
+		}
+
+		[ContextMenu("ShowControllers")]
+		public void ShowControllers() {
+			ShowControllers(true);
+		}
+
+
+		#endregion // -------------------------------------------------------------------------------------------------------------------------------
+		#region XR Helper methods
 
 		/// <summary>The pivot of the player will be set on the location of this Injector</summary>
 		public void MovePlayarea(Transform newTransform) {
@@ -63,18 +74,22 @@ namespace eDIA {
 
 		/// <summary>Turn XR hand / controller interaction possibility on or off.</summary>
 		/// <param name="onOff">Boolean</param>
-		public void EnableXRInteraction (bool onOff) {
+		public void EnableXRRayInteraction (bool onOff) {
 			AddToLog("EnableXRInteraction " + onOff);
-			XRLeft.GetComponent<XRController>().EnableInteraction(onOff);
-			XRRight.GetComponent<XRController>().EnableInteraction(onOff);
+			XRLeft.GetComponent<XRController>().EnableRayInteraction(onOff);
+			XRRight.GetComponent<XRController>().EnableRayInteraction(onOff);
 		}
+
+#endregion // -------------------------------------------------------------------------------------------------------------------------------
+#region CONTROLLERS
+
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region HANDS
 
 		/// <summary>Set the hand pose for the current interactive hand(s). Pose as string 'point','fist','idle'</summary>
 		/// <param name="pose"></param>
-		public  void SetHandPose (string pose) {
+		public void SetHandPose (string pose) {
 			EventManager.TriggerEvent (eDIA.Events.XR.EvHandPose, new eParam ( pose ));
 		}
 
@@ -84,9 +99,14 @@ namespace eDIA {
 		}
 
 		/// <summary>Shows the hands that are set to be allowed visible on/off</summary>
-		public  void ShowHands (bool onOff) {
-			XRLeft.GetComponent<XRController>().Show(onOff);
-			XRRight.GetComponent<XRController>().Show(onOff);
+		public void ShowHands (bool onOff) {
+			XRLeft.GetComponent<XRController>().ShowHandModel(onOff);
+			XRRight.GetComponent<XRController>().ShowHandModel(onOff);
+		}
+
+		public void ShowControllers (bool onOff) {
+			XRLeft.GetComponent<XRController>().ShowControllerModel(onOff);
+			XRRight.GetComponent<XRController>().ShowControllerModel(onOff);
 		}
 
 

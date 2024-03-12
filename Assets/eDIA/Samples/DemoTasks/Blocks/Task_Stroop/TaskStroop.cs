@@ -56,15 +56,15 @@ namespace eDia {
 
 
         void WaitForUserInput() {
-			XRManager.Instance.EnableXRInteraction(true);
+			XRManager.Instance.EnableXRRayInteraction(true);
 
 			Xperiment.Instance.WaitOnProceed();
         }
 
         public void StimuliSelected (int stimuliIndex) {
-            //Debug.Log($"Clicked {stimuliIndex} valid: {Stimulis[stimuliIndex].IsValid}");
 
             CheckLogResultsProceed(stimuliIndex);
+			XRManager.Instance.EnableXRRayInteraction(false);
 
 			Xperiment.Instance.Proceed();
 		}

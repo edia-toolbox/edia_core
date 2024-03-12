@@ -251,8 +251,8 @@ namespace eDIA.Events {
 		/// <summary>System found XR hands and HMD objects. Expects null</summary>
 		public const string EvFoundXRrigReferences = "EvFoundXRrigReferences";
 
-		/// <summary>Enable interaction with UI presented on layer 'camoverlay'</summary>
-		public const string EvEnableRayForCamOverlayer = "EvEnableRayForCamOverlayer";
+		/// <summary>Enable interaction with UI presented on layer 'camoverlay', expects boolean</summary>
+		public const string EvEnableXROverlay = "EvEnableXROverlay";
 
 
 		//? ========================================================================================================

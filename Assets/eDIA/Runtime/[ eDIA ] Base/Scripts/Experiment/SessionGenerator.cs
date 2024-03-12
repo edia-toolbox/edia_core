@@ -173,13 +173,13 @@ namespace eDIA {
 
 				switch (currentXBlockType.ToLower()) {
 					case "break":
-						newBlock.settings.SetValue("breakType", currentXBlock.subType);
+						newBlock.settings.SetValue("subType", currentXBlock.subType);
 						newBlock.settings.SetValue("_info", GetValuesListByKey(currentXBlock.instructions, "_info"));
 						Trial breakTrial = newBlock.CreateTrial();
 						break;
 
 					case "task":
-						newBlock.settings.SetValue("taskType", currentXBlock.subType);
+						newBlock.settings.SetValue("subType", currentXBlock.subType);
 
 						// Add trials 
 						foreach (ValueList row in currentXBlock.trialSettings.valueList) {

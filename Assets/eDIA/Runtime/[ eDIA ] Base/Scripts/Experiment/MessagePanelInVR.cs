@@ -121,6 +121,7 @@ namespace eDIA {
 
 		public void OnBtnProceedPressed() {
 			Debug.Log("OnBtnProceedPressed");
+			XRManager.Instance.EnableXRRayInteraction(false);
 			EventManager.TriggerEvent(eDIA.Events.StateMachine.EvProceed);
 		}
 
@@ -131,7 +132,7 @@ namespace eDIA {
 			if (_messageFader != null) StopCoroutine(_messageFader);
 
 			MsgField.text = msg;
-			XRManager.Instance.EnableXRInteraction(true);
+			XRManager.Instance.EnableXRRayInteraction(true);
 
 			ButtonToggling(messageQueue.Count > 1 ? true : false, messageQueue.Count == 1 ? true : false);
 
@@ -145,7 +146,7 @@ namespace eDIA {
 
 		/// <summary>Event catcher</summary>
 		void OnEvHideMessage(eParam e) {
-			XRManager.Instance.EnableXRInteraction(false);
+			XRManager.Instance.EnableXRRayInteraction(false);
 			HidePanel();
 		}
 

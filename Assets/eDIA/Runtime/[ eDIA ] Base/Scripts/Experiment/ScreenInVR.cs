@@ -39,6 +39,7 @@ namespace eDIA {
 			GetComponent<Canvas>().enabled = onOff;
 			GetComponent<GraphicRaycaster>().enabled = onOff;
 			GetComponent<TrackedDeviceGraphicRaycaster>().enabled = onOff;
+			EventManager.TriggerEvent(eDIA.Events.XR.EvEnableXROverlay, new eParam(onOff));
 			isActive = onOff;
 		}
 
