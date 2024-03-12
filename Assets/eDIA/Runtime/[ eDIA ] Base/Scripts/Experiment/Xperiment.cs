@@ -6,6 +6,7 @@ using UnityEngine;
 using System.Linq;
 using UXF;
 using UnityEngine.Events;
+using eDIA.Utilities;
 
 // EXPERIMENT CONTROL 
 namespace eDIA {
@@ -121,7 +122,7 @@ namespace eDIA {
 
 
 		void UpdateProgressStatus (string info) {
-			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateProgressStatus, new eParam(info));
+			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateProgressStatus, new eParam(StringTools.RemoveUnderscores(info)));
 		}
 		void UpdateSessionSummary() {
 			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateSessionSummary, new eParam(SessionSettings.sessionInfo.GetSessionSummary()));
@@ -132,7 +133,8 @@ namespace eDIA {
 		}
 
 		void UpdateTrialProgress () {
-			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateTrialProgress, new eParam(new int[] { Session.instance.currentTrialNum, Session.instance.Trials.Count() }));
+			if (Session.instance.InTrial)
+				EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateTrialProgress, new eParam(new int[] { Session.instance.currentTrialNum, Session.instance.CurrentBlock.trials.Count() }));
 		}
 
 		void UpdateStepProgress () {
@@ -301,7 +303,6 @@ namespace eDIA {
 
 			// Set new storedBlockNum value
 			_activeSessionBlockNum = Session.instance.currentBlockNum;
-			//Debug.Log("Compare: " + Session.instance.CurrentBlock.settings.GetString("_assetId"));
 			_activeXBlock = XBlocks[XBlocks.FindIndex(x => x.name == Session.instance.CurrentBlock.settings.GetString("_assetId"))];
 			_activeXBlock.enabled = true;
 			_activeXBlock.gameObject.SetActive(true);
@@ -317,7 +318,7 @@ namespace eDIA {
 			if (hasIntro) {
 				EventManager.StartListening(eDIA.Events.StateMachine.EvProceed, BlockContinueAfterIntro); // listener as it event call can come from any script
 				ShowMessageToUser (Session.instance.CurrentBlock.settings.GetStringList("_start"));
-				UpdateProgressStatus("Block Intro");
+				UpdateProgressStatus(Session.instance.CurrentBlock.settings.GetString("blockId") + " Introduction");
 			}
 			else {
 				StartTrial();

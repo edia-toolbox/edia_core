@@ -146,13 +146,13 @@ namespace eDIA {
 
 		/// <summary>Event catcher</summary>
 		void OnEvHideMessage(eParam e) {
-			XRManager.Instance.EnableXRRayInteraction(false);
 			HidePanel();
 		}
 
 		/// <summary>Doublecheck running routines and hides the panel</summary>
 		public override void HidePanel() {
 
+			XRManager.Instance.EnableXRRayInteraction(false);
 			if (_messageTimer != null) StopCoroutine(_messageTimer);
 			if (_messageFader != null) StopCoroutine(_messageFader);
 			messageQueue.Clear();
@@ -192,6 +192,19 @@ namespace eDIA {
 			yield break;
 		}
 
-#endregion // -------------------------------------------------------------------------------------------------------------------------------
+		IEnumerator TextFader () {
+			float duration = 0.5f;
+			float currentTime = 0f;
+			while (currentTime < duration) {
+				float alpha = Mathf.Lerp(0f, 1f, currentTime / duration);
+				MsgField.color = new Color(MsgField.color.r, MsgField.color.g, MsgField.color.b, alpha);
+				currentTime += Time.deltaTime;
+				yield return null;
+			}
+			yield break;
+		}
+
+
+		#endregion // -------------------------------------------------------------------------------------------------------------------------------
 	}
 }

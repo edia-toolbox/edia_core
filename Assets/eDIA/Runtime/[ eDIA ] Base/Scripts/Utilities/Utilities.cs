@@ -55,5 +55,12 @@ namespace eDIA.Utilities {
 		}
 
 	}
+
+	public static class StringTools {
+
+		public static string RemoveUnderscores (string text) {
+			return text.Replace('_', ' ');
+		}
+	}
 	
 }
