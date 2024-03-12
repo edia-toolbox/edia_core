@@ -108,7 +108,7 @@ namespace eDIA {
 			XRLeft.GetComponent<XRController>().ShowControllerModel(onOff);
 			XRRight.GetComponent<XRController>().ShowControllerModel(onOff);
 		}
-
+		 
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 	#region MISC	
