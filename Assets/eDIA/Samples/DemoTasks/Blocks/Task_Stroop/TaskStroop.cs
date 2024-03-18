@@ -93,6 +93,12 @@ namespace eDia {
             // Log results
             Xperiment.Instance.AddToTrialResults("response", Stimulis[stimuliIndex].GetValue());
         }
+
+		public override void OnBlockEnd() {
+			StroopCanvas.Show(false);
+
+			base.OnBlockEnd();
+		}
 	}
 }
 
