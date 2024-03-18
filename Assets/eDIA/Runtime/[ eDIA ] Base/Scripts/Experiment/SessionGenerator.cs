@@ -10,10 +10,10 @@ namespace eDIA {
 	public class SessionGenerator : MonoBehaviour {
 
 		// Internal checkup lists
-		List<XBlockBaseSettings> _tasks = new();
-		List<XBlockSettings> _xBlocks = new();
-		List<bool> _validatedJsons = new();
-		XBlockSequence _xBlockSequence;
+		public List<XBlockBaseSettings> _tasks = new();
+		public List<XBlockSettings> _xBlocks = new();
+		public List<bool> _validatedJsons = new();
+		public XBlockSequence _xBlockSequence;
 
 		private void Awake() {
 			EventManager.StartListening(eDIA.Events.Config.EvSetSessionInfo, OnEvSetSessionInfo);
@@ -146,7 +146,14 @@ namespace eDIA {
 
 				// Find the according EBlockBase (e.g., Task or Break definition) and get global settings
 				XBlockBaseSettings xBlockBase = GetXBlockBaseByBlockId(blockId);
-				newBlock.settings.UpdateWithDict(Helpers.GetSettingsTupleListAsDict(xBlockBase.settings));
+				if (xBlockBase == null) {
+					Debug.LogError($"Failed getting details for {blockId} ");
+					return;
+				}
+
+				if (xBlockBase.settings.Count > 0) {
+					newBlock.settings.UpdateWithDict(Helpers.GetSettingsTupleListAsDict(xBlockBase.settings));
+				}
 
 				newBlock.settings.SetValue("_start", GetValuesListByKey(xBlockBase.instructions, "_start")); //
 				newBlock.settings.SetValue("_end", GetValuesListByKey(xBlockBase.instructions, "_end")); //
