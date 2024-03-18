@@ -16,7 +16,7 @@ namespace eDIA {
 		public Transform XRCam;
 		public Transform XRLeft;
 		public Transform XRRight;
-		public Transform camOverlay;
+		public Transform CamOverlay;
 
 		void Awake () {
 			CheckReferences();
@@ -30,7 +30,7 @@ namespace eDIA {
 			if (XRCam == null) 	Debug.LogError("XR Camera reference not set");
 			if (XRLeft == null) 	Debug.LogError("XR LeftController reference not set");
 			if (XRRight == null) 	Debug.LogError("XR RightController reference not set");
-			if (camOverlay == null) Debug.LogError("camOverlay reference not set");
+			if (CamOverlay == null) Debug.LogError("camOverlay reference not set");
 		}
 
 		private void OnDrawGizmos() {

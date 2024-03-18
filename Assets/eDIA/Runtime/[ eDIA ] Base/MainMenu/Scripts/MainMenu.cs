@@ -49,7 +49,7 @@ namespace eDIA {
 		public bool isDebug = false;
 
 		[Header("Menu Generation")]
-		public Camera overlayCam;
+		public Camera overlayCam = null;
 		public Transform menuHolder;
 		public RectTransform buttonHolder;
 		public GameObject buttonPrefab;
@@ -75,8 +75,8 @@ namespace eDIA {
 		void Awake() {
 			overLayer = LayerMask.NameToLayer("CamOverlay");
 			gameObject.layer = overLayer;
-			
-			//debugPanel.gameObject.SetActive(isDebug);
+
+			overlayCam = XRManager.Instance.CamOverlay.GetComponent<Camera>();
 
 			EventManager.StartListening(eDIA.Events.System.EvCallMainMenu, OnEvCallMainMenu);
 		}

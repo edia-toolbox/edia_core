@@ -24,7 +24,7 @@ namespace eDIA {
 		private void Awake() {
 
 			if (GetComponent<Canvas>().worldCamera == null)
-				GetComponent<Canvas>().worldCamera = XRManager.Instance.camOverlay.GetComponent<Camera>();
+				GetComponent<Canvas>().worldCamera = XRManager.Instance.CamOverlay.GetComponent<Camera>();
 
 			if (StickToHMD) {
 				transform.SetParent(XRManager.Instance.XRCam, true);

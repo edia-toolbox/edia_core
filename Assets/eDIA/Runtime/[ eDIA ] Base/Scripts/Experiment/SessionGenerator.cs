@@ -10,11 +10,10 @@ namespace eDIA {
 	public class SessionGenerator : MonoBehaviour {
 
 		// Internal checkup lists
-		public List<XBlockBaseSettings> Tasks = new();
-		public List<XBlockSettings> xBlocks = new();
-		public List<bool> validatedJsons = new();
-
-		public XBlockSequence _xBlockSequence;
+		List<XBlockBaseSettings> _tasks = new();
+		List<XBlockSettings> _xBlocks = new();
+		List<bool> _validatedJsons = new();
+		XBlockSequence _xBlockSequence;
 
 		private void Awake() {
 			EventManager.StartListening(eDIA.Events.Config.EvSetSessionInfo, OnEvSetSessionInfo);
@@ -24,7 +23,7 @@ namespace eDIA {
 		}
 
 		public void Reset() {
-			validatedJsons.Clear();
+			_validatedJsons.Clear();
 		}
 
 		#region EVENT HANDLING
@@ -39,31 +38,31 @@ namespace eDIA {
 			participantTuple.value = param.GetStrings()[2];
 			SessionSettings.sessionInfo.participant_details.Add(participantTuple);
 
-			validatedJsons.Add(true);
+			_validatedJsons.Add(true);
 			CheckIfReadyAndContinue();
 		}
 
 		private void OnEvSetXBlockSequence(eParam param) {
 			_xBlockSequence = UnityEngine.JsonUtility.FromJson<XBlockSequence>(param.GetString());
-			validatedJsons.Add(true);
+			_validatedJsons.Add(true);
 			CheckIfReadyAndContinue();
 		}
 
 		private void OnEvSetBaseDefinitions(eParam param) {
 			foreach (string t in param.GetStrings()) {
 				XBlockBaseSettings EBs = UnityEngine.JsonUtility.FromJson<XBlockBaseSettings>(t);
-				Tasks.Add(EBs);
+				_tasks.Add(EBs);
 			}
-			validatedJsons.Add(true);
+			_validatedJsons.Add(true);
 			CheckIfReadyAndContinue();
 		}
 
 		private void OnEvSetEBlockDefinitions(eParam param) {
 			foreach (string t in param.GetStrings()) {
 				XBlockSettings XBs = UnityEngine.JsonUtility.FromJson<XBlockSettings>(t);
-				xBlocks.Add(XBs);
+				_xBlocks.Add(XBs);
 			}
-			validatedJsons.Add(true);
+			_validatedJsons.Add(true);
 			CheckIfReadyAndContinue();
 		}
 
@@ -76,14 +75,14 @@ namespace eDIA {
 		}
 
 		XBlockBaseSettings GetXBlockBaseByBlockId(string blockId) {
-			int _index = xBlocks.FindIndex(x => x.blockId.ToLower() == blockId.ToLower()); //TODO checks
-			int _returnIndex = Tasks.FindIndex(x => x.subType.ToLower() == xBlocks[_index].subType.ToLower());
-			return _returnIndex == -1 ? null : Tasks[_returnIndex];
+			int _index = _xBlocks.FindIndex(x => x.blockId.ToLower() == blockId.ToLower()); //TODO checks
+			int _returnIndex = _tasks.FindIndex(x => x.subType.ToLower() == _xBlocks[_index].subType.ToLower());
+			return _returnIndex == -1 ? null : _tasks[_returnIndex];
 		}
 
 		XBlockSettings GetXBlockByBlockId(string blockId) {
-			int _index = xBlocks.FindIndex(x => x.blockId.ToLower() == blockId.ToLower());
-			return _index != -1 ? xBlocks[_index] : null;
+			int _index = _xBlocks.FindIndex(x => x.blockId.ToLower() == blockId.ToLower());
+			return _index != -1 ? _xBlocks[_index] : null;
 		}
 
 		static List<string> GetValuesListByKey(List<SettingsTuple> tupleList, string key) {
@@ -99,7 +98,7 @@ namespace eDIA {
 
 		void CheckIfReadyAndContinue() { // TODO: Is there a more elegant way of doing this?
 
-			if (validatedJsons.Count == 4) {
+			if (_validatedJsons.Count == 4) {
 				GenerateUXFSequence();
 
 				EventManager.TriggerEvent(eDIA.Events.Config.EvReadyToGo);
