@@ -6,11 +6,6 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 namespace eDIA {
 
-	/// <summary> 
-	/// This singleton script travels along the scenes that are loaded as it is DontDestroyOnLoad. <br/>
-	/// Responsible for loading/unloading, user related actions, top level application.<br/>
-	/// Has references to the XR rig camera and hands for the rest of the application.<br/>
-	/// </summary>
 	public class XRManager : Singleton<XRManager> {
 
 		[Header("Debug")]
