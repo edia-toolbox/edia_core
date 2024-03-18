@@ -50,10 +50,6 @@ public class TaskD2 : XBlock {
 		Xperiment.Instance.Proceed();
 	}
 
-	public void OnButtonClick() {
-		Debug.Log("OnButtonClick: ");
-	}
-
 	void CheckAndLogResults () {
 		XRManager.Instance.EnableXRRayInteraction(false);
 

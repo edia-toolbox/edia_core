@@ -61,7 +61,7 @@ namespace eDIA {
 			if(!SanityCheck()) 
 				return;
 
-			EnableAllEBlocks(false);
+			EnableAllXBlocks(false);
 
 		}
 
@@ -100,11 +100,11 @@ namespace eDIA {
 			return _succes;
 		}
 
-			void EnableProceedButton (bool onOff) {
+		void EnableProceedButton (bool onOff) {
 			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvEnableButton, new eParam(new string[] { "PROCEED", onOff ? "true" : "false" }));
 		}
 
-		void EnableAllEBlocks (bool onOff) {
+		void EnableAllXBlocks (bool onOff) {
 			foreach (XBlock xb in XBlocks) {
 				xb.enabled = onOff;
 				xb.gameObject.SetActive(onOff);
@@ -272,7 +272,7 @@ namespace eDIA {
 		void OnSessionEndUXF(Session session) {
 			OnSessionEnd?.Invoke();
 
-			EnableAllEBlocks(false);
+			EnableAllXBlocks(false);
 
 			AddToExecutionOrderLog("OnSessionEndUXF");
 

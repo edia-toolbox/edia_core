@@ -22,7 +22,14 @@ public class StimulusD2 : MonoBehaviour
 
     List<string> validTexts = new List<string>() { "II\nd\n ", "\nd\nII" };
 	List<string> invalidTexts = new List<string>() { "II\np\n ", "I\np\n ", "I\nd\n ", "I\np\nI", "\np\nI", "\np\nII", "I\nd\nI" };
-	
+
+	//void OnEnable() {
+	//	GetComponent<Button>().onClick.AddListener(() => this.OnButtonClick());
+	//}
+
+	//void OnDisable() {
+	//	GetComponent<Button>().onClick.RemoveListener(() => this.OnButtonClick());
+	//}
 
 	public void SetValid (bool _isValid) {
 		isValid = _isValid;
@@ -36,6 +43,10 @@ public class StimulusD2 : MonoBehaviour
 		isTicked = !isTicked;
 		Debug.Log("OnButtonClick ticked: " + isTicked);
 		GetComponent<Image>().color = isTicked ? TickedColor : IdleColor;
+	}
+
+	public void ClickerdieClick () {
+		Debug.Log($"Random number {UnityEngine.Random.Range(0, 3000)}");
 	}
 
 	public void OnPointerEnter () {

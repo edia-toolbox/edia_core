@@ -159,7 +159,6 @@ namespace eDIA.Manager {
 
 		public void ProceedBtnCLicked() {
 			EventManager.TriggerEvent(eDIA.Events.StateMachine.EvProceed);
-
 		}
 
 		void SetButtonState(Button btn, bool state) {
