@@ -331,12 +331,12 @@ namespace eDIA {
 			_activeXBlock.OnBlockEnd();
 
 			// Check for block outro flag
-			bool hasOutro = Session.instance.CurrentBlock.settings.ContainsKey("outro"); // TODO test if block outtro works 
-			
+			bool hasOutro = Session.instance.CurrentBlock.settings.GetStringList("_end").Count > 0;
+
 			if (hasOutro) {
 				EventManager.StartListening(eDIA.Events.StateMachine.EvProceed, BlockContinueAfterOutro); // listener as it event call can come from any script
 				EnableProceedButton(true);
-				ShowMessageToUser(Session.instance.CurrentBlock.settings.GetStringList("outro"));
+				ShowMessageToUser(Session.instance.CurrentBlock.settings.GetStringList("_end"));
 				UpdateProgressStatus("Block Outro");
 				_activeXBlock.OnBlockOutro();
 			}
