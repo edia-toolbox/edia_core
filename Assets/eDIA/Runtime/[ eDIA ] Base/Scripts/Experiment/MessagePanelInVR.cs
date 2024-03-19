@@ -152,7 +152,6 @@ namespace eDIA {
 		/// <summary>Doublecheck running routines and hides the panel</summary>
 		public override void HidePanel() {
 
-			XRManager.Instance.EnableXRRayInteraction(false);
 			if (_messageTimer != null) StopCoroutine(_messageTimer);
 			if (_messageFader != null) StopCoroutine(_messageFader);
 			messageQueue.Clear();
@@ -166,6 +165,7 @@ namespace eDIA {
 
 		public void HideMenu() {
 			ButtonToggling(false, false);
+			XRManager.Instance.EnableXROverlayRayInteraction(false);
 		}
 
 
