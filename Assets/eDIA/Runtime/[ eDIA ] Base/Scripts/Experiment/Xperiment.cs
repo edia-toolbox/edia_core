@@ -365,6 +365,7 @@ namespace eDIA {
 			EventManager.StopListening(eDIA.Events.StateMachine.EvProceed, BlockContinueAfterIntro);
 			AddToExecutionOrderLog("BlockContinueAfterIntro");
 
+			UpdateProgressStatus(Session.instance.CurrentBlock.settings.GetString("blockId"));
 			EnableEyeCalibrationTrigger(false);
 
 			StartTrial();
