@@ -134,7 +134,7 @@ namespace eDIA {
 
 		void UpdateTrialProgress () {
 			if (Session.instance.InTrial)
-				EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateTrialProgress, new eParam(new int[] { Session.instance.currentTrialNum, Session.instance.CurrentBlock.trials.Count() }));
+				EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateTrialProgress, new eParam(new int[] { Session.instance.CurrentTrial.numberInBlock, Session.instance.CurrentBlock.trials.Count() }));
 		}
 
 		void UpdateStepProgress () {
@@ -327,7 +327,6 @@ namespace eDIA {
 		}
 
 		void BlockEnd() {
-			AddToLog("Block End");
 			_activeXBlock.OnBlockEnd();
 
 			// Check for block outro flag
