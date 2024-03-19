@@ -41,7 +41,6 @@ public class StimulusD2 : MonoBehaviour
 			return;
 
 		isTicked = !isTicked;
-		Debug.Log("OnButtonClick ticked: " + isTicked);
 		GetComponent<Image>().color = isTicked ? TickedColor : IdleColor;
 	}
 

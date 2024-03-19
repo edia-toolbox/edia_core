@@ -21,14 +21,14 @@ namespace eDIA {
 		public GameObject ControllerModel = null;
 
 		[Header("Interactives")]
+		[Tooltip("Ray interactor to interact with UI & Default ")]
 		public Transform rayInteractor = null;
-		LayerMask _defaultXRRayLayerMask;
-		public LayerMask XRRayOverlayRaycaskMask;
+		[Tooltip("Ray interactor to interact messagepanel OVERLAY UI")]
+		public Transform XROverlayRayInteractor = null;
 
 		#region SETTING UP
 
 		void Awake() {
-			_defaultXRRayLayerMask = rayInteractor.GetComponent<XRRayInteractor>().raycastMask; // store the default layermask config
 
 			AllowVisible(isVisible);
 			AllowInteractive(isAllowedToInteract);
@@ -62,9 +62,8 @@ namespace eDIA {
 		/// <summary>Enable interaction with UI presented on layer 'camoverlay'</summary>
 		private void OnEvEnableXROverlay(eParam obj)
 		{
-			HandModel.layer = LayerMask.NameToLayer(obj.GetBool() ? "CamOverlay" : "Ignore Raycast");
-			rayInteractor.gameObject.layer = LayerMask.NameToLayer(obj.GetBool() ? "CamOverlay" : "Ignore Raycast");
-			rayInteractor.GetComponent<XRRayInteractor>().raycastMask = obj.GetBool() ? XRRayOverlayRaycaskMask : _defaultXRRayLayerMask; 
+			//Debug.Log($"{this.gameObject.name} OnEvEnableXROverlay {obj.GetBool()}");
+			HandModel.layer = LayerMask.NameToLayer(obj.GetBool() ? "CamOverlay" : "Default");
 		}
 
 		/// <summary>Change the controller / interactor that is visible</summary>
@@ -135,6 +134,17 @@ namespace eDIA {
 
 			rayInteractor.gameObject.SetActive(onOff);
 			isInteractive = onOff;
+		}
+
+
+		/// <summary>Enable/Disable interaction</summary>
+		/// <param name="onOff">True/false</param>
+		public void EnableXROverlayRayInteraction(bool onOff) {
+
+			if (!isAllowedToInteract)
+				return;
+
+			XROverlayRayInteractor.gameObject.SetActive(onOff);
 		}
 
 		/// <summary>Show/Hide hand</summary>

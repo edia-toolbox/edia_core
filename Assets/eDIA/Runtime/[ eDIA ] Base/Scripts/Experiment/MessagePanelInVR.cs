@@ -120,7 +120,7 @@ namespace eDIA {
 		}
 
 		public void OnBtnProceedPressed() {
-			Debug.Log("OnBtnProceedPressed");
+			//Debug.Log("OnBtnProceedPressed");
 			XRManager.Instance.EnableXRRayInteraction(false);
 			EventManager.TriggerEvent(eDIA.Events.StateMachine.EvProceed);
 		}
@@ -132,7 +132,7 @@ namespace eDIA {
 			if (_messageFader != null) StopCoroutine(_messageFader);
 
 			MsgField.text = msg;
-			XRManager.Instance.EnableXRRayInteraction(true);
+			XRManager.Instance.EnableXROverlayRayInteraction(true);
 
 			ButtonToggling(messageQueue.Count > 1 ? true : false, messageQueue.Count == 1 ? true : false);
 

@@ -50,7 +50,12 @@ public class TaskD2 : XBlock {
 		Xperiment.Instance.Proceed();
 	}
 
+	public void Dummy() {
+		Debug.Log($"Dummy {UnityEngine.Random.Range(0,3000)}");
+	}
+
 	void CheckAndLogResults () {
+		//Debug.Log();
 		XRManager.Instance.EnableXRRayInteraction(false);
 
 		// Check sheets and log to UXF
@@ -65,7 +70,7 @@ public class TaskD2 : XBlock {
 				incorrectlyTicked++;
 		}
 
-		Debug.Log("correctlyTicked: " + correctlyTicked + " incor: " + incorrectlyTicked);
+		Debug.Log("correctlyTicked: " + correctlyTicked + " incorrect: " + incorrectlyTicked);
 
 		Session.instance.CurrentTrial.result["correctlyTicked"] = correctlyTicked;
 		Session.instance.CurrentTrial.result["incorrectlyTicked"] = incorrectlyTicked;

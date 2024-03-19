@@ -75,6 +75,11 @@ namespace eDIA {
 			XRRight.GetComponent<XRController>().EnableRayInteraction(onOff);
 		}
 
+		public void EnableXROverlayRayInteraction (bool onOff) {
+			XRLeft.GetComponent<XRController>().EnableXROverlayRayInteraction(onOff);
+			XRRight.GetComponent<XRController>().EnableXROverlayRayInteraction(onOff);
+		}
+
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region CONTROLLERS
 

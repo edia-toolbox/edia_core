@@ -807,6 +807,7 @@ Transform:
   m_Children:
   - {fileID: 5876622754398902368}
   - {fileID: 4457572687070494308}
+  - {fileID: 6158624377987372448}
   - {fileID: 1687108403271392035}
   - {fileID: 4226249856425487525}
   - {fileID: 9183585228220830990}
@@ -1129,9 +1130,7 @@ MonoBehaviour:
   HandModel: {fileID: 953593265941339999}
   ControllerModel: {fileID: 6540957216967279322}
   rayInteractor: {fileID: 1687108403271392035}
-  XRRayOverlayRaycaskMask:
-    serializedVersion: 2
-    m_Bits: 0
+  XROverlayRayInteractor: {fileID: 6158624377987372448}
 --- !u!114 &6949457810822180616
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1289,7 +1288,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df19caa6a54a25d43a4cfa8f17a9a7ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  showLog: 1
+  showLog: 0
   logColor: {r: 0, g: 1, b: 1, a: 1}
   XRCam: {fileID: 4641388061872961045}
   XRLeft: {fileID: 8924131834309283448}
@@ -1331,6 +1330,7 @@ Transform:
   m_Children:
   - {fileID: 950281466210750378}
   - {fileID: 1735253191152910063}
+  - {fileID: 8025716435728997565}
   - {fileID: 3624773307833283370}
   - {fileID: 8371816633893236066}
   - {fileID: 4291527284384037830}
@@ -1657,9 +1657,7 @@ MonoBehaviour:
   HandModel: {fileID: 2234861997621414068}
   ControllerModel: {fileID: 467181777485649168}
   rayInteractor: {fileID: 3624773307833283370}
-  XRRayOverlayRaycaskMask:
-    serializedVersion: 2
-    m_Bits: 2147483808
+  XROverlayRayInteractor: {fileID: 8025716435728997565}
 --- !u!114 &8395460809206882430
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1882,6 +1880,80 @@ MonoBehaviour:
   m_VerticalAxis: Vertical
   m_SubmitButton: Submit
   m_CancelButton: Cancel
+--- !u!1001 &430527170523809909
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 8924131834309283448}
+    m_Modifications:
+    - target: {fileID: 1871993736909930772, guid: 2886b5fbc0a49f8438f0d24a1d1e8b15,
+        type: 3}
+      propertyPath: m_Name
+      value: RayOverlayInteractor Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 5804680408843312597, guid: 2886b5fbc0a49f8438f0d24a1d1e8b15,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5804680408843312597, guid: 2886b5fbc0a49f8438f0d24a1d1e8b15,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5804680408843312597, guid: 2886b5fbc0a49f8438f0d24a1d1e8b15,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5804680408843312597, guid: 2886b5fbc0a49f8438f0d24a1d1e8b15,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5804680408843312597, guid: 2886b5fbc0a49f8438f0d24a1d1e8b15,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5804680408843312597, guid: 2886b5fbc0a49f8438f0d24a1d1e8b15,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5804680408843312597, guid: 2886b5fbc0a49f8438f0d24a1d1e8b15,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5804680408843312597, guid: 2886b5fbc0a49f8438f0d24a1d1e8b15,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5804680408843312597, guid: 2886b5fbc0a49f8438f0d24a1d1e8b15,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5804680408843312597, guid: 2886b5fbc0a49f8438f0d24a1d1e8b15,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2886b5fbc0a49f8438f0d24a1d1e8b15, type: 3}
+--- !u!4 &6158624377987372448 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5804680408843312597, guid: 2886b5fbc0a49f8438f0d24a1d1e8b15,
+    type: 3}
+  m_PrefabInstance: {fileID: 430527170523809909}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1266522686614916793
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3224,6 +3296,80 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 4398339328975136185}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &4606985057677230440
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 735698571760950736}
+    m_Modifications:
+    - target: {fileID: 1871993736909930772, guid: 2886b5fbc0a49f8438f0d24a1d1e8b15,
+        type: 3}
+      propertyPath: m_Name
+      value: RayOverlayInteractor Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 5804680408843312597, guid: 2886b5fbc0a49f8438f0d24a1d1e8b15,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5804680408843312597, guid: 2886b5fbc0a49f8438f0d24a1d1e8b15,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5804680408843312597, guid: 2886b5fbc0a49f8438f0d24a1d1e8b15,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5804680408843312597, guid: 2886b5fbc0a49f8438f0d24a1d1e8b15,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5804680408843312597, guid: 2886b5fbc0a49f8438f0d24a1d1e8b15,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5804680408843312597, guid: 2886b5fbc0a49f8438f0d24a1d1e8b15,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5804680408843312597, guid: 2886b5fbc0a49f8438f0d24a1d1e8b15,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5804680408843312597, guid: 2886b5fbc0a49f8438f0d24a1d1e8b15,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5804680408843312597, guid: 2886b5fbc0a49f8438f0d24a1d1e8b15,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5804680408843312597, guid: 2886b5fbc0a49f8438f0d24a1d1e8b15,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2886b5fbc0a49f8438f0d24a1d1e8b15, type: 3}
+--- !u!4 &8025716435728997565 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5804680408843312597, guid: 2886b5fbc0a49f8438f0d24a1d1e8b15,
+    type: 3}
+  m_PrefabInstance: {fileID: 4606985057677230440}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5102799144493467027
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3330,7 +3476,7 @@ PrefabInstance:
     - target: {fileID: 7462879561657043759, guid: ad818c36731146e994540a1896ad8f24,
         type: 3}
       propertyPath: m_RaycastMask.m_Bits
-      value: 2147483809
+      value: 2147483681
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3958,22 +4104,22 @@ PrefabInstance:
     - target: {fileID: 7462879561657043759, guid: ad818c36731146e994540a1896ad8f24,
         type: 3}
       propertyPath: m_HitClosestOnly
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7462879561657043759, guid: ad818c36731146e994540a1896ad8f24,
         type: 3}
       propertyPath: m_AllowAnchorControl
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7462879561657043759, guid: ad818c36731146e994540a1896ad8f24,
         type: 3}
       propertyPath: m_InteractionManager
       value: 
-      objectReference: {fileID: 6937744271246713028}
+      objectReference: {fileID: 0}
     - target: {fileID: 7462879561657043759, guid: ad818c36731146e994540a1896ad8f24,
         type: 3}
       propertyPath: m_RaycastMask.m_Bits
-      value: 2147483809
+      value: 2147483681
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
