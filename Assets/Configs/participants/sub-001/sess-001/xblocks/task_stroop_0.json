@@ -3,19 +3,19 @@
   "subType": "stroop",
   "blockId": "task_stroop_0",
   "settings": [
-    { "key": "yellow", "value": "#FFFF00"},
-    { "key": "red", "value": "#FF0000"},
-    { "key": "blue", "value": "#0000FF"}
+    { "key": "colors", "value": "#008000,#FFC0CB,#FFA500" },
+    { "key": "words", "value": "green,pink,orange" },
+    { "key": "target", "value": "word" }
   ],
   "instructions": [
-    { "key": "_start", "value": "Just an extra line of text for testing" }
+    { "key": "_start", "value": "Click the color the word describes." }
   ],
   "trialSettings": {
-    "keys": ["word", "color", "target"],
+    "keys": ["word", "color"],
     "valueList": [
-      { "values": ["yellow", "#FFFF00", "word"] },
-      { "values": ["red", "#FFFF00", "word"] },
-      { "values": ["blue", "#0000FF", "word"] }
+      { "values": ["orange", "#FFA500"] },
+      { "values": ["pink", "#FFC0CB"] },
+      { "values": ["green", "#008000"] }
     ]
   }
 }
