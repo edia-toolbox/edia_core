@@ -120,10 +120,19 @@ namespace eDIA {
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region INFORMATION UPDATES
 
-
+		/// <summary>
+		/// Will update the progress textfield in the control panel.
+		/// </summary>
+		/// <param name="info">Text to show, excludes string before first '_' char</param>
 		void UpdateProgressStatus (string info) {
-			List<string> infos = info.Split('_').ToList();
-			infos.RemoveAt(0);
+			List<string> infos = new();
+
+			if (info.Contains('_')) {
+				infos = info.Split('_').ToList();
+				infos.RemoveAt(0);
+			}
+			else infos.Add(info);
+
 			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateProgressStatus, new eParam(StringTools.CombineToOneString(infos.ToArray())));
 		}
 		void UpdateSessionSummary() {
