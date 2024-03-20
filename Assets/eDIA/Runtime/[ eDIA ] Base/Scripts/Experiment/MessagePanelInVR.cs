@@ -22,7 +22,7 @@ namespace eDIA {
 		List<string> messageQueue = new ();
 
 		Coroutine _messageTimer = null;
-		Coroutine _messageFader = null;
+		Coroutine _messagePanelFader = null;
 		Coroutine _messagesRoutine = null;
 
 		// -- Singleton
@@ -48,7 +48,7 @@ namespace eDIA {
 		void Start() {
 			_backgroungImg = transform.GetChild(0).GetComponent<Image>();
 
-			//EventManager.StartListening(eDIA.Events.Core.EvShowMessageToUser, OnEvShowMessage);
+			//EventManager.StartListening(eDIA.Events.Core.EvShowMessageToUser, OnEvShowMessage); // TODO: Add for situation that a message has to be shown from remote control panel
 			EventManager.StartListening(eDIA.Events.StateMachine.EvProceed, OnEvHideMessage); //! assumption: continuing is always hide panel
 		}
 
@@ -129,14 +129,14 @@ namespace eDIA {
 		/// <param name="msg">Message to show</param>
 		public void ShowMessageOnPanel(string msg) {
 			if (_messageTimer != null) StopCoroutine(_messageTimer);
-			if (_messageFader != null) StopCoroutine(_messageFader);
+			if (_messagePanelFader != null) StopCoroutine(_messagePanelFader);
 
 			MsgField.text = msg;
-			XRManager.Instance.EnableXROverlayRayInteraction(true);
+			//XRManager.Instance.EnableXROverlayRayInteraction(true);
 
 			ButtonToggling(messageQueue.Count > 1 ? true : false, messageQueue.Count == 1 ? true : false);
 
-			_messageFader = isActive ? null : StartCoroutine(Fader());
+			_messagePanelFader = _messagePanelFader is not null ? null : StartCoroutine(Fader());
 
 			Show(true);
 		}
@@ -153,7 +153,7 @@ namespace eDIA {
 		public override void HidePanel() {
 
 			if (_messageTimer != null) StopCoroutine(_messageTimer);
-			if (_messageFader != null) StopCoroutine(_messageFader);
+			if (_messagePanelFader != null) StopCoroutine(_messagePanelFader);
 			messageQueue.Clear();
 			HideMenu();
 			
@@ -180,10 +180,9 @@ namespace eDIA {
 		IEnumerator Fader() {
 			float duration = 0.5f;
 			float currentTime = 0f;
+
 			while (currentTime < duration) {
-				// float alpha = Mathf.Lerp(0f, hasSolidBackground ? 1f : 0.5f, currentTime / duration);
 				float alpha = Mathf.Lerp(0f, 1f, currentTime / duration);
-				MsgField.color = new Color(MsgField.color.r, MsgField.color.g, MsgField.color.b, alpha);
 				float alphaBg = Mathf.Lerp(0f, HasSolidBackground ? 1f : 0.5f, currentTime / duration);
 				_backgroungImg.color = new Color(_backgroungImg.color.r, _backgroungImg.color.g, _backgroungImg.color.b, alphaBg);
 				currentTime += Time.deltaTime;
@@ -195,6 +194,7 @@ namespace eDIA {
 		IEnumerator TextFader () {
 			float duration = 0.5f;
 			float currentTime = 0f;
+
 			while (currentTime < duration) {
 				float alpha = Mathf.Lerp(0f, 1f, currentTime / duration);
 				MsgField.color = new Color(MsgField.color.r, MsgField.color.g, MsgField.color.b, alpha);
