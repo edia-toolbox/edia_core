@@ -122,7 +122,7 @@ namespace eDIA {
 
 		public void OnBtnProceedPressed() {
 			//Debug.Log("OnBtnProceedPressed");
-			XRManager.Instance.EnableXRRayInteraction(false);
+			XRManager.Instance.EnableXROverlayRayInteraction(false);
 			EventManager.TriggerEvent(eDIA.Events.StateMachine.EvProceed);
 		}
 
@@ -176,6 +176,8 @@ namespace eDIA {
 
 		public void HideMenu() {
 			ButtonToggling(false, false);
+			XRManager.Instance.EnableXROverlayRayInteraction(false);
+
 		}
 
 
