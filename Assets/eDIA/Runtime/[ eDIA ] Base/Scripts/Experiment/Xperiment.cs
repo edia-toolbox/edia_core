@@ -122,7 +122,7 @@ namespace eDIA {
 
 
 		void UpdateProgressStatus (string info) {
-			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateProgressStatus, new eParam(StringTools.RemoveUnderscores(info)));
+			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateProgressStatus, new eParam(StringTools.CombineToOneString(info.Split('_'))));
 		}
 		void UpdateSessionSummary() {
 			EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateSessionSummary, new eParam(SessionSettings.sessionInfo.GetSessionSummary()));

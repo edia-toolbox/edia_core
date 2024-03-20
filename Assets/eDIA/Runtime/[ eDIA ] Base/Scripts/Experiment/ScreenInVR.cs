@@ -35,11 +35,11 @@ namespace eDIA {
 		}
 
 		/// <summary>Shows the actual panel</summary>
-		public void Show(bool onOff) {
+		public virtual void Show(bool onOff) {
 			GetComponent<Canvas>().enabled = onOff;
 			GetComponent<GraphicRaycaster>().enabled = onOff;
 			GetComponent<TrackedDeviceGraphicRaycaster>().enabled = onOff;
-			EventManager.TriggerEvent(eDIA.Events.XR.EvEnableXROverlay, new eParam(onOff));
+			
 			isActive = onOff;
 		}
 

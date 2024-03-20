@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.XR.Interaction.Toolkit.UI;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace eDIA {
 	/// <summary>Sample script to show the user a message in VR canvas</summary>
@@ -23,6 +24,7 @@ namespace eDIA {
 
 		Coroutine _messageTimer = null;
 		Coroutine _messagePanelFader = null;
+		Coroutine _messageTextFader = null;
 		Coroutine _messagesRoutine = null;
 
 		// -- Singleton
@@ -38,7 +40,6 @@ namespace eDIA {
 						instance = singletonObject.AddComponent<MessagePanelInVR>();
 					}
 				}
-
 				return instance;
 			}
 		}
@@ -136,7 +137,7 @@ namespace eDIA {
 
 			ButtonToggling(messageQueue.Count > 1 ? true : false, messageQueue.Count == 1 ? true : false);
 
-			_messagePanelFader = _messagePanelFader is not null ? null : StartCoroutine(Fader());
+			_messageTextFader = _messageTextFader is not null ? null : StartCoroutine(Fader());
 
 			Show(true);
 		}
@@ -149,11 +150,21 @@ namespace eDIA {
 			HidePanel();
 		}
 
+		public override void Show (bool onOff) { 
+			base.Show (onOff);
+			
+			EventManager.TriggerEvent(eDIA.Events.XR.EvEnableXROverlay, new eParam(onOff));
+			XRManager.Instance.EnableXROverlayRayInteraction(onOff);
+			
+			_messagePanelFader = _messagePanelFader is not null ? null : StartCoroutine(TextFader());
+		}
+
 		/// <summary>Doublecheck running routines and hides the panel</summary>
 		public override void HidePanel() {
 
 			if (_messageTimer != null) StopCoroutine(_messageTimer);
 			if (_messagePanelFader != null) StopCoroutine(_messagePanelFader);
+
 			messageQueue.Clear();
 			HideMenu();
 			
@@ -165,7 +176,6 @@ namespace eDIA {
 
 		public void HideMenu() {
 			ButtonToggling(false, false);
-			XRManager.Instance.EnableXROverlayRayInteraction(false);
 		}
 
 
