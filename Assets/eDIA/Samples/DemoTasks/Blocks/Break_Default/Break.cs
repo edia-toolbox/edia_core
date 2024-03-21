@@ -13,7 +13,7 @@ namespace eDIA {
 
 		void BreakStep1() {
 			MessagePanelInVR.Instance.ShowMessage(Session.instance.CurrentBlock.settings.GetStringList("_info"));
-			Xperiment.Instance.WaitOnProceed();
+			Experiment.Instance.WaitOnProceed();
 		}
 	}
 }

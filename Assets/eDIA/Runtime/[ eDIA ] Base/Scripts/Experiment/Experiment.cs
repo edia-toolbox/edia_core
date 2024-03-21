@@ -13,7 +13,7 @@ namespace eDIA {
 
 #region DECLARATIONS
 
-	public class Xperiment : Singleton<Xperiment> {
+	public class Experiment : Singleton<Experiment> {
 
 		public enum XState {
 			IDLE,
@@ -87,7 +87,7 @@ namespace eDIA {
 			bool _succes = true;
 
 			// Are the gameobjects in Experiment.blocks properly named? <TYPE>_<SUBTYPE>
-			foreach (XBlock g in Xperiment.Instance.XBlocks) {
+			foreach (XBlock g in Experiment.Instance.XBlocks) {
 				g.name = g.name.ToLower();
 
 				//if (!g.name.Contains('_') || g.name.Split('_').Length != 2) {

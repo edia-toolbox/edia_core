@@ -34,20 +34,20 @@ public class TaskD2 : XBlock {
 
 		TaskCanvas.Show(true);
 
-		Xperiment.Instance.WaitOnProceed();
-		Xperiment.Instance.Proceed();
+		Experiment.Instance.WaitOnProceed();
+		Experiment.Instance.Proceed();
 	}
 
 	void RunTask() {
 		XRManager.Instance.EnableXRRayInteraction(true);
 
 		// Wait on user to finish
-		Xperiment.Instance.WaitOnProceed();
+		Experiment.Instance.WaitOnProceed();
 	}
 
 	public void TaskDoneBtnPressed() {
 		this.Add2Console("TaskButtonPressed calling Proceed");
-		Xperiment.Instance.Proceed();
+		Experiment.Instance.Proceed();
 	}
 
 	public void Dummy() {
@@ -75,8 +75,8 @@ public class TaskD2 : XBlock {
 		Session.instance.CurrentTrial.result["correctlyTicked"] = correctlyTicked;
 		Session.instance.CurrentTrial.result["incorrectlyTicked"] = incorrectlyTicked;
 
-		Xperiment.Instance.WaitOnProceed();
-		Xperiment.Instance.Proceed();
+		Experiment.Instance.WaitOnProceed();
+		Experiment.Instance.Proceed();
 	}
 
 	private void CleanUp() {
@@ -86,8 +86,8 @@ public class TaskD2 : XBlock {
 
 		TaskCanvas.Show(false);
 
-		Xperiment.Instance.WaitOnProceed();
-		Xperiment.Instance.Proceed();
+		Experiment.Instance.WaitOnProceed();
+		Experiment.Instance.Proceed();
 	}
 
 

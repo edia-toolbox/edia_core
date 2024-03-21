@@ -49,7 +49,7 @@ namespace eDia {
 		void TaskStep1 () {
 
 			// Enable the pause button on the control panel
-			Xperiment.Instance.EnablePauseButton (true);
+			Experiment.Instance.EnablePauseButton (true);
 
 			// Disable XR interaction from the user
 			XRManager.Instance.EnableXRRayInteraction (false);
@@ -63,7 +63,7 @@ namespace eDia {
 				* Delayed: Experiment.Instance.ProceedWithDelay (seconds as float)
 			*/
 
-			Xperiment.Instance.ProceedWithDelay (Session.instance.CurrentBlock.settings.GetFloat ("timer_showcube"));
+			Experiment.Instance.ProceedWithDelay (Session.instance.CurrentBlock.settings.GetFloat ("timer_showcube"));
 		}
 
 		/// <summary>Move cube, wait on user input</summary>
@@ -78,7 +78,7 @@ namespace eDia {
 			MessagePanelInVR.Instance.ShowMessage("Click button below to continue");
 
 			// Tell the system to wait on button press. Which will also enable the button on the controlpanel to overrule the user
-			Xperiment.Instance.WaitOnProceed (); 
+			Experiment.Instance.WaitOnProceed (); 
 		}
 
 		/// <summary>User clicked button</summary>
@@ -87,7 +87,7 @@ namespace eDia {
 			UserResponseTime = Time.time - StepStartTime;
 
 			// Add result to log
-			Xperiment.Instance.AddToTrialResults("UserResponseTime", UserResponseTime.ToString());
+			Experiment.Instance.AddToTrialResults("UserResponseTime", UserResponseTime.ToString());
 		}
 
 		/// <summary>Clean up</summary>
