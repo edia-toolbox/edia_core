@@ -59,13 +59,13 @@ namespace eDIA.Events {
 		public const string EvSetSessionInfo = "EvSetSessionInfo";
 
 		// <summary>Set sessions block sequence. Expects JSON string</summary>
-		public const string EvSetEBlockSequence = "EvSetEBlockSequence";
+		public const string EvSetXBlockSequence = "EvSetXBlockSequence";
 
 		/// <summary>Set sessions block sequence. Expects JSON string</summary>
 		public const string EvSetTaskDefinitions = "EvSetTaskDefinitions";
 
 		/// <summary>Set sessions block sequence. Expects JSON string</summary>
-		public const string EvSetEBlockDefinitions = "EvSetEBlockDefinitions";
+		public const string EvSetXBlockDefinitions = "EvSetXBlockDefinitions";
 
 		/// <summary>Fired when both configs are set </summary>
 		public const string EvReadyToGo = "EvReadyToGo";
@@ -178,11 +178,11 @@ namespace eDIA.Events {
 
 		public const string NwEvSetSessionInfo = "NwEvSetSessionInfo";
 
-		public const string NwEvSetEBlockSequence = "NwEvSetEBlockSequence";
+		public const string NwEvSetXBlockSequence = "NwEvSetXBlockSequence";
 
             public const string NwEvSetTaskDefinitions = "NwEvSetTaskDefinitions";
 
-            public const string NwEvSetEBlockDefinitions = "NwEvSetEBlockDefinitions";
+            public const string NwEvSetXBlockDefinitions = "NwEvSetXBlockDefinitions";
 
             public const string NwEvStartExperiment = "NwEvStartExperiment";
 

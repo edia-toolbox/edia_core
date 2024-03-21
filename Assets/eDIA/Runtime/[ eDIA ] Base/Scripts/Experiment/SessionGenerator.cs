@@ -10,16 +10,16 @@ namespace eDIA {
 	public class SessionGenerator : MonoBehaviour {
 
 		// Internal checkup lists
-		public List<XBlockBaseSettings> _tasks = new();
-		public List<XBlockSettings> _xBlocks = new();
-		public List<bool> _validatedJsons = new();
-		public XBlockSequence _xBlockSequence;
+		private readonly List<XBlockBaseSettings> _tasks = new();
+		private readonly List<XBlockSettings> _xBlocks = new();
+		private readonly List<bool> _validatedJsons = new();
+		private XBlockSequence _xBlockSequence;
 
 		private void Awake() {
 			EventManager.StartListening(eDIA.Events.Config.EvSetSessionInfo, OnEvSetSessionInfo);
-			EventManager.StartListening(eDIA.Events.Config.EvSetEBlockSequence, OnEvSetXBlockSequence);
+			EventManager.StartListening(eDIA.Events.Config.EvSetXBlockSequence, OnEvSetXBlockSequence);
 			EventManager.StartListening(eDIA.Events.Config.EvSetTaskDefinitions, OnEvSetBaseDefinitions);
-			EventManager.StartListening(eDIA.Events.Config.EvSetEBlockDefinitions, OnEvSetEBlockDefinitions);
+			EventManager.StartListening(eDIA.Events.Config.EvSetXBlockDefinitions, OnEvSetXBlockDefinitions);
 		}
 
 		public void Reset() {
@@ -33,10 +33,11 @@ namespace eDIA {
 			SessionSettings.sessionInfo = UnityEngine.JsonUtility.FromJson<SessionInfo>(param.GetStrings()[0]);
 			SessionSettings.sessionInfo.session_number = int.Parse(param.GetStrings()[1]); // UXF wants an int
 
-			SettingsTuple participantTuple = new SettingsTuple();
-			participantTuple.key = "id";
-			participantTuple.value = param.GetStrings()[2];
-			SessionSettings.sessionInfo.participant_details.Add(participantTuple);
+            SettingsTuple participantTuple = new() {
+                key = "id",
+                value = param.GetStrings()[2]
+            };
+            SessionSettings.sessionInfo.participant_details.Add(participantTuple);
 
 			_validatedJsons.Add(true);
 			CheckIfReadyAndContinue();
@@ -57,10 +58,10 @@ namespace eDIA {
 			CheckIfReadyAndContinue();
 		}
 
-		private void OnEvSetEBlockDefinitions(eParam param) {
+		private void OnEvSetXBlockDefinitions(eParam param) {
 			foreach (string t in param.GetStrings()) {
-				XBlockSettings XBs = UnityEngine.JsonUtility.FromJson<XBlockSettings>(t);
-				_xBlocks.Add(XBs);
+				XBlockSettings xBs = UnityEngine.JsonUtility.FromJson<XBlockSettings>(t);
+				_xBlocks.Add(xBs);
 			}
 			_validatedJsons.Add(true);
 			CheckIfReadyAndContinue();
@@ -75,14 +76,14 @@ namespace eDIA {
 		}
 
 		XBlockBaseSettings GetXBlockBaseByBlockId(string blockId) {
-			int _index = _xBlocks.FindIndex(x => x.blockId.ToLower() == blockId.ToLower()); //TODO checks
-			int _returnIndex = _tasks.FindIndex(x => x.subType.ToLower() == _xBlocks[_index].subType.ToLower());
-			return _returnIndex == -1 ? null : _tasks[_returnIndex];
+			int index = _xBlocks.FindIndex(x => x.blockId.ToLower() == blockId.ToLower()); //TODO checks
+			int returnIndex = _tasks.FindIndex(x => x.subType.ToLower() == _xBlocks[index].subType.ToLower());
+			return returnIndex == -1 ? null : _tasks[returnIndex];
 		}
 
 		XBlockSettings GetXBlockByBlockId(string blockId) {
-			int _index = _xBlocks.FindIndex(x => x.blockId.ToLower() == blockId.ToLower());
-			return _index != -1 ? _xBlocks[_index] : null;
+			int index = _xBlocks.FindIndex(x => x.blockId.ToLower() == blockId.ToLower());
+			return index != -1 ? _xBlocks[index] : null;
 		}
 
 		static List<string> GetValuesListByKey(List<SettingsTuple> tupleList, string key) {
@@ -99,7 +100,7 @@ namespace eDIA {
 		void CheckIfReadyAndContinue() { // TODO: Is there a more elegant way of doing this?
 
 			if (_validatedJsons.Count == 4) {
-				GenerateUXFSequence();
+				GenerateUxfSequence();
 
 				EventManager.TriggerEvent(eDIA.Events.Config.EvReadyToGo);
 				EventManager.TriggerEvent(eDIA.Events.ControlPanel.EvUpdateSessionSummary, new eParam(SessionSettings.sessionInfo.GetSessionSummary()));
@@ -108,17 +109,17 @@ namespace eDIA {
 
 		// Checks if all entries in the sequence, have their detail config loaded
 		bool ValidateBlockList() {
-			bool _succes = true;
+			bool success = true;
 
 			// Do all entries in the sequence have their detailed config loaded?
 			foreach (string blockId in _xBlockSequence.Sequence) {
 				if (GetXBlockByBlockId(blockId) == null) {
 					Debug.LogWarningFormat("No details found for <b>{0}</b>", blockId);
-					_succes = false;
+					success = false;
 				}
 			}
 
-			return _succes;
+			return success;
 		}
 
 		private static bool IsValidKeyForTrialResults(string k) {
@@ -132,7 +133,7 @@ namespace eDIA {
 		/// <summary>
 		/// Generates the UXF sequence based on the supplied Json files and database
 		/// </summary>
-		public void GenerateUXFSequence() {
+		public void GenerateUxfSequence() {
 			// First validate 
 			if (!ValidateBlockList()) {
 				Debug.LogError("Supplied blocklist is invalid");
@@ -144,7 +145,7 @@ namespace eDIA {
 
 				Block newBlock = Session.instance.CreateBlock();
 
-				// Find the according EBlockBase (e.g., Task or Break definition) and get global settings
+				// Find the according XBlockBase (e.g., Task or Break definition) and get global settings
 				XBlockBaseSettings xBlockBase = GetXBlockBaseByBlockId(blockId);
 				if (xBlockBase == null) {
 					Debug.LogError($"Failed getting details for {blockId} ");
@@ -173,7 +174,7 @@ namespace eDIA {
 				// Continue with settings
 				newBlock.settings.UpdateWithDict(Helpers.GetSettingsTupleListAsDict(currentXBlock.settings)); // add block specific settings
 
-				// Add settings and trials specific for Break vs Task EBlocks
+				// Add settings and trials specific for Break vs Task XBlocks
 				string currentXBlockType = GetXBlockType(blockId);
 
 				switch (currentXBlockType.ToLower()) {
@@ -203,7 +204,7 @@ namespace eDIA {
 						break;
 
 					default:
-						Debug.LogError($"EBlock type must be either 'Task' or 'Break'; cannot be '{currentXBlockType}'.");
+						Debug.LogError($"XBlock type must be either 'Task' or 'Break'; cannot be '{currentXBlockType}'.");
 						break;
 				}
 

@@ -32,8 +32,8 @@ namespace eDIA.Manager {
 
 		string _pathToParticipantFiles = "Configs/participants/";
 		string _pathToTaskFiles = "Configs/base-definitions/";
-		string _eBlockDefinitionsFolderName = "xblocks";
-		string _eBlockSequenceFileName = "session_sequence.json";
+		string _xBlockDefinitionsFolderName = "xblocks";
+		string _xBlockSequenceFileName = "session_sequence.json";
 		string _sessionInfoFilenName = "session_info.json";
 
 		public List<string> xBlockDefinitionsFileList; // for sanity check
@@ -75,9 +75,9 @@ namespace eDIA.Manager {
 				return;
 
 			EventManager.TriggerEvent(eDIA.Events.Config.EvSetSessionInfo, new eParam(new string[] { _sessionInfoJsonString, _session.Split('-')[1], _subject.Split('-')[1] }));
-			EventManager.TriggerEvent(eDIA.Events.Config.EvSetEBlockSequence, new eParam(_xBlockSequenceJsonString));
+			EventManager.TriggerEvent(eDIA.Events.Config.EvSetXBlockSequence, new eParam(_xBlockSequenceJsonString));
 			EventManager.TriggerEvent(eDIA.Events.Config.EvSetTaskDefinitions, new eParam(_xblockDefinitionJsonStrings.ToArray()));
-			EventManager.TriggerEvent(eDIA.Events.Config.EvSetEBlockDefinitions, new eParam(_xBlockDefinitionJsonStrings.ToArray()));
+			EventManager.TriggerEvent(eDIA.Events.Config.EvSetXBlockDefinitions, new eParam(_xBlockDefinitionJsonStrings.ToArray()));
 
 			HidePanel();
 		}
@@ -115,7 +115,7 @@ namespace eDIA.Manager {
 			_sessionInfoJsonString = FileManager.ReadStringFromApplicationPath(currentPath + _sessionInfoFilenName);
 
 			// Block sequence
-			string eBSequenceFilePath = currentPath + _eBlockSequenceFileName;
+			string eBSequenceFilePath = currentPath + _xBlockSequenceFileName;
 			_xBlockSequenceJsonString = FileManager.ReadStringFromApplicationPath(eBSequenceFilePath);
 
 			// Task definitions
@@ -126,10 +126,10 @@ namespace eDIA.Manager {
 			}
 
 			// Block Task Definitions
-			xBlockDefinitionsFileList = FileManager.GetAllFilenamesWithExtensionFrom(currentPath + _eBlockDefinitionsFolderName, "json").ToList();
+			xBlockDefinitionsFileList = FileManager.GetAllFilenamesWithExtensionFrom(currentPath + _xBlockDefinitionsFolderName, "json").ToList();
 
 			foreach (string s in xBlockDefinitionsFileList) {
-				string currentFileName = currentPath + "/" + _eBlockDefinitionsFolderName + "/" + s;
+				string currentFileName = currentPath + "/" + _xBlockDefinitionsFolderName + "/" + s;
 				_xBlockDefinitionJsonStrings.Add(FileManager.ReadStringFromApplicationPath(currentFileName.ToLower()));
 			}
 		}
@@ -149,7 +149,7 @@ namespace eDIA.Manager {
 					}
 				}
 				if (!found) { 
-					Debug.LogError("No <b>" + s + ".json</b> config file not found in eblock definitions folder");
+					Debug.LogError("No <b>" + s + ".json</b> config file not found in xblock definitions folder");
 					return false; 
 				}
 			}
