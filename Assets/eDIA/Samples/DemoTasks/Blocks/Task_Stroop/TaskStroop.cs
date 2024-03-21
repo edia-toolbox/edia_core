@@ -50,15 +50,15 @@ namespace eDia {
 
 			StroopCanvas.Show(true);
 
-			Xperiment.Instance.WaitOnProceed();
-			Xperiment.Instance.ProceedWithDelay(0.1f);
+			Experiment.Instance.WaitOnProceed();
+			Experiment.Instance.ProceedWithDelay(0.1f);
         }
 
 
         void WaitForUserInput() {
 			XRManager.Instance.EnableXRRayInteraction(true);
 
-			Xperiment.Instance.WaitOnProceed();
+			Experiment.Instance.WaitOnProceed();
         }
 
         public void StimuliSelected (int stimuliIndex) {
@@ -66,7 +66,7 @@ namespace eDia {
             CheckLogResultsProceed(stimuliIndex);
 			XRManager.Instance.EnableXRRayInteraction(false);
 
-			Xperiment.Instance.Proceed();
+			Experiment.Instance.Proceed();
 		}
         
         void CleanUp() {
@@ -76,8 +76,8 @@ namespace eDia {
 
 			StroopCanvas.Show(false);
 
-			Xperiment.Instance.WaitOnProceed();
-            Xperiment.Instance.ProceedWithDelay(1f);
+			Experiment.Instance.WaitOnProceed();
+            Experiment.Instance.ProceedWithDelay(1f);
         }
 
 
@@ -86,12 +86,12 @@ namespace eDia {
             Debug.Log($"Correct {Stimulis[stimuliIndex].IsValid}");
 
             // Log settings
-            Xperiment.Instance.AddToTrialResults("word", Session.instance.CurrentTrial.settings.GetString("word"));
-			Xperiment.Instance.AddToTrialResults("color", Session.instance.CurrentTrial.settings.GetString("color"));
-			Xperiment.Instance.AddToTrialResults("target", Session.instance.CurrentBlock.settings.GetString("target"));
+            Experiment.Instance.AddToTrialResults("word", Session.instance.CurrentTrial.settings.GetString("word"));
+			Experiment.Instance.AddToTrialResults("color", Session.instance.CurrentTrial.settings.GetString("color"));
+			Experiment.Instance.AddToTrialResults("target", Session.instance.CurrentBlock.settings.GetString("target"));
 
             // Log results
-            Xperiment.Instance.AddToTrialResults("response", Stimulis[stimuliIndex].GetValue());
+            Experiment.Instance.AddToTrialResults("response", Stimulis[stimuliIndex].GetValue());
         }
 
 		public override void OnBlockEnd() {

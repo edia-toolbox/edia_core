@@ -24,7 +24,7 @@ namespace eDIA {
 		}
 
 		public XState State = XState.IDLE;
-		XState prevState = XState.IDLE;
+		XState _prevState = XState.IDLE;
 
 		[Header("Editor Settings")]
 		public bool ShowLog = false;
@@ -112,8 +112,8 @@ namespace eDIA {
 		}
 
 		private void Update() {
-			if (State != prevState) {
-				prevState = State;
+			if (State != _prevState) {
+				_prevState = State;
 			}
 		}
 
