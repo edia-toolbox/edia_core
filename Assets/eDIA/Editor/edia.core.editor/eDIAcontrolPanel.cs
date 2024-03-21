@@ -63,7 +63,8 @@ namespace eDIA.EditorUtils {
 
 			EditorGUILayout.EndHorizontal();
 
-			if (GUILayout.Button("Create folder structure")) {
+            EditorGUILayout.HelpBox("Click the button below to create an exemplary Unity project folder structure within the root folder of your project.", MessageType.Info);
+            if (GUILayout.Button("Create folder structure")) {
 				CreateFolderStructure(projectName);
 			}
 
