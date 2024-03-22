@@ -14,8 +14,8 @@ namespace eDia {
 
         [Space(20)]
         public ScreenInVR StroopCanvas;
-        public TextMeshProUGUI StroopTextfield;
-        public List<StimuliStroop> Stimulis;
+        public TextMeshProUGUI StroopTextField;
+        public List<StroopResponseFields> StroopResponseFields;
 
         void Awake() {
             trialSteps.Add(SetupTaskEnvironment);
@@ -28,10 +28,10 @@ namespace eDia {
         public void SetupTaskEnvironment() {
 
 			// Prepare stimuli buttons
-			for (int s=0;s<Stimulis.Count;s++) {
-                Stimulis[s].Init(
-                    Session.instance.CurrentBlock.settings.GetStringList("colors")[s],
-                    Session.instance.CurrentBlock.settings.GetStringList("words")[s],
+			for (int s=0;s<StroopResponseFields.Count;s++) {
+                StroopResponseFields[s].Init(
+                    Session.instance.CurrentBlock.settings.GetStringList("_colors")[s],
+                    Session.instance.CurrentBlock.settings.GetStringList("_words")[s],
                     Session.instance.CurrentBlock.settings.GetString("target"),
 					Session.instance.CurrentBlock.settings.GetString("target") == "color" ? 
                         Session.instance.CurrentTrial.settings.GetString("color") : 
@@ -39,17 +39,18 @@ namespace eDia {
 					);
 
                 int uniqueGeneratedId = s;
-				Stimulis[s].GetComponent<Button>().onClick.AddListener(() => StimuliSelected(uniqueGeneratedId));
-                Stimulis[s].GetComponent<Button>().interactable = true;
+				StroopResponseFields[s].GetComponent<Button>().onClick.AddListener(() => StimuliSelected(uniqueGeneratedId));
+                StroopResponseFields[s].GetComponent<Button>().interactable = true;
 			}
 
             Color col = Color.white;
             ColorUtility.TryParseHtmlString(Session.instance.CurrentTrial.settings.GetString("color"), out col);
+			StroopTextField.text  = Session.instance.CurrentTrial.settings.GetString("word");
+            StroopTextField.color = col;
 
-			StroopTextfield.text  = Session.instance.CurrentTrial.settings.GetString("word");
-            StroopTextfield.color = col;
+            StroopTextField.fontSize = Session.instance.CurrentBlock.settings.GetInt("font_size");
 
-			StroopCanvas.Show(true);
+            StroopCanvas.Show(true);
 
 			Experiment.Instance.WaitOnProceed();
 			Experiment.Instance.ProceedWithDelay(0.1f);
@@ -73,7 +74,7 @@ namespace eDia {
         
         void CleanUp() {
             // Clean up
-            foreach (var stimuli in Stimulis)
+            foreach (var stimuli in StroopResponseFields)
 				stimuli.GetComponent<Button>().onClick.RemoveAllListeners();
 
 			StroopCanvas.Show(false);
@@ -91,7 +92,8 @@ namespace eDia {
 			Experiment.Instance.AddToTrialResults("target", Session.instance.CurrentBlock.settings.GetString("target"));
 
             // Log results
-            Experiment.Instance.AddToTrialResults("response", Stimulis[stimuliIndex].GetValue());
+            Experiment.Instance.AddToTrialResults("response", StroopResponseFields[stimuliIndex].GetValue());
+            Experiment.Instance.AddToTrialResults("response_correct", StroopResponseFields[stimuliIndex].IsValid.ToString());
         }
 
 		public override void OnBlockEnd() {
