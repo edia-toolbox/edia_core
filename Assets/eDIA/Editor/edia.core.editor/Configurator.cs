@@ -8,7 +8,7 @@ using UnityEngine.UI;
 namespace eDIA.EditorUtils {
 
 	[InitializeOnLoad]
-	public class eDIAcontrolPanel : EditorWindow {
+	public class Configurator : EditorWindow {
 
 		public Texture2D eDIAIcon;
 		public static bool forceShow = false;
@@ -17,11 +17,11 @@ namespace eDIA.EditorUtils {
 
 		Vector2 scrollPos;
 
-		[MenuItem("eDIA/Control panel")]
+		[MenuItem("eDIA/Configurator")]
 		static void Init() {
-			var window = (eDIAcontrolPanel)EditorWindow.GetWindow(typeof(eDIAcontrolPanel), false, "eDIA control panel");
+			var window = (Configurator)EditorWindow.GetWindow(typeof(Configurator), false, "Configurator");
 			window.minSize = new Vector2(300, 400);
-			window.titleContent = new GUIContent("eDIA control panel");
+			window.titleContent = new GUIContent("Configurator");
 			window.Show();
 
 		}
@@ -41,7 +41,7 @@ namespace eDIA.EditorUtils {
 
 			GUILayout.BeginHorizontal();
 			GUILayout.FlexibleSpace();
-			GUILayout.Label("eDIA \nVR Experiment Framework", EditorStyles.boldLabel);
+			GUILayout.Label("eDIA v0.4.0 \nVR Experiment Framework", EditorStyles.boldLabel);
 			GUILayout.FlexibleSpace();
 			GUILayout.EndHorizontal();
 

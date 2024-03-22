@@ -9,7 +9,7 @@ namespace eDIA.EditorUtils
 	{
 		static int failed;
 
-		public static void SetupLayers()
+		public static void SetupLayers() 
 		{
 			Debug.Log("<color=#00FFFF>[eDIA]</color> Creating layers ");
 
