@@ -9,9 +9,7 @@ namespace TASK {
 	public class MessagesToUser : MonoBehaviour {
 
 		public void OnSessionStart() {
-			//Experiment.Instance.ShowMessageToUser(new List<string>() { string.Format("Welcome to the {0} experiment", Session.instance.experimentName), "Second page for testing" });
-			//MessagePanelInVR.Instance.ShowMessage(new List<string>() { "Welcome to the experiment", "Second page for testing" });
-			Experiment.Instance.ShowMessageToUser("Hello");
+			Experiment.Instance.ShowMessageToUser("Welcome to the experiment!");
 		}
 
 		public void OnSessionPaused() {

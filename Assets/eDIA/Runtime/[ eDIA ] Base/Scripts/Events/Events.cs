@@ -180,11 +180,11 @@ namespace eDIA.Events {
 
 		public const string NwEvSetXBlockSequence = "NwEvSetXBlockSequence";
 
-            public const string NwEvSetTaskDefinitions = "NwEvSetTaskDefinitions";
+        public const string NwEvSetTaskDefinitions = "NwEvSetTaskDefinitions";
 
-            public const string NwEvSetXBlockDefinitions = "NwEvSetXBlockDefinitions";
+        public const string NwEvSetXBlockDefinitions = "NwEvSetXBlockDefinitions";
 
-            public const string NwEvStartExperiment = "NwEvStartExperiment";
+        public const string NwEvStartExperiment = "NwEvStartExperiment";
 
 		public const string NwEvPauseExperiment = "NwEvPauseExperiment";
 

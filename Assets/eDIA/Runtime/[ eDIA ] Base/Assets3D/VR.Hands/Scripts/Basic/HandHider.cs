@@ -16,25 +16,24 @@ public class HandHider : MonoBehaviour
 
     private void OnEnable()
     {
-        // TODO Hand xrbase needs updating, it's obsolete
-        interactor.onSelectEntered.AddListener(Hide);
-        interactor.onSelectExited.AddListener(Show);
+        interactor.selectEntered.AddListener(Hide);
+        interactor.selectExited.AddListener(Show);
     }
 
     private void OnDisable()
     {
-        interactor.onSelectEntered.RemoveListener(Hide);
-        interactor.onSelectExited.RemoveListener(Show);
-    }
+		interactor.selectEntered.RemoveListener(Hide);
+		interactor.selectExited.RemoveListener(Show);
+	}
 
-    private void Show(XRBaseInteractable interactable)
+	private void Show(SelectExitEventArgs args)
     {
         handPhysics.TeleportToTarget();
         handObject.SetActive(true);
     }
+	
+    private void Hide(SelectEnterEventArgs args) {
+		handObject.SetActive(false);
+	}
 
-    private void Hide(XRBaseInteractable interactable)
-    {
-        handObject.SetActive(false);
-    }
 }
