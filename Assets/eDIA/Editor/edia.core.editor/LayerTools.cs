@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-namespace eDIA.EditorUtils
+namespace Edia.EditorUtils
 {
 	public static class LayerTools
 	{
 		static int failed;
 
-		public static void SetupLayers()
+		public static void SetupLayers() 
 		{
 			Debug.Log("<color=#00FFFF>[eDIA]</color> Creating layers ");
 

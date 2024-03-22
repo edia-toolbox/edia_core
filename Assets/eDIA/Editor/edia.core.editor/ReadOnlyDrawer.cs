@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEditor;
 
-namespace eDIA.EditorUtils {
+namespace Edia.EditorUtils {
 
     /// <summary>This class contain custom drawer for ReadOnly attribute.</summary>
     [CustomPropertyDrawer(typeof(ReadOnlyAttribute))]
