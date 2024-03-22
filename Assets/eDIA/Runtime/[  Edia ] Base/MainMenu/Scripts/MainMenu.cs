@@ -8,6 +8,7 @@ using UnityEngine.UI;
 using UnityEngine.XR;
 using TMPro;
 using Edia;
+using Utils;
 using UnityEngine.Events;
 
 
@@ -182,18 +183,18 @@ namespace Edia {
 		}
 
 		private IEnumerator LoadScene(int sceneIndex) {
-			XRManager.Instance.AddToLog("Loading scene: " + scenes[sceneIndex].name);
+			this.Add2Console("Loading scene: " + scenes[sceneIndex].name);
 			OpenMenu(false);
 
 			isLoading = true;
 
 			OnLoadBegin?.Invoke();
-			yield return screenFader.StartFadeIn();
+			yield return screenFader.StartFadeBlackIn();
 
 			yield return new WaitForSeconds(0.5f);
 
 			yield return StartCoroutine(LoadNew(sceneIndex));
-			yield return screenFader.StartFadeOut();
+			yield return screenFader.StartFadeBlackOut();
 
 			OnLoadEnd?.Invoke();
 

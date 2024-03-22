@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Edia {
 
@@ -10,9 +11,11 @@ namespace Edia {
         [SerializeField] private float _speed = 1.0f;
         [SerializeField] private float _intensity = 0.0f;
         [SerializeField] private Color _color = Color.black;
-        [SerializeField] private Material _fadeMaterial = null;
+		public Image _fadeImage = null;
+		bool isBlack = false;
 
-        private void OnDrawGizmos() {
+
+        private void OnDrawGizmos() { // Draw HMD gizmo
             Gizmos.color = Color.cyan;
             Gizmos.matrix = transform.localToWorldMatrix;
             Gizmos.DrawSphere(Vector3.zero, 0.1f);
@@ -20,44 +23,55 @@ namespace Edia {
             Gizmos.DrawLine(Vector3.zero, Vector3.forward);
         }
 
-        private void OnRenderImage(RenderTexture source, RenderTexture destination)
-        {
-            _fadeMaterial.SetFloat("_Intensity", _intensity);
-            _fadeMaterial.SetColor("_FadeColor", _color);
-            Graphics.Blit(source, destination, _fadeMaterial);
-        }
+        public void HideBlockingImage() {
+            if (!isBlack)
+                return;
 
-        public Coroutine StartFadeIn()
+            StopAllCoroutines();
+			_fadeImage.color = new Color(_color.r, _color.g, _color.b, 0f);
+			_fadeImage.enabled = false;
+		}
+
+        public Coroutine StartFadeBlackIn()
         {
             StopAllCoroutines();
-            return StartCoroutine(FadeIn());
+            return StartCoroutine(FadeBlackIn());
         }
 
-        private IEnumerator FadeIn()
+		IEnumerator FadeBlackIn()
         {
-            Debug.Log("StartFadeIn");
+            _fadeImage.enabled = true;
+
             while (_intensity <= 1.0f)
             {
                 _intensity += _speed * Time.deltaTime;
+                _fadeImage.color = new Color(_color.r, _color.g, _color.b, _intensity);
                 yield return null;
             }
-        }
 
-        public Coroutine StartFadeOut()
+			_fadeImage.color = new Color(_color.r, _color.g, _color.b, 1f);
+            isBlack = true;
+		}
+
+        public Coroutine StartFadeBlackOut()
         {
             StopAllCoroutines();
-            return StartCoroutine(FadeOut());
+            return StartCoroutine(FadeBlackOut());
         }
 
-        private IEnumerator FadeOut()
+        private IEnumerator FadeBlackOut()
         {
             while (_intensity >= 0.0f)
             {
                 _intensity -= _speed * Time.deltaTime;
-                yield return null;
+				_fadeImage.color = new Color(_color.r, _color.g, _color.b, _intensity);
+				yield return null;
             }
+
+            HideBlockingImage();
+
+			isBlack = false;
         }
     }
-
 }
 

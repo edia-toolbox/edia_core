@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Edia;
 using UXF;
+using Utils;
 
 namespace Edia {
 
@@ -12,7 +13,14 @@ namespace Edia {
 		}
 
 		void BreakStep1() {
-			MessagePanelInVR.Instance.ShowMessage(Session.instance.CurrentBlock.settings.GetStringList("_info"));
+			Experiment.Instance.ShowMessageToUser (Session.instance.CurrentBlock.settings.GetStringList("_info"));
+
+			if (Session.instance.CurrentBlock.settings.GetBool("fadetoblack")) {
+				this.Add2Console("fade to black");
+				XRManager.Instance.HideVR(true);
+
+			}
+
 			Experiment.Instance.WaitOnProceed();
 		}
 	}

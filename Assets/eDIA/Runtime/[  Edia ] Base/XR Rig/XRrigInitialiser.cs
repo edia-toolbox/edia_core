@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Utils;
 
 namespace Edia {
         
@@ -15,7 +16,7 @@ namespace Edia {
             }
             
             XRManager.Instance.MovePlayarea(this.transform);
-            XRManager.Instance.AddToLog("Positioned playarea");
+            this.Add2Console("Positioned playarea");
         }
     }
 }

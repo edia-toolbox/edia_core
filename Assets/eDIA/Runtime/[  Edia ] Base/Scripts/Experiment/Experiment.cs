@@ -258,12 +258,11 @@ namespace Edia {
 			EventManager.StopListening(Edia.Events.StateMachine.EvProceed, OnEvProceed);
 			EnableProceedButton(false);
 
+			XRManager.Instance.ShowVRInstantly(); // TODO: This is now assuming that we want VR visable after a proceed call.
+
 			NextTrialStep();
 		}
 
-		//public void EnableExperimentProceed(bool onOff) {
-		//	WaitOnProceed();
-		//}
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region STATEMACHINE UXF SESSION
