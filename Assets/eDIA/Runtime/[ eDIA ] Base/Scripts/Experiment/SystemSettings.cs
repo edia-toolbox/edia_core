@@ -85,7 +85,7 @@ namespace eDIA {
 			if (systemSettings.screenResolution != receivedSettings.screenResolution) {
 				systemSettings.screenResolution = receivedSettings.screenResolution;
 				
-				//TODO Change actual value
+				//TODO Change actual resolution value
 			}
 
 			// Save Path for logfiles
@@ -98,14 +98,14 @@ namespace eDIA {
 			if (systemSettings.volume != receivedSettings.volume) {
 				systemSettings.volume = receivedSettings.volume;
 				
-				//TODO Change actual value
+				//TODO Change actual volume value
 			}
 
 			// language 
 			if (systemSettings.language != receivedSettings.language) {
 				systemSettings.language = receivedSettings.language;
 				
-				//TODO Change actual value 
+				//TODO Change actual language value 
 			}
 			
 			SaveSettings();

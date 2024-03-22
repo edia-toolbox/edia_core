@@ -76,7 +76,7 @@ namespace eDIA {
 		}
 
 		XBlockBaseSettings GetXBlockBaseByBlockId(string blockId) {
-			int index = _xBlocks.FindIndex(x => x.blockId.ToLower() == blockId.ToLower()); //TODO checks
+			int index = _xBlocks.FindIndex(x => x.blockId.ToLower() == blockId.ToLower()); 
 			int returnIndex = _tasks.FindIndex(x => x.subType.ToLower() == _xBlocks[index].subType.ToLower());
 			return returnIndex == -1 ? null : _tasks[returnIndex];
 		}
