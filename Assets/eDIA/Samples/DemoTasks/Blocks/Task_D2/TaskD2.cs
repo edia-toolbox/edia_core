@@ -31,7 +31,7 @@ public class TaskD2 : XBlock {
 
 		// Generate sheet
 		for (int i = 0; i < Stimuli.Count; i++) {
-			Stimuli[i].SetValid( _validStimuliIndexes.Contains(i) ? true : false );
+			Stimuli[i].SetValid( _validStimuliIndexes.Contains(i));
 		}
 
 		TaskCanvas.Show(true);
@@ -64,10 +64,10 @@ public class TaskD2 : XBlock {
 		int incorrectlyTicked = 0;
 
 		foreach (StimulusD2 s in Stimuli) {
-			if(s.IsValid && s.isTicked)
+			if(s.IsValid && s.IsTicked)
 				correctlyTicked++;
 
-			if (s.isTicked && !s.IsValid)
+			if (s.IsTicked && !s.IsValid)
 				incorrectlyTicked++;
 		}
 
@@ -89,12 +89,16 @@ public class TaskD2 : XBlock {
 		Experiment.Instance.Proceed();
 	}
 
-	static List<int> GenerateRandomNumbers(int count, int maxValue) {
+	static List<int> GenerateRandomNumbers(int count, int stimulusCount) {
 		System.Random random = new System.Random();
 		List<int> randomNumbers = new List<int>();
 
-		for (int i = 0; i < count; i++) {
-			randomNumbers.Add(random.Next(maxValue));
+		while(randomNumbers.Count < count) {
+			
+			int randNum = random.Next(stimulusCount);
+			if (!randomNumbers.Contains(randNum)) {
+				randomNumbers.Add(randNum);
+			}
 		}
 
 		return randomNumbers;
