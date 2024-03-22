@@ -7,6 +7,7 @@ using System.Linq;
 using UXF;
 using UnityEngine.Events;
 using eDIA.Utilities;
+using UnityEditorInternal;
 
 // EXPERIMENT CONTROL 
 namespace eDIA {
@@ -111,7 +112,15 @@ namespace eDIA {
 			}
 		}
 
-		private void Update() {
+		void Reset() {
+			_activeSessionBlockNum = 0;
+			_currentStep = -1;
+			_isPauseRequested = false;
+			State = XState.IDLE;
+			_prevState = State;
+		}
+
+		void Update() {
 			if (State != _prevState) {
 				_prevState = State;
 			}
@@ -293,6 +302,8 @@ namespace eDIA {
 			EnablePauseButton(false);
 
 			HideMessagePanelButtons();
+
+			Reset();
 		}
 
 		/// <summary>Done with all trial, clean up and call UXF to end this session</summary>

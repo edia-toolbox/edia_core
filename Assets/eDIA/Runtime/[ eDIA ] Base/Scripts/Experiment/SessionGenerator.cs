@@ -20,6 +20,12 @@ namespace eDIA {
 			EventManager.StartListening(eDIA.Events.Config.EvSetXBlockSequence, OnEvSetXBlockSequence);
 			EventManager.StartListening(eDIA.Events.Config.EvSetTaskDefinitions, OnEvSetBaseDefinitions);
 			EventManager.StartListening(eDIA.Events.Config.EvSetXBlockDefinitions, OnEvSetXBlockDefinitions);
+
+			EventManager.StartListening(eDIA.Events.StateMachine.EvFinalizeSession, OnFinalizeSession);
+		}
+
+		private void OnFinalizeSession(eParam param) {
+			Reset();
 		}
 
 		public void Reset() {
