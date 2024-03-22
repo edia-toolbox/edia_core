@@ -7,21 +7,21 @@ using UnityEngine.UI;
 
 public class StimulusD2 : MonoBehaviour
 {
-	bool isValid { get; set; } = false;
-	public bool IsValid { get { return isValid; } }
+	public bool IsValid { get; private set; } = false;
 
-	public bool isTicked = false;
-	//public bool IsTicked { get { return isTicked; } }
+	public bool IsTicked = false;
+	//public bool IsTicked { get { return IsTicked; } }
 
-	public bool isSelected = false;
+	public bool IsSelected = false;
 
 	public Color IdleColor = Color.white;
 	public Color TickedColor = Color.white;
 	public Color HighlightedColor = Color.white;
 	public TextMeshProUGUI ValueFieldObj;
 
-    List<string> validTexts = new List<string>() { "II\nd\n ", "\nd\nII" };
-	List<string> invalidTexts = new List<string>() { "II\np\n ", "I\np\n ", "I\nd\n ", "I\np\nI", "\np\nI", "\np\nII", "I\nd\nI" };
+    List<string> _validTexts = new List<string>() { "II\nd\n ", "\nd\nII", "I\nd\nI" };
+	List<string> _invalidTexts = new List<string>() { "II\np\n ", "I\np\n ", "I\np\nI", "\np\nI", "\np\nII", 
+		"I\nd\n ", "\nd\nI "};
 
 	//void OnEnable() {
 	//	GetComponent<Button>().onClick.AddListener(() => this.OnButtonClick());
@@ -31,44 +31,40 @@ public class StimulusD2 : MonoBehaviour
 	//	GetComponent<Button>().onClick.RemoveListener(() => this.OnButtonClick());
 	//}
 
-	public void SetValid (bool _isValid) {
-		isValid = _isValid;
-		ValueFieldObj.text = _isValid ? validTexts[Random.Range(0,2)] : invalidTexts[Random.Range(0, invalidTexts.Count)];
+	public void SetValid (bool isValid) {
+		this.IsValid = isValid;
+		ValueFieldObj.text = isValid ? _validTexts[Random.Range(0, _validTexts.Count)] : _invalidTexts[Random.Range(0, _invalidTexts.Count)];
 	}
 
 	public void OnButtonClick () {
-		if (!isSelected)
+		if (!IsSelected)
 			return;
 
-		isTicked = !isTicked;
-		GetComponent<Image>().color = isTicked ? TickedColor : IdleColor;
-	}
-
-	public void ClickerdieClick () {
-		Debug.Log($"Random number {UnityEngine.Random.Range(0, 3000)}");
+		IsTicked = !IsTicked;
+		GetComponent<Image>().color = IsTicked ? TickedColor : IdleColor;
 	}
 
 	public void OnPointerEnter () {
 		GetComponent<Image>().color = HighlightedColor;
-		isSelected = true;
+		IsSelected = true;
 	}
 
 	public void OnPointerExit () {
-		GetComponent<Image>().color = isTicked ? TickedColor : IdleColor;
-		isSelected = false;
+		GetComponent<Image>().color = IsTicked ? TickedColor : IdleColor;
+		IsSelected = false;
 	}
 
 	public void Reset() {
-		isValid = false;
-		isTicked = false;
+		IsValid = false;
+		IsTicked = false;
 		GetComponent<Image>().color = IdleColor;
 	}
 
 	/// <summary>
 	/// Converts state of stimuli into bool array
 	/// </summary>
-	/// <returns>[0] isValid, [1] isTicked</returns>
+	/// <returns>[0] IsValid, [1] IsTicked</returns>
 	public bool[] GetResult () {
-		return new bool[] { isValid, isTicked };
+		return new bool[] { IsValid, IsTicked };
 	}
 }
