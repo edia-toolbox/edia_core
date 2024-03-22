@@ -244,7 +244,8 @@ namespace eDIA {
 					Debug.Log ("<color=#00ff00>[]> </color>" + eventName);
 				thisEvent.Invoke (eventParam);
 			} else {
-				Debug.Log("No listener for:" + eventName);
+				if (showLog)
+					Debug.Log("No listener for:" + eventName);
 			}
 		}
 
