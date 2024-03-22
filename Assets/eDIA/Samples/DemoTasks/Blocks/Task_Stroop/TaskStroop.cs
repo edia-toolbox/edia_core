@@ -32,18 +32,18 @@ namespace eDia {
                     Session.instance.CurrentBlock.settings.GetStringList("colors")[s],
                     Session.instance.CurrentBlock.settings.GetStringList("words")[s],
                     Session.instance.CurrentBlock.settings.GetString("target"),
-					Session.instance.CurrentBlock.settings.GetString("target") == "color" ? Session.instance.CurrentTrial.settings.GetString("color") : Session.instance.CurrentTrial.settings.GetString("word")
+					Session.instance.CurrentBlock.settings.GetString("target") == "color" ? 
+                        Session.instance.CurrentTrial.settings.GetString("color") : 
+                        Session.instance.CurrentTrial.settings.GetString("word")
 					);
 
-                int UniqueGeneratedInt = s;
-				Stimulis[s].GetComponent<Button>().onClick.AddListener(() => StimuliSelected(UniqueGeneratedInt));
+                int uniqueGeneratedId = s;
+				Stimulis[s].GetComponent<Button>().onClick.AddListener(() => StimuliSelected(uniqueGeneratedId));
                 Stimulis[s].GetComponent<Button>().interactable = true;
 			}
 
             Color col = Color.white;
-
-			if (Session.instance.CurrentBlock.settings.GetString("target") == "color")
-                    ColorUtility.TryParseHtmlString(Session.instance.CurrentTrial.settings.GetString("color"), out col);
+            ColorUtility.TryParseHtmlString(Session.instance.CurrentTrial.settings.GetString("color"), out col);
 
 			StroopTextfield.text  = Session.instance.CurrentTrial.settings.GetString("word");
             StroopTextfield.color = col;

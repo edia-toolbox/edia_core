@@ -6,21 +6,24 @@ using UnityEngine.UI;
 using UXF;
 
 public class StimuliStroop : MonoBehaviour {
-	public bool IsValid = false;
+
+	[Header("references")]
 	public Image ColorImage = null;
 	public TextMeshProUGUI WordValueField = null;
+	
 	string value = "";
+	[HideInInspector]
+	public bool IsValid = false;
 
 	public void Init(string col, string word, string target, string answer) {
 		Color newColor = Color.white;
 		ColorUtility.TryParseHtmlString(col, out newColor);
 		IsValid = false;
+		
+		ColorImage.color = newColor;
 
 		switch (target) {
 			case "color":
-				ColorImage.color = newColor;
-				ColorImage.gameObject.SetActive(true);
-				WordValueField.gameObject.SetActive(false);
 				value = col;
 
 				if (col == answer)
@@ -28,11 +31,6 @@ public class StimuliStroop : MonoBehaviour {
 
 				break;
 			case "word":
-				WordValueField.text = word;
-				WordValueField.color = newColor;
-				WordValueField.gameObject.SetActive(true);
-				ColorImage.color = Color.white;
-				ColorImage.gameObject.SetActive(true);
 				value = word;
 
 				if (word == answer) 
