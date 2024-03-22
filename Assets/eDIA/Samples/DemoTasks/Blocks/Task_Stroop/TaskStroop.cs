@@ -13,7 +13,7 @@ namespace eDia {
 
         [Space(20)]
         public ScreenInVR StroopCanvas;
-        public TextMeshProUGUI _txtStroopObj;
+        public TextMeshProUGUI StroopTextfield;
         public List<StimuliStroop> Stimulis;
 
         void Awake() {
@@ -35,8 +35,8 @@ namespace eDia {
 					Session.instance.CurrentBlock.settings.GetString("target") == "color" ? Session.instance.CurrentTrial.settings.GetString("color") : Session.instance.CurrentTrial.settings.GetString("word")
 					);
 
-                int forSomeReasonItNeedsANewVar = s;
-				Stimulis[s].GetComponent<Button>().onClick.AddListener(() => StimuliSelected(forSomeReasonItNeedsANewVar));
+                int UniqueGeneratedInt = s;
+				Stimulis[s].GetComponent<Button>().onClick.AddListener(() => StimuliSelected(UniqueGeneratedInt));
                 Stimulis[s].GetComponent<Button>().interactable = true;
 			}
 
@@ -45,8 +45,8 @@ namespace eDia {
 			if (Session.instance.CurrentBlock.settings.GetString("target") == "color")
                     ColorUtility.TryParseHtmlString(Session.instance.CurrentTrial.settings.GetString("color"), out col);
 
-			_txtStroopObj.text  = Session.instance.CurrentTrial.settings.GetString("word");
-            _txtStroopObj.color = col;
+			StroopTextfield.text  = Session.instance.CurrentTrial.settings.GetString("word");
+            StroopTextfield.color = col;
 
 			StroopCanvas.Show(true);
 

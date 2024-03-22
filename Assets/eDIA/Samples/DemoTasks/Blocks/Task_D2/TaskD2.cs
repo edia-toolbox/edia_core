@@ -8,11 +8,12 @@ using eDIA;
 using UXF;
 
 public class TaskD2 : XBlock {
-	
-	public List<StimulusD2> stimuli = new();
-	List<int> validStimuliIndexes = new();
-	public int validStimuliAmount = 8; // TODO this would be a setting
+
+	[Space(20)]
+	public List<StimulusD2> Stimuli = new();
 	public ScreenInVR TaskCanvas; 
+	List<int> _validStimuliIndexes = new();
+	int _validStimuliAmount = 0; 
 
 	void Awake() {
 		TaskCanvas.Show(false);
@@ -25,11 +26,12 @@ public class TaskD2 : XBlock {
 
 	void GenerateGrid() {
 		// Determine random valid indexes
-		validStimuliIndexes = GenerateRandomNumbers(validStimuliAmount, stimuli.Count);
+		_validStimuliAmount = Session.instance.CurrentBlock.settings.GetInt("validStimuliAmount");
+		_validStimuliIndexes = GenerateRandomNumbers(_validStimuliAmount, Stimuli.Count);
 
 		// Generate sheet
-		for (int i = 0; i < stimuli.Count; i++) {
-			stimuli[i].SetValid( validStimuliIndexes.Contains(i) ? true : false );
+		for (int i = 0; i < Stimuli.Count; i++) {
+			Stimuli[i].SetValid( _validStimuliIndexes.Contains(i) ? true : false );
 		}
 
 		TaskCanvas.Show(true);
@@ -62,7 +64,7 @@ public class TaskD2 : XBlock {
 		int correctlyTicked = 0;
 		int incorrectlyTicked = 0;
 
-		foreach (StimulusD2 s in stimuli) {
+		foreach (StimulusD2 s in Stimuli) {
 			if(s.IsValid && s.isTicked)
 				correctlyTicked++;
 
@@ -80,7 +82,7 @@ public class TaskD2 : XBlock {
 	}
 
 	private void CleanUp() {
-		foreach (StimulusD2 s in stimuli) {
+		foreach (StimulusD2 s in Stimuli) {
 			s.Reset();
 		}
 
