@@ -1,5 +1,5 @@
 using UnityEngine;
 
-namespace eDIA.EditorUtils {
+namespace Edia.EditorUtils {
     public class ReadOnlyAttribute : PropertyAttribute { }
 }

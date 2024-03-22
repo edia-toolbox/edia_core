@@ -5,7 +5,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace eDIA.EditorUtils {
+namespace Edia.EditorUtils {
 
 	[InitializeOnLoad]
 	public class Configurator : EditorWindow {

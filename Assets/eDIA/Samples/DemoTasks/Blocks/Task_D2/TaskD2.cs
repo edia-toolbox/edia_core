@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Utils;
-using eDIA;
+using Edia;
 using UXF;
 
 public class TaskD2 : XBlock {

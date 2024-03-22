@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using eDIA;
+using Edia;
 using UXF;
 
-namespace eDIA {
+namespace Edia {
 
 	public class Break : XBlock {
 		void Awake() {

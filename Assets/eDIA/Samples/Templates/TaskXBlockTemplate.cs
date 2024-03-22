@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using eDIA;
+using Edia;
 using UnityEngine;
 using UXF;
 using UnityEngine.InputSystem;

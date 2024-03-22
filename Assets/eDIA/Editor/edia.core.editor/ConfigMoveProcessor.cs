@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEditor;
 using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
-using eDIA;
+using Edia;
 
 /// <summary>
 /// Handles post Unity build actions, i.e. copy config files to build directory

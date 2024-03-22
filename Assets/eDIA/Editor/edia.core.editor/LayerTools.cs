@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-namespace eDIA.EditorUtils
+namespace Edia.EditorUtils
 {
 	public static class LayerTools
 	{

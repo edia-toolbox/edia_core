@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
-using eDIA.Utilities;
+using Edia.Utilities;
 
 public class UtilityTests
 {

@@ -1,4 +1,4 @@
-using eDIA;
+using Edia;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
