@@ -71,8 +71,6 @@ namespace eDIA.Manager
 				EventManager.StartListening(eDIA.Events.ControlPanel.EvConnectionEstablished, OnEvConnectionEstablished);
 			} else 
 				InitConfigFileSearch();
-
-			Debug.Log("Init done");
 		}
 
 

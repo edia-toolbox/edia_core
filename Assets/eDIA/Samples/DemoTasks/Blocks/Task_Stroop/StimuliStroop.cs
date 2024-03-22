@@ -22,6 +22,8 @@ public class StimuliStroop : MonoBehaviour {
 		
 		ColorImage.color = newColor;
 
+		WordValueField.fontSize = Session.instance.CurrentBlock.settings.GetInt("font_size");
+
 		switch (target) {
 			case "color":
 				value = col;

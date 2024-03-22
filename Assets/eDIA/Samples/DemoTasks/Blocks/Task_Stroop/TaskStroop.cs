@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine;
 using eDIA;
 using UXF;
+using Utils;
 using UnityEngine.UI;
 
 namespace eDia {
@@ -62,8 +63,9 @@ namespace eDia {
         }
 
         public void StimuliSelected (int stimuliIndex) {
+			this.Add2Console($"Stimuli id:{stimuliIndex} pressed");
 
-            CheckLogResultsProceed(stimuliIndex);
+			CheckLogResultsProceed(stimuliIndex);
 			XRManager.Instance.EnableXRRayInteraction(false);
 
 			Experiment.Instance.Proceed();
@@ -82,8 +84,6 @@ namespace eDia {
 
 
         void CheckLogResultsProceed(int stimuliIndex) {
-
-            Debug.Log($"Correct {Stimulis[stimuliIndex].IsValid}");
 
             // Log settings
             Experiment.Instance.AddToTrialResults("word", Session.instance.CurrentTrial.settings.GetString("word"));

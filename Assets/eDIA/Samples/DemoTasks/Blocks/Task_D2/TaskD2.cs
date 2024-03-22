@@ -48,7 +48,7 @@ public class TaskD2 : XBlock {
 	}
 
 	public void TaskDoneBtnPressed() {
-		this.Add2Console("TaskButtonPressed calling Proceed");
+		this.Add2Console("TaskDoneBtnPressed");
 		Experiment.Instance.Proceed();
 	}
 
@@ -57,7 +57,6 @@ public class TaskD2 : XBlock {
 	}
 
 	void CheckAndLogResults () {
-		//Debug.Log();
 		XRManager.Instance.EnableXRRayInteraction(false);
 
 		// Check sheets and log to UXF
@@ -71,8 +70,6 @@ public class TaskD2 : XBlock {
 			if (s.isTicked && !s.IsValid)
 				incorrectlyTicked++;
 		}
-
-		Debug.Log("correctlyTicked: " + correctlyTicked + " incorrect: " + incorrectlyTicked);
 
 		Session.instance.CurrentTrial.result["correctlyTicked"] = correctlyTicked;
 		Session.instance.CurrentTrial.result["incorrectlyTicked"] = incorrectlyTicked;
@@ -92,7 +89,6 @@ public class TaskD2 : XBlock {
 		Experiment.Instance.Proceed();
 	}
 
-
 	static List<int> GenerateRandomNumbers(int count, int maxValue) {
 		System.Random random = new System.Random();
 		List<int> randomNumbers = new List<int>();
@@ -104,15 +100,6 @@ public class TaskD2 : XBlock {
 		return randomNumbers;
 	}
 
-	public override void OnBlockStart() {
-		base.OnBlockStart();
-
-	}
-
-	public override void OnBlockEnd() {
-		base.OnBlockEnd();
-
-	}
 }
 
 
