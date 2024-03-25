@@ -17,8 +17,7 @@ namespace Edia {
 
 			if (Session.instance.CurrentBlock.settings.GetBool("fadetoblack")) {
 				this.Add2Console("fade to black");
-				XRManager.Instance.HideVR(true);
-
+				XRManager.Instance.HideVR();
 			}
 
 			Experiment.Instance.WaitOnProceed();

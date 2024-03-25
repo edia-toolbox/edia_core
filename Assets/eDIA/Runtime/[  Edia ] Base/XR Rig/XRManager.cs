@@ -88,14 +88,25 @@ namespace Edia {
 		#endregion // -------------------------------------------------------------------------------------------------------------------------------
 		#region HANDS
 
-		public void HideVR (bool _onOff) {
-			this.Add2Console($"Hide VR {_onOff}");
-			if (_onOff)	XRCam.GetComponent<ScreenFader>().StartFadeBlackIn();
-			else XRCam.GetComponent<ScreenFader>().StartFadeBlackOut();
+		public void HideVR () {
+			Fade(true, -1f);
+		}
+
+		public void HideVR(float _fadeSpeed) {
+			Fade(true, _fadeSpeed);
+		}
+
+		void Fade(bool _onOff, float _fadeSpeed) {
+			if (_onOff) XRCam.GetComponent<ScreenFader>().StartFadeBlackIn(_fadeSpeed);
+			else XRCam.GetComponent<ScreenFader>().StartFadeBlackOut(_fadeSpeed);
 		}
 
 		public void ShowVR () {
-			HideVR(false);
+			Fade(false, -1f);
+		}
+
+		public void ShowVR(float _fadeSpeed) {
+			Fade(false, _fadeSpeed);
 		}
 
 		public void ShowVRInstantly () {

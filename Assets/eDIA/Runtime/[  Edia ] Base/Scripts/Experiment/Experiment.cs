@@ -255,9 +255,7 @@ namespace Edia {
 			State = XState.RUNNING;
 
 			EventManager.StopListening(Edia.Events.StateMachine.EvProceed, OnEvProceed);
-			EnableProceedButton(false);
-
-			XRManager.Instance.ShowVRInstantly(); // TODO: This is now assuming that we want VR visable after a proceed call.
+			EnableProceedButton(false);			
 
 			NextTrialStep();
 		}
@@ -413,6 +411,8 @@ namespace Edia {
 		/// <summary>Called from UXF session. Begin setting things up for the trial that is about to start </summary>
 		void OnTrialBeginUXF(Trial newTrial) {
 			AddToExecutionOrderLog("OnTrialBeginUXF");
+
+			XRManager.Instance.ShowVRInstantly(); // TODO: This is now assuming that we want VR visable at the start of each trial.
 
 			bool isNewBlock = (Session.instance.currentBlockNum != _activeSessionBlockNum) && (Session.instance.currentBlockNum <= Session.instance.blocks.Count);
 

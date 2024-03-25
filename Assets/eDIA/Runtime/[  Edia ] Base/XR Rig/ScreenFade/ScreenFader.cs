@@ -2,20 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Utils;
 
 namespace Edia {
 
     /// <summary> Handles fading the camera view </summary>
     public class ScreenFader : MonoBehaviour
     {
-        [SerializeField] private float _speed = 1.0f;
-        [SerializeField] private float _intensity = 0.0f;
-        [SerializeField] private Color _color = Color.black;
+		[SerializeField] private float _defaultSpeed = 1f;
+		private float _speed = 1f;
+        private float _intensity = 0.0f;
+        private Color _color = Color.black;
 		public Image _fadeImage = null;
 		bool isBlack = false;
 
-
-        private void OnDrawGizmos() { // Draw HMD gizmo
+		private void OnDrawGizmos() { // Draw HMD gizmo
             Gizmos.color = Color.cyan;
             Gizmos.matrix = transform.localToWorldMatrix;
             Gizmos.DrawSphere(Vector3.zero, 0.1f);
@@ -35,8 +36,18 @@ namespace Edia {
         public Coroutine StartFadeBlackIn()
         {
             StopAllCoroutines();
-            return StartCoroutine(FadeBlackIn());
+			_speed = _defaultSpeed;
+			return StartCoroutine(FadeBlackIn());
         }
+
+        /// <summary>Fade to black with given speed</summary>
+        /// <param name="_fadeSpeed">Default = 0.5</param>
+        /// <returns></returns>
+		public Coroutine StartFadeBlackIn(float _fadeSpeed) {
+			StopAllCoroutines();
+            _speed = _fadeSpeed == -1 ? _speed : _fadeSpeed;
+			return StartCoroutine(FadeBlackIn());
+		}
 
 		IEnumerator FadeBlackIn()
         {
@@ -56,10 +67,18 @@ namespace Edia {
         public Coroutine StartFadeBlackOut()
         {
             StopAllCoroutines();
+            _speed = _defaultSpeed;
             return StartCoroutine(FadeBlackOut());
         }
 
-        private IEnumerator FadeBlackOut()
+		public Coroutine StartFadeBlackOut(float _fadeSpeed) {
+			StopAllCoroutines();
+			_speed = _fadeSpeed == -1 ? _speed : _fadeSpeed;
+			this.Add2Console("fading to VR with " + _speed);
+			return StartCoroutine(FadeBlackOut());
+		}
+
+		private IEnumerator FadeBlackOut()
         {
             while (_intensity >= 0.0f)
             {
