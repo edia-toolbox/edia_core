@@ -1,4 +1,5 @@
 using Edia;
+using Edia.Controller;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -17,8 +18,16 @@ public class ConnectedIcon : MonoBehaviour
 	private void Awake() {
 		connectedImage = GetComponent<Image>();
 		_unConnectedColor = connectedImage.color;
+		
+		if (ControlPanel.Instance.Settings.ControlMode is ControlMode.Local)
+			HideMe();
+		else {
+			EventManager.StartListening(Edia.Events.ControlPanel.EvConnectionEstablished, OnEvConnectionEstablished);
+		}
+	}
 
-		EventManager.StartListening(Edia.Events.ControlPanel.EvConnectionEstablished, OnEvConnectionEstablished);
+	private void HideMe() {
+		this.gameObject.SetActive(false);
 	}
 
 	private void OnDestroy() {
