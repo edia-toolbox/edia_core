@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Edia.Manager {
+namespace Edia.Controller {
 
 	/// <summary>Base Panel functionality</summary>
 	public class ExperimenterPanel : MonoBehaviour {

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Edia.Manager {
+namespace Edia.Controller {
 
 	[System.Serializable]
 	public enum ControlMode { Local, Remote };

@@ -6,7 +6,7 @@ using System.Linq;
 using TMPro;
 using System;
 
-namespace Edia.Manager {
+namespace Edia.Controller {
 
 	/// <summary>GUI element that enables the user to choose from a dropdown of found experiment config files</summary>
 	public class PanelConfigSelection : ExperimenterPanel {

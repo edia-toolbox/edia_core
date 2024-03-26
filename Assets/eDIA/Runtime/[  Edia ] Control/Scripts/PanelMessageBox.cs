@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-namespace Edia.Manager
+namespace Edia.Controller
 {
 
 	public class PanelMessageBox : ExperimenterPanel

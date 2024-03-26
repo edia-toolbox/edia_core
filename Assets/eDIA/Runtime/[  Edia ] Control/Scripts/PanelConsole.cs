@@ -22,7 +22,7 @@ using System.Linq;
 // var var2 = 27;
 //
 
-namespace Edia.Manager
+namespace Edia.Controller
 {
 
 	public class PanelConsole : MonoBehaviour

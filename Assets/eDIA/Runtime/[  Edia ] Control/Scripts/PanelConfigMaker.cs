@@ -6,7 +6,7 @@ using System.Linq;
 using TMPro;
 using System;
 
-namespace Edia.Manager {
+namespace Edia.Controller {
 
 	/// <summary>Panel for setting up config files, for now choosing them from pre-set versions</summary>
 	/// 

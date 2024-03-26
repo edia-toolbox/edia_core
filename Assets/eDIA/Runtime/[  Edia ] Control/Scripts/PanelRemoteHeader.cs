@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
-using Edia.Manager;
+using Edia.Controller;
 
 namespace Edia {
 

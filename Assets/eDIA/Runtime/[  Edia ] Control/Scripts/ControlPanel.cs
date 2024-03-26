@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace Edia.Manager
+namespace Edia.Controller
 {
 
 	public class ControlPanel : Singleton<ControlPanel>

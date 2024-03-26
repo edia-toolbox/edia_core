@@ -7,7 +7,7 @@ using TMPro;
 using System;
 using UXF;
 
-namespace Edia.Manager {
+namespace Edia.Controller {
 
 	public class PanelExperimentControl : ExperimenterPanel {
 

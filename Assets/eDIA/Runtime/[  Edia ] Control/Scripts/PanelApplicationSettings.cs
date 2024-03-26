@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Edia;
 
-namespace Edia.Manager {
+namespace Edia.Controller {
 
 	public class PanelApplicationSettings : ExperimenterPanel {
 
