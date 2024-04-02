@@ -13,7 +13,7 @@ namespace Edia {
 		private float _speed = 1f;
         private float _intensity = 0.0f;
         private Color _color = Color.black;
-		public Image _fadeImage = null;
+		public Image FadeImage = null;
 		bool isBlack = false;
 
 		private void OnDrawGizmos() { // Draw HMD gizmo
@@ -29,8 +29,8 @@ namespace Edia {
                 return;
 
             StopAllCoroutines();
-			_fadeImage.color = new Color(_color.r, _color.g, _color.b, 0f);
-			_fadeImage.enabled = false;
+			FadeImage.color = new Color(_color.r, _color.g, _color.b, 0f);
+			FadeImage.enabled = false;
 		}
 
         public Coroutine StartFadeBlackIn()
@@ -51,16 +51,16 @@ namespace Edia {
 
 		IEnumerator FadeBlackIn()
         {
-            _fadeImage.enabled = true;
+            FadeImage.enabled = true;
 
             while (_intensity <= 1.0f)
             {
                 _intensity += _speed * Time.deltaTime;
-                _fadeImage.color = new Color(_color.r, _color.g, _color.b, _intensity);
+                FadeImage.color = new Color(_color.r, _color.g, _color.b, _intensity);
                 yield return null;
             }
 
-			_fadeImage.color = new Color(_color.r, _color.g, _color.b, 1f);
+			FadeImage.color = new Color(_color.r, _color.g, _color.b, 1f);
             isBlack = true;
 		}
 
@@ -83,7 +83,7 @@ namespace Edia {
             while (_intensity >= 0.0f)
             {
                 _intensity -= _speed * Time.deltaTime;
-				_fadeImage.color = new Color(_color.r, _color.g, _color.b, _intensity);
+				FadeImage.color = new Color(_color.r, _color.g, _color.b, _intensity);
 				yield return null;
             }
 
