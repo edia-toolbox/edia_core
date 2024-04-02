@@ -10,27 +10,27 @@ namespace Edia.Controller
 {
 	public class ControlPanel : Singleton<ControlPanel>
 	{
-		public Transform NonActivePanelHolder = null;
-		public Transform PanelHolder = null;
-		public Transform RemotePanel = null;
-		public Transform RemotePanelHolder = null;
-		public Transform ConsolePanel = null;
+		[Space(20)]
+		public ControlSettings Settings;
 		public bool ShowEventLog = true;
 		public bool ShowConsole = false;
 
-		[Space(20)]
-		public ControlSettings Settings;
-
+		[Header("Refs")]
+		public Transform NonActivePanelHolder = null;
+		public Transform PanelHolder = null;
+		public Transform RemotePanel = null;
+		//public Transform RemotePanelHolder = null;
+		public Transform ConsolePanel = null;
 		// Local
-		PanelMessageBox _pMessageBox = null;
-		PanelConfigSelection _pConfigSelection = null;
-		PanelHeader _pHeader = null;
-		PanelApplicationSettings _pApplicationSettings = null;
-		PanelExperimentControl _pExperimentControl = null;
+		public PanelMessageBox _pMessageBox = null;
+		public PanelConfigSelection _pConfigSelection = null;
+		public PanelHeader _pHeader = null;
+		public PanelApplicationSettings _pApplicationSettings = null;
+		public PanelExperimentControl _pExperimentControl = null;
 
 		// Remote
 		PanelConfigMaker _pConfigMaker = null;
-		List<Transform> _currentPanelOrder = new List<Transform>();
+		public List<Transform> _currentPanelOrder = new List<Transform>();
 
 		void Awake()
 		{
@@ -71,11 +71,11 @@ namespace Edia.Controller
 				tr.name = tr.GetSiblingIndex().ToString() + "_" + tr.name;
 			}
 
-			_pMessageBox 			= NonActivePanelHolder.GetComponentInChildren<PanelMessageBox>();
-			_pConfigSelection 		= NonActivePanelHolder.GetComponentInChildren<PanelConfigSelection>();
-			_pExperimentControl 	= NonActivePanelHolder.GetComponentInChildren<PanelExperimentControl>();
-			_pHeader 				= NonActivePanelHolder.GetComponentInChildren<PanelHeader>();
-			_pApplicationSettings 	= NonActivePanelHolder.GetComponentInChildren<PanelApplicationSettings>();
+			//_pMessageBox 			= NonActivePanelHolder.GetComponentInChildren<PanelMessageBox>();
+			//_pConfigSelection 		= NonActivePanelHolder.GetComponentInChildren<PanelConfigSelection>();
+			//_pExperimentControl 	= NonActivePanelHolder.GetComponentInChildren<PanelExperimentControl>();
+			//_pHeader 				= NonActivePanelHolder.GetComponentInChildren<PanelHeader>();
+			//_pApplicationSettings 	= NonActivePanelHolder.GetComponentInChildren<PanelApplicationSettings>();
 		}
 
 		void OnEvConnectionEstablished(eParam obj)

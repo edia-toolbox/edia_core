@@ -22,7 +22,7 @@ namespace Edia {
 		}
 
 		public void LogoClicked() {
-			EventManager.TriggerEvent(Edia.Events.Settings.EvOpenSystemSettings, null);
+			EventManager.TriggerEvent(Edia.Events.Settings.EvRequestSystemSettings, null);
 		}
 
 		// Received a file name to load, so we know now what task this is as it's part of the param
