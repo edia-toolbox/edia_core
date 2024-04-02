@@ -72,6 +72,7 @@ namespace Edia {
 		public void ShowMessage(string msg, float duration) {
 			ShowMessage(msg);
 			_messageTimer = StartCoroutine("timer", duration);
+			HideMenu();
 		}
 
 		/// <summary>
@@ -143,7 +144,7 @@ namespace Edia {
 		}
 
 		#endregion // -------------------------------------------------------------------------------------------------------------------------------
-		#region HIDE
+#region HIDE
 
 		/// <summary>Event catcher</summary>
 		void OnEvHideMessage(eParam e) {
@@ -172,7 +173,7 @@ namespace Edia {
 		}
 
 		#endregion // -------------------------------------------------------------------------------------------------------------------------------
-		#region MENU
+#region MENU
 
 		public void HideMenu() {
 			ButtonToggling(false, false);
