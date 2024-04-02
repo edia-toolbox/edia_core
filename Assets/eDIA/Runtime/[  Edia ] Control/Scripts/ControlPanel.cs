@@ -89,9 +89,9 @@ namespace Edia.Controller
 			// General
 			_pMessageBox 			= GetComponentInChildren<PanelMessageBox>();
 			_pConfigSelection 		= GetComponentInChildren<PanelConfigSelection>();
+			_pExperimentControl 	= GetComponentInChildren<PanelExperimentControl>();
 			_pHeader 				= GetComponentInChildren<PanelHeader>();
 			_pApplicationSettings 	= GetComponentInChildren<PanelApplicationSettings>();
-			_pExperimentControl 	= GetComponentInChildren<PanelExperimentControl>();
 		}
 
 		public void ShowPanel(Transform panel, bool onOff)
