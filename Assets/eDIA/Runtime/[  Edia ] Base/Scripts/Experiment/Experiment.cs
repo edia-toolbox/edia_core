@@ -256,9 +256,7 @@ namespace Edia {
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region STATEMACHINE PROCEED
 
-		/// <summary>
-		/// Test
-		/// </summary>
+		/// <summary>Enables experimenter 'Proceed' button, and waits OnEvProceed event</summary>
 		public void WaitOnProceed() {
 			State = XState.WAITINGONPROCEED;
 
@@ -266,6 +264,7 @@ namespace Edia {
 			EventManager.StartListening(Edia.Events.StateMachine.EvProceed, OnEvProceed);
 		}
 
+		/// <summary>Triggers OnEvProceed event</summary>
 		public void Proceed() {
 			EventManager.TriggerEvent(Edia.Events.StateMachine.EvProceed);
 		}
