@@ -30,7 +30,7 @@ namespace Edia.Controller
 
 		// Remote
 		PanelConfigMaker _pConfigMaker = null;
-		public List<Transform> _currentPanelOrder = new List<Transform>();
+		List<Transform> _currentPanelOrder = new List<Transform>();
 
 		void Awake()
 		{
