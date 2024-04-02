@@ -34,11 +34,11 @@ namespace Edia.Controller
 
 		void Awake()
 		{
-			DontDestroyOnLoad(this);
-
-			GetPanelReferences();
-
+			PreparePanels();
+			
 			Init();
+			
+			DontDestroyOnLoad(this);
 		}
 
 		void OnDestroy()
@@ -46,32 +46,37 @@ namespace Edia.Controller
 			EventManager.StopListening (Edia.Events.ControlPanel.EvConnectionEstablished, OnEvConnectionEstablished);
 		}
 
-		void Init()
-		{
+		void Init() {
 			EventManager.showLog = ShowEventLog; // Eventmanager to show debug in console
 
+			ConsolePanel.gameObject.SetActive(ShowConsole);
+			//RemotePanel.gameObject.SetActive(Settings.ControlMode is ControlMode.Remote);
+
+			if (Settings.ControlMode is ControlMode.Remote) {
+				EventManager.StartListening(Edia.Events.ControlPanel.EvConnectionEstablished, OnEvConnectionEstablished);
+			}
+			else
+				InitConfigFileSearch();
+		}
+
+		void PreparePanels() {
+			
 			// Move all panels from task first to non visuable holder
-			foreach (Transform t in PanelHolder) { 
+			foreach (Transform t in PanelHolder) {
 				t.SetParent(NonActivePanelHolder, true);
 			}
 
 			// Panels renaming
-			foreach (Transform tr in NonActivePanelHolder)
-			{
+			foreach (Transform tr in NonActivePanelHolder) {
 				tr.name = tr.GetSiblingIndex().ToString() + "_" + tr.name;
 			}
 
-			ConsolePanel.gameObject.SetActive(ShowConsole);
-			RemotePanel.gameObject.SetActive(Settings.ControlMode is ControlMode.Remote);
-
-			if (Settings.ControlMode is ControlMode.Remote)
-			{
-				EventManager.StartListening(Edia.Events.ControlPanel.EvConnectionEstablished, OnEvConnectionEstablished);
-			} else 
-				InitConfigFileSearch();
+			_pMessageBox 			= NonActivePanelHolder.GetComponentInChildren<PanelMessageBox>();
+			_pConfigSelection 		= NonActivePanelHolder.GetComponentInChildren<PanelConfigSelection>();
+			_pExperimentControl 	= NonActivePanelHolder.GetComponentInChildren<PanelExperimentControl>();
+			_pHeader 				= NonActivePanelHolder.GetComponentInChildren<PanelHeader>();
+			_pApplicationSettings 	= NonActivePanelHolder.GetComponentInChildren<PanelApplicationSettings>();
 		}
-
-
 
 		void OnEvConnectionEstablished(eParam obj)
 		{
@@ -82,16 +87,6 @@ namespace Edia.Controller
 		void InitConfigFileSearch()
 		{
 			_pConfigSelection.Init();
-		}
-
-		void GetPanelReferences()
-		{
-			// General
-			_pMessageBox 			= GetComponentInChildren<PanelMessageBox>();
-			_pConfigSelection 		= GetComponentInChildren<PanelConfigSelection>();
-			_pExperimentControl 	= GetComponentInChildren<PanelExperimentControl>();
-			_pHeader 				= GetComponentInChildren<PanelHeader>();
-			_pApplicationSettings 	= GetComponentInChildren<PanelApplicationSettings>();
 		}
 
 		public void ShowPanel(Transform panel, bool onOff)
