@@ -21,7 +21,7 @@ namespace Edia {
 			EventManager.StartListening(Edia.Events.Config.EvSetTaskDefinitions, OnEvSetBaseDefinitions);
 			EventManager.StartListening(Edia.Events.Config.EvSetXBlockDefinitions, OnEvSetXBlockDefinitions);
 
-			EventManager.StartListening(Edia.Events.StateMachine.EvFinalizeSession, OnFinalizeSession);
+			EventManager.StartListening(Edia.Events.StateMachine.EvSessionEnded, OnFinalizeSession);
 		}
 
 		private void OnFinalizeSession(eParam param) {

@@ -96,7 +96,7 @@ namespace Edia.Events {
 		public const string EvTrialBegin = "EvTrialBegin";
 
 		/// <summary>Fired by ExperimentManager when the session had Finialized. Expects null</summary>
-		public const string EvFinalizeSession = "EvFinalizeSession";
+		public const string EvSessionEnded = "EvSessionEnded";
 
 		/// <summary>Fired by ExperimentManager when the session starts a break. Expects null</summary>
 		public const string EvSessionBreak = "EvSessionBreak";
@@ -162,10 +162,6 @@ namespace Edia.Events {
 		public const string EvConnectionEstablished = "EvConnectionEstablished ";
 
 
-		/// <summary>Sets the controlpanelmode. Exprects int. 0=hidden, 1=2Dcanvas, 2=3Dcanvas</summary>
-		// public const string EvSetControlPanelMode = "EvSetControlPanelMode";
-
-
 	}
 
 	//? ========================================================================================================
@@ -188,7 +184,7 @@ namespace Edia.Events {
 
 		public const string NwEvPauseExperiment = "NwEvPauseExperiment";
 
-		public const string NwEvFinalizeSession = "NwEvFinalizeSession ";
+		public const string NwEvSessionEnded = "NwEvSessionEnded ";
 
 		public const string NwEvProceed = "NwEvProceed";
 

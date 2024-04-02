@@ -89,7 +89,7 @@ namespace Edia.Controller {
 
 			EventManager.StartListening(Edia.Events.ControlPanel.EvUpdateTrialProgress, OnEvUpdateTrialProgress);
 			EventManager.StartListening(Edia.Events.ControlPanel.EvUpdateStepProgress, OnEvUpdateStepProgress);
-			EventManager.StartListening(Edia.Events.StateMachine.EvFinalizeSession, OnEvFinalizeSession);
+			EventManager.StartListening(Edia.Events.StateMachine.EvSessionEnded, OnEvFinalizeSession);
 		}
 
 		private void OnEvUpdateExperimentSummary(eParam e) {
@@ -105,7 +105,7 @@ namespace Edia.Controller {
 
 
 		private void OnEvFinalizeSession(eParam obj) {
-			EventManager.StopListening(Edia.Events.StateMachine.EvFinalizeSession, OnEvFinalizeSession);
+			EventManager.StopListening(Edia.Events.StateMachine.EvSessionEnded, OnEvFinalizeSession);
 			EventManager.StopListening(Edia.Events.ControlPanel.EvUpdateSessionSummary, OnEvUpdateExperimentSummary);
 
 			btnExperiment.transform.GetChild(0).GetComponentInChildren<Text>().text = "Quit";

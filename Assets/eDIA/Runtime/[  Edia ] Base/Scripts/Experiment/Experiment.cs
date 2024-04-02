@@ -324,6 +324,8 @@ namespace Edia {
 
 			HideMessagePanelButtons();
 
+			EventManager.TriggerEvent(Edia.Events.StateMachine.EvSessionEnded, null);
+
 			Reset();
 		}
 
@@ -332,8 +334,7 @@ namespace Edia {
 			AddToLog("FinalizeSession");
 
 			// clean
-			EventManager.TriggerEvent(Edia.Events.StateMachine.EvFinalizeSession, null);
-			UpdateProgressStatus("Finalize Session");
+			UpdateProgressStatus("Finalizing Session");
 			Session.instance.End();
 		}
 
