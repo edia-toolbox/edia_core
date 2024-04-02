@@ -188,6 +188,8 @@ namespace Edia.Events {
 
 		public const string NwEvPauseExperiment = "NwEvPauseExperiment";
 
+		public const string NwEvFinalizeSession = "NwEvFinalizeSession ";
+
 		public const string NwEvProceed = "NwEvProceed";
 
 		public const string NwEvToggleCasting = "NwEvToggleCasting";

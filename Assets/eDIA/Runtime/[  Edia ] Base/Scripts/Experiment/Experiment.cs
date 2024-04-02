@@ -256,7 +256,7 @@ namespace Edia {
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region STATEMACHINE PROCEED
 
-		/// <summary>Enables experimenter 'Proceed' button, and waits OnEvProceed event</summary>
+		/// <summary>Enables Controller 'Proceed' button, and waits OnEvProceed event</summary>
 		public void WaitOnProceed() {
 			State = XState.WAITINGONPROCEED;
 
@@ -425,7 +425,7 @@ namespace Edia {
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region UXF TRIALS
 
-		/// <summary>catching first button press of user </summary>
+		/// <summary>Catching first button press of user </summary>
 		void OnEvStartFirstTrial(eParam e) {
 			EventManager.StopListening(Edia.Events.StateMachine.EvProceed, OnEvStartFirstTrial);
 			UpdateTrialProgress();
