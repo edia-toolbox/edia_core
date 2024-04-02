@@ -88,10 +88,13 @@ namespace Edia {
 		#endregion // -------------------------------------------------------------------------------------------------------------------------------
 		#region HANDS
 
+		/// <summary>Fades VR user view to black</summary>
 		public void HideVR () {
 			Fade(true, -1f);
 		}
 
+		/// <summary>Fades VR user view to black</summary>
+		/// <param name="fadeSpeed">Speed to fade, default: 1</param>
 		public void HideVR(float _fadeSpeed) {
 			Fade(true, _fadeSpeed);
 		}
@@ -101,14 +104,18 @@ namespace Edia {
 			else XRCam.GetComponent<ScreenFader>().StartFadeBlackOut(_fadeSpeed);
 		}
 
+		/// <summary>Fades VR user view from black</summary>
 		public void ShowVR () {
 			Fade(false, -1f);
 		}
 
+		/// <summary>Fades VR user view from black</summary>
+		/// <param name="fadeSpeed">Speed to fade, default: 1</param>
 		public void ShowVR(float _fadeSpeed) {
 			Fade(false, _fadeSpeed);
 		}
 
+		/// <summary>Instantly shows VR user view</summary>
 		public void ShowVRInstantly () {
 			XRCam.GetComponent<ScreenFader>().HideBlockingImage();
 		}
