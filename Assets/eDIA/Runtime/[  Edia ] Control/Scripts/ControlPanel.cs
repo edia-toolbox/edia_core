@@ -8,10 +8,8 @@ using UnityEngine.UI;
 
 namespace Edia.Controller
 {
-
 	public class ControlPanel : Singleton<ControlPanel>
 	{
-
 		public Transform NonActivePanelHolder = null;
 		public Transform PanelHolder = null;
 		public Transform RemotePanel = null;
@@ -24,17 +22,17 @@ namespace Edia.Controller
 		public ControlSettings Settings;
 
 		// Local
-		private PanelMessageBox _pMessageBox = null;
-		private PanelConfigSelection _pConfigSelection = null;
-		private PanelHeader _pHeader = null;
-		private PanelApplicationSettings _pApplicationSettings = null;
-		private PanelExperimentControl _pExperimentControl = null;
+		PanelMessageBox _pMessageBox = null;
+		PanelConfigSelection _pConfigSelection = null;
+		PanelHeader _pHeader = null;
+		PanelApplicationSettings _pApplicationSettings = null;
+		PanelExperimentControl _pExperimentControl = null;
 
 		// Remote
-		private PanelConfigMaker _pConfigMaker = null;
-		private List<Transform> _currentPanelOrder = new List<Transform>();
+		PanelConfigMaker _pConfigMaker = null;
+		List<Transform> _currentPanelOrder = new List<Transform>();
 
-		private void Awake()
+		void Awake()
 		{
 			DontDestroyOnLoad(this);
 
@@ -43,12 +41,12 @@ namespace Edia.Controller
 			Init();
 		}
 
-		private void OnDestroy()
+		void OnDestroy()
 		{
 			EventManager.StopListening (Edia.Events.ControlPanel.EvConnectionEstablished, OnEvConnectionEstablished);
 		}
 
-		private void Init()
+		void Init()
 		{
 			EventManager.showLog = ShowEventLog; // Eventmanager to show debug in console
 
@@ -72,6 +70,7 @@ namespace Edia.Controller
 			} else 
 				InitConfigFileSearch();
 		}
+
 
 
 		void OnEvConnectionEstablished(eParam obj)
@@ -122,20 +121,6 @@ namespace Edia.Controller
 		{
 			_pMessageBox.ShowMessage(msg, autoHide);
 		}
-
-
-		#region XR Devices database
-
-		//public String GetXRDeviceName(int index) {
-		//	return devices.XRDevices[index].name;
-		//}
-
-		//public int GetXRDeviceIndex(string deviceInfo) {
-		//	return devices.XRDevices.FindIndex(x => x.name == deviceInfo);
-		//}
-
-		#endregion // -------------------------------------------------------------------------------------------------------------------------------                                                                                                                                    
-
 
 	}
 }
