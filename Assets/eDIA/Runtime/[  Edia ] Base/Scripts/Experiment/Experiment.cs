@@ -256,6 +256,9 @@ namespace Edia {
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region STATEMACHINE PROCEED
 
+		/// <summary>
+		/// Test
+		/// </summary>
 		public void WaitOnProceed() {
 			State = XState.WAITINGONPROCEED;
 
