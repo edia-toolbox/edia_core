@@ -62,7 +62,7 @@ namespace Edia.Controller
 			}
 
 			ConsolePanel.gameObject.SetActive(ShowConsole);
-			//RemotePanel.gameObject.SetActive(Settings.ControlMode is ControlMode.Remote);
+			RemotePanel.gameObject.SetActive(Settings.ControlMode is ControlMode.Remote);
 
 			if (Settings.ControlMode is ControlMode.Remote)
 			{
