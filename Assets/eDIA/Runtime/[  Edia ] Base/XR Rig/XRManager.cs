@@ -95,8 +95,8 @@ namespace Edia {
 
 		/// <summary>Fades VR user view to black</summary>
 		/// <param name="fadeSpeed">Speed to fade, default: 1</param>
-		public void HideVR(float _fadeSpeed) {
-			Fade(true, _fadeSpeed);
+		public void HideVR(float fadeSpeed) {
+			Fade(true, fadeSpeed);
 		}
 
 		void Fade(bool _onOff, float _fadeSpeed) {
@@ -111,8 +111,8 @@ namespace Edia {
 
 		/// <summary>Fades VR user view from black</summary>
 		/// <param name="fadeSpeed">Speed to fade, default: 1</param>
-		public void ShowVR(float _fadeSpeed) {
-			Fade(false, _fadeSpeed);
+		public void ShowVR(float fadeSpeed) {
+			Fade(false, fadeSpeed);
 		}
 
 		/// <summary>Instantly shows VR user view</summary>

@@ -41,10 +41,10 @@ namespace Edia {
         }
 
         /// <summary>Fade to black with given speed</summary>
-        /// <param name="_fadeSpeed">Default = 1</param>
-		public Coroutine StartFadeBlackIn(float _fadeSpeed) {
+        /// <param name="fadeSpeed">Default = 1</param>
+		public Coroutine StartFadeBlackIn(float fadeSpeed) {
 			StopAllCoroutines();
-            _speed = _fadeSpeed == -1 ? _speed : _fadeSpeed;
+            _speed = fadeSpeed < 0 ? _speed : fadeSpeed;
 			return StartCoroutine(FadeBlackIn());
 		}
 
@@ -70,9 +70,9 @@ namespace Edia {
             return StartCoroutine(FadeBlackOut());
         }
 
-		public Coroutine StartFadeBlackOut(float _fadeSpeed) {
+		public Coroutine StartFadeBlackOut(float fadeSpeed) {
 			StopAllCoroutines();
-			_speed = _fadeSpeed == -1 ? _speed : _fadeSpeed;
+			_speed = fadeSpeed < 0 ? _speed : fadeSpeed;
 			//this.Add2Console("fading to VR with " + _speed);
 			return StartCoroutine(FadeBlackOut());
 		}
