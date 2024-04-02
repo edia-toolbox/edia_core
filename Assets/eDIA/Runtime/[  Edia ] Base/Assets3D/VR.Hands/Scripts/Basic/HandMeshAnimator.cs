@@ -51,21 +51,19 @@ public class HandMeshAnimator : MonoBehaviour {
 	}
 
 
-
 	#endregion // -------------------------------------------------------------------------------------------------------------------------------
 	#region EVENTHANDLERS
 
 	private void EvEnableCustomHandPoses(eParam obj) {
 
 		if (obj.GetBool()) {
-	    		gripReference.action.performed += GripPerformed;
+	    	gripReference.action.performed += GripPerformed;
 			pointReference.action.performed += PointPerformed;
 		} else {
 			gripReference.action.performed -= GripPerformed;
 			pointReference.action.performed -= PointPerformed;
 		}
 	}
-
 
 	private void OnEvHandPose (eParam obj)
 	{
