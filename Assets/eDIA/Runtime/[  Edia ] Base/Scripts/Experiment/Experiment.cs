@@ -160,16 +160,39 @@ namespace Edia {
 			EventManager.TriggerEvent(Edia.Events.ControlPanel.EvUpdateStepProgress, new eParam(new int[] { _currentStep, _activeXBlock.trialSteps.Count }));
 		}
 
-		/// <summary>Called from this manager. </summary>
+		/// <summary>Show a message to the VR user in an overlayed panel. Default: Proceed button ON</summary>
+		/// <param name="msg">Message to show</param>
 		public void ShowMessageToUser (string msg) {
 			ShowMessageToUserGeneric();
 			MessagePanelInVR.Instance.ShowMessage(msg);
 		}
 
+		/// <summary>Show a list of messages to the VR user, one at a time, in an overlayed panel.</summary>
+		/// <param name="msg">Messages to show</param>
 		public void ShowMessageToUser (List<string> msgs) {
 			ShowMessageToUserGeneric();
 			MessagePanelInVR.Instance.ShowMessage(msgs);
 		}
+
+		/// <summary>Show a message to the VR user in an overlayed panel for a certain duration.</summary>
+		/// <param name="msg">Message to show</param>
+		/// <param name="duration">Time to show the message</param>
+		public void ShowMessageToUser (string msg, float duration) {
+			ShowMessageToUserGeneric();
+			MessagePanelInVR.Instance.ShowMessage (msg, duration);
+		}
+
+		/// <summary>Show a message to the VR user in an overlayed panel. </summary>
+		/// <param name="msg">Message to show</param>
+		/// <param name="showButton">False = no button</param>
+		public void ShowMessageToUser(string msg, bool showButton) {
+			ShowMessageToUserGeneric();
+			MessagePanelInVR.Instance.ShowMessage(msg);
+			
+			if (!showButton)
+				MessagePanelInVR.Instance.HideMenu();
+		}
+
 
 		void ShowMessageToUserGeneric () {
 			AddToExecutionOrderLog("ShowMessageToUser");

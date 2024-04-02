@@ -178,7 +178,6 @@ namespace Edia {
 		public void HideMenu() {
 			ButtonToggling(false, false);
 			XRManager.Instance.EnableXROverlayRayInteraction(false);
-
 		}
 
 
