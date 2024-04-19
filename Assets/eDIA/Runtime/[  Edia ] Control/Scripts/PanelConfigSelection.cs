@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using System.Linq;
 using TMPro;
 using System;
+using Unity.Properties;
 
 namespace Edia.Controller {
 
@@ -16,7 +17,7 @@ namespace Edia.Controller {
 
 		public string[] _subFolders;
 		public string[] _sessFolders;
-		public List<string> _xblockDefinitionJsonStrings = new();
+		public List<string> _taskDefinitionJsonStrings = new();
 		public List<string> _xBlockDefinitionJsonStrings = new();
 		string _xBlockSequenceJsonString;
 		string _sessionInfoJsonString;
@@ -74,9 +75,11 @@ namespace Edia.Controller {
 			if (!ValidateConfigs())
 				return;
 
+			Debug.Log("Passed validation");
+
 			EventManager.TriggerEvent(Edia.Events.Config.EvSetSessionInfo, new eParam(new string[] { _sessionInfoJsonString, _session.Split('-')[1], _subject.Split('-')[1] }));
 			EventManager.TriggerEvent(Edia.Events.Config.EvSetXBlockSequence, new eParam(_xBlockSequenceJsonString));
-			EventManager.TriggerEvent(Edia.Events.Config.EvSetTaskDefinitions, new eParam(_xblockDefinitionJsonStrings.ToArray()));
+			EventManager.TriggerEvent(Edia.Events.Config.EvSetTaskDefinitions, new eParam(_taskDefinitionJsonStrings.ToArray()));
 			EventManager.TriggerEvent(Edia.Events.Config.EvSetXBlockDefinitions, new eParam(_xBlockDefinitionJsonStrings.ToArray()));
 
 			HidePanel();
@@ -122,7 +125,7 @@ namespace Edia.Controller {
 			string[] filelist = FileManager.GetAllFilenamesWithExtensionFrom(_pathToTaskFiles, "json");
 
 			foreach (string s in filelist) {
-				_xblockDefinitionJsonStrings.Add(FileManager.ReadStringFromApplicationPath(_pathToTaskFiles + s));
+				_taskDefinitionJsonStrings.Add(FileManager.ReadStringFromApplicationPath(_pathToTaskFiles + s));
 			}
 
 			// Block Task Definitions
@@ -135,6 +138,36 @@ namespace Edia.Controller {
 		}
 
 		private bool ValidateConfigs() {
+			// Validate all strings on formatting
+
+			if (!ValidateJSON(_sessionInfoJsonString)) {
+				Debug.Log("JSON Format error: Session Info");
+				EventManager.TriggerEvent(Edia.Events.ControlPanel.EvShowMessageBox, new eParam("JSON Format error: session_info.json", false ));
+				return false;
+			}
+
+			if (!ValidateJSON(_xBlockSequenceJsonString)) {
+				Debug.Log("JSON Format error: Xblock sequence");
+				EventManager.TriggerEvent(Edia.Events.ControlPanel.EvShowMessageBox, new eParam("JSON Format error: session_sequence.json", false));
+				return false;
+			}
+
+			foreach (string s in _taskDefinitionJsonStrings) {
+				if (!ValidateJSON(s)) {
+					Debug.Log("JSON Format error: Task definition");
+					EventManager.TriggerEvent(Edia.Events.ControlPanel.EvShowMessageBox, new eParam("JSON Format error: Task definition", false));
+					return false;
+				}
+			}
+
+			foreach (string s in _xBlockDefinitionJsonStrings) {
+				if (!ValidateJSON(s)) {
+					Debug.Log("JSON Format error: Xblock definition");
+					EventManager.TriggerEvent(Edia.Events.ControlPanel.EvShowMessageBox, new eParam("JSON Format error: Xblock definition", false));
+					return false;
+				}
+			}
+
 			// Sanity check - for each entry in the sequence file, there should be a file with the same name
 			_xBlockSequence = UnityEngine.JsonUtility.FromJson<XBlockSequence>(_xBlockSequenceJsonString);
 
@@ -153,8 +186,24 @@ namespace Edia.Controller {
 					return false; 
 				}
 			}
-			
+
 			return true;
+		}
+
+
+		// Method to validate a string as JSON
+		public bool ValidateJSON(string jsonString) {
+			try {
+				JsonUtility.FromJson<object>(jsonString);
+
+				//Debug.Log("Passed");
+				return true;
+			}
+			catch (System.Exception) {
+
+				//Debug.Log("Falsch");
+				return false;
+			}
 		}
 	}
 }
