@@ -1,8 +1,6 @@
 # README.md
 
-![eDIA_header.png](./Documentation/resources/eDIA_header.png)
-
-Main eDIA framework used for developing XR based scientific experiments in the Unity3D game engine.
+Core EDIA package used for developing XR based scientific experiments in the Unity3D game engine.
 
 # NOTE
 
