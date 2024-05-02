@@ -29,7 +29,7 @@ namespace Edia.Controller
 		public PanelExperimentControl _pExperimentControl = null;
 
 		// Remote
-		PanelConfigMaker _pConfigMaker = null;
+		//PanelConfigMaker _pConfigMaker = null;
 		List<Transform> _currentPanelOrder = new List<Transform>();
 
 		void Awake()

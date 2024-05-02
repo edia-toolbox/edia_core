@@ -26,7 +26,6 @@ namespace Edia.Controller {
 		public TextMeshProUGUI pathToLogfilesField = null;
 
 		public SettingsDeclaration localSystemSettingsContainer = null;
-		private bool hasChanged = false;
 
 		public override void Awake () {
 			base.Awake ();
@@ -64,7 +63,6 @@ namespace Edia.Controller {
 #region BUTTONPRESSES
 
 		public void ValueChanged () {
-			hasChanged = true;
 			btnApply.interactable = true;
 		}
 
