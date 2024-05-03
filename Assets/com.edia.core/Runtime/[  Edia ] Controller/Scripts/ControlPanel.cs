@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Utils;
 
 namespace Edia.Controller
 {
@@ -39,6 +40,8 @@ namespace Edia.Controller
 			Init();
 			
 			DontDestroyOnLoad(this);
+
+            EventManager.StartListening(Edia.Events.Core.EvQuitApplication, OnEvQuitApplication);
 		}
 
 		void OnDestroy()
@@ -50,7 +53,6 @@ namespace Edia.Controller
 			EventManager.showLog = ShowEventLog; // Eventmanager to show debug in console
 
 			ConsolePanel.gameObject.SetActive(ShowConsole);
-			//RemotePanel.gameObject.SetActive(Settings.ControlMode is ControlMode.Remote);
 
 			if (Settings.ControlMode is ControlMode.Remote) {
 				EventManager.StartListening(Edia.Events.ControlPanel.EvConnectionEstablished, OnEvConnectionEstablished);
@@ -70,21 +72,20 @@ namespace Edia.Controller
 			foreach (Transform tr in NonActivePanelHolder) {
 				tr.name = tr.GetSiblingIndex().ToString() + "_" + tr.name;
 			}
-
-			//_pMessageBox 			= NonActivePanelHolder.GetComponentInChildren<PanelMessageBox>();
-			//_pConfigSelection 		= NonActivePanelHolder.GetComponentInChildren<PanelConfigSelection>();
-			//_pExperimentControl 	= NonActivePanelHolder.GetComponentInChildren<PanelExperimentControl>();
-			//_pHeader 				= NonActivePanelHolder.GetComponentInChildren<PanelHeader>();
-			//_pApplicationSettings 	= NonActivePanelHolder.GetComponentInChildren<PanelApplicationSettings>();
 		}
 
 		void OnEvConnectionEstablished(eParam obj)
 		{
 			EventManager.StopListening(Edia.Events.ControlPanel.EvConnectionEstablished, OnEvConnectionEstablished);
+
 			InitConfigFileSearch();
 		}
 
-		void InitConfigFileSearch()
+        private void OnEvStartExperiment(eParam param)
+        {
+        }
+
+        void InitConfigFileSearch()
 		{
 			_pConfigSelection.Init();
 		}
@@ -93,9 +94,6 @@ namespace Edia.Controller
 		{	
 			panel.SetParent(onOff ? PanelHolder : NonActivePanelHolder, true);  
 			UpdatePanelOrder();
-
-			// WIP approach for giving a panel a different panel (needed when control panel has multiple columns):
-			//panel.SetParent(onOff ? panel.GetComponent<ExperimenterPanel>().myParent : NonActivePanelHolder, true); // => disabled as awake is too late to store value of parent
 		}
 
 
@@ -117,5 +115,15 @@ namespace Edia.Controller
 			_pMessageBox.ShowMessage(msg, autoHide);
 		}
 
-	}
+        void OnEvQuitApplication(eParam obj)
+        {
+            this.ConsolePanel.Add2Console("Quiting..");
+			Invoke("DoQuit", 1f);
+        }
+
+		void DoQuit () { 
+            Application.Quit();
+		}
+
+    }
 }
