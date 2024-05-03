@@ -47,12 +47,12 @@ namespace Edia.Controller {
 			localSystemSettingsContainer = UnityEngine.JsonUtility.FromJson<SettingsDeclaration> (obj.GetString ());
 
 			// populate the GUI elements with correct values
-			volumeSlider.value 			= localSystemSettingsContainer.volume;
+			//volumeSlider.value 			= localSystemSettingsContainer.volume;
 			interactiveInteractorDropdown.value = (int) localSystemSettingsContainer.InteractiveInteractor;
 			visibleInteractorDropdown.value 	= (int) localSystemSettingsContainer.VisableInteractor;
-			languageDropdown.value 			= (int) localSystemSettingsContainer.language;
+			//languageDropdown.value 			= (int) localSystemSettingsContainer.language;
 			pathToLogfilesField.text 		= localSystemSettingsContainer.pathToLogfiles;
-			resolutionDropdown.value 		= localSystemSettingsContainer.screenResolution;
+			//resolutionDropdown.value 		= localSystemSettingsContainer.screenResolution;
 			// Show
 			ShowPanel ();
 
@@ -95,11 +95,11 @@ namespace Edia.Controller {
 
 		void UpdateLocalSettings () {
 
-			localSystemSettingsContainer.volume = volumeSlider.value;
+			//localSystemSettingsContainer.volume = volumeSlider.value;
 			localSystemSettingsContainer.InteractiveInteractor = (Edia.Constants.Interactor) interactiveInteractorDropdown.value;
 			localSystemSettingsContainer.VisableInteractor = (Edia.Constants.Interactor) visibleInteractorDropdown.value;
-			localSystemSettingsContainer.language = (Edia.Constants.Languages) languageDropdown.value;
-			localSystemSettingsContainer.screenResolution = resolutionDropdown.value;
+			//localSystemSettingsContainer.language = (Edia.Constants.Languages) languageDropdown.value;
+			//localSystemSettingsContainer.screenResolution = resolutionDropdown.value;
 		}
 
 		void SetupPanels () {
