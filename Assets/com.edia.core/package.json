@@ -1,0 +1,42 @@
+{
+  "name": "com.edia.core",
+  "displayName": "EDIA Core",
+  "version": "0.4.0",
+  "unity": "2022.3",
+  "description": "EDIA Core functionalities for XR experiments.\n Additional features are separated packages.\n\nSee Samples for examples\n\nConfig file use update ",
+  "keywords": [
+    "EDIA",
+    "xr",
+    "vr",
+    "experiment"
+  ],
+  "author": {
+    "name": "EDIA"
+  },
+  "dependencies": {
+    "com.unity.inputsystem": "1.7.0",
+    "com.unity.xr.interaction.toolkit": "2.5.3",
+    "com.unity.xr.management": "4.4.1",
+    "com.unity.render-pipelines.universal": "14.0.9",
+    "com.unity.nuget.newtonsoft-json": "3.2.1",
+    "com.unity.textmeshpro": "3.0.8"
+  },
+  "samples": [
+    {
+      "displayName": "DemoTask",
+      "description": "Scene with a sample task that runs through the complete experiment.\nRead the Readme.txt!",
+      "path": "Samples~/DemoTasks"
+    },
+    {
+      "displayName": "URP Materials",
+      "description": "Simple example materials to get you started with URP",
+      "path": "Samples~/URP_Materials"
+    },
+    {
+      "displayName": "Templates",
+      "description": "Template scripts for own development of tasks",
+      "path": "Samples~/Templates"
+    }
+  ],
+  "hideInEditor": false
+}
