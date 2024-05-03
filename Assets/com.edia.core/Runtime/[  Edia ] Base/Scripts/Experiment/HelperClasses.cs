@@ -132,9 +132,9 @@ namespace Edia {
 
 		public Constants.Interactor VisableInteractor = Constants.Interactor.NONE;
 		public Constants.Interactor InteractiveInteractor = Constants.Interactor.RIGHT;
-		public int screenResolution = 0;
-		public float volume = 50f;
-		public Constants.Languages language = Constants.Languages.ENG;
+		//public int screenResolution = 0;
+		//public float volume = 50f;
+		//public Constants.Languages language = Constants.Languages.ENG;
 
 		public string pathToLogfiles = "C:\\";
 		public static string localConfigDirectoryName = "Configs";

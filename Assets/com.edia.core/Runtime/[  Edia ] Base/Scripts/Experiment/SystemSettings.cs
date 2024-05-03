@@ -81,12 +81,12 @@ namespace Edia {
 			systemSettings.InteractiveInteractor = receivedSettings.InteractiveInteractor;
 			EventManager.TriggerEvent(Edia.Events.XR.EvUpdateInteractiveInteractor, new eParam((int)receivedSettings.InteractiveInteractor));
 
-			// Resolution of the app
-			if (systemSettings.screenResolution != receivedSettings.screenResolution) {
-				systemSettings.screenResolution = receivedSettings.screenResolution;
+			//// Resolution of the app
+			//if (systemSettings.screenResolution != receivedSettings.screenResolution) {
+			//	systemSettings.screenResolution = receivedSettings.screenResolution;
 				
-				//TODO Change actual resolution value
-			}
+			//	//TODO Change actual resolution value
+			//}
 
 			// Save Path for logfiles
 			systemSettings.pathToLogfiles = receivedSettings.pathToLogfiles;
@@ -94,19 +94,19 @@ namespace Edia {
 			EventManager.TriggerEvent(Edia.Events.Settings.EvSetCustomStoragePath, new eParam(receivedSettings.pathToLogfiles));
 			UXFFilesaver.storagePath = systemSettings.pathToLogfiles;
 
-			// Volume of the app
-			if (systemSettings.volume != receivedSettings.volume) {
-				systemSettings.volume = receivedSettings.volume;
+			//// Volume of the app
+			//if (systemSettings.volume != receivedSettings.volume) {
+			//	systemSettings.volume = receivedSettings.volume;
 				
-				//TODO Change actual volume value
-			}
+			//	//TODO Change actual volume value
+			//}
 
-			// language 
-			if (systemSettings.language != receivedSettings.language) {
-				systemSettings.language = receivedSettings.language;
+			//// language 
+			//if (systemSettings.language != receivedSettings.language) {
+			//	systemSettings.language = receivedSettings.language;
 				
-				//TODO Change actual language value 
-			}
+			//	//TODO Change actual language value 
+			//}
 			
 			SaveSettings();
 		}
