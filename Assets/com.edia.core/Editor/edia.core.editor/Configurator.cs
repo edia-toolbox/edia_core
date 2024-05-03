@@ -10,14 +10,14 @@ namespace Edia.EditorUtils {
 	[InitializeOnLoad]
 	public class Configurator : EditorWindow {
 
-		public Texture2D eDIAIcon;
+		public Texture2D EDIAIcon;
 		public static bool forceShow = false;
 		ApiCompatibilityLevel targetApiLevel = ApiCompatibilityLevel.NET_4_6;
 		string projectName = GetProjectName();
 
 		Vector2 scrollPos;
 
-		[MenuItem("eDIA/Configurator")]
+		[MenuItem("EDIA/Configurator")]
 		static void Init() {
 			var window = (Configurator)EditorWindow.GetWindow(typeof(Configurator), false, "Configurator");
 			window.minSize = new Vector2(300, 400);
@@ -34,8 +34,8 @@ namespace Edia.EditorUtils {
 			GUILayout.BeginHorizontal();
 			GUILayout.FlexibleSpace();
 			var rect = GUILayoutUtility.GetRect(128, 128, GUI.skin.box);
-			if (eDIAIcon)
-				GUI.DrawTexture(rect, eDIAIcon, ScaleMode.ScaleToFit);
+			if (EDIAIcon)
+				GUI.DrawTexture(rect, EDIAIcon, ScaleMode.ScaleToFit);
 			GUILayout.FlexibleSpace();
 			GUILayout.EndHorizontal();
 
