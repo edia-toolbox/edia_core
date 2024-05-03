@@ -110,6 +110,8 @@ namespace Edia.Controller {
 
 			btnExperiment.transform.GetChild(0).GetComponentInChildren<Text>().text = "Quit";
 			btnExperiment.onClick.AddListener(() => EventManager.TriggerEvent(Edia.Events.Core.EvQuitApplication, null));
+			// TODO when in remote mode -> there is no one listening so not quiting.
+
 			btnExperiment.interactable = true;
 
 			panelIdle.SetActive(true);
