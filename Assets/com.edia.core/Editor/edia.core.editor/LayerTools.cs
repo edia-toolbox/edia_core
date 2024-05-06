@@ -26,7 +26,8 @@ namespace Edia.EditorUtils
 				AddLayerAt(layers, 6, "ControlUI", false);
 				AddLayerAt(layers, 7, "CamOverlay", false);
 				AddLayerAt(layers, 8, "GazeCollision", false);
-				AddLayerAt(layers, 31, "Teleport", false);
+                AddLayerAt(layers, 9, "EyeTrackingViz", false);
+                AddLayerAt(layers, 31, "Teleport", false);
 
 				serializedObject.ApplyModifiedProperties();
 				serializedObject.Update();
