@@ -18,4 +18,8 @@ namespace Edia {
         public double GetTime();
     }
 
+    public interface ILslTimer {
+        public double GetTime();
+    }
+
 }
