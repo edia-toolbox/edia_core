@@ -4,10 +4,6 @@ using UnityEngine;
 using Edia;
 
 namespace Edia {
-    public interface ILslTimer {
-        public double GetTime();
-    }
-
     public interface ILslPusher {
 
         public Constants.EyeId EyeId { get; set; }
@@ -18,5 +14,8 @@ namespace Edia {
             float confidence = 0f,
             float timestampEt = 0f,
             double timestampLsl = 0);
+
+        public double GetTime();
     }
+
 }
