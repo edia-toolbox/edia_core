@@ -24,5 +24,7 @@ namespace Edia {
             new Vector2 (1920, 1080),
             new Vector2 (2048, 1440)
         };
+
+        public enum EyeId { LEFT, RIGHT, CENTER }
     }
 }
