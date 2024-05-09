@@ -417,7 +417,6 @@ MonoBehaviour:
   _pHeader: {fileID: 7235685736145384830}
   _pApplicationSettings: {fileID: 3254512332067455802}
   _pExperimentControl: {fileID: 4484444283563401088}
-  _currentPanelOrder: []
 --- !u!1 &152133683413994375
 GameObject:
   m_ObjectHideFlags: 0
@@ -3244,6 +3243,41 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -25
       objectReference: {fileID: 0}
+    - target: {fileID: 6073120142725948925, guid: c0641ee3fbb374f449c721ac82e40490,
+        type: 3}
+      propertyPath: m_Text
+      value: Quit
+      objectReference: {fileID: 0}
+    - target: {fileID: 6073120143412329085, guid: c0641ee3fbb374f449c721ac82e40490,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6073120143412329087, guid: c0641ee3fbb374f449c721ac82e40490,
+        type: 3}
+      propertyPath: m_Interactable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6073120143412329087, guid: c0641ee3fbb374f449c721ac82e40490,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6073120143412329087, guid: c0641ee3fbb374f449c721ac82e40490,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6073120143412329087, guid: c0641ee3fbb374f449c721ac82e40490,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1228874869030473913}
+    - target: {fileID: 6073120143412329087, guid: c0641ee3fbb374f449c721ac82e40490,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6116935658234214360, guid: c0641ee3fbb374f449c721ac82e40490,
         type: 3}
       propertyPath: m_Layer
@@ -3523,6 +3557,12 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1573464901992411731}
   m_SourcePrefab: {fileID: 100100000, guid: c0641ee3fbb374f449c721ac82e40490, type: 3}
+--- !u!1 &1228874869030473913 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 209095874167100347, guid: c0641ee3fbb374f449c721ac82e40490,
+    type: 3}
+  m_PrefabInstance: {fileID: 1435254891974853378}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1228874869030473918 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 209095874167100348, guid: c0641ee3fbb374f449c721ac82e40490,
@@ -3535,7 +3575,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 1435254891974853378}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1228874869030473913}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 936b58f2e7c965f418d534a1adb047ca, type: 3}
