@@ -73,6 +73,12 @@ namespace Edia.Controller {
 			EventManager.TriggerEvent (Edia.Events.Settings.EvUpdateSystemSettings, new eParam (UnityEngine.JsonUtility.ToJson (localSystemSettingsContainer, false)));
 		}
 
+		void BtnQuitPressed() {
+
+			EventManager.TriggerEvent(Edia.Events.Core.EvQuitApplication);
+			// TODO: Clean up edia routines? UXF does it's own already.
+		}
+
 		void OpenFileBrowser () {
 			StartCoroutine( ShowLoadDialogCoroutine() );
 		}
