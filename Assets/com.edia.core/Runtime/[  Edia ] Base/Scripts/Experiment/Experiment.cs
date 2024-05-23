@@ -30,8 +30,11 @@ namespace Edia {
 		public bool ShowLog = false;
 		public Color LogColor = Color.green;
 
+		[Header("Experiment Settings")]
+		public bool TrackXRrigWithUXF = false;
+
 		[Space(20)]
-		[Header("Experiment ")]
+		[Header("Experiment")]
 		public List<XBlock> XBlocks = new();
 
 		[Space(20)]
@@ -210,7 +213,7 @@ namespace Edia {
 
 		/// <summary>Starts the experiment</summary>
 		void StartExperiment() {
-			AddXRrigTracking();
+			ConfigureXRrigTracking();
 
 			Session.instance.Begin(
 			  SessionSettings.sessionInfo.experiment == string.Empty ? "N.A." : SessionSettings.sessionInfo.experiment,
@@ -655,10 +658,17 @@ namespace Edia {
 			Session.instance.CurrentTrial.result[key] = value;
 		}
 
-		void AddXRrigTracking() {
-			Session.instance.trackedObjects.Add(XRManager.Instance.XRCam.GetComponent<Tracker>());
-			Session.instance.trackedObjects.Add(XRManager.Instance.XRRight.GetComponent<Tracker>());
-			Session.instance.trackedObjects.Add(XRManager.Instance.XRLeft.GetComponent<Tracker>());
+		void ConfigureXRrigTracking() {
+			XRManager.Instance.XRCam.GetComponent<PositionRotationTracker>().enabled = TrackXRrigWithUXF;
+			XRManager.Instance.XRLeft.GetComponent<PositionRotationTracker>().enabled = TrackXRrigWithUXF;
+			XRManager.Instance.XRRight.GetComponent<PositionRotationTracker>().enabled = TrackXRrigWithUXF;
+
+			if (!TrackXRrigWithUXF)
+				return;
+
+			Session.instance.trackedObjects.Add(XRManager.Instance.XRCam.GetComponent<PositionRotationTracker>());
+			Session.instance.trackedObjects.Add(XRManager.Instance.XRLeft.GetComponent<PositionRotationTracker>());
+			Session.instance.trackedObjects.Add(XRManager.Instance.XRRight.GetComponent<PositionRotationTracker>());
 		}
 
 		void SaveCustomDataTables() {
