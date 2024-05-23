@@ -31,7 +31,8 @@ namespace Edia {
 		public Color LogColor = Color.green;
 
 		[Header("Experiment Settings")]
-		public bool TrackXRrigWithUXF = false;
+		[Tooltip("Enable Position&Rotation tracker from UXF which stores data to session folder. !Might have impact on FPS with long trials.")]
+		public bool TrackXrRigWithUxf = false;
 
 		[Space(20)]
 		[Header("Experiment")]
@@ -659,11 +660,11 @@ namespace Edia {
 		}
 
 		void ConfigureXRrigTracking() {
-			XRManager.Instance.XRCam.GetComponent<PositionRotationTracker>().enabled = TrackXRrigWithUXF;
-			XRManager.Instance.XRLeft.GetComponent<PositionRotationTracker>().enabled = TrackXRrigWithUXF;
-			XRManager.Instance.XRRight.GetComponent<PositionRotationTracker>().enabled = TrackXRrigWithUXF;
+			XRManager.Instance.XRCam.GetComponent<PositionRotationTracker>().enabled = TrackXrRigWithUxf;
+			XRManager.Instance.XRLeft.GetComponent<PositionRotationTracker>().enabled = TrackXrRigWithUxf;
+			XRManager.Instance.XRRight.GetComponent<PositionRotationTracker>().enabled = TrackXrRigWithUxf;
 
-			if (!TrackXRrigWithUXF)
+			if (!TrackXrRigWithUxf)
 				return;
 
 			Session.instance.trackedObjects.Add(XRManager.Instance.XRCam.GetComponent<PositionRotationTracker>());
