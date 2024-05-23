@@ -151,9 +151,8 @@ namespace Edia {
 		/// <param name="onOff">True/false</param>
 		public void ShowHandModel (bool onOff) {
 
-			if (!isAllowedToBeVisable)
-				return;
- 
+			// TODO: Set up a proper way of validate show/hide/interact/etc
+
 			isVisible = onOff;
 			HandModel.SetActive(onOff);
 		}
