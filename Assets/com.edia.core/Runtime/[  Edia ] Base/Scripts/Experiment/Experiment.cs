@@ -632,17 +632,17 @@ namespace Edia {
 		}
 
 		/// <summary>
-		/// Saves a marker with a timestamp
+		/// Saves a marker with a timestamp to disk. Also fires EvStoreMarker event with parameter.
 		/// </summary>
 		/// <param name="annotation">Annotation to store</param>
-		public void SendMarker(string annotation) {
+		public void StoreMarker(string annotation) {
 			// Log it in the UXF way
 			UXF.UXFDataRow newRow = new UXFDataRow();
 			newRow.Add(("timestamp", Time.realtimeSinceStartup)); // Log timestamp
 			newRow.Add(("annotation", annotation));
 			_markerLog.AddCompleteRow(newRow);
 
-			EventManager.TriggerEvent(Edia.Events.DataHandlers.EvSendMarker, new eParam(annotation));
+			EventManager.TriggerEvent(Edia.Events.DataHandlers.EvStoreMarker, new eParam(annotation));
 		}
 
 		private void AddToLog(string _msg) {
