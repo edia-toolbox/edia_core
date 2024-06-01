@@ -118,12 +118,13 @@ namespace Edia.Controller
         void OnEvQuitApplication(eParam obj)
         {
             this.ConsolePanel.Add2Console("Quiting..");
+			Debug.Log($"{name}:Quiting..");
 			Invoke("DoQuit", 1f);
         }
 
-		void DoQuit () { 
-            Application.Quit();
+		void DoQuit () {
+			Debug.Log($"{name}:Bye..");
+			Application.Quit();
 		}
-
     }
 }

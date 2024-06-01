@@ -46,6 +46,9 @@ namespace Edia.Events {
 		/// <summary>SystemSettings have been updated. Expects full package of SettingsDeclaration as JSON</summary>
 		public const string EvUpdateSystemSettings = "EvUpdateSystemSettings";
 
+		/// <summary>SystemSettings.</summary>
+		public const string EvProvideSystemSettings = "EvProvideSystemSettings";
+
 	}
 
 

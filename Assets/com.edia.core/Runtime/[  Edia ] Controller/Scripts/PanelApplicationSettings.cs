@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Edia;
+using Utils;
 
 namespace Edia.Controller {
 
@@ -16,6 +17,7 @@ namespace Edia.Controller {
 		public Button btnApply = null;
 		public Button btnClose = null;
 		public Button btnBrowse = null;
+		public Button btnQuit = null;
 
 		[Header ("Settings")]
 		public Slider volumeSlider = null;
@@ -43,6 +45,25 @@ namespace Edia.Controller {
 #region EVENT LISTENERS
 
 		private void OnEvOpenSystemSettings (eParam obj) {
+
+			// Where to get the settings from?
+			if (ControlPanel.Instance.Settings.ControlMode == ControlMode.Local) {
+				// ask systemsettings singleton via event
+				EventManager.TriggerEvent(Edia.Events.Settings.EvRequestSystemSettings);
+				EventManager.StartListening(Edia.Events.Settings.EvProvideSystemSettings, OnProcessSystemSettings);
+			} else {
+				// TODO: In case of remote, does the controlpanel get settings locally from file?
+			}
+
+		}
+
+		/// <summary>
+		/// Processes given JSON string with systemsettings, shows panel with updated info
+		/// </summary>
+		/// <param name="obj">Systemsettings package as JSON string</param>
+		private void OnProcessSystemSettings (eParam obj) {
+			EventManager.StopListening(Edia.Events.Settings.EvProvideSystemSettings, OnProcessSystemSettings);
+
 			// Get the current stored settings
 			localSystemSettingsContainer = UnityEngine.JsonUtility.FromJson<SettingsDeclaration> (obj.GetString ());
 
@@ -53,14 +74,14 @@ namespace Edia.Controller {
 			//languageDropdown.value 			= (int) localSystemSettingsContainer.language;
 			pathToLogfilesField.text 		= localSystemSettingsContainer.pathToLogfiles;
 			//resolutionDropdown.value 		= localSystemSettingsContainer.screenResolution;
-			// Show
+
 			ShowPanel ();
 
 			btnApply.interactable = false;
 		}
 
-#endregion // -------------------------------------------------------------------------------------------------------------------------------
-#region BUTTONPRESSES
+		#endregion // -------------------------------------------------------------------------------------------------------------------------------
+		#region BUTTONPRESSES
 
 		public void ValueChanged () {
 			btnApply.interactable = true;
@@ -74,9 +95,8 @@ namespace Edia.Controller {
 		}
 
 		void BtnQuitPressed() {
-
+			Debug.Log($"{name}:Quit request sent");
 			EventManager.TriggerEvent(Edia.Events.Core.EvQuitApplication);
-			// TODO: Clean up edia routines? UXF does it's own already.
 		}
 
 		void OpenFileBrowser () {
@@ -97,7 +117,8 @@ namespace Edia.Controller {
 			}
 		}
 
-#endregion // -------------------------------------------------------------------------------------------------------------------------------
+
+		#endregion // -------------------------------------------------------------------------------------------------------------------------------
 
 		void UpdateLocalSettings () {
 
@@ -112,11 +133,14 @@ namespace Edia.Controller {
 			btnApply.onClick.AddListener (() => BtnApplyPressed ());
 			btnClose.onClick.AddListener (() => HidePanel ());
 			btnBrowse.onClick.AddListener (() => OpenFileBrowser ());
+			btnQuit.onClick.AddListener(() => BtnQuitPressed());
 
 			foreach (Vector2 s in Edia.Constants.screenResolutions) {
 				TMP_Dropdown.OptionData n = new TMP_Dropdown.OptionData(String.Format("{0}x{1}", s.x, s.y));
 				resolutionDropdown.options.Add(n);
 			}
 		}
+
+
 	}
 }
