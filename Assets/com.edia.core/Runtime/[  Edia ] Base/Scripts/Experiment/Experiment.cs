@@ -32,6 +32,7 @@ namespace Edia {
 
 		[Header("Experiment Settings")]
 		[Tooltip("Enable Position&Rotation tracker from UXF which stores data to session folder. !Might have impact on FPS with long trials.")]
+		[HelpBox("<size=14><color=yellow><b>INFO:</b></color> UXF Tracking</size>\nEnable Position&Rotation tracker from UXF which stores data to session folder. \n<color=red>!Might have impact on FPS with long trials.</color>", HelpBoxMessageType.None)]
 		public bool TrackXrRigWithUxf = false;
 
 		[Space(20)]
