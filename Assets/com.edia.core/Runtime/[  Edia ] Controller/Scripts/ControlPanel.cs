@@ -35,11 +35,12 @@ namespace Edia.Controller
 
 		void Awake()
 		{
+			DontDestroyOnLoad(this);
+
 			PreparePanels();
 			
 			Init();
 			
-			DontDestroyOnLoad(this);
 
             EventManager.StartListening(Edia.Events.Core.EvQuitApplication, OnEvQuitApplication);
 		}
