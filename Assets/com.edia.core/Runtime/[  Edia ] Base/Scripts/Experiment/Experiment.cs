@@ -37,7 +37,7 @@ namespace Edia {
 
 		[Space(20)]
 		[Header("Experiment")]
-		public List<XBlock> XBlocks = new();
+		public List<XBlock> XBlockExecuters = new();
 
 		[Space(20)]
 		[Header("Event hooks\n\nOptional event hooks to use in your task")]
@@ -92,7 +92,7 @@ namespace Edia {
 			bool _succes = true;
 
 			// Are the gameobjects in Experiment.blocks properly named? <TYPE>_<SUBTYPE>
-			foreach (XBlock g in Experiment.Instance.XBlocks) {
+			foreach (XBlock g in Experiment.Instance.XBlockExecuters) {
 				g.name = g.name.ToLower();
 
 				//if (!g.name.Contains('_') || g.name.Split('_').Length != 2) {
@@ -110,7 +110,7 @@ namespace Edia {
 		}
 
 		void EnableAllXBlocks (bool onOff) {
-			foreach (XBlock xb in XBlocks) {
+			foreach (XBlock xb in XBlockExecuters) {
 				xb.enabled = onOff;
 				xb.gameObject.SetActive(onOff);
 			}
@@ -352,7 +352,7 @@ namespace Edia {
 
 			// Set new storedBlockNum value
 			_activeSessionBlockNum = Session.instance.currentBlockNum;
-			_activeXBlock = XBlocks[XBlocks.FindIndex(x => x.name == Session.instance.CurrentBlock.settings.GetString("_assetId"))];
+			_activeXBlock = XBlockExecuters[XBlockExecuters.FindIndex(x => x.name == Session.instance.CurrentBlock.settings.GetString("_assetId"))];
 			_activeXBlock.enabled = true;
 			_activeXBlock.gameObject.SetActive(true);
 			_activeXBlock.OnBlockStart();
