@@ -272,7 +272,7 @@ namespace Edia.Events {
 	public static class DataHandlers {
 
 		/// <summary>Send a marker to the system, any listener can pick it up and handle it. Expects marker as string</summary>
-		public const string EvSendMarker = "EvSendMarker";
+		public const string EvStoreMarker = "EvStoreMarker";
 
 	}
 
