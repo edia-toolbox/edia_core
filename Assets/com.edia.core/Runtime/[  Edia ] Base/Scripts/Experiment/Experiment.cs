@@ -638,7 +638,8 @@ namespace Edia {
 		public void StoreMarker(string annotation) {
 			// Log it in the UXF way
 			UXF.UXFDataRow newRow = new UXFDataRow();
-			newRow.Add(("timestamp", Time.realtimeSinceStartup)); // Log timestamp
+			newRow.Add(("realtime", Time.realtimeSinceStartup)); // Log timestamp in realtime (indep. of time scaling and application idling)
+			newRow.Add(("time", Time.time)); // Log timestamp at beginning of frame (affected by time scaling and app idling)
 			newRow.Add(("annotation", annotation));
 			_markerLog.AddCompleteRow(newRow);
 
