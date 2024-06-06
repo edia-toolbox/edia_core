@@ -9,7 +9,7 @@ namespace Edia {
 	public class XBlock : MonoBehaviour {
 
 		[Header("Debug")]
-		public bool showLog = false;
+		public bool ShowLog = false;
 		Color taskColor = Color.blue;
 		[HideInInspector]
 		[SerializeField]
@@ -17,6 +17,12 @@ namespace Edia {
 
 		public void AddToTrialSequence(Action methodStep) {
 			trialSteps.Add(methodStep);
+		}
+
+		private void AddToLog(string _msg) {
+
+			if (ShowLog)
+				Edia.LogUtilities.AddToLog(_msg, "EXP", taskColor);
 		}
 
 		#region EVENT HOOKS
