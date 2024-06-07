@@ -46,6 +46,9 @@ namespace Edia.Events {
 		/// <summary>SystemSettings have been updated. Expects full package of SettingsDeclaration as JSON</summary>
 		public const string EvUpdateSystemSettings = "EvUpdateSystemSettings";
 
+		/// <summary>SystemSettings.</summary>
+		public const string EvProvideSystemSettings = "EvProvideSystemSettings";
+
 	}
 
 
@@ -269,7 +272,7 @@ namespace Edia.Events {
 	public static class DataHandlers {
 
 		/// <summary>Send a marker to the system, any listener can pick it up and handle it. Expects marker as string</summary>
-		public const string EvSendMarker = "EvSendMarker";
+		public const string EvStoreMarker = "EvStoreMarker";
 
 	}
 

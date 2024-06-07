@@ -35,11 +35,12 @@ namespace Edia.Controller
 
 		void Awake()
 		{
+			DontDestroyOnLoad(this);
+
 			PreparePanels();
 			
 			Init();
 			
-			DontDestroyOnLoad(this);
 
             EventManager.StartListening(Edia.Events.Core.EvQuitApplication, OnEvQuitApplication);
 		}
@@ -118,12 +119,13 @@ namespace Edia.Controller
         void OnEvQuitApplication(eParam obj)
         {
             this.ConsolePanel.Add2Console("Quiting..");
+			Debug.Log($"{name}:Quiting..");
 			Invoke("DoQuit", 1f);
         }
 
-		void DoQuit () { 
-            Application.Quit();
+		void DoQuit () {
+			Debug.Log($"{name}:Bye..");
+			Application.Quit();
 		}
-
     }
 }

@@ -18,15 +18,14 @@ namespace Edia {
 		}
 
 		void OnEnable() {
-			EventManager.StartListening(Edia.Events.Config.EvLocalConfigSubmitted, OnEvLocalConfigSubmitted );
+			EventManager.StartListening(Edia.Events.ControlPanel.EvUpdateSessionSummary, OnEvUpdateSessionSummary );
 		}
 
 		public void LogoClicked() {
-			EventManager.TriggerEvent(Edia.Events.Settings.EvRequestSystemSettings, null);
+			EventManager.TriggerEvent(Edia.Events.Settings.EvOpenSystemSettings);
 		}
 
-		// Received a file name to load, so we know now what task this is as it's part of the param
-		void OnEvLocalConfigSubmitted(eParam obj)
+		void OnEvUpdateSessionSummary(eParam obj)
 		{
 			SetTitle(obj.GetStrings()[0]);
 		}

@@ -25,8 +25,8 @@ namespace Edia.Controller {
 		public TMP_Dropdown SubjectSelectionDropdown;
 		public TMP_Dropdown SessionSelectionDropdown;
 
-		public TextMeshProUGUI SubjectField;
-		public TextMeshProUGUI SessionField;
+		public TextMeshProUGUI TopField;
+		//public TextMeshProUGUI SessionField;
 
 		string _subject = "sub_001";
 		string _session = "sess_001";
@@ -51,6 +51,8 @@ namespace Edia.Controller {
 			SessionSelectionDropdown.interactable = true;
 			OnSubjectValueChanged(0);
 			OnSessValueChanged(0);
+
+			TopField.text = "Select participant and session";
 
 			btnSubmit.interactable = true;
 
@@ -87,7 +89,7 @@ namespace Edia.Controller {
 
 		public void OnSubjectValueChanged(int value) {
 			_subject = SubjectSelectionDropdown.options[value].text;
-			SubjectField.text = _subject.Split('-')[1];
+			//TopField.text = $"Participant: {_subject.Split('-')[1]} Session: {_session.Split('-')[1]}";
 
 			_sessFolders = FileManager.GetAllSubFolders(_pathToParticipantFiles + SubjectSelectionDropdown.options[value].text);
 			GenerateDropdown(_sessFolders, SessionSelectionDropdown);
@@ -96,7 +98,7 @@ namespace Edia.Controller {
 
 		public void OnSessValueChanged(int value) {
 			_session = SessionSelectionDropdown.options[value].text;
-			SessionField.text = _session.Split('-')[1];
+			//TopField.text = $"Participant: {_subject.Split('-')[1]} Session: {_session.Split('-')[1]}";
 		}
 
 		void GenerateDropdown(string[] folderlist, TMP_Dropdown dropDown) {

@@ -24,7 +24,6 @@ namespace Edia {
 		}		
 
 
-
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region MAIN METHODS
 
@@ -59,8 +58,8 @@ namespace Edia {
 			
 			await Task.Delay(500); // 1 second delay
 
-			//! Send with event so it can go over the network to the manager
-			EventManager.TriggerEvent(Edia.Events.Settings.EvUpdateSystemSettings, new eParam(loadedSettings));
+			//! Send with event so it can go over the network to the controlpanel
+			EventManager.TriggerEvent(Edia.Events.Settings.EvProvideSystemSettings, new eParam(loadedSettings));
 
 			//! Locally
 			OnEvUpdateSystemSettings(new eParam(loadedSettings));
@@ -114,7 +113,7 @@ namespace Edia {
 		/// <summary> Catches request to show system settings, collects them and send them out with a OPEN settings panel event. </summary>
 		private void OnEvRequestSystemSettings(eParam obj)
 		{
-			EventManager.TriggerEvent(Edia.Events.Settings.EvOpenSystemSettings, new eParam( GetSettingsAsJSONstring()));
+			EventManager.TriggerEvent(Edia.Events.Settings.EvProvideSystemSettings, new eParam( GetSettingsAsJSONstring()));
 		}
 
 

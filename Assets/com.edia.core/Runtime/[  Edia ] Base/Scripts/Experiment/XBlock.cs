@@ -19,10 +19,10 @@ namespace Edia {
 			trialSteps.Add(methodStep);
 		}
 
-		private void AddToLog(string _msg) {
+		public void AddToLog(string _msg) {
 
 			if (ShowLog)
-				Edia.LogUtilities.AddToLog(_msg, "EXP", taskColor);
+				Edia.LogUtilities.AddToLog(_msg, "TASK", taskColor);
 		}
 
 		#region EVENT HOOKS
