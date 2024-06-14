@@ -92,8 +92,8 @@ namespace Edia {
 		public static Dictionary<string, object> GetSettingsTupleListAsDict(List<SettingsTuple> list) {
 			Dictionary<string, object> tmp = new Dictionary<string, object>();
 			foreach (SettingsTuple st in list)
-				if (st.value.Contains(',')) { // it's a list!
-					List<string> stringlist = st.value.Split(',').ToList();
+				if (st.value.Contains(';')) { // it's a list!
+					List<string> stringlist = st.value.Split(';').ToList();
 					for (int s = 0; s < stringlist.Count; s++) {
 						string newstring = stringlist[s].Replace(" ", string.Empty); // remove spaces 
 						stringlist[s] = newstring;
