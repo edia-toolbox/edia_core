@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Utils;
 using UXF;
 
 namespace Edia {
@@ -196,6 +197,7 @@ namespace Edia {
 						// Add trials 
 						if (currentXBlock.trialSettings.valueList == null || currentXBlock.trialSettings.valueList.Count == 0) {
                             newBlock.CreateTrial(); // create 1 dummy trial in case of empty settings 
+							this.Add2Console("No Trial settings found. At least one trial is needed to run the block. Added one trial to UXF sequence");
                         } else
 						{
 							foreach (ValueList row in currentXBlock.trialSettings.valueList) {
