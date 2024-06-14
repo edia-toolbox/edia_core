@@ -1,4 +1,3 @@
-using Edia;
 using Edia.Controller;
 using System;
 using System.Collections;
@@ -7,36 +6,44 @@ using UnityEngine;
 using UnityEngine.UI;
 using Utils;
 
-public class ConnectedIcon : MonoBehaviour
+namespace Edia
 {
-	Image connectedImage;
-	public bool isConnected = false;
-	Color _unConnectedColor;
-	Color disconnected = Color.red;
-	public Color ConnectedColor = Color.green;
+    public class ConnectedIcon : MonoBehaviour
+    {
+        Image connectedImage;
+        public bool isConnected = false;
+        Color _unConnectedColor;
+        Color disconnected = Color.red;
+        public Color ConnectedColor = Color.green;
 
-	private void Awake() {
-		connectedImage = GetComponent<Image>();
-		_unConnectedColor = connectedImage.color;
-		
-		if (ControlPanel.Instance.Settings.ControlMode is ControlMode.Local)
-			HideMe();
-		else {
-			EventManager.StartListening(Edia.Events.ControlPanel.EvConnectionEstablished, OnEvConnectionEstablished);
-		}
-	}
+        private void Awake()
+        {
+            connectedImage = GetComponent<Image>();
+            _unConnectedColor = connectedImage.color;
 
-	private void HideMe() {
-		this.gameObject.SetActive(false);
-	}
+            if (ControlPanel.Instance.Settings.ControlMode is ControlMode.Local)
+                HideMe();
+            else
+            {
+                EventManager.StartListening(Edia.Events.ControlPanel.EvConnectionEstablished, OnEvConnectionEstablished);
+            }
+        }
 
-	private void OnDestroy() {
-		EventManager.StopListening(Edia.Events.ControlPanel.EvConnectionEstablished, OnEvConnectionEstablished);
-	}
+        private void HideMe()
+        {
+            this.gameObject.SetActive(false);
+        }
 
-	private void OnEvConnectionEstablished(eParam param) {
-		this.Add2Console("OnEvConnectionEstablished");
-		isConnected = !isConnected;
-		connectedImage.color = isConnected ? ConnectedColor : _unConnectedColor;
-	}
+        private void OnDestroy()
+        {
+            EventManager.StopListening(Edia.Events.ControlPanel.EvConnectionEstablished, OnEvConnectionEstablished);
+        }
+
+        private void OnEvConnectionEstablished(eParam param)
+        {
+            this.Add2Console("OnEvConnectionEstablished");
+            isConnected = !isConnected;
+            connectedImage.color = isConnected ? ConnectedColor : _unConnectedColor;
+        }
+    }
 }

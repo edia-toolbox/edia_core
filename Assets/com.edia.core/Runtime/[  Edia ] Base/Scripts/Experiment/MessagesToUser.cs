@@ -4,7 +4,7 @@ using Edia;
 using UnityEngine;
 using UXF;
 
-namespace TASK {
+namespace Edia {
 	
 	public class MessagesToUser : MonoBehaviour {
 
