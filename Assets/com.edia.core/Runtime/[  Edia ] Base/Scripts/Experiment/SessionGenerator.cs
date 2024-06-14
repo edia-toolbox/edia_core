@@ -194,14 +194,18 @@ namespace Edia {
 						newBlock.settings.SetValue("subType", currentXBlock.subType);
 
 						// Add trials 
-						foreach (ValueList row in currentXBlock.trialSettings.valueList) {
-							Trial trial = newBlock.CreateTrial();
+						if (currentXBlock.trialSettings.valueList == null || currentXBlock.trialSettings.valueList.Count == 0) {
+                            newBlock.CreateTrial(); // create 1 dummy trial in case of empty settings 
+                        } else
+						{
+							foreach (ValueList row in currentXBlock.trialSettings.valueList) {
+								Trial trial = newBlock.CreateTrial();
 
-							for (int i = 0; i < row.values.Count; i++) {
-								trial.settings.SetValue(currentXBlock.trialSettings.keys[i], row.values[i]); // set values to trial
+								for (int i = 0; i < row.values.Count; i++) {
+									trial.settings.SetValue(currentXBlock.trialSettings.keys[i], row.values[i]); // set values to trial
+								}
 							}
 						}
-
 						// Log all unique TRIAL settings keys
 						foreach (string k in currentXBlock.trialSettings.keys) {
 							if (IsValidKeyForTrialResults(k))
