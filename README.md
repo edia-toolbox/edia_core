@@ -40,4 +40,4 @@ The following assets and packages are incorporated in edia.core:
 
 ## Howto
 
-See documentation -> [HTML API REFERENCE](file:\\Assets\com.edia.core\Runtime\Documentation\html\index.html)
+See documentation -> [HTML API REFERENCE](\Assets\com.edia.core\Runtime\Documentation\html\index.html)
