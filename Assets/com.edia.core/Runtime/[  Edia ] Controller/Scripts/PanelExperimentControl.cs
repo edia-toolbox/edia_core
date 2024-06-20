@@ -155,8 +155,25 @@ namespace Edia.Controller {
 					break;
 				case "PROCEED":
 					SetButtonState(btnProceedExperiment, turnOn);
+					StartCoroutine("ChangeColorOverTime", btnProceedExperiment.GetComponent<Image>());
 					break;
 			}
+		}
+
+		IEnumerator ChangeColorOverTime(Image image) {
+			Color endColor = Color.white;
+			Color flashColor = new Color(0.2745098f, 0.6352941f, 0.8000001f);
+			float duration = 0.3f;
+			float elapsedTime = 0f;
+
+			while (elapsedTime < duration) {
+				image.color = Color.Lerp(flashColor, endColor, elapsedTime / duration);
+				elapsedTime += Time.deltaTime;
+				yield return null;  // Wait for the next frame
+			}
+
+			// Ensure the final color is set
+			image.color = endColor;
 		}
 
 		public void ProceedBtnCLicked() {

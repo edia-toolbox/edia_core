@@ -99,6 +99,8 @@ namespace eDia {
 		public override void OnBlockEnd() {
 			StroopCanvas.Show(false);
 
+			Experiment.Instance.ShowMessageToExperimenter("Example message OnBlockEnd");
+
 			base.OnBlockEnd();
 		}
 	}

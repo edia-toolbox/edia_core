@@ -1,4 +1,3 @@
-using System.Numerics;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,10 +6,8 @@ using TMPro;
 
 namespace Edia.Controller
 {
-
 	public class PanelMessageBox : ExperimenterPanel
 	{
-
 		[Header("Refs")]
 		public TextMeshProUGUI messageField = null;
 		public Button panelButton = null;
@@ -24,6 +21,7 @@ namespace Edia.Controller
 
 			EventManager.StartListening(Edia.Events.ControlPanel.EvShowMessageBox, OnEvShowMessageBox);
 			panelButton.onClick.AddListener(buttonClicked);
+			children.RemoveAt(1);
 		}
 
 		void Start()
@@ -41,9 +39,13 @@ namespace Edia.Controller
 		public void ShowMessage(string msg, bool autoHide)
 		{
 			messageField.text = msg;
-			panelButton.gameObject.SetActive(!autoHide);
-			if (autoHide is true) StartCoroutine(AutoHide());
-			Invoke("ShowPanel",0.01f); //! Intentionally delayed as on startup the panellayoutmanager is too quick
+
+			if (autoHide is true) {
+				StartCoroutine(AutoHide());
+			} else panelButton.gameObject.SetActive(true);
+
+			Invoke("ShowPanel", 0.01f); //! Intentionally delayed as on startup the panellayoutmanager is too quick
+			
 		}
 
 		/// <summary> Shows the message box. Expects string[], param[0] = message, param[1] = autohide true/false </summary>
@@ -57,7 +59,9 @@ namespace Edia.Controller
 
 		IEnumerator AutoHide()
 		{
-			yield return new WaitForSeconds(autoHideTimer);
+			//yield return new WaitForSecondsRealtime(0.011f);
+			panelButton.gameObject.SetActive(false);
+			yield return new WaitForSecondsRealtime(autoHideTimer);
 			HidePanel();
 		}
 
