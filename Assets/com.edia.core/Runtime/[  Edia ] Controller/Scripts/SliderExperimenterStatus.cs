@@ -59,7 +59,9 @@ public class SliderExperimenterStatus : MonoBehaviour {
 	}
 
 	public void StopAnimation () {
-		StopCoroutine( _animationRoutine );
+		if (_animationRoutine != null) 
+			StopCoroutine( _animationRoutine );
+
 		_mySlider.value = 0f;
 	}
 
@@ -82,6 +84,10 @@ public class SliderExperimenterStatus : MonoBehaviour {
 		_animationRoutine = StartCoroutine("AnimateSliderToValue",endValue);
 	}
 
+	void CleanCoroutine () {
+		_animationRoutine = null;
+	}
+
 	IEnumerator AnimateSliderToValue(float endValue) {
 		float animationTime = 0f;
 		float duration = 0.3f;
@@ -93,6 +99,8 @@ public class SliderExperimenterStatus : MonoBehaviour {
 			_mySlider.value = Mathf.Lerp(oldValue, endValue, lerpValue);
 			yield return null;
 		}
+
+		CleanCoroutine();
 	}
 
 }

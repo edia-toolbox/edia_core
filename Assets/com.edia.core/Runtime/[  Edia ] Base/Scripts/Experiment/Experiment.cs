@@ -198,7 +198,6 @@ namespace Edia {
 				MessagePanelInVR.Instance.HideMenu();
 		}
 
-
 		void ShowMessageToUserGeneric () {
 			AddToExecutionOrderLog("ShowMessageToUser");
 			EnableProceedButton(true);
@@ -210,8 +209,24 @@ namespace Edia {
 			MessagePanelInVR.Instance.HideMenu();
 		}
 
+		/// <summary>
+		/// Shows a message in the controlpanel.
+		/// </summary>
+		/// <param name="msg">Message to show</param>
+		/// <param name="autohide">Autohide the message</param>
+		public void ShowMessageToExperimenter (string msg, bool autohide) {
+			EventManager.TriggerEvent(Edia.Events.ControlPanel.EvShowMessageBox, new eParam(msg, autohide));
+		}
+
+		/// <summary>Shows a message in the controlpanel. Autohides the panel.</summary>
+		/// <param name="msg">Message to show</param>
+		public void ShowMessageToExperimenter(string msg) {
+			EventManager.TriggerEvent(Edia.Events.ControlPanel.EvShowMessageBox, new eParam(msg, true));
+		}
+
+
 		#endregion // -------------------------------------------------------------------------------------------------------------------------------
-#region EXPERIMENT CONTROL
+		#region EXPERIMENT CONTROL
 
 		/// <summary>Starts the experiment</summary>
 		void StartExperiment() {
