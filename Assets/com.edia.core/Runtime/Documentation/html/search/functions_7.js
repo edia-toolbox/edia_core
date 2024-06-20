@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['initialise_0',['Initialise',['../d5/d3b/class_u_x_f_1_1_session_logger.html#a16f8010620faebdad3a133c9ad71ddf2',1,'UXF::SessionLogger']]]
+  ['writestring_0',['WriteString',['../db/de6/class_edia_1_1_file_manager.html#a25ce135977a41ecb69c502c5d089da27',1,'Edia::FileManager']]]
 ];

@@ -27,6 +27,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="../../Doc_Logo.png"/></td>
   <td id="projectalign">
    <div id="projectname">Edia.core
    </div>
@@ -104,15 +105,16 @@ $(function(){initNavTree('d8/d34/_x_r_controller_input_remapper_8cs_source.html'
 <div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="keyword">using </span>System.Collections;</div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="keyword">using </span>System.Collections.Generic;</div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">using </span><a class="code hl_namespace" href="../../d0/dd5/namespace_edia.html">Edia</a>;</div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="keyword">using </span><a class="code hl_namespace" href="../../d3/d82/namespace_unity_engine.html">UnityEngine</a>;</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="keyword">using </span>UnityEngine;</div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">using </span>UnityEngine.InputSystem;</div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">using </span><a class="code hl_namespace" href="../../df/d5d/namespace_unity_engine_1_1_x_r_1_1_interaction_1_1_toolkit.html">UnityEngine.XR.Interaction.Toolkit</a>;</div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">using </span>UnityEngine.XR.Interaction.Toolkit;</div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">using </span>UnityEngine.Events;</div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span><a class="code hl_namespace" href="../../d0/dd5/namespace_edia.html">Edia</a> {</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    [System.Serializable]</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="comment"></span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment">    /// &lt;summary&gt;In order to be flexible for each Xblock, the remapping of a controller key to a method is a separate script&lt;/summary&gt;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="comment"></span>    [System.Serializable]</div>
 <div class="foldopen" id="foldopen00014" data-start="{" data-end="};">
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="../../d3/d55/class_edia_1_1_x_r_controller_input_remapper.html">   14</a></span>    <span class="keyword">public</span> <span class="keyword">class </span><a class="code hl_class" href="../../d3/d55/class_edia_1_1_x_r_controller_input_remapper.html">XRControllerInputRemapper</a> : MonoBehaviour {</div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
@@ -120,19 +122,17 @@ $(function(){initNavTree('d8/d34/_x_r_controller_input_remapper_8cs_source.html'
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>        <span class="comment">// TODO Input remapping should take systems &#39;allowed interaction&#39; into considiration</span></div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>        [System.Serializable]</div>
-<div class="foldopen" id="foldopen00020" data-start="{" data-end="};">
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="../../da/d60/class_edia_1_1_x_r_controller_input_remapper_1_1_controller_input_remap.html">   20</a></span>        <span class="keyword">public</span> <span class="keyword">class </span><a class="code hl_class" href="../../da/d60/class_edia_1_1_x_r_controller_input_remapper_1_1_controller_input_remap.html">ControllerInputRemap</a> {</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        <span class="keyword">public</span> <span class="keyword">class </span>ControllerInputRemap {</div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>            <span class="keyword">public</span> <span class="keywordtype">string</span> id;</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>            <span class="keyword">public</span> <span class="keywordtype">bool</span> isEnabled = <span class="keyword">false</span>;</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>            <span class="keyword">public</span> InputActionReference inputActionSubmit;</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>            <span class="keyword">public</span> UnityEvent&lt;InputAction.CallbackContext&gt; methodToCall;</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        }</div>
-</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        <span class="keyword">public</span> List&lt;ControllerInputRemap&gt; Redirectors = <span class="keyword">new</span> List&lt;ControllerInputRemap&gt;();</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        <span class="keyword">private</span> <span class="keywordtype">void</span> Start() {</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>            <span class="keywordflow">foreach</span> (<a class="code hl_class" href="../../da/d60/class_edia_1_1_x_r_controller_input_remapper_1_1_controller_input_remap.html">ControllerInputRemap</a> r <span class="keywordflow">in</span> Redirectors) {</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>            <span class="keywordflow">foreach</span> (ControllerInputRemap r <span class="keywordflow">in</span> Redirectors) {</div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>                <a class="code hl_function" href="../../d3/d55/class_edia_1_1_x_r_controller_input_remapper.html#a152baae17d7fae0999f3b5d2e457c08b">EnableRemapping</a>(r.id, r.isEnabled);</div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>            }</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        }</div>
@@ -145,9 +145,12 @@ $(function(){initNavTree('d8/d34/_x_r_controller_input_remapper_8cs_source.html'
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>            }</div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>            <span class="keywordflow">return</span> result;</div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        }</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="comment"></span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="comment">        /// &lt;summary&gt;Enables predefined controller inputaction to custom unity event&lt;/summary&gt;</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="comment">        /// &lt;param name=&quot;id&quot;&gt;indentifier&lt;/param&gt;</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="comment">        /// &lt;param name=&quot;onOff&quot;&gt;active&lt;/param&gt;</span></div>
 <div class="foldopen" id="foldopen00047" data-start="{" data-end="}">
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="../../d3/d55/class_edia_1_1_x_r_controller_input_remapper.html#a152baae17d7fae0999f3b5d2e457c08b">   47</a></span>        <span class="keyword">public</span> <span class="keywordtype">void</span> <a class="code hl_function" href="../../d3/d55/class_edia_1_1_x_r_controller_input_remapper.html#a152baae17d7fae0999f3b5d2e457c08b">EnableRemapping</a> (<span class="keywordtype">string</span> <span class="keywordtype">id</span>, <span class="keywordtype">bool</span> onOff) {</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="../../d3/d55/class_edia_1_1_x_r_controller_input_remapper.html#a152baae17d7fae0999f3b5d2e457c08b">   47</a></span><span class="comment"></span>        <span class="keyword">public</span> <span class="keywordtype">void</span> <a class="code hl_function" href="../../d3/d55/class_edia_1_1_x_r_controller_input_remapper.html#a152baae17d7fae0999f3b5d2e457c08b">EnableRemapping</a> (<span class="keywordtype">string</span> <span class="keywordtype">id</span>, <span class="keywordtype">bool</span> onOff) {</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>            <span class="keywordtype">int</span> index = Redirectors.FindIndex(x =&gt; x.id == <span class="keywordtype">id</span>);</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>            </div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>            <span class="keywordflow">if</span> (onOff) Redirectors[index].inputActionSubmit.action.performed += Redirectors[index].methodToCall.Invoke;</div>
@@ -158,12 +161,9 @@ $(function(){initNavTree('d8/d34/_x_r_controller_input_remapper_8cs_source.html'
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    }</div>
 </div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>}</div>
-<div class="ttc" id="aclass_edia_1_1_x_r_controller_input_remapper_1_1_controller_input_remap_html"><div class="ttname"><a href="../../da/d60/class_edia_1_1_x_r_controller_input_remapper_1_1_controller_input_remap.html">Edia.XRControllerInputRemapper.ControllerInputRemap</a></div><div class="ttdef"><b>Definition</b> <a href="#l00020">XRControllerInputRemapper.cs:20</a></div></div>
 <div class="ttc" id="aclass_edia_1_1_x_r_controller_input_remapper_html"><div class="ttname"><a href="../../d3/d55/class_edia_1_1_x_r_controller_input_remapper.html">Edia.XRControllerInputRemapper</a></div><div class="ttdoc">In order to be flexible for each Xblock, the remapping of a controller key to a method is a separate ...</div><div class="ttdef"><b>Definition</b> <a href="#l00014">XRControllerInputRemapper.cs:14</a></div></div>
 <div class="ttc" id="aclass_edia_1_1_x_r_controller_input_remapper_html_a152baae17d7fae0999f3b5d2e457c08b"><div class="ttname"><a href="../../d3/d55/class_edia_1_1_x_r_controller_input_remapper.html#a152baae17d7fae0999f3b5d2e457c08b">Edia.XRControllerInputRemapper.EnableRemapping</a></div><div class="ttdeci">void EnableRemapping(string id, bool onOff)</div><div class="ttdoc">Enables predefined controller inputaction to custom unity event.</div><div class="ttdef"><b>Definition</b> <a href="#l00047">XRControllerInputRemapper.cs:47</a></div></div>
-<div class="ttc" id="anamespace_edia_html"><div class="ttname"><a href="../../d0/dd5/namespace_edia.html">Edia</a></div><div class="ttdef"><b>Definition</b> <a href="../../d5/d7d/_main_menu_8cs_source.html#l00015">MainMenu.cs:15</a></div></div>
-<div class="ttc" id="anamespace_unity_engine_1_1_x_r_1_1_interaction_1_1_toolkit_html"><div class="ttname"><a href="../../df/d5d/namespace_unity_engine_1_1_x_r_1_1_interaction_1_1_toolkit.html">UnityEngine.XR.Interaction.Toolkit</a></div><div class="ttdef"><b>Definition</b> <a href="../../df/d0d/_action_based_controller_manager_8cs_source.html#l00004">ActionBasedControllerManager.cs:5</a></div></div>
-<div class="ttc" id="anamespace_unity_engine_html"><div class="ttname"><a href="../../d3/d82/namespace_unity_engine.html">UnityEngine</a></div><div class="ttdef"><b>Definition</b> <a href="../../df/d0d/_action_based_controller_manager_8cs_source.html#l00004">ActionBasedControllerManager.cs:5</a></div></div>
+<div class="ttc" id="anamespace_edia_html"><div class="ttname"><a href="../../d0/dd5/namespace_edia.html">Edia</a></div><div class="ttdef"><b>Definition</b> <a href="../../d4/d0b/_finger_8cs_source.html#l00002">Finger.cs:3</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

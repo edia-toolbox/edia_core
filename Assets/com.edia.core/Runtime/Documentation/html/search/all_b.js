@@ -1,14 +1,18 @@
 var searchData=
 [
-  ['mainmenu_0',['MainMenu',['../d0/ddb/class_edia_1_1_main_menu.html',1,'Edia']]],
-  ['manageinworker_1',['ManageInWorker',['../d8/dc5/class_u_x_f_1_1_file_saver.html#a3637c708d8c2735902c358746d23a79b',1,'UXF::FileSaver']]],
-  ['measurementdescriptor_2',['measurementDescriptor',['../d6/db1/class_u_x_f_1_1_tracker.html#a8b1dbc12bdabf16bb4c4b896cf74347d',1,'UXF::Tracker']]],
-  ['messagepanelinvr_3',['MessagePanelInVR',['../dd/d09/class_edia_1_1_message_panel_in_v_r.html',1,'Edia']]],
-  ['messagestouser_4',['MessagesToUser',['../dc/d66/class_t_a_s_k_1_1_messages_to_user.html',1,'TASK']]],
-  ['minijson_5',['MiniJSON',['../da/df8/namespace_mini_j_s_o_n.html',1,'']]],
-  ['mousescreentracker_6',['MouseScreenTracker',['../de/d17/class_u_x_f_1_1_mouse_screen_tracker.html',1,'UXF']]],
-  ['mouseworldtracker_7',['MouseWorldTracker',['../db/d8c/class_u_x_f_1_1_mouse_world_tracker.html',1,'UXF']]],
-  ['movementdirection_8',['MovementDirection',['../d7/d42/class_unity_engine_1_1_x_r_1_1_interaction_1_1_toolkit_1_1_samples_1_1_starter_assets_1_1_dynamic_move_provider.html#aba88a876c428d0b628af52e3cac0778b',1,'UnityEngine::XR::Interaction::Toolkit::Samples::StarterAssets::DynamicMoveProvider']]],
-  ['moveplayarea_9',['MovePlayarea',['../d0/d34/class_edia_1_1_x_r_manager.html#a61b2f01cd0c3f89feda3d673abc6d800',1,'Edia::XRManager']]],
-  ['movescrollbartobottom_10',['MoveScrollbarToBottom',['../d8/d15/class_u_x_f_1_1_u_i_1_1_notes_controller.html#a5cafae4e987f4c5ad90c6cf4f5002c41',1,'UXF::UI::NotesController']]]
+  ['screenfader_0',['ScreenFader',['../d5/d3e/class_edia_1_1_screen_fader.html',1,'Edia']]],
+  ['screeninvr_1',['ScreenInVR',['../d7/d65/class_edia_1_1_screen_in_v_r.html',1,'Edia']]],
+  ['sessioninfo_2',['SessionInfo',['../df/ddc/class_edia_1_1_session_info.html',1,'Edia']]],
+  ['settings_3',['Settings',['../df/dc3/class_edia_1_1_events_1_1_settings.html',1,'Edia::Events']]],
+  ['settingsdeclaration_4',['SettingsDeclaration',['../d2/dbc/class_edia_1_1_settings_declaration.html',1,'Edia']]],
+  ['settingstuple_5',['SettingsTuple',['../d7/d22/class_edia_1_1_settings_tuple.html',1,'Edia']]],
+  ['show_6',['Show',['../dd/d09/class_edia_1_1_message_panel_in_v_r.html#af431fa91b42ea750328442ffbeae1c54',1,'Edia.MessagePanelInVR.Show()'],['../d7/d65/class_edia_1_1_screen_in_v_r.html#a42141543b21eb9ca39da2bdb08d813ea',1,'Edia.ScreenInVR.Show()']]],
+  ['showmessage_7',['ShowMessage',['../dd/d09/class_edia_1_1_message_panel_in_v_r.html#a5a75e35f8854435078ecaaad348ab81b',1,'Edia.MessagePanelInVR.ShowMessage(string msg, float duration)'],['../dd/d09/class_edia_1_1_message_panel_in_v_r.html#a24a53fe2fb9c62d8314ce7deccdba223',1,'Edia.MessagePanelInVR.ShowMessage(string msg)'],['../dd/d09/class_edia_1_1_message_panel_in_v_r.html#a628402cc74d3d31291a0debe55c30846',1,'Edia.MessagePanelInVR.ShowMessage(List&lt; string &gt; messages)']]],
+  ['showmessageonpanel_8',['ShowMessageOnPanel',['../dd/d09/class_edia_1_1_message_panel_in_v_r.html#afad8088fa1400f082d5570d4312f9971',1,'Edia::MessagePanelInVR']]],
+  ['startfadeblackin_9',['StartFadeBlackIn',['../d5/d3e/class_edia_1_1_screen_fader.html#a25accd5652a604462a6a45a86a72b0d3',1,'Edia::ScreenFader']]],
+  ['startlistening_10',['StartListening',['../d4/db9/class_edia_1_1_event_manager.html#ae432c46eafe6741b496caf4bd63ffa0b',1,'Edia::EventManager']]],
+  ['statemachine_11',['StateMachine',['../d3/d4c/class_edia_1_1_events_1_1_state_machine.html',1,'Edia::Events']]],
+  ['stoplistening_12',['StopListening',['../d4/db9/class_edia_1_1_event_manager.html#ac4419981f2f446c72a17395a324f462e',1,'Edia::EventManager']]],
+  ['systemsettings_13',['SystemSettings',['../d0/dde/class_edia_1_1_system_settings.html',1,'Edia']]],
+  ['systemsettings_14',['systemSettings',['../d0/dde/class_edia_1_1_system_settings.html#ad445de432000476838b52c81589fc942',1,'Edia::SystemSettings']]]
 ];

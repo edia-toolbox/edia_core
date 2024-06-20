@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['quit_0',['Quit',['../d9/d19/class_u_x_f_1_1_application_handler.html#ac4cf5d285dbf1e473b174d822c98e122',1,'UXF::ApplicationHandler']]]
+  ['writestring_0',['WriteString',['../db/de6/class_edia_1_1_file_manager.html#a25ce135977a41ecb69c502c5d089da27',1,'Edia::FileManager']]]
 ];

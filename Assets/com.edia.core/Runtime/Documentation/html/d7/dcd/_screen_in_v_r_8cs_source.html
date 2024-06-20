@@ -27,6 +27,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="../../Doc_Logo.png"/></td>
   <td id="projectalign">
    <div id="projectname">Edia.core
    </div>
@@ -104,12 +105,13 @@ $(function(){initNavTree('d7/dcd/_screen_in_v_r_8cs_source.html','../../'); init
 <div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="keyword">using </span>System;</div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="keyword">using </span>System.Collections;</div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">using </span>System.Collections.Generic;</div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="keyword">using </span><a class="code hl_namespace" href="../../d3/d82/namespace_unity_engine.html">UnityEngine</a>;</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="keyword">using </span>UnityEngine;</div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">using </span>UnityEngine.UI;</div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">using </span>UnityEngine.XR.Interaction.Toolkit.UI;</div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span><a class="code hl_namespace" href="../../d0/dd5/namespace_edia.html">Edia</a> {</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    [RequireComponent(typeof(Canvas))]</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span><a class="code hl_namespace" href="../../d0/dd5/namespace_edia.html">Edia</a> {<span class="comment"></span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment">    /// &lt;summary&gt;Sample script to show the user a message in VR canvas&lt;/summary&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment"></span>    [RequireComponent(typeof(Canvas))]</div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    [RequireComponent(typeof(TrackedDeviceGraphicRaycaster))]</div>
 <div class="foldopen" id="foldopen00012" data-start="{" data-end="};">
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="../../d7/d65/class_edia_1_1_screen_in_v_r.html">   12</a></span>    <span class="keyword">public</span> <span class="keyword">class </span><a class="code hl_class" href="../../d7/d65/class_edia_1_1_screen_in_v_r.html">ScreenInVR</a> : MonoBehaviour {</div>
@@ -127,18 +129,19 @@ $(function(){initNavTree('d7/dcd/_screen_in_v_r_8cs_source.html','../../'); init
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        <span class="keyword">private</span> <span class="keywordtype">void</span> Awake() {</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>            <span class="keywordflow">if</span> (GetComponent&lt;Canvas&gt;().worldCamera == <span class="keyword">null</span>)</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>                GetComponent&lt;Canvas&gt;().worldCamera = <a class="code hl_class" href="../../d0/d34/class_edia_1_1_x_r_manager.html">XRManager</a>.Instance.CamOverlay.GetComponent&lt;Camera&gt;();</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>                GetComponent&lt;Canvas&gt;().worldCamera = XRManager.Instance.CamOverlay.GetComponent&lt;Camera&gt;();</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>            <span class="keywordflow">if</span> (StickToHMD) {</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>                transform.SetParent(<a class="code hl_class" href="../../d0/d34/class_edia_1_1_x_r_manager.html">XRManager</a>.Instance.XRCam, <span class="keyword">true</span>);</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>                transform.SetParent(XRManager.Instance.XRCam, <span class="keyword">true</span>);</div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>                transform.localPosition = <span class="keyword">new</span> Vector3(0, 0, DistanceFromHMD);</div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>            }</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>            <span class="keywordflow">if</span> (!StartVisible) <a class="code hl_function" href="../../d7/d65/class_edia_1_1_screen_in_v_r.html#a42141543b21eb9ca39da2bdb08d813ea">Show</a>(<span class="keyword">false</span>);</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        }</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="comment"></span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="comment">        /// &lt;summary&gt;Shows the actual panel&lt;/summary&gt;</span></div>
 <div class="foldopen" id="foldopen00038" data-start="{" data-end="}">
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="../../d7/d65/class_edia_1_1_screen_in_v_r.html#a42141543b21eb9ca39da2bdb08d813ea">   38</a></span>        <span class="keyword">public</span> <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="../../d7/d65/class_edia_1_1_screen_in_v_r.html#a42141543b21eb9ca39da2bdb08d813ea">Show</a>(<span class="keywordtype">bool</span> onOff) {</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="../../d7/d65/class_edia_1_1_screen_in_v_r.html#a42141543b21eb9ca39da2bdb08d813ea">   38</a></span><span class="comment"></span>        <span class="keyword">public</span> <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="../../d7/d65/class_edia_1_1_screen_in_v_r.html#a42141543b21eb9ca39da2bdb08d813ea">Show</a>(<span class="keywordtype">bool</span> onOff) {</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>            GetComponent&lt;Canvas&gt;().enabled = onOff;</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>            GetComponent&lt;GraphicRaycaster&gt;().enabled = onOff;</div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>            GetComponent&lt;TrackedDeviceGraphicRaycaster&gt;().enabled = onOff;</div>
@@ -146,9 +149,10 @@ $(function(){initNavTree('d7/dcd/_screen_in_v_r_8cs_source.html','../../'); init
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>            isActive = onOff;</div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        }</div>
 </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="comment"></span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="comment">        /// &lt;summary&gt;Doublecheck&lt;/summary&gt;</span></div>
 <div class="foldopen" id="foldopen00047" data-start="{" data-end="}">
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="../../d7/d65/class_edia_1_1_screen_in_v_r.html#a491e2fe8bf2604c42606fa419dfa8e1d">   47</a></span>        <span class="keyword">public</span> <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="../../d7/d65/class_edia_1_1_screen_in_v_r.html#a491e2fe8bf2604c42606fa419dfa8e1d">HidePanel</a>() {</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="../../d7/d65/class_edia_1_1_screen_in_v_r.html#a491e2fe8bf2604c42606fa419dfa8e1d">   47</a></span><span class="comment"></span>        <span class="keyword">public</span> <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="../../d7/d65/class_edia_1_1_screen_in_v_r.html#a491e2fe8bf2604c42606fa419dfa8e1d">HidePanel</a>() {</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>            <a class="code hl_function" href="../../d7/d65/class_edia_1_1_screen_in_v_r.html#a42141543b21eb9ca39da2bdb08d813ea">Show</a>(<span class="keyword">false</span>);</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        }</div>
 </div>
@@ -158,9 +162,7 @@ $(function(){initNavTree('d7/dcd/_screen_in_v_r_8cs_source.html','../../'); init
 <div class="ttc" id="aclass_edia_1_1_screen_in_v_r_html"><div class="ttname"><a href="../../d7/d65/class_edia_1_1_screen_in_v_r.html">Edia.ScreenInVR</a></div><div class="ttdoc">Sample script to show the user a message in VR canvas.</div><div class="ttdef"><b>Definition</b> <a href="#l00012">ScreenInVR.cs:12</a></div></div>
 <div class="ttc" id="aclass_edia_1_1_screen_in_v_r_html_a42141543b21eb9ca39da2bdb08d813ea"><div class="ttname"><a href="../../d7/d65/class_edia_1_1_screen_in_v_r.html#a42141543b21eb9ca39da2bdb08d813ea">Edia.ScreenInVR.Show</a></div><div class="ttdeci">virtual void Show(bool onOff)</div><div class="ttdoc">Shows the actual panel.</div><div class="ttdef"><b>Definition</b> <a href="#l00038">ScreenInVR.cs:38</a></div></div>
 <div class="ttc" id="aclass_edia_1_1_screen_in_v_r_html_a491e2fe8bf2604c42606fa419dfa8e1d"><div class="ttname"><a href="../../d7/d65/class_edia_1_1_screen_in_v_r.html#a491e2fe8bf2604c42606fa419dfa8e1d">Edia.ScreenInVR.HidePanel</a></div><div class="ttdeci">virtual void HidePanel()</div><div class="ttdoc">Doublecheck.</div><div class="ttdef"><b>Definition</b> <a href="#l00047">ScreenInVR.cs:47</a></div></div>
-<div class="ttc" id="aclass_edia_1_1_x_r_manager_html"><div class="ttname"><a href="../../d0/d34/class_edia_1_1_x_r_manager.html">Edia.XRManager</a></div><div class="ttdef"><b>Definition</b> <a href="../../df/dc5/_x_r_manager_8cs_source.html#l00010">XRManager.cs:10</a></div></div>
-<div class="ttc" id="anamespace_edia_html"><div class="ttname"><a href="../../d0/dd5/namespace_edia.html">Edia</a></div><div class="ttdef"><b>Definition</b> <a href="../../d5/d7d/_main_menu_8cs_source.html#l00015">MainMenu.cs:15</a></div></div>
-<div class="ttc" id="anamespace_unity_engine_html"><div class="ttname"><a href="../../d3/d82/namespace_unity_engine.html">UnityEngine</a></div><div class="ttdef"><b>Definition</b> <a href="../../df/d0d/_action_based_controller_manager_8cs_source.html#l00004">ActionBasedControllerManager.cs:5</a></div></div>
+<div class="ttc" id="anamespace_edia_html"><div class="ttname"><a href="../../d0/dd5/namespace_edia.html">Edia</a></div><div class="ttdef"><b>Definition</b> <a href="../../d4/d0b/_finger_8cs_source.html#l00002">Finger.cs:3</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

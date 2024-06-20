@@ -5,5 +5,9 @@ digraph "Graphical Class Hierarchy"
   edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
   node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
   rankdir="LR";
-  Node0 [id="Node000000",label="BlockingQueue\< System.Action \>",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$df/dd1/class_blocking_queue.html",tooltip=" "];
+  Node0 [id="Node000000",label="Edia.Controller.Experimenter\lPanel",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d7/d44/class_edia_1_1_controller_1_1_experimenter_panel.html",tooltip="Base Panel functionality."];
+  Node0 -> Node1 [id="edge1_Node000000_Node000001",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node1 [id="Node000001",label="Edia.Controller.PanelConfig\lMaker",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d0/d1d/class_edia_1_1_controller_1_1_panel_config_maker.html",tooltip="Panel for setting up config files, for now choosing them from pre-set versions."];
+  Node0 -> Node2 [id="edge2_Node000000_Node000002",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node2 [id="Node000002",label="Edia.Controller.PanelConfig\lSelection",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d7/d88/class_edia_1_1_controller_1_1_panel_config_selection.html",tooltip="GUI element that enables the user to choose from a dropdown of found experiment config files."];
 }

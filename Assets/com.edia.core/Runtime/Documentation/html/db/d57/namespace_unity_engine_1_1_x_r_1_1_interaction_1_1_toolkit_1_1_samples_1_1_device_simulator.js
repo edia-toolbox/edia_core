@@ -1,6 +1,0 @@
-var namespace_unity_engine_1_1_x_r_1_1_interaction_1_1_toolkit_1_1_samples_1_1_device_simulator =
-[
-    [ "XRDeviceSimulatorControllerUI", "d3/d29/class_unity_engine_1_1_x_r_1_1_interaction_1_1_toolkit_1_1_samples_1_1_device_simulator_1_1_x_r_device_simulator_controller_u_i.html", null ],
-    [ "XRDeviceSimulatorHandsUI", "db/d14/class_unity_engine_1_1_x_r_1_1_interaction_1_1_toolkit_1_1_samples_1_1_device_simulator_1_1_x_r_device_simulator_hands_u_i.html", null ],
-    [ "XRDeviceSimulatorUI", "d1/dbd/class_unity_engine_1_1_x_r_1_1_interaction_1_1_toolkit_1_1_samples_1_1_device_simulator_1_1_x_r_device_simulator_u_i.html", "d1/dbd/class_unity_engine_1_1_x_r_1_1_interaction_1_1_toolkit_1_1_samples_1_1_device_simulator_1_1_x_r_device_simulator_u_i" ]
-];

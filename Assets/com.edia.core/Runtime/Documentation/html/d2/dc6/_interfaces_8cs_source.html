@@ -27,6 +27,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="../../Doc_Logo.png"/></td>
   <td id="projectalign">
    <div id="projectname">Edia.core
    </div>
@@ -103,12 +104,11 @@ $(function(){initNavTree('d2/dc6/_interfaces_8cs_source.html','../../'); initRes
 <div class="contents">
 <div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="keyword">using </span>System.Collections;</div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="keyword">using </span>System.Collections.Generic;</div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">using </span><a class="code hl_namespace" href="../../d3/d82/namespace_unity_engine.html">UnityEngine</a>;</div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">using </span>UnityEngine;</div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="keyword">using </span><a class="code hl_namespace" href="../../d0/dd5/namespace_edia.html">Edia</a>;</div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span><a class="code hl_namespace" href="../../d0/dd5/namespace_edia.html">Edia</a> {</div>
-<div class="foldopen" id="foldopen00007" data-start="{" data-end="};">
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno"><a class="line" href="../../de/d9b/interface_edia_1_1_i_lsl_pusher.html">    7</a></span>    <span class="keyword">public</span> <span class="keyword">interface </span><a class="code hl_interface" href="../../de/d9b/interface_edia_1_1_i_lsl_pusher.html">ILslPusher</a> {</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>    <span class="keyword">public</span> <span class="keyword">interface </span>ILslPusher {</div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>        <span class="keyword">public</span> Constants.EyeId EyeId { <span class="keyword">get</span>; <span class="keyword">set</span>; }</div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
@@ -121,19 +121,13 @@ $(function(){initNavTree('d2/dc6/_interfaces_8cs_source.html','../../'); initRes
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        <span class="keyword">public</span> <span class="keywordtype">double</span> GetTime();</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    }</div>
-</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
-<div class="foldopen" id="foldopen00021" data-start="{" data-end="};">
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="../../d7/d9d/interface_edia_1_1_i_lsl_timer.html">   21</a></span>    <span class="keyword">public</span> <span class="keyword">interface </span><a class="code hl_interface" href="../../d7/d9d/interface_edia_1_1_i_lsl_timer.html">ILslTimer</a> {</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keyword">public</span> <span class="keyword">interface </span>ILslTimer {</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <span class="keyword">public</span> <span class="keywordtype">double</span> GetTime();</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    }</div>
-</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>}</div>
-<div class="ttc" id="ainterface_edia_1_1_i_lsl_pusher_html"><div class="ttname"><a href="../../de/d9b/interface_edia_1_1_i_lsl_pusher.html">Edia.ILslPusher</a></div><div class="ttdef"><b>Definition</b> <a href="#l00007">Interfaces.cs:7</a></div></div>
-<div class="ttc" id="ainterface_edia_1_1_i_lsl_timer_html"><div class="ttname"><a href="../../d7/d9d/interface_edia_1_1_i_lsl_timer.html">Edia.ILslTimer</a></div><div class="ttdef"><b>Definition</b> <a href="#l00021">Interfaces.cs:21</a></div></div>
-<div class="ttc" id="anamespace_edia_html"><div class="ttname"><a href="../../d0/dd5/namespace_edia.html">Edia</a></div><div class="ttdef"><b>Definition</b> <a href="../../d5/d7d/_main_menu_8cs_source.html#l00015">MainMenu.cs:15</a></div></div>
-<div class="ttc" id="anamespace_unity_engine_html"><div class="ttname"><a href="../../d3/d82/namespace_unity_engine.html">UnityEngine</a></div><div class="ttdef"><b>Definition</b> <a href="../../df/d0d/_action_based_controller_manager_8cs_source.html#l00004">ActionBasedControllerManager.cs:5</a></div></div>
+<div class="ttc" id="anamespace_edia_html"><div class="ttname"><a href="../../d0/dd5/namespace_edia.html">Edia</a></div><div class="ttdef"><b>Definition</b> <a href="../../d4/d0b/_finger_8cs_source.html#l00002">Finger.cs:3</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

@@ -27,6 +27,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="../../Doc_Logo.png"/></td>
   <td id="projectalign">
    <div id="projectname">Edia.core
    </div>
@@ -103,17 +104,18 @@ $(function(){initNavTree('d8/d59/_helper_classes_8cs_source.html','../../'); ini
 <div class="contents">
 <div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="keyword">using </span>System.Collections;</div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="keyword">using </span>System.Collections.Generic;</div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">using </span><a class="code hl_namespace" href="../../d3/d82/namespace_unity_engine.html">UnityEngine</a>;</div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">using </span>UnityEngine;</div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="keyword">using </span>UnityEngine.Events;</div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">using </span>System.Linq;</div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">using </span>System;</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">using </span><a class="code hl_namespace" href="../../d8/d76/namespace_u_x_f.html">UXF</a>;</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">using </span>UXF;</div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span><a class="code hl_namespace" href="../../d0/dd5/namespace_edia.html">Edia</a> {</div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#region SESSION CONFIG (JSON SERIALIZABLE)</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    [System.Serializable]</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment"></span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="comment">    /// &lt;summary&gt; Tuple of strings, this is serializable in the inspector and dictionaries are not&lt;/summary&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="comment"></span>    [System.Serializable]</div>
 <div class="foldopen" id="foldopen00015" data-start="{" data-end="};">
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="../../d7/d22/class_edia_1_1_settings_tuple.html">   15</a></span>    <span class="keyword">public</span> <span class="keyword">class </span><a class="code hl_class" href="../../d7/d22/class_edia_1_1_settings_tuple.html">SettingsTuple</a> {</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>        [HideInInspector]</div>
@@ -121,55 +123,53 @@ $(function(){initNavTree('d8/d59/_helper_classes_8cs_source.html','../../'); ini
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        <span class="keyword">public</span> <span class="keywordtype">string</span> value = <span class="keywordtype">string</span>.Empty;</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    }</div>
 </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    [System.Serializable]</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="comment"></span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="comment">    /// &lt;summary&gt; List of string values, in a class to make it serializable by JSON&lt;/summary&gt;</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="comment"></span>    [System.Serializable]</div>
 <div class="foldopen" id="foldopen00023" data-start="{" data-end="};">
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="../../d4/dad/class_edia_1_1_value_list.html">   23</a></span>    <span class="keyword">public</span> <span class="keyword">class </span><a class="code hl_class" href="../../d4/dad/class_edia_1_1_value_list.html">ValueList</a> {</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        <span class="keyword">public</span> List&lt;string&gt; values = <span class="keyword">new</span> List&lt;string&gt;();</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    }</div>
 </div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    [System.Serializable]</div>
-<div class="foldopen" id="foldopen00029" data-start="{" data-end="};">
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="../../d4/dc9/class_edia_1_1_trial_settings.html">   29</a></span>    <span class="keyword">public</span> <span class="keyword">class </span><a class="code hl_class" href="../../d4/dc9/class_edia_1_1_trial_settings.html">TrialSettings</a> {</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="comment"></span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="comment">    ///// &lt;summary&gt; Experiment trial settings container&lt;/summary&gt;</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="comment"></span>    [System.Serializable]</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keyword">public</span> <span class="keyword">class </span>TrialSettings {</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        [HideInInspector]</div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        <span class="keyword">public</span> List&lt;string&gt; keys = <span class="keyword">new</span> List&lt;string&gt;();</div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        <span class="keyword">public</span> List&lt;ValueList&gt; valueList = <span class="keyword">new</span> List&lt;ValueList&gt;();</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    }</div>
-</div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="preprocessor">#endregion </span><span class="comment">// -------------------------------------------------------------------------------------------------------------------------------</span></div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="preprocessor">#region UXF SEQUENCE (JSON SERIALIZABLE)</span></div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    [System.Serializable]</div>
-<div class="foldopen" id="foldopen00039" data-start="{" data-end="};">
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="../../d6/dee/class_edia_1_1_x_block_sequence.html">   39</a></span>    <span class="keyword">public</span> <span class="keyword">class </span><a class="code hl_class" href="../../d6/dee/class_edia_1_1_x_block_sequence.html">XBlockSequence</a> {</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keyword">public</span> <span class="keyword">class </span>XBlockSequence {</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        <span class="keyword">public</span> List&lt;string&gt; Sequence = <span class="keyword">new</span>();</div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    }</div>
-</div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    [System.Serializable]</div>
-<div class="foldopen" id="foldopen00044" data-start="{" data-end="};">
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="../../d8/dc0/class_edia_1_1_x_block_base_settings.html">   44</a></span>    <span class="keyword">public</span> <span class="keyword">class </span><a class="code hl_class" href="../../d8/dc0/class_edia_1_1_x_block_base_settings.html">XBlockBaseSettings</a> {</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keyword">public</span> <span class="keyword">class </span>XBlockBaseSettings {</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        <span class="keyword">public</span> <span class="keywordtype">string</span> type;</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        <span class="keyword">public</span> <span class="keywordtype">string</span> subType;</div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <span class="keyword">public</span> List&lt;SettingsTuple&gt; settings = <span class="keyword">new</span>();</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        <span class="keyword">public</span> List&lt;SettingsTuple&gt; instructions = <span class="keyword">new</span>();</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    }</div>
-</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    [System.Serializable]</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="comment"></span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="comment">    //! Task list</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="comment"></span>    [System.Serializable]</div>
 <div class="foldopen" id="foldopen00053" data-start="{" data-end="};">
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="../../de/d24/class_edia_1_1_x_block_settings.html">   53</a></span>    <span class="keyword">public</span> <span class="keyword">class </span><a class="code hl_class" href="../../de/d24/class_edia_1_1_x_block_settings.html">XBlockSettings</a> : <a class="code hl_class" href="../../d8/dc0/class_edia_1_1_x_block_base_settings.html">XBlockBaseSettings</a> {</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="../../de/d24/class_edia_1_1_x_block_settings.html">   53</a></span>    <span class="keyword">public</span> <span class="keyword">class </span><a class="code hl_class" href="../../de/d24/class_edia_1_1_x_block_settings.html">XBlockSettings</a> : XBlockBaseSettings {</div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <span class="keyword">public</span> <span class="keywordtype">string</span> blockId;</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <span class="keyword">public</span> <a class="code hl_class" href="../../d4/dc9/class_edia_1_1_trial_settings.html">TrialSettings</a> trialSettings = <span class="keyword">new</span>();</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <span class="keyword">public</span> TrialSettings trialSettings = <span class="keyword">new</span>();</div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    }</div>
 </div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="preprocessor">#endregion </span><span class="comment">// -------------------------------------------------------------------------------------------------------------------------------</span></div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="preprocessor">#region SESSION SETTINGS</span></div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    [System.Serializable]</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="comment"></span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="comment">    /// &lt;summary&gt; Experiment config container&lt;/summary&gt;</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="comment"></span>    [System.Serializable]</div>
 <div class="foldopen" id="foldopen00063" data-start="{" data-end="};">
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="../../df/ddc/class_edia_1_1_session_info.html">   63</a></span>    <span class="keyword">public</span> <span class="keyword">class </span><a class="code hl_class" href="../../df/ddc/class_edia_1_1_session_info.html">SessionInfo</a> {</div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <span class="keyword">public</span> <span class="keywordtype">string</span> experiment = <span class="keywordtype">string</span>.Empty;</div>
@@ -221,8 +221,9 @@ $(function(){initNavTree('d8/d59/_helper_classes_8cs_source.html','../../'); ini
 <div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
 <div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span><span class="preprocessor">#endregion </span><span class="comment">// -------------------------------------------------------------------------------------------------------------------------------</span></div>
 <div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span><span class="preprocessor">#region XBLOCK RELATED STATE MACHINE</span></div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    [System.Serializable]</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span><span class="comment"></span> </div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span><span class="comment">    /// &lt;summary&gt;One step of a trial&lt;/summary&gt;</span></div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span><span class="comment"></span>    [System.Serializable]</div>
 <div class="foldopen" id="foldopen00115" data-start="{" data-end="};">
 <div class="line"><a id="l00115" name="l00115"></a><span class="lineno"><a class="line" href="../../d4/d11/class_edia_1_1_trial_step.html">  115</a></span>    <span class="keyword">public</span> <span class="keyword">class </span><a class="code hl_class" href="../../d4/d11/class_edia_1_1_trial_step.html">TrialStep</a>  {</div>
 <div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>        <span class="keyword">public</span> <span class="keywordtype">string</span> title;</div>
@@ -238,13 +239,14 @@ $(function(){initNavTree('d8/d59/_helper_classes_8cs_source.html','../../'); ini
 <div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span> </div>
 <div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span><span class="preprocessor">#endregion </span><span class="comment">// -------------------------------------------------------------------------------------------------------------------------------</span></div>
 <div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span><span class="preprocessor">#region SYSTEM RELATED</span></div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span> </div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    [System.Serializable]</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span><span class="comment"></span> </div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span><span class="comment">    /// &lt;summary&gt;Container to hold main settings of the application &lt;/summary&gt;</span></div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span><span class="comment"></span>    [System.Serializable]</div>
 <div class="foldopen" id="foldopen00131" data-start="{" data-end="};">
 <div class="line"><a id="l00131" name="l00131"></a><span class="lineno"><a class="line" href="../../d2/dbc/class_edia_1_1_settings_declaration.html">  131</a></span>    <span class="keyword">public</span> <span class="keyword">class </span><a class="code hl_class" href="../../d2/dbc/class_edia_1_1_settings_declaration.html">SettingsDeclaration</a> {</div>
 <div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span> </div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>        <span class="keyword">public</span> Constants.Interactor VisableInteractor = Constants.Interactor.NONE;</div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>        <span class="keyword">public</span> Constants.Interactor InteractiveInteractor = Constants.Interactor.RIGHT;</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>        <span class="keyword">public</span> Constants.Interactor VisableInteractor = <a class="code hl_class" href="../../da/df7/class_edia_1_1_constants.html">Constants</a>.Interactor.NONE;</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>        <span class="keyword">public</span> Constants.Interactor InteractiveInteractor = <a class="code hl_class" href="../../da/df7/class_edia_1_1_constants.html">Constants</a>.Interactor.RIGHT;</div>
 <div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>        <span class="comment">//public int screenResolution = 0;</span></div>
 <div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>        <span class="comment">//public float volume = 50f;</span></div>
 <div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>        <span class="comment">//public Constants.Languages language = Constants.Languages.ENG;</span></div>
@@ -259,18 +261,14 @@ $(function(){initNavTree('d8/d59/_helper_classes_8cs_source.html','../../'); ini
 <div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span><span class="preprocessor">#endregion </span><span class="comment">// -------------------------------------------------------------------------------------------------------------------------------</span></div>
 <div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span> </div>
 <div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>}</div>
+<div class="ttc" id="aclass_edia_1_1_constants_html"><div class="ttname"><a href="../../da/df7/class_edia_1_1_constants.html">Edia.Constants</a></div><div class="ttdoc">Static definitions.</div><div class="ttdef"><b>Definition</b> <a href="../../d5/dbb/_0f_01_01_edia_01_0e_01_base_2_scripts_2_experiment_2_constants_8cs_source.html#l00010">Constants.cs:10</a></div></div>
 <div class="ttc" id="aclass_edia_1_1_session_info_html"><div class="ttname"><a href="../../df/ddc/class_edia_1_1_session_info.html">Edia.SessionInfo</a></div><div class="ttdoc">Experiment config container.</div><div class="ttdef"><b>Definition</b> <a href="#l00063">HelperClasses.cs:63</a></div></div>
 <div class="ttc" id="aclass_edia_1_1_settings_declaration_html"><div class="ttname"><a href="../../d2/dbc/class_edia_1_1_settings_declaration.html">Edia.SettingsDeclaration</a></div><div class="ttdoc">Container to hold main settings of the application.</div><div class="ttdef"><b>Definition</b> <a href="#l00131">HelperClasses.cs:131</a></div></div>
 <div class="ttc" id="aclass_edia_1_1_settings_tuple_html"><div class="ttname"><a href="../../d7/d22/class_edia_1_1_settings_tuple.html">Edia.SettingsTuple</a></div><div class="ttdoc">Tuple of strings, this is serializable in the inspector and dictionaries are not.</div><div class="ttdef"><b>Definition</b> <a href="#l00015">HelperClasses.cs:15</a></div></div>
-<div class="ttc" id="aclass_edia_1_1_trial_settings_html"><div class="ttname"><a href="../../d4/dc9/class_edia_1_1_trial_settings.html">Edia.TrialSettings</a></div><div class="ttdef"><b>Definition</b> <a href="#l00029">HelperClasses.cs:29</a></div></div>
 <div class="ttc" id="aclass_edia_1_1_trial_step_html"><div class="ttname"><a href="../../d4/d11/class_edia_1_1_trial_step.html">Edia.TrialStep</a></div><div class="ttdoc">One step of a trial.</div><div class="ttdef"><b>Definition</b> <a href="#l00115">HelperClasses.cs:115</a></div></div>
 <div class="ttc" id="aclass_edia_1_1_value_list_html"><div class="ttname"><a href="../../d4/dad/class_edia_1_1_value_list.html">Edia.ValueList</a></div><div class="ttdoc">List of string values, in a class to make it serializable by JSON.</div><div class="ttdef"><b>Definition</b> <a href="#l00023">HelperClasses.cs:23</a></div></div>
-<div class="ttc" id="aclass_edia_1_1_x_block_base_settings_html"><div class="ttname"><a href="../../d8/dc0/class_edia_1_1_x_block_base_settings.html">Edia.XBlockBaseSettings</a></div><div class="ttdef"><b>Definition</b> <a href="#l00044">HelperClasses.cs:44</a></div></div>
-<div class="ttc" id="aclass_edia_1_1_x_block_sequence_html"><div class="ttname"><a href="../../d6/dee/class_edia_1_1_x_block_sequence.html">Edia.XBlockSequence</a></div><div class="ttdef"><b>Definition</b> <a href="#l00039">HelperClasses.cs:39</a></div></div>
 <div class="ttc" id="aclass_edia_1_1_x_block_settings_html"><div class="ttname"><a href="../../de/d24/class_edia_1_1_x_block_settings.html">Edia.XBlockSettings</a></div><div class="ttdoc">Task list.</div><div class="ttdef"><b>Definition</b> <a href="#l00053">HelperClasses.cs:53</a></div></div>
-<div class="ttc" id="anamespace_edia_html"><div class="ttname"><a href="../../d0/dd5/namespace_edia.html">Edia</a></div><div class="ttdef"><b>Definition</b> <a href="../../d5/d7d/_main_menu_8cs_source.html#l00015">MainMenu.cs:15</a></div></div>
-<div class="ttc" id="anamespace_u_x_f_html"><div class="ttname"><a href="../../d8/d76/namespace_u_x_f.html">UXF</a></div><div class="ttdef"><b>Definition</b> <a href="../../db/dba/_application_handler_8cs_source.html#l00006">ApplicationHandler.cs:7</a></div></div>
-<div class="ttc" id="anamespace_unity_engine_html"><div class="ttname"><a href="../../d3/d82/namespace_unity_engine.html">UnityEngine</a></div><div class="ttdef"><b>Definition</b> <a href="../../df/d0d/_action_based_controller_manager_8cs_source.html#l00004">ActionBasedControllerManager.cs:5</a></div></div>
+<div class="ttc" id="anamespace_edia_html"><div class="ttname"><a href="../../d0/dd5/namespace_edia.html">Edia</a></div><div class="ttdef"><b>Definition</b> <a href="../../d4/d0b/_finger_8cs_source.html#l00002">Finger.cs:3</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
