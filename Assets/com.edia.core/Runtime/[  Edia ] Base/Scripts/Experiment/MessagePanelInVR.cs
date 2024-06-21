@@ -1,11 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.XR.Interaction.Toolkit.UI;
 
 namespace Edia {
 	/// <summary>Sample script to show the user a message in VR canvas</summary>
@@ -70,7 +68,7 @@ namespace Edia {
 		/// <param name="duration">Duration</param>
 		public void ShowMessage(string msg, float duration) {
 			ShowMessage(msg);
-			_messageTimer = StartCoroutine("timer", duration);
+			_messageTimer = StartCoroutine(HidePanelAfter(duration));
 			HideMenu();
 		}
 
@@ -183,7 +181,7 @@ namespace Edia {
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region TIMERS
 
-		IEnumerator timer(float duration) {
+		IEnumerator HidePanelAfter(float duration) {
 			yield return new WaitForSeconds(duration);
 			HidePanel();
 		}
