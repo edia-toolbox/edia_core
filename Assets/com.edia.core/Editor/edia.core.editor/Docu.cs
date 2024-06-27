@@ -46,12 +46,15 @@ namespace Edia.EditorUtils {
 		public static void OpenDocumentation ()
 		{
             var packageInfo = UnityEditor.PackageManager.PackageInfo.FindForAssetPath("Packages/com.edia.core");
-			//string url = "file://" + Application.dataPath + "/MyCoolExtension/Documentation.html";
 
-			Debug.Log($"From helppanel: {packageInfo.documentationUrl}");
+			Debug.Log($"From helppanel: {packageInfo.assetPath}");
+            Debug.Log($"From helppanel: {packageInfo.documentationUrl}");
+            Debug.Log($"From helppanel: {packageInfo.description}");
 
-            if (!string.IsNullOrEmpty(packageInfo.documentationUrl))
-                Application.OpenURL(packageInfo.documentationUrl);
+            Application.OpenURL(packageInfo.assetPath + "/APIreference~/index.html");
+
+            //if (!string.IsNullOrEmpty(packageInfo.documentationUrl))
+            //    Application.OpenURL(packageInfo.documentationUrl);
         }
 	}
 }
