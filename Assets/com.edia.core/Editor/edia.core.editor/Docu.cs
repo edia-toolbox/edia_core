@@ -50,8 +50,9 @@ namespace Edia.EditorUtils {
 			Debug.Log($"From helppanel: {packageInfo.assetPath}");
             Debug.Log($"From helppanel: {packageInfo.documentationUrl}");
             Debug.Log($"From helppanel: {packageInfo.description}");
-
-            Application.OpenURL(packageInfo.assetPath + "/APIreference~/index.html");
+			string url = packageInfo.assetPath + "\\Documentation~\\index.html";
+            Debug.Log($"url: {url}");
+            Application.OpenURL(url);
 
             //if (!string.IsNullOrEmpty(packageInfo.documentationUrl))
             //    Application.OpenURL(packageInfo.documentationUrl);
