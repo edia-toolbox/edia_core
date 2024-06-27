@@ -50,7 +50,8 @@ namespace Edia.EditorUtils {
 			Debug.Log($"From helppanel: {packageInfo.assetPath}");
             Debug.Log($"From helppanel: {packageInfo.documentationUrl}");
             Debug.Log($"From helppanel: {packageInfo.description}");
-			string url = packageInfo.assetPath + "\\Documentation~\\index.html";
+
+            string url = packageInfo.assetPath + "/Documentation~/index.html";
             Debug.Log($"url: {url}");
             Application.OpenURL(url);
 
