@@ -4,12 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
-using Edia;
 using UXF;
 using Utils;
 using UnityEngine.UI;
 
-namespace eDia {
+namespace Edia {
     public class TaskStroop : XBlock {
 
         [Space(20)]
