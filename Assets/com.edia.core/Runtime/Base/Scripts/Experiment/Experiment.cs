@@ -32,11 +32,12 @@ namespace Edia {
 
 		[Header("Experiment Settings")]
 		[Tooltip("Enable Position&Rotation tracker from UXF which stores data to session folder. !Might have impact on FPS with long trials.")]
-		[HelpBox("<size=14><color=yellow><b>INFO:</b></color> UXF Tracking</size>\nEnable Position&Rotation tracker from UXF which stores data to session folder. \n<color=red>!Might have impact on FPS with long trials.</color>", HelpBoxMessageType.None)]
+		[HelpBox("<size=14><color=#00ee30><b>INFO:</b></color> UXF Tracking</size>\nEnable Position&Rotation tracker from UXF which stores data to session folder. \nMight have impact on FPS with long trials!", HelpBoxMessageType.Warning)]
 		public bool TrackXrRigWithUxf = false;
 
 		[Space(20)]
 		[Header("Experiment")]
+		[HelpBox("<size=14><color=#00ee30><b>XBlock Executers</b></color></size>\nList of gameobjects containing the functional Xblock code. \nNaming convenction: [type]_[subtype]", HelpBoxMessageType.None)]
 		public List<XBlock> XBlockExecuters = new();
 
 		[Space(20)]
@@ -91,14 +92,19 @@ namespace Edia {
 		bool SanityCheck() {
 			bool _succes = true;
 
-			// Are the gameobjects in Experiment.blocks properly named? <TYPE>_<SUBTYPE>
-			foreach (XBlock g in Experiment.Instance.XBlockExecuters) {
-				g.name = g.name.ToLower();
+			if (XBlockExecuters == null || XBlockExecuters.Count == 0) {
+				Debug.LogErrorFormat("XBLock Executers list is empty!");
+				_succes = false;
+			} else {
+				// Are the gameobjects in Experiment.blocks properly named? <TYPE>_<SUBTYPE>
+				foreach (XBlock g in XBlockExecuters) {
+					g.name = g.name.ToLower();
 
-				//if (!g.name.Contains('_') || g.name.Split('_').Length != 2) {
-				if (!g.name.Contains('_') ) {
-						Debug.LogErrorFormat("<TYPE>_<SUBTYPE> Invalid gameobject naming format found in: <b>{0}</b>", g.name);
-					_succes = false;
+					//if (!g.name.Contains('_') || g.name.Split('_').Length != 2) {
+					if (!g.name.Contains('_') ) {
+							Debug.LogErrorFormat("<TYPE>_<SUBTYPE> Invalid gameobject naming format found in: <b>{0}</b>", g.name);
+						_succes = false;
+					}
 				}
 			}
 
@@ -226,7 +232,7 @@ namespace Edia {
 
 
 		#endregion // -------------------------------------------------------------------------------------------------------------------------------
-		#region EXPERIMENT CONTROL
+#region EXPERIMENT CONTROL
 
 		/// <summary>Starts the experiment</summary>
 		void StartExperiment() {
