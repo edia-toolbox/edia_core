@@ -64,12 +64,6 @@ namespace Edia {
 
 			EventManager.showLog = ShowLog;
 
-			XBlockNamesToLower();
-
-			if(!SanityCheck()) 
-				return;
-
-			EnableAllXBlocks(false);
 
 		}
 
@@ -80,6 +74,14 @@ namespace Edia {
 		}
 
 		void Start() {
+
+			XBlockNamesToLower();
+
+			if(!SanityCheck()) 
+				return;
+
+			EnableAllXBlocks(false);
+
 			// Hard reference statemachine links between UXF and EXP
 			Session.instance.onSessionBegin.AddListener(OnSessionBeginUXF);
 			Session.instance.onSessionEnd.AddListener(OnSessionEndUXF);
