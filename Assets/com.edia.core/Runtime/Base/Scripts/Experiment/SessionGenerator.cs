@@ -118,7 +118,6 @@ namespace Edia {
 		bool ValidateBlockList() {
 			bool success = true;
 
-			// Do all entries in the sequence have their detailed config loaded?
 			foreach (string blockId in _xBlockSequence.Sequence) {
 				if (GetXBlockByBlockId(blockId) == null) {
 					Debug.LogWarningFormat("No details found for <b>{0}</b>", blockId);
@@ -140,7 +139,7 @@ namespace Edia {
 		/// <summary>
 		/// Generates the UXF sequence based on the supplied Json files and database
 		/// </summary>
-		public void GenerateUxfSequence() {
+		void GenerateUxfSequence() {
 			// First validate 
 			if (!ValidateBlockList()) {
 				Debug.LogError("Supplied blocklist is invalid");
@@ -150,14 +149,23 @@ namespace Edia {
 			// Loop through BlockList, create blocks
 			foreach (var blockId in _xBlockSequence.Sequence) {
 
-				Block newBlock = Session.instance.CreateBlock();
-
 				// Find the according XBlockBase (e.g., Task or Break definition) and get global settings
 				XBlockBaseSettings xBlockBase = GetXBlockBaseByBlockId(blockId);
 				if (xBlockBase == null) {
 					Debug.LogError($"Failed getting details for {blockId} ");
 					return;
 				}
+
+				// Is it's XblockExecuter listed in the XBLockExecuters?
+				string assetId = xBlockBase.type.ToLower() + "-" + xBlockBase.subType.ToLower();
+				if (!Experiment.Instance.IsXblockExecuterListed(assetId)) {
+					string msg = $"XblockExecuters list does not contain gameobject named '<b>{assetId}</b>' ";
+					Experiment.Instance.ShowMessageToExperimenter(msg, true);
+					Debug.LogError(msg);
+					return;
+				}
+
+				Block newBlock = Session.instance.CreateBlock();
 
 				if (xBlockBase.settings.Count > 0) {
 					newBlock.settings.UpdateWithDict(Helpers.GetSettingsTupleListAsDict(xBlockBase.settings));
@@ -169,7 +177,7 @@ namespace Edia {
 				XBlockSettings currentXBlock = GetXBlockByBlockId(blockId);
 				newBlock.settings.SetValue("blockType", currentXBlock.type.ToLower());
 				newBlock.settings.SetValue("blockId", currentXBlock.blockId.ToLower());
-				newBlock.settings.SetValue("_assetId", currentXBlock.type.ToLower() + "_" + currentXBlock.subType.ToLower());
+				newBlock.settings.SetValue("_assetId", assetId);
 
 				// Add block specific instructions, if any
 				foreach (string s in new string[] { "_start", "_end" }) {
@@ -225,7 +233,10 @@ namespace Edia {
 					if (IsValidKeyForTrialResults(k))
 						Session.instance.settingsToLog.Add(k);
 				}
+
 			}
+			
+			Debug.Log("Passed session generation validation");
 		}
 	}
 
