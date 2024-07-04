@@ -559,7 +559,7 @@ namespace Edia {
 		public void ProceedWithDelay(float duration) {
 
 			if (_proceedTimer != null) StopCoroutine(_proceedTimer); // Kill timer, if any
-			_proceedTimer = StartCoroutine("ProceedTimer", duration);
+			_proceedTimer = StartCoroutine(ProceedTimer(duration));
 		}
 
 		/// <summary>Coroutine as timer as we can kill that to avoid delayed calls in the statemachine</summary>
