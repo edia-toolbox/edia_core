@@ -1,6 +1,7 @@
 using Edia.Utilities;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.SymbolStore;
 using System.Linq;
 using System.Text.RegularExpressions;
 using UnityEngine;
@@ -63,7 +64,7 @@ namespace Edia {
 
 			EventManager.showLog = ShowLog;
 
-			xBlockNamesToLower();
+			XBlockNamesToLower();
 
 			if(!SanityCheck()) 
 				return;
@@ -90,7 +91,7 @@ namespace Edia {
 			
 		}
 
-		void xBlockNamesToLower() {
+		void XBlockNamesToLower() {
 			foreach (XBlock g in XBlockExecuters) {
 				g.name = g.name.ToLower();
 			}
@@ -98,30 +99,37 @@ namespace Edia {
 		}
 
         bool SanityCheck() {
+			bool isValid = true;
+			List<string> msgs = new();
+
 			// Are there executers?
 			if (XBlockExecuters == null || XBlockExecuters.Count == 0) {
-				Debug.LogErrorFormat("XBLock Executers list is empty!");
-				return false;
+				isValid = false;
+				msgs.Add("XBLock Executers list is empty!");
 			}
 
 			// Are there executers with the same name?
 			var names = XBlockExecuters.Select(g => g.name);
             if (names.Count() != names.Distinct().Count()) {
-                Debug.LogErrorFormat("All XBlock Executers need unique names!");
-				return false;
-            }
+				msgs.Add("All XBlock Executers need unique names!");
+				isValid = false;
+			}
 
-            // Are the gameobjects in Experiment.blocks properly named? <TYPE>_<SUBTYPE>
-            foreach (XBlock g in XBlockExecuters) {
-			Debug.Log(g.name);
+			// Are the gameobjects in Experiment.blocks properly named? <type>_<subtype>
+			foreach (XBlock g in XBlockExecuters) {
 				if (!Regex.IsMatch(g.name, @"^[a-z0-9]+_[a-z0-9]+$")) {
-
-					// if (!g.name.Contains('_') ) {
-					Debug.LogErrorFormat("Invalid gameobject (XBlock Executer) naming format found in: <b>{0}</b>; must adhere to: <TYPE>_<SUBTYPE>", g.name);
-					return false;
+					msgs.Add($"Invalid gameobject (XBlock Executer) naming format found in: <b>{g.name}</b>; must adhere to: <type>_<subtype>");
+					isValid = false;
 				}
 			}
-			return true;
+
+			if (!isValid) { 
+				foreach(string s in msgs)
+					Debug.LogErrorFormat(s);
+				//ShowMessageToExperimenter(msg, false);
+			}
+
+			return isValid;
 		}
 
 		void EnableProceedButton (bool onOff) {
