@@ -1,19 +1,18 @@
-using System;
-using System.IO;
+using Edia.Utilities;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using System.Linq;
-using UXF;
+using System.Text.RegularExpressions;
+using UnityEngine;
 using UnityEngine.Events;
-using Edia.Utilities;
+using UXF;
 
 // EXPERIMENT CONTROL 
 namespace Edia {
 
-#region DECLARATIONS
+    #region DECLARATIONS
 
-	public class Experiment : Singleton<Experiment> {
+    public class Experiment : Singleton<Experiment> {
 
 		public enum XState {
 			IDLE,
@@ -64,6 +63,8 @@ namespace Edia {
 
 			EventManager.showLog = ShowLog;
 
+			xBlockNamesToLower();
+
 			if(!SanityCheck()) 
 				return;
 
@@ -89,26 +90,38 @@ namespace Edia {
 			
 		}
 
-		bool SanityCheck() {
-			bool _succes = true;
+		void xBlockNamesToLower() {
+			foreach (XBlock g in XBlockExecuters) {
+				g.name = g.name.ToLower();
+			}
+			return;
+		}
 
+        bool SanityCheck() {
+			// Are there executers?
 			if (XBlockExecuters == null || XBlockExecuters.Count == 0) {
 				Debug.LogErrorFormat("XBLock Executers list is empty!");
-				_succes = false;
-			} else {
-				// Are the gameobjects in Experiment.blocks properly named? <TYPE>_<SUBTYPE>
-				foreach (XBlock g in XBlockExecuters) {
-					g.name = g.name.ToLower();
-
-					//if (!g.name.Contains('_') || g.name.Split('_').Length != 2) {
-					if (!g.name.Contains('_') ) {
-							Debug.LogErrorFormat("<TYPE>_<SUBTYPE> Invalid gameobject naming format found in: <b>{0}</b>", g.name);
-						_succes = false;
-					}
-				}
+				return false;
 			}
 
-			return _succes;
+			// Are there executers with the same name?
+			var names = XBlockExecuters.Select(g => g.name);
+            if (names.Count() != names.Distinct().Count()) {
+                Debug.LogErrorFormat("All XBlock Executers need unique names!");
+				return false;
+            }
+
+            // Are the gameobjects in Experiment.blocks properly named? <TYPE>_<SUBTYPE>
+            foreach (XBlock g in XBlockExecuters) {
+			Debug.Log(g.name);
+				if (!Regex.IsMatch(g.name, @"^[a-z0-9]+_[a-z0-9]+$")) {
+
+					// if (!g.name.Contains('_') ) {
+					Debug.LogErrorFormat("Invalid gameobject (XBlock Executer) naming format found in: <b>{0}</b>; must adhere to: <TYPE>_<SUBTYPE>", g.name);
+					return false;
+				}
+			}
+			return true;
 		}
 
 		void EnableProceedButton (bool onOff) {
