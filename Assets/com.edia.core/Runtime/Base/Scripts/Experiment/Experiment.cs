@@ -1,19 +1,19 @@
-using System;
-using System.IO;
+using Edia.Utilities;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using System.Diagnostics.SymbolStore;
 using System.Linq;
-using UXF;
+using System.Text.RegularExpressions;
+using UnityEngine;
 using UnityEngine.Events;
-using Edia.Utilities;
+using UXF;
 
 // EXPERIMENT CONTROL 
 namespace Edia {
 
-#region DECLARATIONS
+    #region DECLARATIONS
 
-	public class Experiment : Singleton<Experiment> {
+    public class Experiment : Singleton<Experiment> {
 
 		public enum XState {
 			IDLE,
@@ -32,11 +32,12 @@ namespace Edia {
 
 		[Header("Experiment Settings")]
 		[Tooltip("Enable Position&Rotation tracker from UXF which stores data to session folder. !Might have impact on FPS with long trials.")]
-		[HelpBox("<size=14><color=yellow><b>INFO:</b></color> UXF Tracking</size>\nEnable Position&Rotation tracker from UXF which stores data to session folder. \n<color=red>!Might have impact on FPS with long trials.</color>", HelpBoxMessageType.None)]
+		[HelpBox("<size=14><color=#00ee30><b>INFO:</b></color> UXF Tracking</size>\nEnable Position&Rotation tracker from UXF which stores data to session folder. \nMight have impact on FPS with long trials!", HelpBoxMessageType.Warning)]
 		public bool TrackXrRigWithUxf = false;
 
 		[Space(20)]
 		[Header("Experiment")]
+		[HelpBox("<size=14><color=#00ee30><b>XBlock Executers</b></color></size>\nList of gameobjects containing the functional Xblock code. \nNaming convenction: [type]_[subtype]", HelpBoxMessageType.None)]
 		public List<XBlock> XBlockExecuters = new();
 
 		[Space(20)]
@@ -63,10 +64,6 @@ namespace Edia {
 
 			EventManager.showLog = ShowLog;
 
-			if(!SanityCheck()) 
-				return;
-
-			EnableAllXBlocks(false);
 
 		}
 
@@ -77,6 +74,14 @@ namespace Edia {
 		}
 
 		void Start() {
+
+			XBlockNamesToLower();
+
+			if(!SanityCheck()) 
+				return;
+
+			EnableAllXBlocks(false);
+
 			// Hard reference statemachine links between UXF and EXP
 			Session.instance.onSessionBegin.AddListener(OnSessionBeginUXF);
 			Session.instance.onSessionEnd.AddListener(OnSessionEndUXF);
@@ -88,21 +93,45 @@ namespace Edia {
 			
 		}
 
-		bool SanityCheck() {
-			bool _succes = true;
-
-			// Are the gameobjects in Experiment.blocks properly named? <TYPE>_<SUBTYPE>
-			foreach (XBlock g in Experiment.Instance.XBlockExecuters) {
+		void XBlockNamesToLower() {
+			foreach (XBlock g in XBlockExecuters) {
 				g.name = g.name.ToLower();
+			}
+			return;
+		}
 
-				//if (!g.name.Contains('_') || g.name.Split('_').Length != 2) {
-				if (!g.name.Contains('_') ) {
-						Debug.LogErrorFormat("<TYPE>_<SUBTYPE> Invalid gameobject naming format found in: <b>{0}</b>", g.name);
-					_succes = false;
+        bool SanityCheck() {
+			bool isValid = true;
+			List<string> msgs = new();
+
+			// Are there executers?
+			if (XBlockExecuters == null || XBlockExecuters.Count == 0) {
+				isValid = false;
+				msgs.Add("XBLock Executers list is empty!");
+			}
+
+			// Are there executers with the same name?
+			var names = XBlockExecuters.Select(g => g.name);
+            if (names.Count() != names.Distinct().Count()) {
+				msgs.Add("All XBlock Executers need unique names!");
+				isValid = false;
+			}
+
+			// Are the gameobjects in Experiment.blocks properly named? <type>_<subtype>
+			foreach (XBlock g in XBlockExecuters) {
+				if (!Regex.IsMatch(g.name, @"^[a-z0-9]+_[a-z0-9]+$")) {
+					msgs.Add($"Invalid gameobject (XBlock Executer) naming format found in: <b>{g.name}</b>; must adhere to: <type>_<subtype>");
+					isValid = false;
 				}
 			}
 
-			return _succes;
+			if (!isValid) { 
+				foreach(string s in msgs)
+					Debug.LogErrorFormat(s);
+				//ShowMessageToExperimenter(msg, false);
+			}
+
+			return isValid;
 		}
 
 		void EnableProceedButton (bool onOff) {
@@ -226,7 +255,7 @@ namespace Edia {
 
 
 		#endregion // -------------------------------------------------------------------------------------------------------------------------------
-		#region EXPERIMENT CONTROL
+#region EXPERIMENT CONTROL
 
 		/// <summary>Starts the experiment</summary>
 		void StartExperiment() {
