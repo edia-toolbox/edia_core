@@ -1,7 +1,6 @@
 using Edia.Utilities;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.SymbolStore;
 using System.Linq;
 using System.Text.RegularExpressions;
 using UnityEngine;
@@ -12,19 +11,23 @@ using UXF;
 namespace Edia {
 
     #region DECLARATIONS
-
+	/// <summary>
+	/// Main manager for the experiment. 
+	/// Handles the statemachine, encapsulating UXF.
+	/// Offers developers friendly and easy access to most used functionalities for controlling an experiment.
+	/// </summary>
     public class Experiment : Singleton<Experiment> {
 
-		public enum XState {
-			IDLE,
-			RUNNING,
-			WAITINGONPROCEED,
-			PAUSED,
-			ENDED
+		public enum States {
+			Idle,
+			Running,
+			WaitingOnProceed,
+			Paused,
+			Ended
 		}
 
-		public XState State = XState.IDLE;
-		XState _prevState = XState.IDLE;
+		public States State = States.Idle;
+		States _prevState = States.Idle;
 
 		[Header("Editor Settings")]
 		public bool ShowLog = false;
@@ -149,7 +152,7 @@ namespace Edia {
 			_activeSessionBlockNum = 0;
 			_currentStep = -1;
 			_isPauseRequested = false;
-			State = XState.IDLE;
+			State = States.Idle;
 			_prevState = State;
 		}
 
@@ -307,7 +310,7 @@ namespace Edia {
 
 		/// <summary>Enables Controller 'Proceed' button, and waits OnEvProceed event</summary>
 		public void WaitOnProceed() {
-			State = XState.WAITINGONPROCEED;
+			State = States.WaitingOnProceed;
 
 			EnableProceedButton(true);
 			EventManager.StartListening(Edia.Events.StateMachine.EvProceed, OnEvProceed);
@@ -326,7 +329,7 @@ namespace Edia {
 		}
 
 		void Continue() {
-			State = XState.RUNNING;
+			State = States.Running;
 
 			EventManager.StopListening(Edia.Events.StateMachine.EvProceed, OnEvProceed);
 			EnableProceedButton(false);			
@@ -342,7 +345,7 @@ namespace Edia {
 		void OnSessionBeginUXF(Session session) {
 			OnSessionStart?.Invoke();
 
-			State = XState.RUNNING;
+			State = States.Running;
 			_activeSessionBlockNum = 0;
 
 			AddToExecutionOrderLog("OnSessionBegin");
