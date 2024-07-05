@@ -25,4 +25,4 @@ The following assets and packages are incorporated in edia.core:
 - [UXF framework](https://github.com/immersivecognition/unity-experiment-framework)
 
 ## Documentation
-[HTML API REFERENCE](./Assets/com.edia.core/Runtime/Documentation~/index.html)
+[HTML API REFERENCE](https://gitlab.gwdg.de/edia/edia_core/-/tree/fix/%2328/doxyGenUpdate/Assets/com.edia.core/Documentation~/index.html)
