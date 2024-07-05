@@ -11,7 +11,7 @@ public class PackageUnlocker : EditorWindow
     private List<string> packageNames = new List<string>();
     private string newPackageName = "";
 
-    [MenuItem("EDIA/Package Unlocker")]
+    [MenuItem("EDIA/EditorTools//Package Unlocker")]
     public static void ShowWindow()
     {
         GetWindow<PackageUnlocker>("Package Unlocker");
