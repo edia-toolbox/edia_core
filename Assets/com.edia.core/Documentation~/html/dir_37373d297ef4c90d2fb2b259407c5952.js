@@ -1,7 +1,7 @@
 var dir_37373d297ef4c90d2fb2b259407c5952 =
 [
     [ "ConnectedIcon.cs", "d7/d35/_connected_icon_8cs_source.html", null ],
-    [ "Constants.cs", "da/de6/_controller_2_scripts_2_constants_8cs_source.html", null ],
+    [ "Controller/Scripts/Constants.cs", "da/de6/_controller_2_scripts_2_constants_8cs_source.html", null ],
     [ "ControlPanel.cs", "df/dcf/_control_panel_8cs_source.html", null ],
     [ "CtrlSlider.cs", "dd/df8/_ctrl_slider_8cs_source.html", null ],
     [ "ExperimenterPanel.cs", "df/d67/_experimenter_panel_8cs_source.html", null ],
