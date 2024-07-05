@@ -17,8 +17,14 @@ namespace Edia.Controller {
 	}
 
 
-	public class Constants 
+	public static class Constants 
 	{
+		// File names and paths
+		public static string FileNameSessionSequence		= "session-sequence.json";
+		public static string FileNameSessionInfo			= "session-info.json";
+		public static string PathToParticipantFiles			= "Configs/participants/";
+		public static string PathToBaseDefinitions			= "Configs/base-definitions/";
+		public static string FolderNameXBlockDefinitions	= "xblocks";
 
 	}
 	

@@ -79,7 +79,7 @@ namespace Edia {
 
 
 		string GetXBlockType(string blockId) {
-			return blockId.Split("_")[0];  
+			return blockId.Split("-")[0];  
 		}
 
 		XBlockBaseSettings GetXBlockBaseByBlockId(string blockId) {
@@ -224,7 +224,9 @@ namespace Edia {
 						break;
 
 					default:
-						Debug.LogError($"XBlock type must be either 'Task' or 'Break'; cannot be '{currentXBlockType}'.");
+						string msg = $"XBlock type must be either 'Task' or 'Break'; cannot be '{currentXBlockType}'.";
+						Experiment.Instance.ShowMessageToExperimenter(msg, true);
+						Debug.LogError(msg);
 						break;
 				}
 
@@ -233,7 +235,6 @@ namespace Edia {
 					if (IsValidKeyForTrialResults(k))
 						Session.instance.settingsToLog.Add(k);
 				}
-
 			}
 			
 			Debug.Log("Passed session generation validation");

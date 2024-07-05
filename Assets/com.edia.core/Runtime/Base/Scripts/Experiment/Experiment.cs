@@ -75,7 +75,7 @@ namespace Edia {
 
 			XBlockNamesToLower();
 
-			if(!SanityCheck()) 
+			if(!IsValid()) 
 				return;
 
 			EnableAllXBlocks(false);
@@ -94,7 +94,7 @@ namespace Edia {
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region CHECKS
 
-        bool SanityCheck() {
+        bool IsValid() {
 			bool isValid = true;
 			List<string> msgs = new();
 
