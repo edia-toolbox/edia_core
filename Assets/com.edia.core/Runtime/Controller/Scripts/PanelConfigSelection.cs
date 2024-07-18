@@ -26,16 +26,9 @@ namespace Edia.Controller {
 		public TMP_Dropdown SessionSelectionDropdown;
 
 		public TextMeshProUGUI TopField;
-		//public TextMeshProUGUI SessionField;
 
 		string _subject = "sub_001";
 		string _session = "sess_001";
-
-		string _pathToParticipantFiles = "Configs/participants/";
-		string _pathToTaskFiles = "Configs/base-definitions/";
-		string _xBlockDefinitionsFolderName = "xblocks";
-		string _xBlockSequenceFileName = "session_sequence.json";
-		string _sessionInfoFilenName = "session_info.json";
 
 		public List<string> xBlockDefinitionsFileList; // for sanity check
 		public XBlockSequence _xBlockSequence;
@@ -45,7 +38,7 @@ namespace Edia.Controller {
 
 			EventManager.StartListening(Edia.Events.Config.EvFoundLocalConfigFiles, OnEvFoundLocalConfigFiles);
 
-			_subFolders = FileManager.GetAllSubFolders(_pathToParticipantFiles);
+			_subFolders = FileManager.GetAllSubFolders(Constants.PathToParticipantFiles);
 
 			GenerateDropdown(_subFolders, SubjectSelectionDropdown);
 			SessionSelectionDropdown.interactable = true;
@@ -77,7 +70,7 @@ namespace Edia.Controller {
 			if (!ValidateConfigs())
 				return;
 
-			Debug.Log("Passed validation");
+			Debug.Log("Passed config file validation");
 
 			EventManager.TriggerEvent(Edia.Events.Config.EvSetSessionInfo, new eParam(new string[] { _sessionInfoJsonString, _session.Split('-')[1], _subject.Split('-')[1] }));
 			EventManager.TriggerEvent(Edia.Events.Config.EvSetXBlockSequence, new eParam(_xBlockSequenceJsonString));
@@ -89,16 +82,13 @@ namespace Edia.Controller {
 
 		public void OnSubjectValueChanged(int value) {
 			_subject = SubjectSelectionDropdown.options[value].text;
-			//TopField.text = $"Participant: {_subject.Split('-')[1]} Session: {_session.Split('-')[1]}";
-
-			_sessFolders = FileManager.GetAllSubFolders(_pathToParticipantFiles + SubjectSelectionDropdown.options[value].text);
+			_sessFolders = FileManager.GetAllSubFolders(Constants.PathToParticipantFiles + SubjectSelectionDropdown.options[value].text);
 			GenerateDropdown(_sessFolders, SessionSelectionDropdown);
 			OnSessValueChanged(0);
 		}
 
 		public void OnSessValueChanged(int value) {
 			_session = SessionSelectionDropdown.options[value].text;
-			//TopField.text = $"Participant: {_subject.Split('-')[1]} Session: {_session.Split('-')[1]}";
 		}
 
 		void GenerateDropdown(string[] folderlist, TMP_Dropdown dropDown) {
@@ -116,25 +106,25 @@ namespace Edia.Controller {
 		void LoadJsons() {
 
 			// Session info
-			string currentPath = _pathToParticipantFiles + _subject + "/" + _session + "/";
-			_sessionInfoJsonString = FileManager.ReadStringFromApplicationPath(currentPath + _sessionInfoFilenName);
+			string currentPath = Constants.PathToParticipantFiles + _subject + "/" + _session + "/";
+			_sessionInfoJsonString = FileManager.ReadStringFromApplicationPath(currentPath + Constants.FileNameSessionInfo);
 
 			// Block sequence
-			string eBSequenceFilePath = currentPath + _xBlockSequenceFileName;
+			string eBSequenceFilePath = currentPath + Constants.FileNameSessionSequence;
 			_xBlockSequenceJsonString = FileManager.ReadStringFromApplicationPath(eBSequenceFilePath);
 
 			// Task definitions
-			string[] filelist = FileManager.GetAllFilenamesWithExtensionFrom(_pathToTaskFiles, "json");
+			string[] filelist = FileManager.GetAllFilenamesWithExtensionFrom(Constants.PathToBaseDefinitions, "json");
 
 			foreach (string s in filelist) {
-				_taskDefinitionJsonStrings.Add(FileManager.ReadStringFromApplicationPath(_pathToTaskFiles + s));
+				_taskDefinitionJsonStrings.Add(FileManager.ReadStringFromApplicationPath(Constants.PathToBaseDefinitions+ s));
 			}
 
 			// Block Task Definitions
-			xBlockDefinitionsFileList = FileManager.GetAllFilenamesWithExtensionFrom(currentPath + _xBlockDefinitionsFolderName, "json").ToList();
+			xBlockDefinitionsFileList = FileManager.GetAllFilenamesWithExtensionFrom(currentPath + Constants.FolderNameXBlockDefinitions, "json").ToList();
 
 			foreach (string s in xBlockDefinitionsFileList) {
-				string currentFileName = currentPath + "/" + _xBlockDefinitionsFolderName + "/" + s;
+				string currentFileName = currentPath + "/" + Constants.FolderNameXBlockDefinitions + "/" + s;
 				_xBlockDefinitionJsonStrings.Add(FileManager.ReadStringFromApplicationPath(currentFileName.ToLower()));
 			}
 		}
@@ -197,13 +187,9 @@ namespace Edia.Controller {
 		public bool ValidateJSON(string jsonString) {
 			try {
 				JsonUtility.FromJson<object>(jsonString);
-
-				//Debug.Log("Passed");
 				return true;
 			}
 			catch (System.Exception) {
-
-				//Debug.Log("Falsch");
 				return false;
 			}
 		}

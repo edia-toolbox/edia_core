@@ -7,7 +7,6 @@ using UnityEngine;
 using UnityEngine.Events;
 using UXF;
 
-// EXPERIMENT CONTROL 
 namespace Edia {
 
     #region DECLARATIONS
@@ -40,7 +39,7 @@ namespace Edia {
 
 		[Space(20)]
 		[Header("Experiment")]
-		[HelpBox("<size=14><color=#00ee30><b>XBlock Executers</b></color></size>\nList of gameobjects containing the functional Xblock code. \nNaming convenction: [type]_[subtype]", HelpBoxMessageType.None)]
+		[HelpBox("<size=14><color=#00ee30><b>XBlock Executers</b></color></size>\nList of gameobjects containing the functional Xblock code. \nNaming convenction: [type]-[subtype]", HelpBoxMessageType.None)]
 		public List<XBlock> XBlockExecuters = new();
 
 		[Space(20)]
@@ -64,10 +63,7 @@ namespace Edia {
 #region MONO METHODS
 
 		void Awake() {
-
 			EventManager.showLog = ShowLog;
-
-
 		}
 
 		void OnDestroy() {
@@ -80,7 +76,7 @@ namespace Edia {
 
 			XBlockNamesToLower();
 
-			if(!SanityCheck()) 
+			if(!IsValid()) 
 				return;
 
 			EnableAllXBlocks(false);
@@ -93,17 +89,13 @@ namespace Edia {
 
 			EventManager.StartListening(Edia.Events.Core.EvQuitApplication, OnEvQuitApplication);
 			EventManager.StartListening(Edia.Events.StateMachine.EvStartExperiment, OnEvStartExperiment);
-			
 		}
 
-		void XBlockNamesToLower() {
-			foreach (XBlock g in XBlockExecuters) {
-				g.name = g.name.ToLower();
-			}
-			return;
-		}
 
-        bool SanityCheck() {
+#endregion // -------------------------------------------------------------------------------------------------------------------------------
+#region CHECKS
+
+        bool IsValid() {
 			bool isValid = true;
 			List<string> msgs = new();
 
@@ -122,8 +114,8 @@ namespace Edia {
 
 			// Are the gameobjects in Experiment.blocks properly named? <type>_<subtype>
 			foreach (XBlock g in XBlockExecuters) {
-				if (!Regex.IsMatch(g.name, @"^[a-z0-9]+_[a-z0-9]+$")) {
-					msgs.Add($"Invalid gameobject (XBlock Executer) naming format found in: <b>{g.name}</b>; must adhere to: <type>_<subtype>");
+				if (!Regex.IsMatch(g.name, @"^[a-z0-9]+-[a-z0-9\-'().,_]+$")) {
+					msgs.Add($"Invalid gameobject (XBlock Executer) naming format found in: <b>{g.name}</b>; must adhere to: <type>-<subtype>");
 					isValid = false;
 				}
 			}
@@ -131,14 +123,19 @@ namespace Edia {
 			if (!isValid) { 
 				foreach(string s in msgs)
 					Debug.LogErrorFormat(s);
+
+				// TODO: Think of a way to alert the user in a build
 				//ShowMessageToExperimenter(msg, false);
 			}
 
 			return isValid;
 		}
 
-		void EnableProceedButton (bool onOff) {
-			EventManager.TriggerEvent(Edia.Events.ControlPanel.EvEnableButton, new eParam(new string[] { "PROCEED", onOff ? "true" : "false" }));
+		void XBlockNamesToLower() {
+			foreach (XBlock g in XBlockExecuters) {
+				g.name = g.name.ToLower();
+			}
+			return;
 		}
 
 		void EnableAllXBlocks (bool onOff) {
@@ -148,7 +145,17 @@ namespace Edia {
 			}
 		}
 
+		/// <summary>
+		/// Retuns true/false depending if the gameobject is found belonging to the assetId given
+		/// </summary>
+		/// <param name="assetId"></param>
+		/// <returns></returns>
+		public bool IsXblockExecuterListed(string assetId) {
+			return XBlockExecuters.Any(go => go.name == assetId);
+		}
+
 		void Reset() {
+			State = XState.IDLE;
 			_activeSessionBlockNum = 0;
 			_currentStep = -1;
 			_isPauseRequested = false;
@@ -305,8 +312,12 @@ namespace Edia {
 		}
 
 
-#endregion // -------------------------------------------------------------------------------------------------------------------------------
+		#endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region STATEMACHINE PROCEED
+
+		void EnableProceedButton(bool onOff) {
+			EventManager.TriggerEvent(Edia.Events.ControlPanel.EvEnableButton, new eParam(new string[] { "PROCEED", onOff ? "true" : "false" }));
+		}
 
 		/// <summary>Enables Controller 'Proceed' button, and waits OnEvProceed event</summary>
 		public void WaitOnProceed() {
@@ -336,7 +347,6 @@ namespace Edia {
 
 			NextTrialStep();
 		}
-
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region STATEMACHINE UXF SESSION
@@ -704,6 +714,11 @@ namespace Edia {
 #endregion  // -------------------------------------------------------------------------------------------------------------------------------
 #region HELPERS
 
+		/// <summary>
+		/// Add a <key><value> pain to the trial results table
+		/// </summary>
+		/// <param name="key">Name of the key</param>
+		/// <param name="value">Value in string format</param>
 		public void AddToTrialResults(string key, string value) {
 			Session.instance.CurrentTrial.result[key] = value;
 		}
