@@ -230,6 +230,9 @@ namespace Edia.Events {
 
 		/// <summary>Eye calibration request. Expects null</summary>
 		public const string EvEyeCalibrationRequested = "EvEyeCalibrationRequested";
+
+		/// <summary>Eye calibration done. Expects null</summary>
+		public const string EvEyeCalibrationFinished = "EvEyeCalibrationFinished";
 	}
 
 	//? ========================================================================================================
