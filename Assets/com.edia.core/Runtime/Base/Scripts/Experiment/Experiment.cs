@@ -155,7 +155,6 @@ namespace Edia {
 		}
 
 		void Reset() {
-			State = XState.IDLE;
 			_activeSessionBlockNum = 0;
 			_currentStep = -1;
 			_isPauseRequested = false;
