@@ -15,7 +15,7 @@ namespace Edia {
 		/// <param extension="extension">filter on specific file type, use * for all</param>
 		public static string[] GetAllFilenamesWithExtensionFrom (string subFolder, string extension) {
 			
-			string path =  CorrectPath() + "/" + subFolder + "/";
+			string path =  GetCorrectPath() + "/" + subFolder + "/";
 			DirectoryInfo dir = new DirectoryInfo(path);
 			
 			if (!dir.Exists) {
@@ -43,7 +43,7 @@ namespace Edia {
 		/// <param subFolder="subFolder">Folder to scan</param>
 		public static string[] GetAllFilenamesFrom (string subFolder) {
 			
-			string path =  CorrectPath() + "/" + subFolder + "/";
+			string path =  GetCorrectPath() + "/" + subFolder + "/";
 			DirectoryInfo dir = new DirectoryInfo(path);
 			
 			if (!dir.Exists) {
@@ -69,7 +69,7 @@ namespace Edia {
 
 		public static string[] GetAllSubFolders (string subFolder) {
 			
-			string path =  CorrectPath() + "/" + subFolder + "/";
+			string path =  GetCorrectPath() + "/" + subFolder + "/";
 			DirectoryInfo dir = new DirectoryInfo(path);
 			
 			if (!dir.Exists) {
@@ -138,20 +138,20 @@ namespace Edia {
 
 		
 		public static string ReadStringFromApplicationPathSubfolder (string _subfolder, string _fileName) {
-			string path =  CorrectPath() + "/" + _subfolder + "/" + _fileName;
+			string path =  GetCorrectPath() + "/" + _subfolder + "/" + _fileName;
 
 			return ReadString(path);
 		}
 
 
 		public static string ReadStringFromApplicationPath (string _fileName) {
-			string path =  CorrectPath() + "/" + _fileName;
+			string path =  GetCorrectPath() + "/" + _fileName;
 
 			return ReadString(path);
 		}
 
 		public static bool FileExists (string _fileName) {
-			string path =  CorrectPath() + "/" + _fileName;
+			string path =  GetCorrectPath() + "/" + _fileName;
 			return File.Exists(path);
 		}
 
@@ -177,9 +177,9 @@ namespace Edia {
 
 		public static void CopyFileTo(string _sourcePath, string _filename, string _destinationPath) {
 			
-			string pathfile =  CorrectPath() + "/" + _sourcePath + "/" + _filename;
+			string pathfile =  GetCorrectPath() + "/" + _sourcePath + "/" + _filename;
 
-			File.Copy(pathfile, CorrectPath() + "/" + _destinationPath + "/" + _filename, true);
+			File.Copy(pathfile, GetCorrectPath() + "/" + _destinationPath + "/" + _filename, true);
 		}
 
 		/// <summary>Saves a text file to given filename and containts given data</summary>
@@ -188,7 +188,7 @@ namespace Edia {
 		/// <param _overwrite="_overwrite">Overwrite if filename exists.</param>
 		public static void WriteString (string _fileName, string _data, bool _overwrite) {
 
-			string path =  CorrectPath() + "/" + _fileName;
+			string path =  GetCorrectPath() + "/" + _fileName;
 			
 			StreamWriter writer = new StreamWriter ( path, false, Encoding.UTF8, 65536);
 
@@ -203,17 +203,17 @@ namespace Edia {
 		/// <param _fileName="_fileName">Name of the file</param>
 		public static void CreateFolder (string _folderName) {
 
-			string path = CorrectPath() + "/" + _folderName;
+			string path = GetCorrectPath() + "/" + _folderName;
 
 			if (!Directory.Exists (path)) {
 				Directory.CreateDirectory (path);
-				Debug.Log(string.Format("<color=#00FFFF>[eDIA]</color>Created Folder: {0} ", CorrectPath() + "/" + _folderName));
+				Debug.Log(string.Format("<color=#00FFFF>[eDIA]</color>Created Folder: {0} ", GetCorrectPath() + "/" + _folderName));
 			}
 		}
 
 		/// <summary>Determines correct path depending on where the application is running on/in.</summary>
 		/// <returns>Path to data on specific platform</returns>
-		static string CorrectPath () {
+		public static string GetCorrectPath () {
 			string platformSpecificPath;
 
 			#if UNITY_EDITOR

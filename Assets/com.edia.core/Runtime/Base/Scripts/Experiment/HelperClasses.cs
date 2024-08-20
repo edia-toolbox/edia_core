@@ -136,7 +136,7 @@ namespace Edia {
 		//public float volume = 50f;
 		//public Constants.Languages language = Constants.Languages.ENG;
 
-		public string pathToLogfiles = "..\\logfiles";
+		public string pathToLogfiles = FileManager.GetCorrectPath() + "/logfiles";
 		public static string localConfigDirectoryName = "Configs";
 		
 	}
