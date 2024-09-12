@@ -1,8 +1,11 @@
 var class_edia_1_1_experiment =
 [
+    [ "AddToTrialResults", "db/d7e/class_edia_1_1_experiment.html#a2ef6a70dbdbae5398c53561dcba5d879", null ],
     [ "ConvertAndSaveDataToUXF", "db/d7e/class_edia_1_1_experiment.html#a9fe39f24c3f07641c78ec63bc463bc5b", null ],
     [ "ConvertAndSaveDataToUXF", "db/d7e/class_edia_1_1_experiment.html#a87ff6043309b4d45d58b641b5c113f6c", null ],
     [ "EnableEyeCalibrationTrigger", "db/d7e/class_edia_1_1_experiment.html#a90c55db2f4ab65b216f61952c2dd8252", null ],
+    [ "EnablePauseButton", "db/d7e/class_edia_1_1_experiment.html#afd7e23b34ba2761175542203033f182c", null ],
+    [ "IsXblockExecuterListed", "db/d7e/class_edia_1_1_experiment.html#aa8c5271afc3244972dcf98a474fa847a", null ],
     [ "Proceed", "db/d7e/class_edia_1_1_experiment.html#a591f2c68e0163aefdd84519a4343a4cc", null ],
     [ "ProceedWithDelay", "db/d7e/class_edia_1_1_experiment.html#a85c556dbf48734f3a1da539cfb407139", null ],
     [ "ShowMessageToExperimenter", "db/d7e/class_edia_1_1_experiment.html#ad82bd0b655938f3d2bf6a52f565a9e99", null ],

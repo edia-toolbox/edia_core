@@ -63,6 +63,7 @@ namespace Edia {
 		//	ShowMessage(e.GetStrings().ToList());
 		//}
 
+		
 		/// <summary>Shows the message in VR on a canvas for a certain duration.</summary>
 		/// <param name="msg">Message to show</param>
 		/// <param name="duration">Duration</param>

@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['proceed_0',['Proceed',['../db/d7e/class_edia_1_1_experiment.html#a591f2c68e0163aefdd84519a4343a4cc',1,'Edia::Experiment']]],
-  ['proceedwithdelay_1',['ProceedWithDelay',['../db/d7e/class_edia_1_1_experiment.html#a85c556dbf48734f3a1da539cfb407139',1,'Edia::Experiment']]]
+  ['hidepanel_0',['HidePanel',['../dd/d09/class_edia_1_1_message_panel_in_v_r.html#a62ec2902c5ed5173a8d52a9183fdb631',1,'Edia.MessagePanelInVR.HidePanel()'],['../d7/d65/class_edia_1_1_screen_in_v_r.html#a491e2fe8bf2604c42606fa419dfa8e1d',1,'Edia.ScreenInVR.HidePanel()']]]
 ];

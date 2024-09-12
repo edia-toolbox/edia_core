@@ -243,7 +243,7 @@ namespace Edia {
 			EnableEyeCalibrationTrigger(true);
 		}
 
-		void HideMessagePanelButtons () {
+		public void HideMessagePanelButtons () {
 			MessagePanelInVR.Instance.HideMenu();
 		}
 
@@ -299,6 +299,10 @@ namespace Edia {
 			Application.Quit();
 		}
 
+		/// <summary>
+		/// Show/Hide Pause button on controller panel
+		/// </summary>
+		/// <param name="_onOff"></param>
 		public void EnablePauseButton(bool _onOff) {
 			EventManager.TriggerEvent(Edia.Events.ControlPanel.EvEnableButton, new eParam(new string[] { "PAUSE", _onOff.ToString() }));
 			EventManager.StartListening("EvPauseExperiment", OnEvPauseExperiment);
