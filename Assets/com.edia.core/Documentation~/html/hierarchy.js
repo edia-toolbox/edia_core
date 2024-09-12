@@ -19,16 +19,11 @@ var hierarchy =
     [ "Edia.ScreenInVR", "d7/d65/class_edia_1_1_screen_in_v_r.html", [
       [ "Edia.MessagePanelInVR", "dd/d09/class_edia_1_1_message_panel_in_v_r.html", null ]
     ] ],
-    [ "Edia.SessionInfo", "df/ddc/class_edia_1_1_session_info.html", null ],
     [ "Edia.Events.Settings", "df/dc3/class_edia_1_1_events_1_1_settings.html", null ],
-    [ "Edia.SettingsDeclaration", "d2/dbc/class_edia_1_1_settings_declaration.html", null ],
-    [ "Edia.SettingsTuple", "d7/d22/class_edia_1_1_settings_tuple.html", null ],
     [ "Edia.Events.StateMachine", "d3/d4c/class_edia_1_1_events_1_1_state_machine.html", null ],
     [ "Edia.SystemSettings", "d0/dde/class_edia_1_1_system_settings.html", null ],
     [ "Edia.Tooltip", "d9/d2d/class_edia_1_1_tooltip.html", null ],
-    [ "Edia.TrialStep", "d4/d11/class_edia_1_1_trial_step.html", null ],
-    [ "Edia.ValueList", "d4/dad/class_edia_1_1_value_list.html", null ],
-    [ "Edia.XBlockSettings", "de/d24/class_edia_1_1_x_block_settings.html", null ],
     [ "Edia.XRControllerInputRemapper", "d3/d55/class_edia_1_1_x_r_controller_input_remapper.html", null ],
+    [ "Edia.XRManager", "d0/d34/class_edia_1_1_x_r_manager.html", null ],
     [ "Edia.XRrigInitialiser", "d9/d20/class_edia_1_1_x_rrig_initialiser.html", null ]
 ];

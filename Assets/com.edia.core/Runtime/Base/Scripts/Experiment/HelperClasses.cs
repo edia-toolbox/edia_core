@@ -8,8 +8,9 @@ using UXF;
 
 namespace Edia {
 
-#region SESSION CONFIG (JSON SERIALIZABLE)
+	#region SESSION CONFIG (JSON SERIALIZABLE)
 
+	// \cond \hiderefs
 	/// <summary> Tuple of strings, this is serializable in the inspector and dictionaries are not</summary>
 	[System.Serializable]
 	public class SettingsTuple {
@@ -141,6 +142,7 @@ namespace Edia {
 		
 	}
 
+	// \endcond
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 

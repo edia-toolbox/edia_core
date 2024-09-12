@@ -3,10 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
-using Utils;
 
 namespace Edia {
 
+	/// <summary>
+	/// Manages all call XR related
+	/// </summary>
 	public class XRManager : Singleton<XRManager> {
 
 		[Header("Debug")]

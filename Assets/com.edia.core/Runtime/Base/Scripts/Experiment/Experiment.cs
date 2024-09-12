@@ -145,6 +145,7 @@ namespace Edia {
 			}
 		}
 
+		// \cond \hiderefs
 		/// <summary>
 		/// Retuns true/false depending if the gameobject is found belonging to the assetId given
 		/// </summary>
@@ -153,6 +154,7 @@ namespace Edia {
 		public bool IsXblockExecuterListed(string assetId) {
 			return XBlockExecuters.Any(go => go.name == assetId);
 		}
+		// \endcond
 
 		void Reset() {
 			_activeSessionBlockNum = 0;
