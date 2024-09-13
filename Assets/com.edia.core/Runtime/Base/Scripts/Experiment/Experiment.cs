@@ -178,8 +178,8 @@ namespace Edia {
 		void UpdateProgressStatus (string info) {
 			List<string> infos = new();
 
-			if (info.Contains('_')) {
-				infos = info.Split('_').ToList();
+			if (info.Contains('-')) {
+				infos = info.Split('-').ToList();
 				infos.RemoveAt(0);
 			}
 			else infos.Add(info);
