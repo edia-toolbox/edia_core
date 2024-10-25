@@ -30,7 +30,7 @@ namespace Edia {
                                Vector3 eyeRotationLocalEuler,
                                float pupilDiameter = 0f,
                                float confidence = 0f,
-                               float timestampEt = 0f,
+                               double timestampEt = 0f,
                                double timestampLsl = 0);
     }
 
