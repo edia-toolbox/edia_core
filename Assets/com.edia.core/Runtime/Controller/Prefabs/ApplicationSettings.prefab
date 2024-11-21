@@ -249,13 +249,13 @@ MonoBehaviour:
   btnQuit: {fileID: 0}
   volumeSlider: {fileID: 969166885837834041}
   resolutionDropdown: {fileID: 1435254892296712804}
-  interactiveInteractorDropdown: {fileID: 7591771190236645452}
-  visibleInteractorDropdown: {fileID: 7005895631641335215}
+  interactiveSideDropdown: {fileID: 0}
+  visibleSideDropdown: {fileID: 0}
   languageDropdown: {fileID: 7970337843831171415}
   pathToLogfilesField: {fileID: 535407659971994751}
   localSystemSettingsContainer:
-    VisableInteractor: 3
-    InteractiveInteractor: 1
+    VisibleSide: 3
+    InteractiveSide: 1
     pathToLogfiles: C:\
 --- !u!1 &332515007439057044
 GameObject:
@@ -813,7 +813,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 5447224352003011819}
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
@@ -969,7 +969,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Visible
+  m_text: 'Displayable '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -7362,7 +7362,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Interactive
+  m_text: Dominant side
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

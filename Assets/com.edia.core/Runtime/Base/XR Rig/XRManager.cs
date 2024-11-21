@@ -86,7 +86,7 @@ namespace Edia {
 		}
 
 		#endregion // -------------------------------------------------------------------------------------------------------------------------------
-		#region HANDS
+		#region SIGHT
 
 		/// <summary>Fades VR user view to black</summary>
 		public void HideVR () {

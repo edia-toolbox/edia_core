@@ -9,9 +9,9 @@ namespace Edia {
 	public class XRController : MonoBehaviour	{
 
 		[Header("Settings")]
-		public Edia.Constants.Interactor interactorType = Edia.Constants.Interactor.LEFT;
+		public Edia.Constants.Manipulator InteractionSide = Edia.Constants.Manipulator.LEFT;
 
-		public bool isAllowedToBeVisable = false;
+		public bool isAllowedToBeVisible = false;
 		public bool isAllowedToInteract = false;
 		public bool isVisible = false;
 		public bool isInteractive = false;
@@ -19,8 +19,7 @@ namespace Edia {
 		[Header("Models")]
 		public GameObject HandModel = null;
 		public GameObject ControllerModel = null;
-
-		[Header("Interactives")]
+		
 		[Tooltip("Ray interactor to interact with UI & Default ")]
 		public Transform rayInteractor = null;
 		[Tooltip("Ray interactor to interact messagepanel OVERLAY UI")]
@@ -33,8 +32,8 @@ namespace Edia {
 			AllowVisible(isVisible);
 			AllowInteractive(isAllowedToInteract);
 			
-			EventManager.StartListening(Edia.Events.XR.EvUpdateVisableInteractor, OnEvUpdateVisableInteractor);
-			EventManager.StartListening(Edia.Events.XR.EvUpdateInteractiveInteractor, OnEvUpdateInteractiveInteractor);
+			EventManager.StartListening(Edia.Events.XR.EvUpdateVisableSide, OnEvUpdateVisableSide);
+			EventManager.StartListening(Edia.Events.XR.EvUpdateInteractiveSide, OnEvUpdateInteractiveSide);
 			EventManager.StartListening(Edia.Events.XR.EvEnableXRInteraction, OnEvEnableXRRayInteraction);
 			EventManager.StartListening(Edia.Events.XR.EvShowXRController, OnEvShowXRController);
 			EventManager.StartListening(Edia.Events.XR.EvEnableXROverlay, OnEvEnableXROverlay);
@@ -42,8 +41,8 @@ namespace Edia {
 		}
 
 		void OnDestroy() {
-			EventManager.StopListening(Edia.Events.XR.EvUpdateVisableInteractor, OnEvUpdateVisableInteractor);
-			EventManager.StopListening(Edia.Events.XR.EvUpdateInteractiveInteractor, OnEvUpdateInteractiveInteractor);
+			EventManager.StopListening(Edia.Events.XR.EvUpdateVisableSide, OnEvUpdateVisableSide);
+			EventManager.StopListening(Edia.Events.XR.EvUpdateInteractiveSide, OnEvUpdateInteractiveSide);
 			EventManager.StopListening(Edia.Events.XR.EvEnableXRInteraction, OnEvEnableXRRayInteraction);
 			EventManager.StopListening(Edia.Events.XR.EvShowXRController, OnEvShowXRController);
 			EventManager.StopListening(Edia.Events.XR.EvEnableXROverlay, OnEvEnableXROverlay);
@@ -53,7 +52,7 @@ namespace Edia {
 			Gizmos.color = Color.cyan;
 			Gizmos.matrix = transform.localToWorldMatrix;
 			Gizmos.DrawWireCube(Vector3.zero, new Vector3(0.1f,0.02f,0.15f));
-			Gizmos.DrawWireCube(Vector3.zero - (interactorType == Edia.Constants.Interactor.LEFT ? new Vector3(-0.06f,0.01f,0.05f) : new Vector3(0.06f,0.01f,0.05f)), new Vector3(0.03f,0.02f,0.05f));
+			Gizmos.DrawWireCube(Vector3.zero - (InteractionSide == Edia.Constants.Manipulator.LEFT ? new Vector3(-0.06f,0.01f,0.05f) : new Vector3(0.06f,0.01f,0.05f)), new Vector3(0.03f,0.02f,0.05f));
 		}
 
 		#endregion // -------------------------------------------------------------------------------------------------------------------------------
@@ -68,26 +67,27 @@ namespace Edia {
 
 		/// <summary>Change the controller / interactor that is visible</summary>
 		/// <param name="obj">Interactor enum index</param>
-		private void OnEvUpdateVisableInteractor(eParam obj)
+		private void OnEvUpdateVisableSide(eParam obj)
 		{
-			Edia.Constants.Interactor receivedInteractor = (Edia.Constants.Interactor)obj.GetInt();
+			Edia.Constants.Manipulator recievedSide = (Edia.Constants.Manipulator)obj.GetInt();
 			
-			if ((receivedInteractor == Edia.Constants.Interactor.BOTH) || (receivedInteractor == interactorType)) {
-				isAllowedToBeVisable = true;
+			if ((recievedSide == Edia.Constants.Manipulator.BOTH) || (recievedSide == InteractionSide)) {
+				isAllowedToBeVisible = true;
 				ShowHandModel(true);
 			} else {
-				isAllowedToBeVisable = false;
+				isAllowedToBeVisible = false;
 				isVisible = false;
+				ShowHandModel(false);
 			}
 		}
 
 		/// <summary>Change the controller / interactor that is the main interactor</summary>
 		/// <param name="obj">Interactor enum index</param>
-		private void OnEvUpdateInteractiveInteractor(eParam obj)
+		private void OnEvUpdateInteractiveSide(eParam obj)
 		{
-			Edia.Constants.Interactor receivedInteractor = (Edia.Constants.Interactor)obj.GetInt();
+			Edia.Constants.Manipulator receivedSide = (Edia.Constants.Manipulator)obj.GetInt();
 
-			if ((receivedInteractor == Edia.Constants.Interactor.BOTH) || (receivedInteractor == interactorType)) {
+			if ((receivedSide == Edia.Constants.Manipulator.BOTH) || (receivedSide == InteractionSide)) {
 				isAllowedToInteract = true;
 			} else { 
 				isAllowedToInteract = false;
@@ -111,12 +111,12 @@ namespace Edia {
 		}
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
-#region MAIN METHODS
+		#region MAIN METHODS
 
 		/// <summary>Show the actual controller of hand visually</summary>
 		/// <param name="onOff">True/false</param>
 		void AllowVisible (bool onOff) {
-			isAllowedToBeVisable = onOff;
+			isAllowedToBeVisible = onOff;
 		}
 
 		/// <summary>Allow this controller to be interacting with the environment</summary>
@@ -161,7 +161,7 @@ namespace Edia {
 		/// <param name="onOff">True/false</param>
 		public void ShowControllerModel(bool onOff) {
 
-			if (!isAllowedToBeVisable)
+			if (!isAllowedToBeVisible)
 				return;
 
 			isVisible = onOff;

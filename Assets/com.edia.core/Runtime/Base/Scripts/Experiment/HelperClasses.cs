@@ -130,8 +130,8 @@ namespace Edia {
 	[System.Serializable]
 	public class SettingsDeclaration {
 
-		public Constants.Interactor VisableInteractor = Constants.Interactor.NONE;
-		public Constants.Interactor InteractiveInteractor = Constants.Interactor.RIGHT;
+		public Constants.Manipulator VisibleSide = Constants.Manipulator.NONE;
+		public Constants.Manipulator InteractiveSide = Constants.Manipulator.RIGHT;
 		//public int screenResolution = 0;
 		//public float volume = 50f;
 		//public Constants.Languages language = Constants.Languages.ENG;

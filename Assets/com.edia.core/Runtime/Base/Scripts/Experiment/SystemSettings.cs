@@ -74,11 +74,11 @@ namespace Edia {
 			receivedSettings = new SettingsDeclaration();
 			receivedSettings = UnityEngine.JsonUtility.FromJson<SettingsDeclaration>(obj.GetString());
 
-			systemSettings.VisableInteractor = receivedSettings.VisableInteractor;
-			EventManager.TriggerEvent(Edia.Events.XR.EvUpdateVisableInteractor, new eParam((int)receivedSettings.VisableInteractor));
+			systemSettings.VisibleSide = receivedSettings.VisibleSide;
+			EventManager.TriggerEvent(Edia.Events.XR.EvUpdateVisableSide, new eParam((int)receivedSettings.VisibleSide));
 
-			systemSettings.InteractiveInteractor = receivedSettings.InteractiveInteractor;
-			EventManager.TriggerEvent(Edia.Events.XR.EvUpdateInteractiveInteractor, new eParam((int)receivedSettings.InteractiveInteractor));
+			systemSettings.InteractiveSide = receivedSettings.InteractiveSide;
+			EventManager.TriggerEvent(Edia.Events.XR.EvUpdateInteractiveSide, new eParam((int)receivedSettings.InteractiveSide));
 
 			//// Resolution of the app
 			//if (systemSettings.screenResolution != receivedSettings.screenResolution) {

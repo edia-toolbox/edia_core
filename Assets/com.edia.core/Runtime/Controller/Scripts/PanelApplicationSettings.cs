@@ -22,8 +22,8 @@ namespace Edia.Controller {
 		[Header ("Settings")]
 		public Slider volumeSlider = null;
 		public TMP_Dropdown resolutionDropdown = null;
-		public TMP_Dropdown interactiveInteractorDropdown = null;
-		public TMP_Dropdown visibleInteractorDropdown = null;
+		public TMP_Dropdown interactiveSideDropdown = null;
+		public TMP_Dropdown visibleSideDropdown = null;
 		public TMP_Dropdown languageDropdown = null;
 		public TextMeshProUGUI pathToLogfilesField = null;
 
@@ -69,8 +69,8 @@ namespace Edia.Controller {
 
 			// populate the GUI elements with correct values
 			//volumeSlider.value 			= localSystemSettingsContainer.volume;
-			interactiveInteractorDropdown.value = (int) localSystemSettingsContainer.InteractiveInteractor;
-			visibleInteractorDropdown.value 	= (int) localSystemSettingsContainer.VisableInteractor;
+			interactiveSideDropdown.value = (int) localSystemSettingsContainer.InteractiveSide;
+			visibleSideDropdown.value 	= (int) localSystemSettingsContainer.VisibleSide;
 			//languageDropdown.value 			= (int) localSystemSettingsContainer.language;
 			pathToLogfilesField.text 		= localSystemSettingsContainer.pathToLogfiles;
 			//resolutionDropdown.value 		= localSystemSettingsContainer.screenResolution;
@@ -122,9 +122,10 @@ namespace Edia.Controller {
 
 		void UpdateLocalSettings () {
 
+			localSystemSettingsContainer.InteractiveSide = (Edia.Constants.Manipulator) interactiveSideDropdown.value;
+			localSystemSettingsContainer.VisibleSide = (Edia.Constants.Manipulator) visibleSideDropdown.value;
+
 			//localSystemSettingsContainer.volume = volumeSlider.value;
-			localSystemSettingsContainer.InteractiveInteractor = (Edia.Constants.Interactor) interactiveInteractorDropdown.value;
-			localSystemSettingsContainer.VisableInteractor = (Edia.Constants.Interactor) visibleInteractorDropdown.value;
 			//localSystemSettingsContainer.language = (Edia.Constants.Languages) languageDropdown.value;
 			//localSystemSettingsContainer.screenResolution = resolutionDropdown.value;
 		}

@@ -10,7 +10,7 @@ namespace Edia {
     public static class Constants {
         public static string localConfigDirectoryName = "Configs";
 
-        public enum Interactor { LEFT, RIGHT, BOTH, NONE }
+        public enum Manipulator { LEFT, RIGHT, BOTH, NONE }
 
         // Fixed FPS target
         public enum TargetHZ { NONE, H60, H72, H90, H120 }
