@@ -2,7 +2,7 @@
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace Utils
+namespace Edia
 {
 	public static class Logger
 	{

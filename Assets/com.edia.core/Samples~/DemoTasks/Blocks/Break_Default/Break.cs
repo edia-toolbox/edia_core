@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Edia;
 using UXF;
-using Utils;
 
 namespace Edia {
 

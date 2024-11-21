@@ -5,7 +5,6 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UXF;
-using Utils;
 using UnityEngine.UI;
 
 namespace Edia {

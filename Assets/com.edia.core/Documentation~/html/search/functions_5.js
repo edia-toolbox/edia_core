@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['readstring_0',['ReadString',['../db/de6/class_edia_1_1_file_manager.html#ad2c38e854607ffd3ca5c772421540b41',1,'Edia::FileManager']]]
+  ['moveplayarea_0',['MovePlayarea',['../d0/d34/class_edia_1_1_x_r_manager.html#a61b2f01cd0c3f89feda3d673abc6d800',1,'Edia::XRManager']]]
 ];
