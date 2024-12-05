@@ -27,7 +27,7 @@ namespace Edia {
 				GetComponent<Canvas>().worldCamera = XRManager.Instance.CamOverlay.GetComponent<Camera>();
 
 			if (StickToHMD) {
-				transform.SetParent(XRManager.Instance.XRCam, true);
+				transform.SetParent(XRManager.Instance.XRCam, false);
 				transform.localPosition = new Vector3(0, 0, DistanceFromHMD);
 			}
 
