@@ -47,14 +47,13 @@ namespace Edia.Controller {
 		private void OnEvOpenSystemSettings (eParam obj) {
 
 			// Where to get the settings from?
-			if (ControlPanel.Instance.Settings.ControlMode == ControlMode.Local) {
+			if (ControlPanel.Instance.controlMode == ControlMode.Local) {
 				// ask systemsettings singleton via event
 				EventManager.StartListening(Edia.Events.Settings.EvProvideSystemSettings, OnProcessSystemSettings);
 				EventManager.TriggerEvent(Edia.Events.Settings.EvRequestSystemSettings);
 			} else {
 				// TODO: In case of remote, does the controlpanel get settings locally from file?
 			}
-
 		}
 
 		/// <summary>

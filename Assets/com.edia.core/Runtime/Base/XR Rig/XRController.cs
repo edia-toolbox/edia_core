@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using Utils;
 
 namespace Edia {
 	
@@ -96,6 +97,8 @@ namespace Edia {
 			}
 		}
 
+
+
 		/// <summary>Change the controller / interactor that is visible</summary>
 		/// <param name="obj">Interactor enum index</param>
 		private void OnEvEnableXRRayInteraction(eParam obj)
@@ -127,7 +130,7 @@ namespace Edia {
 
 		/// <summary>Enable/Disable interaction</summary>
 		/// <param name="onOff">True/false</param>
-		public void EnableRayInteraction (bool onOff) {
+		public void EnableRayInteraction(bool onOff ) {
 
 			if (!isAllowedToInteract)
 				return;
@@ -151,21 +154,16 @@ namespace Edia {
 		/// <param name="onOff">True/false</param>
 		public void ShowHandModel (bool onOff) {
 
-			// TODO: Set up a proper way of validate show/hide/interact/etc
-
-			isVisible = onOff;
-			HandModel.SetActive(onOff);
+			isVisible = onOff && isAllowedToBeVisible;
+			HandModel.SetActive(onOff && isAllowedToBeVisible);
 		}
 
 		/// <summary>Show/Hide controller</summary>
 		/// <param name="onOff">True/false</param>
 		public void ShowControllerModel(bool onOff) {
 
-			if (!isAllowedToBeVisible)
-				return;
-
-			isVisible = onOff;
-			ControllerModel.SetActive(onOff);
+			isVisible = onOff && isAllowedToBeVisible;
+			ControllerModel.SetActive(onOff && isAllowedToBeVisible);
 		}
 
 		#endregion // -------------------------------------------------------------------------------------------------------------------------------

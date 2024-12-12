@@ -30,7 +30,7 @@ namespace Edia {
 
 		[Header("Editor Settings")]
 		public bool ShowLog = false;
-		public Color LogColor = Color.green;
+		Color LogColor = Color.green;
 
 		[Header("Experiment Settings")]
 		[Tooltip("Enable Position&Rotation tracker from UXF which stores data to session folder. !Might have impact on FPS with long trials.")]

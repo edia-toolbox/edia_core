@@ -9,14 +9,6 @@ namespace Edia.Controller {
 	public enum PanelMode { Hidden, OnScreen, InWorld };
 	public enum ScreenSize { Default, Wide, Full };
 
-	[System.Serializable]
-	public class ControlSettings {
-		public ControlMode ControlMode = ControlMode.Local;
-		//public PanelMode PanelMode = PanelMode.OnScreen;
-		//public ScreenSize ScreenSize = ScreenSize.Default;	
-	}
-
-
 	public static class Constants 
 	{
 		// File names and paths
@@ -25,7 +17,5 @@ namespace Edia.Controller {
 		public static string PathToParticipantFiles			= "configs/participants/";
 		public static string PathToBaseDefinitions			= "configs/base-definitions/";
 		public static string FolderNameXBlockDefinitions	= "block-definitions";
-
 	}
-	
 }

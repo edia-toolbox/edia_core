@@ -11,7 +11,7 @@ namespace Edia {
 
 		[Header("Debug")]
 		public bool showLog = false;
-		public Color logColor = Color.cyan;
+		Color logColor = Color.cyan;
 		[Space(10f)]
 		[Header("References")]
 		public Transform XRCam;
@@ -148,9 +148,6 @@ namespace Edia {
 
 
 		#endregion // -------------------------------------------------------------------------------------------------------------------------------
-		#region MISC	
-
-		#endregion // -------------------------------------------------------------------------------------------------------------------------------                                                                                                                                    
 
 	}
 }
