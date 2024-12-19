@@ -6,6 +6,7 @@ using System.Linq;
 using TMPro;
 using System;
 using Unity.Properties;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Menu;
 
 namespace Edia.Controller {
 
@@ -15,10 +16,10 @@ namespace Edia.Controller {
 		[Header("Refs")]
 		public Button btnSubmit = null;
 
-		public string[] _subFolders;
-		public string[] _sessFolders;
-		public List<string> _taskDefinitionJsonStrings = new();
-		public List<string> _xBlockDefinitionJsonStrings = new();
+		List<string> _subFolders = new();
+		List<string> _sessFolders = new();
+		List<string> _taskDefinitionJsonStrings = new();
+		List<string> _xBlockDefinitionJsonStrings = new();
 		string _xBlockSequenceJsonString;
 		string _sessionInfoJsonString;
 
@@ -38,7 +39,17 @@ namespace Edia.Controller {
 
 			EventManager.StartListening(Edia.Events.Config.EvFoundLocalConfigFiles, OnEvFoundLocalConfigFiles);
 
-			_subFolders = FileManager.GetAllSubFolders(Constants.PathToParticipantFiles);
+			string[] tempFolders = FileManager.GetAllSubFolders(Constants.PathToParticipantFiles);
+			_subFolders.Clear();
+
+			// Remove non valid foldernames
+			foreach (string subFolder in tempFolders) {
+				if (subFolder.StartsWith("sub-"))
+					_subFolders.Add(subFolder);
+			}
+
+			if (_subFolders.Count == 0)
+				return;
 
 			GenerateDropdown(_subFolders, SubjectSelectionDropdown);
 			SessionSelectionDropdown.interactable = true;
@@ -82,7 +93,20 @@ namespace Edia.Controller {
 
 		public void OnSubjectValueChanged(int value) {
 			_subject = SubjectSelectionDropdown.options[value].text;
-			_sessFolders = FileManager.GetAllSubFolders(Constants.PathToParticipantFiles + SubjectSelectionDropdown.options[value].text);
+
+			List<string> subfolders = FileManager.GetAllSubFolders(Constants.PathToParticipantFiles + SubjectSelectionDropdown.options[value].text).ToList<string>();
+			_sessFolders.Clear();
+
+			foreach (string subfolder in subfolders) {
+				if (subfolder.StartsWith("ses-"))
+					_sessFolders.Add(subfolder);
+			}
+
+			if (_sessFolders.Count == 0) {
+				SessionSelectionDropdown.ClearOptions();
+				return;
+			}
+
 			GenerateDropdown(_sessFolders, SessionSelectionDropdown);
 			OnSessValueChanged(0);
 		}
@@ -91,11 +115,11 @@ namespace Edia.Controller {
 			_session = SessionSelectionDropdown.options[value].text;
 		}
 
-		void GenerateDropdown(string[] folderlist, TMP_Dropdown dropDown) {
+		void GenerateDropdown(List<string> folderlist, TMP_Dropdown dropDown) {
 
 			List<TMP_Dropdown.OptionData> tmpOptions = new List<TMP_Dropdown.OptionData>();
 
-			for (int s = 0; s < folderlist.Length; s++) {
+			for (int s = 0; s < folderlist.Count; s++) {
 				tmpOptions.Add(new TMP_Dropdown.OptionData(folderlist[s]));
 			}
 
