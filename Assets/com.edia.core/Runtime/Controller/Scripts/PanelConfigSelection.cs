@@ -27,8 +27,8 @@ namespace Edia.Controller {
 
 		public TextMeshProUGUI TopField;
 
-		string _subject = "sub_001";
-		string _session = "sess_001";
+		string _subject = "";
+		string _session = "";
 
 		public List<string> xBlockDefinitionsFileList; // for sanity check
 		public XBlockSequence _xBlockSequence;

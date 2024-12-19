@@ -16,6 +16,7 @@ namespace Edia {
 		public bool isAllowedToInteract = false;
 		public bool isVisible = false;
 		public bool isInteractive = false;
+		bool isOverlayInteractive = false;
 
 		[Header("Models")]
 		public GameObject HandModel = null;
@@ -35,7 +36,6 @@ namespace Edia {
 			
 			EventManager.StartListening(Edia.Events.XR.EvUpdateVisableSide, OnEvUpdateVisableSide);
 			EventManager.StartListening(Edia.Events.XR.EvUpdateInteractiveSide, OnEvUpdateInteractiveSide);
-			EventManager.StartListening(Edia.Events.XR.EvEnableXRInteraction, OnEvEnableXRRayInteraction);
 			EventManager.StartListening(Edia.Events.XR.EvShowXRController, OnEvShowXRController);
 			EventManager.StartListening(Edia.Events.XR.EvEnableXROverlay, OnEvEnableXROverlay);
 
@@ -44,7 +44,6 @@ namespace Edia {
 		void OnDestroy() {
 			EventManager.StopListening(Edia.Events.XR.EvUpdateVisableSide, OnEvUpdateVisableSide);
 			EventManager.StopListening(Edia.Events.XR.EvUpdateInteractiveSide, OnEvUpdateInteractiveSide);
-			EventManager.StopListening(Edia.Events.XR.EvEnableXRInteraction, OnEvEnableXRRayInteraction);
 			EventManager.StopListening(Edia.Events.XR.EvShowXRController, OnEvShowXRController);
 			EventManager.StopListening(Edia.Events.XR.EvEnableXROverlay, OnEvEnableXROverlay);
 		}
@@ -62,7 +61,6 @@ namespace Edia {
 		/// <summary>Enable interaction with UI presented on layer 'camoverlay'</summary>
 		private void OnEvEnableXROverlay(eParam obj)
 		{
-			//Debug.Log($"{this.gameObject.name} OnEvEnableXROverlay {obj.GetBool()}");
 			HandModel.layer = LayerMask.NameToLayer(obj.GetBool() ? "CamOverlay" : "Default");
 		}
 
@@ -90,13 +88,36 @@ namespace Edia {
 
 			if ((receivedSide == Edia.Constants.Manipulator.BOTH) || (receivedSide == InteractionSide)) {
 				isAllowedToInteract = true;
-			} else { 
+			} else {
+
+				// check if this hand was interactive, so calling setting it active for the other hand
+				if (isInteractive) {
+					Invoke("EnableDelayedXRInteraction", 0.1f);
+				}
+
+				// check if this hand was overlay interactive, so calling setting it active for the other hand
+				if (isOverlayInteractive) {
+					Invoke("EnableDelayedXROverlayInteraction", 0.1f);
+				}
+
 				isAllowedToInteract = false;
 				isInteractive = false;
 				rayInteractor.gameObject.SetActive(false);
+
+				isOverlayInteractive = false;
+				XROverlayRayInteractor.gameObject.SetActive(false);
 			}
 		}
 
+		// Send out XR interaction
+		private void EnableDelayedXRInteraction () {
+			XRManager.Instance.EnableXRRayInteraction(true);
+		}
+
+		// Send out XR OVERLAY interaction
+		private void EnableDelayedXROverlayInteraction() {
+			XRManager.Instance.EnableXROverlayRayInteraction(true);
+		}
 
 
 		/// <summary>Change the controller / interactor that is visible</summary>
@@ -148,6 +169,7 @@ namespace Edia {
 				return;
 
 			XROverlayRayInteractor.gameObject.SetActive(onOff);
+			isOverlayInteractive = onOff;
 		}
 
 		/// <summary>Show/Hide hand</summary>
