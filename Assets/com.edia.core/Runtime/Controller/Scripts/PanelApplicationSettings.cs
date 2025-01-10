@@ -6,7 +6,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Edia;
-using Utils;
 
 namespace Edia.Controller {
 

@@ -145,6 +145,7 @@ namespace Edia {
 			}
 		}
 
+		// \cond \hiderefs
 		/// <summary>
 		/// Retuns true/false depending if the gameobject is found belonging to the assetId given
 		/// </summary>
@@ -153,6 +154,7 @@ namespace Edia {
 		public bool IsXblockExecuterListed(string assetId) {
 			return XBlockExecuters.Any(go => go.name == assetId);
 		}
+		// \endcond
 
 		void Reset() {
 			_activeSessionBlockNum = 0;
@@ -243,7 +245,7 @@ namespace Edia {
 			EnableEyeCalibrationTrigger(true);
 		}
 
-		void HideMessagePanelButtons () {
+		public void HideMessagePanelButtons () {
 			MessagePanelInVR.Instance.HideMenu();
 		}
 
@@ -299,6 +301,10 @@ namespace Edia {
 			Application.Quit();
 		}
 
+		/// <summary>
+		/// Show/Hide Pause button on controller panel
+		/// </summary>
+		/// <param name="_onOff"></param>
 		public void EnablePauseButton(bool _onOff) {
 			EventManager.TriggerEvent(Edia.Events.ControlPanel.EvEnableButton, new eParam(new string[] { "PAUSE", _onOff.ToString() }));
 			EventManager.StartListening("EvPauseExperiment", OnEvPauseExperiment);

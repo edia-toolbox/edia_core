@@ -1,5 +1,14 @@
 var NAVTREEINDEX1 =
 {
+"df/d5b/_x_block_8cs_source.html":[2,0,0,0,1,1,9],
+"df/d67/_experimenter_panel_8cs_source.html":[2,0,0,1,0,4],
+"df/dc3/class_edia_1_1_events_1_1_settings.html":[0,0,0,1,4],
+"df/dc3/class_edia_1_1_events_1_1_settings.html":[1,0,0,1,4],
+"df/dc3/class_edia_1_1_events_1_1_settings.html#a135e2a3df56e456a74820e6283f6f7f3":[0,0,0,1,4,0],
+"df/dc3/class_edia_1_1_events_1_1_settings.html#a135e2a3df56e456a74820e6283f6f7f3":[1,0,0,1,4,0],
+"df/dc3/class_edia_1_1_events_1_1_settings.html#a23663504b55d89206ebededce0aae0b0":[0,0,0,1,4,4],
+"df/dc3/class_edia_1_1_events_1_1_settings.html#a23663504b55d89206ebededce0aae0b0":[1,0,0,1,4,4],
+"df/dc3/class_edia_1_1_events_1_1_settings.html#a8f584c73eeda64d9b26d98ad16f762a7":[0,0,0,1,4,1],
 "df/dc3/class_edia_1_1_events_1_1_settings.html#a8f584c73eeda64d9b26d98ad16f762a7":[1,0,0,1,4,1],
 "df/dc3/class_edia_1_1_events_1_1_settings.html#ad2501c8021cb15d88fd183184426ab22":[0,0,0,1,4,3],
 "df/dc3/class_edia_1_1_events_1_1_settings.html#ad2501c8021cb15d88fd183184426ab22":[1,0,0,1,4,3],
@@ -7,8 +16,6 @@ var NAVTREEINDEX1 =
 "df/dc3/class_edia_1_1_events_1_1_settings.html#ae29f9a304887385e5a0a76ab9c589f4a":[1,0,0,1,4,2],
 "df/dc5/_x_r_manager_8cs_source.html":[2,0,0,0,3,2],
 "df/dcf/_control_panel_8cs_source.html":[2,0,0,1,0,2],
-"df/ddc/class_edia_1_1_session_info.html":[0,0,0,13],
-"df/ddc/class_edia_1_1_session_info.html":[1,0,0,12],
 "df/de5/namespace_edia_1_1_controller.html":[0,0,0,0],
 "dir_18ff3c89c650e625aa6cc3be2608e402.html":[2,0,0,0,0,0],
 "dir_2089c8b6da2ac8ac2e6378f83fe8e313.html":[2,0,0,0,1,1],

@@ -24,15 +24,10 @@ var annotated_dup =
       [ "MessagePanelInVR", "dd/d09/class_edia_1_1_message_panel_in_v_r.html", "dd/d09/class_edia_1_1_message_panel_in_v_r" ],
       [ "ScreenFader", "d5/d3e/class_edia_1_1_screen_fader.html", "d5/d3e/class_edia_1_1_screen_fader" ],
       [ "ScreenInVR", "d7/d65/class_edia_1_1_screen_in_v_r.html", "d7/d65/class_edia_1_1_screen_in_v_r" ],
-      [ "SessionInfo", "df/ddc/class_edia_1_1_session_info.html", null ],
-      [ "SettingsDeclaration", "d2/dbc/class_edia_1_1_settings_declaration.html", null ],
-      [ "SettingsTuple", "d7/d22/class_edia_1_1_settings_tuple.html", null ],
       [ "SystemSettings", "d0/dde/class_edia_1_1_system_settings.html", "d0/dde/class_edia_1_1_system_settings" ],
       [ "Tooltip", "d9/d2d/class_edia_1_1_tooltip.html", null ],
-      [ "TrialStep", "d4/d11/class_edia_1_1_trial_step.html", null ],
-      [ "ValueList", "d4/dad/class_edia_1_1_value_list.html", null ],
-      [ "XBlockSettings", "de/d24/class_edia_1_1_x_block_settings.html", null ],
       [ "XRControllerInputRemapper", "d3/d55/class_edia_1_1_x_r_controller_input_remapper.html", "d3/d55/class_edia_1_1_x_r_controller_input_remapper" ],
+      [ "XRManager", "d0/d34/class_edia_1_1_x_r_manager.html", "d0/d34/class_edia_1_1_x_r_manager" ],
       [ "XRrigInitialiser", "d9/d20/class_edia_1_1_x_rrig_initialiser.html", null ]
     ] ]
 ];

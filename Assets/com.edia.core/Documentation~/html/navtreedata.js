@@ -48,7 +48,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"df/dc3/class_edia_1_1_events_1_1_settings.html#a8f584c73eeda64d9b26d98ad16f762a7"
+"df/d5b/_x_block_8cs_source.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

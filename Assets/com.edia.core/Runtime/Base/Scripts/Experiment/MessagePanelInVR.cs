@@ -56,13 +56,14 @@ namespace Edia {
 		}
 
 
-#region MESSAGE OPTIONS	
+		#region MESSAGE OPTIONS	
 
 		///// <summary>Event catcher</summary>
 		//void OnEvShowMessage(eParam e) {
 		//	ShowMessage(e.GetStrings().ToList());
 		//}
 
+		// \cond \hiderefs
 		/// <summary>Shows the message in VR on a canvas for a certain duration.</summary>
 		/// <param name="msg">Message to show</param>
 		/// <param name="duration">Duration</param>
@@ -84,6 +85,7 @@ namespace Edia {
 		/// Shows a series of messages, user has to click OK button to go through them
 		/// </summary>
 		/// <param name="messages"></param>
+		//! \hiderefs
 		public void ShowMessage(List<string> messages) {
 
 			messageQueue = messages;
@@ -91,7 +93,9 @@ namespace Edia {
 
 			Show(true);
 		}
+		// \endcond
 
+		
 		IEnumerator ProcessMessageQueue () {
 
 			while (messageQueue.Count > 0) {
@@ -124,6 +128,7 @@ namespace Edia {
 			EventManager.TriggerEvent(Edia.Events.StateMachine.EvProceed);
 		}
 
+		// \cond \hiderefs
 		/// <summary>Shows the message in VR on a canvas.</summary>
 		/// <param name="msg">Message to show</param>
 		public void ShowMessageOnPanel(string msg) {
@@ -139,9 +144,10 @@ namespace Edia {
 
 			Show(true);
 		}
+		// \endcond
 
 		#endregion // -------------------------------------------------------------------------------------------------------------------------------
-#region HIDE
+		#region HIDE
 
 		/// <summary>Event catcher</summary>
 		void OnEvHideMessage(eParam e) {

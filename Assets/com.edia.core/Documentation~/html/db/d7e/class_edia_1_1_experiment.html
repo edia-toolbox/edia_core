@@ -6,6 +6,7 @@
 <meta name="generator" content="Doxygen 1.11.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Edia.core: Edia.Experiment Class Reference</title>
+<link rel="icon" href="../../EXP icon.png" type="image/x-icon" />
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -130,6 +131,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ad82bd0b655938f3d2bf6a52f565a9e99" id="r_ad82bd0b655938f3d2bf6a52f565a9e99"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad82bd0b655938f3d2bf6a52f565a9e99">ShowMessageToExperimenter</a> (string msg)</td></tr>
 <tr class="memdesc:ad82bd0b655938f3d2bf6a52f565a9e99"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shows a message in the controlpanel. Autohides the panel.  <br /></td></tr>
 <tr class="separator:ad82bd0b655938f3d2bf6a52f565a9e99"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd7e23b34ba2761175542203033f182c" id="r_afd7e23b34ba2761175542203033f182c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afd7e23b34ba2761175542203033f182c">EnablePauseButton</a> (bool _onOff)</td></tr>
+<tr class="memdesc:afd7e23b34ba2761175542203033f182c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Show/Hide Pause button on controller panel.  <br /></td></tr>
+<tr class="separator:afd7e23b34ba2761175542203033f182c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a90c55db2f4ab65b216f61952c2dd8252" id="r_a90c55db2f4ab65b216f61952c2dd8252"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a90c55db2f4ab65b216f61952c2dd8252">EnableEyeCalibrationTrigger</a> (bool _onOff)</td></tr>
 <tr class="memdesc:a90c55db2f4ab65b216f61952c2dd8252"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set system open for calibration call from event or button.  <br /></td></tr>
 <tr class="separator:a90c55db2f4ab65b216f61952c2dd8252"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -153,12 +157,47 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>Proceed</b> ()</td></
 <tr class="memitem:a1e1e19f05fcd1e01141273db09c9c6cf" id="r_a1e1e19f05fcd1e01141273db09c9c6cf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1e1e19f05fcd1e01141273db09c9c6cf">StoreMarker</a> (string annotation)</td></tr>
 <tr class="memdesc:a1e1e19f05fcd1e01141273db09c9c6cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saves a marker with a timestamp to disk. Also fires EvStoreMarker event with parameter.  <br /></td></tr>
 <tr class="separator:a1e1e19f05fcd1e01141273db09c9c6cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ef6a70dbdbae5398c53561dcba5d879" id="r_a2ef6a70dbdbae5398c53561dcba5d879"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2ef6a70dbdbae5398c53561dcba5d879">AddToTrialResults</a> (string key, string value)</td></tr>
+<tr class="memdesc:a2ef6a70dbdbae5398c53561dcba5d879"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a &lt;key&gt;pain to the trial results table.  <br /></td></tr>
+<tr class="separator:a2ef6a70dbdbae5398c53561dcba5d879"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Main manager for the experiment. Handles the statemachine, encapsulating UXF. Offers developers friendly and easy access to most used functionalities for controlling an experiment. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/dbb/_experiment_8cs_source.html#l00019">19</a> of file <a class="el" href="../../d8/dbb/_experiment_8cs_source.html">Experiment.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/dbb/_experiment_8cs_source.html#l00018">18</a> of file <a class="el" href="../../d8/dbb/_experiment_8cs_source.html">Experiment.cs</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a2ef6a70dbdbae5398c53561dcba5d879" name="a2ef6a70dbdbae5398c53561dcba5d879"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ef6a70dbdbae5398c53561dcba5d879">&#9670;&#160;</a></span>AddToTrialResults()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Edia.Experiment.AddToTrialResults </td>
+          <td>(</td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>key</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>value</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Add a &lt;key&gt;pain to the trial results table. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">key</td><td>Name of the key</td></tr>
+    <tr><td class="paramname">value</td><td>Value in string format</td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="../../d8/dbb/_experiment_8cs_source.html#l00727">727</a> of file <a class="el" href="../../d8/dbb/_experiment_8cs_source.html">Experiment.cs</a>.</p>
+
+</div>
+</div>
 <a id="a9fe39f24c3f07641c78ec63bc463bc5b" name="a9fe39f24c3f07641c78ec63bc463bc5b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9fe39f24c3f07641c78ec63bc463bc5b">&#9670;&#160;</a></span>ConvertAndSaveDataToUXF() <span class="overload">[1/2]</span></h2>
 
@@ -193,7 +232,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>Proceed</b> ()</td></
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/dbb/_experiment_8cs_source.html#l00663">663</a> of file <a class="el" href="../../d8/dbb/_experiment_8cs_source.html">Experiment.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/dbb/_experiment_8cs_source.html#l00678">678</a> of file <a class="el" href="../../d8/dbb/_experiment_8cs_source.html">Experiment.cs</a>.</p>
 
 </div>
 </div>
@@ -231,7 +270,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>Proceed</b> ()</td></
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/dbb/_experiment_8cs_source.html#l00643">643</a> of file <a class="el" href="../../d8/dbb/_experiment_8cs_source.html">Experiment.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/dbb/_experiment_8cs_source.html#l00658">658</a> of file <a class="el" href="../../d8/dbb/_experiment_8cs_source.html">Experiment.cs</a>.</p>
 
 </div>
 </div>
@@ -258,7 +297,34 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>Proceed</b> ()</td></
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/dbb/_experiment_8cs_source.html#l00303">303</a> of file <a class="el" href="../../d8/dbb/_experiment_8cs_source.html">Experiment.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/dbb/_experiment_8cs_source.html#l00315">315</a> of file <a class="el" href="../../d8/dbb/_experiment_8cs_source.html">Experiment.cs</a>.</p>
+
+</div>
+</div>
+<a id="afd7e23b34ba2761175542203033f182c" name="afd7e23b34ba2761175542203033f182c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd7e23b34ba2761175542203033f182c">&#9670;&#160;</a></span>EnablePauseButton()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Edia.Experiment.EnablePauseButton </td>
+          <td>(</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>_onOff</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Show/Hide Pause button on controller panel. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">_onOff</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="../../d8/dbb/_experiment_8cs_source.html#l00308">308</a> of file <a class="el" href="../../d8/dbb/_experiment_8cs_source.html">Experiment.cs</a>.</p>
 
 </div>
 </div>
@@ -285,7 +351,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>Proceed</b> ()</td></
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/dbb/_experiment_8cs_source.html#l00562">562</a> of file <a class="el" href="../../d8/dbb/_experiment_8cs_source.html">Experiment.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/dbb/_experiment_8cs_source.html#l00577">577</a> of file <a class="el" href="../../d8/dbb/_experiment_8cs_source.html">Experiment.cs</a>.</p>
 
 </div>
 </div>
@@ -312,7 +378,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>Proceed</b> ()</td></
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/dbb/_experiment_8cs_source.html#l00255">255</a> of file <a class="el" href="../../d8/dbb/_experiment_8cs_source.html">Experiment.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/dbb/_experiment_8cs_source.html#l00263">263</a> of file <a class="el" href="../../d8/dbb/_experiment_8cs_source.html">Experiment.cs</a>.</p>
 
 </div>
 </div>
@@ -344,7 +410,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>Proceed</b> ()</td></
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/dbb/_experiment_8cs_source.html#l00249">249</a> of file <a class="el" href="../../d8/dbb/_experiment_8cs_source.html">Experiment.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/dbb/_experiment_8cs_source.html#l00257">257</a> of file <a class="el" href="../../d8/dbb/_experiment_8cs_source.html">Experiment.cs</a>.</p>
 
 </div>
 </div>
@@ -371,7 +437,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>Proceed</b> ()</td></
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/dbb/_experiment_8cs_source.html#l00209">209</a> of file <a class="el" href="../../d8/dbb/_experiment_8cs_source.html">Experiment.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/dbb/_experiment_8cs_source.html#l00217">217</a> of file <a class="el" href="../../d8/dbb/_experiment_8cs_source.html">Experiment.cs</a>.</p>
 
 </div>
 </div>
@@ -398,7 +464,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>Proceed</b> ()</td></
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/dbb/_experiment_8cs_source.html#l00202">202</a> of file <a class="el" href="../../d8/dbb/_experiment_8cs_source.html">Experiment.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/dbb/_experiment_8cs_source.html#l00210">210</a> of file <a class="el" href="../../d8/dbb/_experiment_8cs_source.html">Experiment.cs</a>.</p>
 
 </div>
 </div>
@@ -430,7 +496,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>Proceed</b> ()</td></
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/dbb/_experiment_8cs_source.html#l00225">225</a> of file <a class="el" href="../../d8/dbb/_experiment_8cs_source.html">Experiment.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/dbb/_experiment_8cs_source.html#l00233">233</a> of file <a class="el" href="../../d8/dbb/_experiment_8cs_source.html">Experiment.cs</a>.</p>
 
 </div>
 </div>
@@ -462,7 +528,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>Proceed</b> ()</td></
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/dbb/_experiment_8cs_source.html#l00217">217</a> of file <a class="el" href="../../d8/dbb/_experiment_8cs_source.html">Experiment.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/dbb/_experiment_8cs_source.html#l00225">225</a> of file <a class="el" href="../../d8/dbb/_experiment_8cs_source.html">Experiment.cs</a>.</p>
 
 </div>
 </div>
@@ -489,7 +555,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>Proceed</b> ()</td></
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/dbb/_experiment_8cs_source.html#l00686">686</a> of file <a class="el" href="../../d8/dbb/_experiment_8cs_source.html">Experiment.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/dbb/_experiment_8cs_source.html#l00701">701</a> of file <a class="el" href="../../d8/dbb/_experiment_8cs_source.html">Experiment.cs</a>.</p>
 
 </div>
 </div>

@@ -5,7 +5,6 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UXF;
-using Utils;
 using UnityEngine.UI;
 
 namespace Edia {
@@ -84,12 +83,6 @@ namespace Edia {
 
 
         void CheckLogResultsProceed(int stimuliIndex) {
-
-            // Log settings
-            Experiment.Instance.AddToTrialResults("word", Session.instance.CurrentTrial.settings.GetString("word"));
-			Experiment.Instance.AddToTrialResults("color", Session.instance.CurrentTrial.settings.GetString("color"));
-			Experiment.Instance.AddToTrialResults("target", Session.instance.CurrentBlock.settings.GetString("target"));
-
             // Log results
             Experiment.Instance.AddToTrialResults("response", StroopResponseFields[stimuliIndex].GetValue());
             Experiment.Instance.AddToTrialResults("response_correct", StroopResponseFields[stimuliIndex].IsValid.ToString());
