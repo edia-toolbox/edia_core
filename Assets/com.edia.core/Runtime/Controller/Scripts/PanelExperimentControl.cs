@@ -16,6 +16,7 @@ namespace Edia.Controller {
 		public Button btnExperiment = null;
 		public Button btnPauseExperiment = null;
 		public Button btnProceedExperiment = null;
+		public Button btnNextMessage = null;
 
 		[Header("Statemachine panels")]
 		public GameObject panelIdle = null;
@@ -44,13 +45,14 @@ namespace Edia.Controller {
 			EventManager.StartListening(Edia.Events.ControlPanel.EvStartTimer, OnEvStartTimer);
 		}
 
+
 		void OnDestroy() {
 			EventManager.StopListening(Edia.Events.ControlPanel.EvStartTimer, OnEvStartTimer);
 			EventManager.StopListening(Edia.Events.ControlPanel.EvStopTimer, OnEvStopTimer);
 			EventManager.StopListening(Edia.Events.Config.EvReadyToGo, OnEvReadyToGo);
-
 			btnExperiment.onClick.RemoveListener(() => EventManager.TriggerEvent(Edia.Events.StateMachine.EvStartExperiment, null));
 			btnPauseExperiment.onClick.RemoveListener(() => EventManager.TriggerEvent(Edia.Events.StateMachine.EvPauseExperiment, null));
+			btnNextMessage.onClick.RemoveListener(() => EventManager.TriggerEvent(Edia.Events.ControlPanel.EvNextMessagePanelMsg, null));
 		}
 
 		void Start() {
@@ -58,6 +60,10 @@ namespace Edia.Controller {
 		}
 
 		#region EVENT LISTENERS
+
+		private void OnEvShowNextMsgButton(eParam obj) {
+			throw new NotImplementedException();
+		}
 
 		void OnEvReadyToGo(eParam obj) {
 			EventManager.StopListening(Edia.Events.Config.EvReadyToGo, OnEvReadyToGo);
@@ -145,17 +151,22 @@ namespace Edia.Controller {
 
 		void OnEvEnableButton(eParam e) {
 
-			bool turnOn = e.GetStrings()[1].ToUpper() == "TRUE";
+			bool onOff = e.GetStrings()[1].ToUpper() == "TRUE";
 
 			//Debug.Log("OnEvEnableButton " + e.GetStrings()[0].ToUpper() + ":" + turnOn);
 
 			switch (e.GetStrings()[0].ToUpper()) {
 				case "PAUSE":
-					SetButtonState(btnPauseExperiment, turnOn);
+					SetButtonState(btnPauseExperiment, onOff);
 					break;
 				case "PROCEED":
-					SetButtonState(btnProceedExperiment, turnOn);
+					SetButtonState(btnProceedExperiment, onOff);
 					StartCoroutine("ChangeColorOverTime", btnProceedExperiment.GetComponent<Image>());
+					break;
+				case "NEXT":
+					SetButtonState(btnNextMessage, onOff);
+					btnNextMessage.gameObject.SetActive(onOff);
+					StartCoroutine("ChangeColorOverTime", btnNextMessage.GetComponent<Image>());
 					break;
 			}
 		}
@@ -199,6 +210,8 @@ namespace Edia.Controller {
 			btnExperiment.transform.GetChild(0).GetComponentInChildren<Text>().text = "Start Experiment";
 			btnExperiment.onClick.AddListener(() => EventManager.TriggerEvent(Edia.Events.StateMachine.EvStartExperiment, null));
 			btnPauseExperiment.onClick.AddListener(() => EventManager.TriggerEvent(Edia.Events.StateMachine.EvPauseExperiment, null));
+			btnNextMessage.onClick.AddListener(() => EventManager.TriggerEvent(Edia.Events.ControlPanel.EvNextMessagePanelMsg, null));
+			btnNextMessage.gameObject.SetActive(false);
 		}
 
 		#endregion // -------------------------------------------------------------------------------------------------------------------------------

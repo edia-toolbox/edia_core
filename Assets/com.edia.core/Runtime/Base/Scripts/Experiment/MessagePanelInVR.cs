@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Edia {
@@ -11,7 +12,7 @@ namespace Edia {
 		[Header("Refs")]
 		public TextMeshProUGUI MsgField = null;
 		public GameObject MenuHolder = null;
-		public Button buttonOK = null;
+		[FormerlySerializedAs("buttonOK")] public Button buttonNEXT = null;
 		public Button buttonProceed = null;
 		public bool HasSolidBackground = true;
 
@@ -94,10 +95,11 @@ namespace Edia {
 			Show(true);
 		}
 		// \endcond
-
 		
 		IEnumerator ProcessMessageQueue () {
-
+			
+			EventManager.StartListening(Edia.Events.ControlPanel.EvNextMessagePanelMsg, OnEvNextMessagepanelMsg);
+			
 			while (messageQueue.Count > 0) {
 				ShowMessageOnPanel(messageQueue[0]);
 				_hasClicked = false;
@@ -110,20 +112,28 @@ namespace Edia {
 			}
 		}
 
-		void ButtonToggling(bool onOffOk, bool onOffProceed) {
-			buttonOK.gameObject.SetActive(onOffOk);
-			buttonOK.interactable = onOffOk;
+		void ButtonToggling(bool onOffNext, bool onOffProceed) {
+			buttonNEXT.gameObject.SetActive(onOffNext);
+			buttonNEXT.interactable = onOffNext;
+
+			string[] param = new[] { "NEXT", onOffNext.ToString() };
+			EventManager.TriggerEvent(Edia.Events.ControlPanel.EvEnableButton, new eParam(param));
+			
 			buttonProceed.gameObject.SetActive(onOffProceed);
 			buttonProceed.interactable = onOffProceed;
-			MenuHolder.SetActive(onOffOk || onOffProceed);
+			
+			MenuHolder.SetActive(onOffNext || onOffProceed);
 		}
 
-		public void OnBtnOKPressed() {
+		private void OnEvNextMessagepanelMsg(eParam e) {
+			OnBtnNEXTPressed();
+		}
+
+		public void OnBtnNEXTPressed() {
 			_hasClicked = true;
 		}
 
 		public void OnBtnProceedPressed() {
-			//Debug.Log("OnBtnProceedPressed");
 			XRManager.Instance.EnableXROverlayRayInteraction(false);
 			EventManager.TriggerEvent(Edia.Events.StateMachine.EvProceed);
 		}

@@ -164,6 +164,8 @@ namespace Edia.Events {
 		// Fired when pairing panel gets a connection. Expects int as HMD index
 		public const string EvConnectionEstablished = "EvConnectionEstablished ";
 
+		// Fired when showing multiple messages in the messagepanel
+		public const string EvNextMessagePanelMsg = "EvNextMessagePanelMsg";
 
 	}
 
@@ -193,7 +195,8 @@ namespace Edia.Events {
 
 		public const string NwEvToggleCasting = "NwEvToggleCasting";
 
-
+		public const string NwEvNextMessagepanelMsg = "NwEvNextMessagepanelMsg";
+		
 		// * TO MANAGER >>
 
 		public const string NwEvReadyToGo = "NwEvReadyToGo";
