@@ -20,14 +20,13 @@ namespace Edia {
 
 		[Header("Models")]
 		public GameObject HandModel = null;
+		private Transform[] HandModelChildren;
 		public GameObject ControllerModel = null;
 		
 		[Tooltip("Ray interactor to interact with UI & Default ")]
 		public Transform rayInteractor = null;
 		[Tooltip("Ray interactor to interact messagepanel OVERLAY UI")]
 		public Transform XROverlayRayInteractor = null;
-
-		private Transform[] HandModelChildren;
 		
 		#region SETTING UP
 
@@ -37,6 +36,7 @@ namespace Edia {
 			AllowInteractive(isAllowedToInteract);
 
 			HandModelChildren = HandModel.GetComponentsInChildren<Transform>();
+			
 			EventManager.StartListening(Edia.Events.XR.EvUpdateVisableSide, OnEvUpdateVisableSide);
 			EventManager.StartListening(Edia.Events.XR.EvUpdateInteractiveSide, OnEvUpdateInteractiveSide);
 			EventManager.StartListening(Edia.Events.XR.EvShowXRController, OnEvShowXRController);
