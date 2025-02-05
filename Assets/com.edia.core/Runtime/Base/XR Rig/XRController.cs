@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
@@ -26,13 +27,16 @@ namespace Edia {
 		[Tooltip("Ray interactor to interact messagepanel OVERLAY UI")]
 		public Transform XROverlayRayInteractor = null;
 
+		private Transform[] HandModelChildren;
+		
 		#region SETTING UP
 
 		void Awake() {
 
 			AllowVisible(isVisible);
 			AllowInteractive(isAllowedToInteract);
-			
+
+			HandModelChildren = HandModel.GetComponentsInChildren<Transform>();
 			EventManager.StartListening(Edia.Events.XR.EvUpdateVisableSide, OnEvUpdateVisableSide);
 			EventManager.StartListening(Edia.Events.XR.EvUpdateInteractiveSide, OnEvUpdateInteractiveSide);
 			EventManager.StartListening(Edia.Events.XR.EvShowXRController, OnEvShowXRController);
@@ -60,7 +64,9 @@ namespace Edia {
 		/// <summary>Enable interaction with UI presented on layer 'camoverlay'</summary>
 		private void OnEvEnableXROverlay(eParam obj)
 		{
-			HandModel.layer = LayerMask.NameToLayer(obj.GetBool() ? "CamOverlay" : "Default");
+			foreach (Transform t in HandModelChildren) {
+				t.gameObject.layer = LayerMask.NameToLayer(obj.GetBool() ? "CamOverlay" : "Default");
+			}
 		}
 
 		/// <summary>Change the controller / interactor that is visible</summary>
