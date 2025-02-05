@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using static Edia.Constants;
 
 namespace Edia.Controller {
     public class ControlPanel : Singleton<ControlPanel> {
@@ -30,6 +31,7 @@ namespace Edia.Controller {
 
         void Awake() {
             this.transform.SetParent(null);
+            
             
             DontDestroyOnLoad(this);
 

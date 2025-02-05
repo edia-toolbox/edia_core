@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Edia.Controller;
 using UnityEngine;
 using UXF;
 
@@ -18,6 +19,8 @@ namespace Edia {
 
 		static UXF.LocalFileDataHander UXFFilesaver = null;
 
+		public bool isRemote = false;
+		
 		private void Awake() {
 
 			InitSystemSettings();
@@ -38,25 +41,28 @@ namespace Edia {
 			// Set time and location to avoid comma / period issues
 			System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
 
+			// If there is no controlpanel in memory, we must be remote
+			// isRemote = ControlPanel.Instance == null;
+			
 			// Any settings on disk? > load them
 			LoadSettings();
 		}
 
 		void SaveSettings () {
-			FileManager.WriteString("settings.json", UnityEngine.JsonUtility.ToJson(systemSettings,true), true);
+			FileManager.WriteString("Edia-settings", UnityEngine.JsonUtility.ToJson(systemSettings,true), true);
 		}
 
 		async void LoadSettings () {
 
-			if (!FileManager.FileExists("settings.json")) {
+			if (!FileManager.FileExists("Edia-settings.json")) {
 				Debug.Log("Settings file not found, saving defaults");
 				SaveSettings();
 				return;
 			}
 
-			string loadedSettings = FileManager.ReadStringFromApplicationPath("settings.json");
+			string loadedSettings = FileManager.ReadStringFromApplicationPath("Edia-settings.json");
 			
-			await Task.Delay(500); // 1 second delay
+			await Task.Delay(500); //  delay
 
 			//! Send with event so it can go over the network to the controlpanel
 			EventManager.TriggerEvent(Edia.Events.Settings.EvProvideSystemSettings, new eParam(loadedSettings));
@@ -80,33 +86,16 @@ namespace Edia {
 			systemSettings.InteractiveSide = receivedSettings.InteractiveSide;
 			EventManager.TriggerEvent(Edia.Events.XR.EvUpdateInteractiveSide, new eParam((int)receivedSettings.InteractiveSide));
 
-			//// Resolution of the app
-			//if (systemSettings.screenResolution != receivedSettings.screenResolution) {
-			//	systemSettings.screenResolution = receivedSettings.screenResolution;
-				
-			//	//TODO Change actual resolution value
-			//}
-
 			// Save Path for logfiles
 			systemSettings.pathToLogfiles = receivedSettings.pathToLogfiles;
 			
 			EventManager.TriggerEvent(Edia.Events.Settings.EvSetCustomStoragePath, new eParam(receivedSettings.pathToLogfiles));
-			UXFFilesaver.storagePath = systemSettings.pathToLogfiles;
 
-			//// Volume of the app
-			//if (systemSettings.volume != receivedSettings.volume) {
-			//	systemSettings.volume = receivedSettings.volume;
-				
-			//	//TODO Change actual volume value
-			//}
+			if (isRemote)
+				UXFFilesaver.storagePath = Application.dataPath; 
+			else
+				UXFFilesaver.storagePath = systemSettings.pathToLogfiles;
 
-			//// language 
-			//if (systemSettings.language != receivedSettings.language) {
-			//	systemSettings.language = receivedSettings.language;
-				
-			//	//TODO Change actual language value 
-			//}
-			
 			SaveSettings();
 		}
 

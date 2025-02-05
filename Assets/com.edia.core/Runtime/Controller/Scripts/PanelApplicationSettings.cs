@@ -5,29 +5,30 @@ using SimpleFileBrowser;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using Edia;
+using static Edia.Constants;
 
 namespace Edia.Controller {
 
 	public class PanelApplicationSettings : ExperimenterPanel {
 
-		// Default buttons that are always needed for running a experiment
-		[Header ("Buttons")]
+		[Header ("Refs")]
 		public Button btnApply = null;
 		public Button btnClose = null;
 		public Button btnBrowse = null;
 		public Button btnQuit = null;
-
-		[Header ("Settings")]
+		public GameObject panelFilePath = null;
 		public Slider volumeSlider = null;
 		public TMP_Dropdown resolutionDropdown = null;
 		public TMP_Dropdown interactiveSideDropdown = null;
 		public TMP_Dropdown visibleSideDropdown = null;
 		public TMP_Dropdown languageDropdown = null;
 		public TextMeshProUGUI pathToLogfilesField = null;
-
+		
+		[Header ("Settings")]
 		public SettingsDeclaration localSystemSettingsContainer = null;
 
+		#region INITS
+		
 		public override void Awake () {
 			base.Awake ();
 
@@ -41,54 +42,92 @@ namespace Edia.Controller {
 			EventManager.StopListening (Edia.Events.Settings.EvOpenSystemSettings, OnEvOpenSystemSettings);
 		}
 
-#region EVENT LISTENERS
+		#endregion // -------------------------------------------------------------------------------------------------------------------------------
+		#region SETTINGS HANDLING
 
 		private void OnEvOpenSystemSettings (eParam obj) {
-
-			// Where to get the settings from?
-			if (ControlPanel.Instance.ControlMode == ControlMode.Local) {
-				// ask systemsettings singleton via event
-				EventManager.StartListening(Edia.Events.Settings.EvProvideSystemSettings, OnProcessSystemSettings);
-				EventManager.TriggerEvent(Edia.Events.Settings.EvRequestSystemSettings);
-			} else {
-				// TODO: In case of remote, does the controlpanel get settings locally from file?
-			}
+			// System settings should provide its settings package to the controller.
+			EventManager.StartListening(Edia.Events.Settings.EvProvideSystemSettings, OnProcessSystemSettings); // listen to package 
+			EventManager.TriggerEvent(Edia.Events.Settings.EvRequestSystemSettings); // trigger sending the package
 		}
 
 		/// <summary>
-		/// Processes given JSON string with systemsettings, shows panel with updated info
+		/// Processes given JSON string with Edia-settings, shows panel with updated info
 		/// </summary>
-		/// <param name="obj">Systemsettings package as JSON string</param>
+		/// <param name="obj">Edia-settings package as JSON string</param>
 		private void OnProcessSystemSettings (eParam obj) {
+
 			EventManager.StopListening(Edia.Events.Settings.EvProvideSystemSettings, OnProcessSystemSettings);
 
-			// Get the current stored settings
 			localSystemSettingsContainer = UnityEngine.JsonUtility.FromJson<SettingsDeclaration> (obj.GetString ());
-
-			// populate the GUI elements with correct values
-			//volumeSlider.value 			= localSystemSettingsContainer.volume;
-			interactiveSideDropdown.value = (int) localSystemSettingsContainer.InteractiveSide;
+			
 			visibleSideDropdown.value 	= (int) localSystemSettingsContainer.VisibleSide;
-			//languageDropdown.value 			= (int) localSystemSettingsContainer.language;
+			interactiveSideDropdown.value = (int) localSystemSettingsContainer.InteractiveSide;
 			pathToLogfilesField.text 		= localSystemSettingsContainer.pathToLogfiles;
-			//resolutionDropdown.value 		= localSystemSettingsContainer.screenResolution;
-
-			ShowPanel ();
+			panelFilePath.SetActive(ControlPanel.Instance.ControlMode == ControlMode.Local);
 
 			btnApply.interactable = false;
+
+			ShowPanel ();
+		}
+		
+		void UpdateLocalSettings () {
+			localSystemSettingsContainer.InteractiveSide = (Edia.Constants.Manipulator) interactiveSideDropdown.value;
+			localSystemSettingsContainer.VisibleSide = (Edia.Constants.Manipulator) visibleSideDropdown.value;
+		}
+		
+		#endregion // -------------------------------------------------------------------------------------------------------------------------------
+		#region UI 
+		
+		[ContextMenu("PopulateInteractivesDropdown")]
+		public void PopulateInteractivesDropdown() {
+			interactiveSideDropdown.ClearOptions ();
+			
+			List<TMP_Dropdown.OptionData> options = new List<TMP_Dropdown.OptionData>();
+			
+			if (visibleSideDropdown.value == 0) {
+				TMP_Dropdown.OptionData newOption = new TMP_Dropdown.OptionData ("LEFT");
+				options.Add (newOption);
+			}
+			
+			if (visibleSideDropdown.value == 1) {
+				TMP_Dropdown.OptionData newOption = new TMP_Dropdown.OptionData ("RIGHT");
+				options.Add (newOption);
+			}
+
+			if (visibleSideDropdown.value == 2) {
+				TMP_Dropdown.OptionData newOption = new TMP_Dropdown.OptionData ("LEFT");
+				options.Add (newOption);
+
+				newOption = new TMP_Dropdown.OptionData ("RIGHT");
+				options.Add (newOption);
+
+				newOption = new TMP_Dropdown.OptionData ("BOTH");
+				options.Add (newOption);
+			}
+
+			if (visibleSideDropdown.value == 3) {
+				TMP_Dropdown.OptionData newOption = new TMP_Dropdown.OptionData ("NONE");
+				options.Add (newOption);
+			}
+			
+			interactiveSideDropdown.AddOptions(options);
 		}
 
-		#endregion // -------------------------------------------------------------------------------------------------------------------------------
-		#region BUTTONPRESSES
-
-		public void ValueChanged () {
+		public void VisibleValueChanged () {
+			PopulateInteractivesDropdown();
 			btnApply.interactable = true;
 		}
 
+		public void InteracitveValueChanged () {
+			btnApply.interactable = true;
+		}
+		
+		// Something has changed
 		void BtnApplyPressed () {
-			// Something has changed
 			UpdateLocalSettings ();
 
+			// Sent updated settings package to systemsettings, which would handle the changed values.
 			EventManager.TriggerEvent (Edia.Events.Settings.EvUpdateSystemSettings, new eParam (UnityEngine.JsonUtility.ToJson (localSystemSettingsContainer, false)));
 		}
 
@@ -110,7 +149,7 @@ namespace Edia.Controller {
 					localSystemSettingsContainer.pathToLogfiles = FileBrowser.Result[0];
 					Debug.Log(localSystemSettingsContainer.pathToLogfiles);
 					pathToLogfilesField.text = FileBrowser.Result[0];
-					ValueChanged ();
+					VisibleValueChanged ();
 				}
 			}
 		}
@@ -118,15 +157,6 @@ namespace Edia.Controller {
 
 		#endregion // -------------------------------------------------------------------------------------------------------------------------------
 
-		void UpdateLocalSettings () {
-
-			localSystemSettingsContainer.InteractiveSide = (Edia.Constants.Manipulator) interactiveSideDropdown.value;
-			localSystemSettingsContainer.VisibleSide = (Edia.Constants.Manipulator) visibleSideDropdown.value;
-
-			//localSystemSettingsContainer.volume = volumeSlider.value;
-			//localSystemSettingsContainer.language = (Edia.Constants.Languages) languageDropdown.value;
-			//localSystemSettingsContainer.screenResolution = resolutionDropdown.value;
-		}
 
 		void SetupPanels () {
 			btnApply.onClick.AddListener (() => BtnApplyPressed ());
@@ -134,10 +164,6 @@ namespace Edia.Controller {
 			btnBrowse.onClick.AddListener (() => OpenFileBrowser ());
 			btnQuit.onClick.AddListener(() => BtnQuitPressed());
 
-			foreach (Vector2 s in Edia.Constants.screenResolutions) {
-				TMP_Dropdown.OptionData n = new TMP_Dropdown.OptionData(String.Format("{0}x{1}", s.x, s.y));
-				resolutionDropdown.options.Add(n);
-			}
 		}
 
 

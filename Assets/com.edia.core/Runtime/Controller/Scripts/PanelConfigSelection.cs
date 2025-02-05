@@ -6,7 +6,7 @@ using System.Linq;
 using TMPro;
 using System;
 using Unity.Properties;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Menu;
+using static Edia.Constants;
 
 namespace Edia.Controller {
 
@@ -17,7 +17,7 @@ namespace Edia.Controller {
 		public Button btnSubmit = null;
 
 		List<string> _subFolders = new();
-		List<string> _sessFolders = new();
+		List<string> _sesFolders = new();
 		List<string> _taskDefinitionJsonStrings = new();
 		List<string> _xBlockDefinitionJsonStrings = new();
 		string _xBlockSequenceJsonString;
@@ -39,7 +39,7 @@ namespace Edia.Controller {
 
 			EventManager.StartListening(Edia.Events.Config.EvFoundLocalConfigFiles, OnEvFoundLocalConfigFiles);
 
-			string[] tempFolders = FileManager.GetAllSubFolders(Constants.PathToParticipantFiles);
+			string[] tempFolders = FileManager.GetAllSubFolders(PathToParticipantFiles);
 			_subFolders.Clear();
 
 			// Remove non valid foldernames
@@ -94,20 +94,20 @@ namespace Edia.Controller {
 		public void OnSubjectValueChanged(int value) {
 			_subject = SubjectSelectionDropdown.options[value].text;
 
-			List<string> subfolders = FileManager.GetAllSubFolders(Constants.PathToParticipantFiles + SubjectSelectionDropdown.options[value].text).ToList<string>();
-			_sessFolders.Clear();
+			List<string> subfolders = FileManager.GetAllSubFolders(PathToParticipantFiles + SubjectSelectionDropdown.options[value].text).ToList<string>();
+			_sesFolders.Clear();
 
 			foreach (string subfolder in subfolders) {
 				if (subfolder.StartsWith("ses-"))
-					_sessFolders.Add(subfolder);
+					_sesFolders.Add(subfolder);
 			}
 
-			if (_sessFolders.Count == 0) {
+			if (_sesFolders.Count == 0) {
 				SessionSelectionDropdown.ClearOptions();
 				return;
 			}
 
-			GenerateDropdown(_sessFolders, SessionSelectionDropdown);
+			GenerateDropdown(_sesFolders, SessionSelectionDropdown);
 			OnSessValueChanged(0);
 		}
 
@@ -130,25 +130,25 @@ namespace Edia.Controller {
 		void LoadJsons() {
 
 			// Session info
-			string currentPath = Constants.PathToParticipantFiles + _subject + "/" + _session + "/";
-			_sessionInfoJsonString = FileManager.ReadStringFromApplicationPath(currentPath + Constants.FileNameSessionInfo);
+			string currentPath = PathToParticipantFiles + _subject + "/" + _session + "/";
+			_sessionInfoJsonString = FileManager.ReadStringFromApplicationPath(currentPath + FileNameSessionInfo);
 
 			// Block sequence
-			string eBSequenceFilePath = currentPath + Constants.FileNameSessionSequence;
+			string eBSequenceFilePath = currentPath + FileNameSessionSequence;
 			_xBlockSequenceJsonString = FileManager.ReadStringFromApplicationPath(eBSequenceFilePath);
 
 			// Task definitions
-			string[] filelist = FileManager.GetAllFilenamesWithExtensionFrom(Constants.PathToBaseDefinitions, "json");
+			string[] filelist = FileManager.GetAllFilenamesWithExtensionFrom(PathToBaseDefinitions, "json");
 
 			foreach (string s in filelist) {
-				_taskDefinitionJsonStrings.Add(FileManager.ReadStringFromApplicationPath(Constants.PathToBaseDefinitions+ s));
+				_taskDefinitionJsonStrings.Add(FileManager.ReadStringFromApplicationPath(PathToBaseDefinitions+ s));
 			}
 
 			// Block Task Definitions
-			xBlockDefinitionsFileList = FileManager.GetAllFilenamesWithExtensionFrom(currentPath + Constants.FolderNameXBlockDefinitions, "json").ToList();
+			xBlockDefinitionsFileList = FileManager.GetAllFilenamesWithExtensionFrom(currentPath + FolderNameXBlockDefinitions, "json").ToList();
 
 			foreach (string s in xBlockDefinitionsFileList) {
-				string currentFileName = currentPath + "/" + Constants.FolderNameXBlockDefinitions + "/" + s;
+				string currentFileName = currentPath + "/" + FolderNameXBlockDefinitions + "/" + s;
 				_xBlockDefinitionJsonStrings.Add(FileManager.ReadStringFromApplicationPath(currentFileName.ToLower()));
 			}
 		}

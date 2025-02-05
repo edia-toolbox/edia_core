@@ -8,7 +8,6 @@ namespace Edia {
 
     /// <summary>Static definitions</summary>
     public static class Constants {
-        public static string localConfigDirectoryName = "Configs";
 
         public enum Manipulator { LEFT, RIGHT, BOTH, NONE }
 
@@ -27,7 +26,15 @@ namespace Edia {
 
         public enum EyeId { LEFT, RIGHT, CENTER }
 
-        
+        [System.Serializable]
+        public enum ControlMode { Local, Remote };
+        public enum PanelMode { Hidden, OnScreen, InWorld };
 
+        // File names and paths
+        public static string FileNameSessionSequence		= "session-sequence.json";
+        public static string FileNameSessionInfo			= "session-info.json";
+        public static string PathToParticipantFiles			= "configs/participants/";
+        public static string PathToBaseDefinitions			= "configs/base-definitions/";
+        public static string FolderNameXBlockDefinitions	= "block-definitions";
     }
 }

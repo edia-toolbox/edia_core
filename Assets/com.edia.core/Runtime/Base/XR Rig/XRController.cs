@@ -167,6 +167,9 @@ namespace Edia {
 			if (!isAllowedToInteract)
 				return;
 
+			if (!isVisible)
+				return;
+			
 			rayInteractor.gameObject.SetActive(onOff);
 			isInteractive = onOff;
 		}
@@ -179,6 +182,9 @@ namespace Edia {
 			if (!isAllowedToInteract)
 				return;
 
+			if (!isVisible)
+				return;
+			
 			XROverlayRayInteractor.gameObject.SetActive(onOff);
 			isOverlayInteractive = onOff;
 		}

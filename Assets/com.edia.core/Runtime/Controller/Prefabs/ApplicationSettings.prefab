@@ -247,6 +247,7 @@ MonoBehaviour:
   btnClose: {fileID: 3593294977154601373}
   btnBrowse: {fileID: 685123008423621342}
   btnQuit: {fileID: 6073120143412329087}
+  panelFilePath: {fileID: 2731439918611879007}
   volumeSlider: {fileID: 969166885837834041}
   resolutionDropdown: {fileID: 1435254892296712804}
   interactiveSideDropdown: {fileID: 7591771190236645452}
@@ -2006,7 +2007,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 4521988964718985272}
         m_TargetAssemblyTypeName: 
-        m_MethodName: ValueChanged
+        m_MethodName: VisibleValueChanged
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4618,7 +4619,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 4521988964718985272}
         m_TargetAssemblyTypeName: 
-        m_MethodName: ValueChanged
+        m_MethodName: VisibleValueChanged
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5975,7 +5976,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 4521988964718985272}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: ValueChanged
+        m_MethodName: VisibleValueChanged
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6693,19 +6694,13 @@ MonoBehaviour:
   m_ItemImage: {fileID: 0}
   m_Value: 0
   m_Options:
-    m_Options:
-    - m_Text: LEFT
-      m_Image: {fileID: 0}
-    - m_Text: RIGHT
-      m_Image: {fileID: 0}
-    - m_Text: BOTH
-      m_Image: {fileID: 0}
+    m_Options: []
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 4521988964718985272}
         m_TargetAssemblyTypeName: 
-        m_MethodName: ValueChanged
+        m_MethodName: InteracitveValueChanged
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7199,7 +7194,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 4521988964718985272}
         m_TargetAssemblyTypeName: 
-        m_MethodName: ValueChanged
+        m_MethodName: VisibleValueChanged
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
