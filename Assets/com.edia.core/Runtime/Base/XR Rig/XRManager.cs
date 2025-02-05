@@ -70,7 +70,13 @@ namespace Edia {
 			transform.rotation = newTransform.rotation;
 		}
 
+		#endregion // -------------------------------------------------------------------------------------------------------------------------------
+		#region OVERLAY
 
+		public void EnableOverlayCam(bool onOff) {
+			CamOverlay.GetComponent<Camera>().enabled = onOff;
+		}
+		
 		#endregion // -------------------------------------------------------------------------------------------------------------------------------
 		#region INTERACTION
 

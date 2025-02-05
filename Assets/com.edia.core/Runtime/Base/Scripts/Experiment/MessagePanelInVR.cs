@@ -163,6 +163,7 @@ namespace Edia {
 			base.Show (onOff);
 			
 			EventManager.TriggerEvent(Edia.Events.XR.EvEnableXROverlay, new eParam(onOff));
+			XRManager.Instance.EnableOverlayCam(onOff);
 			XRManager.Instance.EnableXROverlayRayInteraction(onOff);
 			
 			_messagePanelFader = _messagePanelFader is not null ? null : StartCoroutine(TextFader());
