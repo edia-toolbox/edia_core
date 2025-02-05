@@ -22,6 +22,7 @@ namespace Edia {
 		public GameObject HandModel = null;
 		private Transform[] HandModelChildren;
 		public GameObject ControllerModel = null;
+		private Transform[] ControllerModelChildren;
 		
 		[Tooltip("Ray interactor to interact with UI & Default ")]
 		public Transform rayInteractor = null;
@@ -36,6 +37,7 @@ namespace Edia {
 			AllowInteractive(isAllowedToInteract);
 
 			HandModelChildren = HandModel.GetComponentsInChildren<Transform>();
+			ControllerModelChildren = ControllerModel.GetComponentsInChildren<Transform>();
 			
 			EventManager.StartListening(Edia.Events.XR.EvUpdateVisableSide, OnEvUpdateVisableSide);
 			EventManager.StartListening(Edia.Events.XR.EvUpdateInteractiveSide, OnEvUpdateInteractiveSide);
@@ -65,6 +67,10 @@ namespace Edia {
 		private void OnEvEnableXROverlay(eParam obj)
 		{
 			foreach (Transform t in HandModelChildren) {
+				t.gameObject.layer = LayerMask.NameToLayer(obj.GetBool() ? "CamOverlay" : "Default");
+			}
+			
+			foreach (Transform t in ControllerModelChildren) {
 				t.gameObject.layer = LayerMask.NameToLayer(obj.GetBool() ? "CamOverlay" : "Default");
 			}
 		}
