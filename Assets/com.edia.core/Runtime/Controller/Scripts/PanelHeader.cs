@@ -25,7 +25,7 @@ namespace Edia {
 
 		public void LogoClicked() {
 			            
-			if (Edia.Controller.ControlPanel.Instance.controlModes == Constants.ControlModes.Remote)
+			if (Edia.Controller.ControlPanel.Instance.ControlMode == Constants.ControlModes.Remote)
 				if (!Edia.Controller.ControlPanel.Instance.IsConnected)
 					EventManager.TriggerEvent(Edia.Events.ControlPanel.EvShowMessageBox, new eParam("Unable to retrieve settings, not connected", false));
 			

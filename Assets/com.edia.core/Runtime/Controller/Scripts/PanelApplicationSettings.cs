@@ -63,7 +63,7 @@ namespace Edia.Controller {
             visibleSideDropdown.value = GetDropdownOptionIndexByStringValue(localSystemSettingsContainer.VisibleSide);
             interactiveSideDropdown.value = GetDropdownOptionIndexByStringValue(localSystemSettingsContainer.InteractiveSide);
             pathToLogfilesField.text = localSystemSettingsContainer.pathToLogfiles;
-            panelFilePath.SetActive(ControlPanel.Instance.controlModes == ControlModes.Local);
+            panelFilePath.SetActive(ControlPanel.Instance.ControlMode == ControlModes.Local);
 
             btnApply.interactable = false;
 

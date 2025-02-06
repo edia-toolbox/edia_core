@@ -20,7 +20,7 @@ namespace Edia
             connectedImage = GetComponent<Image>();
             _unConnectedColor = connectedImage.color;
 
-            if (ControlPanel.Instance.controlModes is Edia.Constants.ControlModes.Local)
+            if (ControlPanel.Instance.ControlMode is Edia.Constants.ControlModes.Local)
                 HideMe();
             else
             {
