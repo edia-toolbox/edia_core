@@ -112,12 +112,14 @@ namespace Edia {
 		void ButtonToggling(bool onOffNext, bool onOffProceed) {
 			buttonNEXT.gameObject.SetActive(onOffNext);
 			buttonNEXT.interactable = onOffNext;
-
+			buttonNEXT.OnDeselect(null);
+			
 			string[] param = new[] { "NEXT", onOffNext.ToString() };
 			EventManager.TriggerEvent(Edia.Events.ControlPanel.EvEnableButton, new eParam(param));
 			
 			buttonProceed.gameObject.SetActive(onOffProceed);
 			buttonProceed.interactable = onOffProceed;
+			buttonProceed.OnDeselect(null);
 			
 			MenuHolder.SetActive(onOffNext || onOffProceed);
 		}
