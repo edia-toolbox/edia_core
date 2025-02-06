@@ -9,30 +9,32 @@ using static Edia.Constants;
 
 namespace Edia.Controller {
     public class ControlPanel : Singleton<ControlPanel> {
-        [Space(20)] public ControlMode ControlMode = ControlMode.Local;
+        
+        [Space(20)]
+        public ControlMode ControlMode = ControlMode.Local;
         public bool ShowEventLog = true;
         public bool ShowConsole = false;
 
-        [Header("Refs")] public Transform NonActivePanelHolder = null;
+        [Header("Refs")]
+        public Transform NonActivePanelHolder = null;
         public Transform PanelHolder = null;
         public Transform RemotePanel = null;
         public Transform ConsolePanel = null;
 
         // Local
-        public PanelMessageBox _pMessageBox = null;
-        public PanelConfigSelection _pConfigSelection = null;
-        public PanelHeader _pHeader = null;
-        public PanelApplicationSettings _pApplicationSettings = null;
-        public PanelExperimentControl _pExperimentControl = null;
+        public PanelMessageBox pMessageBox = null;
+        public PanelConfigSelection pConfigSelection = null;
+        public PanelHeader pHeader = null;
+        public PanelApplicationSettings pApplicationSettings = null;
+        public PanelExperimentControl pExperimentControl = null;
+        List<Transform> _currentPanelOrder = new List<Transform>();
 
         // Remote
-        //PanelConfigMaker _pConfigMaker = null;
-        List<Transform> _currentPanelOrder = new List<Transform>();
+        [HideInInspector] public bool IsConnected = false;
 
         void Awake() {
             this.transform.SetParent(null);
-            
-            
+
             DontDestroyOnLoad(this);
 
             PreparePanels();
@@ -72,6 +74,7 @@ namespace Edia.Controller {
         void OnEvConnectionEstablished(eParam obj) {
             EventManager.StopListening(Edia.Events.ControlPanel.EvConnectionEstablished, OnEvConnectionEstablished);
 
+            IsConnected = true;
             InitConfigFileSearch();
         }
 
@@ -80,7 +83,7 @@ namespace Edia.Controller {
         }
 
         void InitConfigFileSearch() {
-            _pConfigSelection.Init();
+            pConfigSelection.Init();
         }
 
         public void ShowPanel(Transform panel, bool onOff) {
@@ -100,7 +103,7 @@ namespace Edia.Controller {
         }
 
         public void ShowMessage(string msg, bool autoHide) {
-            _pMessageBox.ShowMessage(msg, autoHide);
+            pMessageBox.ShowMessage(msg, autoHide);
         }
 
         void OnEvQuitApplication(eParam obj) {

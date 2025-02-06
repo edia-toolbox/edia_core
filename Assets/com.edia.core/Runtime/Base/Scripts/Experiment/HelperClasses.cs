@@ -131,13 +131,11 @@ namespace Edia {
 	[System.Serializable]
 	public class SettingsDeclaration {
 
-		public Constants.Manipulator VisibleSide = Constants.Manipulator.NONE;
-		public Constants.Manipulator InteractiveSide = Constants.Manipulator.RIGHT;
+		public string VisibleSide = "NONE";
+		public string InteractiveSide = "RIGHT";
 
 		public string pathToLogfiles = FileManager.GetCorrectPath() + "/logfiles";
 	}
-
-	// \endcond
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 

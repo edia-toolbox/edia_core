@@ -35,7 +35,7 @@ namespace Edia {
 
 		void ShowMessage () {
 			isShowing = true;
-			EventManager.TriggerEvent(Edia.Events.ControlPanel.EvShowTooltip, new eParam(message));
+			// EventManager.TriggerEvent(Edia.Events.ControlPanel.EvShowTooltip, new eParam(message));
 		}
 
 		IEnumerator StartTimer () {

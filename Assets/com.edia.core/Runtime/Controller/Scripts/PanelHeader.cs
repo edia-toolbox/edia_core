@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using System;
 
 namespace Edia {
 
@@ -21,7 +19,16 @@ namespace Edia {
 			EventManager.StartListening(Edia.Events.ControlPanel.EvUpdateSessionSummary, OnEvUpdateSessionSummary );
 		}
 
+		private void OnDestroy() {
+			EventManager.StopListening(Edia.Events.ControlPanel.EvUpdateSessionSummary, OnEvUpdateSessionSummary );
+		}
+
 		public void LogoClicked() {
+			            
+			if (Edia.Controller.ControlPanel.Instance.ControlMode == Constants.ControlMode.Remote)
+				if (!Edia.Controller.ControlPanel.Instance.IsConnected)
+					EventManager.TriggerEvent(Edia.Events.ControlPanel.EvShowMessageBox, new eParam("Unable to retrieve settings, not connected", false));
+			
 			EventManager.TriggerEvent(Edia.Events.Settings.EvOpenSystemSettings);
 		}
 
@@ -30,7 +37,7 @@ namespace Edia {
 			SetTitle(obj.GetStrings()[0]);
 		}
 
-		void SetLogo (Sprite logoImage) {
+		public void SetLogo (Sprite logoImage) {
 			logo.sprite = logoImage;
 		}
 

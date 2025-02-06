@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using SimpleFileBrowser;
@@ -8,164 +7,162 @@ using UnityEngine.UI;
 using static Edia.Constants;
 
 namespace Edia.Controller {
+    public class PanelApplicationSettings : ExperimenterPanel {
+        
+        [Header("Refs")]
+        public Button btnApply = null;
+        public Button btnClose = null;
+        public Button btnBrowse = null;
+        public Button btnQuit = null;
+        public GameObject panelFilePath = null;
+        public Slider volumeSlider = null;
+        public TMP_Dropdown resolutionDropdown = null;
+        public TMP_Dropdown interactiveSideDropdown = null;
+        public TMP_Dropdown visibleSideDropdown = null;
+        public TMP_Dropdown languageDropdown = null;
+        public TextMeshProUGUI pathToLogfilesField = null;
 
-	public class PanelApplicationSettings : ExperimenterPanel {
+        [Header("Settings")]
+        public SettingsDeclaration localSystemSettingsContainer = null;
 
-		[Header ("Refs")]
-		public Button btnApply = null;
-		public Button btnClose = null;
-		public Button btnBrowse = null;
-		public Button btnQuit = null;
-		public GameObject panelFilePath = null;
-		public Slider volumeSlider = null;
-		public TMP_Dropdown resolutionDropdown = null;
-		public TMP_Dropdown interactiveSideDropdown = null;
-		public TMP_Dropdown visibleSideDropdown = null;
-		public TMP_Dropdown languageDropdown = null;
-		public TextMeshProUGUI pathToLogfilesField = null;
-		
-		[Header ("Settings")]
-		public SettingsDeclaration localSystemSettingsContainer = null;
+        #region INITS
 
-		#region INITS
-		
-		public override void Awake () {
-			base.Awake ();
+        public override void Awake() {
+            base.Awake();
 
-			HidePanel ();
-			SetupPanels ();
+            HidePanel();
+            SetupPanels();
 
-			EventManager.StartListening (Edia.Events.Settings.EvOpenSystemSettings, OnEvOpenSystemSettings);
-		}
+            EventManager.StartListening(Edia.Events.Settings.EvOpenSystemSettings, OnEvOpenSystemSettings);
+        }
 
-		void OnDestroy () {
-			EventManager.StopListening (Edia.Events.Settings.EvOpenSystemSettings, OnEvOpenSystemSettings);
-		}
+        void OnDestroy() {
+            EventManager.StopListening(Edia.Events.Settings.EvOpenSystemSettings, OnEvOpenSystemSettings);
+        }
 
-		#endregion // -------------------------------------------------------------------------------------------------------------------------------
-		#region SETTINGS HANDLING
+        #endregion // -------------------------------------------------------------------------------------------------------------------------------
 
-		private void OnEvOpenSystemSettings (eParam obj) {
-			// System settings should provide its settings package to the controller.
-			EventManager.StartListening(Edia.Events.Settings.EvProvideSystemSettings, OnProcessSystemSettings); // listen to package 
-			EventManager.TriggerEvent(Edia.Events.Settings.EvRequestSystemSettings); // trigger sending the package
-		}
+        #region SETTINGS HANDLING
 
-		/// <summary>
-		/// Processes given JSON string with Edia-settings, shows panel with updated info
-		/// </summary>
-		/// <param name="obj">Edia-settings package as JSON string</param>
-		private void OnProcessSystemSettings (eParam obj) {
+        private void OnEvOpenSystemSettings(eParam obj) {
+            // System settings should provide its settings package to the controller.
+            
+            EventManager.StartListening(Edia.Events.Settings.EvProvideSystemSettings, OnProcessSystemSettings); // listen to package 
+            EventManager.TriggerEvent(Edia.Events.Settings.EvRequestSystemSettings); // trigger sending the package
+        }
 
-			EventManager.StopListening(Edia.Events.Settings.EvProvideSystemSettings, OnProcessSystemSettings);
+        /// <summary>
+        /// Processes given JSON string with Edia-settings, shows panel with updated info
+        /// </summary>
+        /// <param name="obj">Edia-settings package as JSON string</param>
+        private void OnProcessSystemSettings(eParam obj) {
+            EventManager.StopListening(Edia.Events.Settings.EvProvideSystemSettings, OnProcessSystemSettings);
 
-			localSystemSettingsContainer = UnityEngine.JsonUtility.FromJson<SettingsDeclaration> (obj.GetString ());
-			
-			visibleSideDropdown.value 	= (int) localSystemSettingsContainer.VisibleSide;
-			interactiveSideDropdown.value = (int) localSystemSettingsContainer.InteractiveSide;
-			pathToLogfilesField.text 		= localSystemSettingsContainer.pathToLogfiles;
-			panelFilePath.SetActive(ControlPanel.Instance.ControlMode == ControlMode.Local);
+            localSystemSettingsContainer = UnityEngine.JsonUtility.FromJson<SettingsDeclaration>(obj.GetString());
 
-			btnApply.interactable = false;
+            visibleSideDropdown.value = GetDropdownOptionIndexByStringValue(localSystemSettingsContainer.VisibleSide);
+            interactiveSideDropdown.value = GetDropdownOptionIndexByStringValue(localSystemSettingsContainer.InteractiveSide);
+            pathToLogfilesField.text = localSystemSettingsContainer.pathToLogfiles;
+            panelFilePath.SetActive(ControlPanel.Instance.ControlMode == ControlMode.Local);
 
-			ShowPanel ();
-		}
-		
-		void UpdateLocalSettings () {
-			localSystemSettingsContainer.InteractiveSide = (Edia.Constants.Manipulator) interactiveSideDropdown.value;
-			localSystemSettingsContainer.VisibleSide = (Edia.Constants.Manipulator) visibleSideDropdown.value;
-		}
-		
-		#endregion // -------------------------------------------------------------------------------------------------------------------------------
-		#region UI 
-		
-		[ContextMenu("PopulateInteractivesDropdown")]
-		public void PopulateInteractivesDropdown() {
-			interactiveSideDropdown.ClearOptions ();
-			
-			List<TMP_Dropdown.OptionData> options = new List<TMP_Dropdown.OptionData>();
-			
-			if (visibleSideDropdown.value == 0) {
-				TMP_Dropdown.OptionData newOption = new TMP_Dropdown.OptionData ("LEFT");
-				options.Add (newOption);
-			}
-			
-			if (visibleSideDropdown.value == 1) {
-				TMP_Dropdown.OptionData newOption = new TMP_Dropdown.OptionData ("RIGHT");
-				options.Add (newOption);
-			}
+            btnApply.interactable = false;
 
-			if (visibleSideDropdown.value == 2) {
-				TMP_Dropdown.OptionData newOption = new TMP_Dropdown.OptionData ("LEFT");
-				options.Add (newOption);
+            ShowPanel();
+        }
 
-				newOption = new TMP_Dropdown.OptionData ("RIGHT");
-				options.Add (newOption);
+        int GetDropdownOptionIndexByStringValue(string value) {
+            return visibleSideDropdown.options.FindIndex(x => x.text == value);
+            ;
+        }
 
-				newOption = new TMP_Dropdown.OptionData ("BOTH");
-				options.Add (newOption);
-			}
+        void UpdateLocalSettings() {
+            localSystemSettingsContainer.InteractiveSide = interactiveSideDropdown.options[interactiveSideDropdown.value].text;
+            localSystemSettingsContainer.VisibleSide = visibleSideDropdown.options[visibleSideDropdown.value].text;
+        }
 
-			if (visibleSideDropdown.value == 3) {
-				TMP_Dropdown.OptionData newOption = new TMP_Dropdown.OptionData ("NONE");
-				options.Add (newOption);
-			}
-			
-			interactiveSideDropdown.AddOptions(options);
-		}
+        #endregion // -------------------------------------------------------------------------------------------------------------------------------
 
-		public void VisibleValueChanged () {
-			PopulateInteractivesDropdown();
-			btnApply.interactable = true;
-		}
+        #region UI
 
-		public void InteracitveValueChanged () {
-			btnApply.interactable = true;
-		}
-		
-		// Something has changed
-		void BtnApplyPressed () {
-			UpdateLocalSettings ();
+        [ContextMenu("PopulateInteractivesDropdown")]
+        public void PopulateInteractivesDropdown() {
+            interactiveSideDropdown.ClearOptions();
 
-			// Sent updated settings package to systemsettings, which would handle the changed values.
-			EventManager.TriggerEvent (Edia.Events.Settings.EvUpdateSystemSettings, new eParam (UnityEngine.JsonUtility.ToJson (localSystemSettingsContainer, false)));
-		}
+            List<TMP_Dropdown.OptionData> options = new List<TMP_Dropdown.OptionData>();
+            TMP_Dropdown.OptionData newOption = new TMP_Dropdown.OptionData();
 
-		void BtnQuitPressed() {
-			Debug.Log($"{name}:Quit request sent");
-			EventManager.TriggerEvent(Edia.Events.Core.EvQuitApplication);
-		}
+            switch (visibleSideDropdown.options[visibleSideDropdown.value].text) {
+                case "LEFT":
+                    newOption = new TMP_Dropdown.OptionData("LEFT");
+                    options.Add(newOption);
+                    break;
+                case "RIGHT":
+                    newOption = new TMP_Dropdown.OptionData("RIGHT");
+                    options.Add(newOption);
+                    break;
+                case "BOTH":
+                    newOption = new TMP_Dropdown.OptionData("LEFT");
+                    options.Add(newOption);
+                    newOption = new TMP_Dropdown.OptionData("RIGHT");
+                    options.Add(newOption);
+                    newOption = new TMP_Dropdown.OptionData("BOTH");
+                    options.Add(newOption);
+                    break;
+                case "NONE":
+                    newOption = new TMP_Dropdown.OptionData("NONE");
+                    options.Add(newOption);
+                    break;
+            }
 
-		void OpenFileBrowser () {
-			StartCoroutine( ShowLoadDialogCoroutine() );
-		}
+            interactiveSideDropdown.AddOptions(options);
+        }
 
-		IEnumerator ShowLoadDialogCoroutine () {
-			yield return FileBrowser.WaitForLoadDialog (FileBrowser.PickMode.Folders, false, null, null, "Select Folder", "Select");
+        public void VisibleValueChanged() {
+            PopulateInteractivesDropdown();
+            btnApply.interactable = true;
+        }
 
-			if (FileBrowser.Success) {
+        public void InteracitveValueChanged() {
+            btnApply.interactable = true;
+        }
 
-				if (FileBrowser.Result[0] != localSystemSettingsContainer.pathToLogfiles) {
-					localSystemSettingsContainer.pathToLogfiles = FileBrowser.Result[0];
-					Debug.Log(localSystemSettingsContainer.pathToLogfiles);
-					pathToLogfilesField.text = FileBrowser.Result[0];
-					VisibleValueChanged ();
-				}
-			}
-		}
+        // Something has changed
+        void BtnApplyPressed() {
+            UpdateLocalSettings();
 
+            // Sent updated settings package to systemsettings, which would handle the changed values.
+            EventManager.TriggerEvent(Edia.Events.Settings.EvUpdateSystemSettings, new eParam(UnityEngine.JsonUtility.ToJson(localSystemSettingsContainer, false)));
+        }
 
-		#endregion // -------------------------------------------------------------------------------------------------------------------------------
+        void BtnQuitPressed() {
+            Debug.Log($"{name}:Quit request sent");
+            EventManager.TriggerEvent(Edia.Events.Core.EvQuitApplication);
+        }
 
+        void OpenFileBrowser() {
+            StartCoroutine(ShowLoadDialogCoroutine());
+        }
 
-		void SetupPanels () {
-			btnApply.onClick.AddListener (() => BtnApplyPressed ());
-			btnClose.onClick.AddListener (() => HidePanel ());
-			btnBrowse.onClick.AddListener (() => OpenFileBrowser ());
-			btnQuit.onClick.AddListener(() => BtnQuitPressed());
+        IEnumerator ShowLoadDialogCoroutine() {
+            yield return FileBrowser.WaitForLoadDialog(FileBrowser.PickMode.Folders, false, null, null, "Select Folder", "Select");
 
-		}
+            if (FileBrowser.Success) {
+                if (FileBrowser.Result[0] != localSystemSettingsContainer.pathToLogfiles) {
+                    localSystemSettingsContainer.pathToLogfiles = FileBrowser.Result[0];
+                    Debug.Log(localSystemSettingsContainer.pathToLogfiles);
+                    pathToLogfilesField.text = FileBrowser.Result[0];
+                    VisibleValueChanged();
+                }
+            }
+        }
 
+        #endregion // -------------------------------------------------------------------------------------------------------------------------------
 
-	}
+        void SetupPanels() {
+            btnApply.onClick.AddListener(() => BtnApplyPressed());
+            btnClose.onClick.AddListener(() => HidePanel());
+            btnBrowse.onClick.AddListener(() => OpenFileBrowser());
+            btnQuit.onClick.AddListener(() => BtnQuitPressed());
+        }
+    }
 }
