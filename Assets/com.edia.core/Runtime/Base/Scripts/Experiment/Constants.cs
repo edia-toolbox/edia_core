@@ -38,7 +38,7 @@ namespace Edia {
         }
 
         [System.Serializable]
-        public enum ControlMode {
+        public enum ControlModes {
             Local,
             Remote
         };

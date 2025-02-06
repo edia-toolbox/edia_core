@@ -11,7 +11,7 @@ namespace Edia.Controller {
     public class ControlPanel : Singleton<ControlPanel> {
         
         [Space(20)]
-        public ControlMode ControlMode = ControlMode.Local;
+        public ControlModes controlModes = ControlModes.Local;
         public bool ShowEventLog = true;
         public bool ShowConsole = false;
 
@@ -52,7 +52,7 @@ namespace Edia.Controller {
 
             ConsolePanel.gameObject.SetActive(ShowConsole);
 
-            if (ControlMode is ControlMode.Remote) {
+            if (controlModes is ControlModes.Remote) {
                 EventManager.StartListening(Edia.Events.ControlPanel.EvConnectionEstablished, OnEvConnectionEstablished);
             }
             else
