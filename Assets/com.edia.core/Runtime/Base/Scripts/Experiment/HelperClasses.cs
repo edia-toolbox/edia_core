@@ -132,9 +132,9 @@ namespace Edia {
 	public class SettingsDeclaration {
 
 		public string VisibleSide = "NONE";
-		public string InteractiveSide = "RIGHT";
+		public string InteractiveSide = "NONE";
 
-		public string pathToLogfiles = FileManager.GetCorrectPath() + "/logfiles";
+		public string pathToLogfiles = "../logfiles";
 	}
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------

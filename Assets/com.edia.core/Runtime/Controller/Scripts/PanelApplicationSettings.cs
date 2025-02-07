@@ -46,7 +46,6 @@ namespace Edia.Controller {
 
         private void OnEvOpenSystemSettings(eParam obj) {
             // System settings should provide its settings package to the controller.
-            
             EventManager.StartListening(Edia.Events.Settings.EvProvideSystemSettings, OnProcessSystemSettings); // listen to package 
             EventManager.TriggerEvent(Edia.Events.Settings.EvRequestSystemSettings); // trigger sending the package
         }
