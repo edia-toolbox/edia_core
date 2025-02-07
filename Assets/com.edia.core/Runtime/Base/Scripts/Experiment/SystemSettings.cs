@@ -16,7 +16,7 @@ namespace Edia {
 
         static UXF.LocalFileDataHander UXFFilesaver = null;
 
-        public bool isRemote = false;
+        [HideInInspector] public bool isRemote = false;
 
         private void Awake() {
             InitSystemSettings();

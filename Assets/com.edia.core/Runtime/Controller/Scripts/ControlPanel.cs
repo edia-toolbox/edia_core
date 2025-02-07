@@ -30,7 +30,7 @@ namespace Edia.Controller {
         List<Transform> _currentPanelOrder = new List<Transform>();
 
         // Remote
-        [HideInInspector] public bool IsConnected = false;
+        public bool IsConnected = false;
 
         void Awake() {
             this.transform.SetParent(null);
