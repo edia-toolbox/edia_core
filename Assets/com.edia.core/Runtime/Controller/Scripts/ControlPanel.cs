@@ -34,7 +34,7 @@ namespace Edia.Controller {
             DontDestroyOnLoad(this);
 
             PreparePanels();
-            Init();
+            Invoke("Init", 0.3f); // delay init for remote situation in which RCAS will set the `ControlMode` value from awake in `RCAS2Controlpanel`
 
             EventManager.StartListening(Edia.Events.Core.EvQuitApplication, OnEvQuitApplication);
         }
