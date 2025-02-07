@@ -1,17 +1,13 @@
-using System;
 using System.Linq;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
 using static Edia.Constants;
 
 namespace Edia.Controller {
     public class ControlPanel : Singleton<ControlPanel> {
         
         [Space(20)]
-        public ControlModes ControlMode = ControlModes.Local;
+        [HideInInspector] public ControlModes ControlMode = ControlModes.Local;
         public bool ShowEventLog = true;
         public bool ShowConsole = false;
 
@@ -27,10 +23,10 @@ namespace Edia.Controller {
         public PanelHeader pHeader = null;
         public PanelApplicationSettings pApplicationSettings = null;
         public PanelExperimentControl pExperimentControl = null;
-        List<Transform> _currentPanelOrder = new List<Transform>();
+        private List<Transform> _currentPanelOrder = new List<Transform>();
 
         // Remote
-        public bool IsConnected = false;
+        [HideInInspector] public bool IsConnected = false;
 
         void Awake() {
             this.transform.SetParent(null);
