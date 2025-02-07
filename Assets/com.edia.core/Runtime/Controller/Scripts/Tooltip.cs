@@ -28,7 +28,7 @@ namespace Edia {
 			StopAllCoroutines ();
 			
 			if (isShowing)
-				EventManager.TriggerEvent(Edia.Events.ControlPanel.EvHideTooltip, null);
+				// EventManager.TriggerEvent(Edia.Events.ControlPanel.EvHideTooltip, null);
 			
 			isShowing = false;
 		}

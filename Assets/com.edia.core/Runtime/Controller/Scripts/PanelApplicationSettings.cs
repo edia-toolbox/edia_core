@@ -63,15 +63,16 @@ namespace Edia.Controller {
             visibleSideDropdown.value = GetDropdownOptionIndexByStringValue(localSystemSettingsContainer.VisibleSide);
             interactiveSideDropdown.value = GetDropdownOptionIndexByStringValue(localSystemSettingsContainer.InteractiveSide);
             pathToLogfilesField.text = localSystemSettingsContainer.pathToLogfiles;
-            panelFilePath.SetActive(ControlPanel.Instance.ControlMode == ControlModes.Local);
 
             btnApply.interactable = false;
+            
             ShowPanel();
+            
+            panelFilePath.SetActive(ControlPanel.Instance.ControlMode == ControlModes.Local);
         }
 
         int GetDropdownOptionIndexByStringValue(string value) {
             return visibleSideDropdown.options.FindIndex(x => x.text == value);
-            ;
         }
 
         void UpdateLocalSettings() {
