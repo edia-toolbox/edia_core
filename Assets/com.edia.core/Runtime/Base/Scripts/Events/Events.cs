@@ -149,17 +149,18 @@ namespace Edia.Events {
     public static class Network {
         
         // * TO EXECUTER >>
-        public const string NwEvRequestSystemSettings = "NwEvRequestSystemSettings";
-        public const string NwEvSetSessionInfo = "NwEvSetSessionInfo";
-        public const string NwEvSetXBlockSequence = "NwEvSetXBlockSequence";
-        public const string NwEvSetTaskDefinitions = "NwEvSetTaskDefinitions";
-        public const string NwEvSetXBlockDefinitions = "NwEvSetXBlockDefinitions";
-        public const string NwEvStartExperiment = "NwEvStartExperiment";
-        public const string NwEvPauseExperiment = "NwEvPauseExperiment";
-        public const string NwEvSessionEnded = "NwEvSessionEnded ";
-        public const string NwEvProceed = "NwEvProceed";
-        public const string NwEvToggleCasting = "NwEvToggleCasting";
-        public const string NwEvNextMessagepanelMsg = "NwEvNextMessagepanelMsg";
+        public const string NwEvUpdateSystemSettings    = "NwEvUpdateSystemSettings";
+        public const string NwEvRequestSystemSettings   = "NwEvRequestSystemSettings";
+        public const string NwEvSetSessionInfo          = "NwEvSetSessionInfo";
+        public const string NwEvSetXBlockSequence       = "NwEvSetXBlockSequence";
+        public const string NwEvSetTaskDefinitions      = "NwEvSetTaskDefinitions";
+        public const string NwEvSetXBlockDefinitions    = "NwEvSetXBlockDefinitions";
+        public const string NwEvStartExperiment         = "NwEvStartExperiment";
+        public const string NwEvPauseExperiment         = "NwEvPauseExperiment";
+        public const string NwEvSessionEnded            = "NwEvSessionEnded ";
+        public const string NwEvProceed                 = "NwEvProceed";
+        public const string NwEvToggleCasting           = "NwEvToggleCasting";
+        public const string NwEvNextMessagepanelMsg     = "NwEvNextMessagepanelMsg";
 
         // * TO CONTROLLER >>
         public const string NwEvProvideSystemSettings = "NwEvProvideSystemSettings";    

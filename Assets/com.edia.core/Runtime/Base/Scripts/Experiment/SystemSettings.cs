@@ -1,7 +1,4 @@
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using Edia.Events;
-using JetBrains.Annotations;
 using UnityEngine;
 using UXF;
 
@@ -11,8 +8,8 @@ namespace Edia {
         #region DECLARATIONS
 
         /// <summary>Instance of the Settings declaration class in order to (de)serialize to JSON</summary>
-        public SettingsDeclaration systemSettings = new SettingsDeclaration();
-        static SettingsDeclaration receivedSettings = new SettingsDeclaration();
+        private SettingsDeclaration systemSettings = new();
+        private SettingsDeclaration receivedSettings = new();
 
         static UXF.LocalFileDataHander UXFFilesaver = null;
 
@@ -58,9 +55,6 @@ namespace Edia {
 
             UXFFilesaver.storagePath = systemSettings.pathToLogfiles;
             UXFFilesaver.dataSaveLocation = isRemote ? DataSaveLocation.PersistentDataPath : DataSaveLocation.Fixed;
-
-            //! Send with event so it can go over the network to the controlpanel
-            EventManager.TriggerEvent(Edia.Events.Settings.EvProvideSystemSettings, new eParam(loadedSettings));
 
             //! Locally
             OnEvUpdateSystemSettings(new eParam(loadedSettings));

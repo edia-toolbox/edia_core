@@ -66,7 +66,6 @@ namespace Edia.Controller {
             panelFilePath.SetActive(ControlPanel.Instance.ControlMode == ControlModes.Local);
 
             btnApply.interactable = false;
-
             ShowPanel();
         }
 
