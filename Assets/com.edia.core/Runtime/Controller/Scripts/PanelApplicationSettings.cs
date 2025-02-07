@@ -94,9 +94,13 @@ namespace Edia.Controller {
                 case "LEFT":
                     newOption = new TMP_Dropdown.OptionData("LEFT");
                     options.Add(newOption);
+                    newOption = new TMP_Dropdown.OptionData("NONE");
+                    options.Add(newOption);
                     break;
                 case "RIGHT":
                     newOption = new TMP_Dropdown.OptionData("RIGHT");
+                    options.Add(newOption);
+                    newOption = new TMP_Dropdown.OptionData("NONE");
                     options.Add(newOption);
                     break;
                 case "BOTH":
