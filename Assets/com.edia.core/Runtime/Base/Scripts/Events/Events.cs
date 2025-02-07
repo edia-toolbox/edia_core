@@ -147,8 +147,8 @@ namespace Edia.Events {
 
     /// <summary>All event related to controlling the state machine of the experiment </summary>
     public static class Network {
+        
         // * TO EXECUTER >>
-
         public const string NwEvRequestSystemSettings = "NwEvRequestSystemSettings";
         public const string NwEvSetSessionInfo = "NwEvSetSessionInfo";
         public const string NwEvSetXBlockSequence = "NwEvSetXBlockSequence";
@@ -162,7 +162,7 @@ namespace Edia.Events {
         public const string NwEvNextMessagepanelMsg = "NwEvNextMessagepanelMsg";
 
         // * TO CONTROLLER >>
-
+        public const string NwEvProvideSystemSettings = "NwEvProvideSystemSettings";    
         public const string NwEvReadyToGo = "NwEvReadyToGo";
         public const string NwEvEnableButton = "NwEvEnableButton";
         public const string NwEvUpdateStepProgress = "NwEvUpdateStepProgress";
