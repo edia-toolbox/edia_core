@@ -110,6 +110,8 @@ namespace Edia.Controller {
                     options.Add(newOption);
                     newOption = new TMP_Dropdown.OptionData("BOTH");
                     options.Add(newOption);
+                    newOption = new TMP_Dropdown.OptionData("NONE");
+                    options.Add(newOption);
                     break;
                 case "NONE":
                     newOption = new TMP_Dropdown.OptionData("NONE");
