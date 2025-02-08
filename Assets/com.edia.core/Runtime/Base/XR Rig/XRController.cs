@@ -34,20 +34,20 @@ namespace Edia {
             AllowVisible(isVisible);
             AllowInteractive(isAllowedToInteract);
 
-            HandModelChildren = HandModel.GetComponentsInChildren<Transform>();
-            ControllerModelChildren = ControllerModel.GetComponentsInChildren<Transform>();
+            HandModelChildren = HandModel.GetComponentsInChildren<Transform>(true);
+            ControllerModelChildren = ControllerModel.GetComponentsInChildren<Transform>(true);
 
             EventManager.StartListening(Edia.Events.XR.EvUpdateVisableSide, OnEvUpdateVisableSide);
             EventManager.StartListening(Edia.Events.XR.EvUpdateInteractiveSide, OnEvUpdateInteractiveSide);
             EventManager.StartListening(Edia.Events.XR.EvShowXRController, OnEvShowXRController);
-            EventManager.StartListening(Edia.Events.XR.EvEnableXROverlay, OnEvEnableXROverlay);
+            // EventManager.StartListening(Edia.Events.XR.EvEnableXROverlay, OnEvEnableXROverlay);
         }
 
         void OnDestroy() {
             EventManager.StopListening(Edia.Events.XR.EvUpdateVisableSide, OnEvUpdateVisableSide);
             EventManager.StopListening(Edia.Events.XR.EvUpdateInteractiveSide, OnEvUpdateInteractiveSide);
             EventManager.StopListening(Edia.Events.XR.EvShowXRController, OnEvShowXRController);
-            EventManager.StopListening(Edia.Events.XR.EvEnableXROverlay, OnEvEnableXROverlay);
+            // EventManager.StopListening(Edia.Events.XR.EvEnableXROverlay, OnEvEnableXROverlay);
         }
 
         private void OnDrawGizmos() {
@@ -63,13 +63,13 @@ namespace Edia {
         #region EVENT LISTENERS
 
         /// <summary>Enable interaction with UI presented on layer 'camoverlay'</summary>
-        private void OnEvEnableXROverlay(eParam obj) {
+        private void PutModelsOnOverlayLayer (bool isOverlay) {
             foreach (Transform t in HandModelChildren) {
-                t.gameObject.layer = LayerMask.NameToLayer(obj.GetBool() ? "CamOverlay" : "Default");
+                t.gameObject.layer = LayerMask.NameToLayer(isOverlay ? "CamOverlay" : "Default");
             }
 
             foreach (Transform t in ControllerModelChildren) {
-                t.gameObject.layer = LayerMask.NameToLayer(obj.GetBool() ? "CamOverlay" : "Default");
+                t.gameObject.layer = LayerMask.NameToLayer(isOverlay ? "CamOverlay" : "Default");
             }
         }
 
@@ -122,9 +122,9 @@ namespace Edia {
 
         /// <summary>Change the controller / interactor that is visible</summary>
         /// <param name="obj">Interactor enum index</param>
-        private void OnEvEnableXRRayInteraction(eParam obj) {
-            EnableRayInteraction(obj.GetBool());
-        }
+        // private void OnEvEnableXRRayInteraction(eParam obj) {
+        //     EnableRayInteraction(obj.GetBool());
+        // }
 
         /// <summary>Change the controller / interactor that is visible</summary>
         /// <param name="obj">Interactor enum index</param>
@@ -171,6 +171,8 @@ namespace Edia {
             if (!isVisible)
                 return;
 
+            PutModelsOnOverlayLayer(onOff);
+            
             XROverlayRayInteractor.gameObject.SetActive(onOff);
             isOverlayInteractive = onOff;
         }
