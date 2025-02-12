@@ -9,7 +9,8 @@ namespace Edia {
     /// <summary>Show the user a message in VR</summary>
     [RequireComponent(typeof(Canvas))]
     [RequireComponent(typeof(TrackedDeviceGraphicRaycaster))]
-    public class MessagePanelInVR : MonoBehaviour {
+    public class MessagePanelInVR : Singleton<MessagePanelInVR> {
+        
         [Header("Settings")]
         [Tooltip("Auto orientates itself in front of user. Draws on top of the 3D environment.")]
         [SerializeField] private bool _stickToHMD = false;
@@ -26,7 +27,6 @@ namespace Edia {
         private Image _backgroundImg = null;
         private bool _hasClicked = false;
         private List<string> _messageQueue = new();
-
         private Coroutine _messageTimer = null;
         private Coroutine _messagePanelFader = null;
         private Coroutine _messageTextFader = null;
@@ -37,21 +37,21 @@ namespace Edia {
         private Transform[] _panelChildren;
         
         // Singleton
-        private static MessagePanelInVR instance = null;
-        public static MessagePanelInVR Instance {
-            get {
-                if ((object)instance == null) {
-                    instance = (MessagePanelInVR)FindObjectOfType(typeof(MessagePanelInVR));
-
-                    if (instance == null) {
-                        GameObject singletonObject = new GameObject(typeof(MessagePanelInVR).ToString());
-                        instance = singletonObject.AddComponent<MessagePanelInVR>();
-                    }
-                }
-
-                return instance;
-            }
-        }
+        // private static MessagePanelInVR instance = null;
+        // public static MessagePanelInVR Instance {
+        //     get {
+        //         if ((object)instance == null) {
+        //             instance = (MessagePanelInVR)FindObjectOfType(typeof(MessagePanelInVR));
+        //
+        //             if (instance == null) {
+        //                 GameObject singletonObject = new GameObject(typeof(MessagePanelInVR).ToString());
+        //                 instance = singletonObject.AddComponent<MessagePanelInVR>();
+        //             }
+        //         }
+        //
+        //         return instance;
+        //     }
+        // }
 
         // ---
 
@@ -88,7 +88,6 @@ namespace Edia {
 
 
         #region MESSAGE OPTIONS
-
         /// <summary>Shows the message in VR on a canvas for a certain duration.</summary>
         /// <param name="msg">Message to show</param>
         /// <param name="duration">Duration</param>
@@ -189,11 +188,11 @@ namespace Edia {
                 _graphicRaycaster.enabled = onOff;
             _trackedDeviceGraphicRaycaster.enabled = onOff;
 
-            // EventManager.TriggerEvent(Edia.Events.XR.EvEnableXROverlay, new eParam(onOff));
-            
-            XRManager.Instance.EnableOverlayCam(_stickToHMD);
-            XRManager.Instance.EnableXROverlayRayInteraction(_stickToHMD);
-            XRManager.Instance.EnableXRRayInteraction(!_stickToHMD);
+            // Determine correct interaction state when showing / hinding the messagepanel
+            // _stickToHMD == Always use OverlayRayInteraction
+            XRManager.Instance.EnableOverlayCam(onOff ? _stickToHMD : false);
+            XRManager.Instance.EnableXROverlayRayInteraction(onOff ? _stickToHMD : false);
+            XRManager.Instance.EnableXRRayInteraction(onOff ? !_stickToHMD : false);
 
             _messagePanelFader = _messagePanelFader is not null ? null : StartCoroutine(TextFader());
         }
@@ -204,11 +203,8 @@ namespace Edia {
             if (_messagePanelFader != null) StopCoroutine(_messagePanelFader);
 
             _messageQueue.Clear();
-            HideMenu();
-
-            XRManager.Instance.EnableXROverlayRayInteraction(false);
-            XRManager.Instance.EnableXRRayInteraction(false);
             
+            HideMenu();
             Show(false);
         }
 

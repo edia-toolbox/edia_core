@@ -151,7 +151,7 @@ namespace Edia {
         /// <summary>Enable/Disable interaction</summary>
         /// <param name="onOff">True/false</param>
         public void EnableRayInteraction(bool onOff) {
-            if (!isAllowedToInteract)
+            if (!isAllowedToInteract) 
                 return;
 
             if (!isVisible)
