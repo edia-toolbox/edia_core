@@ -36,23 +36,6 @@ namespace Edia {
         private TrackedDeviceGraphicRaycaster _trackedDeviceGraphicRaycaster;
         private Transform[] _panelChildren;
         
-        // Singleton
-        // private static MessagePanelInVR instance = null;
-        // public static MessagePanelInVR Instance {
-        //     get {
-        //         if ((object)instance == null) {
-        //             instance = (MessagePanelInVR)FindObjectOfType(typeof(MessagePanelInVR));
-        //
-        //             if (instance == null) {
-        //                 GameObject singletonObject = new GameObject(typeof(MessagePanelInVR).ToString());
-        //                 instance = singletonObject.AddComponent<MessagePanelInVR>();
-        //             }
-        //         }
-        //
-        //         return instance;
-        //     }
-        // }
-
         // ---
 
         private void Awake() {
