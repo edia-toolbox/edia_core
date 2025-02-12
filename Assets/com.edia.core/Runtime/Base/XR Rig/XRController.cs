@@ -155,7 +155,7 @@ namespace Edia {
 
         /// <summary>Enable/Disable interaction</summary>
         /// <param name="onOff">True/false</param>
-        private void EnableXROverlayRayInteraction(bool onOff) {
+        public void EnableXROverlayRayInteraction(bool onOff) {
             if (!isAllowedToInteract)
                 return;
 
