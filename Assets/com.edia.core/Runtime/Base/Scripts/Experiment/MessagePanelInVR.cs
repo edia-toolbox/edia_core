@@ -64,7 +64,6 @@ namespace Edia {
 		//	ShowMessage(e.GetStrings().ToList());
 		//}
 
-		// \cond \hiderefs
 		/// <summary>Shows the message in VR on a canvas for a certain duration.</summary>
 		/// <param name="msg">Message to show</param>
 		/// <param name="duration">Duration</param>
@@ -86,7 +85,6 @@ namespace Edia {
 		/// Shows a series of messages, user has to click OK button to go through them
 		/// </summary>
 		/// <param name="messages"></param>
-		//! \hiderefs
 		public void ShowMessage(List<string> messages) {
 
 			messageQueue = messages;
@@ -94,7 +92,6 @@ namespace Edia {
 
 			Show(true);
 		}
-		// \endcond
 		
 		IEnumerator ProcessMessageQueue () {
 			
@@ -115,12 +112,14 @@ namespace Edia {
 		void ButtonToggling(bool onOffNext, bool onOffProceed) {
 			buttonNEXT.gameObject.SetActive(onOffNext);
 			buttonNEXT.interactable = onOffNext;
-
+			buttonNEXT.OnDeselect(null);
+			
 			string[] param = new[] { "NEXT", onOffNext.ToString() };
 			EventManager.TriggerEvent(Edia.Events.ControlPanel.EvEnableButton, new eParam(param));
 			
 			buttonProceed.gameObject.SetActive(onOffProceed);
 			buttonProceed.interactable = onOffProceed;
+			buttonProceed.OnDeselect(null);
 			
 			MenuHolder.SetActive(onOffNext || onOffProceed);
 		}
@@ -138,7 +137,6 @@ namespace Edia {
 			EventManager.TriggerEvent(Edia.Events.StateMachine.EvProceed);
 		}
 
-		// \cond \hiderefs
 		/// <summary>Shows the message in VR on a canvas.</summary>
 		/// <param name="msg">Message to show</param>
 		public void ShowMessageOnPanel(string msg) {
@@ -154,7 +152,6 @@ namespace Edia {
 
 			Show(true);
 		}
-		// \endcond
 
 		#endregion // -------------------------------------------------------------------------------------------------------------------------------
 		#region HIDE
@@ -168,6 +165,7 @@ namespace Edia {
 			base.Show (onOff);
 			
 			EventManager.TriggerEvent(Edia.Events.XR.EvEnableXROverlay, new eParam(onOff));
+			XRManager.Instance.EnableOverlayCam(onOff);
 			XRManager.Instance.EnableXROverlayRayInteraction(onOff);
 			
 			_messagePanelFader = _messagePanelFader is not null ? null : StartCoroutine(TextFader());

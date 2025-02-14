@@ -131,18 +131,11 @@ namespace Edia {
 	[System.Serializable]
 	public class SettingsDeclaration {
 
-		public Constants.Interactor VisableInteractor = Constants.Interactor.NONE;
-		public Constants.Interactor InteractiveInteractor = Constants.Interactor.RIGHT;
-		//public int screenResolution = 0;
-		//public float volume = 50f;
-		//public Constants.Languages language = Constants.Languages.ENG;
+		public string VisibleSide = "NONE";
+		public string InteractiveSide = "NONE";
 
-		public string pathToLogfiles = FileManager.GetCorrectPath() + "/logfiles";
-		public static string localConfigDirectoryName = "Configs";
-		
+		public string pathToLogfiles = "../logfiles";
 	}
-
-	// \endcond
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 

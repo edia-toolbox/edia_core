@@ -13,13 +13,15 @@ namespace Edia {
 
 		[Header("Debug")]
 		public bool showLog = false;
-		public Color logColor = Color.cyan;
+		Color logColor = Color.cyan;
 		[Space(10f)]
 		[Header("References")]
 		public Transform XRCam;
 		public Transform XRLeft;
 		public Transform XRRight;
 		public Transform CamOverlay;
+		public bool isInteractive = false;
+		public bool isOverlayInteractive = false;
 
 		void Awake() {
 			CheckReferences();
@@ -70,7 +72,13 @@ namespace Edia {
 			transform.rotation = newTransform.rotation;
 		}
 
+		#endregion // -------------------------------------------------------------------------------------------------------------------------------
+		#region OVERLAY
 
+		public void EnableOverlayCam(bool onOff) {
+			CamOverlay.GetComponent<Camera>().enabled = onOff;
+		}
+		
 		#endregion // -------------------------------------------------------------------------------------------------------------------------------
 		#region INTERACTION
 
@@ -78,17 +86,21 @@ namespace Edia {
 		/// <param name="onOff">Boolean</param>
 		public void EnableXRRayInteraction(bool onOff) {
 			this.Add2Console("EnableXRInteraction " + onOff);
+			isInteractive = onOff;
+			
 			XRLeft.GetComponent<XRController>().EnableRayInteraction(onOff);
 			XRRight.GetComponent<XRController>().EnableRayInteraction(onOff);
 		}
 
 		public void EnableXROverlayRayInteraction(bool onOff) {
+			isOverlayInteractive = onOff;
+			
 			XRLeft.GetComponent<XRController>().EnableXROverlayRayInteraction(onOff);
 			XRRight.GetComponent<XRController>().EnableXROverlayRayInteraction(onOff);
 		}
 
 		#endregion // -------------------------------------------------------------------------------------------------------------------------------
-		#region HANDS
+		#region SIGHT
 
 		/// <summary>Fades VR user view to black</summary>
 		public void HideVR () {
@@ -150,9 +162,6 @@ namespace Edia {
 
 
 		#endregion // -------------------------------------------------------------------------------------------------------------------------------
-		#region MISC	
-
-		#endregion // -------------------------------------------------------------------------------------------------------------------------------                                                                                                                                    
 
 	}
 }
