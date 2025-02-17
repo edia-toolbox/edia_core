@@ -23,12 +23,14 @@ namespace Edia {
         /// <param name="eyePositionLocal">The local eye position.</param>
         /// <param name="eyeRotationLocalEuler">The local eye rotation in Euler Angles.</param>
         /// <param name="pupilDiameter">The diameter of the pupil. Default is 0f.</param>
+        /// <param name="openness">The openness of the eye. Default is 0f.</param>
         /// <param name="confidence">The confidence level of the eye tracking data. Default is 0f.</param>
         /// <param name="timestampEt">The eye tracker timestamp. Default is 0f.</param>
         /// <param name="timestampLsl">The LSL timestamp. Default is 0 and will timestamp the sample on sending.</param>
         public void PushSample(Vector3 eyePositionLocal,
                                Vector3 eyeRotationLocalEuler,
                                float pupilDiameter = 0f,
+                               float openness = 0f,
                                float confidence = 0f,
                                double timestampEt = 0f,
                                double timestampLsl = 0);
