@@ -8,7 +8,6 @@ using static Edia.Constants;
 
 namespace Edia.Controller {
     public class PanelApplicationSettings : ExperimenterPanel {
-        
         [Header("Refs")]
         public Button btnApply = null;
         public Button btnClose = null;
@@ -64,9 +63,9 @@ namespace Edia.Controller {
             pathToLogfilesField.text = localSystemSettingsContainer.pathToLogfiles;
 
             btnApply.interactable = false;
-            
+
             ShowPanel();
-            
+
             panelFilePath.SetActive(ControlPanel.Instance.ControlMode == ControlModes.Local);
         }
 

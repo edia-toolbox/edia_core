@@ -6,47 +6,46 @@ using UnityEngine.UI;
 using UnityEngine.XR.Interaction.Toolkit.UI;
 
 namespace Edia {
-	/// <summary>Sample script to show the user a message in VR canvas</summary>
-	[RequireComponent(typeof(Canvas))]
-	[RequireComponent(typeof(TrackedDeviceGraphicRaycaster))]
-	public class ScreenInVR : MonoBehaviour {
+    /// <summary>Base class for a 'screen' in VR (canvas)</summary>
+    [RequireComponent(typeof(Canvas))]
+    [RequireComponent(typeof(TrackedDeviceGraphicRaycaster))]
+    public class ScreenInVR : MonoBehaviour {
+        [Header("Settings")]
+        [Tooltip("Auto orientates itself in front of user. Draws on top of the 3D environment.")]
+        public bool StickToHMD = false;
+        [SerializeField] private float _distanceFromHMD = 2f;
+        [Space(20)]
+        [SerializeField] private bool _startVisible = false;
 
-		[Header("Locked to User")]
-		public bool StickToHMD = false;
-		public float DistanceFromHMD = 2f;
+        [HideInInspector]
+        public bool isActive = false;
 
-		[Header("Settings")]
-		public bool StartVisible = false;
+        private void Awake() {
+            if (GetComponent<Canvas>().worldCamera == null)
+                GetComponent<Canvas>().worldCamera = StickToHMD ? XRManager.Instance.CamOverlay.GetComponent<Camera>() : XRManager.Instance.XRCam.GetComponent<Camera>();
 
-		[HideInInspector]
-		public bool isActive = false;
+            if (StickToHMD) {
+                transform.parent = XRManager.Instance.XRCam.transform;
+                transform.localPosition = new Vector3(0, 0, _distanceFromHMD);
+                transform.localRotation = Quaternion.identity;
+            }
 
-		private void Awake() {
+            if (!_startVisible) Show(false);
+        }
 
-			if (GetComponent<Canvas>().worldCamera == null)
-				GetComponent<Canvas>().worldCamera = XRManager.Instance.CamOverlay.GetComponent<Camera>();
+        /// <summary>Shows the actual panel</summary>
+        public virtual void Show(bool onOff) {
+            GetComponent<Canvas>().enabled = onOff;
+            if (GetComponent<GraphicRaycaster>() != null)
+                GetComponent<GraphicRaycaster>().enabled = onOff;
+            GetComponent<TrackedDeviceGraphicRaycaster>().enabled = onOff;
 
-			if (StickToHMD) {
-				transform.parent = XRManager.Instance.XRCam.transform;
-				transform.localPosition = new Vector3(0, 0, DistanceFromHMD);
-				transform.localRotation = Quaternion.identity;
-			}
+            isActive = onOff;
+        }
 
-			if (!StartVisible) Show(false);
-		}
-
-		/// <summary>Shows the actual panel</summary>
-		public virtual void Show(bool onOff) {
-			GetComponent<Canvas>().enabled = onOff;
-			GetComponent<GraphicRaycaster>().enabled = onOff;
-			GetComponent<TrackedDeviceGraphicRaycaster>().enabled = onOff;
-			
-			isActive = onOff;
-		}
-
-		/// <summary>Doublecheck</summary>
-		public virtual void HidePanel() {
-			Show(false);
-		}
-	}
+        /// <summary>Hide panel</summary>
+        public virtual void HidePanel() {
+            Show(false);
+        }
+    }
 }
