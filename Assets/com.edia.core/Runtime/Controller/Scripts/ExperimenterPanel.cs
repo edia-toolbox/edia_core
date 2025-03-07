@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,6 +22,7 @@ namespace Edia.Controller {
 
 			foreach (Transform tr in children) tr.gameObject.SetActive(onOff);
 			
+			GetComponent<Image>().enabled = onOff;
 			GetComponent<Image>().enabled = onOff;
 			ControlPanel.Instance.ShowPanel(transform, onOff);
 

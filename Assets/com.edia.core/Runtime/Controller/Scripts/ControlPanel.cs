@@ -6,15 +6,14 @@ using static Edia.Constants;
 namespace Edia.Controller {
     public class ControlPanel : Singleton<ControlPanel> {
         
-        [Space(20)]
-        [HideInInspector] public ControlModes ControlMode = ControlModes.Local;
+        [Space(20)] [HideInInspector] 
+        public ControlModes ControlMode = ControlModes.Local;
         public bool ShowEventLog = true;
         public bool ShowConsole = false;
 
-        [Header("Refs")]
+        [Header("Refs")] 
         public Transform NonActivePanelHolder = null;
         public Transform PanelHolder = null;
-        public Transform RemotePanel = null;
         public Transform ConsolePanel = null;
 
         // Local
@@ -28,7 +27,7 @@ namespace Edia.Controller {
         // Remote
         [HideInInspector] public bool IsConnected = false;
 
-        void Awake() {
+        private void Awake() {
             this.transform.SetParent(null);
 
             DontDestroyOnLoad(this);
@@ -39,11 +38,11 @@ namespace Edia.Controller {
             EventManager.StartListening(Edia.Events.Core.EvQuitApplication, OnEvQuitApplication);
         }
 
-        void OnDestroy() {
+        private void OnDestroy() {
             EventManager.StopListening(Edia.Events.ControlPanel.EvConnectionEstablished, OnEvConnectionEstablished);
         }
 
-        void Init() {
+        private void Init() {
             EventManager.showLog = ShowEventLog; // Eventmanager to show debug in console
 
             ConsolePanel.gameObject.SetActive(ShowConsole);
@@ -55,7 +54,7 @@ namespace Edia.Controller {
                 InitConfigFileSearch();
         }
 
-        void PreparePanels() {
+        private void PreparePanels() {
             // Move all panels from task first to non visuable holder
             foreach (Transform t in PanelHolder) {
                 t.SetParent(NonActivePanelHolder, true);
@@ -67,18 +66,17 @@ namespace Edia.Controller {
             }
         }
 
-        void OnEvConnectionEstablished(eParam obj) {
+        private void OnEvConnectionEstablished(eParam obj) {
             EventManager.StopListening(Edia.Events.ControlPanel.EvConnectionEstablished, OnEvConnectionEstablished);
 
             IsConnected = true;
             InitConfigFileSearch();
         }
 
-        private void OnEvStartExperiment(eParam param)
-        {
+        private void OnEvStartExperiment(eParam param) {
         }
 
-        void InitConfigFileSearch() {
+        private void InitConfigFileSearch() {
             pConfigSelection.Init();
         }
 
@@ -102,13 +100,13 @@ namespace Edia.Controller {
             pMessageBox.ShowMessage(msg, autoHide);
         }
 
-        void OnEvQuitApplication(eParam obj) {
+        private void OnEvQuitApplication(eParam obj) {
             this.ConsolePanel.Add2Console("Quiting..");
             Debug.Log($"{name}:Quiting..");
             Invoke("DoQuit", 1f);
         }
 
-        void DoQuit() {
+        private void DoQuit() {
             Debug.Log($"{name}:Bye..");
             Application.Quit();
         }
