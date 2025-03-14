@@ -5,9 +5,7 @@ using System.IO;
 using UnityEngine;
 
 namespace Edia {
-    /// <summary>
-    /// Static class to handle file IO
-    /// </summary>
+    /// <summary> Static class to handle file IO </summary>
     public static class FileManager {
         /// <summary>Get all filenames with a certain extension from the applications given subfolder</summary>
         /// <param subFolder="subFolder">Folder to scan</param>
@@ -64,6 +62,9 @@ namespace Edia {
             return result;
         }
 
+        /// <summary> Retrieves all subfolder names from the specified subfolder. </summary>
+        /// <param name="subFolder">The parent folder to scan for subfolders.</param>
+        /// <returns>An array of subfolder names within the specified folder, or null if the directory does not exist or contains no subfolders.</returns>
         public static string[] GetAllSubFolders(string subFolder) {
             string path = GetCorrectPath() + "/" + subFolder + "/";
             DirectoryInfo dir = new DirectoryInfo(path);
@@ -89,14 +90,12 @@ namespace Edia {
             return result;
         }
 
-        /// <summary>
-        /// Copy directory
-        /// </summary>
-        /// <param name="sourceDirectory"></param>
-        /// <param name="targetDirectory"></param>
-        /// <param name="exclude">exclude</param>
+        /// <summary> Copies the contents of a source directory to a target directory. </summary>
+        /// <param name="sourceDirectory">The path of the directory to copy from.</param>
+        /// <param name="targetDirectory">The path of the directory to copy to.</param>
+        /// <param name="exclude">Specifies a file extension or pattern that should be excluded during the copy process.</param>
+        /// <returns>Returns true if the directory was successfully copied; otherwise, false.</returns>
         public static bool CopyDirectory(string sourceDirectory, string targetDirectory, string exclude) {
-            
             if (!ValidateDirectories(sourceDirectory, targetDirectory, out var diSource, out var diTarget)) return false;
 
             // Call the copy function and return its result
@@ -106,10 +105,31 @@ namespace Edia {
         }
 
         /// <summary>
-        /// Copy directory
+        /// Copies the contents of a source directory to a target directory.
         /// </summary>
-        /// <param name="sourceDirectory"></param>
-        /// <param name="targetDirectory"></param>
+        /// <param name="sourceDirectory">The path of the directory to copy from.</param>
+        /// <param name="targetDirectory">The path of the directory to copy to.</param>
+        /// <param name="exclude">Specifies a file extension or pattern that should be excluded during the copy process.</param>
+        /// <param name="cleanCopy">Indicates whether the target directory should be deleted before copying.</param>
+        /// <returns>Returns true if the directory was successfully copied; otherwise, false.</returns>
+        public static bool CopyDirectory(string sourceDirectory, string targetDirectory, string exclude, bool cleanCopy = false) {
+            if (!ValidateDirectories(sourceDirectory, targetDirectory, out var diSource, out var diTarget)) return false;
+
+            if (cleanCopy)
+                Directory.Delete(targetDirectory, true);
+            
+            // Call the copy function and return its result
+            bool success = CopyAll(diSource, diTarget, exclude);
+
+            return success;
+        }
+
+        /// <summary>
+        /// Copies all contents from a source directory to a target directory.
+        /// </summary>
+        /// <param name="sourceDirectory">The path to the source directory.</param>
+        /// <param name="targetDirectory">The path to the target directory.</param>
+        /// <returns>True if the copy operation completes successfully; otherwise, false.</returns>
         public static bool CopyDirectory(string sourceDirectory, string targetDirectory) {
             if (!ValidateDirectories(sourceDirectory, targetDirectory, out var diSource, out var diTarget)) return false;
 
@@ -156,6 +176,13 @@ namespace Edia {
         }
 
 
+        /// <summary>
+        /// Copies all files and directories from the source directory to the target directory, excluding files or directories with names containing the specified exclude parameter.
+        /// </summary>
+        /// <param name="source">The source directory to copy from.</param>
+        /// <param name="target">The target directory to copy to.</param>
+        /// <param name="exclude">A string used to exclude files or directories with matching names. Pass an empty string to include all.</param>
+        /// <returns>True if the copy operation completed successfully, otherwise false.</returns>
         private static bool CopyAll(DirectoryInfo source, DirectoryInfo target, string exclude) {
             try {
                 // Ensure the target directory exists
@@ -184,6 +211,10 @@ namespace Edia {
         }
 
 
+        /// <summary> Reads the content of a file located in a specific subfolder of the application's path. </summary>
+        /// <param name="_subfolder">The subfolder within the application path where the file is located.</param>
+        /// <param name="_fileName">The name of the file to be read.</param>
+        /// <returns>The content of the file as a string.</returns>
         public static string ReadStringFromApplicationPathSubfolder(string _subfolder, string _fileName) {
             string path = GetCorrectPath() + "/" + _subfolder + "/" + _fileName;
 
@@ -191,12 +222,18 @@ namespace Edia {
         }
 
 
+        /// <summary> Reads a string from a file located in the application's root path. </summary>
+        /// <param name="_fileName">The name of the file to read from the application's root path.</param>
+        /// <returns>A string containing the contents of the specified file.</returns>
         public static string ReadStringFromApplicationPath(string _fileName) {
             string path = GetCorrectPath() + "/" + _fileName;
 
             return ReadString(path);
         }
 
+        /// <summary> Determines if a file exists at the specified application path. </summary>
+        /// <param name="_fileName">The name of the file to check for existence.</param>
+        /// <returns>True if the file exists, otherwise false.</returns>
         public static bool FileExists(string _fileName) {
             string path = GetCorrectPath() + "/" + _fileName;
             return File.Exists(path);
@@ -221,6 +258,10 @@ namespace Edia {
             return result;
         }
 
+        /// <summary>Copies a specified file from a source path to a destination path.</summary>
+        /// <param name="_sourcePath">The directory in the source from which the file will be copied.</param>
+        /// <param name="_filename">The name of the file to copy.</param>
+        /// <param name="_destinationPath">The directory in the destination where the file will be copied to.</param>
         public static void CopyFileTo(string _sourcePath, string _filename, string _destinationPath) {
             string pathfile = GetCorrectPath() + "/" + _sourcePath + "/" + _filename;
 
