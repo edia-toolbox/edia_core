@@ -1,8 +1,5 @@
-﻿using System;
-using System.IO;
-using System.Text;
-using UnityEngine;
-using UnityEditor;
+﻿using System.IO;
+using System.Linq;
 using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
 using Edia;
@@ -10,6 +7,7 @@ using Edia;
 /// <summary>
 /// Handles post Unity build actions, i.e. copy config files to build directory
 /// </summary>
+
 public class ConfigMoveProcessor : IPostprocessBuildWithReport {
     public int callbackOrder {
         get { return 0; }
@@ -23,19 +21,29 @@ public class ConfigMoveProcessor : IPostprocessBuildWithReport {
     /// </summary>
     /// <param name="report">A BuildReport instance containing information about the completed build, including output path and summary details.</param>
     public void OnPostprocessBuild(BuildReport report) {
-        string fileName = Path.GetFileName(report.summary.outputPath);
-        string path     = report.summary.outputPath.Replace(fileName, "");
+        var fileName = Path.GetFileName(report.summary.outputPath);
+        var outputPath = Path.GetDirectoryName(report.summary.outputPath) ?? "";
+        var outputPathConfigs = "";
+        
+        if (outputPath == "") {
+            UnityEngine.Debug.LogError("No valid output path provided");
+        }
+        
+        outputPathConfigs = Path.Combine(outputPath, "Configs");
+        
+        var source = new[] { "Assets/Configs", "Assets/configs" }
+            .FirstOrDefault(Directory.Exists) ?? "";
 
-
-        if (!Directory.Exists("Assets/Configs") && !Directory.Exists("Assets/configs")) {
-            UnityEngine.Debug.Log("Assets/Configs folder does not exist. Skipping config file copy.");
+        if (source == "") {
+            UnityEngine.Debug.LogWarning("Assets/configs folder does not exist. Skipping config file copy. " +
+                                         "Your build might not work! Make sure you have a Configs folder in your Assets " +
+                                         "folder.");
             return;
         }
 
-        path = path + "Configs";
-        Directory.CreateDirectory(path);
-        FileManager.CopyDirectory("Assets/Configs", path, ".meta");
+        Directory.CreateDirectory(outputPath);
+        FileManager.CopyDirectory(source, outputPathConfigs, ".meta");
 
-        UnityEngine.Debug.Log("Copied config files to " + path);
+        UnityEngine.Debug.Log("Copied config files to " + outputPath);
     }
 }
