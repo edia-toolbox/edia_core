@@ -49,7 +49,7 @@ namespace Edia
         private void MoveToController()
         {
             Vector3 positionDelta = targetPosition - transform.position;
-            rigidBody.velocity = Vector3.zero;
+            rigidBody.linearVelocity = Vector3.zero;
             rigidBody.MovePosition(transform.position + positionDelta);
         }
 

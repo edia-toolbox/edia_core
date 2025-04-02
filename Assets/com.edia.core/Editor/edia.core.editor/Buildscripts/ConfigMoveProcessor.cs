@@ -7,7 +7,6 @@ using Edia;
 /// <summary>
 /// Handles post Unity build actions, i.e. copy config files to build directory
 /// </summary>
-
 public class ConfigMoveProcessor : IPostprocessBuildWithReport {
     public int callbackOrder {
         get { return 0; }
@@ -21,16 +20,16 @@ public class ConfigMoveProcessor : IPostprocessBuildWithReport {
     /// </summary>
     /// <param name="report">A BuildReport instance containing information about the completed build, including output path and summary details.</param>
     public void OnPostprocessBuild(BuildReport report) {
-        var fileName = Path.GetFileName(report.summary.outputPath);
-        var outputPath = Path.GetDirectoryName(report.summary.outputPath) ?? "";
+        var fileName          = Path.GetFileName(report.summary.outputPath);
+        var outputPath        = Path.GetDirectoryName(report.summary.outputPath) ?? "";
         var outputPathConfigs = "";
-        
+
         if (outputPath == "") {
             UnityEngine.Debug.LogError("No valid output path provided");
         }
-        
-        outputPathConfigs = Path.Combine(outputPath, "Configs");
-        
+
+        outputPathConfigs = Path.Combine(outputPath, "configs");
+
         var source = new[] { "Assets/Configs", "Assets/configs" }
             .FirstOrDefault(Directory.Exists) ?? "";
 

@@ -25,15 +25,15 @@ namespace UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets
 
         [SerializeField]
         [Tooltip("The GameObject containing the interactor used for direct manipulation.")]
-        XRDirectInteractor m_DirectInteractor;
+        UnityEngine.XR.Interaction.Toolkit.Interactors.XRDirectInteractor m_DirectInteractor;
 
         [SerializeField]
         [Tooltip("The GameObject containing the interactor used for distant/ray manipulation.")]
-        XRRayInteractor m_RayInteractor;
+        UnityEngine.XR.Interaction.Toolkit.Interactors.XRRayInteractor m_RayInteractor;
 
         [SerializeField]
         [Tooltip("The GameObject containing the interactor used for teleportation.")]
-        XRRayInteractor m_TeleportInteractor;
+        UnityEngine.XR.Interaction.Toolkit.Interactors.XRRayInteractor m_TeleportInteractor;
 
         [Space]
         [Header("Controller Actions")]

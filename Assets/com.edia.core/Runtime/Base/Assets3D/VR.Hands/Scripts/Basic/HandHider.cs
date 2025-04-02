@@ -8,12 +8,12 @@ namespace Edia
         public GameObject handObject = null;
 
         private HandPhysics handPhysics = null;
-        private XRDirectInteractor interactor = null;
+        private UnityEngine.XR.Interaction.Toolkit.Interactors.XRDirectInteractor interactor = null;
 
         private void Awake()
         {
             handPhysics = handObject.GetComponent<HandPhysics>();
-            interactor = GetComponent<XRDirectInteractor>();
+            interactor = GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactors.XRDirectInteractor>();
         }
 
         private void OnEnable()

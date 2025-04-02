@@ -1,181 +1,149 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Edia.EditorUtils {
+    [InitializeOnLoad]
+    public class Configurator : EditorWindow {
+        public Texture2D EDIAIcon;
+        public static bool forceShow = false;
+        ApiCompatibilityLevel targetApiLevel = ApiCompatibilityLevel.NET_4_6;
+        string projectName = GetProjectName();
 
-	[InitializeOnLoad]
-	public class Configurator : EditorWindow {
+        Vector2 scrollPos;
 
-		public Texture2D EDIAIcon;
-		public static bool forceShow = false;
-		ApiCompatibilityLevel targetApiLevel = ApiCompatibilityLevel.NET_4_6;
-		string projectName = GetProjectName();
+        [MenuItem("EDIA/Configurator")]
+        static void Init() {
+            var window = (Configurator)EditorWindow.GetWindow(typeof(Configurator), false, "Configurator");
+            window.minSize = new Vector2(300, 400); 
+            window.titleContent = new GUIContent("Configurator");
+            window.Show();
+        }
 
-		Vector2 scrollPos;
+        public void OnGUI() {
+            scrollPos = EditorGUILayout.BeginScrollView(scrollPos, false, false);
+            GUIStyle labelStyle = new GUIStyle(EditorStyles.label);
+            labelStyle.wordWrap = true;
 
-		[MenuItem("EDIA/Configurator")]
-		static void Init() {
-			var window = (Configurator)EditorWindow.GetWindow(typeof(Configurator), false, "Configurator");
-			window.minSize = new Vector2(300, 400);
-			window.titleContent = new GUIContent("Configurator");
-			window.Show();
+            GUILayout.BeginHorizontal();
+            GUILayout.FlexibleSpace();
+            var rect = GUILayoutUtility.GetRect(128, 128, GUI.skin.box);
+            if (EDIAIcon)
+                GUI.DrawTexture(rect, EDIAIcon, ScaleMode.ScaleToFit);
+            GUILayout.FlexibleSpace();
+            GUILayout.EndHorizontal();
 
-		}
+            GUILayout.BeginHorizontal();
+            GUILayout.FlexibleSpace();
+            GUILayout.Label("eDIA v0.4.0 \nUnity Toolbox for XR Research Studies", EditorStyles.boldLabel);
+            GUILayout.FlexibleSpace();
+            GUILayout.EndHorizontal();
 
-		public void OnGUI() {
-			scrollPos = EditorGUILayout.BeginScrollView(scrollPos, false, false);
-			GUIStyle labelStyle = new GUIStyle(EditorStyles.label);
-			labelStyle.wordWrap = true;
+            EditorGUILayout.Separator();
 
-			GUILayout.BeginHorizontal();
-			GUILayout.FlexibleSpace();
-			var rect = GUILayoutUtility.GetRect(128, 128, GUI.skin.box);
-			if (EDIAIcon)
-				GUI.DrawTexture(rect, EDIAIcon, ScaleMode.ScaleToFit);
-			GUILayout.FlexibleSpace();
-			GUILayout.EndHorizontal();
+            GUILayout.Label("Editor Settings", EditorStyles.boldLabel);
+            GUILayout.Label("For the framework to work, a basic set of layers is needed");
 
-			GUILayout.BeginHorizontal();
-			GUILayout.FlexibleSpace();
-			GUILayout.Label("eDIA v0.4.0 \nVR Experiment Framework", EditorStyles.boldLabel);
-			GUILayout.FlexibleSpace();
-			GUILayout.EndHorizontal();
+            if (GUILayout.Button("Create layers")) {
+                LayerTools.SetupLayers();
+            }
 
-			EditorGUILayout.Separator();
+            EditorGUILayout.Separator();
 
-			GUILayout.Label("Editor Settings", EditorStyles.boldLabel);
-			GUILayout.Label("For the framework to work, a basic set of layers is needed");
+            EditorGUILayout.BeginHorizontal();
 
-			if (GUILayout.Button("Create layers")) {
-				LayerTools.SetupLayers();
-			}
+            GUILayout.Label("Project name:");
+            projectName = EditorGUILayout.TextField(projectName);
 
-			EditorGUILayout.Separator();
-
-			EditorGUILayout.BeginHorizontal();
-
-			GUILayout.Label("Project name:");
-			projectName = EditorGUILayout.TextField(projectName);
-
-			EditorGUILayout.EndHorizontal();
+            EditorGUILayout.EndHorizontal();
 
             EditorGUILayout.HelpBox("Click the button below to create an exemplary Unity project folder structure within the root folder of your project.", MessageType.Info);
             if (GUILayout.Button("Create folder structure")) {
-				CreateFolderStructure(projectName);
-			}
+                CreateFolderStructure(projectName);
+            }
 
-			EditorGUILayout.Separator();
+            EditorGUILayout.Separator();
 
-			GUILayout.Label("Platform selector", EditorStyles.boldLabel);
-			EditorGUILayout.HelpBox("Click the buttons below to switch to your desired output platform. You will also need to select the Data Handler(s) you wish to use in your UXF Session Component.", MessageType.Info);
+            // GUILayout.Label("Platform selector", EditorStyles.boldLabel);
+            // EditorGUILayout.HelpBox(
+            //     "Click the buttons below to switch to your desired output platform. You will also need to select the Data Handler(s) you wish to use in your UXF Session Component.", MessageType.Info);
+            //
+            // if (GUILayout.Button("Select Windows / PC VR")) SetSettingsWindows();
+            // if (GUILayout.Button("Select Android VR (e.g. Oculus Quest)")) SetSettingsOculus();
+            // if (GUILayout.Button("Select Android")) SetSettingsAndroid();
 
-			if (GUILayout.Button("Select Windows / PC VR")) SetSettingsWindows();
-			// if (GUILayout.Button("Select Web Browser")) SetSettingsWebGL();
-			if (GUILayout.Button("Select Android VR (e.g. Oculus Quest)")) SetSettingsOculus();
-			if (GUILayout.Button("Select Android")) SetSettingsAndroid();
+            // EditorGUILayout.Separator();
 
-			// EditorGUILayout.Separator();
+            GUILayout.Label("Help and info", EditorStyles.boldLabel);
 
-			GUILayout.Label("Help and info", EditorStyles.boldLabel);
+            EditorGUILayout.Space();
+            GUILayout.Label("The framework comes with documentation", labelStyle);
+            if (GUILayout.Button("Open documentation"))
+                Application.OpenURL("https://gitlab.gwdg.de/3dia/edia_framework/-/wikis/home");
 
-			EditorGUILayout.Space();
-			GUILayout.Label("The framework comes with documentation", labelStyle);
-			if (GUILayout.Button("Open documentation"))
-				Application.OpenURL("https://gitlab.gwdg.de/3dia/edia_framework/-/wikis/home");
+            EditorGUILayout.Separator();
 
-			EditorGUILayout.Separator();
+            GUILayout.Label("Examples", EditorStyles.boldLabel);
+            GUILayout.Label("Click 'import samples' from the package manager.", labelStyle);
 
-			GUILayout.Label("Examples", EditorStyles.boldLabel);
-			GUILayout.Label("Click 'import samples' from the package manager.", labelStyle);
+            EditorGUILayout.Separator();
 
-			EditorGUILayout.Separator();
+            // GUILayout.Label("Compatibility", EditorStyles.boldLabel);
+            //
+            // bool compatible = PlayerSettings.GetApiCompatibilityLevel(BuildTargetGroup.Standalone) == targetApiLevel;
+            //
+            // if (compatible) {
+            //     EditorGUILayout.HelpBox("API Compatibility Level is set correctly", MessageType.Info);
+            // }
+            // else {
+            //     EditorGUILayout.HelpBox("API Compatibility Level should be set to .NET 2.0 (Older versions of Unity) or .NET 4.x (Unity 2018.3+), expect errors on building", MessageType.Warning);
+            //     if (GUILayout.Button("Fix")) {
+            //         PlayerSettings.SetApiCompatibilityLevel(BuildTargetGroup.Standalone, targetApiLevel);
+            //     }
+            // }
 
-			//GUILayout.Label ("Create basic config files", EditorStyles.boldLabel);
+            // EditorGUILayout.Separator();
+            EditorGUILayout.EndScrollView();
+        }
 
-			//if (GUILayout.Button ("Create config folder + demo JSON files"))
-			//    CreateConfigFiles ();
+        public static string GetProjectName() {
+            // Get the full path of the Unity project directory
+            string projectDirectory = Directory.GetCurrentDirectory();
 
-			//EditorGUILayout.Separator ();
+            // Extract the name of the directory (which should be the project name)
+            string projectName = new DirectoryInfo(projectDirectory).Name;
 
-			GUILayout.Label("Compatibility", EditorStyles.boldLabel);
+            return projectName;
+        }
 
-			bool compatible = PlayerSettings.GetApiCompatibilityLevel(BuildTargetGroup.Standalone) == targetApiLevel;
+        static void CreateFolderStructure(string projectName) {
+            FileManager.CreateFolder(projectName);
+            FileManager.CreateFolder(projectName + "/Assets2D");
+            FileManager.CreateFolder(projectName + "/Assets2D/Textures");
+            FileManager.CreateFolder(projectName + "/Assets2D/Sprites");
+            FileManager.CreateFolder(projectName + "/Prefabs");
+            FileManager.CreateFolder(projectName + "/Assets3D");
+            FileManager.CreateFolder(projectName + "/Assets3D/Models");
+            FileManager.CreateFolder(projectName + "/Assets3D/Src");
+            FileManager.CreateFolder(projectName + "/Materials");
+            FileManager.CreateFolder(projectName + "/Scripts");
+            FileManager.CreateFolder(projectName + "/Scenes");
+            FileManager.CreateFolder("Editor");
+            FileManager.CreateFolder("Settings");
+            FileManager.CreateFolder("ThirdParty");
+            AssetDatabase.Refresh();
+        }
 
-			if (compatible) {
-				EditorGUILayout.HelpBox("API Compatibility Level is set correctly", MessageType.Info);
-			}
-			else {
-				EditorGUILayout.HelpBox("API Compatibility Level should be set to .NET 2.0 (Older versions of Unity) or .NET 4.x (Unity 2018.3+), expect errors on building", MessageType.Warning);
-				if (GUILayout.Button("Fix")) {
-					PlayerSettings.SetApiCompatibilityLevel(BuildTargetGroup.Standalone, targetApiLevel);
-				}
-			}
+        static void SetSettingsWindows() {
+            Debug.Log("SetSettingsWindows placeholder");
+        }
 
+        static void SetSettingsOculus() {
+            Debug.Log("SetSettingsOculus placeholder");
+        }
 
-			EditorGUILayout.Separator();
-			// EditorGUILayout.HelpBox("To show this window again go to UXF -> Show setup wizard in the menubar.", MessageType.None);
-
-			EditorGUILayout.EndScrollView();
-		}
-
-		public static string GetProjectName() {
-			// Get the full path of the Unity project directory
-			string projectDirectory = Directory.GetCurrentDirectory();
-
-			// Extract the name of the directory (which should be the project name)
-			string projectName = new DirectoryInfo(projectDirectory).Name;
-
-			return projectName;
-		}
-
-		static void CreateFolderStructure(string projectName) {
-			FileManager.CreateFolder(projectName);
-			FileManager.CreateFolder(projectName + "/Assets2D");
-			FileManager.CreateFolder(projectName + "/Assets2D/Textures");
-			FileManager.CreateFolder(projectName + "/Assets2D/Sprites");
-			FileManager.CreateFolder(projectName + "/Prefabs");
-			FileManager.CreateFolder(projectName + "/Assets3D");
-			FileManager.CreateFolder(projectName + "/Assets3D/Models");
-			FileManager.CreateFolder(projectName + "/Assets3D/Src");
-			FileManager.CreateFolder(projectName + "/Materials");
-			FileManager.CreateFolder(projectName + "/Scripts");
-			FileManager.CreateFolder(projectName + "/Scenes");
-			FileManager.CreateFolder("Editor");
-			FileManager.CreateFolder("Settings");
-			FileManager.CreateFolder("ThirdParty");
-			AssetDatabase.Refresh();
-		}
-
-		//static void CreateConfigFiles() {
-		//	FileManager.CreateFolder("Configs/Participants");
-		//	FileManager.CreateFolder("Configs/Tasks");
-
-		//	FileManager.CopyFileTo("../packages/eDIA/Editor/edia.core.editor/jsons", "TASKA_PARTICIPANTID.json", "Configs/Participants");
-		//	FileManager.CopyFileTo("../packages/eDIA/Editor/edia.core.editor/jsons", "TASKA.json", "Configs/Tasks");
-
-		//	FileManager.CopyFileTo("../packages/eDIA/Editor/edia.core.editor/jsons", "TASKB_PARTICIPANTID.json", "Configs/Participants");
-		//	FileManager.CopyFileTo("../packages/eDIA/Editor/edia.core.editor/jsons", "TASKB.json", "Configs/Tasks");
-
-		//	Debug.Log("Created Config folders with demo configuration files");
-		//}
-
-
-		static void SetSettingsWindows() {
-			Debug.Log("SetSettingsWindows placeholder");
-		}
-
-		static void SetSettingsOculus() {
-			Debug.Log("SetSettingsOculus placeholder");
-		}
-
-		static void SetSettingsAndroid() {
-			Debug.Log("SetSettingsAndroid placeholder");
-		}
-
-	}
-
+        static void SetSettingsAndroid() {
+            Debug.Log("SetSettingsAndroid placeholder");
+        }
+    }
 }
