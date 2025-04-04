@@ -15,7 +15,7 @@ namespace Edia.Utilities.Editor {
 
         private static void CopyConfigsToSamples(UnityEngine.SceneManagement.Scene scene) {
             string sourcePath = string.Concat(Application.dataPath, "/configs");
-            string targetPath = string.Concat(Application.dataPath, "/Samples/configs");
+            string targetPath = string.Concat(Application.dataPath, "/Samples/StartersKit/configs");
         
             bool succes = FileManager.CopyDirectory(sourcePath, targetPath, ".meta", true);
         
