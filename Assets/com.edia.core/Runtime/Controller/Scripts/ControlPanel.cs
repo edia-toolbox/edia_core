@@ -14,7 +14,6 @@ namespace Edia.Controller {
         [Header("Refs")] 
         public Transform NonActivePanelHolder = null;
         public Transform PanelHolder = null;
-        public Transform ConsolePanel = null;
 
         // Local
         public PanelMessageBox pMessageBox = null;
@@ -99,7 +98,6 @@ namespace Edia.Controller {
         }
 
         private void OnEvQuitApplication(eParam obj) {
-            this.ConsolePanel.Add2Console("Quiting..");
             Debug.Log($"{name}:Quiting..");
             Invoke("DoQuit", 1f);
         }
