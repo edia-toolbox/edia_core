@@ -32,17 +32,15 @@ namespace Edia {
 		public bool ShowLog = false;
 		Color LogColor = Color.green;
 
-		[Header("Experiment Settings")]
-		[Tooltip("Enable Position&Rotation tracker from UXF which stores data to session folder. !Might have impact on FPS with long trials.")]
-		[HelpBox("<size=14><color=#00ee30><b>INFO:</b></color> UXF Tracking</size>\nEnable Position&Rotation tracker from UXF which stores data to session folder. \nMight have impact on FPS with long trials!", HelpBoxMessageType.Warning)]
-		public bool TrackXrRigWithUxf = false;
-
-		[Space(20)]
 		[Header("Experiment")]
-		[HelpBox("<size=14><color=#00ee30><b>XBlock Executers</b></color></size>\nList of gameobjects containing the functional Xblock code. \nNaming convenction: [type]-[subtype]", HelpBoxMessageType.None)]
+		[HelpBox("<size=14><color=#00ee30><b>XBlock Executers</b></color></size>\nList of gameobjects containing the functional Xblock code. \nNaming convention: [type]-[subtype]", HelpBoxMessageType.None)]
 		public List<XBlock> XBlockExecuters = new();
 
-		[Space(20)]
+		[Header("Settings")]
+		[Tooltip("Enable Position&Rotation tracker from UXF which stores data to session folder. !Might have impact on FPS with long trials.")]
+		public bool TrackXrRigWithUxf = false;
+
+		[Space(10)]
 		[Header("Event hooks\n\nOptional event hooks to use in your task")]
 		public UnityEvent OnSessionStart = null;
 		public UnityEvent OnSessionPaused = null;
