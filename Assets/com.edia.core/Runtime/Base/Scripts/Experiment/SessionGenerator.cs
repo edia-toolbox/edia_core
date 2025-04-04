@@ -76,7 +76,6 @@ namespace Edia {
         #endregion // -------------------------------------------------------------------------------------------------------------------------------
         #region DATA GETTERS
 
-
         string GetXBlockType(string blockId) {
             return blockId.Split("-")[0];
         }
