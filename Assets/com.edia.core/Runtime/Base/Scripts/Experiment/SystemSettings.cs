@@ -24,8 +24,8 @@ namespace Edia {
         #region MAIN METHODS
 
         void InitSystemSettings() {
-            UXFFilesaver = GameObject.FindObjectOfType<UXF.LocalFileDataHander>();
-            isRemote = !FindObjectOfType<Edia.Controller.ControlPanel>();
+            UXFFilesaver = GameObject.FindFirstObjectByType<UXF.LocalFileDataHander>();
+            isRemote = !FindFirstObjectByType<Edia.Controller.ControlPanel>();
 
             // Listen to update settings requests
             EventManager.StartListening(Edia.Events.Settings.EvUpdateSystemSettings, OnEvUpdateSystemSettings);

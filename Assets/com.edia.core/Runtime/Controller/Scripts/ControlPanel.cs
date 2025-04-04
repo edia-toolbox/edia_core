@@ -45,8 +45,6 @@ namespace Edia.Controller {
         private void Init() {
             EventManager.showLog = ShowEventLog; // Eventmanager to show debug in console
 
-            ConsolePanel.gameObject.SetActive(ShowConsole);
-
             if (ControlMode is ControlModes.Remote) {
                 EventManager.StartListening(Edia.Events.ControlPanel.EvConnectionEstablished, OnEvConnectionEstablished);
             }

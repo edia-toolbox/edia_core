@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7349852898179687954}
   - component: {fileID: 7806705982716240126}
   m_Layer: 0
-  m_Name: '[ Session Generator ]'
+  m_Name: Edia-SessionGenerator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -108,8 +108,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   State: 0
   ShowLog: 0
-  TrackXrRigWithUxf: 0
   XBlockExecuters: []
+  TrackXrRigWithUxf: 0
   OnSessionStart:
     m_PersistentCalls:
       m_Calls:
@@ -295,6 +295,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 613201256216516747, guid: dd8c9c632e3b3cf42b4c84d19ed610e5,
+        type: 3}
+      propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
+      value: 1801810542
+      objectReference: {fileID: 0}
     - target: {fileID: 3176153202587011528, guid: dd8c9c632e3b3cf42b4c84d19ed610e5,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -383,6 +388,11 @@ PrefabInstance:
     - target: {fileID: 4522850482104986, guid: 0a3b6392f04558844bd340e68ced1ff9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114916036141644208, guid: 0a3b6392f04558844bd340e68ced1ff9,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6301449615104170796, guid: 0a3b6392f04558844bd340e68ced1ff9,
         type: 3}
