@@ -200,7 +200,7 @@ namespace Edia.Controller {
 			// Sanity check - for each entry in the sequence file, there should be a file with the same name
 			_xBlockSequence = UnityEngine.JsonUtility.FromJson<XBlockSequence>(_xBlockSequenceJsonString);
 
-			foreach (string s in _xBlockSequence.Sequence) {
+			foreach (string s in _xBlockSequence.sequence) {
 				bool found = false;
 				//ControlPanel.Instance.AddToConsoleLog(" src: " + s.ToLower() );
 				foreach ( string deffile in xBlockDefinitionsFileList )  {

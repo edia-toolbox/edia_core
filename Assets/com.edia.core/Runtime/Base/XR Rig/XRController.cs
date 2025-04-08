@@ -34,7 +34,9 @@ namespace Edia {
             AllowInteractive(isAllowedToInteract);
 
             _handModelChildren          = HandModel.GetComponentsInChildren<Transform>(true);
-            _controllerModelChildren    = ControllerModel.GetComponentsInChildren<Transform>(true);
+            // TODO: fix with new Interactiontoolkit setup
+            // _controllerModelChildren    = ControllerModel.GetComponentsInChildren<Transform>(true);
+            
 
             EventManager.StartListening(Edia.Events.XR.EvUpdateVisableSide, OnEvUpdateVisableSide);
             EventManager.StartListening(Edia.Events.XR.EvUpdateInteractiveSide, OnEvUpdateInteractiveSide);
@@ -148,7 +150,8 @@ namespace Edia {
             if (!isVisible)
                 return;
 
-            rayInteractor.gameObject.SetActive(onOff);
+            // TODO: fix with new Interactiontoolkit setup
+            // rayInteractor.gameObject.SetActive(onOff);
             isInteractive = onOff;
         }
 

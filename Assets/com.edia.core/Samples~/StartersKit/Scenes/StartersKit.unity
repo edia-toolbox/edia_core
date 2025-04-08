@@ -467,6 +467,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 495745569299951692, guid: 2b0488415d1cc324cb09bd0ffdc2412f,
+        type: 3}
+      propertyPath: ShowConsoleMessages
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5748721948532627485, guid: 2b0488415d1cc324cb09bd0ffdc2412f,
         type: 3}
       propertyPath: m_Name
@@ -782,7 +787,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Edia-Executer
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 394971290965201208, guid: 75410ee8e2781b74ea189d613f11bf2e, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -816,7 +822,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 086272a6b5c93c44fbf7e82cc9bb65aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShowLog: 0
+  ShowConsoleMessages: 0
 --- !u!4 &1472052192
 Transform:
   m_ObjectHideFlags: 0

@@ -23,11 +23,13 @@ namespace Edia {
 		public bool isOverlayInteractive = false;
 
 		void Awake() {
-			CheckReferences();
+			// TODO: fix with new Interactiontoolkit setup
+			// CheckReferences();
 		}
 
 		private void Start() {
-			EnableXRRayInteraction(false); // Start the system with interaction rays disabled
+			// TODO: fix with new Interactiontoolkit setup
+			// EnableXRRayInteraction(false); // Start the system with interaction rays disabled
 		}
 
 		void CheckReferences() {
