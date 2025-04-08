@@ -15,7 +15,7 @@ namespace Edia {
             }
             
             XRManager.Instance.MovePlayarea(this.transform);
-            this.Add2Console("Positioned playarea");
+            LogUtilities.AddToConsoleLog("Positioned playarea", "XRRigInitialiser");
         }
     }
 }

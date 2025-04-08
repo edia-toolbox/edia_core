@@ -12,8 +12,7 @@ namespace Edia {
 	public class XRManager : Singleton<XRManager> {
 
 		[Header("Debug")]
-		public bool showLog = false;
-		Color logColor = Color.cyan;
+		public bool ShowConsoleMessages = false;
 		[Space(10f)]
 		[Header("References")]
 		public Transform XRCam;
@@ -85,7 +84,7 @@ namespace Edia {
 		/// <summary>Turn XR hand / controller interaction possibility on or off.</summary>
 		/// <param name="onOff">Boolean</param>
 		public void EnableXRRayInteraction(bool onOff) {
-			this.Add2Console("EnableXRInteraction " + onOff);
+			AddToConsole("EnableXRInteraction " + onOff);
 			isInteractive = onOff;
 			
 			XRLeft.GetComponent<XRController>().EnableRayInteraction(onOff);
@@ -163,5 +162,11 @@ namespace Edia {
 
 		#endregion // -------------------------------------------------------------------------------------------------------------------------------
 
+		private void AddToConsole(string _msg) {
+
+			if (ShowConsoleMessages)
+				Edia.LogUtilities.AddToConsoleLog(_msg, "XRManager");
+		}
+		
 	}
 }

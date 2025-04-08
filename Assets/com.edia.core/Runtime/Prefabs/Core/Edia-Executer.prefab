@@ -53,13 +53,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4867752727246550524}
-  - component: {fileID: 5253270274182960328}
   - component: {fileID: 1707497141389606725}
   - component: {fileID: 394971290965201208}
   m_Layer: 0
   m_Name: Edia-Executer
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 2800000, guid: 90291a012df06894ca24dcaadc37b471, type: 3}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -76,24 +75,12 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 2641524404649877794}
   - {fileID: 7349852898179687954}
   - {fileID: 1247801683874336862}
   - {fileID: 6186607546878906676}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5253270274182960328
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8476789014131039586}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01f9e4ec992a2a141afb60b20b32195b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isRemote: 0
 --- !u!114 &1707497141389606725
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -106,55 +93,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdaa9530a61ec844b8c1c8c3ead22b1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  State: 0
-  ShowLog: 0
+  ShowConsoleMessages: 1
   XBlockExecuters: []
   TrackXrRigWithUxf: 0
-  OnSessionStart:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 394971290965201208}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: OnSessionStart
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnSessionPaused:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 394971290965201208}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: OnSessionPaused
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnSessionEnd:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 394971290965201208}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: OnSessionEnd
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &394971290965201208
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -167,6 +108,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4263abe1493a44c45912f7d7af87ba62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &8652329667039793225
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2641524404649877794}
+  - component: {fileID: 6287830312144476581}
+  m_Layer: 0
+  m_Name: Edia-SystemSettings
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2641524404649877794
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8652329667039793225}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4867752727246550524}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6287830312144476581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8652329667039793225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01f9e4ec992a2a141afb60b20b32195b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isRemote: 0
 --- !u!1001 &1860991935759416520
 PrefabInstance:
   m_ObjectHideFlags: 0

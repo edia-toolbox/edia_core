@@ -9,8 +9,7 @@ namespace Edia {
 	public class XBlock : MonoBehaviour {
 
 		[Header("Debug")]
-		public bool ShowLog = false;
-		Color taskColor = Color.blue;
+		public bool ShowConsoleMessages = false;
 		[HideInInspector]
 		[SerializeField]
 		public List<Action> trialSteps = new List<Action>();
@@ -19,10 +18,13 @@ namespace Edia {
 			trialSteps.Add(methodStep);
 		}
 
-		public void AddToLog(string _msg) {
-
-			if (ShowLog)
-				Edia.LogUtilities.AddToLog(_msg, "TASK", taskColor);
+		/// <summary>
+		/// Adds labeled and colored message to console if `ShowConsoleMessages` is enabled. Handy for debugging.
+		/// </summary>
+		/// <param name="_msg">Message to show</param>
+		public void AddToConsoleLog(string _msg) {
+			if (ShowConsoleMessages)
+				Edia.LogUtilities.AddToConsoleLog(_msg, this.name);
 		}
 
 		#region EVENT HOOKS

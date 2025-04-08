@@ -2,7 +2,7 @@ using System.IO;
 using UnityEditor;
 using UnityEngine;
 
-namespace Edia.EditorUtils {
+namespace Edia.Editor.Utils {
     [InitializeOnLoad]
     public class Configurator : EditorWindow {
         public Texture2D EDIAIcon;

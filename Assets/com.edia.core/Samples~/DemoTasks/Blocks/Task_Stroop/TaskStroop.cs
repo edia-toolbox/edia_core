@@ -62,7 +62,7 @@ namespace Edia {
         }
 
         public void StimuliSelected (int stimuliIndex) {
-			this.Add2Console($"Stimuli id:{stimuliIndex} pressed");
+			AddToConsoleLog($"Stimuli id:{stimuliIndex} pressed");
 
 			CheckLogResultsProceed(stimuliIndex);
 			XRManager.Instance.EnableXRRayInteraction(false);

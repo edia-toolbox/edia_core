@@ -8,8 +8,7 @@ namespace Edia.Controller {
         
         [Space(20)] [HideInInspector] 
         public ControlModes ControlMode = ControlModes.Local;
-        public bool ShowEventLog = true;
-        public bool ShowConsole = false;
+        public bool ShowConsoleMessages = true;
 
         [Header("Refs")] 
         public Transform NonActivePanelHolder = null;
@@ -42,7 +41,7 @@ namespace Edia.Controller {
         }
 
         private void Init() {
-            EventManager.showLog = ShowEventLog; // Eventmanager to show debug in console
+            EventManager.showLog = ShowConsoleMessages; // Show event calls in console for debugging
 
             if (ControlMode is ControlModes.Remote) {
                 EventManager.StartListening(Edia.Events.ControlPanel.EvConnectionEstablished, OnEvConnectionEstablished);
@@ -70,9 +69,6 @@ namespace Edia.Controller {
             InitConfigFileSearch();
         }
 
-        private void OnEvStartExperiment(eParam param) {
-        }
-
         private void InitConfigFileSearch() {
             pConfigSelection.Init();
         }
@@ -98,13 +94,24 @@ namespace Edia.Controller {
         }
 
         private void OnEvQuitApplication(eParam obj) {
-            Debug.Log($"{name}:Quiting..");
+            AddToConsoleLog(($"{name}:Quiting.."));
             Invoke("DoQuit", 1f);
         }
 
         private void DoQuit() {
-            Debug.Log($"{name}:Bye..");
+            AddToConsoleLog(($"{name}:Bye.."));
             Application.Quit();
+        }
+        
+        public void AddToConsoleLog(string msg) {
+            if (ShowConsoleMessages)
+                Edia.LogUtilities.AddToConsoleLog(msg, this.name);
+        }
+
+        public void AddToConsoleLog(string msg, LogType _type) {
+            if (_type == LogType.Error) Debug.LogError(msg);
+            else if (_type == LogType.Warning) Debug.LogWarning(msg);
+            else AddToConsoleLog(msg, _type);
         }
     }
 }

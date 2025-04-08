@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-namespace Edia.EditorUtils
+namespace Edia.Editor.Utils
 {
 	public static class LayerTools
 	{

@@ -18,7 +18,7 @@ namespace Edia {
         private void Awake() {
             EventManager.StartListening(Edia.Events.Config.EvSetSessionInfo, OnEvSetSessionInfo);
             EventManager.StartListening(Edia.Events.Config.EvSetXBlockSequence, OnEvSetXBlockSequence);
-            EventManager.StartListening(Edia.Events.Config.EvSetTaskDefinitions, OnEvSetBaseDefinitions);
+            EventManager.StartListening(Edia.Events.Config.EvSetBaseDefinitions, OnEvSetBaseDefinitions);
             EventManager.StartListening(Edia.Events.Config.EvSetXBlockDefinitions, OnEvSetXBlockDefinitions);
 
             EventManager.StartListening(Edia.Events.StateMachine.EvSessionEnded, OnFinalizeSession);
@@ -36,37 +36,48 @@ namespace Edia {
 
         private void OnEvSetSessionInfo(eParam param) {
 
-            SessionSettings.sessionInfo = UnityEngine.JsonUtility.FromJson<SessionInfo>(param.GetStrings()[0]);
-            SessionSettings.sessionInfo.session_number = int.Parse(param.GetStrings()[1]); // UXF wants an int
+            SessionSettings.SessionInfo = JsonUtility.FromJson<SessionInfo>(param.GetStrings()[0]);
+            SessionSettings.SessionInfo.SessionNumber = int.Parse(param.GetStrings()[1]); // UXF wants an int
 
             SettingsTuple participantTuple = new() {
-                key = "id",
-                value = param.GetStrings()[2]
+                Key = "id",
+                Value = param.GetStrings()[2]
             };
-            SessionSettings.sessionInfo.participant_details.Add(participantTuple);
+            SessionSettings.SessionInfo.ParticipantDetails.Add(participantTuple);
 
             _validatedJsons.Add(true);
             CheckIfReadyAndContinue();
         }
 
         private void OnEvSetXBlockSequence(eParam param) {
-            _xBlockSequence = UnityEngine.JsonUtility.FromJson<XBlockSequence>(param.GetString());
+            _xBlockSequence = JsonUtility.FromJson<XBlockSequence>(param.GetString());
             _validatedJsons.Add(true);
             CheckIfReadyAndContinue();
         }
 
         private void OnEvSetBaseDefinitions(eParam param) {
             foreach (string t in param.GetStrings()) {
-                XBlockBaseSettings EBs = UnityEngine.JsonUtility.FromJson<XBlockBaseSettings>(t);
-                _tasks.Add(EBs);
+                XBlockBaseSettings xBBs = JsonUtility.FromJson<XBlockBaseSettings>(t);
+                
+                if (xBBs.Type.ToLower() == "session") { // One of the jsons is the global session info
+                    
+                    foreach (var settingTuple in xBBs.Settings) {
+                        SessionSettings.Settings.Add(settingTuple);
+                    }
+                    foreach (var instructionTuple in xBBs.Instructions) {
+                        SessionSettings.Instructions.Add(instructionTuple);
+                    }
+                    
+                } else _tasks.Add(xBBs);
             }
+            
             _validatedJsons.Add(true);
             CheckIfReadyAndContinue();
         }
 
         private void OnEvSetXBlockDefinitions(eParam param) {
             foreach (string t in param.GetStrings()) {
-                XBlockSettings xBs = UnityEngine.JsonUtility.FromJson<XBlockSettings>(t);
+                XBlockSettings xBs = JsonUtility.FromJson<XBlockSettings>(t);
                 _xBlocks.Add(xBs);
             }
             _validatedJsons.Add(true);
@@ -81,20 +92,20 @@ namespace Edia {
         }
 
         XBlockBaseSettings GetXBlockBaseByBlockId(string blockId) {
-            int index = _xBlocks.FindIndex(x => x.blockId.ToLower() == blockId.ToLower());
-            int returnIndex = _tasks.FindIndex(x => x.subType.ToLower() == _xBlocks[index].subType.ToLower());
+            int index = _xBlocks.FindIndex(x => x.BlockId.ToLower() == blockId.ToLower());
+            int returnIndex = _tasks.FindIndex(x => x.SubType.ToLower() == _xBlocks[index].SubType.ToLower());
             return returnIndex == -1 ? null : _tasks[returnIndex];
         }
 
         XBlockSettings GetXBlockByBlockId(string blockId) {
-            int index = _xBlocks.FindIndex(x => x.blockId.ToLower() == blockId.ToLower());
+            int index = _xBlocks.FindIndex(x => x.BlockId.ToLower() == blockId.ToLower());
             return index != -1 ? _xBlocks[index] : null;
         }
 
         static List<string> GetValuesListByKey(List<SettingsTuple> tupleList, string key) {
             return tupleList
-                .Where(st => st.key == key)
-                .Select(st => st.value)
+                .Where(st => st.Key == key)
+                .Select(st => st.Value)
                 .ToList();
         }
 
@@ -108,7 +119,7 @@ namespace Edia {
                 GenerateUxfSequence();
 
                 EventManager.TriggerEvent(Edia.Events.Config.EvReadyToGo);
-                EventManager.TriggerEvent(Edia.Events.ControlPanel.EvUpdateSessionSummary, new eParam(SessionSettings.sessionInfo.GetSessionSummary()));
+                EventManager.TriggerEvent(Edia.Events.ControlPanel.EvUpdateSessionSummary, new eParam(SessionSettings.SessionInfo.GetSessionSummary()));
             }
         }
 
@@ -155,7 +166,7 @@ namespace Edia {
                 }
 
                 // Is it's XblockExecuter listed in the XBLockExecuters?
-                string assetId = xBlockBase.type.ToLower() + "-" + xBlockBase.subType.ToLower();
+                string assetId = xBlockBase.Type.ToLower() + "-" + xBlockBase.SubType.ToLower();
                 if (!Experiment.Instance.IsXblockExecuterListed(assetId)) {
                     string msg = $"XblockExecuters list does not contain gameobject named '<b>{assetId}</b>' ";
                     Experiment.Instance.ShowMessageToExperimenter(msg, true);
@@ -165,67 +176,67 @@ namespace Edia {
 
                 Block newBlock = Session.instance.CreateBlock();
 
-                if (xBlockBase.settings.Count > 0) {
-                    newBlock.settings.UpdateWithDict(Helpers.GetSettingsTupleListAsDict(xBlockBase.settings));
+                if (xBlockBase.Settings.Count > 0) {
+                    newBlock.settings.UpdateWithDict(Helpers.GetSettingsTupleListAsDict(xBlockBase.Settings));
                 }
 
-                newBlock.settings.SetValue("_start", GetValuesListByKey(xBlockBase.instructions, "_start")); //
-                newBlock.settings.SetValue("_end", GetValuesListByKey(xBlockBase.instructions, "_end")); //
+                newBlock.settings.SetValue("_start", GetValuesListByKey(xBlockBase.Instructions, "_start")); //
+                newBlock.settings.SetValue("_end", GetValuesListByKey(xBlockBase.Instructions, "_end")); //
 
                 XBlockSettings currentXBlock = GetXBlockByBlockId(blockId);
-                newBlock.settings.SetValue("blockType", currentXBlock.type.ToLower());
-                newBlock.settings.SetValue("blockId", currentXBlock.blockId.ToLower());
+                newBlock.settings.SetValue("blockType", currentXBlock.Type.ToLower());
+                newBlock.settings.SetValue("blockId", currentXBlock.BlockId.ToLower());
                 newBlock.settings.SetValue("_assetId", assetId);
 
                 // Add block specific instructions, if any
                 foreach (string s in new string[] { "_start", "_end" }) {
                     List<string> newList = newBlock.settings.GetStringList(s);
-                    newList.AddRange(GetValuesListByKey(currentXBlock.instructions, s));
+                    newList.AddRange(GetValuesListByKey(currentXBlock.Instructions, s));
                     newBlock.settings.SetValue(s, newList);
                 }
 
                 // Continue with settings
-                newBlock.settings.UpdateWithDict(Helpers.GetSettingsTupleListAsDict(currentXBlock.settings)); // add block specific settings
+                newBlock.settings.UpdateWithDict(Helpers.GetSettingsTupleListAsDict(currentXBlock.Settings)); // add block specific settings
 
                 // Add settings and trials specific for Break vs Task XBlocks
                 string currentXBlockType = GetXBlockType(blockId);
 
                 switch (currentXBlockType.ToLower()) {
                     case "break":
-                        newBlock.settings.SetValue("subType", currentXBlock.subType);
-                        newBlock.settings.SetValue("_info", GetValuesListByKey(currentXBlock.instructions, "_info"));
+                        newBlock.settings.SetValue("subType", currentXBlock.SubType);
+                        newBlock.settings.SetValue("_info", GetValuesListByKey(currentXBlock.Instructions, "_info"));
                         newBlock.CreateTrial(); // create 1 dummy trial
                         break;
 
                     case "task":
-                        newBlock.settings.SetValue("subType", currentXBlock.subType);
+                        newBlock.settings.SetValue("subType", currentXBlock.SubType);
 
                         // Add trials 
-                        if (currentXBlock.trialSettings.valueList == null || currentXBlock.trialSettings.valueList.Count == 0) {
+                        if (currentXBlock.TrialSettings.ValueList == null || currentXBlock.TrialSettings.ValueList.Count == 0) {
                             newBlock.CreateTrial(); // create 1 dummy trial in case of empty settings 
-                            this.Add2Console($"No trial settings found for XBlock {currentXBlock.subType}. Adding an empty trial.");
+                            AddToConsole($"No trial settings found for XBlock {currentXBlock.SubType}. Adding an empty trial.");
                         } else {
-                            foreach (ValueList row in currentXBlock.trialSettings.valueList) {
+                            foreach (ValueList row in currentXBlock.TrialSettings.ValueList) {
                                 Trial trial = newBlock.CreateTrial();
 
-                                for (int i = 0; i < row.values.Count; i++) {
+                                for (int i = 0; i < row.Values.Count; i++) {
 
                                     // Check if value is an array
-                                    if (row.values[i].Contains(';')) {
-                                        List<string> stringlist = row.values[i].Split(';').ToList();
+                                    if (row.Values[i].Contains(';')) {
+                                        List<string> stringlist = row.Values[i].Split(';').ToList();
                                         for (int s = 0; s < stringlist.Count; s++) {
                                             string newstring = stringlist[s].Replace(" ", string.Empty); // remove spaces 
                                             stringlist[s] = newstring;
                                         }
-                                        trial.settings.SetValue(currentXBlock.trialSettings.keys[i], stringlist); // stringlist);
+                                        trial.settings.SetValue(currentXBlock.TrialSettings.Keys[i], stringlist); // stringlist);
                                     } else {
-                                        trial.settings.SetValue(currentXBlock.trialSettings.keys[i], row.values[i]); // set values to trial
+                                        trial.settings.SetValue(currentXBlock.TrialSettings.Keys[i], row.Values[i]); // set values to trial
                                     }
                                 }
                             }
                         }
                         // Log all unique TRIAL settings keys
-                        foreach (string k in currentXBlock.trialSettings.keys) {
+                        foreach (string k in currentXBlock.TrialSettings.Keys) {
                             if (IsValidKeyForTrialResults(k))
                                 Session.instance.settingsToLog.Add(k);
                         }
@@ -246,6 +257,12 @@ namespace Edia {
             }
 
             Debug.Log("Passed session generation validation");
+        }
+        
+        private void AddToConsole(string _msg) {
+
+            if (Experiment.Instance.ShowConsoleMessages)
+                Edia.LogUtilities.AddToConsoleLog(_msg, "XRManager");
         }
     }
 

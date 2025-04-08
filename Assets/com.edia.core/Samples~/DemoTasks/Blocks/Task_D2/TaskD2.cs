@@ -47,7 +47,7 @@ public class TaskD2 : XBlock {
 	}
 
 	public void TaskDoneBtnPressed() {
-		this.Add2Console("TaskDoneBtnPressed");
+		AddToConsoleLog("TaskDoneBtnPressed");
 		Experiment.Instance.Proceed();
 	}
 

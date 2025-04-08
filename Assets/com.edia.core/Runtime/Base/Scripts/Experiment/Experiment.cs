@@ -25,12 +25,11 @@ namespace Edia {
 			Ended
 		}
 
-		public States State = States.Idle;
+		States State = States.Idle;
 		States _prevState = States.Idle;
 
-		[Header("Editor Settings")]
-		public bool ShowLog = false;
-		Color LogColor = Color.green;
+		[Header("Debug")]
+		public bool ShowConsoleMessages = false;
 
 		[Header("Experiment")]
 		[HelpBox("<size=14><color=#00ee30><b>XBlock Executers</b></color></size>\nList of gameobjects containing the functional Xblock code. \nNaming convention: [type]-[subtype]", HelpBoxMessageType.None)]
@@ -40,11 +39,11 @@ namespace Edia {
 		[Tooltip("Enable Position&Rotation tracker from UXF which stores data to session folder. !Might have impact on FPS with long trials.")]
 		public bool TrackXrRigWithUxf = false;
 
-		[Space(10)]
-		[Header("Event hooks\n\nOptional event hooks to use in your task")]
-		public UnityEvent OnSessionStart = null;
-		public UnityEvent OnSessionPaused = null;
-		public UnityEvent OnSessionEnd = null;
+		// [Space(10)]
+		// [Header("Event hooks\n\nOptional event hooks to use in your task")]
+		// public UnityEvent OnSessionStart = null;
+		// public UnityEvent OnSessionPaused = null;
+		// public UnityEvent OnSessionEnd = null;
 
 		// Fields
 		int _activeSessionBlockNum = 0;
@@ -61,7 +60,7 @@ namespace Edia {
 #region MONO METHODS
 
 		void Awake() {
-			EventManager.showLog = ShowLog;
+			EventManager.showLog = ShowConsoleMessages;
 		}
 
 		void OnDestroy() {
@@ -187,7 +186,7 @@ namespace Edia {
 			EventManager.TriggerEvent(Edia.Events.ControlPanel.EvUpdateProgressStatus, new eParam(StringTools.CombineToOneString(infos.ToArray())));
 		}
 		void UpdateSessionSummary() {
-			EventManager.TriggerEvent(Edia.Events.ControlPanel.EvUpdateSessionSummary, new eParam(SessionSettings.sessionInfo.GetSessionSummary()));
+			EventManager.TriggerEvent(Edia.Events.ControlPanel.EvUpdateSessionSummary, new eParam(SessionSettings.SessionInfo.GetSessionSummary()));
 		}
 
 		void UpdateBlockProgress() {
@@ -271,10 +270,10 @@ namespace Edia {
 			ConfigureXRrigTracking();
 
 			Session.instance.Begin(
-			  SessionSettings.sessionInfo.experiment == string.Empty ? "N.A." : SessionSettings.sessionInfo.experiment,
-			  SessionSettings.sessionInfo.GetParticipantID(),
-			  SessionSettings.sessionInfo.session_number,
-			  SessionSettings.sessionInfo.GetParticipantDetailsAsDict()
+			  SessionSettings.SessionInfo.Experiment == string.Empty ? "N.A." : SessionSettings.SessionInfo.Experiment,
+			  SessionSettings.SessionInfo.GetParticipantID(),
+			  SessionSettings.SessionInfo.SessionNumber,
+			  SessionSettings.SessionInfo.GetParticipantDetailsAsDict()
 			);
 
 			UpdateProgressStatus("Session started");
@@ -295,7 +294,7 @@ namespace Edia {
 		}
 
 		void OnEvQuitApplication(eParam obj) {
-			AddToLog("Quiting..");
+			AddToConsole("Quiting..");
 			Application.Quit();
 		}
 
@@ -356,7 +355,7 @@ namespace Edia {
 
 		/// <summary>Start of the UXF session. </summary>
 		void OnSessionBeginUXF(Session session) {
-			OnSessionStart?.Invoke();
+			// OnSessionStart?.Invoke();
 
 			State = States.Running;
 			_activeSessionBlockNum = 0;
@@ -376,7 +375,7 @@ namespace Edia {
 
 		/// <summary>Called from UXF session. </summary>
 		void OnSessionEndUXF(Session session) {
-			OnSessionEnd?.Invoke();
+			// OnSessionEnd?.Invoke();
 
 			EnableAllXBlocks(false);
 
@@ -396,7 +395,7 @@ namespace Edia {
 
 		/// <summary>Done with all trial, clean up and call UXF to end this session</summary>
 		void FinalizeSession() {
-			AddToLog("FinalizeSession");
+			AddToConsole("FinalizeSession");
 
 			// clean
 			UpdateProgressStatus("Finalizing Session");
@@ -405,10 +404,10 @@ namespace Edia {
 
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
-#region STATEMACHINE BLOCKS
+#region STATEMACHINE XBLOCKS
 
 		void BlockStart() {
-			AddToLog("Block Start");
+			AddToConsole("Block Start");
 
 			// Set new storedBlockNum value
 			_activeSessionBlockNum = Session.instance.currentBlockNum;
@@ -460,7 +459,7 @@ namespace Edia {
 
 			// Is this then the last trial of the session?
 			if (Session.instance.LastTrial == Session.instance.CurrentTrial) {
-				AddToLog("Reached end of trials ");
+				AddToConsole("Reached end of trials ");
 				FinalizeSession();
 				return;
 			}
@@ -555,7 +554,7 @@ namespace Edia {
 #region STATEMACHINE TRIAL STEPS
 
 		void StartTrial() {
-			AddToLog("StartTrial");
+			AddToConsole("StartTrial");
 
 			_activeXBlock.OnStartTrial();
 			UpdateTrialProgress();
@@ -566,7 +565,7 @@ namespace Edia {
 
 		/// <summary>Called after the task sequence is done </summary>
 		void EndTrial() {
-			AddToLog("Trial Steps DONE");
+			AddToConsole("Trial Steps DONE");
 			Session.instance.EndCurrentTrial(); // tells UXF to end this trial and fire the event that follows
 		}
 
@@ -589,7 +588,7 @@ namespace Edia {
 
 		/// <summary>Call next step in the trial.</summary>
 		void NextTrialStep() {
-			if (ShowLog) AddToLog("Nextstep >");
+			if (ShowConsoleMessages) AddToConsole("Nextstep >");
 
 			if (_proceedTimer != null) {
 				StopCoroutine(_proceedTimer); // Kill timer, if any
@@ -627,7 +626,7 @@ namespace Edia {
 			EventManager.StartListening(Edia.Events.StateMachine.EvProceed, SessionResumeAfterBreak);
 			UpdateProgressStatus("Pause");
 
-			OnSessionPaused.Invoke();
+			// OnSessionPaused.Invoke();
 
 			EnableProceedButton(true);
 			EnablePauseButton(false);
@@ -685,7 +684,7 @@ namespace Edia {
 
 
 		private void AddToExecutionOrderLog(string description) {
-			AddToLog(description);
+			AddToConsole(description);
 			UXF.UXFDataRow newRow = new UXFDataRow();
 			newRow.Add(("timestamp", Time.time)); // Log timestamp
 			newRow.Add(("executed", description));
@@ -706,10 +705,10 @@ namespace Edia {
 			EventManager.TriggerEvent(Edia.Events.DataHandlers.EvStoreMarker, new eParam(annotation));
 		}
 
-		private void AddToLog(string _msg) {
+		private void AddToConsole(string _msg) {
 
-			if (ShowLog)
-				Edia.LogUtilities.AddToLog(_msg, "EXP", LogColor);
+			if (ShowConsoleMessages)
+				LogUtilities.AddToConsoleLog(_msg, "EXP");
 		}
 
 

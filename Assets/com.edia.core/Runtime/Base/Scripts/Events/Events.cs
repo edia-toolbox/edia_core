@@ -49,7 +49,7 @@ namespace Edia.Events {
         public const string EvSetXBlockSequence = "EvSetXBlockSequence";
 
         /// <summary>Set sessions block sequence. Expects JSON string</summary>
-        public const string EvSetTaskDefinitions = "EvSetTaskDefinitions";
+        public const string EvSetBaseDefinitions = "EvSetBaseDefinitions";
 
         /// <summary>Set sessions block sequence. Expects JSON string</summary>
         public const string EvSetXBlockDefinitions = "EvSetXBlockDefinitions";
