@@ -91,8 +91,6 @@ namespace Edia {
     }
 
     public static class SessionSettings {
-        public static List<SettingsTuple> settings     = new();
-        public static List<SettingsTuple> instructions = new();
         public static SessionInfo         sessionInfo  = new();
     }
 

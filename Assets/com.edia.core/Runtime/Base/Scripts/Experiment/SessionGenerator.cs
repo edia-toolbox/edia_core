@@ -10,11 +10,12 @@ namespace Edia {
     public class SessionGenerator : MonoBehaviour {
 
         // Internal checkup lists
-        private readonly List<XBlockBaseSettings> _tasks = new();
-        private readonly List<XBlockSettings> _xBlocks = new();
-        private readonly List<bool> _validatedJsons = new();
-        private XBlockSequence _xBlockSequence;
-
+        private readonly List<XBlockBaseSettings> _bases          = new();
+        private readonly List<XBlockSettings>     _xBlocks        = new();
+        private readonly List<bool>               _validatedJsons = new();
+        private          XBlockSequence           _xBlockSequence;
+        private          XBlockBaseSettings       _sessionXblock = new();
+        
         private void Awake() {
             EventManager.StartListening(Edia.Events.Config.EvSetSessionInfo, OnEvSetSessionInfo);
             EventManager.StartListening(Edia.Events.Config.EvSetXBlockSequence, OnEvSetXBlockSequence);
@@ -60,15 +61,9 @@ namespace Edia {
                 XBlockBaseSettings xBBs = JsonUtility.FromJson<XBlockBaseSettings>(t);
                 
                 if (xBBs.type.ToLower() == "session") { // One of the jsons is the global session info
+                    _sessionXblock = xBBs;
                     
-                    foreach (var settingTuple in xBBs.settings) {
-                        SessionSettings.settings.Add(settingTuple);
-                    }
-                    foreach (var instructionTuple in xBBs.instructions) {
-                        SessionSettings.instructions.Add(instructionTuple);
-                    }
-                    
-                } else _tasks.Add(xBBs);
+                } else _bases.Add(xBBs);
             }
             
             _validatedJsons.Add(true);
@@ -93,8 +88,8 @@ namespace Edia {
 
         XBlockBaseSettings GetXBlockBaseByBlockId(string blockId) {
             int index = _xBlocks.FindIndex(x => x.blockId.ToLower() == blockId.ToLower());
-            int returnIndex = _tasks.FindIndex(x => x.subType.ToLower() == _xBlocks[index].subType.ToLower());
-            return returnIndex == -1 ? null : _tasks[returnIndex];
+            int returnIndex = _bases.FindIndex(x => x.subType.ToLower() == _xBlocks[index].subType.ToLower());
+            return returnIndex == -1 ? null : _bases[returnIndex];
         }
 
         XBlockSettings GetXBlockByBlockId(string blockId) {
@@ -155,6 +150,15 @@ namespace Edia {
                 return;
             }
 
+            // Set session UXF settings
+            foreach (SettingsTuple tuple in _sessionXblock.settings) {
+                Session.instance.settings.SetValue(tuple.key, tuple.value);
+            }
+
+            foreach (SettingsTuple instructionTuple in _sessionXblock.instructions ) {
+                Session.instance.settings.SetValue(instructionTuple.key, instructionTuple.value);
+            }
+            
             // Loop through BlockList, create blocks
             foreach (var blockId in _xBlockSequence.sequence) {
 

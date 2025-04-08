@@ -373,7 +373,7 @@ namespace Edia {
             // eye calibration option enabled
             EnableEyeCalibrationTrigger(true);
 
-            string welcomeMsg = SessionSettings.instructions.FirstOrDefault(entry => entry.key == "_start")?.value ?? "No '_start' message defined in 'session.json'";
+            string welcomeMsg = Session.instance.settings.GetString( "_start") ?? "No '_start' message defined in 'session.json'";
             ShowMessageToUser(welcomeMsg);
         }
 
@@ -393,7 +393,7 @@ namespace Edia {
 
             Reset();
             
-            string endingMsg = SessionSettings.instructions.FirstOrDefault(entry => entry.key == "_end")?.value ?? "No '_end' message defined in 'session.json'";
+            string endingMsg = Session.instance.settings.GetString( "_end") ?? "No '_end' message defined in 'session.json'";
             ShowMessageToUser(endingMsg);
             HideMessagePanelButtons();
         }
@@ -634,7 +634,7 @@ namespace Edia {
             EnablePauseButton(false);
             EnableEyeCalibrationTrigger(true);
             
-            string pauseMsg = SessionSettings.instructions.FirstOrDefault(entry => entry.key == "_pause")?.value ?? "No '_pause' message defined in 'session.json'";
+            string pauseMsg = Session.instance.settings.GetString("_pause") ?? "No '_pause' message defined in 'session.json'";
             ShowMessageToUser(pauseMsg);
         }
 
@@ -647,7 +647,6 @@ namespace Edia {
             EnableEyeCalibrationTrigger(false);
 
             Session.instance.BeginNextTrialSafe();
-            //Session.instance.Invoke("BeginNextTrialSafe", 0.5f);
         }
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
