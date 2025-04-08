@@ -92,6 +92,7 @@ namespace Edia {
 
     public static class SessionSettings {
         public static SessionInfo         sessionInfo  = new();
+        public static List<SettingsTuple> settings = new();
     }
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------

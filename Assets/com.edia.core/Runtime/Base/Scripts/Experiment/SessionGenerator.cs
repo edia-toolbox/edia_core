@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UXF;
@@ -62,7 +60,6 @@ namespace Edia {
                 
                 if (xBBs.type.ToLower() == "session") { // One of the jsons is the global session info
                     _sessionXblock = xBBs;
-                    
                 } else _bases.Add(xBBs);
             }
             
@@ -124,7 +121,7 @@ namespace Edia {
 
             foreach (string blockId in _xBlockSequence.sequence) {
                 if (GetXBlockByBlockId(blockId) == null) {
-                    Debug.LogWarningFormat("No details found for <b>{0}</b>", blockId);
+                    AddToConsole($"No details found for <b>blockId</b>", LogType.Error);
                     success = false;
                 }
             }
@@ -132,6 +129,12 @@ namespace Edia {
             return success;
         }
 
+        /// <summary>
+        /// Validates if a given key is suitable for trial results by checking
+        /// it is not part of the session's settings to log and does not start with an underscore.
+        /// </summary>
+        /// <param name="k">The key to be validated.</param>
+        /// <return>Returns true if the key is valid for trial results, otherwise false.</return>
         private static bool IsValidKeyForTrialResults(string k) {
             return !Session.instance.settingsToLog.Contains(k) && !k.StartsWith("_");
         }
@@ -143,29 +146,20 @@ namespace Edia {
         /// <summary>
         /// Generates the UXF sequence based on the supplied Json files and database
         /// </summary>
-        void GenerateUxfSequence() {
+        private void GenerateUxfSequence() {
             // First validate 
             if (!ValidateBlockList()) {
-                Debug.LogError("Supplied blocklist is invalid");
+                AddToConsole("Supplied blocklist is invalid", LogType.Error);
                 return;
             }
 
-            // Set session UXF settings
-            foreach (SettingsTuple tuple in _sessionXblock.settings) {
-                Session.instance.settings.SetValue(tuple.key, tuple.value);
-            }
-
-            foreach (SettingsTuple instructionTuple in _sessionXblock.instructions ) {
-                Session.instance.settings.SetValue(instructionTuple.key, instructionTuple.value);
-            }
-            
             // Loop through BlockList, create blocks
             foreach (var blockId in _xBlockSequence.sequence) {
 
                 // Find the according XBlockBase (e.g., Task or Break definition) and get global settings
                 XBlockBaseSettings xBlockBase = GetXBlockBaseByBlockId(blockId);
                 if (xBlockBase == null) {
-                    Debug.LogError($"Failed getting details for {blockId} ");
+                    AddToConsole($"Failed getting details for {blockId} ", LogType.Error);
                     return;
                 }
 
@@ -174,7 +168,7 @@ namespace Edia {
                 if (!Experiment.Instance.IsXblockExecuterListed(assetId)) {
                     string msg = $"XblockExecuters list does not contain gameobject named '<b>{assetId}</b>' ";
                     Experiment.Instance.ShowMessageToExperimenter(msg, true);
-                    Debug.LogError(msg);
+                    AddToConsole(msg, LogType.Error);
                     return;
                 }
 
@@ -249,7 +243,7 @@ namespace Edia {
                     default:
                         string msg = $"XBlock type must be either 'Task' or 'Break'; cannot be '{currentXBlockType}'.";
                         Experiment.Instance.ShowMessageToExperimenter(msg, true);
-                        Debug.LogError(msg);
+                        AddToConsole(msg, LogType.Error);
                         break;
                 }
 
@@ -258,15 +252,33 @@ namespace Edia {
                     if (IsValidKeyForTrialResults(k))
                         Session.instance.settingsToLog.Add(k);
                 }
+                
+                // Set session UXF settings in SessionSettings so when Session start we can grab them from there.
+                foreach (SettingsTuple tuple in _sessionXblock.settings) {
+                    SessionSettings.settings.Add(tuple);
+                    
+                    if (IsValidKeyForTrialResults(tuple.key))
+                        Session.instance.settingsToLog.Add(tuple.key);
+                }
+
+                foreach (SettingsTuple instructionTuple in _sessionXblock.instructions ) {
+                    if (IsValidKeyForTrialResults(instructionTuple.key))
+                        SessionSettings.settings.Add(instructionTuple);
+                }
             }
 
-            Debug.Log("Passed session generation validation");
+            Debug.Log("Passed UXF session generation validation");
         }
         
         private void AddToConsole(string _msg) {
-
             if (Experiment.Instance.ShowConsoleMessages)
-                Edia.LogUtilities.AddToConsoleLog(_msg, "XRManager");
+                Edia.LogUtilities.AddToConsoleLog(_msg, "SessionGenerator");
+        }
+        
+        private void AddToConsole(string msg, LogType _type) {
+            if (_type == LogType.Error) Debug.LogError(msg);
+            else if (_type == LogType.Warning) Debug.LogWarning(msg);
+            else AddToConsole(msg, _type);
         }
     }
 

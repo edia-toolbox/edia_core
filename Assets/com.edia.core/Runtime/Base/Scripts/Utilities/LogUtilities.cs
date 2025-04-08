@@ -12,7 +12,8 @@ namespace Edia {
         }
 
         private static Color GenerateNewColor(string indicator) {
-            Color newColor = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
+            // Color newColor = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
+            Color newColor = Constants.RandomEdiaColor();
             logColors.Add(indicator, newColor);
             return newColor;
         }

@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using UnityEngine;
-using UnityEngine.Events;
 using UXF;
 
 namespace Edia {
@@ -23,7 +22,6 @@ namespace Edia {
             Running,
             WaitingOnProceed,
             Paused,
-            Ended
         }
 
         States State      = States.Idle;
@@ -31,7 +29,8 @@ namespace Edia {
 
         [Header("Debug")]
         public bool ShowConsoleMessages = false;
-
+        public bool ShowEventMessages = false;
+        
         [Header("Experiment")]
         [HelpBox(
             "<size=14><color=#00ee30><b>XBlock Executers</b></color></size>\nList of gameobjects containing the functional Xblock code. \nNaming convention: [type]-[subtype]",
@@ -58,7 +57,7 @@ namespace Edia {
 #region MONO METHODS
 
         void Awake() {
-            EventManager.showLog = ShowConsoleMessages;
+            EventManager.showLog = ShowEventMessages;
         }
 
         void OnDestroy() {
@@ -275,7 +274,8 @@ namespace Edia {
                 SessionSettings.sessionInfo.experiment == string.Empty ? "N.A." : SessionSettings.sessionInfo.experiment,
                 SessionSettings.sessionInfo.GetParticipantID(),
                 SessionSettings.sessionInfo.sessionNumber,
-                SessionSettings.sessionInfo.GetParticipantDetailsAsDict()
+                SessionSettings.sessionInfo.GetParticipantDetailsAsDict(),
+                new Settings(Helpers.GetSettingsTupleListAsDict(SessionSettings.settings))
             );
 
             UpdateProgressStatus("Session started");
