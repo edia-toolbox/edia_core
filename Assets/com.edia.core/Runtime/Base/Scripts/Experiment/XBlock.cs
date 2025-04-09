@@ -5,37 +5,49 @@ using UnityEngine;
 
 namespace Edia {
 
-	[System.Serializable]
-	public class XBlock : MonoBehaviour {
+    [System.Serializable]
+    public class XBlock : MonoBehaviour {
 
-		[Header("Debug")]
-		public bool ShowConsoleMessages = false;
-		[HideInInspector]
-		[SerializeField]
-		public List<Action> trialSteps = new List<Action>();
+        [Header("Debug")]
+        public bool ShowConsoleMessages = false;
 
-		public void AddToTrialSequence(Action methodStep) {
-			trialSteps.Add(methodStep);
-		}
+        [HideInInspector]
+        [SerializeField]
+        public List<Action> trialSteps = new List<Action>();
 
-		/// <summary>
-		/// Adds labeled and colored message to console if `ShowConsoleMessages` is enabled. Handy for debugging.
-		/// </summary>
-		/// <param name="_msg">Message to show</param>
-		public void AddToConsoleLog(string _msg) {
-			if (ShowConsoleMessages)
-				Edia.LogUtilities.AddToConsoleLog(_msg, this.name);
-		}
+        public void AddToTrialSequence(Action methodStep) {
+            trialSteps.Add(methodStep);
+        }
 
-		#region EVENT HOOKS
+        /// <summary>
+        /// Adds labeled and colored message to console if `ShowConsoleMessages` is enabled. Handy for debugging.
+        /// </summary>
+        /// <param name="_msg">Message to show</param>
+        public void AddToConsoleLog(string _msg) {
+            if (ShowConsoleMessages)
+                Edia.LogUtilities.AddToConsoleLog(_msg, this.name);
+        }
 
-		public virtual void OnBlockStart() { }
-		public virtual void OnStartTrial() { }
-		public virtual void OnEndTrial() { }
-		public virtual void OnBetweenSteps() { }
-		public virtual void OnBlockOutro() { }
-		public virtual void OnBlockEnd() { }
+#region ---- EVENT HOOKS
 
-		#endregion // -------------------------------------------------------------------------------------------------------------------------------
-	}
+        public virtual void OnBlockStart() {
+        }
+
+        public virtual void OnStartTrial() {
+        }
+
+        public virtual void OnEndTrial() {
+        }
+
+        public virtual void OnBetweenSteps() {
+        }
+
+        public virtual void OnBlockOutro() {
+        }
+
+        public virtual void OnBlockEnd() {
+        }
+
+#endregion
+    }
 }

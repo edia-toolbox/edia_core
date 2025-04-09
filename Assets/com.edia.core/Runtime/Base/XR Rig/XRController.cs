@@ -36,7 +36,6 @@ namespace Edia {
             _handModelChildren          = HandModel.GetComponentsInChildren<Transform>(true);
             // TODO: fix with new Interactiontoolkit setup
             // _controllerModelChildren    = ControllerModel.GetComponentsInChildren<Transform>(true);
-            
 
             EventManager.StartListening(Edia.Events.XR.EvUpdateVisableSide, OnEvUpdateVisableSide);
             EventManager.StartListening(Edia.Events.XR.EvUpdateInteractiveSide, OnEvUpdateInteractiveSide);
