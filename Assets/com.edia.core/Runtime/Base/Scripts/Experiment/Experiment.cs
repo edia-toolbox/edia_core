@@ -31,7 +31,7 @@ namespace Edia {
         [HelpBox(
             "<size=14><color=#00ee30><b>XBlock Executers</b></color></size>\nList of gameobjects containing the functional Xblock code. \nNaming convention: [type]-[subtype]",
             HelpBoxMessageType.None)]
-        public List<XBlock> XBlockExecuters = new();
+        public List<XBlock> Executors = new();
 
         [Header("Settings")]
         [Tooltip("Enable Position&Rotation tracker from UXF which stores data to session folder. !Might have impact on FPS with long trials.")]
@@ -93,20 +93,20 @@ namespace Edia {
             List<string> msgs    = new();
 
             // Are there executers?
-            if (XBlockExecuters == null || XBlockExecuters.Count == 0) {
+            if (Executors == null || Executors.Count == 0) {
                 isValid = false;
                 msgs.Add("XBLock Executers list is empty!");
             }
 
             // Are there executers with the same name?
-            var names = XBlockExecuters.Select(g => g.name);
+            var names = Executors.Select(g => g.name);
             if (names.Count() != names.Distinct().Count()) {
                 msgs.Add("All XBlock Executers need unique names!");
                 isValid = false;
             }
 
             // Are the gameobjects in Experiment.blocks properly named? <type>_<subtype>
-            foreach (XBlock g in XBlockExecuters) {
+            foreach (XBlock g in Executors) {
                 if (!Regex.IsMatch(g.name, @"^[a-z0-9]+-[a-z0-9\-'().,_]+$")) {
                     msgs.Add($"Invalid gameobject (XBlock Executer) naming format found in: <b>{g.name}</b>; must adhere to: <type>-<subtype>");
                     isValid = false;
@@ -125,7 +125,7 @@ namespace Edia {
         }
 
         void XBlockNamesToLower() {
-            foreach (XBlock g in XBlockExecuters) {
+            foreach (XBlock g in Executors) {
                 g.name = g.name.ToLower();
             }
 
@@ -133,7 +133,7 @@ namespace Edia {
         }
 
         void EnableAllXBlocks(bool onOff) {
-            foreach (XBlock xb in XBlockExecuters) {
+            foreach (XBlock xb in Executors) {
                 xb.enabled = onOff;
                 xb.gameObject.SetActive(onOff);
             }
@@ -146,7 +146,7 @@ namespace Edia {
         /// <param name="assetId"></param>
         /// <returns></returns>
         public bool IsXblockExecuterListed(string assetId) {
-            return XBlockExecuters.Any(go => go.name == assetId);
+            return Executors.Any(go => go.name == assetId);
         }
         // \endcond
 
@@ -415,7 +415,7 @@ namespace Edia {
 
             // Set new storedBlockNum value
             _activeSessionBlockNum = Session.instance.currentBlockNum;
-            _activeXBlock          = XBlockExecuters[XBlockExecuters.FindIndex(x => x.name == Session.instance.CurrentBlock.settings.GetString("_assetId"))];
+            _activeXBlock          = Executors[Executors.FindIndex(x => x.name == Session.instance.CurrentBlock.settings.GetString("_assetId"))];
             _activeXBlock.enabled  = true;
             _activeXBlock.gameObject.SetActive(true);
             _activeXBlock.OnBlockStart();

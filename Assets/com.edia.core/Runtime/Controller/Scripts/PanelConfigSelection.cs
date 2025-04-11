@@ -87,7 +87,7 @@ namespace Edia.Controller {
 			if (!ValidateConfigs())
 				return;
 
-			ControlPanel.Instance.AddToConsole("Passed config file validation");
+			ControlPanel.Instance.AddToConsole("Config file validation OK");
 
 			EventManager.TriggerEvent(Edia.Events.Config.EvSetSessionInfo, new eParam(new string[] { _sessionInfoJsonString, _session.Split('-')[1], _subject.Split('-')[1] }));
 			EventManager.TriggerEvent(Edia.Events.Config.EvSetXBlockSequence, new eParam(_xBlockSequenceJsonString));

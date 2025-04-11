@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using UnityEditor.VersionControl;
 using UnityEngine;
+using UXF;
 
 namespace Edia {
     /// <summary>Static definitions</summary>
@@ -23,13 +25,6 @@ namespace Edia {
             ENG,
             DU
         }
-
-        // List of possible resolutions
-        public static List<Vector2> screenResolutions = new List<Vector2>() {
-            new Vector2(1280, 720),
-            new Vector2(1920, 1080),
-            new Vector2(2048, 1440)
-        };
 
         public enum EyeId {
             LEFT,
@@ -73,7 +68,7 @@ namespace Edia {
 
         public static Color RandomEdiaColor() {
             var colorsList = new List<Color>(EdiaColors.Values);
-            return colorsList[Random.Range(0, colorsList.Count)];
+            return colorsList[Random.Range(0, colorsList.Count-2)];
         }
 
         private static Color ParseColor(string hex, Color fallback) {

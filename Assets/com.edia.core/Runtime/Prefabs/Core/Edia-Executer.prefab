@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4092632210481146006
+--- !u!1 &3281142758131656881
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,42 +8,63 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7349852898179687954}
-  - component: {fileID: 7806705982716240126}
+  - component: {fileID: 5852006597980438440}
+  - component: {fileID: 6724964435829715455}
+  - component: {fileID: 1212495749819934148}
   m_Layer: 0
-  m_Name: Edia-SessionGenerator
+  m_Name: Edia-managers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7349852898179687954
+--- !u!4 &5852006597980438440
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4092632210481146006}
+  m_GameObject: {fileID: 3281142758131656881}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4867752727246550524}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7806705982716240126
+--- !u!114 &6724964435829715455
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4092632210481146006}
+  m_GameObject: {fileID: 3281142758131656881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01f9e4ec992a2a141afb60b20b32195b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isRemote: 0
+--- !u!114 &1212495749819934148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3281142758131656881}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2df30ba022472844abd7131e398c9d18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _xBlockSequence:
+    sequence: []
+  _sessionXblock:
+    type: 
+    subType: 
+    settings: []
+    instructions: []
 --- !u!1 &8476789014131039586
 GameObject:
   m_ObjectHideFlags: 0
@@ -74,8 +95,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2641524404649877794}
-  - {fileID: 7349852898179687954}
+  - {fileID: 5852006597980438440}
   - {fileID: 1247801683874336862}
   - {fileID: 6186607546878906676}
   m_Father: {fileID: 0}
@@ -92,54 +112,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdaa9530a61ec844b8c1c8c3ead22b1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShowConsoleMessages: 1
-  XBlockExecuters: []
+  Executors: []
   TrackXrRigWithUxf: 0
---- !u!1 &8652329667039793225
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2641524404649877794}
-  - component: {fileID: 6287830312144476581}
-  m_Layer: 0
-  m_Name: Edia-SystemSettings
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2641524404649877794
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8652329667039793225}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4867752727246550524}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6287830312144476581
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8652329667039793225}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01f9e4ec992a2a141afb60b20b32195b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isRemote: 0
+  ShowConsoleMessages: 1
+  ShowEventMessages: 0
 --- !u!1001 &1860991935759416520
 PrefabInstance:
   m_ObjectHideFlags: 0

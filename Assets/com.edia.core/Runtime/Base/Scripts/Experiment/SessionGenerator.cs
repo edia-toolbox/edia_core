@@ -10,7 +10,7 @@ namespace Edia {
         // Internal checkup lists
         public readonly  List<XBlockBaseSettings> _bases          = new();
         public readonly  List<XBlockSettings>     _xBlocks        = new();
-        private readonly List<bool>               _validatedJsons = new();
+        private readonly List<bool>               _validated = new();
         public           XBlockSequence           _xBlockSequence;
         public           XBlockBaseSettings       _sessionXblock = new();
 
@@ -28,7 +28,7 @@ namespace Edia {
         }
 
         public void Reset() {
-            _validatedJsons.Clear();
+            _validated.Clear();
         }
 
 #region EVENT HANDLING
@@ -42,15 +42,20 @@ namespace Edia {
                 value = param.GetStrings()[2]
             };
             SessionSettings.sessionInfo.participantDetails.Add(participantTuple);
-
-            _validatedJsons.Add(true);
+    
+            
+            _validated.Add(true);
+            AddToConsole($"[{_validated.Count} of 5] Session info OK");
+            
             CheckIfReadyAndContinue();
         }
 
         private void OnEvSetXBlockSequence(eParam param) {
             _xBlockSequence = JsonUtility.FromJson<XBlockSequence>(param.GetString());
-            AddToConsole($"XBlockSequence: {param.GetString()}");
-            _validatedJsons.Add(true);
+
+            AddToConsole($"[{_validated.Count} of 5] Session sequence OK");
+            
+            _validated.Add(true);
             CheckIfReadyAndContinue();
         }
 
@@ -58,14 +63,15 @@ namespace Edia {
             foreach (string t in param.GetStrings()) {
                 XBlockBaseSettings xBBs = JsonUtility.FromJson<XBlockBaseSettings>(t);
 
-                if (xBBs.type.ToLower() == "session") {
-                    // One of the jsons is the global session info
+                if (xBBs.type.ToLower() == "session") { // One of the jsons is the global session info
                     _sessionXblock = xBBs;
                 }
                 else _bases.Add(xBBs);
             }
 
-            _validatedJsons.Add(true);
+            _validated.Add(true);
+            AddToConsole($"[{_validated.Count} of 5] Session base definitions OK");
+            
             CheckIfReadyAndContinue();
         }
 
@@ -75,7 +81,9 @@ namespace Edia {
                 _xBlocks.Add(xBs);
             }
 
-            _validatedJsons.Add(true);
+            _validated.Add(true);
+            AddToConsole($"[{_validated.Count} of 5] Session block definitions OK");
+            
             CheckIfReadyAndContinue();
         }
 
@@ -108,14 +116,16 @@ namespace Edia {
 #region VALIDATORS
 
         void CheckIfReadyAndContinue() {
-            // TODO: Is there a more elegant way of doing this?
-
-            if (_validatedJsons.Count == 4) {
+            
+            if (_validated.Count == 4) {
                 if (!GenerateUxfSequence()) {
                     AddToConsole("Failed to generate session sequence", LogType.Error);
                     return;
                 }
 
+                _validated.Add(true);
+                AddToConsole($"[{_validated.Count} of 5] Session generation DONE", LogType.Error);
+                
                 EventManager.TriggerEvent(Edia.Events.Config.EvReadyToGo);
                 EventManager.TriggerEvent(Edia.Events.ControlPanel.EvUpdateSessionSummary, new eParam(SessionSettings.sessionInfo.GetSessionSummary()));
             }
@@ -146,7 +156,7 @@ namespace Edia {
         }
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
-#region UXF
+#region UXF CONVERSION
 
         /// <summary>
         /// Generates the UXF sequence based on the supplied Json files and database
@@ -169,8 +179,8 @@ namespace Edia {
                 // Is it's XblockExecuter listed in the XBLockExecuters?
                 string assetId = xBlockBase.type.ToLower() + "-" + xBlockBase.subType.ToLower();
                 if (!Experiment.Instance.IsXblockExecuterListed(assetId)) {
-                    string msg = $"XblockExecuters list does not contain gameobject named '<b>{assetId}</b>' ";
-                    Experiment.Instance.ShowMessageToExperimenter(msg, true);
+                    var msg = $"Executors list does not contain a gameobject named '<b>{assetId}</b>' ";
+                    Experiment.Instance.ShowMessageToExperimenter(msg, false);
                     AddToConsole(msg, LogType.Error);
                     return false;
                 }
@@ -191,7 +201,7 @@ namespace Edia {
 
                 // Add block specific instructions, if any
                 foreach (string s in new string[] { "_start", "_end" }) {
-                    List<string> newList = newBlock.settings.GetStringList(s);
+                    var newList = newBlock.settings.GetStringList(s);
                     newList.AddRange(GetValuesListByKey(currentXBlock.instructions, s));
                     newBlock.settings.SetValue(s, newList);
                 }
@@ -199,10 +209,7 @@ namespace Edia {
                 // Continue with settings
                 newBlock.settings.UpdateWithDict(Helpers.GetSettingsTupleListAsDict(currentXBlock.settings)); // add block specific settings
 
-                // Add settings and trials specific for Break vs Task XBlocks
-                string currentXBlockType = GetXBlockType(blockId);
-
-                switch (currentXBlockType.ToLower()) {
+                switch (GetXBlockType(blockId).ToLower()) {
                     case "break":
                         newBlock.settings.SetValue("subType", currentXBlock.subType);
                         newBlock.settings.SetValue("_info", GetValuesListByKey(currentXBlock.instructions, "_info"));
@@ -221,12 +228,12 @@ namespace Edia {
                             foreach (ValueList row in currentXBlock.trialSettings.valueList) {
                                 Trial trial = newBlock.CreateTrial();
 
-                                for (int i = 0; i < row.values.Count; i++) {
+                                for (var i = 0; i < row.values.Count; i++) {
                                     // Check if value is an array
                                     if (row.values[i].Contains(';')) {
-                                        List<string> stringlist = row.values[i].Split(';').ToList();
-                                        for (int s = 0; s < stringlist.Count; s++) {
-                                            string newstring = stringlist[s].Replace(" ", string.Empty); // remove spaces 
+                                        var stringlist = row.values[i].Split(';').ToList();
+                                        for (var s = 0; s < stringlist.Count; s++) {
+                                            var newstring = stringlist[s].Replace(" ", string.Empty); // remove spaces 
                                             stringlist[s] = newstring;
                                         }
 
@@ -240,7 +247,7 @@ namespace Edia {
                         }
 
                         // Log all unique TRIAL settings keys
-                        foreach (string k in currentXBlock.trialSettings.keys) {
+                        foreach (var k in currentXBlock.trialSettings.keys) {
                             if (IsValidKeyForTrialResults(k))
                                 Session.instance.settingsToLog.Add(k);
                         }
@@ -248,7 +255,7 @@ namespace Edia {
                         break;
 
                     default:
-                        string msg = $"XBlock type must be either 'Task' or 'Break'; cannot be '{currentXBlockType}'.";
+                        var msg = $"XBlock type must be either 'Task' or 'Break'; cannot be '{GetXBlockType(blockId).ToLower()}'.";
                         Experiment.Instance.ShowMessageToExperimenter(msg, true);
                         AddToConsole(msg, LogType.Error);
                         break;
@@ -261,18 +268,15 @@ namespace Edia {
                 }
             }
 
-            // Set session UXF settings in SessionSettings so when Session start we can grab them from there.
+            // Set UXF.Session.instance.settings 
             foreach (SettingsTuple tuple in _sessionXblock.settings) {
                 Session.instance.settings.SetValue(tuple.key, tuple.value);
             }
-            
-            // Session.instance.settings.UpdateWithDict(Helpers.GetSettingsTupleListAsDict(_sessionXblock.instructions));
 
             foreach (SettingsTuple instructionTuple in _sessionXblock.instructions ) {
                 Session.instance.settings.SetValue(instructionTuple.key, instructionTuple.value);
             }
 
-            AddToConsole("Passed UXF session generation validation");
             return true;
         }
 
