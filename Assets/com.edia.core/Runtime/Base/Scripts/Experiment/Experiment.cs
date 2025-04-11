@@ -17,20 +17,16 @@ namespace Edia {
     /// </summary>
     public class Experiment : Singleton<Experiment> {
 
-        public enum States {
+        private enum States {
             Idle,
             Running,
             WaitingOnProceed,
             Paused,
         }
 
-        States State      = States.Idle;
-        States _prevState = States.Idle;
+        private States State      = States.Idle;
+        private States _prevState = States.Idle;
 
-        [Header("Debug")]
-        public bool ShowConsoleMessages = false;
-        public bool ShowEventMessages = false;
-        
         [Header("Experiment")]
         [HelpBox(
             "<size=14><color=#00ee30><b>XBlock Executers</b></color></size>\nList of gameobjects containing the functional Xblock code. \nNaming convention: [type]-[subtype]",
@@ -41,16 +37,20 @@ namespace Edia {
         [Tooltip("Enable Position&Rotation tracker from UXF which stores data to session folder. !Might have impact on FPS with long trials.")]
         public bool TrackXrRigWithUxf = false;
 
+        [Header("Debug")]
+        public bool ShowConsoleMessages = false;
+        public bool ShowEventMessages = false;
+
         // Fields
-        int       _activeSessionBlockNum = 0;
-        int       _currentStep           = -1;
-        bool      _isPauseRequested      = false;
-        XBlock    _activeXBlock;
-        Coroutine _proceedTimer = null;
+        private int       _activeSessionBlockNum = 0;
+        private int       _currentStep           = -1;
+        private bool      _isPauseRequested      = false;
+        private XBlock    _activeXBlock;
+        private Coroutine _proceedTimer = null;
 
         // UXF Logging
-        UXFDataTable _executionOrderLog = new("timestamp", "executed");
-        UXFDataTable _markerLog         = new("timestamp", "annotation");
+        private UXFDataTable _executionOrderLog = new("timestamp", "executed");
+        private UXFDataTable _markerLog         = new("timestamp", "annotation");
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 
@@ -373,13 +373,12 @@ namespace Edia {
             // eye calibration option enabled
             EnableEyeCalibrationTrigger(true);
 
-            string welcomeMsg = Session.instance.settings.GetString( "_start") ?? "No '_start' message defined in 'session.json'";
+            string welcomeMsg = Session.instance.settings.GetString("_start") ?? "No '_start' message defined in 'session.json'";
             ShowMessageToUser(welcomeMsg);
         }
 
         /// <summary>Called from UXF session. </summary>
         void OnSessionEndUXF(Session session) {
-
             EnableAllXBlocks(false);
 
             AddToExecutionOrderLog("OnSessionEndUXF");
@@ -392,8 +391,8 @@ namespace Edia {
             EventManager.TriggerEvent(Edia.Events.StateMachine.EvSessionEnded, null);
 
             Reset();
-            
-            string endingMsg = Session.instance.settings.GetString( "_end") ?? "No '_end' message defined in 'session.json'";
+
+            string endingMsg = Session.instance.settings.GetString("_end") ?? "No '_end' message defined in 'session.json'";
             ShowMessageToUser(endingMsg);
             HideMessagePanelButtons();
         }
@@ -633,7 +632,7 @@ namespace Edia {
             EnableProceedButton(true);
             EnablePauseButton(false);
             EnableEyeCalibrationTrigger(true);
-            
+
             string pauseMsg = Session.instance.settings.GetString("_pause") ?? "No '_pause' message defined in 'session.json'";
             ShowMessageToUser(pauseMsg);
         }

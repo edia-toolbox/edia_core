@@ -87,7 +87,7 @@ namespace Edia.Controller {
 			if (!ValidateConfigs())
 				return;
 
-			ControlPanel.Instance.AddToConsoleLog("Passed config file validation");
+			ControlPanel.Instance.AddToConsole("Passed config file validation");
 
 			EventManager.TriggerEvent(Edia.Events.Config.EvSetSessionInfo, new eParam(new string[] { _sessionInfoJsonString, _session.Split('-')[1], _subject.Split('-')[1] }));
 			EventManager.TriggerEvent(Edia.Events.Config.EvSetXBlockSequence, new eParam(_xBlockSequenceJsonString));
@@ -163,27 +163,27 @@ namespace Edia.Controller {
 			// Validate all strings on formatting
 
 			if (!ValidateJSON(_sessionJsonString)) {
-				ControlPanel.Instance.AddToConsoleLog("JSON Format error: Session", LogType.Error);
+				ControlPanel.Instance.AddToConsole("JSON Format error: Session", LogType.Error);
 				EventManager.TriggerEvent(Edia.Events.ControlPanel.EvShowMessageBox, new eParam("JSON Format error: session.json", false ));
 				return false;
 			}
 
 			
 			if (!ValidateJSON(_sessionInfoJsonString)) {
-				ControlPanel.Instance.AddToConsoleLog("JSON Format error: Session Info", LogType.Error);
+				ControlPanel.Instance.AddToConsole("JSON Format error: Session Info", LogType.Error);
 				EventManager.TriggerEvent(Edia.Events.ControlPanel.EvShowMessageBox, new eParam("JSON Format error: session_info.json", false ));
 				return false;
 			}
 
 			if (!ValidateJSON(_xBlockSequenceJsonString)) {
-				ControlPanel.Instance.AddToConsoleLog("JSON Format error: Xblock sequence", LogType.Error);
+				ControlPanel.Instance.AddToConsole("JSON Format error: Xblock sequence", LogType.Error);
 				EventManager.TriggerEvent(Edia.Events.ControlPanel.EvShowMessageBox, new eParam("JSON Format error: session_sequence.json", false));
 				return false;
 			}
 
 			foreach (string s in _baseDefinitionJsonStrings) {
 				if (!ValidateJSON(s)) {
-					ControlPanel.Instance.AddToConsoleLog("JSON Format error: Base definition", LogType.Error);
+					ControlPanel.Instance.AddToConsole("JSON Format error: Base definition", LogType.Error);
 					EventManager.TriggerEvent(Edia.Events.ControlPanel.EvShowMessageBox, new eParam("JSON Format error: Base definition", false));
 					return false;
 				}
@@ -191,7 +191,7 @@ namespace Edia.Controller {
 
 			foreach (string s in _xBlockDefinitionJsonStrings) {
 				if (!ValidateJSON(s)) {
-					ControlPanel.Instance.AddToConsoleLog("JSON Format error: Xblock definition", LogType.Error);
+					ControlPanel.Instance.AddToConsole("JSON Format error: Xblock definition", LogType.Error);
 					EventManager.TriggerEvent(Edia.Events.ControlPanel.EvShowMessageBox, new eParam("JSON Format error: Xblock definition", false));
 					return false;
 				}
@@ -211,7 +211,7 @@ namespace Edia.Controller {
 					}
 				}
 				if (!found) { 
-					ControlPanel.Instance.AddToConsoleLog("No <b>" + s + ".json</b> config file not found in xblock definitions folder", LogType.Error);
+					ControlPanel.Instance.AddToConsole("No <b>" + s + ".json</b> config file not found in xblock definitions folder", LogType.Error);
 					return false; 
 				}
 			}

@@ -87,7 +87,8 @@ namespace Edia.Controller {
 		void OnEvStartExperiment(eParam e) {
 			EventManager.StopListening(Edia.Events.StateMachine.EvStartExperiment, OnEvStartExperiment);
 			btnExperiment.onClick.RemoveAllListeners();
-
+			btnExperiment.interactable = false;
+			
 			panelIdle.SetActive(false);
 			panelRunning.SetActive(true);
 			panelStatus.SetActive(true);
@@ -207,7 +208,6 @@ namespace Edia.Controller {
 		}
 
 		void SetupButtons() {
-			btnExperiment.transform.GetChild(0).GetComponentInChildren<Text>().text = "Start Experiment";
 			btnExperiment.onClick.AddListener(() => EventManager.TriggerEvent(Edia.Events.StateMachine.EvStartExperiment, null));
 			btnPauseExperiment.onClick.AddListener(() => EventManager.TriggerEvent(Edia.Events.StateMachine.EvPauseExperiment, null));
 			btnNextMessage.onClick.AddListener(() => EventManager.TriggerEvent(Edia.Events.ControlPanel.EvNextMessagePanelMsg, null));

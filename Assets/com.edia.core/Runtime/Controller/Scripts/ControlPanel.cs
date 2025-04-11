@@ -5,22 +5,23 @@ using static Edia.Constants;
 
 namespace Edia.Controller {
     public class ControlPanel : Singleton<ControlPanel> {
-        
-        [Space(20)] [HideInInspector] 
-        public ControlModes ControlMode = ControlModes.Local;
-        public bool ShowConsoleMessages = true;
 
-        [Header("Refs")] 
+        [Space(20)] [HideInInspector]
+        public ControlModes ControlMode = ControlModes.Local;
+        public bool ShowConsoleMessages = false;
+        public bool ShowEventMessages   = false;
+
+        [Header("Refs")]
         public Transform NonActivePanelHolder = null;
         public Transform PanelHolder = null;
 
         // Local
-        public PanelMessageBox pMessageBox = null;
-        public PanelConfigSelection pConfigSelection = null;
-        public PanelHeader pHeader = null;
-        public PanelApplicationSettings pApplicationSettings = null;
-        public PanelExperimentControl pExperimentControl = null;
-        private List<Transform> _currentPanelOrder = new List<Transform>();
+        public  PanelMessageBox          pMessageBox          = null;
+        public  PanelConfigSelection     pConfigSelection     = null;
+        public  PanelHeader              pHeader              = null;
+        public  PanelApplicationSettings pApplicationSettings = null;
+        public  PanelExperimentControl   pExperimentControl   = null;
+        private List<Transform>          _currentPanelOrder   = new List<Transform>();
 
         // Remote
         [HideInInspector] public bool IsConnected = false;
@@ -41,7 +42,7 @@ namespace Edia.Controller {
         }
 
         private void Init() {
-            EventManager.showLog = ShowConsoleMessages; // Show event calls in console for debugging
+            EventManager.showLog = ShowEventMessages; // Show event calls in console for debugging
 
             if (ControlMode is ControlModes.Remote) {
                 EventManager.StartListening(Edia.Events.ControlPanel.EvConnectionEstablished, OnEvConnectionEstablished);
@@ -78,7 +79,6 @@ namespace Edia.Controller {
             UpdatePanelOrder();
         }
 
-
         public void UpdatePanelOrder() {
             _currentPanelOrder.Clear();
             _currentPanelOrder = PanelHolder.Cast<Transform>().ToList();
@@ -94,24 +94,24 @@ namespace Edia.Controller {
         }
 
         private void OnEvQuitApplication(eParam obj) {
-            AddToConsoleLog(($"{name}:Quiting.."));
+            AddToConsole(($"{name}:Quiting.."));
             Invoke("DoQuit", 1f);
         }
 
         private void DoQuit() {
-            AddToConsoleLog(($"{name}:Bye.."));
+            AddToConsole(($"{name}:Bye.."));
             Application.Quit();
         }
-        
-        public void AddToConsoleLog(string msg) {
+
+        public void AddToConsole(string msg) {
             if (ShowConsoleMessages)
                 Edia.LogUtilities.AddToConsoleLog(msg, this.name);
         }
 
-        public void AddToConsoleLog(string msg, LogType _type) {
+        public void AddToConsole(string msg, LogType _type) {
             if (_type == LogType.Error) Debug.LogError(msg);
             else if (_type == LogType.Warning) Debug.LogWarning(msg);
-            else AddToConsoleLog(msg, _type);
+            else AddToConsole(msg, _type);
         }
     }
 }
