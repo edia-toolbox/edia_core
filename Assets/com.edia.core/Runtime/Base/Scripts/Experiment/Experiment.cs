@@ -55,17 +55,17 @@ namespace Edia {
 
 #region MONO METHODS
 
-        void Awake() {
+        private void Awake() {
             EventManager.showLog = ShowEventMessages;
         }
 
-        void OnDestroy() {
+        private void OnDestroy() {
             EventManager.StopListening(Edia.Events.StateMachine.EvStartExperiment, OnEvStartExperiment);
             EventManager.StopListening(Edia.Events.StateMachine.EvPauseExperiment, OnEvPauseExperiment);
             EventManager.StopListening(Edia.Events.Core.EvQuitApplication, OnEvQuitApplication);
         }
 
-        void Start() {
+        private void Start() {
             XBlockNamesToLower();
 
             if (!IsValid())
@@ -87,7 +87,7 @@ namespace Edia {
 
 #region CHECKS
 
-        bool IsValid() {
+        private bool IsValid() {
             bool         isValid = true;
             List<string> msgs    = new();
 
@@ -123,7 +123,7 @@ namespace Edia {
             return isValid;
         }
 
-        void XBlockNamesToLower() {
+        private void XBlockNamesToLower() {
             foreach (XBlock g in Executors) {
                 g.name = g.name.ToLower();
             }
@@ -131,7 +131,7 @@ namespace Edia {
             return;
         }
 
-        void EnableAllXBlocks(bool onOff) {
+        private void EnableAllXBlocks(bool onOff) {
             foreach (XBlock xb in Executors) {
                 xb.enabled = onOff;
                 xb.gameObject.SetActive(onOff);
@@ -149,7 +149,7 @@ namespace Edia {
         }
         // \endcond
 
-        void Reset() {
+        private void Reset() {
             _activeSessionBlockNum = 0;
             _currentStep           = -1;
             _isPauseRequested      = false;
@@ -157,7 +157,7 @@ namespace Edia {
             _prevState             = State;
         }
 
-        void Update() {
+        private void Update() {
             if (State != _prevState) {
                 _prevState = State;
             }
@@ -171,7 +171,7 @@ namespace Edia {
         /// Will update the progress textfield in the control panel.
         /// </summary>
         /// <param name="info">Text to show, excludes string before first '_' char</param>
-        void UpdateProgressStatus(string info) {
+        private  void UpdateProgressStatus(string info) {
             List<string> infos = new();
 
             if (info.Contains('-')) {
@@ -183,22 +183,22 @@ namespace Edia {
             EventManager.TriggerEvent(Edia.Events.ControlPanel.EvUpdateProgressStatus, new eParam(StringTools.CombineToOneString(infos.ToArray())));
         }
 
-        void UpdateSessionSummary() {
+        private void UpdateSessionSummary() {
             EventManager.TriggerEvent(Edia.Events.ControlPanel.EvUpdateSessionSummary, new eParam(SessionSettings.sessionInfo.GetSessionSummary()));
         }
 
-        void UpdateBlockProgress() {
+        private  void UpdateBlockProgress() {
             EventManager.TriggerEvent(Edia.Events.ControlPanel.EvUpdateBlockProgress,
                 new eParam(new int[] { Session.instance.currentBlockNum, Session.instance.blocks.Count }));
         }
 
-        void UpdateTrialProgress() {
+        private void UpdateTrialProgress() {
             if (Session.instance.InTrial)
                 EventManager.TriggerEvent(Edia.Events.ControlPanel.EvUpdateTrialProgress,
                     new eParam(new int[] { Session.instance.CurrentTrial.numberInBlock, Session.instance.CurrentBlock.trials.Count() }));
         }
 
-        void UpdateStepProgress() {
+        private void UpdateStepProgress() {
             EventManager.TriggerEvent(Edia.Events.ControlPanel.EvUpdateStepProgress, new eParam(new int[] { _currentStep, _activeXBlock.trialSteps.Count }));
         }
 
@@ -235,7 +235,7 @@ namespace Edia {
                 MessagePanelInVR.Instance.HideMenu();
         }
 
-        void ShowMessageToUserGeneric() {
+        private void ShowMessageToUserGeneric() {
             AddToExecutionOrderLog("ShowMessageToUser");
             EnableProceedButton(true);
             EnablePauseButton(false);
@@ -265,8 +265,9 @@ namespace Edia {
 
 #region EXPERIMENT CONTROL
 
+        // ReSharper disable Unity.PerformanceAnalysis
         /// <summary>Starts the experiment</summary>
-        void StartExperiment() {
+        private void StartExperiment() {
             ConfigureXRrigTracking();
 
             Session.instance.Begin(
@@ -282,19 +283,18 @@ namespace Edia {
             EventManager.TriggerEvent(Edia.Events.ControlPanel.EvUpdateTrialProgress, new eParam(new int[] { 0, 0 }));
         }
 
-        void OnEvStartExperiment(eParam e) {
+        private void OnEvStartExperiment(eParam e) {
             EventManager.StopListening(Edia.Events.StateMachine.EvStartExperiment, OnEvStartExperiment);
-
             StartExperiment();
         }
 
         /// <summary>Sets the PauseExperiment flag to true and logs the call for an extra break</summary>
-        void OnEvPauseExperiment(eParam e) {
+        private void OnEvPauseExperiment(eParam e) {
             AddToExecutionOrderLog("InjectedSessionPauseCall");
             _isPauseRequested = true;
         }
 
-        void OnEvQuitApplication(eParam obj) {
+        private void OnEvQuitApplication(eParam obj) {
             AddToConsole("Quiting..");
             Application.Quit();
         }
@@ -318,7 +318,7 @@ namespace Edia {
 
 #region STATEMACHINE PROCEED
 
-        void EnableProceedButton(bool onOff) {
+        private void EnableProceedButton(bool onOff) {
             EventManager.TriggerEvent(Edia.Events.ControlPanel.EvEnableButton, new eParam(new string[] { "PROCEED", onOff ? "true" : "false" }));
         }
 
@@ -335,14 +335,14 @@ namespace Edia {
             EventManager.TriggerEvent(Edia.Events.StateMachine.EvProceed);
         }
 
-        void OnEvProceed(eParam e) {
+        private void OnEvProceed(eParam e) {
             EventManager.StopListening(Edia.Events.StateMachine.EvProceed, OnEvProceed);
             EnableProceedButton(false);
 
             Continue();
         }
 
-        void Continue() {
+        private  void Continue() {
             State = States.Running;
 
             EventManager.StopListening(Edia.Events.StateMachine.EvProceed, OnEvProceed);
@@ -356,7 +356,7 @@ namespace Edia {
 #region STATEMACHINE UXF SESSION
 
         /// <summary>Start of the UXF session. </summary>
-        void OnSessionBeginUXF(Session session) {
+        private void OnSessionBeginUXF(Session session) {
             State                  = States.Running;
             _activeSessionBlockNum = 0;
 
@@ -377,7 +377,7 @@ namespace Edia {
         }
 
         /// <summary>Called from UXF session. </summary>
-        void OnSessionEndUXF(Session session) {
+        private void OnSessionEndUXF(Session session) {
             EnableAllXBlocks(false);
 
             AddToExecutionOrderLog("OnSessionEndUXF");
@@ -397,7 +397,7 @@ namespace Edia {
         }
 
         /// <summary>Done with all trial, clean up and call UXF to end this session</summary>
-        void FinalizeSession() {
+        private void FinalizeSession() {
             AddToConsole("FinalizeSession");
 
             // clean
@@ -409,7 +409,7 @@ namespace Edia {
 
 #region STATEMACHINE XBLOCKS
 
-        void BlockStart() {
+        private void BlockStart() {
             AddToConsole("Block Start");
 
             // Set new storedBlockNum value
@@ -437,7 +437,7 @@ namespace Edia {
             }
         }
 
-        void BlockEnd() {
+        private  void BlockEnd() {
             _activeXBlock.OnBlockEnd();
 
             // Check for block outro flag
@@ -455,7 +455,7 @@ namespace Edia {
             }
         }
 
-        void BlockCheckAndContinue() {
+        private  void BlockCheckAndContinue() {
             _activeXBlock.enabled = false;
             _activeXBlock.gameObject.SetActive(false);
 
@@ -470,7 +470,7 @@ namespace Edia {
         }
 
         /// <summary>Called from this manager. </summary>
-        void BlockContinueAfterIntro(eParam e) {
+        private void BlockContinueAfterIntro(eParam e) {
             EventManager.StopListening(Edia.Events.StateMachine.EvProceed, BlockContinueAfterIntro);
             AddToExecutionOrderLog("BlockContinueAfterIntro");
 
@@ -481,7 +481,7 @@ namespace Edia {
         }
 
         /// <summary>Called from this manager. </summary>
-        void BlockContinueAfterOutro(eParam e) {
+        private void BlockContinueAfterOutro(eParam e) {
             EventManager.StopListening(Edia.Events.StateMachine.EvProceed, BlockContinueAfterOutro);
             AddToExecutionOrderLog("BlockContinueAfterOutro");
 
@@ -493,7 +493,7 @@ namespace Edia {
 #region UXF TRIALS
 
         /// <summary>Catching first button press of user </summary>
-        void OnEvStartFirstTrial(eParam e) {
+        private void OnEvStartFirstTrial(eParam e) {
             EventManager.StopListening(Edia.Events.StateMachine.EvProceed, OnEvStartFirstTrial);
             UpdateTrialProgress();
 
@@ -501,7 +501,7 @@ namespace Edia {
         }
 
         /// <summary>Called from UXF session. Begin setting things up for the trial that is about to start </summary>
-        void OnTrialBeginUXF(Trial newTrial) {
+        private void OnTrialBeginUXF(Trial newTrial) {
             AddToExecutionOrderLog("OnTrialBeginUXF");
 
             XRManager.Instance.ShowVRInstantly(); // TODO: This is now assuming that we want VR visable at the start of each trial.
@@ -519,7 +519,7 @@ namespace Edia {
         }
 
         /// <summary>Called from UXF session. Checks if to call NextTrial, should start a BREAK before next Block, or End the Session </summary>
-        void OnTrialEndUXF(Trial endedTrial) {
+        private void OnTrialEndUXF(Trial endedTrial) {
             AddToExecutionOrderLog("OnTrialEnd");
             SaveCustomDataTables();
 
@@ -557,7 +557,7 @@ namespace Edia {
 
 #region STATEMACHINE TRIAL STEPS
 
-        void StartTrial() {
+        private void StartTrial() {
             AddToConsole("StartTrial");
 
             _activeXBlock.OnStartTrial();
@@ -568,7 +568,7 @@ namespace Edia {
         }
 
         /// <summary>Called after the task sequence is done </summary>
-        void EndTrial() {
+        private void EndTrial() {
             AddToConsole("Trial Steps DONE");
             Session.instance.EndCurrentTrial(); // tells UXF to end this trial and fire the event that follows
         }
@@ -581,7 +581,7 @@ namespace Edia {
         }
 
         /// <summary>Coroutine as timer as we can kill that to avoid delayed calls in the statemachine</summary>
-        IEnumerator ProceedTimer(float duration) {
+        private IEnumerator ProceedTimer(float duration) {
             EventManager.TriggerEvent(Edia.Events.ControlPanel.EvStartTimer, new eParam(duration));
             yield return new WaitForSecondsRealtime(duration);
 
@@ -589,7 +589,7 @@ namespace Edia {
         }
 
         /// <summary>Call next step in the trial.</summary>
-        void NextTrialStep() {
+        private void NextTrialStep() {
             if (ShowConsoleMessages) AddToConsole("Nextstep >");
 
             if (_proceedTimer != null) {
@@ -611,7 +611,7 @@ namespace Edia {
         }
 
         /// <summary>In Between to steps of the trial, we might want to clean things up a bit.</summary>
-        void InBetweenSteps() {
+        private void InBetweenSteps() {
             _activeXBlock.OnBetweenSteps(); // In Between to steps of the trial, we might want to clean things up a bit.
             MessagePanelInVR.Instance.HidePanel();
         }
@@ -621,7 +621,7 @@ namespace Edia {
 #region PAUSE
 
         /// <summary>Called from this manager. Invokes onSessionBreak event and starts listener to EvProceed event</summary>
-        void SessionPause() {
+        private void SessionPause() {
             AddToExecutionOrderLog("SessionPaused");
 
             EventManager.StartListening(Edia.Events.StateMachine.EvProceed, SessionResumeAfterBreak);
@@ -637,7 +637,7 @@ namespace Edia {
         }
 
         /// <summary>Called from EvProceed event. Stops listener, invokes onSessionResume event and calls UXF BeginNextTrial. </summary>
-        void SessionResumeAfterBreak(eParam e) {
+        private void SessionResumeAfterBreak(eParam e) {
             AddToExecutionOrderLog("SessionResume");
 
             EventManager.StopListening(Edia.Events.StateMachine.EvProceed, SessionResumeAfterBreak);
@@ -726,7 +726,7 @@ namespace Edia {
             Session.instance.CurrentTrial.result[key] = value;
         }
 
-        void ConfigureXRrigTracking() {
+        private void ConfigureXRrigTracking() {
             XRManager.Instance.XRCam.GetComponent<PositionRotationTracker>().enabled   = TrackXrRigWithUxf;
             XRManager.Instance.XRLeft.GetComponent<PositionRotationTracker>().enabled  = TrackXrRigWithUxf;
             XRManager.Instance.XRRight.GetComponent<PositionRotationTracker>().enabled = TrackXrRigWithUxf;
@@ -739,7 +739,7 @@ namespace Edia {
             Session.instance.trackedObjects.Add(XRManager.Instance.XRRight.GetComponent<PositionRotationTracker>());
         }
 
-        void SaveCustomDataTables() {
+        private void SaveCustomDataTables() {
             Session.instance.SaveDataTable(_executionOrderLog, "executionOrder");
             Session.instance.SaveDataTable(_markerLog, "markerLog");
         }
