@@ -49,13 +49,13 @@ namespace UXF.EditorUtils
 #endif            
             if (!session)
 			{
-                Debug.Log("no session found");
+                // Debug.Log("no session found");
                 settingsDict = null;
 				return;
 			}
             if (session.settings == null)
             {
-                Debug.Log("no settings found");
+                // Debug.Log("no settings found");
                 settingsDict = null;
                 return;
             }
@@ -147,7 +147,7 @@ namespace UXF.EditorUtils
 
 			var blockList = (List<Dictionary<string, object>>) settingsDict["_____blocks"];
 
-            Debug.Log($"Blocklist count: {blockList.Count}");
+            // Debug.Log($"Blocklist count: {blockList.Count}");
             
 			int b = 0;
             foreach (var block in blockList)
@@ -202,7 +202,7 @@ namespace UXF.EditorUtils
                 {
                     v = Truncate(pair.Value.ToString(), 100);
                 }
-                Debug.Log(string.Format("[\"{0}\"]: {1}", k, v));
+                // Debug.Log(string.Format("[\"{0}\"]: {1}", k, v));
                 EditorGUILayout.LabelField(string.Format("[\"{0}\"]: {1}", k, v));
                 GUILayout.EndHorizontal();
             }

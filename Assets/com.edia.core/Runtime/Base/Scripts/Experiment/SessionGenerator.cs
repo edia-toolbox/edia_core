@@ -53,9 +53,9 @@ namespace Edia {
         private void OnEvSetXBlockSequence(eParam param) {
             _xBlockSequence = JsonUtility.FromJson<XBlockSequence>(param.GetString());
 
+            _validated.Add(true);
             AddToConsole($"[{_validated.Count} of 5] Session sequence OK");
             
-            _validated.Add(true);
             CheckIfReadyAndContinue();
         }
 
@@ -124,7 +124,7 @@ namespace Edia {
                 }
 
                 _validated.Add(true);
-                AddToConsole($"[{_validated.Count} of 5] Session generation DONE", LogType.Error);
+                AddToConsole($"[{_validated.Count} of 5] Session generation DONE");
                 
                 EventManager.TriggerEvent(Edia.Events.Config.EvReadyToGo);
                 EventManager.TriggerEvent(Edia.Events.ControlPanel.EvUpdateSessionSummary, new eParam(SessionSettings.sessionInfo.GetSessionSummary()));
@@ -172,7 +172,7 @@ namespace Edia {
                 // Find the according XBlockBase (e.g., Task or Break definition) and get global settings
                 XBlockBaseSettings xBlockBase = GetXBlockBaseByBlockId(blockId);
                 if (xBlockBase == null) {
-                    AddToConsole($"Failed getting details for {blockId} ", LogType.Error);
+                    AddToConsole($"No block definition details found for <b>{blockId}</b>. Is the 'type','subType' and 'blockId' set correctly in the {blockId}.json?", LogType.Error);
                     return false;
                 }
 
@@ -222,7 +222,7 @@ namespace Edia {
                         // Add trials 
                         if (currentXBlock.trialSettings.valueList == null || currentXBlock.trialSettings.valueList.Count == 0) {
                             newBlock.CreateTrial(); // create 1 dummy trial in case of empty settings 
-                            AddToConsole($"No trial settings found for XBlock {currentXBlock.subType}. Adding an empty trial.");
+                            AddToConsole($"No trial settings found for XBlock <b>{currentXBlock.subType}</b>. Adding an empty trial.");
                         }
                         else {
                             foreach (ValueList row in currentXBlock.trialSettings.valueList) {
@@ -255,7 +255,7 @@ namespace Edia {
                         break;
 
                     default:
-                        var msg = $"XBlock type must be either 'Task' or 'Break'; cannot be '{GetXBlockType(blockId).ToLower()}'.";
+                        var msg = $"XBlock type must be either 'Task' or 'Break'; cannot be <b>'{GetXBlockType(blockId).ToLower()}</b>'.";
                         Experiment.Instance.ShowMessageToExperimenter(msg, true);
                         AddToConsole(msg, LogType.Error);
                         break;
@@ -268,13 +268,13 @@ namespace Edia {
                 }
             }
 
-            // Set UXF.Session.instance.settings 
-            foreach (SettingsTuple tuple in _sessionXblock.settings) {
-                Session.instance.settings.SetValue(tuple.key, tuple.value);
+            // Prepare UXF.Session.instance.settings -> They need to be provided at the Session.instance.begin 
+            foreach (SettingsTuple settingsTuple in _sessionXblock.settings) {
+                SessionSettings.settings.Add(new SettingsTuple { key = settingsTuple.key, value = settingsTuple.value });
             }
 
             foreach (SettingsTuple instructionTuple in _sessionXblock.instructions ) {
-                Session.instance.settings.SetValue(instructionTuple.key, instructionTuple.value);
+                SessionSettings.settings.Add(new SettingsTuple { key = instructionTuple.key, value = instructionTuple.value });
             }
 
             return true;

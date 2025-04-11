@@ -8,6 +8,9 @@ namespace Edia {
     [System.Serializable]
     public class XBlock : MonoBehaviour {
 
+        // TODO: Grab the name of this gameobjects script and use that, or just 'Edia-Executor'
+        [HelpBox("<size=14><color=#00ee30><b>XBlock Executer</b></color></size>Naming convention: [type]-[subtype]", HelpBoxMessageType.None)]
+        
         [Header("Debug")]
         public bool ShowConsoleMessages = false;
 

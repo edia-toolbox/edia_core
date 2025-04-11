@@ -28,9 +28,8 @@ namespace Edia {
         private States _prevState = States.Idle;
 
         [Header("Experiment")]
-        [HelpBox(
-            "<size=14><color=#00ee30><b>XBlock Executers</b></color></size>\nList of gameobjects containing the functional Xblock code. \nNaming convention: [type]-[subtype]",
-            HelpBoxMessageType.None)]
+        [HelpBox("<size=14><color=#00ee30><b>XBlock Executers</b></color></size>", HelpBoxMessageType.None)]
+        [Space(80)]
         public List<XBlock> Executors = new();
 
         [Header("Settings")]
