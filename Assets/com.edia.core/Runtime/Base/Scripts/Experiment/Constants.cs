@@ -1,7 +1,5 @@
 using System.Collections.Generic;
-using UnityEditor.VersionControl;
 using UnityEngine;
-using UXF;
 
 namespace Edia {
     /// <summary>Static definitions</summary>
@@ -45,13 +43,57 @@ namespace Edia {
         };
 
         // File names and paths
-        public static string FileNameSessionSequence = "session-sequence.json";
-        public static string FileNameSessionInfo = "session-info.json";
-        public static string PathToParticipantFiles = "configs/participants/";
-        public static string PathToBaseDefinitions = "configs/base-definitions/";
+        public static string FileNameSessionSequence     = "session-sequence.json";
+        public static string FileNameSessionInfo         = "session-info.json";
+        public static string PathToParticipantFiles      = "configs/participants/";
+        public static string PathToBaseDefinitions       = "configs/base-definitions/";
         public static string FolderNameXBlockDefinitions = "block-definitions";
 
         public static string FileNameEdiaSettings = "Edia-settings.json";
+
+
+#region Color Theme
+
+        public enum ThemeComponents {
+            Button,
+            Toggle,
+            Slider,
+            Dropdown,
+            ControlPanelBG,
+            ItemPanelBG,
+            SubPanelBG
+        }
+        
+        public static event System.Action OnThemeChanged;
+
+        private static ColorThemeDefinition _activeTheme = null;
+
+        public static ColorThemeDefinition ActiveTheme {
+            get {
+                // Lazy initialization if no theme has been set yet
+                if (_activeTheme == null) {
+                    _activeTheme = ScriptableObject.CreateInstance<ColorThemeDefinition>();
+                    Debug.Log("Created default theme as none was set");
+                }
+
+                return _activeTheme;
+            }
+            set {
+                _activeTheme = value;
+
+                if (OnThemeChanged != null) {
+                    OnThemeChanged.Invoke();
+                }
+                else {
+                    Debug.LogWarning("Theme changed but no listeners were registered");
+                }
+            }
+        }
+
+        
+#endregion
+
+#region EDIA hardcoded colors
 
         // EDIA defined system colors
         public static Dictionary<string, Color> EdiaColors = new Dictionary<string, Color>() {
@@ -68,15 +110,17 @@ namespace Edia {
 
         public static Color RandomEdiaColor() {
             var colorsList = new List<Color>(EdiaColors.Values);
-            return colorsList[Random.Range(0, colorsList.Count-2)];
+            return colorsList[Random.Range(0, colorsList.Count - 2)];
         }
 
         private static Color ParseColor(string hex, Color fallback) {
             if (ColorUtility.TryParseHtmlString(hex, out var colorResult)) {
                 return colorResult;
             }
+
             return fallback;
         }
 
+#endregion
     }
 }

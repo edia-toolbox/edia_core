@@ -1,6 +1,6 @@
-using System.IO;
-using UnityEditor;
 using UnityEngine;
+using UnityEditor;
+using System.IO;
 
 namespace Edia.Editor.Utils {
     [InitializeOnLoad]
@@ -9,9 +9,13 @@ namespace Edia.Editor.Utils {
         public static bool forceShow = false;
         ApiCompatibilityLevel targetApiLevel = ApiCompatibilityLevel.NET_4_6;
         string projectName = GetProjectName();
+        [SerializeField] private ColorThemeDefinition selectedColorTheme;
 
         Vector2 scrollPos;
-
+        
+        public static event System.Action OnThemeChanged;
+        
+        
         [MenuItem("EDIA/Configurator")]
         static void Init() {
             var window = (Configurator)EditorWindow.GetWindow(typeof(Configurator), false, "Configurator");
@@ -63,17 +67,7 @@ namespace Edia.Editor.Utils {
             }
 
             EditorGUILayout.Separator();
-
-            // GUILayout.Label("Platform selector", EditorStyles.boldLabel);
-            // EditorGUILayout.HelpBox(
-            //     "Click the buttons below to switch to your desired output platform. You will also need to select the Data Handler(s) you wish to use in your UXF Session Component.", MessageType.Info);
-            //
-            // if (GUILayout.Button("Select Windows / PC VR")) SetSettingsWindows();
-            // if (GUILayout.Button("Select Android VR (e.g. Oculus Quest)")) SetSettingsOculus();
-            // if (GUILayout.Button("Select Android")) SetSettingsAndroid();
-
-            // EditorGUILayout.Separator();
-
+            
             GUILayout.Label("Help and info", EditorStyles.boldLabel);
 
             EditorGUILayout.Space();
@@ -88,20 +82,59 @@ namespace Edia.Editor.Utils {
 
             EditorGUILayout.Separator();
 
-            // GUILayout.Label("Compatibility", EditorStyles.boldLabel);
-            //
-            // bool compatible = PlayerSettings.GetApiCompatibilityLevel(BuildTargetGroup.Standalone) == targetApiLevel;
-            //
-            // if (compatible) {
-            //     EditorGUILayout.HelpBox("API Compatibility Level is set correctly", MessageType.Info);
-            // }
-            // else {
-            //     EditorGUILayout.HelpBox("API Compatibility Level should be set to .NET 2.0 (Older versions of Unity) or .NET 4.x (Unity 2018.3+), expect errors on building", MessageType.Warning);
-            //     if (GUILayout.Button("Fix")) {
-            //         PlayerSettings.SetApiCompatibilityLevel(BuildTargetGroup.Standalone, targetApiLevel);
-            //     }
-            // }
+            EditorGUILayout.Space(10);
+            EditorGUILayout.LabelField("UI Theme Settings", EditorStyles.boldLabel);
 
+// Add a field for the UIColorThemeDefinition
+            ColorThemeDefinition newSelectedColorTheme = (ColorThemeDefinition)EditorGUILayout.ObjectField(
+                "UI Color Theme", 
+                selectedColorTheme, 
+                typeof(ColorThemeDefinition), 
+                false);
+            
+            if (newSelectedColorTheme != selectedColorTheme) {
+                selectedColorTheme = newSelectedColorTheme;
+                
+            }
+
+            // Add an APPLY button to fire the OnThemeChanged event
+            if (GUILayout.Button("APPLY"))
+            {
+                Constants.ActiveTheme = selectedColorTheme;
+            }
+
+            
+            EditorGUILayout.BeginHorizontal();
+            if (GUILayout.Button("Create New Theme"))
+            {
+                string path = EditorUtility.SaveFilePanelInProject(
+                    "Create UI Color Theme",
+                    "ColorTheme",
+                    "asset",
+                    "Create a new UI Color Theme asset");
+            
+                if (!string.IsNullOrEmpty(path))
+                {
+                    // Create a new instance of UIColorThemeDefinition
+                    ColorThemeDefinition newTheme = ScriptableObject.CreateInstance<ColorThemeDefinition>();
+            
+                    // Save it to the selected path
+                    AssetDatabase.CreateAsset(newTheme, path);
+                    AssetDatabase.SaveAssets();
+            
+                    // Set it as the current theme
+                    selectedColorTheme = newTheme;
+            
+                    // Focus the Project window and select the new asset
+                    EditorUtility.FocusProjectWindow();
+                    Selection.activeObject = newTheme;
+                }
+            }
+
+            EditorGUILayout.EndHorizontal();
+
+            // EditorGUILayout.Separator();
+            
             // EditorGUILayout.Separator();
             EditorGUILayout.EndScrollView();
         }
