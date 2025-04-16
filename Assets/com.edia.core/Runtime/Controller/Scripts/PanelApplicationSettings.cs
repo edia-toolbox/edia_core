@@ -14,15 +14,11 @@ namespace Edia.Controller {
         public Button btnBrowse = null;
         public Button btnQuit = null;
         public GameObject panelFilePath = null;
-        public Slider volumeSlider = null;
-        public TMP_Dropdown resolutionDropdown = null;
         public TMP_Dropdown interactiveSideDropdown = null;
         public TMP_Dropdown visibleSideDropdown = null;
-        public TMP_Dropdown languageDropdown = null;
         public TextMeshProUGUI pathToLogfilesField = null;
 
-        [Header("Settings")]
-        public SettingsDeclaration localSystemSettingsContainer = null;
+        [HideInInspector] public SettingsDeclaration localSystemSettingsContainer = null;
 
         #region INITS
 
@@ -82,7 +78,7 @@ namespace Edia.Controller {
 
         #region UI
 
-        [ContextMenu("PopulateInteractivesDropdown")]
+        //[ContextMenu("PopulateInteractivesDropdown")]
         public void PopulateInteractivesDropdown() {
             interactiveSideDropdown.ClearOptions();
 

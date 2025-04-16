@@ -129,7 +129,7 @@ namespace Edia {
         }
 
         /// <summary> Button pressed to show next message </summary>
-        private void OnBtnNEXTPressed() {
+        public void OnBtnNEXTPressed() {
             _hasClicked = true;
         }
 

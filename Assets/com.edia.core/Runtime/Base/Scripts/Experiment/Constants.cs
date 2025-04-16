@@ -59,20 +59,31 @@ namespace Edia {
             Toggle,
             Slider,
             Dropdown,
-            ControlPanelBG,
-            ItemPanelBG,
-            SubPanelBG
+            MainBG,
+            PanelBG,
+            SubPanelBG,
+            MainText,
+            PanelText,
+            SubPanelText,
+            ButtonText,
+            Outline,
+            MessagePanelBG,
+            MessagePanelTextPanelBG,
+            MessagePanelText,
+            ProgressbarBG,
+            ProgressbarFill,
+            ProgressbarText
         }
         
         public static event System.Action OnThemeChanged;
 
-        private static ColorThemeDefinition _activeTheme = null;
+        private static ThemeDefinition _activeTheme = null;
 
-        public static ColorThemeDefinition ActiveTheme {
+        public static ThemeDefinition ActiveTheme {
             get {
                 // Lazy initialization if no theme has been set yet
                 if (_activeTheme == null) {
-                    _activeTheme = ScriptableObject.CreateInstance<ColorThemeDefinition>();
+                    _activeTheme = ScriptableObject.CreateInstance<ThemeDefinition>();
                     Debug.Log("Created default theme as none was set");
                 }
 
@@ -97,15 +108,15 @@ namespace Edia {
 
         // EDIA defined system colors
         public static Dictionary<string, Color> EdiaColors = new Dictionary<string, Color>() {
-            { "Blue", ParseColor("#347FAA", Color.blue) },
-            { "Cyan", ParseColor("#34AAAA", Color.cyan) },
-            { "Green", ParseColor("#428360", Color.green) },
-            { "Grey", ParseColor("#797873", Color.grey) },
-            { "Orange", ParseColor("#D9740D", Color.white) },
-            { "Purple", ParseColor("#C36897", Color.magenta) },
-            { "Yellow", ParseColor("#FFDC4A", Color.yellow) },
-            { "White", ParseColor("#F2F2F2", Color.white) },
-            { "Black", ParseColor("#0D0D0D", Color.black) }
+            { "blue", ParseColor("#347FAA", Color.blue) },
+            { "cyan", ParseColor("#34AAAA", Color.cyan) },
+            { "green", ParseColor("#428360", Color.green) },
+            { "grey", ParseColor("#797873", Color.grey) },
+            { "orange", ParseColor("#D9740D", Color.white) },
+            { "purple", ParseColor("#C36897", Color.magenta) },
+            { "yellow", ParseColor("#FFDC4A", Color.yellow) },
+            { "white", ParseColor("#F2F2F2", Color.white) },
+            { "black", ParseColor("#0D0D0D", Color.black) }
         };
 
         public static Color RandomEdiaColor() {

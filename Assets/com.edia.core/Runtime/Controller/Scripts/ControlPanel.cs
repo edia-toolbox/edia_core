@@ -23,7 +23,6 @@ namespace Edia.Controller {
         public  PanelExperimentControl   pExperimentControl   = null;
         private List<Transform>          _currentPanelOrder   = new List<Transform>();
 
-
         // Remote
         [HideInInspector] public bool IsConnected = false;
         private void Awake() {

@@ -25,10 +25,8 @@ namespace Edia.Editor.Utils {
             if (helpBoxAttribute == null) return;
             
             var originalColor = GUI.color;
-            GUI.color = Constants.EdiaColors["Blue"];
+            GUI.color = Constants.EdiaColors["blue"];
             GUI.Box(new Rect(0, 0, EditorGUIUtility.currentViewWidth, 80), GUIContent.none, new GUIStyle { normal = { background = Texture2D.whiteTexture } });
-            // GUI.color = Constants.EdiaColors["Grey"];
-            // GUI.Box(new Rect(0, 81, EditorGUIUtility.currentViewWidth, 30), GUIContent.none, new GUIStyle { normal = { background = Texture2D.whiteTexture } });
             GUI.color = originalColor;
         
             GUIStyle style = new GUIStyle(EditorStyles.helpBox);
@@ -42,7 +40,7 @@ namespace Edia.Editor.Utils {
                 "EXPERIMENT", new GUIStyle { 
                     fontSize = 36, 
                     font = Resources.Load<Font>("Bahnschrift"), 
-                    normal = { textColor = Constants.EdiaColors["White"] } }
+                    normal = { textColor = Constants.EdiaColors["white"] } }
                 );
             
             EditorGUI.TextArea(new Rect(10, 90, EditorGUIUtility.currentViewWidth - 10, 60), helpBoxAttribute.text, style);

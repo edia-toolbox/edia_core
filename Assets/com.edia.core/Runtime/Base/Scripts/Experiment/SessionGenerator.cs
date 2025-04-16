@@ -8,8 +8,8 @@ namespace Edia {
     public class SessionGenerator : MonoBehaviour {
 
         // Internal checkup lists
-        public readonly  List<XBlockBaseSettings> _bases          = new();
-        public readonly  List<XBlockSettings>     _xBlocks        = new();
+        private readonly  List<XBlockBaseSettings> _bases     = new();
+        private readonly List<XBlockSettings>     _xBlocks   = new();
         private readonly List<bool>               _validated = new();
         public           XBlockSequence           _xBlockSequence;
         public           XBlockBaseSettings       _sessionXblock = new();

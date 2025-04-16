@@ -72,10 +72,10 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 0.036133777, g: 0.3960759, b: 0.5471698, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_NormalColor: {r: 0.87169814, g: 0.87169814, b: 0.87169814, a: 1}
+    m_HighlightedColor: {r: 0.20392159, g: 0.49803925, b: 0.6666667, a: 1}
+    m_PressedColor: {r: 0.85098046, g: 0.454902, b: 0.050980397, a: 1}
+    m_SelectedColor: {r: 0.20392159, g: 0.6666667, b: 0.6666667, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -204,6 +204,7 @@ GameObject:
   - component: {fileID: 9198572106385518427}
   - component: {fileID: 7066330282359088027}
   - component: {fileID: 3582134325882816091}
+  - component: {fileID: 933582104569946235}
   m_Layer: 5
   m_Name: Outline
   m_TagString: Untagged
@@ -253,7 +254,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.05, g: 0.05, b: 0.05, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -296,9 +297,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EffectColor: {r: 0.05, g: 0.05, b: 0.05, a: 1}
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
   m_EffectDistance: {x: 2, y: -2}
   m_UseGraphicAlpha: 0
+--- !u!114 &933582104569946235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4919257203394172486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2508727637751940b1cc50d451d4be0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ThemeComponent: 11
 --- !u!1 &6160014847551194035
 GameObject:
   m_ObjectHideFlags: 0
@@ -365,7 +379,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 0e5b366aff7715d49bb1d63c92724ff7, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -400,6 +414,7 @@ GameObject:
   - component: {fileID: 7379416701391988201}
   - component: {fileID: 4321618390484996286}
   - component: {fileID: 6542956729957667943}
+  - component: {fileID: 6976031728802784208}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -456,16 +471,16 @@ MonoBehaviour:
       m_Calls: []
   m_text: New Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 41aec711791540349a82419acb8c9fb7, type: 2}
-  m_sharedMaterial: {fileID: -2301115709404933615, guid: 41aec711791540349a82419acb8c9fb7,
+  m_fontAsset: {fileID: 11400000, guid: 4ff3e08b8e432504c9d22c5bdb969678, type: 2}
+  m_sharedMaterial: {fileID: 6071735424502119485, guid: 4ff3e08b8e432504c9d22c5bdb969678,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294111986
-  m_fontColor: {r: 0.9490196, g: 0.9490196, b: 0.9490196, a: 1}
+    rgba: 4279045389
+  m_fontColor: {r: 0.050980393, g: 0.050980393, b: 0.050980393, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -482,8 +497,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 16
-  m_fontSizeBase: 16
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -526,3 +541,16 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &6976031728802784208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8274589503933223014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2508727637751940b1cc50d451d4be0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ThemeComponent: 10

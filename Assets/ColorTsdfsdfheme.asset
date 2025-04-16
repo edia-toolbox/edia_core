@@ -13,17 +13,17 @@ MonoBehaviour:
   m_Name: ColorTsdfsdfheme
   m_EditorClassIdentifier: 
   logoSprite: {fileID: 0}
-  primaryBrandColor: {r: 0.2, g: 0.6, b: 0.8, a: 1}
-  secondaryBrandColor: {r: 0.8, g: 0.2, b: 0.2, a: 1}
-  buttonColorBlock:
-    m_NormalColor: {r: 0.7735849, g: 0.4182479, b: 0.09779279, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+  _buttonColorBlock:
+    m_NormalColor: {r: 0.87169814, g: 0.87169814, b: 0.87169814, a: 1}
+    m_HighlightedColor: {r: 0.20392159, g: 0.49803925, b: 0.6666667, a: 1}
+    m_PressedColor: {r: 0.85098046, g: 0.454902, b: 0.050980397, a: 1}
+    m_SelectedColor: {r: 0.20392159, g: 0.6666667, b: 0.6666667, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
-  ToggleColorBlock:
+  ButtonTextColor: {r: 0.050980393, g: 0.050980393, b: 0.050980393, a: 1}
+  ButtonOutlineColor: {r: 0, g: 0, b: 0, a: 1}
+  _toggleColorBlock:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
@@ -31,9 +31,23 @@ MonoBehaviour:
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
-  ControlPanelBackgroundColor: {r: 0.34133846, g: 0.6448713, b: 0.7207546, a: 1}
-  SubPanelBackgroundColor: {r: 1, g: 1, b: 1, a: 1}
-  ItemPanelBackgroundColor: {r: 1, g: 1, b: 1, a: 1}
-  HeaderTextColor: {r: 0, g: 0, b: 0, a: 1}
-  BodyTextColor: {r: 0, g: 0, b: 0, a: 1}
-  TextScaleFactor: 1
+  _dropDownColorBlock:
+    m_NormalColor: {r: 0.6075471, g: 0.6075471, b: 0.6075471, a: 1}
+    m_HighlightedColor: {r: 0.74503404, g: 0.7660377, b: 0.51888216, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.3348166, g: 0.6411821, b: 0.645283, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  progressBarBGColor: {r: 0.313, g: 0.3104132, b: 0.29747933, a: 1}
+  progressBarFillColor: {r: 0.85098046, g: 0.454902, b: 0.050980397, a: 1}
+  progressBarTextColor: {r: 0.9490196, g: 0.9490196, b: 0.9490196, a: 1}
+  MainBGColor: {r: 0.20754719, g: 0.20167321, b: 0.20167321, a: 0.95686275}
+  MainPanelTextColor: {r: 0.7433963, g: 0.7433963, b: 0.7433963, a: 0.7882353}
+  PanelBGColor: {r: 0.21451758, g: 0.26610553, b: 0.3132075, a: 0.7882353}
+  PanelTextColor: {r: 0.75, g: 0.75, b: 0.75, a: 1}
+  SubPanelBGColor: {r: 0.30662158, g: 0.4756319, b: 0.509434, a: 0.7372549}
+  SubPanelTextColor: {r: 0.9490196, g: 0.9490196, b: 0.9490196, a: 1}
+  MsgPanelBGColor: {r: 0.33, g: 0.69, b: 0.76, a: 0.38}
+  MsgPanelTextBGColor: {r: 0.78, g: 0.78, b: 0.78, a: 1}
+  MsgPanelTextColor: {r: 0.78, g: 0.78, b: 0.78, a: 1}

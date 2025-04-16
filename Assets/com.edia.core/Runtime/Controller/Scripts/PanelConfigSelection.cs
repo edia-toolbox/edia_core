@@ -1,11 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 using TMPro;
-using System;
-using Unity.Properties;
 using static Edia.Constants;
 
 namespace Edia.Controller {
@@ -15,25 +12,23 @@ namespace Edia.Controller {
 
 		[Header("Refs")]
 		public Button btnSubmit = null;
-
-		List<string> _subFolders                  = new();
-		List<string> _sesFolders                  = new();
-		List<string> _baseDefinitionJsonStrings   = new();
-		List<string> _xBlockDefinitionJsonStrings = new();
-		string       _xBlockSequenceJsonString;
-		string       _sessionInfoJsonString;
-		string       _sessionJsonString;
-
+		public TextMeshProUGUI InfoField;
 		public TMP_Dropdown SubjectSelectionDropdown;
 		public TMP_Dropdown SessionSelectionDropdown;
 
-		public TextMeshProUGUI TopField;
+		private List<string> _subFolders                  = new();
+		private List<string> _sesFolders                  = new();
+		private List<string> _baseDefinitionJsonStrings   = new();
+		private List<string> _xBlockDefinitionJsonStrings = new();
+		private string       _xBlockSequenceJsonString;
+		private string       _sessionInfoJsonString;
+		private string       _sessionJsonString;
 
-		string _subject = "";
-		string _session = "";
+		private string _subject = "";
+		private string _session = "";
 
-		public List<string> xBlockDefinitionsFileList; // for sanity check
-		public XBlockSequence _xBlockSequence;
+		private List<string>   xBlockDefinitionsFileList; 
+		private XBlockSequence _xBlockSequence;
 
 		/// <summary>
 		/// Initializes the panel configuration selection process.
@@ -63,18 +58,18 @@ namespace Edia.Controller {
 			OnSubjectValueChanged(0);
 			OnSessValueChanged(0);
 
-			TopField.text = "Select participant and session";
+			InfoField.text = "Select participant and session";
 
 			btnSubmit.interactable = true;
 
 			EventManager.TriggerEvent(Edia.Events.Config.EvFoundLocalConfigFiles);
 		}
 
-		void OnEvFoundLocalConfigFiles(eParam e) {
+		private void OnEvFoundLocalConfigFiles(eParam e) {
 			Invoke("ShowPanel", 0.1f); // Small delay to be sure the Awake method collected all child transforms to toggle
 		}
 
-		void Reset() {
+		private void Reset() {
 			SubjectSelectionDropdown.ClearOptions();
 			SessionSelectionDropdown.ClearOptions();
 			SessionSelectionDropdown.interactable = false;
@@ -121,7 +116,7 @@ namespace Edia.Controller {
 			_session = SessionSelectionDropdown.options[value].text;
 		}
 
-		void GenerateDropdown(List<string> folderlist, TMP_Dropdown dropDown) {
+		private void GenerateDropdown(List<string> folderlist, TMP_Dropdown dropDown) {
 
 			List<TMP_Dropdown.OptionData> tmpOptions = new List<TMP_Dropdown.OptionData>();
 
@@ -133,7 +128,7 @@ namespace Edia.Controller {
 			dropDown.AddOptions(tmpOptions);
 		}
 
-		void LoadJsons() {
+		private void LoadJsons() {
 
 			// Session info
 			string currentPath = PathToParticipantFiles + _subject + "/" + _session + "/";

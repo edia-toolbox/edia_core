@@ -5,148 +5,192 @@ using System.IO;
 namespace Edia.Editor.Utils {
     [InitializeOnLoad]
     public class Configurator : EditorWindow {
-        public Texture2D EDIAIcon;
-        public static bool forceShow = false;
-        ApiCompatibilityLevel targetApiLevel = ApiCompatibilityLevel.NET_4_6;
-        string projectName = GetProjectName();
-        [SerializeField] private ColorThemeDefinition selectedColorTheme;
 
-        Vector2 scrollPos;
+        // Public
+        public Texture2D      EDIAIcon;
+        public Texture2D      projectIcon;
+        ApiCompatibilityLevel targetApiLevel = ApiCompatibilityLevel.NET_4_6;
+
+        // Internal
+        [SerializeField] private ThemeDefinition SelectedTheme;
+
+        private Vector2              scrollPos;
+        private string               projectName;
+        private ThemeDefinition selectedTheme;
+
+        // EditorPrefs keys
+        private const string ThemeGuidKey       = "EDIA_SelectedThemeGuid";
+        private const string ProjectIconPathKey = "EDIA_ProjectIconPath";
+        private const string ProjectNameKey     = "EDIA_ProjectName";
+
+        void OnEnable() {
+            LoadSettings();
+        }
+
+        void LoadSettings() {
+            string themeGuid = EditorPrefs.GetString(ThemeGuidKey, "");
+            if (!string.IsNullOrEmpty(themeGuid)) {
+                string themePath = AssetDatabase.GUIDToAssetPath(themeGuid);
+                selectedTheme = AssetDatabase.LoadAssetAtPath<ThemeDefinition>(themePath);
+                Constants.ActiveTheme = selectedTheme; // Fires the event to force UI items to update
+            }
+
+            string iconPath = EditorPrefs.GetString(ProjectIconPathKey, "");
+            if (!string.IsNullOrEmpty(iconPath)) {
+                projectIcon = AssetDatabase.LoadAssetAtPath<Texture2D>(iconPath);
+            }
+
+            string projectName = EditorPrefs.GetString(ProjectNameKey, "");
+            if (!string.IsNullOrEmpty(projectName)) {
+                this.projectName = projectName;
+            }
+        }
+
+        void SaveSettings() {
+            if (selectedTheme != null) {
+                string themePath = AssetDatabase.GetAssetPath(selectedTheme);
+                string themeGuid = AssetDatabase.AssetPathToGUID(themePath);
+                EditorPrefs.SetString(ThemeGuidKey, themeGuid);
+            }
         
-        public static event System.Action OnThemeChanged;
+            if (projectIcon != null) {
+                string iconPath = AssetDatabase.GetAssetPath(projectIcon);
+                EditorPrefs.SetString(ProjectIconPathKey, iconPath);
         
+                PlayerSettings.SetIconsForTargetGroup(BuildTargetGroup.Unknown, new[] { projectIcon });
+            }
         
+            if (!string.IsNullOrEmpty(projectName)) {
+                EditorPrefs.SetString(ProjectNameKey, projectName);
+            }
+        }
+
         [MenuItem("EDIA/Configurator")]
         static void Init() {
             var window = (Configurator)EditorWindow.GetWindow(typeof(Configurator), false, "Configurator");
-            window.minSize = new Vector2(300, 400); 
+            window.minSize      = new Vector2(300, 400);
             window.titleContent = new GUIContent("Configurator");
             window.Show();
         }
 
-        public void OnGUI() {
-            scrollPos = EditorGUILayout.BeginScrollView(scrollPos, false, false);
-            GUIStyle labelStyle = new GUIStyle(EditorStyles.label);
-            labelStyle.wordWrap = true;
+        private void OnGUI() {
+            // Styles
+            GUIStyle labelContent = new GUIStyle(EditorStyles.label);
+            labelContent.fontSize = 13;
 
+            GUIStyle labelHeader = new GUIStyle(EditorStyles.label);
+            labelHeader.wordWrap = true;
+            labelHeader.font     = Resources.Load<Font>("bahnschrift");
+            labelHeader.fontSize = 22;
+
+            GUIStyle centeredStyle = new GUIStyle(GUI.skin.label);
+            centeredStyle.alignment = TextAnchor.MiddleCenter;
+            centeredStyle.font      = Resources.Load<Font>("bahnschrift");
+
+            // Logo and header
+            GUILayout.Space(20);
             GUILayout.BeginHorizontal();
             GUILayout.FlexibleSpace();
-            var rect = GUILayoutUtility.GetRect(128, 128, GUI.skin.box);
+            var rect = GUILayoutUtility.GetRect(96, 96, GUI.skin.box);
             if (EDIAIcon)
                 GUI.DrawTexture(rect, EDIAIcon, ScaleMode.ScaleToFit);
             GUILayout.FlexibleSpace();
             GUILayout.EndHorizontal();
 
             GUILayout.BeginHorizontal();
-            GUILayout.FlexibleSpace();
-            GUILayout.Label("eDIA v0.4.0 \nUnity Toolbox for XR Research Studies", EditorStyles.boldLabel);
-            GUILayout.FlexibleSpace();
+            GUILayout.Label("EDIA v0.4.0 \nUnity Toolbox for XR Research", centeredStyle);
             GUILayout.EndHorizontal();
 
+            scrollPos = EditorGUILayout.BeginScrollView(scrollPos, false, false);
+
+            // Edia details
+            GUILayout.Space(20);
+            EditorGUILayout.Separator();
+            GUILayout.Label("Documentation", labelHeader);
+            EditorGUILayout.Separator();
+            if (GUILayout.Button("Getting started"))
+                Application.OpenURL("https://edia-toolbox.github.io/gettingstarted/");
+
+            if (GUILayout.Button("API Reference"))
+                Application.OpenURL("https://edia-toolbox.github.io/apiref/");
+
+            GUILayout.Space(20);
+            EditorGUILayout.Separator();
+            GUILayout.Label("Examples", labelHeader);
+            EditorGUILayout.Separator();
+            GUILayout.Label("Each EDIA module comes with samples. \nConsult the `samples` area the package manager.", labelContent);
+
+            if (GUILayout.Button("Open Package Manager"))
+                EditorApplication.ExecuteMenuItem("Window/Package Manager");
+
+            // Project settings ------------------------------------------------------
+            GUILayout.Space(10);
+            EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+            GUILayout.Label("Your Project", labelHeader);
+
+            GUILayout.Space(20);
             EditorGUILayout.Separator();
 
-            GUILayout.Label("Editor Settings", EditorStyles.boldLabel);
-            GUILayout.Label("For the framework to work, a basic set of layers is needed");
+            EditorGUI.BeginChangeCheck();
+            projectName = EditorGUILayout.TextField(new GUIContent("Project Name", "Enter the name of your project"), projectName);
+            GUILayout.BeginHorizontal();
+            GUILayout.Label("Project Icon", GUILayout.Width(100));
+            projectIcon = (Texture2D)EditorGUILayout.ObjectField(projectIcon, typeof(Texture2D), false);
+            GUILayout.EndHorizontal();
+            if (EditorGUI.EndChangeCheck()) {
+                SaveSettings();
+            }
+
+            EditorGUILayout.Separator();
+            GUILayout.Label("EDIA requires a few mandatory layers to function properly!", labelContent);
 
             if (GUILayout.Button("Create layers")) {
                 LayerTools.SetupLayers();
             }
 
             EditorGUILayout.Separator();
-
-            EditorGUILayout.BeginHorizontal();
-
-            GUILayout.Label("Project name:");
-            projectName = EditorGUILayout.TextField(projectName);
-
-            EditorGUILayout.EndHorizontal();
-
-            EditorGUILayout.HelpBox("Click the button below to create an exemplary Unity project folder structure within the root folder of your project.", MessageType.Info);
+            GUILayout.Label("EDIA provides an optional folder structure guide.", labelContent);
             if (GUILayout.Button("Create folder structure")) {
                 CreateFolderStructure(projectName);
             }
 
+            GUILayout.Space(20);
             EditorGUILayout.Separator();
-            
-            GUILayout.Label("Help and info", EditorStyles.boldLabel);
-
-            EditorGUILayout.Space();
-            GUILayout.Label("The framework comes with documentation", labelStyle);
-            if (GUILayout.Button("Open documentation"))
-                Application.OpenURL("https://gitlab.gwdg.de/3dia/edia_framework/-/wikis/home");
-
+            EditorGUILayout.LabelField("UI Theme Settings", labelHeader);
             EditorGUILayout.Separator();
+            GUILayout.Label("EDIA provides a customizable color theme.", labelContent);
 
-            GUILayout.Label("Examples", EditorStyles.boldLabel);
-            GUILayout.Label("Click 'import samples' from the package manager.", labelStyle);
-
-            EditorGUILayout.Separator();
-
-            EditorGUILayout.Space(10);
-            EditorGUILayout.LabelField("UI Theme Settings", EditorStyles.boldLabel);
-
-// Add a field for the UIColorThemeDefinition
-            ColorThemeDefinition newSelectedColorTheme = (ColorThemeDefinition)EditorGUILayout.ObjectField(
-                "UI Color Theme", 
-                selectedColorTheme, 
-                typeof(ColorThemeDefinition), 
-                false);
-            
-            if (newSelectedColorTheme != selectedColorTheme) {
-                selectedColorTheme = newSelectedColorTheme;
-                
+            EditorGUI.BeginChangeCheck();
+            selectedTheme = EditorGUILayout.ObjectField("Color Theme", selectedTheme, typeof(ThemeDefinition), false) as ThemeDefinition;
+            if (EditorGUI.EndChangeCheck()) {
+                SaveSettings();
             }
 
-            // Add an APPLY button to fire the OnThemeChanged event
-            if (GUILayout.Button("APPLY"))
-            {
-                Constants.ActiveTheme = selectedColorTheme;
+            if (GUILayout.Button("APPLY")) {
+                Constants.ActiveTheme = selectedTheme; // Fires the event to force UI items to update
             }
 
-            
             EditorGUILayout.BeginHorizontal();
-            if (GUILayout.Button("Create New Theme"))
-            {
+            if (GUILayout.Button("Create New Theme")) {
                 string path = EditorUtility.SaveFilePanelInProject(
                     "Create UI Color Theme",
                     "ColorTheme",
                     "asset",
                     "Create a new UI Color Theme asset");
-            
-                if (!string.IsNullOrEmpty(path))
-                {
-                    // Create a new instance of UIColorThemeDefinition
-                    ColorThemeDefinition newTheme = ScriptableObject.CreateInstance<ColorThemeDefinition>();
-            
-                    // Save it to the selected path
+
+                if (!string.IsNullOrEmpty(path)) {
+                    ThemeDefinition newTheme = ScriptableObject.CreateInstance<ThemeDefinition>();
                     AssetDatabase.CreateAsset(newTheme, path);
                     AssetDatabase.SaveAssets();
-            
-                    // Set it as the current theme
-                    selectedColorTheme = newTheme;
-            
-                    // Focus the Project window and select the new asset
+
+                    selectedTheme = newTheme;
                     EditorUtility.FocusProjectWindow();
                     Selection.activeObject = newTheme;
                 }
             }
 
             EditorGUILayout.EndHorizontal();
-
-            // EditorGUILayout.Separator();
-            
-            // EditorGUILayout.Separator();
             EditorGUILayout.EndScrollView();
-        }
-
-        public static string GetProjectName() {
-            // Get the full path of the Unity project directory
-            string projectDirectory = Directory.GetCurrentDirectory();
-
-            // Extract the name of the directory (which should be the project name)
-            string projectName = new DirectoryInfo(projectDirectory).Name;
-
-            return projectName;
         }
 
         static void CreateFolderStructure(string projectName) {
@@ -167,16 +211,5 @@ namespace Edia.Editor.Utils {
             AssetDatabase.Refresh();
         }
 
-        static void SetSettingsWindows() {
-            Debug.Log("SetSettingsWindows placeholder");
-        }
-
-        static void SetSettingsOculus() {
-            Debug.Log("SetSettingsOculus placeholder");
-        }
-
-        static void SetSettingsAndroid() {
-            Debug.Log("SetSettingsAndroid placeholder");
-        }
     }
 }
