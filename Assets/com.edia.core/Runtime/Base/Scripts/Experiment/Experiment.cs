@@ -32,10 +32,6 @@ namespace Edia {
         [Space(80)]
         public List<XBlock> Executors = new();
 
-        [Header("Settings")]
-        [Tooltip("Enable Position&Rotation tracker from UXF which stores data to session folder. !Might have impact on FPS with long trials.")]
-        public bool TrackXrRigWithUxf = false;
-
         [Header("Debug")]
         public bool ShowConsoleMessages = false;
         public bool ShowEventMessages = false;
@@ -268,7 +264,6 @@ namespace Edia {
         // ReSharper disable Unity.PerformanceAnalysis
         /// <summary>Starts the experiment</summary>
         private void StartExperiment() {
-            ConfigureXRrigTracking();
 
             Session.instance.Begin(
                 SessionSettings.sessionInfo.experiment == string.Empty ? "N.A." : SessionSettings.sessionInfo.experiment,
@@ -724,19 +719,6 @@ namespace Edia {
         /// <param name="value">Value in string format</param>
         public void AddToTrialResults(string key, string value) {
             Session.instance.CurrentTrial.result[key] = value;
-        }
-
-        private void ConfigureXRrigTracking() {
-            XRManager.Instance.XRCam.GetComponent<PositionRotationTracker>().enabled   = TrackXrRigWithUxf;
-            XRManager.Instance.XRLeft.GetComponent<PositionRotationTracker>().enabled  = TrackXrRigWithUxf;
-            XRManager.Instance.XRRight.GetComponent<PositionRotationTracker>().enabled = TrackXrRigWithUxf;
-
-            if (!TrackXrRigWithUxf)
-                return;
-
-            Session.instance.trackedObjects.Add(XRManager.Instance.XRCam.GetComponent<PositionRotationTracker>());
-            Session.instance.trackedObjects.Add(XRManager.Instance.XRLeft.GetComponent<PositionRotationTracker>());
-            Session.instance.trackedObjects.Add(XRManager.Instance.XRRight.GetComponent<PositionRotationTracker>());
         }
 
         private void SaveCustomDataTables() {

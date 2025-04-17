@@ -21,9 +21,6 @@ namespace Edia {
         public bool isActive = false;
 
         private void Awake() {
-            if (GetComponent<Canvas>().worldCamera == null)
-                GetComponent<Canvas>().worldCamera = StickToHMD ? XRManager.Instance.CamOverlay.GetComponent<Camera>() : XRManager.Instance.XRCam.GetComponent<Camera>();
-
             if (StickToHMD) {
                 transform.parent = XRManager.Instance.XRCam.transform;
                 transform.localPosition = new Vector3(0, 0, _distanceFromHMD);

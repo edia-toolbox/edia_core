@@ -21,7 +21,6 @@ namespace Edia {
         [SerializeField] private GameObject _menuHolder = null;
         [SerializeField] private Button _buttonNEXT = null;
         [SerializeField] private Button _buttonProceed = null;
-        [SerializeField] private bool _hasSolidBackground = true;
         
         // Locals
         private Image _backgroundImg = null;
@@ -42,7 +41,7 @@ namespace Edia {
             _trackedDeviceGraphicRaycaster = GetComponent<TrackedDeviceGraphicRaycaster>();
             
             _canvas = GetComponent<Canvas>();
-            _canvas.worldCamera = _stickToHMD ? XRManager.Instance.CamOverlay.GetComponent<Camera>() : XRManager.Instance.XRCam.GetComponent<Camera>();
+            _canvas.worldCamera = XRManager.Instance.XRCam.GetComponent<Camera>();
             _backgroundImg = transform.GetChild(0).GetComponent<Image>();
             
             _panelChildren = this.gameObject.GetComponentsInChildren<Transform>(true);
@@ -70,7 +69,7 @@ namespace Edia {
         }
 
 
-        #region MESSAGE OPTIONS
+        #region ------ MESSAGE OPTIONS
         /// <summary>Shows the message in VR on a canvas for a certain duration.</summary>
         /// <param name="msg">Message to show</param>
         /// <param name="duration">Duration</param>
@@ -135,7 +134,7 @@ namespace Edia {
 
         /// <summary> Button pressed to proceed experiment statemachine </summary>
         public void OnBtnProceedPressed() {
-            XRManager.Instance.EnableXROverlayRayInteraction(false);
+            // XRManager.Instance.EnableXROverlayRayInteraction(false);
             EventManager.TriggerEvent(Edia.Events.StateMachine.EvProceed);
         }
 
@@ -154,9 +153,9 @@ namespace Edia {
             Show(true);
         }
 
-        #endregion // -------------------------------------------------------------------------------------------------------------------------------
+        #endregion
 
-        #region SHOW / HIDE
+        #region ------ SHOW / HIDE
 
         /// <summary>Event handler</summary>
         void OnEvHideMessage(eParam e) {
@@ -171,10 +170,7 @@ namespace Edia {
                 _graphicRaycaster.enabled = onOff;
             _trackedDeviceGraphicRaycaster.enabled = onOff;
 
-            // Determine correct interaction state when showing / hinding the messagepanel
-            // _stickToHMD == Always use OverlayRayInteraction
-            XRManager.Instance.EnableOverlayCam(onOff ? _stickToHMD : false);
-            XRManager.Instance.EnableXROverlayRayInteraction(onOff ? _stickToHMD : false);
+            // XRManager.Instance.EnableXROverlayRayInteraction(onOff ? _stickToHMD : false);
             XRManager.Instance.EnableXRRayInteraction(onOff ? !_stickToHMD : false);
 
             _messagePanelFader = _messagePanelFader is not null ? null : StartCoroutine(TextFader());
@@ -191,19 +187,19 @@ namespace Edia {
             Show(false);
         }
 
-        #endregion // -------------------------------------------------------------------------------------------------------------------------------
+        #endregion
 
-        #region MENU
+        #region ------ MENU
 
         /// <summary> Hides the menu </summary>
         public void HideMenu() {
             ButtonToggling(false, false);
-            XRManager.Instance.EnableXROverlayRayInteraction(false);
+            XRManager.Instance.EnableXRRayInteraction(false);
         }
 
-        #endregion // -------------------------------------------------------------------------------------------------------------------------------
+        #endregion
 
-        #region TIMERS
+        #region ------ TIMERS
 
         private IEnumerator HidePanelAfter(float duration) {
             yield return new WaitForSeconds(duration);
@@ -216,7 +212,7 @@ namespace Edia {
 
             while (currentTime < duration) {
                 float alpha = Mathf.Lerp(0f, 1f, currentTime / duration);
-                float alphaBg = Mathf.Lerp(0f, _hasSolidBackground ? 1f : 0.5f, currentTime / duration);
+                float alphaBg = Mathf.Lerp(0f, 0.5f, currentTime / duration);
                 _backgroundImg.color = new Color(_backgroundImg.color.r, _backgroundImg.color.g, _backgroundImg.color.b, alphaBg);
                 currentTime += Time.deltaTime;
                 yield return null;
@@ -239,6 +235,6 @@ namespace Edia {
             yield break;
         }
 
-        #endregion // -------------------------------------------------------------------------------------------------------------------------------
+        #endregion
     }
 }

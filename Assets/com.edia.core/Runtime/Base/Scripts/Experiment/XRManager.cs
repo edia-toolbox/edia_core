@@ -1,10 +1,18 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
+using UXF;
 
 namespace Edia {
+
+    [System.Serializable]
+    public class XRController {
+        public Constants.Sides         Side = Constants.Sides.Left;
+        public GameObject              ControllerModel;
+        public UXF.Tracker             UXFPoseTracker;
+        public List<NearFarInteractor> NearFarInteractors = new();
+        public List<XRPokeInteractor>  PokeInteractors    = new();
+    }
 
     /// <summary>
     /// Manages all call XR related
@@ -17,28 +25,29 @@ namespace Edia {
         [Space(10f)]
         [Header("References")]
         public Transform XRCam;
+        // public Transform XRLeft;
+        // public Transform XRRight;
 
-        public Transform XRLeft;
-        public Transform XRRight;
-        public Transform CamOverlay;
-        public bool      isInteractive        = false;
-        public bool      isOverlayInteractive = false;
+        public List<XRController> XRControllers = new();
+
+        [Header("Settings")]
+        [Tooltip("Enable Position&Rotation tracker from UXF which stores data to session folder. !Might have impact on FPS with long trials.")]
+        public bool TrackXrRigWithUxf = false;
+        
+bool isInteractive = false;
 
         void Awake() {
-            // TODO: fix with new Interactiontoolkit setup
-            // CheckReferences();
+            CheckReferences();
         }
 
         private void Start() {
             // TODO: fix with new Interactiontoolkit setup
             // EnableXRRayInteraction(false); // Start the system with interaction rays disabled
+            ConfigureXRrigTracking();
         }
 
         void CheckReferences() {
             if (XRCam == null) Debug.LogError("XR Camera reference not set");
-            if (XRLeft == null) Debug.LogError("XR LeftController reference not set");
-            if (XRRight == null) Debug.LogError("XR RightController reference not set");
-            if (CamOverlay == null) Debug.LogError("camOverlay reference not set");
         }
 
         private void OnDrawGizmos() {
@@ -46,6 +55,21 @@ namespace Edia {
             Gizmos.matrix = transform.localToWorldMatrix;
             Gizmos.DrawWireCube(Vector3.zero, new Vector3(0.5f, 0.0f, 0.5f));
             Gizmos.DrawLine(Vector3.zero, Vector3.forward);
+        }
+        
+        private void ConfigureXRrigTracking() {
+            
+            if (!TrackXrRigWithUxf)
+                return;
+            
+            XRCam.GetComponent<PositionRotationTracker>().enabled   = TrackXrRigWithUxf;
+
+            
+            XRControllers.Find(x => x.Side == Constants.Sides.Left).UXFPoseTracker.enabled = TrackXrRigWithUxf;
+            Session.instance.trackedObjects.Add(XRManager.Instance.XRCam.GetComponent<PositionRotationTracker>());
+
+            // Session.instance.trackedObjects.Add(XRManager.Instance.XRLeft.GetComponent<PositionRotationTracker>());
+            // Session.instance.trackedObjects.Add(XRManager.Instance.XRRight.GetComponent<PositionRotationTracker>());
         }
 
 #region Inspector debug calls
@@ -75,13 +99,6 @@ namespace Edia {
         }
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
-#region OVERLAY
-
-        public void EnableOverlayCam(bool onOff) {
-            CamOverlay.GetComponent<Camera>().enabled = onOff;
-        }
-
-#endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region INTERACTION
 
         /// <summary>Turn XR hand / controller interaction possibility on or off.</summary>
@@ -89,16 +106,13 @@ namespace Edia {
         public void EnableXRRayInteraction(bool onOff) {
             AddToConsole("EnableXRInteraction " + onOff);
             isInteractive = onOff;
-
-            XRLeft.GetComponent<XRController>().EnableRayInteraction(onOff);
-            XRRight.GetComponent<XRController>().EnableRayInteraction(onOff);
         }
 
-        public void EnableXROverlayRayInteraction(bool onOff) {
-            isOverlayInteractive = onOff;
-
-            XRLeft.GetComponent<XRController>().EnableXROverlayRayInteraction(onOff);
-            XRRight.GetComponent<XRController>().EnableXROverlayRayInteraction(onOff);
+        private void SetNearFarInteractor(List<NearFarInteractor> interactors, bool onOffNear, bool onOffFar) {
+            foreach (NearFarInteractor interactor in interactors) {
+                interactor.enableFarCasting  = onOffFar;
+                interactor.enableNearCasting = onOffNear;
+            }
         }
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
@@ -139,26 +153,19 @@ namespace Edia {
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region HANDS
 
-        /// <summary>Set the hand pose for the current interactive hand(s). Pose as string 'point','fist','idle'</summary>
-        /// <param name="pose"></param>
-        public void SetHandPose(string pose) {
-            EventManager.TriggerEvent(Edia.Events.XR.EvHandPose, new eParam(pose));
-        }
-
-        /// <summary>Enable custom fixed handposes, expects boolean</summary>
-        public void EnableCustomHandPoses(bool onOff) {
-            EventManager.TriggerEvent(Edia.Events.XR.EvEnableCustomHandPoses, new eParam(onOff));
-        }
-
         /// <summary>Shows the hands that are set to be allowed visible on/off</summary>
         public void ShowHands(bool onOff) {
-            XRLeft.GetComponent<XRController>().ShowHandModel(onOff);
-            XRRight.GetComponent<XRController>().ShowHandModel(onOff);
+            // TODO Can we just hide ONE hand, or only TWO? (see HandVisualizer script)
+
+
+            // XRLeft.GetComponent<XRController>().ShowHandModel(onOff);
+            // XRRight.GetComponent<XRController>().ShowHandModel(onOff);
         }
 
         public void ShowControllers(bool onOff) {
-            XRLeft.GetComponent<XRController>().ShowControllerModel(onOff);
-            XRRight.GetComponent<XRController>().ShowControllerModel(onOff);
+            // TODO Just show hide the `Left Controller VIsual` gameobject or is it more complex than that?
+            // XRLeft.GetComponent<XRController>().ShowControllerModel(onOff);
+            // XRRight.GetComponent<XRController>().ShowControllerModel(onOff);
         }
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------

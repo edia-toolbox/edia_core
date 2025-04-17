@@ -1,10 +1,11 @@
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 namespace Edia {
     /// <summary>Static definitions</summary>
     public static class Constants {
-        public enum ManipulatorSides {
+        public enum Sides {
             Left,
             Right,
         }
@@ -83,8 +84,20 @@ namespace Edia {
             get {
                 // Lazy initialization if no theme has been set yet
                 if (_activeTheme == null) {
-                    _activeTheme = ScriptableObject.CreateInstance<ThemeDefinition>();
-                    Debug.Log("Created default theme as none was set");
+                    string themeGuid = EditorPrefs.GetString("EDIA_SelectedThemeGuid", "");
+                    if (!string.IsNullOrEmpty(themeGuid)) {
+                        string themePath = AssetDatabase.GUIDToAssetPath(themeGuid);
+                        _activeTheme = AssetDatabase.LoadAssetAtPath<ThemeDefinition>(themePath);
+                
+                        if (_activeTheme == null) {
+                            Debug.LogWarning("Failed to load the theme from EditorPrefs. Make sure the theme asset exists in the project.");
+                        }
+                    }
+                
+                    if (_activeTheme == null) {
+                        _activeTheme = ScriptableObject.CreateInstance<ThemeDefinition>();
+                        Debug.Log("Created default theme as none was set");
+                    }
                 }
 
                 return _activeTheme;
