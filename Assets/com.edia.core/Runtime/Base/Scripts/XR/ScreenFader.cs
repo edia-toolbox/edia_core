@@ -16,7 +16,7 @@ namespace Edia {
 
         private void OnDrawGizmos() {
             // Draw HMD gizmo
-            Gizmos.color  = Color.cyan;
+            Gizmos.color  = Edia.Constants.EdiaColors["blue"];
             Gizmos.matrix = transform.localToWorldMatrix;
             Gizmos.DrawSphere(Vector3.zero, 0.1f);
             Gizmos.DrawCube(Vector3.zero + new Vector3(0, 0, 0.08f), new Vector3(0.125f, 0.075f, 0.075f));
