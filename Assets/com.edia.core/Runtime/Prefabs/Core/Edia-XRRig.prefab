@@ -196,28 +196,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df19caa6a54a25d43a4cfa8f17a9a7ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TrackXrRigWithUxf: 1
+  AllowHands: 0
+  AllowControllers: 0
   ShowConsoleMessages: 1
   XRCam: {fileID: 6672105821521620850}
   XRControllers:
   - Side: 0
     ControllerModel: {fileID: 2578484473846659287}
+    UXFPoseTracker: {fileID: 853654268558210395}
     NearFarInteractors:
     - {fileID: 2858104281685690068}
     - {fileID: 2298618060285118512}
     PokeInteractors:
     - {fileID: 6980540770588303011}
     - {fileID: 218616823185177255}
-    UXFPoseTracker: {fileID: 853654268558210395}
   - Side: 1
     ControllerModel: {fileID: 4778914094238334240}
+    UXFPoseTracker: {fileID: 260964933131232181}
     NearFarInteractors:
     - {fileID: 5096534406503667787}
     - {fileID: 9030418791160582110}
     PokeInteractors:
     - {fileID: 2623859582612164525}
     - {fileID: 4692953894756645562}
+  XRLeft:
+    Side: 0
+    ControllerModel: {fileID: 2578484473846659287}
+    UXFPoseTracker: {fileID: 853654268558210395}
+    NearFarInteractors:
+    - {fileID: 2858104281685690068}
+    - {fileID: 2298618060285118512}
+    PokeInteractors:
+    - {fileID: 6980540770588303011}
+    - {fileID: 218616823185177255}
+  XRRight:
+    Side: 1
+    ControllerModel: {fileID: 4778914094238334240}
     UXFPoseTracker: {fileID: 260964933131232181}
-  isInteractive: 0
+    NearFarInteractors:
+    - {fileID: 5096534406503667787}
+    - {fileID: 9030418791160582110}
+    PokeInteractors:
+    - {fileID: 2623859582612164525}
+    - {fileID: 4692953894756645562}
 --- !u!1 &6594791745446811964
 GameObject:
   m_ObjectHideFlags: 0
@@ -798,7 +820,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6672105819964067599}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 13dbc7aef009231419c2e645c8e8579b, type: 3}
   m_Name: 
@@ -876,7 +898,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6672105821521620849}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 13dbc7aef009231419c2e645c8e8579b, type: 3}
   m_Name: 
@@ -908,7 +930,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6672105821616705520}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 13dbc7aef009231419c2e645c8e8579b, type: 3}
   m_Name: 

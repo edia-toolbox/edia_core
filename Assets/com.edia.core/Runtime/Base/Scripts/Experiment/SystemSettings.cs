@@ -68,9 +68,6 @@ namespace Edia {
             receivedSettings = new SettingsDeclaration();
             receivedSettings = UnityEngine.JsonUtility.FromJson<SettingsDeclaration>(obj.GetString());
 
-            systemSettings.VisibleSide = receivedSettings.VisibleSide;
-            EventManager.TriggerEvent(Edia.Events.XR.EvUpdateVisableSide, new eParam(receivedSettings.VisibleSide));
-
             systemSettings.InteractiveSide = receivedSettings.InteractiveSide;
             EventManager.TriggerEvent(Edia.Events.XR.EvUpdateInteractiveSide, new eParam(receivedSettings.InteractiveSide));
 

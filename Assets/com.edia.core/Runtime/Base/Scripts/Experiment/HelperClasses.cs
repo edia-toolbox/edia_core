@@ -144,7 +144,6 @@ namespace Edia {
     [System.Serializable]
     public class SettingsDeclaration {
 
-        public string VisibleSide     = "NONE";
         public string InteractiveSide = "NONE";
 
         public string pathToLogfiles = "../logfiles";

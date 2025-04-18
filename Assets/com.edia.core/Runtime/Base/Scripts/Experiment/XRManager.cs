@@ -14,39 +14,43 @@ namespace Edia {
         public List<XRPokeInteractor>  PokeInteractors    = new();
     }
 
-    /// <summary>
-    /// Manages all call XR related
-    /// </summary>
     public class XRManager : Singleton<XRManager> {
 
+        [Header("Settings")]
+        [Tooltip("Use UXF to track and save XR Rig Position & Rotation data")]
+        public bool TrackXrRigWithUxf = false;
+
+        [Tooltip("Use OPENXR handtracking")] // TODO How will this work together with i.e. META handtracking
+        public bool AllowHands = false;
+
+        [Tooltip("Use controllers")]
+        public bool AllowControllers = false;
+        
         [Header("Debug")]
         public bool ShowConsoleMessages = false;
 
         [Space(10f)]
         [Header("References")]
         public Transform XRCam;
-        // public Transform XRLeft;
-        // public Transform XRRight;
-
-        public List<XRController> XRControllers = new();
-
-        [Header("Settings")]
-        [Tooltip("Enable Position&Rotation tracker from UXF which stores data to session folder. !Might have impact on FPS with long trials.")]
-        public bool TrackXrRigWithUxf = false;
+        public XRController       XRLeft;
+        public XRController       XRRight;
         
-bool isInteractive = false;
-
+        // Internals
+        bool isInteractive = false;
+        
+        #region --- PROPERTIES
+        
         void Awake() {
-            CheckReferences();
+            CheckAndSetReferences();
         }
 
         private void Start() {
             // TODO: fix with new Interactiontoolkit setup
-            // EnableXRRayInteraction(false); // Start the system with interaction rays disabled
+            EnableXRRayInteraction(false); // Start the system with interaction rays disabled
             ConfigureXRrigTracking();
         }
 
-        void CheckReferences() {
+        void CheckAndSetReferences() {
             if (XRCam == null) Debug.LogError("XR Camera reference not set");
         }
 
@@ -56,35 +60,33 @@ bool isInteractive = false;
             Gizmos.DrawWireCube(Vector3.zero, new Vector3(0.5f, 0.0f, 0.5f));
             Gizmos.DrawLine(Vector3.zero, Vector3.forward);
         }
-        
+
         private void ConfigureXRrigTracking() {
-            
             if (!TrackXrRigWithUxf)
                 return;
-            
-            XRCam.GetComponent<PositionRotationTracker>().enabled   = TrackXrRigWithUxf;
 
-            
-            XRControllers.Find(x => x.Side == Constants.Sides.Left).UXFPoseTracker.enabled = TrackXrRigWithUxf;
+            XRCam.GetComponent<PositionRotationTracker>().enabled = TrackXrRigWithUxf;
             Session.instance.trackedObjects.Add(XRManager.Instance.XRCam.GetComponent<PositionRotationTracker>());
+            XRLeft.UXFPoseTracker.enabled = TrackXrRigWithUxf;
+            Session.instance.trackedObjects.Add(XRLeft.UXFPoseTracker);
+            XRRight.UXFPoseTracker.enabled = TrackXrRigWithUxf;
+            Session.instance.trackedObjects.Add(XRRight.UXFPoseTracker);
 
-            // Session.instance.trackedObjects.Add(XRManager.Instance.XRLeft.GetComponent<PositionRotationTracker>());
-            // Session.instance.trackedObjects.Add(XRManager.Instance.XRRight.GetComponent<PositionRotationTracker>());
         }
-
+#endregion
 #region Inspector debug calls
 
-        [ContextMenu("TurnOnRayInteractor")]
+        // [ContextMenu("TurnOnRayInteractor")]
         public void TurnOnRayInteractor() {
             EnableXRRayInteraction(true);
         }
 
-        [ContextMenu("ShowHands")]
+        // [ContextMenu("ShowHands")]
         public void ShowHands() {
             ShowHands(true);
         }
 
-        [ContextMenu("ShowControllers")]
+        // [ContextMenu("ShowControllers")]
         public void ShowControllers() {
             ShowControllers(true);
         }
@@ -101,11 +103,10 @@ bool isInteractive = false;
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region INTERACTION
 
-        /// <summary>Turn XR hand / controller interaction possibility on or off.</summary>
-        /// <param name="onOff">Boolean</param>
         public void EnableXRRayInteraction(bool onOff) {
             AddToConsole("EnableXRInteraction " + onOff);
             isInteractive = onOff;
+            
         }
 
         private void SetNearFarInteractor(List<NearFarInteractor> interactors, bool onOffNear, bool onOffFar) {
