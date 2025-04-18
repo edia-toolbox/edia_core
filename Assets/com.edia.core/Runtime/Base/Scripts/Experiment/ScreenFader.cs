@@ -1,5 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,15 +7,21 @@ namespace Edia {
 
     /// <summary> Handles fading the camera view </summary>
     public class ScreenFader : MonoBehaviour {
-        [SerializeField] private float _defaultSpeed = 1f;
-        private                  float _speed        = 1f;
-        private                  float _intensity    = 0.0f;
-        private                  Color _color        = Color.black;
-        public                   Image FadeImage     = null;
-        private                  bool  _isBlack       = false;
+
+        [Header("Refs")]
+        public MeshRenderer BlockObject = null;
+
+        [Header("Settings")]
+        public Color FadeColor = Color.black;
+        public float FadeSpeed = 1f;
+
+        // Internal
+        private float _speed         = 1f;
+        private float _intensity     = 0.0f;
+        private bool  _isFaded       = false;
+        Material      _blockMaterial = null;
 
         private void OnDrawGizmos() {
-            // Draw HMD gizmo
             Gizmos.color  = Edia.Constants.EdiaColors["blue"];
             Gizmos.matrix = transform.localToWorldMatrix;
             Gizmos.DrawSphere(Vector3.zero, 0.1f);
@@ -23,18 +29,24 @@ namespace Edia {
             Gizmos.DrawLine(Vector3.zero, Vector3.forward);
         }
 
-        public void HideBlockingImage() {
-            if (!_isBlack)
+        private void Awake() {
+            if (BlockObject == null)
+                XRManager.Instance.AddToConsole("BlockObject is not referenced on ScreenFader component");
+            _blockMaterial = BlockObject.material;
+        }
+
+        public void HideBlocking() {
+            if (!_isFaded)
                 return;
 
             StopAllCoroutines();
-            FadeImage.color   = new Color(_color.r, _color.g, _color.b, 0f);
-            FadeImage.enabled = false;
+            _blockMaterial.color = new Color(FadeColor.r, FadeColor.g, FadeColor.b, 0);
+            BlockObject.enabled  = false;
         }
 
         public Coroutine StartFadeBlackIn() {
             StopAllCoroutines();
-            _speed = _defaultSpeed;
+            _speed = FadeSpeed;
             return StartCoroutine(FadeBlackIn());
         }
 
@@ -47,41 +59,40 @@ namespace Edia {
         }
 
         IEnumerator FadeBlackIn() {
-            FadeImage.enabled = true;
+            BlockObject.enabled = true;
 
             while (_intensity <= 1.0f) {
-                _intensity      += _speed * Time.deltaTime;
-                FadeImage.color =  new Color(_color.r, _color.g, _color.b, _intensity);
+                _intensity           += _speed * Time.deltaTime;
+                _blockMaterial.color =  new Color(FadeColor.r, FadeColor.g, FadeColor.b, _intensity);
                 yield return null;
             }
 
-            FadeImage.color = new Color(_color.r, _color.g, _color.b, 1f);
-            _isBlack         = true;
+            _blockMaterial.color = new Color(FadeColor.r, FadeColor.g, FadeColor.b, 1f);
+            _isFaded             = true;
         }
 
         public Coroutine StartFadeBlackOut() {
             StopAllCoroutines();
-            _speed = _defaultSpeed;
+            _speed = FadeSpeed;
             return StartCoroutine(FadeBlackOut());
         }
 
         public Coroutine StartFadeBlackOut(float fadeSpeed) {
             StopAllCoroutines();
             _speed = fadeSpeed < 0 ? _speed : fadeSpeed;
-            //this.Add2Console("fading to VR with " + _speed);
             return StartCoroutine(FadeBlackOut());
         }
 
         private IEnumerator FadeBlackOut() {
             while (_intensity >= 0.0f) {
-                _intensity      -= _speed * Time.deltaTime;
-                FadeImage.color =  new Color(_color.r, _color.g, _color.b, _intensity);
+                _intensity           -= _speed * Time.deltaTime;
+                _blockMaterial.color =  new Color(FadeColor.r, FadeColor.g, FadeColor.b, _intensity);
                 yield return null;
             }
 
-            HideBlockingImage();
+            HideBlocking();
 
-            _isBlack = false;
+            _isFaded = false;
         }
     }
 }

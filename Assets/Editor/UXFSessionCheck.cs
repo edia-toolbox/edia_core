@@ -7,22 +7,21 @@ using UXF;
 namespace UXF.EditorUtils {
 
     [InitializeOnLoad]
-    public class UXFCheck : EditorWindow {
+    public class UXFSessionCheck : EditorWindow {
         static Vector2                    scrollPos;
         static Session                    session;
         static Dictionary<string, object> settingsDict;
         static bool                       parsed;
 
-        [MenuItem("EDIA/Show session debugger")]
+        [MenuItem("EDIA/UXF/Show session debugger")]
         static void Init() {
-            FetchReferences();
-            var window = (UXFSessionDisplay)EditorWindow.GetWindow(typeof(UXFCheck));
+            var window = (UXFSessionDisplay)EditorWindow.GetWindow(typeof(UXFSessionCheck));
             window.minSize      = new Vector2(300, 500);
             window.titleContent = new GUIContent("UXF Session Debugger");
             window.Show();
         }
 
-        static UXFCheck() {
+        static UXFSessionCheck() {
             EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
         }
 
@@ -33,7 +32,6 @@ namespace UXF.EditorUtils {
         }
 
         static void FetchReferences() {
-            Debug.Log("Fetching references");
 #if UNITY_6000
             session = FindFirstObjectByType<Session>();
 #else

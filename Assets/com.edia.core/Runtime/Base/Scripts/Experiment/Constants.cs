@@ -126,15 +126,15 @@ namespace Edia {
             { "green", ParseColor("#428360", Color.green) },
             { "grey", ParseColor("#797873", Color.grey) },
             { "orange", ParseColor("#D9740D", Color.white) },
-            { "purple", ParseColor("#C36897", Color.magenta) },
             { "yellow", ParseColor("#FFDC4A", Color.yellow) },
+            { "purple", ParseColor("#C36897", Color.magenta) },
             { "white", ParseColor("#F2F2F2", Color.white) },
             { "black", ParseColor("#0D0D0D", Color.black) }
         };
 
         public static Color RandomEdiaColor() {
             var colorsList = new List<Color>(EdiaColors.Values);
-            return colorsList[Random.Range(0, colorsList.Count - 2)];
+            return colorsList[Random.Range(0, colorsList.Count - 3)];
         }
 
         private static Color ParseColor(string hex, Color fallback) {

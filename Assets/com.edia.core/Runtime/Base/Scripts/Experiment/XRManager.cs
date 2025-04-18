@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.XR.Hands.Samples.VisualizerSample;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
 using UXF;
 
@@ -25,29 +27,35 @@ namespace Edia {
 
         [Tooltip("Use controllers")]
         public bool AllowControllers = false;
-        
+
         [Header("Debug")]
         public bool ShowConsoleMessages = false;
 
         [Space(10f)]
         [Header("References")]
         public Transform XRCam;
-        public XRController       XRLeft;
-        public XRController       XRRight;
-        
+
+        public XRController   XRLeft;
+        public XRController   XRRight;
+        public HandVisualizer HandVisualizer;
+
         // Internals
         bool isInteractive = false;
-        
-        #region --- PROPERTIES
-        
+
+#region --- PROPERTIES
+
         void Awake() {
+            EventManager.StartListening(Edia.Events.XR.EvUpdateInteractiveSide, OnEvUpdateInteractiveSide);
             CheckAndSetReferences();
         }
 
         private void Start() {
-            // TODO: fix with new Interactiontoolkit setup
-            EnableXRRayInteraction(false); // Start the system with interaction rays disabled
+            DisableAllInteractors();
             ConfigureXRrigTracking();
+        }
+
+        private void OnDestroy() {
+            EventManager.StopListening(Edia.Events.XR.EvUpdateInteractiveSide, OnEvUpdateInteractiveSide);
         }
 
         void CheckAndSetReferences() {
@@ -71,22 +79,60 @@ namespace Edia {
             Session.instance.trackedObjects.Add(XRLeft.UXFPoseTracker);
             XRRight.UXFPoseTracker.enabled = TrackXrRigWithUxf;
             Session.instance.trackedObjects.Add(XRRight.UXFPoseTracker);
-
         }
+
+        private void OnEvUpdateInteractiveSide(eParam obj) {
+            DisableAllInteractors();
+
+            // If we were interacting, active with new settings
+            if (isInteractive)
+                EnableAllInteraction(true);
+        }
+
+        [ContextMenu("DisableAllInteractors")]
+        public void DisableAllInteractors() {
+            // Disable all
+            SetNearFarInteractor(XRLeft.NearFarInteractors, false, false);
+            SetPokeInteractor(XRLeft.PokeInteractors, false, false);
+            SetNearFarInteractor(XRRight.NearFarInteractors, false, false);
+            SetPokeInteractor(XRRight.PokeInteractors, false, false);
+        }
+
+        /// <summary>
+        /// XR Input Modality Manager seems to enable all interaction by default when hand or controller detected.
+        /// This method fires on 'TrackedHandModeStarted' and 'MotionControllerModeStarted' (set in inspector)
+        /// </summary>
+        public async void SetInitialInteractionStateAsync() {
+            AddToConsole("Set Initial Interaction State on hands&controllers");
+            await Task.Delay(100);
+            EventManager.TriggerEvent(Edia.Events.XR.EvUpdateInteractiveSide, null);
+        }
+
 #endregion
+
 #region Inspector debug calls
 
-        // [ContextMenu("TurnOnRayInteractor")]
+        [ContextMenu("TurnOnRayInteractor")]
         public void TurnOnRayInteractor() {
-            EnableXRRayInteraction(true);
+            EnableRayInteraction(true);
         }
 
-        // [ContextMenu("ShowHands")]
+        [ContextMenu("TurnOnPokeInteractor")]
+        public void TurnOnPokeInteractor() {
+            EnablePokeInteraction(true);
+        }
+
+        [ContextMenu("ShowHands")]
         public void ShowHands() {
             ShowHands(true);
         }
 
-        // [ContextMenu("ShowControllers")]
+        [ContextMenu("HideHands")]
+        public void HideHands() {
+            ShowHands(false);
+        }
+
+        [ContextMenu("ShowControllers")]
         public void ShowControllers() {
             ShowControllers(true);
         }
@@ -94,6 +140,7 @@ namespace Edia {
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region XR Helper methods
 
+        // TODO test and document
         /// <summary>The pivot of the player will be set on the location of this Injector</summary>
         public void MovePlayarea(Transform newTransform) {
             transform.position = newTransform.position;
@@ -103,31 +150,71 @@ namespace Edia {
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region INTERACTION
 
-        public void EnableXRRayInteraction(bool onOff) {
-            AddToConsole("EnableXRInteraction " + onOff);
+        // TODO document this
+        /// <summary> Control all possible interactions. Use this if you have all possible interactive options in your project. </summary>
+        /// <param name="onOff">On or Off</param>
+        public void EnableAllInteraction(bool onOff) {
+            EnableRayInteraction(onOff);
+            EnablePokeInteraction(onOff);
+        }
+
+        // TODO document this
+        /// <summary> Control RAY interaction </summary>
+        /// <param name="onOff">On or Off</param>
+        public void EnableRayInteraction(bool onOff) {
+            if (SystemSettings.Instance.Settings.IsRightInteractive) SetNearFarInteractor(XRRight.NearFarInteractors, onOff, onOff);
+            if (SystemSettings.Instance.Settings.IsLeftInteractive) SetNearFarInteractor(XRLeft.NearFarInteractors, onOff, onOff);
             isInteractive = onOff;
-            
         }
 
         private void SetNearFarInteractor(List<NearFarInteractor> interactors, bool onOffNear, bool onOffFar) {
             foreach (NearFarInteractor interactor in interactors) {
-                interactor.enableFarCasting  = onOffFar;
-                interactor.enableNearCasting = onOffNear;
+                interactor.gameObject.SetActive(onOffFar);
+                interactor.gameObject.SetActive(onOffNear);
+            }
+        }
+
+        // TODO document this
+        /// <summary> Control POKE interaction </summary>
+        /// <param name="onOff">On or Off</param>
+        public void EnablePokeInteraction(bool onOff) {
+            if (SystemSettings.Instance.Settings.IsRightInteractive) SetPokeInteractor(XRRight.PokeInteractors, onOff, onOff);
+            if (SystemSettings.Instance.Settings.IsLeftInteractive) SetPokeInteractor(XRLeft.PokeInteractors, onOff, onOff);
+            isInteractive = onOff;
+        }
+
+        private void SetPokeInteractor(List<XRPokeInteractor> interactors, bool onOffNear, bool onOffFar) {
+            foreach (XRPokeInteractor interactor in interactors) {
+                interactor.enabled = onOffFar;
+                interactor.enabled = onOffNear;
             }
         }
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region SIGHT
 
+        // TODO document this
         /// <summary>Fades VR user view to black</summary>
+        [ContextMenu("HideVR")]
         public void HideVR() {
             Fade(true, -1f);
         }
 
-        /// <summary>Fades VR user view to black</summary>
-        /// <param name="fadeSpeed">Speed to fade, default: 1</param>
-        public void HideVR(float fadeSpeed) {
-            Fade(true, fadeSpeed);
+        // TODO document this
+        /// <summary>Fades VR user view from black</summary>
+        [ContextMenu("ShowVR")]
+        public void ShowVR() {
+            Fade(false, -1f);
+        }
+
+        // TODO document this
+        /// <summary>Instantly shows VR user view</summary>
+        public void ShowVRInstantly() {
+            XRCam.GetComponent<ScreenFader>().HideBlocking();
+        }
+
+        private void ShowVR(float fadeSpeed) {
+            Fade(false, fadeSpeed);
         }
 
         void Fade(bool _onOff, float _fadeSpeed) {
@@ -135,43 +222,25 @@ namespace Edia {
             else XRCam.GetComponent<ScreenFader>().StartFadeBlackOut(_fadeSpeed);
         }
 
-        /// <summary>Fades VR user view from black</summary>
-        public void ShowVR() {
-            Fade(false, -1f);
-        }
-
-        /// <summary>Fades VR user view from black</summary>
-        /// <param name="fadeSpeed">Speed to fade, default: 1</param>
-        public void ShowVR(float fadeSpeed) {
-            Fade(false, fadeSpeed);
-        }
-
-        /// <summary>Instantly shows VR user view</summary>
-        public void ShowVRInstantly() {
-            XRCam.GetComponent<ScreenFader>().HideBlockingImage();
-        }
-
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region HANDS
 
-        /// <summary>Shows the hands that are set to be allowed visible on/off</summary>
+        /// <summary>Controls the visibility of hand meshes in the XR environment.</summary>
+        /// <param name="onOff">True to display hand meshes, false to hide them.</param>
         public void ShowHands(bool onOff) {
-            // TODO Can we just hide ONE hand, or only TWO? (see HandVisualizer script)
-
-
-            // XRLeft.GetComponent<XRController>().ShowHandModel(onOff);
-            // XRRight.GetComponent<XRController>().ShowHandModel(onOff);
+            HandVisualizer.drawMeshes = onOff;
         }
 
+        /// <summary> Toggles the visibility of the controller models associated with the XR system. </summary>
+        /// <param name="onOff">A boolean value indicating whether to show the controllers (true) or hide them (false).</param>
         public void ShowControllers(bool onOff) {
-            // TODO Just show hide the `Left Controller VIsual` gameobject or is it more complex than that?
-            // XRLeft.GetComponent<XRController>().ShowControllerModel(onOff);
-            // XRRight.GetComponent<XRController>().ShowControllerModel(onOff);
+            XRLeft.ControllerModel.SetActive(onOff);
+            XRRight.ControllerModel.SetActive(onOff);
         }
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 
-        private void AddToConsole(string _msg) {
+        public void AddToConsole(string _msg) {
             if (ShowConsoleMessages)
                 Edia.LogUtilities.AddToConsoleLog(_msg, "XRManager");
         }

@@ -43,7 +43,7 @@ namespace StartersKit {
             Experiment.Instance.EnablePauseButton(true);
 
             // Disable XR interaction from the user
-            XRManager.Instance.EnableXRRayInteraction(false);
+            XRManager.Instance.EnableRayInteraction(false);
 
             /*
                 Continue to the next step:
@@ -65,7 +65,7 @@ namespace StartersKit {
         /// <summary>Move cube, wait on user input</summary>
         void TaskStep2() {
             // Enable interaction from the user. The system will automaticly enable the Ray Interaction for the active hands set in the settings.
-            XRManager.Instance.EnableXRRayInteraction(true);
+            XRManager.Instance.EnableRayInteraction(true);
 
             StepStartTime = Time.time;
 
@@ -86,7 +86,7 @@ namespace StartersKit {
 
         /// <summary>Clean up</summary>
         void TaskStep4() {
-            XRManager.Instance.EnableXRRayInteraction(false);
+            XRManager.Instance.EnableRayInteraction(false);
         }
 
 #endregion

@@ -56,7 +56,7 @@ namespace Edia {
 
 
         void WaitForUserInput() {
-			XRManager.Instance.EnableXRRayInteraction(true);
+			XRManager.Instance.EnableRayInteraction(true);
 
 			Experiment.Instance.WaitOnProceed();
         }
@@ -65,7 +65,7 @@ namespace Edia {
 			AddToConsoleLog($"Stimuli id:{stimuliIndex} pressed");
 
 			CheckLogResultsProceed(stimuliIndex);
-			XRManager.Instance.EnableXRRayInteraction(false);
+			XRManager.Instance.EnableRayInteraction(false);
 
 			Experiment.Instance.Proceed();
 		}

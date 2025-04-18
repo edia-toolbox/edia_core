@@ -3,7 +3,7 @@
   "displayName": "EDIA Core",
   "version": "0.5.0",
   "unity": "6000.0",
-  "description": "Unity Toolbox for XR Research Studies. EDIA Core module.\n Additional features are separated packages.\n\nSee Samples for examples\n",
+  "description": "Unity Toolbox for XR Research. EDIA Core module.\n Additional features are separated packages.\n\nSee Samples for examples\n",
   "keywords": [
     "EDIA",
     "xr",
@@ -14,29 +14,29 @@
     "name": "EDIA"
   }, 
   "dependencies": {
-    "com.unity.inputsystem": "1.7.0",
-    "com.unity.xr.interaction.toolkit": "2.5.3",
-    "com.unity.xr.management": "4.4.1",
-    "com.unity.render-pipelines.universal": "14.0.9",
+    "com.unity.inputsystem": "1.13.1",
+    "com.unity.xr.interaction.toolkit": "3.0.8",
+    "com.unity.xr.management": "4.5.1",
+    "com.unity.render-pipelines.universal": "17.0.4",
     "com.unity.nuget.newtonsoft-json": "3.2.1",
     "com.unity.textmeshpro": "3.0.8",
     "com.kirevdokimov.ui-rounded-corners": "https://github.com/kirevdokimov/Unity-UI-Rounded-Corners.git"
   },
   "samples": [
     {
-      "displayName": "DemoTask",
-      "description": "Scene with a sample task that runs through the complete experiment.\nRead the Readme.txt!",
+      "displayName": "Starters Kit",
+      "description": "Our 'Hello world' version\nBasic project setup to get you started.",
+      "path": "Samples~/StartersKit"
+    },
+    {
+      "displayName": "DemoTasks",
+      "description": "Demo project with two VR tasks; 'D2' & 'Stroop'.\nRead the Readme.txt!",
       "path": "Samples~/DemoTasks"
     },
     {
       "displayName": "URP Materials",
       "description": "Simple example materials to get you started with URP",
       "path": "Samples~/URP_Materials"
-    },
-    {
-      "displayName": "Templates",
-      "description": "Template scripts for own development of tasks",
-      "path": "Samples~/Templates"
     },
     {
       "displayName": "Starter room",
