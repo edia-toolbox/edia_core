@@ -7,20 +7,13 @@ namespace Edia.Editor.Utils {
     public class XblockHeaderDrawer : DecoratorDrawer {
 
         private GUIStyle labelStyle = new GUIStyle {
-            fontSize = 36,
+            fontSize = 22,
             font     = Resources.Load<Font>("Bahnschrift-BoldSemiCondensed"),
             normal   = { textColor = Constants.EdiaColors["white"] }
         };
 
-        private GUIStyle subLabelStyle = new GUIStyle {
-            fontSize  = 22,
-            alignment = TextAnchor.LowerRight,
-            font      = Resources.Load<Font>("Bahnschrift-Condensed"),
-            normal    = { textColor = Constants.EdiaColors["grey"] }
-        };
-
         public override float GetHeight() {
-            return 50f; 
+            return 30f; 
         }
 
         public override void OnGUI(Rect position) {
@@ -32,20 +25,11 @@ namespace Edia.Editor.Utils {
             
             GUI.color = Color.clear;
             Texture2D iconTexture = Resources.Load<Texture2D>("IconEdia");
-            EditorGUI.DrawTextureTransparent(new Rect(15,30, 40, 40), iconTexture, ScaleMode.ScaleToFit);
+            EditorGUI.DrawTextureTransparent(new Rect(20,30, 30, 30), iconTexture, ScaleMode.ScaleToFit);
             GUI.color = Color.white;
 
             EditorGUI.LabelField(
-                new Rect(65, 34, 200, 30), xblockHeaderAttribute.Label, labelStyle);
-
-            // Sub label
-            float textWidth = subLabelStyle.CalcSize(new GUIContent(xblockHeaderAttribute.Sublabel)).x;
-            EditorGUI.LabelField(
-                new Rect(position.x - 6, position.y, Mathf.Max(position.width, textWidth + 20), 30), xblockHeaderAttribute.Sublabel, subLabelStyle);
-
-            Rect lineRect = new Rect(position.x, position.y + 30, position.width, 1);
-            EditorGUI.DrawRect(lineRect, Constants.EdiaColors["grey"]);
-
+                new Rect(60, 36, 200, 26), xblockHeaderAttribute.Label, labelStyle);
         }
     }
  

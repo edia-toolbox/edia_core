@@ -10,7 +10,7 @@ namespace Edia {
     public class XBlock : MonoBehaviour {
 
         [Header("Debug")]
-        [XblockHeader("Xblock", "test")]
+        [XblockHeader("Xblock")]
         public bool ShowConsoleMessages = false;
 
         [HideInInspector]

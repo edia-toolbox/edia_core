@@ -5,9 +5,6 @@ using UXF;
 namespace StartersKit {
 
     public class TaskStart : XBlock {
-        /*
-            Task related parameters
-        */
 
         float UserResponseTime = 0f;
         float StepStartTime = 0;
@@ -15,40 +12,41 @@ namespace StartersKit {
         private void Awake() {
             /*
                 Each trial exists out of a sequence of steps.
-                In order to use them, we need to add the methods of this task to the trial sequence.
+                Each step is a standalone part of the experiment task. 
+                I.e. Show a message to the user, show a fixation cross, wait for user input, etc.
+                In order to use the steps, they need to be defined in the trial sequence.
 
-                An common approach of these steps within a trial are as follows:
+                A common approach within a trial is as follows:
             */
 
-            AddToTrialSequence(TaskStep1); // In many cases setting up the environment for the task, i.e. Generating Stimuli
-            AddToTrialSequence(TaskStep2); // Input from the user
-            AddToTrialSequence(TaskStep3); // Check input and log
-            AddToTrialSequence(TaskStep4); // Clean up
+            AddToTrialSequence(PrepareStimuli); // Sett up environment / Generate Stimuli / etc
+            AddToTrialSequence(WaitOnUserInput); // Input from the user
+            AddToTrialSequence(ValidateUserInput); // Check input and log results
+            AddToTrialSequence(CleanUpScene); // Clean up
         }
 
-#region ------------------------------ TASK STEPS
+#region TASK STEPS
 
         /*
-            Methods that define the steps taken in this trial.
-
-            Main scripts to call:
+            The framework provides a set of tools to make it easier to implement the task.
+            For example:
             * XRManager.Instance.xxxxx => All things XR related
             * Experiment.instance.xxxxx => All things related to the progress of the experiment, logging data, etc
 
+            See documentation for more details.
         */
 
         /// <summary>Present Cube</summary>
-        void TaskStep1() {
-            // Enable the pause button on the control panel
+        void PrepareStimuli() {
+            // Enable the pause button on the control panel in case the participant wants to pause the experiment.
             Experiment.Instance.EnablePauseButton(true);
 
             // Disable XR interaction from the user
-            XRManager.Instance.EnableRayInteraction(false);
+            XRManager.Instance.EnableAllInteraction(false);
 
             /*
                 Continue to the next step:
-                1) Set statemachine in 'wait' mode: Experiment.Instance.WaitOnProceed();
-
+                Set statemachine in 'wait' mode: Experiment.Instance.WaitOnProceed();
             */
 
             Experiment.Instance.WaitOnProceed();
@@ -63,7 +61,7 @@ namespace StartersKit {
         }
 
         /// <summary>Move cube, wait on user input</summary>
-        void TaskStep2() {
+        void WaitOnUserInput() {
             // Enable interaction from the user. The system will automaticly enable the Ray Interaction for the active hands set in the settings.
             XRManager.Instance.EnableRayInteraction(true);
 
@@ -77,7 +75,7 @@ namespace StartersKit {
         }
 
         /// <summary>User clicked button</summary>
-        void TaskStep3() {
+        void ValidateUserInput() {
             UserResponseTime = Time.time - StepStartTime;
 
             // Add result to log
@@ -85,7 +83,7 @@ namespace StartersKit {
         }
 
         /// <summary>Clean up</summary>
-        void TaskStep4() {
+        void CleanUpScene() {
             XRManager.Instance.EnableRayInteraction(false);
         }
 
