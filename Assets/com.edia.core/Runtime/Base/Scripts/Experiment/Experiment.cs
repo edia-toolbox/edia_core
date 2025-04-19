@@ -28,8 +28,7 @@ namespace Edia {
         private States _prevState = States.Idle;
 
         [Header("Experiment")]
-        [HelpBox("<size=14><color=#00ee30><b>XBlock Executers</b></color></size>", HelpBoxMessageType.None)]
-        [Space(80)]
+        [InspectorHeader("EDIA CORE","Experiment Executor", "This executes the experiment based on the defined XBlock executors ")]
         public List<XBlock> Executors = new();
 
         [Header("Debug")]

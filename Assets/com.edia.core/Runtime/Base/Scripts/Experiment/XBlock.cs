@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Edia;
 using UnityEngine;
 
@@ -8,10 +9,8 @@ namespace Edia {
     [System.Serializable]
     public class XBlock : MonoBehaviour {
 
-        // TODO: Grab the name of this gameobjects script and use that, or just 'Edia-Executor'
-        [HelpBox("<size=14><color=#00ee30><b>XBlock Executer</b></color></size>Naming convention: [type]-[subtype]", HelpBoxMessageType.None)]
-        
         [Header("Debug")]
+        [XblockHeader("Xblock", "test")]
         public bool ShowConsoleMessages = false;
 
         [HideInInspector]

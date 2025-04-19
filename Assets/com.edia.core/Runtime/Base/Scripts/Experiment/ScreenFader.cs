@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Edia {
 
@@ -13,6 +11,7 @@ namespace Edia {
 
         [Header("Settings")]
         public Color FadeColor = Color.black;
+
         public float FadeSpeed = 1f;
 
         // Internal
@@ -35,14 +34,7 @@ namespace Edia {
             _blockMaterial = BlockObject.material;
         }
 
-        public void HideBlocking() {
-            if (!_isFaded)
-                return;
-
-            StopAllCoroutines();
-            _blockMaterial.color = new Color(FadeColor.r, FadeColor.g, FadeColor.b, 0);
-            BlockObject.enabled  = false;
-        }
+#region Fade black in
 
         public Coroutine StartFadeBlackIn() {
             StopAllCoroutines();
@@ -71,6 +63,9 @@ namespace Edia {
             _isFaded             = true;
         }
 
+#endregion
+#region Fade block out
+
         public Coroutine StartFadeBlackOut() {
             StopAllCoroutines();
             _speed = FadeSpeed;
@@ -81,6 +76,15 @@ namespace Edia {
             StopAllCoroutines();
             _speed = fadeSpeed < 0 ? _speed : fadeSpeed;
             return StartCoroutine(FadeBlackOut());
+        }
+
+        public void HideBlocking() {
+            if (!_isFaded)
+                return;
+
+            StopAllCoroutines();
+            _blockMaterial.color = new Color(FadeColor.r, FadeColor.g, FadeColor.b, 0);
+            BlockObject.enabled  = false;
         }
 
         private IEnumerator FadeBlackOut() {
@@ -94,5 +98,7 @@ namespace Edia {
 
             _isFaded = false;
         }
+
+#endregion
     }
 }

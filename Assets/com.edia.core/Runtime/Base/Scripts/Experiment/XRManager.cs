@@ -7,6 +7,12 @@ using UXF;
 
 namespace Edia {
 
+    /// <summary>
+    /// Represents an XR controller used in the application and provides configuration for the controller model,
+    /// interaction modes, and trackers.
+    /// The XRController class is used to manage and reference key properties for XR controllers in the system,
+    /// including associated models, pose trackers, and interaction mechanisms such as near/far and poke interaction.
+    /// </summary>
     [System.Serializable]
     public class XRController {
         public Constants.Sides         Side = Constants.Sides.Left;
@@ -19,6 +25,7 @@ namespace Edia {
     public class XRManager : Singleton<XRManager> {
 
         [Header("Settings")]
+        [InspectorHeader("EDIA CORE","XR Rig", "Manages all XR related calls for the framework")]
         [Tooltip("Use UXF to track and save XR Rig Position & Rotation data")]
         public bool TrackXrRigWithUxf = false;
 
@@ -42,7 +49,7 @@ namespace Edia {
         // Internals
         bool isInteractive = false;
 
-#region --- PROPERTIES
+#region PROPERTIES
 
         void Awake() {
             EventManager.StartListening(Edia.Events.XR.EvUpdateInteractiveSide, OnEvUpdateInteractiveSide);
@@ -63,7 +70,7 @@ namespace Edia {
         }
 
         private void OnDrawGizmos() {
-            Gizmos.color  = Color.cyan;
+            Gizmos.color  = Edia.Constants.EdiaColors["blue"];
             Gizmos.matrix = transform.localToWorldMatrix;
             Gizmos.DrawWireCube(Vector3.zero, new Vector3(0.5f, 0.0f, 0.5f));
             Gizmos.DrawLine(Vector3.zero, Vector3.forward);
@@ -83,9 +90,8 @@ namespace Edia {
 
         private void OnEvUpdateInteractiveSide(eParam obj) {
             DisableAllInteractors();
-
-            // If we were interacting, active with new settings
-            if (isInteractive)
+            
+            if (isInteractive) // If we were interacting, active with new settings
                 EnableAllInteraction(true);
         }
 
@@ -225,12 +231,14 @@ namespace Edia {
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region HANDS
 
+        // TODO document this
         /// <summary>Controls the visibility of hand meshes in the XR environment.</summary>
         /// <param name="onOff">True to display hand meshes, false to hide them.</param>
         public void ShowHands(bool onOff) {
             HandVisualizer.drawMeshes = onOff;
         }
 
+        // TODO document this
         /// <summary> Toggles the visibility of the controller models associated with the XR system. </summary>
         /// <param name="onOff">A boolean value indicating whether to show the controllers (true) or hide them (false).</param>
         public void ShowControllers(bool onOff) {

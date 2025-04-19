@@ -6,13 +6,16 @@ using static Edia.Constants;
 namespace Edia.Controller {
     public class ControlPanel : Singleton<ControlPanel> {
 
-        [Space(20)] [HideInInspector]
-        public ControlModes ControlMode = ControlModes.Local;
+        [Header("Settings")]
+        [InspectorHeader("EDIA CORE","Experiment Controller", "The control panel for the experimenter. State aware panels will show up here")]
         
         [Header("Debug")]
         public bool ShowConsoleMessages = false;
         public bool ShowEdiaEventMessages   = false;
 
+        [HideInInspector]
+        public ControlModes ControlMode = ControlModes.Local;
+        
         [Header("Refs")]
         public Transform NonActivePanelHolder = null;
         public Transform PanelHolder = null;

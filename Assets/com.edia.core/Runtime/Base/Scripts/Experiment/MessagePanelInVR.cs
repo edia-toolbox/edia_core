@@ -12,6 +12,7 @@ namespace Edia {
     public class MessagePanelInVR : Singleton<MessagePanelInVR> {
 
         [Header("Settings")]
+        [InspectorHeader("EDIA CORE","Message panel in VR", "The main VR Canvas panel to inform the VR User.")]
         [Tooltip("Auto orientates itself in front of user. Draws on top of the 3D environment.")]
         [SerializeField] private bool _stickToHMD = false;
 
