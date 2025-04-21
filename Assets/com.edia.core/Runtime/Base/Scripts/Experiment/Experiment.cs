@@ -204,14 +204,14 @@ namespace Edia {
             MessagePanelInVR.Instance.ShowMessage(msg);
         }
 
-        /// <summary>Show a list of messages to the VR user, one at a time, in an overlayed panel.</summary>
+        /// <summary>Show a list of messages to the VR user, one at a time, in the MessagePanelInVR.</summary>
         /// <param name="msg">Messages to show</param>
         public void ShowMessageToUser(List<string> msgs) {
             ShowMessageToUserGeneric();
             MessagePanelInVR.Instance.ShowMessage(msgs);
         }
 
-        /// <summary>Show a message to the VR user in an overlayed panel for a certain duration.</summary>
+        /// <summary>Show a message to the VR user in the MessagePanelInVR for a certain duration.</summary>
         /// <param name="msg">Message to show</param>
         /// <param name="duration">Time to show the message</param>
         public void ShowMessageToUser(string msg, float duration) {
@@ -219,9 +219,9 @@ namespace Edia {
             MessagePanelInVR.Instance.ShowMessage(msg, duration);
         }
 
-        /// <summary>Show a message to the VR user in an overlayed panel. </summary>
+        /// <summary>Show a message to the VR user in the MessagePanelInVR. </summary>
         /// <param name="msg">Message to show</param>
-        /// <param name="showButton">False = no button</param>
+        /// <param name="showButton">False = no button. To hide use `HideMessagePanelToUser` </param>
         public void ShowMessageToUser(string msg, bool showButton) {
             ShowMessageToUserGeneric();
             MessagePanelInVR.Instance.ShowMessage(msg);
@@ -237,10 +237,16 @@ namespace Edia {
             EnableEyeCalibrationTrigger(true);
         }
 
-        public void HideMessagePanelButtons() {
+        /// <summary> Hide the MessagePanelInVR menu </summary>
+        public void HideMessagePanelMenu() {
             MessagePanelInVR.Instance.HideMenu();
         }
 
+        /// <summary> Hide the MessagePanelInVR panel </summary>
+        public void HideMessagePanelToUser() {
+            MessagePanelInVR.Instance.HidePanel();
+        }
+        
         /// <summary>
         /// Shows a message in the controlpanel.
         /// </summary>
@@ -387,7 +393,7 @@ namespace Edia {
 
             string endingMsg = Session.instance.settings.GetString("_end") ?? "No '_end' message defined in 'session.json'";
             ShowMessageToUser(endingMsg);
-            HideMessagePanelButtons();
+            HideMessagePanelMenu();
         }
 
         /// <summary>Done with all trial, clean up and call UXF to end this session</summary>

@@ -2,13 +2,18 @@
   "type": "task",
   "subType": "start",
   "blockId": "task-start_0",
-  "settings": [],
+  "settings": [
+    { "key": "timer_showcube", "value": "4" },
+    { "key": "trial_colors", "value": "#FF0000;#00FF00;#0000FF" }
+  ],
   "instructions": [
   ],
   "trialSettings": {
-    "keys": ["_NA"],
+    "keys": ["color_code"],
     "valueList": [
-      { "values": ["NA"] }
+      { "values": ["#FF0000"] },
+      { "values": ["#00FF00"] },
+      { "values": ["#FF0000"] }
     ]
   }
 }

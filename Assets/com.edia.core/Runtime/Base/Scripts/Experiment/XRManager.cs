@@ -29,11 +29,8 @@ namespace Edia {
         [Tooltip("Use UXF to track and save XR Rig Position & Rotation data")]
         public bool TrackXrRigWithUxf = false;
 
-        [Tooltip("Use OPENXR handtracking")] // TODO How will this work together with i.e. META handtracking
+        [Tooltip("TODO: Use OPENXR handtracking")] // TODO Make functional + How will this work together with i.e. META handtracking
         public bool AllowHands = false;
-
-        [Tooltip("Use controllers")]
-        public bool AllowControllers = false;
 
         [Header("Debug")]
         public bool ShowConsoleMessages = false;
@@ -80,6 +77,8 @@ namespace Edia {
             if (!TrackXrRigWithUxf)
                 return;
 
+            if (XRCam.GetComponent<PositionRotationTracker>() == null)
+                XRCam.gameObject.AddComponent<PositionRotationTracker>();
             XRCam.GetComponent<PositionRotationTracker>().enabled = TrackXrRigWithUxf;
             Session.instance.trackedObjects.Add(XRManager.Instance.XRCam.GetComponent<PositionRotationTracker>());
             XRLeft.UXFPoseTracker.enabled = TrackXrRigWithUxf;
@@ -110,7 +109,8 @@ namespace Edia {
         /// </summary>
         public async void SetInitialInteractionStateAsync() {
             AddToConsole("Set Initial Interaction State on hands&controllers");
-            await Task.Delay(100);
+            await Task.Delay(500);
+            DisableAllInteractors();
             EventManager.TriggerEvent(Edia.Events.XR.EvUpdateInteractiveSide, null);
         }
 

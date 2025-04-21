@@ -8,7 +8,7 @@ namespace Edia {
 #region DECLARATIONS
 
         /// <summary>Instance of the Settings declaration class in order to (de)serialize to JSON</summary>
-        public SettingsDeclaration Settings = new();
+        [HideInInspector] public SettingsDeclaration Settings = new();
         private SettingsDeclaration receivedSettings = new();
         static UXF.LocalFileDataHander UXFFilesaver = null;
 

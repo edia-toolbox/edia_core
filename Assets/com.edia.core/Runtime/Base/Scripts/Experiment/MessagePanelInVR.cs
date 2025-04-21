@@ -139,7 +139,7 @@ namespace Edia {
 
         /// <summary>Shows the message in VR on a canvas.</summary>
         /// <param name="msg">Message to show</param>
-        public void ShowMessageOnPanel(string msg) {
+        private void ShowMessageOnPanel(string msg) {
             if (_messageTimer != null) StopCoroutine(_messageTimer);
             if (_messagePanelFader != null) StopCoroutine(_messagePanelFader);
 

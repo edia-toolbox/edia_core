@@ -52,7 +52,6 @@ namespace Edia {
 
         public static string FileNameEdiaSettings = "Edia-settings.json";
 
-
 #region Color Theme
 
         public enum ThemeComponents {
@@ -75,34 +74,37 @@ namespace Edia {
             ProgressbarFill,
             ProgressbarText
         }
-        
+
         public static event System.Action OnThemeChanged;
 
         private static ThemeDefinition _activeTheme = null;
 
         public static ThemeDefinition ActiveTheme {
             get {
+#if UNITY_EDITOR
                 // Lazy initialization if no theme has been set yet
                 if (_activeTheme == null) {
                     string themeGuid = EditorPrefs.GetString("EDIA_SelectedThemeGuid", "");
                     if (!string.IsNullOrEmpty(themeGuid)) {
                         string themePath = AssetDatabase.GUIDToAssetPath(themeGuid);
                         _activeTheme = AssetDatabase.LoadAssetAtPath<ThemeDefinition>(themePath);
-                
+
                         if (_activeTheme == null) {
                             Debug.LogWarning("Failed to load the theme from EditorPrefs. Make sure the theme asset exists in the project.");
                         }
                     }
-                
+
                     if (_activeTheme == null) {
                         _activeTheme = ScriptableObject.CreateInstance<ThemeDefinition>();
                         Debug.Log("Created default theme as none was set");
                     }
                 }
+#endif
 
                 return _activeTheme;
             }
             set {
+#if UNITY_EDITOR
                 _activeTheme = value;
 
                 if (OnThemeChanged != null) {
@@ -111,10 +113,10 @@ namespace Edia {
                 else {
                     Debug.LogWarning("Theme changed but no listeners were registered");
                 }
+#endif
             }
         }
 
-        
 #endregion
 
 #region EDIA hardcoded colors
