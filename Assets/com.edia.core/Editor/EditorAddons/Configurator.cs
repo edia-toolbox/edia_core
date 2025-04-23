@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEditor;
-using UnityEditor.Build;
 using System.IO;
 
 namespace Edia.Editor.Utils {
@@ -10,7 +9,7 @@ namespace Edia.Editor.Utils {
         // Public
         public Texture2D      EDIAIcon;
         public Texture2D      projectIcon;
-        ApiCompatibilityLevel targetApiLevel = ApiCompatibilityLevel.NET_4_6;
+        // ApiCompatibilityLevel targetApiLevel = ApiCompatibilityLevel.NET_4_6;
 
         // Internal
         [SerializeField] private ThemeDefinition SelectedTheme;
@@ -41,8 +40,12 @@ namespace Edia.Editor.Utils {
 #endif
         }
 
+        /// <summary> Automatically show configurator if it has not been shown already </summary>
         private static void OnProjectChanged() {
-            ShowIfNeeded();
+            if (!EditorPrefs.HasKey("Initalized")) {
+                EditorPrefs.SetBool("Initalized", true);
+                Init();
+            }
         }
 
         void LoadSettings() {
@@ -88,8 +91,6 @@ namespace Edia.Editor.Utils {
             window.titleContent = new GUIContent("Configurator");
             window.Show();
             
-            Debug.Log("Init");
-            
             string scriptPath  = AssetDatabase.GetAssetPath(MonoScript.FromScriptableObject(window));
             string packagePath = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(scriptPath), "../../../com.edia.core/package.json"));
             if (File.Exists(packagePath)) {
@@ -100,15 +101,6 @@ namespace Edia.Editor.Utils {
             else {
                 version = "?.?.?";
             }
-        }
-
-        // Add this method for programmatic access with a custom flag
-        public static void ShowIfNeeded() {
-            if (!EditorPrefs.HasKey("EdiaCore_ConfiguratorShown")) {
-                Init();
-                EditorPrefs.SetBool("EdiaCore_ConfiguratorShown", true);
-            }
-            else Debug.Log("Configurator already shown");
         }
 
         private void OnGUI() {
@@ -204,9 +196,6 @@ namespace Edia.Editor.Utils {
                 SaveSettings();
             }
 
-            if (GUILayout.Button("APPLY")) {
-                Constants.ActiveTheme = selectedTheme; // Fires the event to force UI items to update
-            }
 
             EditorGUILayout.BeginHorizontal();
             if (GUILayout.Button("Create New Theme")) {
@@ -227,7 +216,16 @@ namespace Edia.Editor.Utils {
                 }
             }
 
+            if (GUILayout.Button("APPLY")) {
+                Constants.ActiveTheme = selectedTheme; // Fires the event to force UI items to update
+            }
+            
             EditorGUILayout.EndHorizontal();
+            
+            if (GUILayout.Button("Debug")) {
+                EditorPrefs.DeleteKey("Initalized");
+            }
+            
             EditorGUILayout.EndScrollView();
         }
 
