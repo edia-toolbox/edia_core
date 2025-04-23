@@ -10,54 +10,52 @@ namespace Edia {
     [RequireComponent(typeof(Canvas))]
     [RequireComponent(typeof(TrackedDeviceGraphicRaycaster))]
     public class MessagePanelInVR : Singleton<MessagePanelInVR> {
-        
+
         [Header("Settings")]
+        [InspectorHeader("EDIA CORE","Message panel in VR", "The main VR Canvas panel to inform the VR User.")]
         [Tooltip("Auto orientates itself in front of user. Draws on top of the 3D environment.")]
         [SerializeField] private bool _stickToHMD = false;
+
         [SerializeField] private float _distanceFromHMD = 2f;
 
         [Space(20)] [Header("Refs")]
         [SerializeField] private TextMeshProUGUI _msgField = null;
-        [SerializeField] private GameObject _menuHolder = null;
-        [SerializeField] private Button _buttonNEXT = null;
-        [SerializeField] private Button _buttonProceed = null;
-        [SerializeField] private bool _hasSolidBackground = true;
-        
+
+        [SerializeField] private GameObject _menuHolder    = null;
+        [SerializeField] private Button     _buttonNEXT    = null;
+        [SerializeField] private Button     _buttonProceed = null;
+
         // Locals
-        private Image _backgroundImg = null;
-        private bool _hasClicked = false;
-        private List<string> _messageQueue = new();
-        private Coroutine _messageTimer = null;
-        private Coroutine _messagePanelFader = null;
-        private Coroutine _messageTextFader = null;
-        private Coroutine _messagesRoutine = null;
-        private Canvas _canvas;
-        private GraphicRaycaster _graphicRaycaster;
+        private Image                         _backgroundImg     = null;
+        private bool                          _hasClicked        = false;
+        private List<string>                  _messageQueue      = new();
+        private Coroutine                     _messageTimer      = null;
+        private Coroutine                     _messagePanelFader = null;
+        private Coroutine                     _messageTextFader  = null;
+        private Coroutine                     _messagesRoutine   = null;
+        private Canvas                        _canvas;
+        private GraphicRaycaster              _graphicRaycaster;
         private TrackedDeviceGraphicRaycaster _trackedDeviceGraphicRaycaster;
-        private Transform[] _panelChildren;
-        
+        private Transform[]                   _panelChildren;
+
         // ---
 
         private void Awake() {
             _trackedDeviceGraphicRaycaster = GetComponent<TrackedDeviceGraphicRaycaster>();
-            
-            _canvas = GetComponent<Canvas>();
-            _canvas.worldCamera = _stickToHMD ? XRManager.Instance.CamOverlay.GetComponent<Camera>() : XRManager.Instance.XRCam.GetComponent<Camera>();
-            _backgroundImg = transform.GetChild(0).GetComponent<Image>();
-            
+
+            _canvas             = GetComponent<Canvas>();
+            _canvas.worldCamera = XRManager.Instance.XRCam.GetComponent<Camera>();
+            _backgroundImg      = transform.GetChild(0).GetComponent<Image>();
+
             _panelChildren = this.gameObject.GetComponentsInChildren<Transform>(true);
-            
+
             if (GetComponent<GraphicRaycaster>() != null)
                 _graphicRaycaster = GetComponent<GraphicRaycaster>();
 
             if (_stickToHMD) {
-                transform.parent = XRManager.Instance.XRCam.transform;
+                transform.parent        = XRManager.Instance.XRCam.transform;
                 transform.localPosition = new Vector3(0, 0, _distanceFromHMD);
                 transform.localRotation = Quaternion.identity;
-
-                foreach (var child in _panelChildren) {
-                    child.gameObject.layer = LayerMask.NameToLayer("CamOverlay");    
-                }
             }
         }
 
@@ -69,8 +67,8 @@ namespace Edia {
             EventManager.StopListening(Edia.Events.StateMachine.EvProceed, OnEvHideMessage);
         }
 
+#region MESSAGE OPTIONS
 
-        #region MESSAGE OPTIONS
         /// <summary>Shows the message in VR on a canvas for a certain duration.</summary>
         /// <param name="msg">Message to show</param>
         /// <param name="duration">Duration</param>
@@ -89,7 +87,7 @@ namespace Edia {
         /// <summary>Shows a series of messages, user has to click NEXT button to go through them</summary>
         /// <param name="messages"></param>
         public void ShowMessage(List<string> messages) {
-            _messageQueue = messages;
+            _messageQueue    = messages;
             _messagesRoutine = StartCoroutine(ProcessMessageQueue());
 
             Show(true);
@@ -129,19 +127,19 @@ namespace Edia {
         }
 
         /// <summary> Button pressed to show next message </summary>
-        private void OnBtnNEXTPressed() {
+        public void OnBtnNEXTPressed() {
             _hasClicked = true;
         }
 
         /// <summary> Button pressed to proceed experiment statemachine </summary>
         public void OnBtnProceedPressed() {
-            XRManager.Instance.EnableXROverlayRayInteraction(false);
+            // XRManager.Instance.EnableXROverlayRayInteraction(false);
             EventManager.TriggerEvent(Edia.Events.StateMachine.EvProceed);
         }
 
         /// <summary>Shows the message in VR on a canvas.</summary>
         /// <param name="msg">Message to show</param>
-        public void ShowMessageOnPanel(string msg) {
+        private void ShowMessageOnPanel(string msg) {
             if (_messageTimer != null) StopCoroutine(_messageTimer);
             if (_messagePanelFader != null) StopCoroutine(_messagePanelFader);
 
@@ -154,9 +152,9 @@ namespace Edia {
             Show(true);
         }
 
-        #endregion // -------------------------------------------------------------------------------------------------------------------------------
+#endregion
 
-        #region SHOW / HIDE
+#region SHOW / HIDE
 
         /// <summary>Event handler</summary>
         void OnEvHideMessage(eParam e) {
@@ -171,11 +169,8 @@ namespace Edia {
                 _graphicRaycaster.enabled = onOff;
             _trackedDeviceGraphicRaycaster.enabled = onOff;
 
-            // Determine correct interaction state when showing / hinding the messagepanel
-            // _stickToHMD == Always use OverlayRayInteraction
-            XRManager.Instance.EnableOverlayCam(onOff ? _stickToHMD : false);
-            XRManager.Instance.EnableXROverlayRayInteraction(onOff ? _stickToHMD : false);
-            XRManager.Instance.EnableXRRayInteraction(onOff ? !_stickToHMD : false);
+            // XRManager.Instance.EnableXROverlayRayInteraction(onOff ? _stickToHMD : false);
+            XRManager.Instance.EnableRayInteraction(onOff ? !_stickToHMD : false);
 
             _messagePanelFader = _messagePanelFader is not null ? null : StartCoroutine(TextFader());
         }
@@ -186,24 +181,24 @@ namespace Edia {
             if (_messagePanelFader != null) StopCoroutine(_messagePanelFader);
 
             _messageQueue.Clear();
-            
+
             HideMenu();
             Show(false);
         }
 
-        #endregion // -------------------------------------------------------------------------------------------------------------------------------
+#endregion
 
-        #region MENU
+#region MENU
 
         /// <summary> Hides the menu </summary>
         public void HideMenu() {
             ButtonToggling(false, false);
-            XRManager.Instance.EnableXROverlayRayInteraction(false);
+            XRManager.Instance.EnableRayInteraction(false);
         }
 
-        #endregion // -------------------------------------------------------------------------------------------------------------------------------
+#endregion
 
-        #region TIMERS
+#region TIMERS
 
         private IEnumerator HidePanelAfter(float duration) {
             yield return new WaitForSeconds(duration);
@@ -211,14 +206,14 @@ namespace Edia {
         }
 
         private IEnumerator Fader() {
-            float duration = 0.5f;
+            float duration    = 0.5f;
             float currentTime = 0f;
 
             while (currentTime < duration) {
-                float alpha = Mathf.Lerp(0f, 1f, currentTime / duration);
-                float alphaBg = Mathf.Lerp(0f, _hasSolidBackground ? 1f : 0.5f, currentTime / duration);
-                _backgroundImg.color = new Color(_backgroundImg.color.r, _backgroundImg.color.g, _backgroundImg.color.b, alphaBg);
-                currentTime += Time.deltaTime;
+                float alpha   = Mathf.Lerp(0f, 1f, currentTime / duration);
+                float alphaBg = Mathf.Lerp(0f, 0.5f, currentTime / duration);
+                _backgroundImg.color =  new Color(_backgroundImg.color.r, _backgroundImg.color.g, _backgroundImg.color.b, alphaBg);
+                currentTime          += Time.deltaTime;
                 yield return null;
             }
 
@@ -226,19 +221,19 @@ namespace Edia {
         }
 
         private IEnumerator TextFader() {
-            float duration = 0.5f;
+            float duration    = 0.5f;
             float currentTime = 0f;
 
             while (currentTime < duration) {
                 float alpha = Mathf.Lerp(0f, 1f, currentTime / duration);
-                _msgField.color = new Color(_msgField.color.r, _msgField.color.g, _msgField.color.b, alpha);
-                currentTime += Time.deltaTime;
+                _msgField.color =  new Color(_msgField.color.r, _msgField.color.g, _msgField.color.b, alpha);
+                currentTime     += Time.deltaTime;
                 yield return null;
             }
 
             yield break;
         }
 
-        #endregion // -------------------------------------------------------------------------------------------------------------------------------
+#endregion
     }
 }

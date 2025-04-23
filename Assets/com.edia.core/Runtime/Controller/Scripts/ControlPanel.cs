@@ -5,35 +5,38 @@ using static Edia.Constants;
 
 namespace Edia.Controller {
     public class ControlPanel : Singleton<ControlPanel> {
-        
-        [Space(20)] [HideInInspector] 
-        public ControlModes ControlMode = ControlModes.Local;
-        public bool ShowEventLog = true;
-        public bool ShowConsole = false;
 
-        [Header("Refs")] 
+        [Header("Settings")]
+        [InspectorHeader("EDIA CORE","Experiment Controller", "The control panel for the experimenter. State aware panels will show up here")]
+        
+        [Header("Debug")]
+        public bool ShowConsoleMessages = false;
+        public bool ShowEdiaEventMessages   = false;
+
+        [HideInInspector]
+        public ControlModes ControlMode = ControlModes.Local;
+        
+        [Header("Refs")]
         public Transform NonActivePanelHolder = null;
         public Transform PanelHolder = null;
-        public Transform ConsolePanel = null;
+        public  PanelMessageBox          MessageBox          = null;
+        public  PanelConfigSelection     ConfigSelection     = null;
+        public  PanelHeader              Header              = null;
+        public  PanelApplicationSettings ApplicationSettings = null;
+        public  PanelExperimentControl   ExperimentControl   = null;
 
-        // Local
-        public PanelMessageBox pMessageBox = null;
-        public PanelConfigSelection pConfigSelection = null;
-        public PanelHeader pHeader = null;
-        public PanelApplicationSettings pApplicationSettings = null;
-        public PanelExperimentControl pExperimentControl = null;
-        private List<Transform> _currentPanelOrder = new List<Transform>();
+        // Internal
+        private List<Transform>          _currentPanelOrder   = new List<Transform>();
 
         // Remote
         [HideInInspector] public bool IsConnected = false;
-
         private void Awake() {
             this.transform.SetParent(null);
 
             DontDestroyOnLoad(this);
 
             PreparePanels();
-            Invoke("Init", 0.3f); // delay init for remote situation in which RCAS will set the `ControlMode` value from awake in `RCAS2Controlpanel`
+            Invoke("Init", 0.3f); // Delay init for remote situation in which RCAS will set the `ControlMode` value from awake in `RCAS2Controlpanel`
 
             EventManager.StartListening(Edia.Events.Core.EvQuitApplication, OnEvQuitApplication);
         }
@@ -43,9 +46,7 @@ namespace Edia.Controller {
         }
 
         private void Init() {
-            EventManager.showLog = ShowEventLog; // Eventmanager to show debug in console
-
-            ConsolePanel.gameObject.SetActive(ShowConsole);
+            EventManager.showLog = ShowEdiaEventMessages; // Show event calls in console for debugging
 
             if (ControlMode is ControlModes.Remote) {
                 EventManager.StartListening(Edia.Events.ControlPanel.EvConnectionEstablished, OnEvConnectionEstablished);
@@ -55,12 +56,10 @@ namespace Edia.Controller {
         }
 
         private void PreparePanels() {
-            // Move all panels from task first to non visuable holder
             foreach (Transform t in PanelHolder) {
                 t.SetParent(NonActivePanelHolder, true);
             }
 
-            // Panels renaming
             foreach (Transform tr in NonActivePanelHolder) {
                 tr.name = tr.GetSiblingIndex().ToString() + "_" + tr.name;
             }
@@ -73,11 +72,8 @@ namespace Edia.Controller {
             InitConfigFileSearch();
         }
 
-        private void OnEvStartExperiment(eParam param) {
-        }
-
         private void InitConfigFileSearch() {
-            pConfigSelection.Init();
+            ConfigSelection.Init();
         }
 
         public void ShowPanel(Transform panel, bool onOff) {
@@ -85,8 +81,7 @@ namespace Edia.Controller {
             UpdatePanelOrder();
         }
 
-
-        public void UpdatePanelOrder() {
+        private void UpdatePanelOrder() {
             _currentPanelOrder.Clear();
             _currentPanelOrder = PanelHolder.Cast<Transform>().ToList();
             _currentPanelOrder.Sort((Transform t1, Transform t2) => { return t1.name.CompareTo(t2.name); });
@@ -97,18 +92,32 @@ namespace Edia.Controller {
         }
 
         public void ShowMessage(string msg, bool autoHide) {
-            pMessageBox.ShowMessage(msg, autoHide);
+            MessageBox.ShowMessage(msg, autoHide);
         }
 
         private void OnEvQuitApplication(eParam obj) {
-            this.ConsolePanel.Add2Console("Quiting..");
-            Debug.Log($"{name}:Quiting..");
+            AddToConsole(($"{name}:Quiting.."));
             Invoke("DoQuit", 1f);
         }
 
         private void DoQuit() {
-            Debug.Log($"{name}:Bye..");
+            AddToConsole(($"{name}:Bye.."));
             Application.Quit();
         }
+
+#region Helpers
+
+        public void AddToConsole(string msg) {
+            if (ShowConsoleMessages)
+                LogUtilities.AddToConsoleLog(msg, this.name);
+        }
+
+        public void AddToConsole(string msg, LogType _type) {
+            if (_type == LogType.Error) Debug.LogError(msg);
+            else if (_type == LogType.Warning) Debug.LogWarning(msg);
+            else AddToConsole(msg, _type);
+        }
+
+#endregion
     }
 }

@@ -5,12 +5,11 @@ using UXF;
 namespace Edia {
     /// <summary>Global settings of the application</summary>
     public class SystemSettings : Singleton<SystemSettings> {
-        #region DECLARATIONS
+#region DECLARATIONS
 
         /// <summary>Instance of the Settings declaration class in order to (de)serialize to JSON</summary>
-        private SettingsDeclaration systemSettings = new();
+        [HideInInspector] public SettingsDeclaration Settings = new();
         private SettingsDeclaration receivedSettings = new();
-
         static UXF.LocalFileDataHander UXFFilesaver = null;
 
         [HideInInspector] public bool isRemote = false;
@@ -19,30 +18,26 @@ namespace Edia {
             InitSystemSettings();
         }
 
-        #endregion // -------------------------------------------------------------------------------------------------------------------------------
+#endregion // -------------------------------------------------------------------------------------------------------------------------------
+#region MAIN METHODS
 
-        #region MAIN METHODS
+        private void InitSystemSettings() {
+            UXFFilesaver = GameObject.FindFirstObjectByType<UXF.LocalFileDataHander>();
+            isRemote     = !FindFirstObjectByType<Edia.Controller.ControlPanel>();
 
-        void InitSystemSettings() {
-            UXFFilesaver = GameObject.FindObjectOfType<UXF.LocalFileDataHander>();
-            isRemote = !FindObjectOfType<Edia.Controller.ControlPanel>();
-
-            // Listen to update settings requests
             EventManager.StartListening(Edia.Events.Settings.EvUpdateSystemSettings, OnEvUpdateSystemSettings);
             EventManager.StartListening(Edia.Events.Settings.EvRequestSystemSettings, OnEvRequestSystemSettings);
 
-            // Set time and location to avoid comma / period issues
             System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
 
-            // Any settings on disk? > load them
             LoadSettings();
         }
 
-        void SaveSettings() {
-            FileManager.WriteString(Constants.FileNameEdiaSettings, UnityEngine.JsonUtility.ToJson(systemSettings, true), true);
+        private void SaveSettings() {
+            FileManager.WriteString(Constants.FileNameEdiaSettings, UnityEngine.JsonUtility.ToJson(Settings, true), true);
         }
 
-        async void LoadSettings() {
+        private async void LoadSettings() {
             if (!FileManager.FileExists(Constants.FileNameEdiaSettings)) {
                 Debug.Log("Settings file not found, saving defaults");
                 SaveSettings();
@@ -50,37 +45,32 @@ namespace Edia {
             }
 
             string loadedSettings = FileManager.ReadStringFromApplicationPath(Constants.FileNameEdiaSettings);
+            await Task.Delay(500);
 
-            await Task.Delay(500); //  delay
-
-            UXFFilesaver.storagePath = systemSettings.pathToLogfiles;
+            UXFFilesaver.storagePath      = Settings.pathToLogfiles;
             UXFFilesaver.dataSaveLocation = isRemote ? DataSaveLocation.PersistentDataPath : DataSaveLocation.Fixed;
 
             //! Locally
             OnEvUpdateSystemSettings(new eParam(loadedSettings));
         }
 
-        #endregion // -------------------------------------------------------------------------------------------------------------------------------
+#endregion // -------------------------------------------------------------------------------------------------------------------------------
+#region EVENT LISTENERS
 
-        #region EVENT LISTENERS
-
-        public void OnEvUpdateSystemSettings(eParam obj) {
+        /// <summary> Received new settings, apply them on the executer side </summary>
+        private void OnEvUpdateSystemSettings(eParam obj) {
             receivedSettings = new SettingsDeclaration();
             receivedSettings = UnityEngine.JsonUtility.FromJson<SettingsDeclaration>(obj.GetString());
 
-            systemSettings.VisibleSide = receivedSettings.VisibleSide;
-            EventManager.TriggerEvent(Edia.Events.XR.EvUpdateVisableSide, new eParam(receivedSettings.VisibleSide));
+            Settings.InteractiveSide = receivedSettings.InteractiveSide;
+            EventManager.TriggerEvent(Edia.Events.XR.EvUpdateInteractiveSide, null);
 
-            systemSettings.InteractiveSide = receivedSettings.InteractiveSide;
-            EventManager.TriggerEvent(Edia.Events.XR.EvUpdateInteractiveSide, new eParam(receivedSettings.InteractiveSide));
-
-            // Save Path for logfiles
-            systemSettings.pathToLogfiles = receivedSettings.pathToLogfiles;
+            Settings.pathToLogfiles = receivedSettings.pathToLogfiles;
 
             if (isRemote)
                 UXFFilesaver.storagePath = Application.dataPath;
             else
-                UXFFilesaver.storagePath = systemSettings.pathToLogfiles;
+                UXFFilesaver.storagePath = Settings.pathToLogfiles;
 
             SaveSettings();
         }
@@ -90,16 +80,20 @@ namespace Edia {
             EventManager.TriggerEvent(Edia.Events.Settings.EvProvideSystemSettings, new eParam(GetSettingsAsJSONstring()));
         }
 
-        #endregion // -------------------------------------------------------------------------------------------------------------------------------
-
-        #region HELPERS
+#endregion // -------------------------------------------------------------------------------------------------------------------------------
+#region HELPERS
 
         /// <summary>Gets all settings from the 'SettingsDeclaration' instance 'systemSettings' as a JSON string</summary>
         /// <returns>JSON string</returns>
-        public string GetSettingsAsJSONstring() {
-            return UnityEngine.JsonUtility.ToJson(systemSettings, false);
+        private string GetSettingsAsJSONstring() {
+            return UnityEngine.JsonUtility.ToJson(Settings, false);
         }
 
-        #endregion // -------------------------------------------------------------------------------------------------------------------------------
+        public void AddToConsole(string _msg) {
+            if (Experiment.Instance.ShowConsoleMessages)
+                Edia.LogUtilities.AddToConsoleLog(_msg, "SystemSettings");
+        }
+
+#endregion // -------------------------------------------------------------------------------------------------------------------------------
     }
 }

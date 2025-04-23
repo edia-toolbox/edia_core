@@ -40,7 +40,7 @@ namespace Edia
 
         private void OnEvConnectionEstablished(eParam param)
         {
-            this.Add2Console("OnEvConnectionEstablished");
+            LogUtilities.AddToConsoleLog("OnEvConnectionEstablished", "Remote");
             isConnected = !isConnected;
             connectedImage.color = isConnected ? ConnectedColor : _unConnectedColor;
         }

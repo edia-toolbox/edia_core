@@ -49,7 +49,7 @@ namespace Edia.Events {
         public const string EvSetXBlockSequence = "EvSetXBlockSequence";
 
         /// <summary>Set sessions block sequence. Expects JSON string</summary>
-        public const string EvSetTaskDefinitions = "EvSetTaskDefinitions";
+        public const string EvSetBaseDefinitions = "EvSetBaseDefinitions";
 
         /// <summary>Set sessions block sequence. Expects JSON string</summary>
         public const string EvSetXBlockDefinitions = "EvSetXBlockDefinitions";
@@ -196,9 +196,6 @@ namespace Edia.Events {
     public static class XR {
         /// <summary>The main interactor has changed. Expects a enum PrimaryInteractor as INT</summary>
         public const string EvUpdateInteractiveSide = "EvUpdateInteractiveSide";
-
-        /// <summary>Which controllers are active in the application. Expects a enum AvailableController as INT</summary>
-        public const string EvUpdateVisableSide = "EvUpdateVisableSide";
 
         /// <summary>Turn XR hand / controller interaction possibility on or off. Expects boolean</summary>
         public const string EvEnableXRInteraction = "EvEnableXRInteraction";

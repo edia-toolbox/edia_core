@@ -141,13 +141,13 @@ namespace Edia {
 
         private static bool ValidateDirectories(string sourceDirectory, string targetDirectory, out DirectoryInfo diSource, out DirectoryInfo diTarget) {
             if (string.IsNullOrWhiteSpace(sourceDirectory)) {
-                SystemSettings.Instance.Add2Console("Source directory path is null or empty.");
+                SystemSettings.Instance.AddToConsole("Source directory path is null or empty.");
                 diSource = diTarget = null;
                 return false;
             }
 
             if (string.IsNullOrWhiteSpace(targetDirectory)) {
-                SystemSettings.Instance.Add2Console("Target directory path is null or empty.");
+                SystemSettings.Instance.AddToConsole("Target directory path is null or empty.");
                 diSource = diTarget = null;
                 return false;
             }
@@ -157,7 +157,7 @@ namespace Edia {
 
             // Check if the source directory exists
             if (!diSource.Exists) {
-                SystemSettings.Instance.Add2Console($"Source directory not found: {sourceDirectory}");
+                SystemSettings.Instance.AddToConsole($"Source directory not found: {sourceDirectory}");
                 return false;
             }
 
@@ -168,7 +168,7 @@ namespace Edia {
                 }
             }
             catch (Exception ex) {
-                SystemSettings.Instance.Add2Console($"Failed to create target directory: {targetDirectory}, Error: {ex.Message}");
+                SystemSettings.Instance.AddToConsole($"Failed to create target directory: {targetDirectory}, Error: {ex.Message}");
                 return false;
             }
 

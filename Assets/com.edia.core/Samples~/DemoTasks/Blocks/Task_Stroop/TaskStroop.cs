@@ -56,16 +56,16 @@ namespace Edia {
 
 
         void WaitForUserInput() {
-			XRManager.Instance.EnableXRRayInteraction(true);
+			XRManager.Instance.EnableRayInteraction(true);
 
 			Experiment.Instance.WaitOnProceed();
         }
 
         public void StimuliSelected (int stimuliIndex) {
-			this.Add2Console($"Stimuli id:{stimuliIndex} pressed");
+			AddToConsoleLog($"Stimuli id:{stimuliIndex} pressed");
 
 			CheckLogResultsProceed(stimuliIndex);
-			XRManager.Instance.EnableXRRayInteraction(false);
+			XRManager.Instance.EnableRayInteraction(false);
 
 			Experiment.Instance.Proceed();
 		}
