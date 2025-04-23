@@ -7,16 +7,16 @@ namespace Edia.Editor.Utils {
     public class Configurator : EditorWindow {
 
         // Public
-        public Texture2D      EDIAIcon;
-        public Texture2D      projectIcon;
+        public static Texture2D EDIAIcon;
+        public static Texture2D ProjectIcon;
         // ApiCompatibilityLevel targetApiLevel = ApiCompatibilityLevel.NET_4_6;
 
         // Internal
         [SerializeField] private ThemeDefinition SelectedTheme;
-        private                  Vector2         scrollPos;
-        private                  string          projectName;
-        private                  ThemeDefinition selectedTheme;
-        private static           string          version;
+        private                  Vector2         _scrollPos;
+        private static           string          _projectName;
+        private static           ThemeDefinition _selectedTheme;
+        private static           string          _version;
 
         [System.Serializable]
         private class PackageJson {
@@ -48,58 +48,60 @@ namespace Edia.Editor.Utils {
             }
         }
 
-        void LoadSettings() {
+        private static void LoadSettings() {
             string themeGuid = EditorPrefs.GetString(ThemeGuidKey, "");
             if (!string.IsNullOrEmpty(themeGuid)) {
                 string themePath = AssetDatabase.GUIDToAssetPath(themeGuid);
-                selectedTheme         = AssetDatabase.LoadAssetAtPath<ThemeDefinition>(themePath);
-                Constants.ActiveTheme = selectedTheme; // Fires the event to force UI items to update
+                _selectedTheme        = AssetDatabase.LoadAssetAtPath<ThemeDefinition>(themePath);
+                Constants.ActiveTheme = _selectedTheme; // Fires the event to force UI items to update
             }
 
             string iconPath = EditorPrefs.GetString(ProjectIconPathKey, "");
             if (!string.IsNullOrEmpty(iconPath)) {
-                projectIcon = AssetDatabase.LoadAssetAtPath<Texture2D>(iconPath);
+                ProjectIcon = AssetDatabase.LoadAssetAtPath<Texture2D>(iconPath);
             }
 
             string projectName = EditorPrefs.GetString(ProjectNameKey, "");
             if (!string.IsNullOrEmpty(projectName)) {
-                this.projectName = projectName;
+                _projectName = projectName;
             }
         }
 
         void SaveSettings() {
-            if (selectedTheme is not null) {
-                string themePath = AssetDatabase.GetAssetPath(selectedTheme);
+            if (_selectedTheme is not null) {
+                string themePath = AssetDatabase.GetAssetPath(_selectedTheme);
                 string themeGuid = AssetDatabase.AssetPathToGUID(themePath);
                 EditorPrefs.SetString(ThemeGuidKey, themeGuid);
             }
 
-            if (projectIcon is not null) {
-                string iconPath = AssetDatabase.GetAssetPath(projectIcon);
+            if (ProjectIcon is not null) {
+                string iconPath = AssetDatabase.GetAssetPath(ProjectIcon);
                 EditorPrefs.SetString(ProjectIconPathKey, iconPath);
             }
 
-            if (!string.IsNullOrEmpty(projectName)) {
-                EditorPrefs.SetString(ProjectNameKey, projectName);
+            if (!string.IsNullOrEmpty(_projectName)) {
+                EditorPrefs.SetString(ProjectNameKey, _projectName);
             }
         }
 
         [MenuItem("EDIA/Configurator")]
         static void Init() {
+            LoadSettings();
+
             var window = (Configurator)EditorWindow.GetWindow(typeof(Configurator), false, "Configurator");
             window.minSize      = new Vector2(300, 400);
             window.titleContent = new GUIContent("Configurator");
             window.Show();
-            
+
             string scriptPath  = AssetDatabase.GetAssetPath(MonoScript.FromScriptableObject(window));
             string packagePath = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(scriptPath), "../../../com.edia.core/package.json"));
             if (File.Exists(packagePath)) {
                 string jsonContent = File.ReadAllText(packagePath);
                 var    packageData = JsonUtility.FromJson<PackageJson>(jsonContent);
-                version = packageData.version;
+                _version = packageData.version;
             }
             else {
-                version = "?.?.?";
+                _version = "?.?.?";
             }
         }
 
@@ -128,10 +130,10 @@ namespace Edia.Editor.Utils {
             GUILayout.EndHorizontal();
 
             GUILayout.BeginHorizontal();
-            GUILayout.Label($"EDIA version {version} \nUnity Toolbox for XR Research", centeredStyle);
+            GUILayout.Label($"EDIA version {_version} \nUnity Toolbox for XR Research", centeredStyle);
             GUILayout.EndHorizontal();
 
-            scrollPos = EditorGUILayout.BeginScrollView(scrollPos, false, false);
+            _scrollPos = EditorGUILayout.BeginScrollView(_scrollPos, false, false);
 
             // Edia details
             GUILayout.Space(20);
@@ -162,10 +164,10 @@ namespace Edia.Editor.Utils {
             EditorGUILayout.Separator();
 
             EditorGUI.BeginChangeCheck();
-            projectName = EditorGUILayout.TextField(new GUIContent("Project Name", "Enter the name of your project"), projectName);
+            _projectName = EditorGUILayout.TextField(new GUIContent("Project Name", "Enter the name of your project"), _projectName);
             GUILayout.BeginHorizontal();
             GUILayout.Label("Project Icon", GUILayout.Width(100));
-            projectIcon = (Texture2D)EditorGUILayout.ObjectField(projectIcon, typeof(Texture2D), false);
+            ProjectIcon = (Texture2D)EditorGUILayout.ObjectField(ProjectIcon, typeof(Texture2D), false);
             GUILayout.EndHorizontal();
             if (EditorGUI.EndChangeCheck()) {
                 SaveSettings();
@@ -181,7 +183,7 @@ namespace Edia.Editor.Utils {
             EditorGUILayout.Separator();
             GUILayout.Label("EDIA provides an optional folder structure guide.", labelContent);
             if (GUILayout.Button("Create folder structure")) {
-                CreateFolderStructure(projectName);
+                CreateFolderStructure(_projectName);
             }
 
             GUILayout.Space(20);
@@ -191,7 +193,7 @@ namespace Edia.Editor.Utils {
             GUILayout.Label("EDIA provides a customizable color theme.", labelContent);
 
             EditorGUI.BeginChangeCheck();
-            selectedTheme = EditorGUILayout.ObjectField("Color Theme", selectedTheme, typeof(ThemeDefinition), false) as ThemeDefinition;
+            _selectedTheme = EditorGUILayout.ObjectField("Color Theme", _selectedTheme, typeof(ThemeDefinition), false) as ThemeDefinition;
             if (EditorGUI.EndChangeCheck()) {
                 SaveSettings();
             }
@@ -210,22 +212,22 @@ namespace Edia.Editor.Utils {
                     AssetDatabase.CreateAsset(newTheme, path);
                     AssetDatabase.SaveAssets();
 
-                    selectedTheme = newTheme;
+                    _selectedTheme = newTheme;
                     EditorUtility.FocusProjectWindow();
                     Selection.activeObject = newTheme;
                 }
             }
 
             if (GUILayout.Button("APPLY")) {
-                Constants.ActiveTheme = selectedTheme; // Fires the event to force UI items to update
+                Constants.ActiveTheme = _selectedTheme; // Fires the event to force UI items to update
             }
-            
+
             EditorGUILayout.EndHorizontal();
-            
+
             if (GUILayout.Button("Debug")) {
                 EditorPrefs.DeleteKey("Initalized");
             }
-            
+
             EditorGUILayout.EndScrollView();
         }
 
