@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEditor;
+using UnityEditor.Build;
 using System.IO;
 
 namespace Edia.Editor.Utils {
@@ -43,7 +44,7 @@ namespace Edia.Editor.Utils {
         private static void OnProjectChanged() {
             ShowIfNeeded();
         }
-        
+
         void LoadSettings() {
             string themeGuid = EditorPrefs.GetString(ThemeGuidKey, "");
             if (!string.IsNullOrEmpty(themeGuid)) {
@@ -64,17 +65,15 @@ namespace Edia.Editor.Utils {
         }
 
         void SaveSettings() {
-            if (selectedTheme != null) {
+            if (selectedTheme is not null) {
                 string themePath = AssetDatabase.GetAssetPath(selectedTheme);
                 string themeGuid = AssetDatabase.AssetPathToGUID(themePath);
                 EditorPrefs.SetString(ThemeGuidKey, themeGuid);
             }
 
-            if (projectIcon != null) {
+            if (projectIcon is not null) {
                 string iconPath = AssetDatabase.GetAssetPath(projectIcon);
                 EditorPrefs.SetString(ProjectIconPathKey, iconPath);
-
-                PlayerSettings.SetIconsForTargetGroup(BuildTargetGroup.Unknown, new[] { projectIcon });
             }
 
             if (!string.IsNullOrEmpty(projectName)) {
@@ -88,20 +87,18 @@ namespace Edia.Editor.Utils {
             window.minSize      = new Vector2(300, 400);
             window.titleContent = new GUIContent("Configurator");
             window.Show();
-
-            string scriptPath = AssetDatabase.GetAssetPath(MonoScript.FromScriptableObject(window));
-            // Debug.Log($"scriptPath {scriptPath}");
+            
+            Debug.Log("Init");
+            
+            string scriptPath  = AssetDatabase.GetAssetPath(MonoScript.FromScriptableObject(window));
             string packagePath = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(scriptPath), "../../../com.edia.core/package.json"));
-            // Debug.Log($"packagePath {packagePath}");
             if (File.Exists(packagePath)) {
-                Debug.Log("Package.json found");
                 string jsonContent = File.ReadAllText(packagePath);
                 var    packageData = JsonUtility.FromJson<PackageJson>(jsonContent);
                 version = packageData.version;
             }
             else {
                 version = "?.?.?";
-                Debug.Log("Package.json not found");
             }
         }
 
@@ -111,6 +108,7 @@ namespace Edia.Editor.Utils {
                 Init();
                 EditorPrefs.SetBool("EdiaCore_ConfiguratorShown", true);
             }
+            else Debug.Log("Configurator already shown");
         }
 
         private void OnGUI() {
