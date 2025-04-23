@@ -16,6 +16,8 @@ namespace Edia {
     [System.Serializable]
     public class XRController {
         public Constants.Sides         Side = Constants.Sides.Left;
+        public Transform               Controller;
+        public Transform               Hand;
         public GameObject              ControllerModel;
         public UXF.Tracker             UXFPoseTracker;
         public List<NearFarInteractor> NearFarInteractors = new();
@@ -25,7 +27,7 @@ namespace Edia {
     public class XRManager : Singleton<XRManager> {
 
         [Header("Settings")]
-        [InspectorHeader("EDIA CORE","XR Rig", "Manages all XR related calls for the framework")]
+        [InspectorHeader("EDIA CORE", "XR Rig", "Manages all XR related calls for the framework")]
         [Tooltip("Use UXF to track and save XR Rig Position & Rotation data")]
         public bool TrackXrRigWithUxf = false;
 
@@ -89,7 +91,7 @@ namespace Edia {
 
         private void OnEvUpdateInteractiveSide(eParam obj) {
             DisableAllInteractors();
-            
+
             if (isInteractive) // If we were interacting, active with new settings
                 EnableAllInteraction(true);
         }

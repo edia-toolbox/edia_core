@@ -209,11 +209,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TrackXrRigWithUxf: 1
   AllowHands: 0
-  AllowControllers: 0
   ShowConsoleMessages: 1
   XRCam: {fileID: 6672105821521620850}
   XRLeft:
     Side: 0
+    Controller: {fileID: 6672105819964067600}
+    Hand: {fileID: 293372633492344178}
     ControllerModel: {fileID: 2578484473846659287}
     UXFPoseTracker: {fileID: 1645312870741906873}
     NearFarInteractors:
@@ -224,6 +225,8 @@ MonoBehaviour:
     - {fileID: 218616823185177255}
   XRRight:
     Side: 1
+    Controller: {fileID: 6672105821616705521}
+    Hand: {fileID: 149540692975489777}
     ControllerModel: {fileID: 4778914094238334240}
     UXFPoseTracker: {fileID: 1696464357636956564}
     NearFarInteractors:
@@ -591,6 +594,12 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1696464357636956564}
   m_SourcePrefab: {fileID: 100100000, guid: d6878e1999eb4b44a9f5a263af86c185, type: 3}
+--- !u!4 &149540692975489777 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6311120899289156754, guid: d6878e1999eb4b44a9f5a263af86c185,
+    type: 3}
+  m_PrefabInstance: {fileID: 6162856625639628387}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &218616823185177255 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6237049687586235588, guid: d6878e1999eb4b44a9f5a263af86c185,
@@ -603,6 +612,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0924bcaa9eb50df458a783ae0e2b59f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &293372633492344178 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5878492368827077393, guid: d6878e1999eb4b44a9f5a263af86c185,
+    type: 3}
+  m_PrefabInstance: {fileID: 6162856625639628387}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &2298618060285118512 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5359434741994886739, guid: d6878e1999eb4b44a9f5a263af86c185,
@@ -701,6 +716,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectName: left_controller
   updateType: 0
+--- !u!4 &6672105819964067600 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 657184243640684915, guid: d6878e1999eb4b44a9f5a263af86c185,
+    type: 3}
+  m_PrefabInstance: {fileID: 6162856625639628387}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6672105821521620849 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 657184242118504722, guid: d6878e1999eb4b44a9f5a263af86c185,
@@ -806,6 +827,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectName: right_controller
   updateType: 0
+--- !u!4 &6672105821616705521 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 657184242222895506, guid: d6878e1999eb4b44a9f5a263af86c185,
+    type: 3}
+  m_PrefabInstance: {fileID: 6162856625639628387}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &6980540770588303011 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3844105587933937856, guid: d6878e1999eb4b44a9f5a263af86c185,
