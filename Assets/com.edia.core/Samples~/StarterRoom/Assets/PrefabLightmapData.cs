@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEditor;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine.SceneManagement;
 
 [ExecuteAlways]
@@ -177,7 +178,7 @@ public class PrefabLightmapData : MonoBehaviour
         }
         UnityEditor.Lightmapping.Bake();
 
-        PrefabLightmapData[] prefabs = FindObjectsOfType<PrefabLightmapData>();
+        PrefabLightmapData[] prefabs = FindObjectsByType<PrefabLightmapData>(FindObjectsSortMode.None);
 
         foreach (var instance in prefabs)
         {
