@@ -22,8 +22,6 @@ namespace Edia.Editor.Utils
 				// Add your layers here, these are just examples. Keep in mind: indices below 6 are the built in layers.
 				AddLayerAt(layers, 3, "Hidden", false);
 				AddLayerAt(layers, 6, "ControlUI", false);
-				AddLayerAt(layers, 8, "GazeCollision", false);
-                AddLayerAt(layers, 9, "EyeTrackingViz", false);
                 AddLayerAt(layers, 31, "Teleport", false);
 
 				serializedObject.ApplyModifiedProperties();

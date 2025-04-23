@@ -13,10 +13,15 @@ namespace Edia.Editor.Utils {
 
         // Internal
         [SerializeField] private ThemeDefinition SelectedTheme;
+        private                  Vector2         scrollPos;
+        private                  string          projectName;
+        private                  ThemeDefinition selectedTheme;
+        private static           string          version;
 
-        private Vector2              scrollPos;
-        private string               projectName;
-        private ThemeDefinition selectedTheme;
+        [System.Serializable]
+        private class PackageJson {
+            public string version;
+        }
 
         // EditorPrefs keys
         private const string ThemeGuidKey       = "EDIA_SelectedThemeGuid";
@@ -27,11 +32,23 @@ namespace Edia.Editor.Utils {
             LoadSettings();
         }
 
+        static Configurator() {
+#if UNITY_2018_1_OR_NEWER
+            EditorApplication.projectChanged += OnProjectChanged;
+#else
+            EditorApplication.projectWindowChanged += OnProjectChanged;
+#endif
+        }
+
+        private static void OnProjectChanged() {
+            ShowIfNeeded();
+        }
+        
         void LoadSettings() {
             string themeGuid = EditorPrefs.GetString(ThemeGuidKey, "");
             if (!string.IsNullOrEmpty(themeGuid)) {
                 string themePath = AssetDatabase.GUIDToAssetPath(themeGuid);
-                selectedTheme = AssetDatabase.LoadAssetAtPath<ThemeDefinition>(themePath);
+                selectedTheme         = AssetDatabase.LoadAssetAtPath<ThemeDefinition>(themePath);
                 Constants.ActiveTheme = selectedTheme; // Fires the event to force UI items to update
             }
 
@@ -52,14 +69,14 @@ namespace Edia.Editor.Utils {
                 string themeGuid = AssetDatabase.AssetPathToGUID(themePath);
                 EditorPrefs.SetString(ThemeGuidKey, themeGuid);
             }
-        
+
             if (projectIcon != null) {
                 string iconPath = AssetDatabase.GetAssetPath(projectIcon);
                 EditorPrefs.SetString(ProjectIconPathKey, iconPath);
-        
+
                 PlayerSettings.SetIconsForTargetGroup(BuildTargetGroup.Unknown, new[] { projectIcon });
             }
-        
+
             if (!string.IsNullOrEmpty(projectName)) {
                 EditorPrefs.SetString(ProjectNameKey, projectName);
             }
@@ -71,6 +88,29 @@ namespace Edia.Editor.Utils {
             window.minSize      = new Vector2(300, 400);
             window.titleContent = new GUIContent("Configurator");
             window.Show();
+
+            string scriptPath = AssetDatabase.GetAssetPath(MonoScript.FromScriptableObject(window));
+            // Debug.Log($"scriptPath {scriptPath}");
+            string packagePath = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(scriptPath), "../../../com.edia.core/package.json"));
+            // Debug.Log($"packagePath {packagePath}");
+            if (File.Exists(packagePath)) {
+                Debug.Log("Package.json found");
+                string jsonContent = File.ReadAllText(packagePath);
+                var    packageData = JsonUtility.FromJson<PackageJson>(jsonContent);
+                version = packageData.version;
+            }
+            else {
+                version = "?.?.?";
+                Debug.Log("Package.json not found");
+            }
+        }
+
+        // Add this method for programmatic access with a custom flag
+        public static void ShowIfNeeded() {
+            if (!EditorPrefs.HasKey("EdiaCore_ConfiguratorShown")) {
+                Init();
+                EditorPrefs.SetBool("EdiaCore_ConfiguratorShown", true);
+            }
         }
 
         private void OnGUI() {
@@ -98,7 +138,7 @@ namespace Edia.Editor.Utils {
             GUILayout.EndHorizontal();
 
             GUILayout.BeginHorizontal();
-            GUILayout.Label("EDIA v0.4.0 \nUnity Toolbox for XR Research", centeredStyle);
+            GUILayout.Label($"EDIA version {version} \nUnity Toolbox for XR Research", centeredStyle);
             GUILayout.EndHorizontal();
 
             scrollPos = EditorGUILayout.BeginScrollView(scrollPos, false, false);
