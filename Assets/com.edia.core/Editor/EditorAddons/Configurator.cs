@@ -198,8 +198,21 @@ namespace Edia.Editor.Utils {
                 SaveSettings();
             }
 
-
             EditorGUILayout.BeginHorizontal();
+
+            if (GUILayout.Button("Copy to project")) {
+                if (_selectedTheme is not null) {
+                    string sourcePath = AssetDatabase.GetAssetPath(_selectedTheme);
+                    string targetPath = "Assets/ProjectColorTheme.asset";
+                    AssetDatabase.CopyAsset(sourcePath, targetPath);
+                    AssetDatabase.Refresh();
+                    
+                    _selectedTheme        = AssetDatabase.LoadAssetAtPath<ThemeDefinition>(targetPath);
+                    Constants.ActiveTheme = _selectedTheme; // Fires the event to force UI items to update
+                    SaveSettings();
+                }
+            }
+
             if (GUILayout.Button("Create New Theme")) {
                 string path = EditorUtility.SaveFilePanelInProject(
                     "Create UI Color Theme",
