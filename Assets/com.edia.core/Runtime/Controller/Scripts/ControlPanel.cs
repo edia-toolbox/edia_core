@@ -22,8 +22,8 @@ namespace Edia.Controller {
         public  PanelMessageBox          MessageBox          = null;
         public  PanelConfigSelection     ConfigSelection     = null;
         public  PanelHeader              Header              = null;
-        public  PanelApplicationSettings ApplicationSettings = null;
-        public  PanelExperimentControl   ExperimentControl   = null;
+        // public  PanelApplicationSettings ApplicationSettings = null;
+        // public  PanelExperimentControl   ExperimentControl   = null;
 
         // Internal
         private List<Transform>          _currentPanelOrder   = new List<Transform>();

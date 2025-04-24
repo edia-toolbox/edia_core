@@ -41,18 +41,18 @@ namespace Edia.Controller {
         public override void Awake() {
             base.Awake();
 
-            EventManager.StartListening(Edia.Events.Config.EvReadyToGo, OnEvReadyToGo);
-            EventManager.StartListening(Edia.Events.ControlPanel.EvEnableButton, OnEvEnableButton);
-            EventManager.StartListening(Edia.Events.ControlPanel.EvStartTimer, OnEvStartTimer);
+            EventManager.StartListening(Edia.Events.Config.EvReadyToGo,             OnEvReadyToGo);
+            EventManager.StartListening(Edia.Events.ControlPanel.EvEnableButton,    OnEvEnableButton);
+            EventManager.StartListening(Edia.Events.ControlPanel.EvStartTimer,      OnEvStartTimer);
         }
 
         void OnDestroy() {
-            EventManager.StopListening(Edia.Events.ControlPanel.EvStartTimer, OnEvStartTimer);
-            EventManager.StopListening(Edia.Events.ControlPanel.EvStopTimer, OnEvStopTimer);
-            EventManager.StopListening(Edia.Events.Config.EvReadyToGo, OnEvReadyToGo);
-            btnExperiment.onClick.RemoveListener(() => EventManager.TriggerEvent(Edia.Events.StateMachine.EvStartExperiment, null));
-            btnPauseExperiment.onClick.RemoveListener(() => EventManager.TriggerEvent(Edia.Events.StateMachine.EvPauseExperiment, null));
-            btnNextMessage.onClick.RemoveListener(() => EventManager.TriggerEvent(Edia.Events.ControlPanel.EvNextMessagePanelMsg, null));
+            EventManager.StopListening(Edia.Events.ControlPanel.EvStartTimer,       OnEvStartTimer);
+            EventManager.StopListening(Edia.Events.ControlPanel.EvStopTimer,        OnEvStopTimer);
+            EventManager.StopListening(Edia.Events.Config.EvReadyToGo,              OnEvReadyToGo);
+            btnExperiment.onClick.RemoveListener(       () => EventManager.TriggerEvent(Edia.Events.StateMachine.EvStartExperiment, null));
+            btnPauseExperiment.onClick.RemoveListener(  () => EventManager.TriggerEvent(Edia.Events.StateMachine.EvPauseExperiment, null));
+            btnNextMessage.onClick.RemoveListener(      () => EventManager.TriggerEvent(Edia.Events.ControlPanel.EvNextMessagePanelMsg, null));
         }
 
         void Start() {
@@ -70,14 +70,16 @@ namespace Edia.Controller {
             EventManager.StartListening(Edia.Events.ControlPanel.EvUpdateSessionSummary, OnEvUpdateExperimentSummary);
 
             panelIdle.SetActive(true);
-            panelRunning.SetActive(false);
             panelStatus.SetActive(false);
 
             SetupButtons();
             btnExperiment.interactable = true;
 
             statusText.text = "ready";
+            
             ShowPanel();
+            panelRunning.SetActive(false); // Intentionally after ShowPanel() as that enables all subpanels by default
+            
 
             EventManager.StartListening(Edia.Events.ControlPanel.EvUpdateProgressStatus, OnEvExperimentProgressUpdate);
             EventManager.StartListening(Edia.Events.ControlPanel.EvUpdateBlockProgress, OnEvUpdateBlockProgress);
@@ -90,10 +92,11 @@ namespace Edia.Controller {
             btnExperiment.interactable = false;
 
             panelIdle.SetActive(false);
-            panelRunning.SetActive(true);
             panelStatus.SetActive(true);
+            panelRunning.SetActive(true);
+            
             GetComponent<VerticalLayoutGroup>().enabled = true;
-
+            
             EventManager.StartListening(Edia.Events.ControlPanel.EvUpdateTrialProgress, OnEvUpdateTrialProgress);
             EventManager.StartListening(Edia.Events.ControlPanel.EvUpdateStepProgress, OnEvUpdateStepProgress);
             EventManager.StartListening(Edia.Events.StateMachine.EvSessionEnded, OnEvSessionEnded);
