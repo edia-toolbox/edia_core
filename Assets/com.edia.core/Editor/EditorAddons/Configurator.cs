@@ -9,7 +9,6 @@ namespace Edia.Editor.Utils {
         // Public
         public static Texture2D EDIAIcon;
         public static Texture2D ProjectIcon;
-        // ApiCompatibilityLevel targetApiLevel = ApiCompatibilityLevel.NET_4_6;
 
         // Internal
         [SerializeField] private ThemeDefinition SelectedTheme;
@@ -84,14 +83,15 @@ namespace Edia.Editor.Utils {
             }
         }
 
-        [MenuItem("EDIA/Configurator")]
+        [MenuItem("EDIA/Configurator", false, 0)]
         static void Init() {
-            LoadSettings();
-
             var window = (Configurator)EditorWindow.GetWindow(typeof(Configurator), false, "Configurator");
             window.minSize      = new Vector2(300, 400);
             window.titleContent = new GUIContent("Configurator");
-            window.Show();
+
+            LoadSettings();
+
+            EDIAIcon = Resources.Load<Texture2D>("IconEdia");
 
             string scriptPath  = AssetDatabase.GetAssetPath(MonoScript.FromScriptableObject(window));
             string packagePath = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(scriptPath), "../../../com.edia.core/package.json"));
@@ -103,6 +103,8 @@ namespace Edia.Editor.Utils {
             else {
                 _version = "?.?.?";
             }
+
+            window.Show();
         }
 
         private void OnGUI() {
@@ -206,7 +208,7 @@ namespace Edia.Editor.Utils {
                     string targetPath = "Assets/ProjectColorTheme.asset";
                     AssetDatabase.CopyAsset(sourcePath, targetPath);
                     AssetDatabase.Refresh();
-                    
+
                     _selectedTheme        = AssetDatabase.LoadAssetAtPath<ThemeDefinition>(targetPath);
                     Constants.ActiveTheme = _selectedTheme; // Fires the event to force UI items to update
                     SaveSettings();

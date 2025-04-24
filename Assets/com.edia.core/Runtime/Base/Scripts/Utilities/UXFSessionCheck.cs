@@ -15,7 +15,7 @@ namespace UXF.EditorUtils {
 
         [MenuItem("EDIA/UXF/Show session debugger")]
         static void Init() {
-            var window = (UXFSessionDisplay)EditorWindow.GetWindow(typeof(UXFSessionCheck));
+            var window = (UXFSessionCheck)EditorWindow.GetWindow(typeof(UXFSessionCheck));
             window.minSize      = new Vector2(300, 500);
             window.titleContent = new GUIContent("UXF Session Debugger");
             window.Show();
