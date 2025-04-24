@@ -34,7 +34,16 @@ namespace Edia {
 #region EVENT HANDLING
 
         private void OnEvSetSessionInfo(eParam param) {
-            SessionSettings.sessionInfo               = JsonUtility.FromJson<SessionInfo>(param.GetStrings()[0]);
+            try {
+                SessionSettings.sessionInfo = JsonUtility.FromJson<SessionInfo>(param.GetStrings()[0]);
+            }
+            catch (System.Exception e) {
+                AddToConsole($"Failed to parse SessionInfo: {e.Message}", LogType.Error);
+                EventManager.TriggerEvent(Edia.Events.ControlPanel.EvShowMessageBox,
+                    new eParam($"Failed to parse SessionInfo", false));
+                return;
+            }
+
             SessionSettings.sessionInfo.sessionNumber = int.Parse(param.GetStrings()[1]); // UXF wants an int
 
             SettingsTuple participantTuple = new() {
@@ -42,28 +51,47 @@ namespace Edia {
                 value = param.GetStrings()[2]
             };
             SessionSettings.sessionInfo.participantDetails.Add(participantTuple);
-    
-            
+
             _validated.Add(true);
             AddToConsole($"[{_validated.Count} of 5] Session info OK");
-            
+
             CheckIfReadyAndContinue();
         }
 
         private void OnEvSetXBlockSequence(eParam param) {
-            _xBlockSequence = JsonUtility.FromJson<XBlockSequence>(param.GetString());
+            try {
+                _xBlockSequence = JsonUtility.FromJson<XBlockSequence>(param.GetString());
+            }
+            catch (System.Exception e) {
+                AddToConsole($"Failed to parse XBlock sequence: {e.Message}", LogType.Error);
+                EventManager.TriggerEvent(Edia.Events.ControlPanel.EvShowMessageBox,
+                    new eParam($"Failed to parse XBlock sequence", false));
+                return;
+            }
 
             _validated.Add(true);
             AddToConsole($"[{_validated.Count} of 5] Session sequence OK");
-            
+
             CheckIfReadyAndContinue();
         }
 
         private void OnEvSetBaseDefinitions(eParam param) {
             foreach (string t in param.GetStrings()) {
-                XBlockBaseSettings xBBs = JsonUtility.FromJson<XBlockBaseSettings>(t);
 
-                if (xBBs.type.ToLower() == "session") { // One of the jsons is the global session info
+                XBlockBaseSettings xBBs = new();
+                
+                try {
+                    xBBs = JsonUtility.FromJson<XBlockBaseSettings>(t);
+                }
+                catch (System.Exception e) {
+                    AddToConsole($"Failed to parse base definition: {e.Message}", LogType.Error);
+                    EventManager.TriggerEvent(Edia.Events.ControlPanel.EvShowMessageBox,
+                        new eParam($"Failed to parse base definition", false));
+                    return;
+                }
+                
+                if (xBBs.type.ToLower() == "session") {
+                    // One of the jsons is the global session info
                     _sessionXblock = xBBs;
                 }
                 else _bases.Add(xBBs);
@@ -71,19 +99,31 @@ namespace Edia {
 
             _validated.Add(true);
             AddToConsole($"[{_validated.Count} of 5] Session base definitions OK");
-            
+
             CheckIfReadyAndContinue();
         }
 
         private void OnEvSetXBlockDefinitions(eParam param) {
+            
             foreach (string t in param.GetStrings()) {
-                XBlockSettings xBs = JsonUtility.FromJson<XBlockSettings>(t);
+                XBlockSettings xBs = new();
+            
+                try {
+                    xBs = JsonUtility.FromJson<XBlockSettings>(t);
+                }
+                catch (System.Exception e) {
+                    AddToConsole($"Failed to parse Xblock setting: {e.Message}", LogType.Error);
+                    EventManager.TriggerEvent(Edia.Events.ControlPanel.EvShowMessageBox,
+                        new eParam($"Failed to parse Xblock setting", false));
+                    return;    
+                }
+                
                 _xBlocks.Add(xBs);
             }
 
             _validated.Add(true);
             AddToConsole($"[{_validated.Count} of 5] Session block definitions OK");
-            
+
             CheckIfReadyAndContinue();
         }
 
@@ -116,7 +156,6 @@ namespace Edia {
 #region VALIDATORS
 
         void CheckIfReadyAndContinue() {
-            
             if (_validated.Count == 4) {
                 if (!GenerateUxfSequence()) {
                     AddToConsole("Failed to generate session sequence", LogType.Error);
@@ -125,7 +164,7 @@ namespace Edia {
 
                 _validated.Add(true);
                 AddToConsole($"[{_validated.Count} of 5] Session generation DONE");
-                
+
                 EventManager.TriggerEvent(Edia.Events.Config.EvReadyToGo);
                 EventManager.TriggerEvent(Edia.Events.ControlPanel.EvUpdateSessionSummary, new eParam(SessionSettings.sessionInfo.GetSessionSummary()));
             }
@@ -163,7 +202,6 @@ namespace Edia {
         /// </summary>
         private bool GenerateUxfSequence() {
             if (!ValidateXBlockList()) {
-                // EventManager.TriggerEvent(Edia.Events.Config.EvSessionInitialisationFailed);
                 return false;
             }
 
@@ -172,7 +210,9 @@ namespace Edia {
                 // Find the according XBlockBase (e.g., Task or Break definition) and get global settings
                 XBlockBaseSettings xBlockBase = GetXBlockBaseByBlockId(blockId);
                 if (xBlockBase == null) {
-                    AddToConsole($"No block definition details found for <b>{blockId}</b>. Is the 'type','subType' and 'blockId' set correctly in the {blockId}.json?", LogType.Error);
+                    AddToConsole(
+                        $"No block definition details found for <b>{blockId}</b>. Is the 'type','subType' and 'blockId' set correctly in the {blockId}.json?",
+                        LogType.Error);
                     return false;
                 }
 
@@ -273,7 +313,7 @@ namespace Edia {
                 SessionSettings.settings.Add(new SettingsTuple { key = settingsTuple.key, value = settingsTuple.value });
             }
 
-            foreach (SettingsTuple instructionTuple in _sessionXblock.instructions ) {
+            foreach (SettingsTuple instructionTuple in _sessionXblock.instructions) {
                 SessionSettings.settings.Add(new SettingsTuple { key = instructionTuple.key, value = instructionTuple.value });
             }
 

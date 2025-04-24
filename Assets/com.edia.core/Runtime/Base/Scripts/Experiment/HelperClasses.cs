@@ -15,7 +15,6 @@ namespace Edia {
     public class SettingsTuple {
         [HideInInspector]
         public string key = string.Empty;
-
         public string value = string.Empty;
     }
 
@@ -30,7 +29,6 @@ namespace Edia {
     public class TrialSettings {
         [HideInInspector]
         public List<string> keys = new List<string>();
-
         public List<ValueList> valueList = new List<ValueList>();
     }
 
