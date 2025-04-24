@@ -49,6 +49,7 @@ namespace Edia {
         public static string PathToParticipantFiles      = "configs/participants/";
         public static string PathToBaseDefinitions       = "configs/base-definitions/";
         public static string FolderNameXBlockDefinitions = "block-definitions";
+        public static string FileNameSession             = "session.json";
 
         public static string FileNameEdiaSettings = "Edia-settings.json";
 
