@@ -1,6 +1,5 @@
 // USING LINES:
 // - Keep using lines at the top of your file.
-// - Remove unused lines.
 
 using System;
 using System.Collections.Generic;
@@ -9,7 +8,6 @@ using UnityEngine;
 
 // NAMESPACES:
 // - Pascal case, without special symbols or underscores.
-// - Add using line at the top to avoid typing namespace repeatedly.
 // - Create sub-namespaces with the dot (.) operator, e.g. MyApplication.GameFlow, MyApplication.AI, etc.
 namespace StyleSheetExample {
 
@@ -21,21 +19,6 @@ namespace StyleSheetExample {
         South,
         East,
         West,
-    }
-
-    // FLAGS ENUMS:
-    // - Use a plural type name 
-    // - No prefix or suffix.
-    // - Use column-alignment for binary values
-    [Flags]
-    public enum AttackModes {
-        // Decimal                         // Binary
-        None    = 0, // 000000
-        Melee   = 1, // 000001
-        Ranged  = 2, // 000010
-        Special = 4, // 000100
-
-        MeleeAndSpecial = Melee | Special // 000101
     }
 
     // INTERFACES:
@@ -67,17 +50,12 @@ namespace StyleSheetExample {
         // - Use meaningful names. Make names searchable and pronounceable. Don’t abbreviate (unless it’s math).
         // - Use Pascal case for public fields. Use camel case for private variables.
         // - Add an underscore (_) in front of private fields to differentiate from local variables
-        // - You can alternatively use more explicit prefixes: m_ = member variable, s_ = static, k_ = const
-        // - Specify (or omit) the default access modifier; just be consistent with your style guide.
 
         private int _elapsedTimeInDays;
 
         // Use [SerializeField] attribute if you want to display a private field in Inspector.
         // Booleans ask a question that can be answered true or false.
         [SerializeField] private bool _isPlayerDead;
-
-        // This groups data from the custom PlayerStats class in the Inspector.
-        [SerializeField] private PlayerStats _stats;
 
         // This limits the values to a Range and creates a slider in the Inspector.
         [Range(0f, 1f)] [SerializeField] private float _rangedStat;
@@ -91,16 +69,12 @@ namespace StyleSheetExample {
         // - Pascal case, without special characters.
         // - Use the expression-bodied properties to shorten, but choose your preferred format.
         // - e.g. use expression-bodied for read-only properties but { get; set; } for everything else.
-        // - Use the Auto-Implementated Property for a public property without a backing field.
 
         // the private backing field
         private int _maxHealth;
 
         // read-only, returns backing field
         public int MaxHealthReadOnly => _maxHealth;
-
-        // equivalent to:
-        // public int MaxHealth { get; private set; }
 
         // explicitly implementing getter and setter
         public int MaxHealth {
@@ -117,7 +91,7 @@ namespace StyleSheetExample {
         // auto-implemented property without backing field
         public string DescriptionName { get; set; } = "Fireball";
 
-#region ---- EVENT HOOKS
+#region EVENT HOOKS
 
         // EVENTS:
         // - Name with a verb phrase.
@@ -161,19 +135,16 @@ namespace StyleSheetExample {
 
         // EDIA EVENTS:
 
-        // ## Event definition
         // Use a <summary> to describe the event and what it is expecting as parameter
         // Start name with 'Ev'
         // Naming should be self explanatory, i.e. `EvSessionResume`, `EvEnableXRInteraction`
         // Events are categorized and live in their own namespace, i.e. `Edia.Events.ControlPanel.EvSomeEvent` for easy access 
 
         // Event declaration
-        /// <summary>Event indicating that the system can proceed, useally from experimenter. Expects null</summary>
+        /// <summary>Event indicating that the system can proceed, usually from experimenter. Expects null</summary>
         public const string EvProceed = "EvProceed";
 
         // ## EventManager - Central place where active event listeners are stored.
-        // Handles triggering, cleaning, console prints
-
         private void SomeMethod() {
             // Listen to event
             // Use 'On' as prefix for the method to call for the event for clear understanding
@@ -196,7 +167,6 @@ namespace StyleSheetExample {
 
         // Execution
         private void OnEvConnectionEstablished(eParam e) {
-            // Do something
             // Use a getter to extract data from the param
             // GetInt(s), GetFloat(s), etc ...
         }
@@ -225,7 +195,6 @@ namespace StyleSheetExample {
 
             // SWITCH STATEMENTS:
             // - The formatting can vary. Select one for your style guide and follow it.
-            // - This example indents each case and the break underneath.
             switch (someExpression) {
                 case 0:
                     // ..
@@ -240,7 +209,6 @@ namespace StyleSheetExample {
 
             // BRACES: 
             // - Keep braces for clarity when using single-line statements.
-            // - Or avoid single-line statement entirely for debuggability.
             // - Keep braces in nested multi-line statements.
 
             // This single-line statement keeps the braces...
@@ -264,7 +232,6 @@ namespace StyleSheetExample {
         // example setting local parameter value (x) to private field (_x)
         private void DoSomething(int x) {
             int _x = x;
-            // .. 
         }
     }
 
@@ -277,5 +244,4 @@ namespace StyleSheetExample {
         public int  HitPoints;
         public bool HasHealthPotion;
     }
-
 }
