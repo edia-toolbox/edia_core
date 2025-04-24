@@ -2,9 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-#if UNITY_EDITOR
-
-using UXF;
 
 namespace UXF.EditorUtils {
 
@@ -197,6 +194,4 @@ namespace UXF.EditorUtils {
             return value.Length <= maxChars ? value : value.Substring(0, maxChars) + "...";
         }
     }
-#endif
-
 }
