@@ -205,7 +205,7 @@ namespace Edia {
 
                 return true; // Success
             }
-            catch (Exception ex) {
+            catch (SystemException) {
                 return false; // Failure
             }
         }
