@@ -1,0 +1,44 @@
+name: Create Subfolder Release
+
+on:
+  push:
+    tags:
+      - 'release-*'
+
+jobs:
+  create-release:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v4
+
+    - name: Get tag and release name
+      id: get_tag
+      run: |
+        echo "TAG_NAME=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+        echo "RELEASE_NAME=${GITHUB_REF#refs/tags/release-}" >> $GITHUB_ENV
+
+    - name: Configure Git
+      run: |
+        git config --global user.email "ci@github.com"
+        git config --global user.name "GitHub Actions Bot"
+
+    - name: Get package folder
+      run: |
+        echo "PACKAGE_FOLDER=$(find Assets -type d -regex '.*/com\.edia\..[^/]+')" >> $GITHUB_ENV
+
+    - name: Extract Subfolder and Push Branch
+      run: |
+          git subtree split --prefix=${PACKAGE_FOLDER} -b release-branch
+          git push -f origin release-branch
+          git tag "$RELEASE_NAME" origin/release-branch
+          git push origin "$RELEASE_NAME"
+          git push --delete origin "$TAG_NAME"
+
+    - name: Create GitHub Release
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        gh release create "$RELEASE_NAME" --title "$RELEASE_NAME" --target release-branch
+
