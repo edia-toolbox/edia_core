@@ -212,72 +212,73 @@ namespace Edia {
 
 
         /// <summary> Reads the content of a file located in a specific subfolder of the application's path. </summary>
-        /// <param name="_subfolder">The subfolder within the application path where the file is located.</param>
-        /// <param name="_fileName">The name of the file to be read.</param>
+        /// <param name="subfolder">The subfolder within the application path where the file is located.</param>
+        /// <param name="fileName">The name of the file to be read.</param>
         /// <returns>The content of the file as a string.</returns>
-        public static string ReadStringFromApplicationPathSubfolder(string _subfolder, string _fileName) {
-            string path = GetCorrectPath() + "/" + _subfolder + "/" + _fileName;
+        public static string ReadStringFromApplicationPathSubfolder(string subfolder, string fileName) {
+            string path = GetCorrectPath() + "/" + subfolder + "/" + fileName;
 
             return ReadString(path);
         }
 
 
         /// <summary> Reads a string from a file located in the application's root path. </summary>
-        /// <param name="_fileName">The name of the file to read from the application's root path.</param>
+        /// <param name="fileName">The name of the file to read from the application's root path.</param>
         /// <returns>A string containing the contents of the specified file.</returns>
-        public static string ReadStringFromApplicationPath(string _fileName) {
-            string path = GetCorrectPath() + "/" + _fileName;
+        public static string ReadStringFromApplicationPath(string fileName) {
+            string path = GetCorrectPath() + "/" + fileName;
 
             return ReadString(path);
         }
 
         /// <summary> Determines if a file exists at the specified application path. </summary>
-        /// <param name="_fileName">The name of the file to check for existence.</param>
+        /// <param name="fileName">The name of the file to check for existence.</param>
         /// <returns>True if the file exists, otherwise false.</returns>
-        public static bool FileExists(string _fileName) {
-            string path = GetCorrectPath() + "/" + _fileName;
+        public static bool FileExists(string fileName) {
+            string path = GetCorrectPath() + "/" + fileName;
             return File.Exists(path);
         }
 
-        /// <summary>Tries to read the given textbased filename.</summary>
-        /// <param _fileName="_fileName"></param>
-        /// <returns>Content of the file, or 'ERROR' when failed</returns>
-        public static string ReadString(string _fileName) {
-            StreamReader reader = new StreamReader(_fileName);
-            string result;
-
+        /// <summary>Tries to read the given text-based file.</summary>
+        /// <param name="fileName">Path to the file to read</param>
+        /// <returns>Content of the file</returns>
+        /// <exception cref="ArgumentNullException">Thrown when fileName is null</exception>
+        /// <exception cref="IOException">Thrown when an I/O error occurs</exception>
+        public static string ReadString(string fileName) {
+            if (string.IsNullOrEmpty(fileName)) {
+                throw new ArgumentNullException(nameof(fileName), "File name cannot be null or empty");
+            }
+            
             try {
-                result = reader.ReadToEnd();
+                // File.ReadAllText handles opening and closing the file automatically
+                return File.ReadAllText(fileName);
             }
-            catch (System.Exception) {
-                result = "ERROR";
-                throw;
+            catch (Exception ex) when (ex is not ArgumentNullException) {
+                // Log the exception if needed
+                throw new IOException($"Failed to read file '{fileName}'", ex);
             }
-
-            reader.Close();
-            return result;
         }
 
         /// <summary>Copies a specified file from a source path to a destination path.</summary>
-        /// <param name="_sourcePath">The directory in the source from which the file will be copied.</param>
-        /// <param name="_filename">The name of the file to copy.</param>
-        /// <param name="_destinationPath">The directory in the destination where the file will be copied to.</param>
-        public static void CopyFileTo(string _sourcePath, string _filename, string _destinationPath) {
-            string pathfile = GetCorrectPath() + "/" + _sourcePath + "/" + _filename;
+        /// <param name="sourcePath">The directory in the source from which the file will be copied.</param>
+        /// <param name="filename">The name of the file to copy.</param>
+        /// <param name="destinationPath">The directory in the destination where the file will be copied to.</param>
+        public static void CopyFileTo(string sourcePath, string filename, string destinationPath) {
+            string pathfile = GetCorrectPath() + "/" + sourcePath + "/" + filename;
 
-            File.Copy(pathfile, GetCorrectPath() + "/" + _destinationPath + "/" + _filename, true);
+            File.Copy(pathfile, GetCorrectPath() + "/" + destinationPath + "/" + filename, true);
         }
 
         /// <summary>Saves a text file to given filename and containts given data</summary>
         /// <param _fileName="_fileName">Name of the file</param>
         /// <param _data="_data">The data that needs to be written</param>
         /// <param _overwrite="_overwrite">Overwrite if filename exists.</param>
-        public static void WriteString(string _fileName, string _data, bool _overwrite) {
-            string path = GetCorrectPath() + "/" + _fileName;
+        public static void WriteString(string fileName, string data, bool overwrite) {
+            string path = GetCorrectPath() + "/" + fileName;
 
             StreamWriter writer = new StreamWriter(path, false, Encoding.UTF8, 65536);
 
-            writer.WriteLine(_data);
+            writer.WriteLine(data);
 
             // Cleanup
             writer.Flush();
@@ -286,12 +287,12 @@ namespace Edia {
 
         /// <summary>Creates a folder in the application data directory</summary>
         /// <param _fileName="_fileName">Name of the file</param>
-        public static void CreateFolder(string _folderName) {
-            string path = GetCorrectPath() + "/" + _folderName;
+        public static void CreateFolder(string folderName) {
+            string path = GetCorrectPath() + "/" + folderName;
 
             if (!Directory.Exists(path)) {
                 Directory.CreateDirectory(path);
-                Debug.Log(string.Format("<color=#00FFFF>[eDIA]</color>Created Folder: {0} ", GetCorrectPath() + "/" + _folderName));
+                Debug.Log(string.Format("<color=#00FFFF>[eDIA]</color>Created Folder: {0} ", GetCorrectPath() + "/" + folderName));
             }
         }
 
