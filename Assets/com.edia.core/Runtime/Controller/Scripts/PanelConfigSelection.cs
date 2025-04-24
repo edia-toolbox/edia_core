@@ -142,7 +142,7 @@ namespace Edia.Controller {
 
             // Session + Task definitions
             string[] filelist = FileManager.GetAllFilenamesWithExtensionFrom(PathToBaseDefinitions, "json");
-            if (!filelist.Contains("session.json")) {
+            if (!filelist.Contains(FileNameSession)) {
                 ControlPanel.Instance.AddToConsole("No <b>session.json</b> config file found in base definitions folder", LogType.Error);
                 EventManager.TriggerEvent(Edia.Events.ControlPanel.EvShowMessageBox,
                     new eParam("No <b>session.json</b> config file found in base definitions folder", false));
