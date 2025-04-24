@@ -15,6 +15,11 @@ namespace UXF.EditorUtils {
 
         [MenuItem("EDIA/UXF/Show session debugger")]
         static void Init() {
+            if (!Application.isEditor) {
+                Debug.LogWarning("UXF Session Debugger can only be used in Editor mode");
+                return;
+            }
+
             var window = (UXFSessionCheck)EditorWindow.GetWindow(typeof(UXFSessionCheck));
             window.minSize      = new Vector2(300, 500);
             window.titleContent = new GUIContent("UXF Session Debugger");
@@ -22,7 +27,9 @@ namespace UXF.EditorUtils {
         }
 
         static UXFSessionCheck() {
+#if UNITY_EDITOR
             EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
+#endif
         }
 
         static void OnPlayModeStateChanged(PlayModeStateChange state) {
@@ -32,10 +39,11 @@ namespace UXF.EditorUtils {
         }
 
         static void FetchReferences() {
+#if UNITY_EDITOR
 #if UNITY_6000
             session = FindFirstObjectByType<Session>();
 #else
-            session = FindObjectOfType<Session>();
+                session = FindObjectOfType<Session>();
 #endif
             if (!session) {
                 // Debug.Log("no session found");
@@ -80,9 +88,11 @@ namespace UXF.EditorUtils {
             }
 
             settingsDict.Add("_____blocks", blockList);
+#endif
         }
 
         public void OnGUI() {
+#if UNITY_EDITOR
             EditorGUILayout.Space();
             GUIStyle labelStyle = new GUIStyle();
             labelStyle.wordWrap = true;
@@ -113,10 +123,11 @@ namespace UXF.EditorUtils {
             }
 
             GUILayout.Label("Something went wrong.", labelStyle);
-            return;
+#endif
         }
 
         static void ParseSettings() {
+#if UNITY_EDITOR
             EditorGUILayout.HelpBox(
                 "Remember, Settings requests cascade upwards: That means accessing a settings in a trial will first look inside the trial, if it is then not found, will look inside the block, then the session.",
                 UnityEditor.MessageType.Info);
@@ -160,9 +171,11 @@ namespace UXF.EditorUtils {
 
             EditorGUILayout.EndVertical();
             EditorGUILayout.EndVertical();
+#endif
         }
 
         static void GUIKeyValuePairColumns(Dictionary<string, object> dict) {
+#if UNITY_EDITOR
             if (dict.Count == 0) {
                 EditorGUILayout.LabelField("None", EditorStyles.miniLabel);
                 return;
@@ -185,6 +198,7 @@ namespace UXF.EditorUtils {
                 EditorGUILayout.LabelField(string.Format("[\"{0}\"]: {1}", k, v));
                 GUILayout.EndHorizontal();
             }
+#endif
         }
 
         static string Truncate(string value, int maxChars) {
