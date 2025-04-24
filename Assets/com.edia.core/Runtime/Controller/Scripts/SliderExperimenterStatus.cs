@@ -90,7 +90,7 @@ public class SliderExperimenterStatus : MonoBehaviour {
 
 	IEnumerator AnimateSliderToValue(float endValue) {
 		float animationTime = 0f;
-		float duration = 0.3f;
+		float duration = 0.5f;
 		float oldValue = _mySlider.value;
 
 		while (animationTime < duration) {

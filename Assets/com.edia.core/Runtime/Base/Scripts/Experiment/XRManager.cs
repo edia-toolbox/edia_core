@@ -39,11 +39,11 @@ namespace Edia {
 
         [Space(10f)]
         [Header("References")]
+        public HandVisualizer HandVisualizer;
         public Transform XRCam;
 
         public XRController   XRLeft;
         public XRController   XRRight;
-        public HandVisualizer HandVisualizer;
 
         // Internals
         bool isInteractive = false;
