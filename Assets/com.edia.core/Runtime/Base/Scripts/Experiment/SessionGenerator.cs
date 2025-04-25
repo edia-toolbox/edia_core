@@ -309,13 +309,15 @@ namespace Edia {
 
             // Prepare UXF.Session.instance.settings -> They need to be provided at the Session.instance.begin 
             foreach (SettingsTuple settingsTuple in _sessionXblock.settings) {
+                SessionSettings.settings.Add(new SettingsTuple { key = settingsTuple.key, value = settingsTuple.value });
                 if (IsValidKeyForTrialResults(settingsTuple.key))
-                    SessionSettings.settings.Add(new SettingsTuple { key = settingsTuple.key, value = settingsTuple.value });
+                    Session.instance.settingsToLog.Add(settingsTuple.key); 
             }
 
             foreach (SettingsTuple instructionTuple in _sessionXblock.instructions) {
+                SessionSettings.settings.Add(new SettingsTuple { key = instructionTuple.key, value = instructionTuple.value });
                 if (IsValidKeyForTrialResults(instructionTuple.key))
-                    SessionSettings.settings.Add(new SettingsTuple { key = instructionTuple.key, value = instructionTuple.value });
+                    Session.instance.settingsToLog.Add(settingsTuple.key); 
             }
 
             return true;
