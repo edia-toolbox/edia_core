@@ -34,24 +34,28 @@ namespace Edia {
 #region EVENT HANDLING
 
         private void OnEvSetSessionInfo(eParam param) {
+            // param consists out of: string json content, string sessionnumber, string participantid
+            // 0: Sessioninfo.json
             try {
                 SessionSettings.sessionInfo = JsonUtility.FromJson<SessionInfo>(param.GetStrings()[0]);
             }
             catch (System.Exception e) {
                 AddToConsole($"Failed to parse SessionInfo: {e.Message}", LogType.Error);
-                EventManager.TriggerEvent(Edia.Events.ControlPanel.EvShowMessageBox,
-                    new eParam($"Failed to parse SessionInfo", false));
+                EventManager.TriggerEvent(Edia.Events.ControlPanel.EvShowMessageBox, new eParam($"Failed to parse SessionInfo", false));
                 return;
             }
 
+            // 1: Session number
             SessionSettings.sessionInfo.sessionNumber = int.Parse(param.GetStrings()[1]); // UXF wants an int
-
+            // 2: participant id
             SettingsTuple participantTuple = new() {
                 key   = "id",
                 value = param.GetStrings()[2]
             };
-            SessionSettings.sessionInfo.participantDetails.Add(participantTuple);
-
+            
+            SessionSettings.sessionInfo.participant_details.Add(participantTuple);
+            
+            
             _validated.Add(true);
             AddToConsole($"[{_validated.Count} of 5] Session info OK");
 
