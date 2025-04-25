@@ -90,8 +90,7 @@ namespace Edia {
                     return;
                 }
                 
-                if (xBBs.type.ToLower() == "session") {
-                    // One of the jsons is the global session info
+                if (xBBs.type.ToLower() == "session") { // One of the jsons is the global session info
                     _sessionXblock = xBBs;
                 }
                 else _bases.Add(xBBs);
@@ -310,10 +309,12 @@ namespace Edia {
 
             // Prepare UXF.Session.instance.settings -> They need to be provided at the Session.instance.begin 
             foreach (SettingsTuple settingsTuple in _sessionXblock.settings) {
-                SessionSettings.settings.Add(new SettingsTuple { key = settingsTuple.key, value = settingsTuple.value });
+                if (IsValidKeyForTrialResults(settingsTuple.key))
+                    SessionSettings.settings.Add(new SettingsTuple { key = settingsTuple.key, value = settingsTuple.value });
             }
 
             foreach (SettingsTuple instructionTuple in _sessionXblock.instructions) {
+                if (IsValidKeyForTrialResults(instructionTuple.key))
                 SessionSettings.settings.Add(new SettingsTuple { key = instructionTuple.key, value = instructionTuple.value });
             }
 
