@@ -61,7 +61,6 @@ namespace Edia {
         }
 
         private void Start() {
-            XBlockNamesToLower();
 
             if (!IsValid())
                 return;
@@ -87,21 +86,24 @@ namespace Edia {
             List<string> msgs    = new();
 
             // Are there executers?
-            if (Executors == null || Executors.Count == 0) {
+            if (Executors == null || Executors.Count == 0 || Executors.All(x => x == null)) {
                 isValid = false;
                 msgs.Add("XBLock Executers list is empty!");
             }
+            
+            if (isValid)
+                XBlockNamesToLower();
 
             // Are there executers with the same name?
             var names = Executors.Select(g => g.name);
-            if (names.Count() != names.Distinct().Count()) {
+            if (isValid && names.Count() != names.Distinct().Count()) {
                 msgs.Add("All XBlock Executers need unique names!");
                 isValid = false;
             }
 
             // Are the gameobjects in Experiment.blocks properly named? <type>_<subtype>
             foreach (XBlock g in Executors) {
-                if (!Regex.IsMatch(g.name, @"^[a-z0-9]+-[a-z0-9\-'().,_]+$")) {
+                if (isValid && !Regex.IsMatch(g.name, @"^[a-z0-9]+-[a-z0-9\-'().,_]+$")) {
                     msgs.Add($"Invalid gameobject (XBlock Executer) naming format found in: <b>{g.name}</b>; must adhere to: <type>-<subtype>");
                     isValid = false;
                 }
