@@ -169,8 +169,7 @@ namespace Edia {
                 _graphicRaycaster.enabled = onOff;
             _trackedDeviceGraphicRaycaster.enabled = onOff;
 
-            // XRManager.Instance.EnableXROverlayRayInteraction(onOff ? _stickToHMD : false);
-            XRManager.Instance.EnableRayInteraction(onOff ? !_stickToHMD : false);
+            XRManager.Instance.EnableRayInteraction(onOff);
 
             _messagePanelFader = _messagePanelFader is not null ? null : StartCoroutine(TextFader());
         }
