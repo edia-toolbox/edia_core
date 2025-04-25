@@ -317,7 +317,7 @@ namespace Edia {
             foreach (SettingsTuple instructionTuple in _sessionXblock.instructions) {
                 SessionSettings.settings.Add(new SettingsTuple { key = instructionTuple.key, value = instructionTuple.value });
                 if (IsValidKeyForTrialResults(instructionTuple.key))
-                    Session.instance.settingsToLog.Add(settingsTuple.key); 
+                    Session.instance.settingsToLog.Add(instructionTuple.key); 
             }
 
             return true;
