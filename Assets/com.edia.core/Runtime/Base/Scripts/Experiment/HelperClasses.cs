@@ -142,7 +142,7 @@ namespace Edia {
     [System.Serializable]
     public class SettingsDeclaration {
 
-        public string InteractiveSide = "NONE";
+        public string InteractiveSide = "RIGHT";
         public string pathToLogfiles = "../logfiles";
 
         public bool IsRightInteractive => InteractiveSide is "RIGHT" or "BOTH";
