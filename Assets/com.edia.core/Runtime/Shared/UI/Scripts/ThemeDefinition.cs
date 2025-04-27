@@ -8,14 +8,6 @@ namespace Edia {
     [CreateAssetMenu(fileName = "ColorTheme", menuName = "EDIA/UI/Color Theme File")]
     public class ThemeDefinition : ScriptableObject {
 
-#region Branding Elements
-
-        [Header("Branding")]
-        [Tooltip("The logo displayed in UI elements")]
-        public Sprite logoSprite = null;
-
-#endregion
-
 #region Interactive Elements
 
         [Space(15)]
@@ -24,7 +16,6 @@ namespace Edia {
         [Header("Button colors")]
         [SerializeField] private ColorBlock _buttonColorBlock = ColorBlock.defaultColorBlock;
 
-        // Property with custom getter/setter if needed
         public ColorBlock ButtonColorBlock {
             get { return _buttonColorBlock; }
             set { _buttonColorBlock = value; }
@@ -37,7 +28,6 @@ namespace Edia {
         [Header("Toggle colors")]
         [SerializeField] private ColorBlock _toggleColorBlock = ColorBlock.defaultColorBlock;
 
-        // Property with custom getter/setter if needed
         public ColorBlock ToggleColorBlock {
             get { return _toggleColorBlock; }
             set { _toggleColorBlock = value; }
@@ -47,7 +37,6 @@ namespace Edia {
         [Header("Dropdown colors")]
         [SerializeField] private ColorBlock _dropDownColorBlock = ColorBlock.defaultColorBlock;
 
-        // Property with custom getter/setter if needed
         public ColorBlock DropDownColorBlock {
             get { return _dropDownColorBlock; }
             set { _dropDownColorBlock = value; }
@@ -84,7 +73,6 @@ namespace Edia {
 #endregion
 
 #if UNITY_EDITOR
-        // This helps preview changes in the editor immediately
         private void OnValidate() {
             UnityEditor.EditorUtility.SetDirty(this);
         }
@@ -104,13 +92,8 @@ namespace Edia {
             DrawDefaultInspector();
 
             EditorGUILayout.Space(10);
-            if (GUILayout.Button("Reset to Default Colors")) {
-                // Reset logic here
-                theme.ButtonColorBlock            = ColorBlock.defaultColorBlock;
-                theme.MainBGColor = Color.white;
-                theme.PanelBGColor     = Color.white;
-                theme.SubPanelBGColor    = Color.white;
-                EditorUtility.SetDirty(theme);
+            if (GUILayout.Button("Apply")) {
+                Constants.ActiveTheme = theme;
             }
         }
     }
