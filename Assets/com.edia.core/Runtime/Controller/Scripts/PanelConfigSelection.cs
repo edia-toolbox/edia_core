@@ -94,7 +94,7 @@ namespace Edia.Controller {
 
             HidePanel();
         }
-
+ 
         public void OnSubjectValueChanged(int value) {
             _subject = SubjectSelectionDropdown.options[value].text;
 

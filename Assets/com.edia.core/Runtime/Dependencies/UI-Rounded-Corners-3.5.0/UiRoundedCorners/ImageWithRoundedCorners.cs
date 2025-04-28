@@ -33,11 +33,15 @@ namespace Nobi.UiRoundedCorners {
 		private void OnEnable() {
 			//You can only add either ImageWithRoundedCorners or ImageWithIndependentRoundedCorners
 			//It will replace the other component when added into the object.
-			var other = GetComponent<ImageWithIndependentRoundedCorners>();
-			if (other != null) {
-				radius = other.r.x;                 //When it does, transfer the radius value to this script
-				DestroyHelper.Destroy(other);
-			}
+
+			/*
+			 * Commented out this section as the `ImageWithIndependentRoundedCorners` part of the package is removed in Edia.
+			 */
+			// var other = GetComponent<ImageWithIndependentRoundedCorners>();
+			// if (other != null) {
+			// 	radius = other.r.x;                 //When it does, transfer the radius value to this script
+			// 	DestroyHelper.Destroy(other);
+			// }
 
 			Validate();
 			Refresh();
@@ -52,6 +56,7 @@ namespace Nobi.UiRoundedCorners {
 		public void Validate() {
 			if (material == null) {
 				material = new Material(Shader.Find("UI/RoundedCorners/RoundedCorners"));
+				// material = Resources.Load<Material>("RoundedCorners");
 			}
 
 			if (image == null) {

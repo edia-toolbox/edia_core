@@ -12,7 +12,6 @@ namespace Edia {
 #if UNITY_EDITOR
         private void OnEnable() {
             Edia.Constants.OnThemeChanged += ApplyTheme;
-            ApplyTheme();
         }
 
         private void OnDisable() {
@@ -27,8 +26,7 @@ namespace Edia {
 
         public void ApplyTheme() {
             ThemeDefinition activeTheme = Edia.Constants.ActiveTheme;
-            if (activeTheme == null) {
-                Debug.LogWarning("No active theme available");
+            if (activeTheme is null) {
                 return;
             }
 
