@@ -11,16 +11,26 @@ namespace Edia {
     [RequireComponent(typeof(TrackedDeviceGraphicRaycaster))]
     public class MessagePanelInVR : Singleton<MessagePanelInVR> {
 
-        [Header("Settings")]
-        [InspectorHeader("EDIA CORE","Message panel in VR", "The main VR Canvas panel to inform the VR User.")]
-        [Tooltip("Auto orientates itself in front of user. Draws on top of the 3D environment.")]
-        [SerializeField] private bool _stickToHMD = false;
+        public enum PanelBehaviours {
+            WorldPosition,
+            StuckToHMD,
+            WorldOrbit
+        }
 
-        [SerializeField] private float _distanceFromHMD = 2f;
+        [Header("Settings")]
+        [InspectorHeader("EDIA CORE", "Message panel in VR", "The main VR Canvas panel to inform the VR User.")]
+        [Tooltip("Panel behaviour. World position, stuck to HMD or world orbit. If world orbit, the panel will orbit around the user's head.")]
+        public PanelBehaviours PanelBehaviour = PanelBehaviours.WorldPosition;
+
+        [Tooltip("Stuck in front of users view at set distance.")]
+        [SerializeField] private float _distanceFromHMD = 2.5f;
+
+        [Tooltip("Scaling factor of message panel. Use lower values with lowe distance.")]
+        [Range(0,1)]
+        [SerializeField] private float _panelScaling = 1f;
 
         [Space(20)] [Header("Refs")]
         [SerializeField] private TextMeshProUGUI _msgField = null;
-
         [SerializeField] private GameObject _menuHolder    = null;
         [SerializeField] private Button     _buttonNEXT    = null;
         [SerializeField] private Button     _buttonProceed = null;
@@ -37,7 +47,8 @@ namespace Edia {
         private GraphicRaycaster              _graphicRaycaster;
         private TrackedDeviceGraphicRaycaster _trackedDeviceGraphicRaycaster;
         private Transform[]                   _panelChildren;
-
+        private bool                          _isVisible = false;
+        private GameObject                    _rotationPivot;
         // ---
 
         private void Awake() {
@@ -49,13 +60,33 @@ namespace Edia {
 
             _panelChildren = this.gameObject.GetComponentsInChildren<Transform>(true);
 
-            if (GetComponent<GraphicRaycaster>() != null)
+            if (GetComponent<GraphicRaycaster>() is not null)
                 _graphicRaycaster = GetComponent<GraphicRaycaster>();
 
-            if (_stickToHMD) {
-                transform.parent        = XRManager.Instance.XRCam.transform;
-                transform.localPosition = new Vector3(0, 0, _distanceFromHMD);
-                transform.localRotation = Quaternion.identity;
+            // Set scaling
+            transform.GetChild(0).localScale = new Vector3(_panelScaling, _panelScaling, _panelScaling);
+            
+            // Set panel behaviour
+            switch (PanelBehaviour) {
+                case PanelBehaviours.WorldPosition:
+                    this.transform.SetParent(null, true);
+                    break;
+                case PanelBehaviours.StuckToHMD:
+                    transform.parent        = XRManager.Instance.XRCam.transform;
+                    transform.localPosition = new Vector3(0, 0, _distanceFromHMD);
+                    transform.localRotation = Quaternion.identity;
+                    break;
+                case PanelBehaviours.WorldOrbit:
+                    _rotationPivot = new GameObject("MessagePanelPivot");
+                    _rotationPivot.transform.SetParent(XRManager.Instance.gameObject.transform, false);
+                    _rotationPivot.transform.localPosition = Vector3.zero;
+                    _rotationPivot.transform.rotation      = Quaternion.identity;
+                    transform.parent              = _rotationPivot.transform;
+                    transform.localPosition       = new Vector3(0, 1.7f, _distanceFromHMD);
+                    transform.localRotation       = Quaternion.identity;
+                    break;
+                default:
+                    break;
             }
         }
 
@@ -65,6 +96,13 @@ namespace Edia {
 
         private void OnDestroy() {
             EventManager.StopListening(Edia.Events.StateMachine.EvProceed, OnEvHideMessage);
+        }
+
+        private void Update() {
+            if (_isVisible && PanelBehaviour is PanelBehaviours.WorldOrbit) {
+                _rotationPivot.transform.rotation = Quaternion.Lerp(_rotationPivot.transform.rotation, Quaternion.Euler(0, XRManager.Instance.XRCam.transform.rotation.eulerAngles.y, 0), Time.deltaTime * 5f);
+                transform.localPosition = new Vector3(0, XRManager.Instance.XRCam.transform.position.y, _distanceFromHMD);
+            }
         }
 
 #region MESSAGE OPTIONS
@@ -133,7 +171,6 @@ namespace Edia {
 
         /// <summary> Button pressed to proceed experiment statemachine </summary>
         public void OnBtnProceedPressed() {
-            // XRManager.Instance.EnableXROverlayRayInteraction(false);
             EventManager.TriggerEvent(Edia.Events.StateMachine.EvProceed);
         }
 
@@ -164,14 +201,15 @@ namespace Edia {
         /// <summary> Shows the panel </summary>
         /// <param name="onOff"></param>
         public void Show(bool onOff) {
+            _messagePanelFader = _messagePanelFader is not null ? null : StartCoroutine(TextFader());
+
             _canvas.enabled = onOff;
-            if (_graphicRaycaster != null)
+            if (_graphicRaycaster is not null)
                 _graphicRaycaster.enabled = onOff;
             _trackedDeviceGraphicRaycaster.enabled = onOff;
 
             XRManager.Instance.EnableRayInteraction(onOff);
-
-            _messagePanelFader = _messagePanelFader is not null ? null : StartCoroutine(TextFader());
+            _isVisible = onOff;
         }
 
         /// <summary>Doublechecks running routines and hides the panel</summary>

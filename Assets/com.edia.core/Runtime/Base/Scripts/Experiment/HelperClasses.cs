@@ -72,7 +72,7 @@ namespace Edia {
         public string              experiment         = string.Empty;
         public string              experimenter       = string.Empty;
         public int                 sessionNumber      = 0;
-        public List<SettingsTuple> participantDetails = new();
+        public List<SettingsTuple> participant_details = new();
 
         //? Class helper methods
         public string[] GetSessionSummary() {
@@ -80,11 +80,11 @@ namespace Edia {
         }
 
         public string GetParticipantID() {
-            return participantDetails.Find(x => x.key == "id").value;
+            return participant_details.Find(x => x.key == "id").value;
         }
 
         public Dictionary<string, object> GetParticipantDetailsAsDict() {
-            return Helpers.GetSettingsTupleListAsDict(participantDetails);
+            return Helpers.GetSettingsTupleListAsDict(participant_details);
         }
     }
 

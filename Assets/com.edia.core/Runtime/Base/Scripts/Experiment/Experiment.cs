@@ -316,6 +316,10 @@ namespace Edia {
             EventManager.TriggerEvent(Edia.Events.Eye.EvEnableEyeCalibrationTrigger, new eParam(_onOff));
         }
 
+        public void ShowTimerInController(float duration) {
+            EventManager.TriggerEvent(Edia.Events.ControlPanel.EvStartTimer, new eParam(duration));
+        }
+        
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 
 #region STATEMACHINE PROCEED
