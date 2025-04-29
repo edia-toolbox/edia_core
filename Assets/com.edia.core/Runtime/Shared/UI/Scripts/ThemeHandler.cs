@@ -12,6 +12,7 @@ namespace Edia {
 #if UNITY_EDITOR
         private void OnEnable() {
             Edia.Constants.OnThemeChanged += ApplyTheme;
+            
         }
 
         private void OnDisable() {

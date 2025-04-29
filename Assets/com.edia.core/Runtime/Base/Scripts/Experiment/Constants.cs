@@ -73,7 +73,8 @@ namespace Edia {
             MessagePanelText,
             ProgressbarBG,
             ProgressbarFill,
-            ProgressbarText
+            ProgressbarText,
+            ButtonIcon
         }
 
         public static event System.Action OnThemeChanged;
