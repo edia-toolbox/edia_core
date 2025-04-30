@@ -429,10 +429,10 @@ namespace Edia {
             UpdateBlockProgress();
 
             // Check for block introduction flag
-            bool hasIntro = Session.instance.CurrentBlock.settings.GetStringList("_start").Count > 0;
+            // bool hasIntro = Session.instance.CurrentBlock.settings.GetStringList("_start").Count > 0;
 
             // Inject introduction step or continue UXF sequence
-            if (hasIntro) {
+            if (Session.instance.CurrentBlock.settings.GetBool("_hasIntro")) {
                 EventManager.StartListening(Edia.Events.StateMachine.EvProceed, BlockContinueAfterIntro); // listener as it event call can come from any script
                 ShowMessageToUser(Session.instance.CurrentBlock.settings.GetStringList("_start"));
                 UpdateProgressStatus(Session.instance.CurrentBlock.settings.GetString("blockId") + " Introduction");
@@ -443,13 +443,13 @@ namespace Edia {
             }
         }
 
-        private  void BlockEnd() {
+        private void BlockEnd() {
             _activeXBlock.OnBlockEnd();
 
             // Check for block outro flag
-            bool hasOutro = Session.instance.CurrentBlock.settings.GetStringList("_end").Count > 0;
+            // bool hasOutro = Session.instance.CurrentBlock.settings.getbo("_end").Count > 0;
 
-            if (hasOutro) {
+            if (Session.instance.CurrentBlock.settings.GetBool("_hasOutro")) {
                 EventManager.StartListening(Edia.Events.StateMachine.EvProceed, BlockContinueAfterOutro); // listener as it event call can come from any script
                 EnableProceedButton(true);
                 ShowMessageToUser(Session.instance.CurrentBlock.settings.GetStringList("_end"));

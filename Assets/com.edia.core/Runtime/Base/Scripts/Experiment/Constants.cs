@@ -74,7 +74,8 @@ namespace Edia {
             ProgressbarBG,
             ProgressbarFill,
             ProgressbarText,
-            ButtonIcon
+            ButtonIcon,
+            HorizontalTimer
         }
 
         public static event System.Action OnThemeChanged;

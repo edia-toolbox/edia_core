@@ -44,10 +44,10 @@ namespace Edia {
         public virtual void OnBetweenSteps() {
         }
 
-        public virtual void OnBlockOutro() {
+        public virtual void OnBlockEnd() {
         }
 
-        public virtual void OnBlockEnd() {
+        public virtual void OnBlockOutro() {
         }
 
 #endregion

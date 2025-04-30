@@ -48,6 +48,11 @@ namespace Edia {
         public Color progressBarFillColor = Edia.Constants.EdiaColors["blue"];
         public Color progressBarTextColor = Edia.Constants.EdiaColors["black"];
         
+        [Space(15)]
+        [Header("Timer bar colors")]
+        public Color TimerBarBGColor = Edia.Constants.EdiaColors["grey"];
+        public Color TimerBarFrontColor = Edia.Constants.EdiaColors["yellow"];
+        
 #endregion
 
 #region Panel Colors

@@ -52,10 +52,10 @@ namespace Edia {
                 key   = "id",
                 value = param.GetStrings()[2]
             };
-            
+
             SessionSettings.sessionInfo.participant_details.Add(participantTuple);
-            
-            
+
+
             _validated.Add(true);
             AddToConsole($"[{_validated.Count} of 5] Session info OK");
 
@@ -81,9 +81,8 @@ namespace Edia {
 
         private void OnEvSetBaseDefinitions(eParam param) {
             foreach (string t in param.GetStrings()) {
-
                 XBlockBaseSettings xBBs = new();
-                
+
                 try {
                     xBBs = JsonUtility.FromJson<XBlockBaseSettings>(t);
                 }
@@ -93,8 +92,9 @@ namespace Edia {
                         new eParam($"Failed to parse base definition", false));
                     return;
                 }
-                
-                if (xBBs.type.ToLower() == "session") { // One of the jsons is the global session info
+
+                if (xBBs.type.ToLower() == "session") {
+                    // One of the jsons is the global session info
                     _sessionXblock = xBBs;
                 }
                 else _bases.Add(xBBs);
@@ -107,10 +107,9 @@ namespace Edia {
         }
 
         private void OnEvSetXBlockDefinitions(eParam param) {
-            
             foreach (string t in param.GetStrings()) {
                 XBlockSettings xBs = new();
-            
+
                 try {
                     xBs = JsonUtility.FromJson<XBlockSettings>(t);
                 }
@@ -118,9 +117,9 @@ namespace Edia {
                     AddToConsole($"Failed to parse Xblock setting: {e.Message}", LogType.Error);
                     EventManager.TriggerEvent(Edia.Events.ControlPanel.EvShowMessageBox,
                         new eParam($"Failed to parse Xblock setting", false));
-                    return;    
+                    return;
                 }
-                
+
                 _xBlocks.Add(xBs);
             }
 
@@ -234,21 +233,48 @@ namespace Edia {
                     newBlock.settings.UpdateWithDict(Helpers.GetSettingsTupleListAsDict(xBlockBase.settings));
                 }
 
-                newBlock.settings.SetValue("_start", GetValuesListByKey(xBlockBase.instructions, "_start")); //
-                newBlock.settings.SetValue("_end", GetValuesListByKey(xBlockBase.instructions, "_end")); //
-
                 XBlockSettings currentXBlock = GetXBlockByBlockId(blockId);
                 newBlock.settings.SetValue("blockType", currentXBlock.type.ToLower());
                 newBlock.settings.SetValue("blockId", currentXBlock.blockId.ToLower());
                 newBlock.settings.SetValue("_assetId", assetId);
 
+                List<string> introMessages = new();
+                List<string> outroMessages = new();
+
+                // Include any instructions from base definition
+                if (xBlockBase.instructions is not null && xBlockBase.instructions.Count > 0) {
+
+                    var baseIntroMsgs = GetValuesListByKey(xBlockBase.instructions, "_start");
+                    var baseOutroMsgs = GetValuesListByKey(xBlockBase.instructions, "_end");
+
+                    if (baseIntroMsgs.Count > 0)
+                        introMessages.AddRange(baseIntroMsgs);
+                    if (baseOutroMsgs.Count > 0)
+                        outroMessages.AddRange(baseOutroMsgs);
+                }
+                
                 // Add block specific instructions, if any
-                foreach (string s in new string[] { "_start", "_end" }) {
-                    var newList = newBlock.settings.GetStringList(s);
-                    newList.AddRange(GetValuesListByKey(currentXBlock.instructions, s));
-                    newBlock.settings.SetValue(s, newList);
+                if (currentXBlock.instructions is not null && currentXBlock.instructions.Count > 0) {
+                    var blockIntroMsgs = GetValuesListByKey(currentXBlock.instructions, "_start");
+                    var blockOutroMsgs = GetValuesListByKey(currentXBlock.instructions, "_end");
+
+                    if (blockIntroMsgs.Count > 0)
+                        introMessages.AddRange(blockIntroMsgs);
+                    if (blockOutroMsgs.Count > 0)
+                        outroMessages.AddRange(blockOutroMsgs);
                 }
 
+                newBlock.settings.SetValue("_hasIntro", introMessages.Count > 0);
+                newBlock.settings.SetValue("_hasOutro", outroMessages.Count > 0);
+                
+                if (introMessages.Count > 0) {
+                    newBlock.settings.SetValue("_start", introMessages);
+                }
+
+                if (outroMessages.Count > 0) {
+                    newBlock.settings.SetValue("_end", outroMessages);
+                }
+                
                 // Continue with settings
                 newBlock.settings.UpdateWithDict(Helpers.GetSettingsTupleListAsDict(currentXBlock.settings)); // add block specific settings
 
@@ -315,13 +341,13 @@ namespace Edia {
             foreach (SettingsTuple settingsTuple in _sessionXblock.settings) {
                 SessionSettings.settings.Add(new SettingsTuple { key = settingsTuple.key, value = settingsTuple.value });
                 if (IsValidKeyForTrialResults(settingsTuple.key))
-                    Session.instance.settingsToLog.Add(settingsTuple.key); 
+                    Session.instance.settingsToLog.Add(settingsTuple.key);
             }
 
             foreach (SettingsTuple instructionTuple in _sessionXblock.instructions) {
                 SessionSettings.settings.Add(new SettingsTuple { key = instructionTuple.key, value = instructionTuple.value });
                 if (IsValidKeyForTrialResults(instructionTuple.key))
-                    Session.instance.settingsToLog.Add(instructionTuple.key); 
+                    Session.instance.settingsToLog.Add(instructionTuple.key);
             }
 
             return true;

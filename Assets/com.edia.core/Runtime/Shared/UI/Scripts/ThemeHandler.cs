@@ -21,6 +21,30 @@ namespace Edia {
 
 #endif
 
+        /*
+         	Button,
+            ButtonText,
+            Toggle,
+            Slider,
+            Dropdown,
+            MainBG,
+            MainText,
+            PanelBG,
+            PanelText,
+            SubPanelBG,
+            SubPanelText,
+            Outlines,
+            MessagePanelBG,
+            MessagePanelTextPanelBG,
+            MessagePanelText,
+            ProgressbarBG,
+            ProgressbarFill,
+            ProgressbarText,
+            HorizontalTimer,
+            
+         */
+        
+        
         // private void OnValidate() {
         //     ApplyTheme();
         // }
@@ -173,6 +197,25 @@ namespace Edia {
                     }
 #if UNITY_EDITOR
                     UnityEditor.EditorUtility.SetDirty(panelTextColor);
+#endif
+                    break;
+
+#endregion
+#region ------ Horizontal Timer ------
+
+                case TType.HorizontalTimer:
+                    var bgImage = GetComponent<Image>();
+                    if (bgImage is not null) {
+                        bgImage.color = activeTheme.TimerBarBGColor;
+                    }
+                    
+                    var frontImage = transform.GetChild(0).GetComponent<Image>();
+                    if (frontImage is not null) {
+                        frontImage.color = activeTheme.TimerBarFrontColor;
+                    }
+#if UNITY_EDITOR
+                    UnityEditor.EditorUtility.SetDirty(bgImage);
+                    UnityEditor.EditorUtility.SetDirty(frontImage);
 #endif
                     break;
 
