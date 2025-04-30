@@ -81,6 +81,7 @@ namespace Edia {
 
             if (XRCam.GetComponent<PositionRotationTracker>() == null)
                 XRCam.gameObject.AddComponent<PositionRotationTracker>();
+            
             XRCam.GetComponent<PositionRotationTracker>().enabled = TrackXrRigWithUxf;
             Session.instance.trackedObjects.Add(XRManager.Instance.XRCam.GetComponent<PositionRotationTracker>());
             XRLeft.UXFPoseTracker.enabled = TrackXrRigWithUxf;
@@ -155,7 +156,30 @@ namespace Edia {
             transform.rotation = newTransform.rotation;
         }
 
+        
+        
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
+#region XR Locomotion
+
+        public void EnableTeleportation(bool onOff) {
+            // TODO implement
+        }
+        
+        public void EnableClimbing(bool onOff) {
+            // TODO implement
+        }
+
+        public void EnableMoving(bool onOff) {
+            // TODO implement
+        }
+        
+        public void EnableTurning(bool onOff) {
+            // TODO implement
+        }
+
+
+        #endregion
+        
 #region INTERACTION
 
         // TODO document this

@@ -44,6 +44,11 @@ namespace Edia.Editor {
             InstantiatePrefab("Edia-ToggleText", menuCommand);
         }
 
+        [MenuItem("GameObject/UI/EDIA/Timer bar", false, 10)]
+        private static void CreateTimerBar(MenuCommand menuCommand) {
+            InstantiatePrefab("Edia-HorizontalTimer", menuCommand);
+        }
+        
         private static void InstantiatePrefab(string prefabName, MenuCommand command) {
             var prefab = Resources.Load<GameObject>($"UI/{prefabName}");
             if (prefab == null) {

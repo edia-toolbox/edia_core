@@ -332,8 +332,9 @@ namespace Edia {
 
                 // Log all unique and valid TASK setting keys
                 foreach (string k in newBlock.settings.Keys) {
-                    if (IsValidKeyForTrialResults(k))
+                    if (IsValidKeyForTrialResults(k)) {
                         Session.instance.settingsToLog.Add(k);
+                    }
                 }
             }
 
