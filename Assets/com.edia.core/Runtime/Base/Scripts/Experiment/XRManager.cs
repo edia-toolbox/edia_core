@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.XR.Hands.Samples.VisualizerSample;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
+using UnityEngine.XR.Interaction.Toolkit.Interactors.Casters;
 using UXF;
 
 namespace Edia {
@@ -26,6 +27,8 @@ namespace Edia {
 
     public class XRManager : Singleton<XRManager> {
 
+#region PROPERTIES
+
         [Header("Settings")]
         [InspectorHeader("EDIA CORE", "XR Rig", "Manages all XR related calls for the framework")]
         [Tooltip("Use UXF to track and save XR Rig Position & Rotation data")]
@@ -40,33 +43,16 @@ namespace Edia {
         [Space(10f)]
         [Header("References")]
         public HandVisualizer HandVisualizer;
+
         public Transform XRCam;
 
-        public XRController   XRLeft;
-        public XRController   XRRight;
+        public XRController XRLeft;
+        public XRController XRRight;
 
         // Internals
         bool isInteractive = false;
 
-#region PROPERTIES
-
-        void Awake() {
-            EventManager.StartListening(Edia.Events.XR.EvUpdateInteractiveSide, OnEvUpdateInteractiveSide);
-            CheckAndSetReferences();
-        }
-
-        private void Start() {
-            DisableAllInteractors();
-            ConfigureXRrigTracking();
-        }
-
-        private void OnDestroy() {
-            EventManager.StopListening(Edia.Events.XR.EvUpdateInteractiveSide, OnEvUpdateInteractiveSide);
-        }
-
-        void CheckAndSetReferences() {
-            if (XRCam == null) Debug.LogError("XR Camera reference not set");
-        }
+#endregion
 
         private void OnDrawGizmos() {
             Gizmos.color  = Edia.Constants.EdiaColors["blue"];
@@ -75,34 +61,47 @@ namespace Edia {
             Gizmos.DrawLine(Vector3.zero, Vector3.forward);
         }
 
-        private void ConfigureXRrigTracking() {
-            if (!TrackXrRigWithUxf)
-                return;
+        void Awake() {
+            EventManager.StartListening(Edia.Events.XR.EvUpdateInteractiveSide, OnEvUpdateInteractiveSide);
+            CheckAndSetReferences();
+        }
 
+        private void OnDestroy() {
+            EventManager.StopListening(Edia.Events.XR.EvUpdateInteractiveSide, OnEvUpdateInteractiveSide);
+        }
+
+        private void Start() {
+            InitialiseInteractors(XRLeft.NearFarInteractors);
+            InitialiseInteractors(XRRight.NearFarInteractors);
+            
+            DisableAllInteractors(); // Unity enables them by default.
+
+            if (TrackXrRigWithUxf)
+                AddXRRigToUXFTracking();
+        }
+
+        private void InitialiseInteractors(List<NearFarInteractor> interactors) {
+            foreach (var interactor in interactors) {
+                var farCasterMask = interactor.GetComponent<CurveInteractionCaster>().raycastMask;
+                farCasterMask |= 1 << LayerMask.NameToLayer("MsgPanelUI");
+                interactor.GetComponent<CurveInteractionCaster>().raycastMask = farCasterMask;
+            }
+        }
+
+        private void CheckAndSetReferences() {
+            if (XRCam is null) Debug.LogError("XR Camera reference not set");
+        }
+
+        private void AddXRRigToUXFTracking() {
             if (XRCam.GetComponent<PositionRotationTracker>() == null)
                 XRCam.gameObject.AddComponent<PositionRotationTracker>();
+
             XRCam.GetComponent<PositionRotationTracker>().enabled = TrackXrRigWithUxf;
             Session.instance.trackedObjects.Add(XRManager.Instance.XRCam.GetComponent<PositionRotationTracker>());
             XRLeft.UXFPoseTracker.enabled = TrackXrRigWithUxf;
             Session.instance.trackedObjects.Add(XRLeft.UXFPoseTracker);
             XRRight.UXFPoseTracker.enabled = TrackXrRigWithUxf;
             Session.instance.trackedObjects.Add(XRRight.UXFPoseTracker);
-        }
-
-        private void OnEvUpdateInteractiveSide(eParam obj) {
-            DisableAllInteractors();
-
-            if (isInteractive) // If we were interacting, active with new settings
-                EnableAllInteraction(true);
-        }
-
-        [ContextMenu("DisableAllInteractors")]
-        public void DisableAllInteractors() {
-            // Disable all
-            SetNearFarInteractor(XRLeft.NearFarInteractors, false, false);
-            SetPokeInteractor(XRLeft.PokeInteractors, false, false);
-            SetNearFarInteractor(XRRight.NearFarInteractors, false, false);
-            SetPokeInteractor(XRRight.PokeInteractors, false, false);
         }
 
         /// <summary>
@@ -116,8 +115,75 @@ namespace Edia {
             EventManager.TriggerEvent(Edia.Events.XR.EvUpdateInteractiveSide, null);
         }
 
-#endregion
+#region Event Handlers
 
+        private void OnEvUpdateInteractiveSide(eParam obj) {
+            DisableAllInteractors();
+
+            if (isInteractive) // If we were interacting, active with new settings
+                EnableAllInteraction(true);
+        }
+
+#endregion
+#region XR methods
+
+        [ContextMenu("DisableAllInteractors")]
+        public void DisableAllInteractors() {
+            // Disable all
+            SetNearFarInteractor(XRLeft.NearFarInteractors, false, false);
+            SetPokeInteractor(XRLeft.PokeInteractors, false, false);
+            SetNearFarInteractor(XRRight.NearFarInteractors, false, false);
+            SetPokeInteractor(XRRight.PokeInteractors, false, false);
+        }
+
+        /// <summary>
+        /// Moves the XR Rig's controllers and hands to the specified overlay layer by changing their layer assignments.
+        /// </summary>
+        /// <param name="layerName">The name of the layer to which the XR Rig components should be moved.</param>
+        public void MoveXRRigToOverlayLayer(string layerName) {
+            SetLayerRecursively(XRLeft.Controller.gameObject, LayerMask.NameToLayer(layerName));
+            SetLayerRecursively(XRRight.Controller.gameObject, LayerMask.NameToLayer(layerName));
+            SetLayerRecursively(XRRight.Hand.gameObject, LayerMask.NameToLayer(layerName));
+            SetLayerRecursively(XRLeft.Hand.gameObject, LayerMask.NameToLayer(layerName));
+        }
+
+        // TODO test and document
+        /// <summary>The pivot of the player will be set on the location of this Injector</summary>
+        public void MovePlayarea(Transform newTransform) {
+            transform.position = newTransform.position;
+            transform.rotation = newTransform.rotation;
+        }
+
+#endregion // -------------------------------------------------------------------------------------------------------------------------------
+#region Helper methods
+
+        private static void SetLayerRecursively(GameObject go, int layer) {
+            go.layer = layer;
+            Transform t = go.transform;
+            for (int i = 0; i < t.childCount; i++)
+                SetLayerRecursively(t.GetChild(i).gameObject, layer);
+        }
+
+#endregion
+#region XR Locomotion
+
+        public void EnableTeleportation(bool onOff) {
+            // TODO implement
+        }
+
+        public void EnableClimbing(bool onOff) {
+            // TODO implement
+        }
+
+        public void EnableMoving(bool onOff) {
+            // TODO implement
+        }
+
+        public void EnableTurning(bool onOff) {
+            // TODO implement
+        }
+
+#endregion
 #region Inspector debug calls
 
         [ContextMenu("TurnOnRayInteractor")]
@@ -146,16 +212,7 @@ namespace Edia {
         }
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
-#region XR Helper methods
 
-        // TODO test and document
-        /// <summary>The pivot of the player will be set on the location of this Injector</summary>
-        public void MovePlayarea(Transform newTransform) {
-            transform.position = newTransform.position;
-            transform.rotation = newTransform.rotation;
-        }
-
-#endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region INTERACTION
 
         // TODO document this

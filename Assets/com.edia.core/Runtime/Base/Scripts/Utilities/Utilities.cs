@@ -69,6 +69,8 @@ namespace Edia.Utilities {
 			return result.Substring(0, result.Length-1);
 		}	
 	}
+	
+
 
 	public static class ColorTools {
 

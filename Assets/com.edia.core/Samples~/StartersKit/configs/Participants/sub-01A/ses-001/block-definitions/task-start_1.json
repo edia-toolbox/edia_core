@@ -3,17 +3,18 @@
   "subType": "start",
   "blockId": "task-start_1",
   "settings": [
-    { "key": "timer_showcube", "value": "1" },
-    { "key": "trial_colors", "value": "#FF0000;#00FF00;#0000FF" }
+    { "key": "task_space", "value": "near" },
+    { "key": "block_colors", "value": "#0FF000;#00FFF0;#F0000F" }
   ],
   "instructions": [
+    { "key": "_start", "value": "This test text" }
   ],
   "trialSettings": {
-    "keys": ["color_code"],
+    "keys": ["color_code","ArrayTest"],
     "valueList": [
-      { "values": ["#FF0000"] },
-      { "values": ["#00FF00"] },
-      { "values": ["#FF0000"] }
+      { "values": ["#00FFF0","A;B;C"] },
+      { "values": ["#F0000F","A;B;C"] },
+      { "values": ["#0FF000","A;B;C"] }
     ]
   }
 }
