@@ -1,4 +1,4 @@
-using System;
+using Edia.Controller;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -13,6 +13,7 @@ namespace Edia {
 		void Awake () {
 			//! Set the control panel gameobject on correct layer
 			transform.root.gameObject.layer = LayerMask.NameToLayer("ControlUI");
+			SetLogo(Resources.Load<Sprite>("IconEdia"));
 		}
 
 		void OnEnable() {

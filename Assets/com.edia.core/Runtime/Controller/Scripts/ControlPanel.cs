@@ -8,7 +8,7 @@ namespace Edia.Controller {
 
         [Header("Settings")]
         [InspectorHeader("EDIA CORE","Experiment Controller", "The control panel for the experimenter. State aware panels will show up here")]
-        
+
         [Header("Debug")]
         public bool ShowConsoleMessages = false;
         public bool ShowEdiaEventMessages   = false;
@@ -22,8 +22,6 @@ namespace Edia.Controller {
         public  PanelMessageBox          MessageBox          = null;
         public  PanelConfigSelection     ConfigSelection     = null;
         public  PanelHeader              Header              = null;
-        // public  PanelApplicationSettings ApplicationSettings = null;
-        // public  PanelExperimentControl   ExperimentControl   = null;
 
         // Internal
         private List<Transform>          _currentPanelOrder   = new List<Transform>();
