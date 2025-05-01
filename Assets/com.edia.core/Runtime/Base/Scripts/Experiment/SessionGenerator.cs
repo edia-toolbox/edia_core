@@ -338,6 +338,7 @@ namespace Edia {
                 }
             }
 
+            // Session wide settings
             // Prepare UXF.Session.instance.settings -> They need to be provided at the Session.instance.begin 
             foreach (SettingsTuple settingsTuple in _sessionXblock.settings) {
                 SessionSettings.settings.Add(new SettingsTuple { key = settingsTuple.key, value = settingsTuple.value });
@@ -347,8 +348,6 @@ namespace Edia {
 
             foreach (SettingsTuple instructionTuple in _sessionXblock.instructions) {
                 SessionSettings.settings.Add(new SettingsTuple { key = instructionTuple.key, value = instructionTuple.value });
-                if (IsValidKeyForTrialResults(instructionTuple.key))
-                    Session.instance.settingsToLog.Add(instructionTuple.key);
             }
 
             return true;

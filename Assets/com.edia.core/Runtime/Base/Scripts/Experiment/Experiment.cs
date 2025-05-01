@@ -28,11 +28,12 @@ namespace Edia {
         private States _prevState = States.Idle;
 
         [Header("Experiment")]
-        [InspectorHeader("EDIA CORE","Experiment Executor", "This executes the experiment based on the defined XBlock executors ")]
+        [InspectorHeader("EDIA CORE", "Experiment Executor", "This executes the experiment based on the defined XBlock executors ")]
         public List<XBlock> Executors = new();
 
         [Header("Debug")]
         public bool ShowConsoleMessages = false;
+
         public bool ShowEventMessages = false;
 
         // Fields
@@ -61,7 +62,6 @@ namespace Edia {
         }
 
         private void Start() {
-
             if (!IsValid())
                 return;
 
@@ -90,7 +90,7 @@ namespace Edia {
                 isValid = false;
                 msgs.Add("XBLock Executers list is empty!");
             }
-            
+
             if (isValid)
                 XBlockNamesToLower();
 
@@ -168,7 +168,7 @@ namespace Edia {
         /// Will update the progress textfield in the control panel.
         /// </summary>
         /// <param name="info">Text to show, excludes string before first '_' char</param>
-        private  void UpdateProgressStatus(string info) {
+        private void UpdateProgressStatus(string info) {
             List<string> infos = new();
 
             if (info.Contains('-')) {
@@ -184,7 +184,7 @@ namespace Edia {
             EventManager.TriggerEvent(Edia.Events.ControlPanel.EvUpdateSessionSummary, new eParam(SessionSettings.sessionInfo.GetSessionSummary()));
         }
 
-        private  void UpdateBlockProgress() {
+        private void UpdateBlockProgress() {
             EventManager.TriggerEvent(Edia.Events.ControlPanel.EvUpdateBlockProgress,
                 new eParam(new int[] { Session.instance.currentBlockNum, Session.instance.blocks.Count }));
         }
@@ -248,7 +248,7 @@ namespace Edia {
         public void HideMessagePanelToUser() {
             MessagePanelInVR.Instance.HidePanel();
         }
-        
+
         /// <summary>
         /// Shows a message in the controlpanel.
         /// </summary>
@@ -271,7 +271,6 @@ namespace Edia {
         // ReSharper disable Unity.PerformanceAnalysis
         /// <summary>Starts the experiment</summary>
         private void StartExperiment() {
-
             Session.instance.Begin(
                 SessionSettings.sessionInfo.experiment == string.Empty ? "N.A." : SessionSettings.sessionInfo.experiment,
                 SessionSettings.sessionInfo.GetParticipantID(),
@@ -319,7 +318,7 @@ namespace Edia {
         public void ShowTimerInController(float duration) {
             EventManager.TriggerEvent(Edia.Events.ControlPanel.EvStartTimer, new eParam(duration));
         }
-        
+
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 
 #region STATEMACHINE PROCEED
@@ -348,7 +347,7 @@ namespace Edia {
             Continue();
         }
 
-        private  void Continue() {
+        private void Continue() {
             State = States.Running;
 
             EventManager.StopListening(Edia.Events.StateMachine.EvProceed, OnEvProceed);
@@ -378,8 +377,12 @@ namespace Edia {
             // eye calibration option enabled
             EnableEyeCalibrationTrigger(true);
 
-            string welcomeMsg = Session.instance.settings.GetString("_start") ?? "No '_start' message defined in 'session.json'";
-            ShowMessageToUser(welcomeMsg);
+            bool showMsg = Session.instance.settings.ContainsKey("_start");
+            if (showMsg)
+                ShowMessageToUser(Session.instance.settings.GetString("_start"));
+            else {
+                Proceed();
+            }
         }
 
         /// <summary>Called from UXF session. </summary>
@@ -396,10 +399,14 @@ namespace Edia {
             EventManager.TriggerEvent(Edia.Events.StateMachine.EvSessionEnded, null);
 
             Reset();
-
-            string endingMsg = Session.instance.settings.GetString("_end") ?? "No '_end' message defined in 'session.json'";
-            ShowMessageToUser(endingMsg);
             HideMessagePanelMenu();
+
+            bool showMsg = Session.instance.settings.ContainsKey("_end");
+            if (showMsg)
+                ShowMessageToUser(Session.instance.settings.GetString("_end"));
+            else {
+                Proceed();
+            }
         }
 
         /// <summary>Done with all trial, clean up and call UXF to end this session</summary>
@@ -429,9 +436,6 @@ namespace Edia {
             UpdateBlockProgress();
 
             // Check for block introduction flag
-            // bool hasIntro = Session.instance.CurrentBlock.settings.GetStringList("_start").Count > 0;
-
-            // Inject introduction step or continue UXF sequence
             if (Session.instance.CurrentBlock.settings.GetBool("_hasIntro")) {
                 EventManager.StartListening(Edia.Events.StateMachine.EvProceed, BlockContinueAfterIntro); // listener as it event call can come from any script
                 ShowMessageToUser(Session.instance.CurrentBlock.settings.GetStringList("_start"));
@@ -447,8 +451,6 @@ namespace Edia {
             _activeXBlock.OnBlockEnd();
 
             // Check for block outro flag
-            // bool hasOutro = Session.instance.CurrentBlock.settings.getbo("_end").Count > 0;
-
             if (Session.instance.CurrentBlock.settings.GetBool("_hasOutro")) {
                 EventManager.StartListening(Edia.Events.StateMachine.EvProceed, BlockContinueAfterOutro); // listener as it event call can come from any script
                 EnableProceedButton(true);
@@ -461,7 +463,7 @@ namespace Edia {
             }
         }
 
-        private  void BlockCheckAndContinue() {
+        private void BlockCheckAndContinue() {
             _activeXBlock.enabled = false;
             _activeXBlock.gameObject.SetActive(false);
 
@@ -633,13 +635,13 @@ namespace Edia {
             EventManager.StartListening(Edia.Events.StateMachine.EvProceed, SessionResumeAfterBreak);
             UpdateProgressStatus("Pause");
 
-
             EnableProceedButton(true);
             EnablePauseButton(false);
             EnableEyeCalibrationTrigger(true);
 
-            string pauseMsg = Session.instance.settings.GetString("_pause") ?? "No '_pause' message defined in 'session.json'";
-            ShowMessageToUser(pauseMsg);
+            bool showMsg = Session.instance.settings.ContainsKey("_pause");
+            if (showMsg)
+                ShowMessageToUser(Session.instance.settings.GetString("_pause"));
         }
 
         /// <summary>Called from EvProceed event. Stops listener, invokes onSessionResume event and calls UXF BeginNextTrial. </summary>
