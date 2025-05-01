@@ -65,7 +65,7 @@ namespace Edia {
 
             // Set scaling
             transform.GetChild(0).localScale = new Vector3(_panelScaling, _panelScaling, _panelScaling);
-            
+            Debug.Log(PanelBehaviour);
             // Set panel behaviour
             switch (PanelBehaviour) {
                 case PanelBehaviours.WorldPosition:

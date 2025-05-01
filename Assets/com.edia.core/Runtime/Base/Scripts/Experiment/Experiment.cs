@@ -399,12 +399,12 @@ namespace Edia {
             EventManager.TriggerEvent(Edia.Events.StateMachine.EvSessionEnded, null);
 
             Reset();
-            HideMessagePanelMenu();
 
             bool showMsg = Session.instance.settings.ContainsKey("_end");
-            if (showMsg)
+            if (showMsg) {
                 ShowMessageToUser(Session.instance.settings.GetString("_end"));
-            else {
+                HideMessagePanelMenu();
+            } else {
                 Proceed();
             }
         }
