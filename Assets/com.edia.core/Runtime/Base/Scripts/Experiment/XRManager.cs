@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Edia.Utilities;
 using UnityEngine;
 using UnityEngine.XR.Hands.Samples.VisualizerSample;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
@@ -25,6 +26,12 @@ namespace Edia {
         public List<XRPokeInteractor>  PokeInteractors    = new();
     }
 
+    /// <summary>
+    /// Manages XR-related functionality within the framework, providing tools and settings for
+    /// interaction, tracking, and visualization in an XR environment.
+    /// Includes features such as enabling/disabling interaction types, managing XR rig movement,
+    /// and controlling the visibility of hands or controllers.
+    /// </summary>
     public class XRManager : Singleton<XRManager> {
 
 #region PROPERTIES
@@ -73,18 +80,27 @@ namespace Edia {
         private void Start() {
             InitialiseInteractors(XRLeft.NearFarInteractors);
             InitialiseInteractors(XRRight.NearFarInteractors);
-            
+
             DisableAllInteractors(); // Unity enables them by default.
 
             if (TrackXrRigWithUxf)
                 AddXRRigToUXFTracking();
         }
 
+#region XR Initialisation
+
         private void InitialiseInteractors(List<NearFarInteractor> interactors) {
             foreach (var interactor in interactors) {
                 var farCasterMask = interactor.GetComponent<CurveInteractionCaster>().raycastMask;
-                farCasterMask |= 1 << LayerMask.NameToLayer("MsgPanelUI");
-                interactor.GetComponent<CurveInteractionCaster>().raycastMask = farCasterMask;
+
+                int msgPanelLayer = LayerMask.NameToLayer(Constants.MsgPanelLayerName);
+                if (msgPanelLayer == -1) {
+                    Debug.LogWarning($"Layer '{nameof(msgPanelLayer)}' not found. Generating default Edia layers. ");
+                    LayerTools.SetupLayers();
+                }
+
+                farCasterMask  |= 1 << msgPanelLayer;
+                interactor.GetComponent<CurveInteractionCaster>().raycastMask =  farCasterMask;
             }
         }
 
@@ -115,6 +131,7 @@ namespace Edia {
             EventManager.TriggerEvent(Edia.Events.XR.EvUpdateInteractiveSide, null);
         }
 
+#endregion
 #region Event Handlers
 
         private void OnEvUpdateInteractiveSide(eParam obj) {
@@ -155,16 +172,6 @@ namespace Edia {
         }
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
-#region Helper methods
-
-        private static void SetLayerRecursively(GameObject go, int layer) {
-            go.layer = layer;
-            Transform t = go.transform;
-            for (int i = 0; i < t.childCount; i++)
-                SetLayerRecursively(t.GetChild(i).gameObject, layer);
-        }
-
-#endregion
 #region XR Locomotion
 
         public void EnableTeleportation(bool onOff) {
@@ -184,7 +191,7 @@ namespace Edia {
         }
 
 #endregion
-#region Inspector debug calls
+#region Debug
 
         [ContextMenu("TurnOnRayInteractor")]
         public void TurnOnRayInteractor() {
@@ -212,8 +219,7 @@ namespace Edia {
         }
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
-
-#region INTERACTION
+#region Interaction
 
         // TODO document this
         /// <summary> Control all possible interactions. Use this if you have all possible interactive options in your project. </summary>
@@ -256,7 +262,7 @@ namespace Edia {
         }
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
-#region SIGHT
+#region Sight
 
         // TODO document this
         /// <summary>Fades VR user view to black</summary>
@@ -288,7 +294,7 @@ namespace Edia {
         }
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
-#region HANDS
+#region Hands
 
         // TODO document this
         /// <summary>Controls the visibility of hand meshes in the XR environment.</summary>
@@ -306,10 +312,18 @@ namespace Edia {
         }
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
+#region Helper methods
 
-        public void AddToConsole(string _msg) {
+        private static void SetLayerRecursively(GameObject go, int layer) {
+            go.layer = layer;
+            Transform t = go.transform;
+            for (int i = 0; i < t.childCount; i++)
+                SetLayerRecursively(t.GetChild(i).gameObject, layer);
+        }
+ public void AddToConsole(string _msg) {
             if (ShowConsoleMessages)
                 Edia.LogUtilities.AddToConsoleLog(_msg, "XRManager");
         }
+#endregion
     }
 }

@@ -53,6 +53,10 @@ namespace Edia {
 
         public static string FileNameEdiaSettings = "Edia-settings.json";
 
+        // Other
+        public static string MsgPanelLayerName = "MsgPanelUI";
+        
+        
 #region Color Theme
 
         public enum ThemeComponents {

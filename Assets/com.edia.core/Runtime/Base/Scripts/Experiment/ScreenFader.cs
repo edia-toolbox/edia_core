@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Linq;
+using Edia.Utilities;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -43,11 +44,18 @@ namespace Edia {
             _overlayCamera.transform.SetParent(XRManager.Instance.XRCam.transform, false);
             _overlayCamera.transform.localPosition = Vector3.zero;
             _overlayCamera.transform.localRotation = Quaternion.identity;
+            
             // Set up rendering properties
-            _overlayCamera.cullingMask = 1 << LayerMask.NameToLayer("MsgPanelUI");
-            _overlayCamera.clearFlags  = CameraClearFlags.Depth; // Only render specified layers without clearing color
+            int msgPanelLayer = LayerMask.NameToLayer(Constants.MsgPanelLayerName);
+            if (msgPanelLayer == -1) {
+                Debug.LogWarning($"Layer '{nameof(msgPanelLayer)}' not found. Generating default Edia layers. ");
+                LayerTools.SetupLayers();
+            }
+
+            _overlayCamera.cullingMask = LayerMask.GetMask(Constants.MsgPanelLayerName);
+            _overlayCamera.clearFlags    = CameraClearFlags.Depth; // Only render specified layers without clearing color
             _overlayCamera.nearClipPlane = 0.01f;
-            _overlayCamera.enabled = false;
+            _overlayCamera.enabled       = false;
 
             Camera baseCamera = XRManager.Instance.XRCam.GetComponent<Camera>();
 
@@ -94,7 +102,7 @@ namespace Edia {
             StopAllCoroutines();
             
             _overlayCamera.enabled = true;
-            XRManager.Instance.MoveXRRigToOverlayLayer("MsgPanelUI");
+            XRManager.Instance.MoveXRRigToOverlayLayer(Constants.MsgPanelLayerName);
             
             _speed = fadeSpeed < 0 ? _speed : fadeSpeed;
             return StartCoroutine(FadeBlackIn());

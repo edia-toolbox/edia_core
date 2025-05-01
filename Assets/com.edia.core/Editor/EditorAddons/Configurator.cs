@@ -172,7 +172,7 @@ namespace Edia.Editor.Utils {
             GUILayout.Label("Layer setup.", labelContent);
             GUILayout.Label("EDIA components depend on mandatory layers in order to function properly.", boxStyle);
             if (GUILayout.Button("Create layers")) {
-                LayerTools.SetupLayers();
+                Edia.Utilities.LayerTools.SetupLayers();
             }
 
             GUILayout.Space(10);
