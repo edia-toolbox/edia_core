@@ -58,7 +58,8 @@ namespace Edia {
             _overlayCamera.enabled       = false;
 
             Camera baseCamera = XRManager.Instance.XRCam.GetComponent<Camera>();
-
+            baseCamera.cullingMask |= 1 << LayerMask.NameToLayer(Constants.MsgPanelLayerName);
+            
             // For Universal Render Pipeline (URP)
             if (IsUsingUniversalRenderPipeline()) {
                 _overlayCamera.GetUniversalAdditionalCameraData().renderType = CameraRenderType.Overlay;

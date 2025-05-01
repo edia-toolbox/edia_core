@@ -78,6 +78,8 @@ namespace Edia {
         }
 
         private void Start() {
+            
+            
             InitialiseInteractors(XRLeft.NearFarInteractors);
             InitialiseInteractors(XRRight.NearFarInteractors);
 
