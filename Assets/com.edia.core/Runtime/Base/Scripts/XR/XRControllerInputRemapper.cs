@@ -1,16 +1,13 @@
-using System.Collections;
 using System.Collections.Generic;
-using Edia;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.Events;
 
-
-namespace Edia {
+namespace Edia.XR {
 
 	/// <summary>In order to be flexible for each Xblock, the remapping of a controller key to a method is a separate script</summary>
 	[System.Serializable]
+	[AddComponentMenu("EDIA/XR Remap Controller Input")]
 	public class XRControllerInputRemapper : MonoBehaviour {
 
 		// TODO Allow multiple input actions to one ID
