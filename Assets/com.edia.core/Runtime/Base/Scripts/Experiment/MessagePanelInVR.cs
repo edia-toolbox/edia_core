@@ -77,7 +77,7 @@ namespace Edia {
                     break;
                 case PanelBehaviours.WorldOrbit:
                     _rotationPivot = new GameObject("MessagePanelPivot");
-                    _rotationPivot.transform.SetParent(XRManager.Instance.gameObject.transform, false);
+                    _rotationPivot.transform.SetParent(XRManager.Instance.XRCam.transform.parent.transform.parent.transform, false);
                     _rotationPivot.transform.localPosition = Vector3.zero;
                     _rotationPivot.transform.rotation      = Quaternion.identity;
                     transform.parent              = _rotationPivot.transform;
