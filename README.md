@@ -1,4 +1,4 @@
-<img src="./Assets/com.edia.core/Runtime/Shared/Resources/IconEdia.png" alt="EDIA ICON" width="64" style="vertical-align:middle;" />
+<img src="./Assets/com.edia.core/Runtime/Shared/Resources/IconEdia.png" width="64" style="pointer-events:none" />
 
 # EDIA – A Unity XR Toolbox for Research
 
