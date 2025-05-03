@@ -43,6 +43,7 @@ The following assets and packages are incorporated in edia.core:
 
 ## Resources
 📖 [EDIA Manual](https://mind-body-emotion.notion.site/EDIA-Toolbox-710f144129a245debd9b71948084ea95?pvs=4)  
+🐣 [Getting started guide](https://mind-body-emotion.notion.site/EDIA-Tutorial-1cb03dd4773f801285edf12e8b6018bd)  
 ⌨️ [HTML API Reference](https://gitlab.gwdg.de/edia/edia_core/-/tree/fix/%2328/doxyGenUpdate/Assets/com.edia.core/Documentation~/index.html)  
 📝 [GitHub Discussion board](https://github.com/edia-toolbox/edia_core/discussions)  
 
