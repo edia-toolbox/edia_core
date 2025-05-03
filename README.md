@@ -5,12 +5,12 @@
  `EDIA` provides you with a set of modules (Unity packages) to facilitate the design and conduction of experimental research in XR using Unity.  
 
 ## `EDIA` Features:
-🧱 Structure your experiment on multiple levels.  
-🗂️ Manage it using Config Files.
+🧱 Structure your experiment on multiple levels.    
+🗂️ Manage it using Config Files.  
 👁️ Unified eye tracking integration.  
-🛜 Remotely control mobile XR experiments.  
-✏️ Automatically log relevant data.
-🟰 Synchronize with external data.
+🛜 Remotely control mobile XR experiments.     
+✏️ Automatically log relevant data.  
+🟰 Synchronize with external data.  
 
 # `EDIA` is for you if ...
 - you want to build experiments which use different tasks in the same experimental session.
@@ -42,7 +42,7 @@ The following assets and packages are incorporated in edia.core:
 - [RoundedUICorners](https://github.com/kirevdokimov/Unity-UI-Rounded-Corners) ➡️ Enhancement of UI items.
 
 ## Resources
-📖 [EDIA Manual](https://mind-body-emotion.notion.site/EDIA-Toolbox-710f144129a245debd9b71948084ea95?pvs=4)<br>
-⌨️ [HTML API Reference](https://gitlab.gwdg.de/edia/edia_core/-/tree/fix/%2328/doxyGenUpdate/Assets/com.edia.core/Documentation~/index.html)<br>
-📝 [GitHub Discussion board](https://github.com/edia-toolbox/edia_core/discussions)<br>
+📖 [EDIA Manual](https://mind-body-emotion.notion.site/EDIA-Toolbox-710f144129a245debd9b71948084ea95?pvs=4)  
+⌨️ [HTML API Reference](https://gitlab.gwdg.de/edia/edia_core/-/tree/fix/%2328/doxyGenUpdate/Assets/com.edia.core/Documentation~/index.html)  
+📝 [GitHub Discussion board](https://github.com/edia-toolbox/edia_core/discussions)  
 
