@@ -1,12 +1,12 @@
-<p align="center">
-  <img src="Media/Logos/EDIA_header_gray.png">
-</p>
+
+<div style="background-image: url('./Assets/com.edia.core/Runtime/Shared/Resources/EdiaHeader.png'); background-size: cover; background-position: center; width: 100%; height: 200px; display: flex; align-items: center; justify-content: center;">
+    <h1 style="color: white; font-size: 48px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">EDIA</h1>
+</div>
 
 # EDIA – A Unity XR Toolbox for Research
 
 `EDIA` provides you with a set of modules (Unity packages) to facilitate the design and conduction of experimental research in XR using Unity.  
 
-`EDIA` is heavily inspired by and based upon [UXF — Unity Experiment Framework](https://github.com/immersivecognition/unity-experiment-framework/) (Brookes et al., [2020](https://link.springer.com/article/10.3758/s13428-019-01242-0)). 
 
 ## Core features of `EDIA`:
 :diamond_with_a_dot: Structure your experiment on multiple levels.  
@@ -15,6 +15,8 @@
 :mobile_phone_with_arrow: Remotly control mobile XR experiments  
 :pencil: Automatically log relevant data  
 :on_arrow: Synchronize with external data  
+
+:file_folder: Organize your project files
 
 # `EDIA` is for you if ...
 - you want to build experiments which use different tasks in the same experimental session.
@@ -26,6 +28,13 @@
 # Getting started
 For newcomers to EDIA, we recommend to follow our "[Getting started](https://mind-body-emotion.notion.site/EDIA-Core-Tutorial-Website-1ca03dd4773f80eb87c9f5f0806f4ece)" guide. This also has more detailled instructions on how to install `EDIA` as a package and how to set up your Unity Editor. 
 
+```mermaid
+graph TD;
+    A-->B;
+    A-->C;
+    B-->D;
+    C-->D;
+```
 
 # INSTALLATION
 
@@ -40,12 +49,13 @@ Unity now starts to download and install the `com.edia.core` package.
 
 ### For development
 Clone this repository. 
-
+ 
 
 ## ThirdParty
 
 The following assets and packages are incorporated in edia.core:
 
+`EDIA` is heavily inspired by and based upon [UXF — Unity Experiment Framework](https://github.com/immersivecognition/unity-experiment-framework/) (Brookes et al., [2020](https://link.springer.com/article/10.3758/s13428-019-01242-0)).
 - [UXF framework](https://github.com/immersivecognition/unity-experiment-framework)
 
 ## Documentation
