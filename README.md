@@ -1,4 +1,4 @@
-<img src="./Assets/com.edia.core/Runtime/Shared/Resources/IconEdia.png" width="64" style="pointer-events:none" />
+<img src="./Assets/com.edia.core/Runtime/Shared/Resources/IconEdia.png" width="64"/>
 
 # EDIA – A Unity XR Toolbox for Research
 
@@ -6,11 +6,11 @@
 
 ## `EDIA` Features:
 🧱 Structure your experiment on multiple levels.  
-🗂️ Manage it using Config Files  
-👁️ Unified eye tracking integration  
-🛜 Remotely control mobile XR experiments  
-✏️ Automatically log relevant data  
-🟰 Synchronize with external data  
+🗂️ Manage it using Config Files.
+👁️ Unified eye tracking integration.  
+🛜 Remotely control mobile XR experiments.  
+✏️ Automatically log relevant data.
+🟰 Synchronize with external data.
 
 # `EDIA` is for you if ...
 - you want to build experiments which use different tasks in the same experimental session.
@@ -39,7 +39,10 @@ The following assets and packages are incorporated in edia.core:
 
 - [UXF — Unity Experiment Framework](https://github.com/immersivecognition/unity-experiment-framework/) (Brookes et al., [2020](https://link.springer.com/article/10.3758/s13428-019-01242-0))  ➡️ Core asset where `EDIA` is heavily inspired by and based upon.
 - [SimpleFileBrowser](https://github.com/yasirkula/UnitySimpleFileBrowser) ➡️ Enabling selecting custom logfile storeage location. 
-- [RoundedUICorners](https://github.com/kirevdokimov/Unity-UI-Rounded-Corners) ➡️ Enhancement of UI items
+- [RoundedUICorners](https://github.com/kirevdokimov/Unity-UI-Rounded-Corners) ➡️ Enhancement of UI items.
 
-## Documentation
-[HTML API REFERENCE](https://gitlab.gwdg.de/edia/edia_core/-/tree/fix/%2328/doxyGenUpdate/Assets/com.edia.core/Documentation~/index.html)
+## Resources
+📖 [EDIA Manual](https://mind-body-emotion.notion.site/EDIA-Toolbox-710f144129a245debd9b71948084ea95?pvs=4)<br>
+⌨️ [HTML API Reference](https://gitlab.gwdg.de/edia/edia_core/-/tree/fix/%2328/doxyGenUpdate/Assets/com.edia.core/Documentation~/index.html)<br>
+📝 [GitHub Discussion board](https://github.com/edia-toolbox/edia_core/discussions)<br>
+
