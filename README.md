@@ -1,62 +1,45 @@
-
-<div style="background-image: url('./Assets/com.edia.core/Runtime/Shared/Resources/EdiaHeader.png'); background-size: cover; background-position: center; width: 100%; height: 200px; display: flex; align-items: center; justify-content: center;">
-    <h1 style="color: white; font-size: 48px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">EDIA</h1>
-</div>
+<img src="./Assets/com.edia.core/Runtime/Shared/Resources/EdiaHeader.png" alt="EDIA CORE" width="100%">
 
 # EDIA – A Unity XR Toolbox for Research
 
 `EDIA` provides you with a set of modules (Unity packages) to facilitate the design and conduction of experimental research in XR using Unity.  
 
-
-## Core features of `EDIA`:
-:diamond_with_a_dot: Structure your experiment on multiple levels.  
-:card_index_dividers: Manage it using Config Files  
-:eye_in_speech_bubble: Unified eye tracking integration  
-:mobile_phone_with_arrow: Remotly control mobile XR experiments  
-:pencil: Automatically log relevant data  
-:on_arrow: Synchronize with external data  
-
-:file_folder: Organize your project files
+## `EDIA` Features:
+🧱 Structure your experiment on multiple levels.  
+🗂️ Manage it using Config Files  
+👁️ Unified eye tracking integration  
+🛜 Remotely control mobile XR experiments  
+✏️ Automatically log relevant data  
+🟰 Synchronize with external data  
 
 # `EDIA` is for you if ...
 - you want to build experiments which use different tasks in the same experimental session.
 - you need high temporal precision to, for example, synchronize your experiment with EEG.
-- you want an easy intgration of eye tracking in your experiment.
-- you want to use configuration files (JSON) to manage your experiment. 
-- ...
+- you want an easy integration of eye tracking in your experiment.
+- you want to use configuration files (JSON) to manage your experiment.
 
 # Getting started
-For newcomers to EDIA, we recommend to follow our "[Getting started](https://mind-body-emotion.notion.site/EDIA-Core-Tutorial-Website-1ca03dd4773f80eb87c9f5f0806f4ece)" guide. This also has more detailled instructions on how to install `EDIA` as a package and how to set up your Unity Editor. 
+For newcomers to EDIA, we recommend to follow our "[Getting started](https://mind-body-emotion.notion.site/EDIA-Tutorial-1cb03dd4773f801285edf12e8b6018bd)" guide. This also has more detailed instructions on how to install `EDIA` as a package and how to set up your Unity Editor. 
 
-```mermaid
-graph TD;
-    A-->B;
-    A-->C;
-    B-->D;
-    C-->D;
-```
-
-# INSTALLATION
+# Installation
 
 ### As a package (Unity package manager)
 - In Unity open the package manager window -> **Window** -> **Package manager**
 - Use `install from GIT url` 
-- Enter the URL: [git@gitlab.gwdg.de:edia/edia_core.git?path=Assets/com.edia.core](git@gitlab.gwdg.de:edia/edia_core.git?path=Assets/com.edia.core)  
-(The path parameter is used to point directly to the package files.)
+- Enter the URL: [https://github.com/edia-toolbox/edia_core.git](https://github.com/edia-toolbox/edia_core.git)
 - Hit `ADD`
 
 Unity now starts to download and install the `com.edia.core` package. 
 
 ### For development
 Clone this repository. 
- 
 
 ## ThirdParty
-
 The following assets and packages are incorporated in edia.core:
 
-`EDIA` is heavily inspired by and based upon [UXF — Unity Experiment Framework](https://github.com/immersivecognition/unity-experiment-framework/) (Brookes et al., [2020](https://link.springer.com/article/10.3758/s13428-019-01242-0)).
-- [UXF framework](https://github.com/immersivecognition/unity-experiment-framework)
+- [UXF — Unity Experiment Framework](https://github.com/immersivecognition/unity-experiment-framework/) (Brookes et al., [2020](https://link.springer.com/article/10.3758/s13428-019-01242-0))  ➡️ Core asset where `EDIA` is heavily inspired by and based upon.
+- [SimpleFileBrowser](https://github.com/yasirkula/UnitySimpleFileBrowser) ➡️ Enabling selecting custom logfile storeage location. 
+- [RoundedUICorners](https://github.com/kirevdokimov/Unity-UI-Rounded-Corners) ➡️ Enhancement of UI items
 
 ## Documentation
 [HTML API REFERENCE](https://gitlab.gwdg.de/edia/edia_core/-/tree/fix/%2328/doxyGenUpdate/Assets/com.edia.core/Documentation~/index.html)
