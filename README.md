@@ -12,6 +12,31 @@
 ✏️ Automatically log relevant data.  
 🟰 Synchronize with external data.  
 
+# `EDIA` In a nutshell
+```mermaid
+---
+config:
+  layout: fixed
+  theme: neutral
+  look: neo
+---
+flowchart LR
+    A(["Config files"]) --> n3(["EDIA Engine"])
+    n3 --> n1(["Logfiles"])
+    n4(["VR User"]) <--> n3
+    n5(["Experimenter"]) <--> n3
+    A:::EDIA
+    n3:::EDIA
+    n1:::EDIA
+    n4:::EDIA
+    n5:::EDIA
+    classDef EDIA stroke:#F2F2F2, fill:#347FA9, color:#F2F2F2, stroke-width:2px, stroke-dasharray: 0
+    style A fill:#757575,color:#FFFFFF
+    style n1 fill:#757575,color:#FFFFFF
+    style n4 fill:#424242,color:#FFFFFF
+    style n5 fill:#424242,color:#FFFFFF
+```
+
 # `EDIA` is for you if ...
 - you want to build experiments which use different tasks in the same experimental session.
 - you need high temporal precision to, for example, synchronize your experiment with EEG.
