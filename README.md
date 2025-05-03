@@ -1,8 +1,8 @@
-<img src="./Assets/com.edia.core/Runtime/Shared/Resources/EdiaHeader.png" alt="EDIA CORE" width="100%">
+<img src="./Assets/com.edia.core/Runtime/Shared/Resources/IconEdia.png" alt="EDIA ICON" width="64">
 
 # EDIA – A Unity XR Toolbox for Research
 
-`EDIA` provides you with a set of modules (Unity packages) to facilitate the design and conduction of experimental research in XR using Unity.  
+ `EDIA` provides you with a set of modules (Unity packages) to facilitate the design and conduction of experimental research in XR using Unity.  
 
 ## `EDIA` Features:
 🧱 Structure your experiment on multiple levels.  
