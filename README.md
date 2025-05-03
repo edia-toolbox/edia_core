@@ -12,7 +12,7 @@
 ✏️ Automatically log relevant data.  
 🟰 Synchronize with external data.  
 
-# `EDIA` In a nutshell
+## `EDIA` in a nutshell
 ```mermaid
 ---
 config:
