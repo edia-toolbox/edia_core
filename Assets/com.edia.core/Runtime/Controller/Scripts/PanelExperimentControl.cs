@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using Edia.UI;
 
 namespace Edia.Controller {
 
@@ -24,10 +25,9 @@ namespace Edia.Controller {
         public GameObject panelInfo    = null;
 
         [Header("Experiment status")]
-        public SliderExperimenterStatus stepSlider;
-
-        public SliderExperimenterStatus trialSlider;
-        public SliderExperimenterStatus blockSlider;
+        public ProgressBar stepSlider;
+        public ProgressBar              trialSlider;
+        public ProgressBar              blockSlider;
         public SliderExperimenterStatus timerSlider;
         public TextMeshProUGUI          statusText;
 

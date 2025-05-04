@@ -71,6 +71,7 @@ namespace Edia {
     // Custom editor for even more control (optional)
     [CustomEditor(typeof(ThemeDefinition))]
     public class ColorThemeDefinitionEditor : Editor {
+        
         public override void OnInspectorGUI() {
             ThemeDefinition theme = (ThemeDefinition)target;
 
@@ -80,8 +81,10 @@ namespace Edia {
             DrawDefaultInspector();
 
             EditorGUILayout.Space(10);
-            if (GUILayout.Button("Apply")) {
-                Constants.ActiveTheme = theme;
+            if (GUILayout.Button("Apply Theme")) {
+                string themePath = AssetDatabase.GetAssetPath(theme);
+                EditorPrefs.SetString(Constants.THEME_PATH_KEY, themePath);
+                Constants.UpdateTheme();
             }
         }
     }

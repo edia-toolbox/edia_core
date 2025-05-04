@@ -355,7 +355,7 @@ namespace Edia {
 
         private void AddToConsole(string _msg) {
             if (Experiment.Instance.ShowConsoleMessages)
-                Edia.LogUtilities.AddToConsoleLog(_msg, "SessionGenerator");
+                Edia.Utilities.Log.AddToConsoleLog(_msg, "SessionGenerator");
         }
 
         private void AddToConsole(string msg, LogType _type) {

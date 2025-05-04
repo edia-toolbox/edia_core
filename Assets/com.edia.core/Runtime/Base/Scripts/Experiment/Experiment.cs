@@ -718,7 +718,7 @@ namespace Edia {
 
         private void AddToConsole(string _msg) {
             if (ShowConsoleMessages)
-                LogUtilities.AddToConsoleLog(_msg, "EXP");
+                Log.AddToConsoleLog(_msg, "EXP");
         }
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------

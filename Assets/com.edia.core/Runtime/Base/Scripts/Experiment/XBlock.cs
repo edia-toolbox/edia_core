@@ -27,7 +27,7 @@ namespace Edia {
         /// <param name="_msg">Message to show</param>
         public void AddToConsoleLog(string _msg) {
             if (ShowConsoleMessages)
-                Edia.LogUtilities.AddToConsoleLog(_msg, this.name);
+                Edia.Utilities.Log.AddToConsoleLog(_msg, this.name);
         }
 
 #region ---- EVENT HOOKS

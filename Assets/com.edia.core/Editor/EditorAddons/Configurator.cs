@@ -10,7 +10,6 @@ namespace Edia.Editor.Utils {
         public static Texture2D EDIAIcon;
 
         // Internal
-        [SerializeField] private ThemeDefinition SelectedTheme;
         private                  Vector2         _scrollPos;
         private static           ThemeDefinition _selectedTheme;
         private static           string          _version;
@@ -20,12 +19,9 @@ namespace Edia.Editor.Utils {
             public string version;
         }
 
-        // EditorPrefs keys
-        private const string ThemeGuidKey = "EDIA_SelectedThemeGuid";
-
         void OnEnable() {
             EDIAIcon ??= Resources.Load<Texture2D>("IconEdia");
-            LoadSettings();
+            // LoadSettings();
         }
 
         static Configurator() {
@@ -44,55 +40,17 @@ namespace Edia.Editor.Utils {
             EditorApplication.projectChanged -= OnProjectChanged;
         }
 
-        private static void CreateInitialTheme() {
-            string sourcePath = AssetDatabase.GetAssetPath(Resources.Load<ThemeDefinition>("EdiaDefaultTheme"));
-            string targetPath = "Assets/ProjectColorTheme.asset";
-            AssetDatabase.CopyAsset(sourcePath, targetPath);
-            AssetDatabase.Refresh();
-
-            _selectedTheme        = AssetDatabase.LoadAssetAtPath<ThemeDefinition>(targetPath);
-            Constants.ActiveTheme = _selectedTheme; // Fires the event to force UI items to update
-
-            Debug.Log($"Created & applied initial UI color theme at {targetPath}");
-            SaveSettings();
-        }
-
-        private static void SaveSettings() {
-            if (_selectedTheme is not null) {
-                string themePath = AssetDatabase.GetAssetPath(_selectedTheme);
-                string themeGuid = AssetDatabase.AssetPathToGUID(themePath);
-                EditorPrefs.SetString(ThemeGuidKey, themeGuid);
-            }
-        }
-
-        private static void LoadSettings() {
-            string themeGuid = EditorPrefs.GetString(ThemeGuidKey, "");
-            if (!string.IsNullOrEmpty(themeGuid)) {
-                string themePath = AssetDatabase.GUIDToAssetPath(themeGuid);
-                if (!string.IsNullOrEmpty(themePath)) {
-                    _selectedTheme        = AssetDatabase.LoadAssetAtPath<ThemeDefinition>(themePath);
-                    Constants.ActiveTheme = _selectedTheme; // Set current theme which updates all UI elements having a themehandler
-                }
-                else {
-                    Debug.Log("Color theme asset not found.");
-                }
-            }
-            else {
-                Debug.Log("Empty ThemeGuid");
-            }
-        }
-
         [MenuItem("EDIA/Configurator", false, 0)]
         static void ShowConfigurator() {
             var window = (Configurator)EditorWindow.GetWindow(typeof(Configurator), false, "Configurator");
             window.minSize      = new Vector2(300, 400);
             window.titleContent = new GUIContent("Configurator");
 
-            // Check if there is a theme assigned
-            if (Constants.ActiveTheme is null) {
-                CreateInitialTheme();
-            }
-            else LoadSettings();
+            // // Check if there is a theme assigned
+            // if (Constants.ActiveTheme is null) {
+            //     CreateInitialTheme();
+            // }
+            // else LoadSettings();
 
             // Find version of package
             string scriptPath  = AssetDatabase.GetAssetPath(MonoScript.FromScriptableObject(window));
@@ -108,6 +66,44 @@ namespace Edia.Editor.Utils {
 
             window.Show();
         }
+
+        // private static void CreateInitialTheme() {
+        //     string sourcePath = AssetDatabase.GetAssetPath(Resources.Load<ThemeDefinition>("EdiaDefaultTheme"));
+        //     string targetPath = "Assets/ProjectColorTheme.asset";
+        //     AssetDatabase.CopyAsset(sourcePath, targetPath);
+        //     AssetDatabase.Refresh();
+        //
+        //     _selectedTheme        = AssetDatabase.LoadAssetAtPath<ThemeDefinition>(targetPath);
+        //     Constants.ActiveTheme = _selectedTheme; // Fires the event to force UI items to update
+        //
+        //     Debug.Log($"Created & applied initial UI color theme at {targetPath}");
+        //     SaveSettings();
+        // }
+        //
+        // private static void SaveSettings() {
+        //     if (_selectedTheme is not null) {
+        //         string themePath = AssetDatabase.GetAssetPath(_selectedTheme);
+        //         string themeGuid = AssetDatabase.AssetPathToGUID(themePath);
+        //         EditorPrefs.SetString(ThemeGuidKey, themeGuid);
+        //     }
+        // }
+        //
+        // private static void LoadSettings() {
+        //     string themeGuid = EditorPrefs.GetString(ThemeGuidKey, "");
+        //     if (!string.IsNullOrEmpty(themeGuid)) {
+        //         string themePath = AssetDatabase.GUIDToAssetPath(themeGuid);
+        //         if (!string.IsNullOrEmpty(themePath)) {
+        //             _selectedTheme        = AssetDatabase.LoadAssetAtPath<ThemeDefinition>(themePath);
+        //             Constants.ActiveTheme = _selectedTheme; // Set current theme which updates all UI elements having a themehandler
+        //         }
+        //         else {
+        //             Debug.Log("Color theme asset not found.");
+        //         }
+        //     }
+        //     else {
+        //         Debug.Log("Empty ThemeGuid");
+        //     }
+        // }
 
         private void OnGUI() {
             // Styles
@@ -187,25 +183,12 @@ namespace Edia.Editor.Utils {
             GUILayout.Label("UI color theme.", labelContent);
             GUILayout.Label("EDIA provides a customizable UI color theme. The theme is applied to all EDIA UI elements in the project.", boxStyle);
 
-            
+
             GUILayout.BeginHorizontal();
-            GUILayout.Label($"Found theme: {(_selectedTheme is not null ? _selectedTheme.name : "None")}", labelContent);
+            GUILayout.Label($"Found theme: {(Constants.ActiveTheme is not null ? Constants.ActiveTheme.name : "None")}", labelContent);
             EditorGUILayout.ObjectField(_selectedTheme, typeof(ThemeDefinition), false);
-            
-            // if (GUILayout.Button("Create default color theme")) {
-            //     CreateInitialTheme();
-            // }
+
             GUILayout.EndHorizontal();
-
-            // GUILayout.Space(40);
-            // if (GUILayout.Button("Debug")) {
-            //     EditorPrefs.DeleteKey("Initalized");
-            //     Debug.Log(EditorPrefs.HasKey("Initalized"));
-            //     Constants.ActiveTheme = null;
-            //     EditorPrefs.DeleteKey(ThemeGuidKey);
-            //     SaveSettings();
-            // }
-
             EditorGUILayout.EndScrollView();
         }
 

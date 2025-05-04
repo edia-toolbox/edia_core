@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
+using Edia.UI;
 
 namespace StartersKit {
     public class SelectionSlot : MonoBehaviour {

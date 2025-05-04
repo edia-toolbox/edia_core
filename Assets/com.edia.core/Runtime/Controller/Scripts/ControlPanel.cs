@@ -107,7 +107,7 @@ namespace Edia.Controller {
 
         public void AddToConsole(string msg) {
             if (ShowConsoleMessages)
-                LogUtilities.AddToConsoleLog(msg, this.name);
+                Edia.Utilities.Log.AddToConsoleLog(msg, this.name);
         }
 
         public void AddToConsole(string msg, LogType _type) {

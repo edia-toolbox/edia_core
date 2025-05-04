@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Edia.Utilities;
 using UnityEditor;
 using UnityEngine;
 
@@ -59,6 +60,7 @@ namespace Edia {
         
 #region Color Theme
 
+        
         public enum ThemeComponents {
             Button,
             Toggle,
@@ -80,23 +82,22 @@ namespace Edia {
             HorizontalTimer 
         }
 
+        public const string THEME_PATH_KEY = "ActiveThemePath";
         public static event System.Action OnThemeChanged;
-
-        private static ThemeDefinition _activeTheme = null;
-        public static ThemeDefinition ActiveTheme {
-            get {
-#if UNITY_EDITOR
-                return _activeTheme;
-#endif
-            }
-            set {
-#if UNITY_EDITOR
-                _activeTheme = value;
-                OnThemeChanged?.Invoke();
-#endif
-            }
+        public static  ThemeDefinition ActiveTheme;
+        
+        public static void UpdateTheme() {
+            Debug.Log($"current theme: {EditorPrefs.GetString(THEME_PATH_KEY)}");
+            ActiveTheme = AssetDatabase.LoadAssetAtPath<ThemeDefinition>(EditorPrefs.GetString(THEME_PATH_KEY));
+            Debug.Log($"Applying theme: {ActiveTheme}");
+                
+            ApplyTheme();
         }
 
+        public static void ApplyTheme() {
+            OnThemeChanged?.Invoke();
+        }
+        
 #endregion
 
 #region EDIA hardcoded colors

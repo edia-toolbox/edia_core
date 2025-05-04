@@ -91,7 +91,7 @@ namespace Edia {
 
         public void AddToConsole(string _msg) {
             if (Experiment.Instance.ShowConsoleMessages)
-                Edia.LogUtilities.AddToConsoleLog(_msg, "SystemSettings");
+                Edia.Utilities.Log.AddToConsoleLog(_msg, "SystemSettings");
         }
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------

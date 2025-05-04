@@ -324,7 +324,7 @@ namespace Edia {
         }
  public void AddToConsole(string _msg) {
             if (ShowConsoleMessages)
-                Edia.LogUtilities.AddToConsoleLog(_msg, "XRManager");
+                Edia.Utilities.Log.AddToConsoleLog(_msg, "XRManager");
         }
 #endregion
     }
