@@ -82,20 +82,24 @@ namespace Edia {
             HorizontalTimer 
         }
 
-        public const string THEME_PATH_KEY = "ActiveThemePath";
+        public const string               THEME_PATH_KEY = "ActiveThemePath";
+        
         public static event System.Action OnThemeChanged;
-        public static  ThemeDefinition ActiveTheme;
+        private static ThemeDefinition DefaultTheme { get; } = null;
+        public static ThemeDefinition     ActiveTheme = DefaultTheme;
         
         public static void UpdateTheme() {
-            Debug.Log($"current theme: {PlayerPrefs.GetString(THEME_PATH_KEY)}");
-            ActiveTheme = AssetDatabase.LoadAssetAtPath<ThemeDefinition>(PlayerPrefs.GetString(THEME_PATH_KEY));
-
-            if (ActiveTheme is not null) {
+            var loadedTheme = AssetDatabase.LoadAssetAtPath<ThemeDefinition>(PlayerPrefs.GetString(THEME_PATH_KEY));
+        
+            if (loadedTheme is not null) {
+                ActiveTheme = loadedTheme;
                 Debug.Log($"Applying theme: {ActiveTheme}");
                 ApplyTheme();
             }
             else {
-                Debug.Log($"{PlayerPrefs.GetString(THEME_PATH_KEY)} not found");
+                Debug.Log($"{PlayerPrefs.GetString(THEME_PATH_KEY)} not found, using default theme");
+                ActiveTheme = DefaultTheme;
+                ApplyTheme();
             }
         }
 

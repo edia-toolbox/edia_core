@@ -9,16 +9,19 @@ namespace Edia {
 
         public TType ThemeComponent = TType.Button;
 
-// #if UNITY_EDITOR
-        private void OnEnable() {
+#if UNITY_EDITOR
+        private void Awake() {
             Edia.Constants.OnThemeChanged += ApplyTheme;
         }
 
-        private void OnDisable() {
+        private void OnDestroy() {
             Edia.Constants.OnThemeChanged -= ApplyTheme;
         }
-// #endif
+#endif
 
+        private void Start () {
+            ApplyTheme();
+        }
         /*
             Applies color settings from theme file
 
