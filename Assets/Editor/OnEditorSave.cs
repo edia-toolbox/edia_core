@@ -21,9 +21,9 @@ namespace Edia.Utilities.Editor {
         
             if (succes)
                 AssetDatabase.Refresh();
-        
-            // Debug.Log(string.Concat($"[{ColorTools.AddColor("Edia", Color.yellow)}]: >> Configs synced to samples ",
-                // succes ? "successfully".AddColor(ColorTools.Green) : "failed!".AddColor(ColorTools.Red)));
+            else {
+                Debug.LogError("Failed to copy configs to samples");
+            }
         }
     }
 }
