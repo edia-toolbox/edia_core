@@ -44,6 +44,7 @@ namespace Edia.Controller {
             EventManager.StartListening(Edia.Events.Config.EvReadyToGo,             OnEvReadyToGo);
             EventManager.StartListening(Edia.Events.ControlPanel.EvEnableButton,    OnEvEnableButton);
             EventManager.StartListening(Edia.Events.ControlPanel.EvStartTimer,      OnEvStartTimer);
+            EventManager.StartListening(Edia.Events.StateMachine.EvProceed,         OnEvStopTimer);
         }
 
         void OnDestroy() {
@@ -79,7 +80,6 @@ namespace Edia.Controller {
             
             ShowPanel();
             panelRunning.SetActive(false); // Intentionally after ShowPanel() as that enables all subpanels by default
-            
 
             EventManager.StartListening(Edia.Events.ControlPanel.EvUpdateProgressStatus, OnEvExperimentProgressUpdate);
             EventManager.StartListening(Edia.Events.ControlPanel.EvUpdateBlockProgress, OnEvUpdateBlockProgress);

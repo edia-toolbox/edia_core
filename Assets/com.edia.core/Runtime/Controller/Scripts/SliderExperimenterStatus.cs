@@ -53,6 +53,7 @@ public class SliderExperimenterStatus : MonoBehaviour {
 	// --
 
 	public void StartAnimation (float duration) {
+		StopAnimation();
 		gameObject.SetActive(true);
 		_animationRoutine = StartCoroutine("AnimateSliderOverTime", duration);
 	}
