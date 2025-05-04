@@ -319,6 +319,10 @@ namespace Edia {
             EventManager.TriggerEvent(Edia.Events.ControlPanel.EvStartTimer, new eParam(duration));
         }
 
+        public void StopTimerInController() {
+            EventManager.TriggerEvent(Edia.Events.ControlPanel.EvStopTimer,null);
+        }
+
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 
 #region STATEMACHINE PROCEED
