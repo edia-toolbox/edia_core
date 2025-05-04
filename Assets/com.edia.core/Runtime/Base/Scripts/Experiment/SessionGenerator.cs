@@ -242,10 +242,10 @@ namespace Edia {
                 List<string> outroMessages = new();
 
                 // Include any instructions from base definition
-                if (xBlockBase.instructions is not null && xBlockBase.instructions.Count > 0) {
+                if (xBlockBase.messages is not null && xBlockBase.messages.Count > 0) {
 
-                    var baseIntroMsgs = GetValuesListByKey(xBlockBase.instructions, "_intro");
-                    var baseOutroMsgs = GetValuesListByKey(xBlockBase.instructions, "_outro");
+                    var baseIntroMsgs = GetValuesListByKey(xBlockBase.messages, "_intro");
+                    var baseOutroMsgs = GetValuesListByKey(xBlockBase.messages, "_outro");
 
                     if (baseIntroMsgs.Count > 0)
                         introMessages.AddRange(baseIntroMsgs);
@@ -254,9 +254,9 @@ namespace Edia {
                 }
                 
                 // Add block specific instructions, if any
-                if (currentXBlock.instructions is not null && currentXBlock.instructions.Count > 0) {
-                    var blockIntroMsgs = GetValuesListByKey(currentXBlock.instructions, "_intro");
-                    var blockOutroMsgs = GetValuesListByKey(currentXBlock.instructions, "_outro");
+                if (currentXBlock.messages is not null && currentXBlock.messages.Count > 0) {
+                    var blockIntroMsgs = GetValuesListByKey(currentXBlock.messages, "_intro");
+                    var blockOutroMsgs = GetValuesListByKey(currentXBlock.messages, "_outro");
 
                     if (blockIntroMsgs.Count > 0)
                         introMessages.AddRange(blockIntroMsgs);
@@ -281,7 +281,7 @@ namespace Edia {
                 switch (GetXBlockType(blockId).ToLower()) {
                     case "break":
                         newBlock.settings.SetValue("subType", currentXBlock.subType);
-                        newBlock.settings.SetValue("_info", GetValuesListByKey(currentXBlock.instructions, "_info"));
+                        newBlock.settings.SetValue("_info", GetValuesListByKey(currentXBlock.messages, "_info"));
                         newBlock.CreateTrial(); // create 1 dummy trial
                         break;
 
@@ -346,7 +346,7 @@ namespace Edia {
                     Session.instance.settingsToLog.Add(settingsTuple.key);
             }
 
-            foreach (SettingsTuple instructionTuple in _sessionXblock.instructions) {
+            foreach (SettingsTuple instructionTuple in _sessionXblock.messages) {
                 SessionSettings.settings.Add(new SettingsTuple { key = instructionTuple.key, value = instructionTuple.value });
             }
 

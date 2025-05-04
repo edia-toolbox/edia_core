@@ -49,7 +49,7 @@ namespace Edia {
         public string              type;
         public string              subType;
         public List<SettingsTuple> settings     = new();
-        public List<SettingsTuple> instructions = new();
+        public List<SettingsTuple> messages = new();
     }
 
     //! Task list
