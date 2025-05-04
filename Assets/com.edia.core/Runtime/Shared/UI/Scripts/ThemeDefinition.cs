@@ -83,7 +83,7 @@ namespace Edia {
             EditorGUILayout.Space(10);
             if (GUILayout.Button("Apply Theme")) {
                 string themePath = AssetDatabase.GetAssetPath(theme);
-                EditorPrefs.SetString(Constants.THEME_PATH_KEY, themePath);
+                PlayerPrefs.SetString(Constants.THEME_PATH_KEY, themePath);
                 Constants.UpdateTheme();
             }
         }

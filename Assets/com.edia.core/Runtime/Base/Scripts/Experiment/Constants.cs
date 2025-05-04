@@ -87,11 +87,16 @@ namespace Edia {
         public static  ThemeDefinition ActiveTheme;
         
         public static void UpdateTheme() {
-            Debug.Log($"current theme: {EditorPrefs.GetString(THEME_PATH_KEY)}");
-            ActiveTheme = AssetDatabase.LoadAssetAtPath<ThemeDefinition>(EditorPrefs.GetString(THEME_PATH_KEY));
-            Debug.Log($"Applying theme: {ActiveTheme}");
-                
-            ApplyTheme();
+            Debug.Log($"current theme: {PlayerPrefs.GetString(THEME_PATH_KEY)}");
+            ActiveTheme = AssetDatabase.LoadAssetAtPath<ThemeDefinition>(PlayerPrefs.GetString(THEME_PATH_KEY));
+
+            if (ActiveTheme is not null) {
+                Debug.Log($"Applying theme: {ActiveTheme}");
+                ApplyTheme();
+            }
+            else {
+                Debug.Log($"{PlayerPrefs.GetString(THEME_PATH_KEY)} not found");
+            }
         }
 
         public static void ApplyTheme() {
