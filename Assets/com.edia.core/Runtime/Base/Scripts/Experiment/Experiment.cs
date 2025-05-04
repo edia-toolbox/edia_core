@@ -377,9 +377,9 @@ namespace Edia {
             // eye calibration option enabled
             EnableEyeCalibrationTrigger(true);
 
-            bool showMsg = Session.instance.settings.ContainsKey("_start");
+            bool showMsg = Session.instance.settings.ContainsKey("_intro");
             if (showMsg)
-                ShowMessageToUser(Session.instance.settings.GetString("_start"));
+                ShowMessageToUser(Session.instance.settings.GetString("_intro"));
             else {
                 Proceed();
             }
@@ -400,9 +400,9 @@ namespace Edia {
 
             Reset();
 
-            bool showMsg = Session.instance.settings.ContainsKey("_end");
+            bool showMsg = Session.instance.settings.ContainsKey("_outro");
             if (showMsg) {
-                ShowMessageToUser(Session.instance.settings.GetString("_end"));
+                ShowMessageToUser(Session.instance.settings.GetString("_outro"));
                 HideMessagePanelMenu();
             } else {
                 Proceed();
@@ -438,7 +438,7 @@ namespace Edia {
             // Check for block introduction flag
             if (Session.instance.CurrentBlock.settings.GetBool("_hasIntro")) {
                 EventManager.StartListening(Edia.Events.StateMachine.EvProceed, BlockContinueAfterIntro); // listener as it event call can come from any script
-                ShowMessageToUser(Session.instance.CurrentBlock.settings.GetStringList("_start"));
+                ShowMessageToUser(Session.instance.CurrentBlock.settings.GetStringList("_intro"));
                 UpdateProgressStatus(Session.instance.CurrentBlock.settings.GetString("blockId") + " Introduction");
             }
             else {
@@ -454,7 +454,7 @@ namespace Edia {
             if (Session.instance.CurrentBlock.settings.GetBool("_hasOutro")) {
                 EventManager.StartListening(Edia.Events.StateMachine.EvProceed, BlockContinueAfterOutro); // listener as it event call can come from any script
                 EnableProceedButton(true);
-                ShowMessageToUser(Session.instance.CurrentBlock.settings.GetStringList("_end"));
+                ShowMessageToUser(Session.instance.CurrentBlock.settings.GetStringList("_outro"));
                 UpdateProgressStatus("Block Outro");
                 _activeXBlock.OnBlockOutro();
             }

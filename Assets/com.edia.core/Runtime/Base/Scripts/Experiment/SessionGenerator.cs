@@ -244,8 +244,8 @@ namespace Edia {
                 // Include any instructions from base definition
                 if (xBlockBase.instructions is not null && xBlockBase.instructions.Count > 0) {
 
-                    var baseIntroMsgs = GetValuesListByKey(xBlockBase.instructions, "_start");
-                    var baseOutroMsgs = GetValuesListByKey(xBlockBase.instructions, "_end");
+                    var baseIntroMsgs = GetValuesListByKey(xBlockBase.instructions, "_intro");
+                    var baseOutroMsgs = GetValuesListByKey(xBlockBase.instructions, "_outro");
 
                     if (baseIntroMsgs.Count > 0)
                         introMessages.AddRange(baseIntroMsgs);
@@ -255,8 +255,8 @@ namespace Edia {
                 
                 // Add block specific instructions, if any
                 if (currentXBlock.instructions is not null && currentXBlock.instructions.Count > 0) {
-                    var blockIntroMsgs = GetValuesListByKey(currentXBlock.instructions, "_start");
-                    var blockOutroMsgs = GetValuesListByKey(currentXBlock.instructions, "_end");
+                    var blockIntroMsgs = GetValuesListByKey(currentXBlock.instructions, "_intro");
+                    var blockOutroMsgs = GetValuesListByKey(currentXBlock.instructions, "_outro");
 
                     if (blockIntroMsgs.Count > 0)
                         introMessages.AddRange(blockIntroMsgs);
@@ -268,11 +268,11 @@ namespace Edia {
                 newBlock.settings.SetValue("_hasOutro", outroMessages.Count > 0);
                 
                 if (introMessages.Count > 0) {
-                    newBlock.settings.SetValue("_start", introMessages);
+                    newBlock.settings.SetValue("_intro", introMessages);
                 }
 
                 if (outroMessages.Count > 0) {
-                    newBlock.settings.SetValue("_end", outroMessages);
+                    newBlock.settings.SetValue("_outro", outroMessages);
                 }
                 
                 // Continue with settings
