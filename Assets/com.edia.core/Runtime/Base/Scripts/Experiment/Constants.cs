@@ -64,22 +64,20 @@ namespace Edia {
             Toggle,
             Slider,
             Dropdown,
-            MainBG,
-            PanelBG,
-            SubPanelBG,
-            MainText,
-            PanelText,
-            SubPanelText,
-            ButtonText,
-            Outline,
-            MessagePanelBG,
-            MessagePanelTextPanelBG,
-            MessagePanelText,
+            CTRLPanel,
+            Panel,
+            SubPanel,
+            PrimaryText,
+            SecundaryText,
+            TertiaryText,
+            Outlines,
+            MgsPanelBG,
+            MsgPanelTextBG,
+            MsgPanelText,
             ProgressbarBG,
             ProgressbarFill,
             ProgressbarText,
-            ButtonIcon,
-            HorizontalTimer
+            HorizontalTimer 
         }
 
         public static event System.Action OnThemeChanged;

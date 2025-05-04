@@ -9,45 +9,41 @@ namespace Edia {
 
         public TType ThemeComponent = TType.Button;
 
-#if UNITY_EDITOR
+// #if UNITY_EDITOR
         private void OnEnable() {
             Edia.Constants.OnThemeChanged += ApplyTheme;
-            
+            ApplyTheme();
         }
 
         private void OnDisable() {
             Edia.Constants.OnThemeChanged -= ApplyTheme;
         }
 
-#endif
+// #endif
 
         /*
-         	Button,
-            ButtonText,
+            Applies color settings from theme file
+
+            Button,
             Toggle,
             Slider,
             Dropdown,
-            MainBG,
-            MainText,
-            PanelBG,
-            PanelText,
-            SubPanelBG,
-            SubPanelText,
+            CTRLPanel,
+            Panel,
+            SubPanel,
+            PrimaryText,
+            SecundaryText,
+            ThirdText,
             Outlines,
-            MessagePanelBG,
-            MessagePanelTextPanelBG,
-            MessagePanelText,
+            MgsPanelBG,
+            MsgPanelTextBG,
+            MsgPanelText,
             ProgressbarBG,
             ProgressbarFill,
             ProgressbarText,
-            HorizontalTimer,
-            
+            HorizontalTimer
+
          */
-        
-        
-        // private void OnValidate() {
-        //     ApplyTheme();
-        // }
 
         public void ApplyTheme() {
             ThemeDefinition activeTheme = Edia.Constants.ActiveTheme;
@@ -56,13 +52,10 @@ namespace Edia {
             }
 
             switch (ThemeComponent) {
-
-#region ------ Button Colors ------
-
                 case TType.Button:
                     var button = GetComponent<Button>();
-                    if (button != null) {
-                        button.colors = activeTheme.ButtonColorBlock;
+                    if (button is not null) {
+                        button.colors = activeTheme.GlobalColorBlock;
 #if UNITY_EDITOR
                         UnityEditor.EditorUtility.SetDirty(button);
 #endif
@@ -70,21 +63,107 @@ namespace Edia {
 
                     break;
 
-                case TType.ButtonText:
-                    var buttonText = GetComponent<TextMeshProUGUI>();
-                    if (buttonText != null) {
-                        buttonText.color = activeTheme.ButtonTextColor;
+                case TType.Toggle:
+                    var toggle = GetComponent<Toggle>();
+                    if (toggle is not null) {
+                        toggle.colors = activeTheme.GlobalColorBlock;
 #if UNITY_EDITOR
-                        UnityEditor.EditorUtility.SetDirty(buttonText);
+                        UnityEditor.EditorUtility.SetDirty(toggle);
 #endif
                     }
 
                     break;
-                
-                case TType.Outline:
+                case TType.Slider:
+                    var slider = GetComponent<Slider>();
+                    if (slider is not null) {
+                        slider.colors = activeTheme.GlobalColorBlock;
+#if UNITY_EDITOR
+                        UnityEditor.EditorUtility.SetDirty(slider);
+#endif
+                    }
+
+                    break;
+
+                case TType.Dropdown:
+                    var dropDown = GetComponent<TMP_Dropdown>();
+                    if (dropDown is not null) {
+                        dropDown.colors = activeTheme.GlobalColorBlock;
+#if UNITY_EDITOR
+                        UnityEditor.EditorUtility.SetDirty(dropDown);
+#endif
+                    }
+
+                    break;
+                case TType.CTRLPanel:
+                    var mainPanelImage = GetComponent<Image>();
+                    if (mainPanelImage is not null) {
+                        mainPanelImage.color = activeTheme.ControllerPanelColor;
+#if UNITY_EDITOR
+                        UnityEditor.EditorUtility.SetDirty(mainPanelImage);
+#endif
+                    }
+
+                    break;
+
+                case TType.Panel:
+                    var panelImage = GetComponent<Image>();
+                    if (panelImage is not null) {
+                        panelImage.color = activeTheme.PanelColor;
+#if UNITY_EDITOR
+                        UnityEditor.EditorUtility.SetDirty(panelImage);
+#endif
+                    }
+
+                    break;
+
+
+                case TType.SubPanel:
+                    var subPanelImage = GetComponent<Image>();
+                    if (subPanelImage is not null) {
+                        subPanelImage.color = activeTheme.SubPanelColor;
+#if UNITY_EDITOR
+                        UnityEditor.EditorUtility.SetDirty(subPanelImage);
+#endif
+                    }
+
+                    break;
+
+                case TType.PrimaryText:
+                    var primaryText = GetComponent<TextMeshProUGUI>();
+                    if (primaryText is not null) {
+                        primaryText.color = activeTheme.PrimaryTextColor;
+#if UNITY_EDITOR
+                        UnityEditor.EditorUtility.SetDirty(primaryText);
+#endif
+                    }
+
+                    break;
+
+                case TType.SecundaryText:
+                    var secundaryText = GetComponent<TextMeshProUGUI>();
+                    if (secundaryText is not null) {
+                        secundaryText.color = activeTheme.SecundaryTextColor;
+#if UNITY_EDITOR
+                        UnityEditor.EditorUtility.SetDirty(secundaryText);
+#endif
+                    }
+
+                    break;
+                case TType.TertiaryText:
+                    var tertiaryTextColor = GetComponent<TextMeshProUGUI>();
+                    if (tertiaryTextColor is not null) {
+                        tertiaryTextColor.color = activeTheme.TertiaryTextColor;
+#if UNITY_EDITOR
+                        UnityEditor.EditorUtility.SetDirty(tertiaryTextColor);
+#endif
+                    }
+
+                    break;
+
+                case TType.Outlines:
                     var outline = GetComponent<Outline>();
-                    if (outline != null) {
-                        outline.effectColor = activeTheme.ButtonOutlineColor;
+                    if (outline is not null) {
+                        outline.effectColor = activeTheme.OutlinesColor;
 #if UNITY_EDITOR
                         UnityEditor.EditorUtility.SetDirty(outline);
 #endif
@@ -92,40 +171,43 @@ namespace Edia {
 
                     break;
 
-#endregion
-#region ------ Toggle Colors ------
 
-                case TType.Toggle:
-                    var toggle = GetComponent<Toggle>();
-                    if (toggle != null) {
-                        toggle.colors = activeTheme.ToggleColorBlock;
+                case TType.MgsPanelBG:
+                    var msgPanelBG = GetComponent<Image>();
+                    if (msgPanelBG is not null) {
+                        msgPanelBG.color = activeTheme.MsgPanelColor;
 #if UNITY_EDITOR
-                        UnityEditor.EditorUtility.SetDirty(toggle);
+                        UnityEditor.EditorUtility.SetDirty(msgPanelBG);
 #endif
                     }
 
                     break;
 
-#endregion
-#region ------ Dropdown Colors ------
-
-                case TType.Dropdown:
-                    var dropDown = GetComponent<Dropdown>();
-                    if (dropDown != null) {
-                        dropDown.colors = activeTheme.DropDownColorBlock;
+                case TType.MsgPanelTextBG:
+                    var msgPanelTextBG = GetComponent<Image>();
+                    if (msgPanelTextBG is not null) {
+                        msgPanelTextBG.color = activeTheme.MsgPanelTextBGColor;
 #if UNITY_EDITOR
-                        UnityEditor.EditorUtility.SetDirty(dropDown);
+                        UnityEditor.EditorUtility.SetDirty(msgPanelTextBG);
 #endif
                     }
 
                     break;
 
-#endregion
-#region ------ Progress bar Colors ------
+                case TType.MsgPanelText:
+                    var msgPanelText = GetComponent<TextMeshProUGUI>();
+                    if (msgPanelText is not null) {
+                        msgPanelText.color = activeTheme.MsgPanelTextColor;
+#if UNITY_EDITOR
+                        UnityEditor.EditorUtility.SetDirty(msgPanelText);
+#endif
+                    }
+
+                    break;
 
                 case TType.ProgressbarBG:
                     var progressbarBG = GetComponent<Image>();
-                    if (progressbarBG != null) {
+                    if (progressbarBG is not null) {
                         progressbarBG.color = activeTheme.progressBarBGColor;
 #if UNITY_EDITOR
                         UnityEditor.EditorUtility.SetDirty(progressbarBG);
@@ -135,7 +217,7 @@ namespace Edia {
                     break;
                 case TType.ProgressbarFill:
                     var progressbarFill = GetComponent<Image>();
-                    if (progressbarFill != null) {
+                    if (progressbarFill is not null) {
                         progressbarFill.color = activeTheme.progressBarFillColor;
 #if UNITY_EDITOR
                         UnityEditor.EditorUtility.SetDirty(progressbarFill);
@@ -145,7 +227,7 @@ namespace Edia {
                     break;
                 case TType.ProgressbarText:
                     var progressbarText = GetComponent<TextMeshProUGUI>();
-                    if (progressbarText != null) {
+                    if (progressbarText is not null) {
                         progressbarText.color = activeTheme.progressBarTextColor;
 #if UNITY_EDITOR
                         UnityEditor.EditorUtility.SetDirty(progressbarText);
@@ -154,130 +236,24 @@ namespace Edia {
 
                     break;
 
-#endregion
-#region ------ Main Panel Colors ------
-
-                case TType.MainBG:
-                    var mainPanelImage = GetComponent<Image>();
-                    if (mainPanelImage != null) {
-                        mainPanelImage.color = activeTheme.MainBGColor;
-                    }
-#if UNITY_EDITOR
-                    UnityEditor.EditorUtility.SetDirty(mainPanelImage);
-#endif
-                    break;
-                
-                case TType.MainText:
-                    var mainTextColor = GetComponent<TextMeshProUGUI>();
-                    if (mainTextColor != null) {
-                        mainTextColor.color = activeTheme.MainPanelTextColor;
-                    }
-#if UNITY_EDITOR
-                    UnityEditor.EditorUtility.SetDirty(mainTextColor);
-#endif
-                    break;
-
-#endregion
-#region ------ Panel Colors ------
-
-                case TType.PanelBG:
-                    var panelImage = GetComponent<Image>();
-                    if (panelImage != null) {
-                        panelImage.color = activeTheme.PanelBGColor;
-                    }
-#if UNITY_EDITOR
-                    UnityEditor.EditorUtility.SetDirty(panelImage);
-#endif
-                    break;
-
-                case TType.PanelText:
-                    var panelTextColor = GetComponent<TextMeshProUGUI>();
-                    if (panelTextColor != null) {
-                        panelTextColor.color = activeTheme.PanelTextColor;
-                    }
-#if UNITY_EDITOR
-                    UnityEditor.EditorUtility.SetDirty(panelTextColor);
-#endif
-                    break;
-
-#endregion
-#region ------ Horizontal Timer ------
-
                 case TType.HorizontalTimer:
                     var bgImage = GetComponent<Image>();
                     if (bgImage is not null) {
                         bgImage.color = activeTheme.TimerBarBGColor;
+#if UNITY_EDITOR
+                        UnityEditor.EditorUtility.SetDirty(bgImage);
+#endif
+
                     }
-                    
+
                     var frontImage = transform.GetChild(0).GetComponent<Image>();
                     if (frontImage is not null) {
                         frontImage.color = activeTheme.TimerBarFrontColor;
-                    }
 #if UNITY_EDITOR
-                    UnityEditor.EditorUtility.SetDirty(bgImage);
                     UnityEditor.EditorUtility.SetDirty(frontImage);
 #endif
-                    break;
-
-#endregion
-#region ------ SubPanel Colors ------
-
-                case TType.SubPanelBG:
-                    var subPanelImage = GetComponent<Image>();
-                    if (subPanelImage != null) {
-                        subPanelImage.color = activeTheme.SubPanelBGColor;
-#if UNITY_EDITOR
-                        UnityEditor.EditorUtility.SetDirty(subPanelImage);
-#endif
                     }
-
                     break;
-
-                case TType.SubPanelText:
-                    var subPanelTextColor = GetComponent<TextMeshProUGUI>();
-                    if (subPanelTextColor != null) {
-                        subPanelTextColor.color = activeTheme.SubPanelTextColor;
-                    }
-#if UNITY_EDITOR
-                    UnityEditor.EditorUtility.SetDirty(subPanelTextColor);
-#endif
-                    break;
-
-#endregion
-#region ------ MessagePanel Colors ------
-
-                case TType.MessagePanelBG:
-                    var msgPanelBG = GetComponent<Image>();
-                    if (msgPanelBG != null) {
-                        msgPanelBG.color = activeTheme.MsgPanelBGColor;
-#if UNITY_EDITOR
-                        UnityEditor.EditorUtility.SetDirty(msgPanelBG);
-#endif
-                    }
-
-                    break;
-
-                case TType.MessagePanelTextPanelBG:
-                    var msgPanelTextBG = GetComponent<Image>();
-                    if (msgPanelTextBG != null) {
-                        msgPanelTextBG.color = activeTheme.MsgPanelTextBGColor;
-                    }
-#if UNITY_EDITOR
-                    UnityEditor.EditorUtility.SetDirty(msgPanelTextBG);
-#endif
-                    break;
-                
-                case TType.MessagePanelText:
-                    var msgPanelText = GetComponent<TextMeshProUGUI>();
-                    if (msgPanelText != null) {
-                        msgPanelText.color = activeTheme.MsgPanelTextColor;
-                    }
-#if UNITY_EDITOR
-                    UnityEditor.EditorUtility.SetDirty(msgPanelText);
-#endif
-                    break;
-#endregion            
-                
             }
         }
     }

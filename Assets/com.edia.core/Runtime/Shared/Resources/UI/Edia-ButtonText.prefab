@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: 2176566106719049882}
   - component: {fileID: 7025684099510642922}
   - component: {fileID: 4937393292051782503}
-  - component: {fileID: 3759004864923615216}
   - component: {fileID: 8222430452559124476}
+  - component: {fileID: 8920111591594904794}
   m_Layer: 5
   m_Name: Edia-ButtonText
   m_TagString: Untagged
@@ -134,19 +134,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   radius: 12
   image: {fileID: 2176566106719049882}
---- !u!114 &3759004864923615216
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3286816748335296642}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2508727637751940b1cc50d451d4be0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ThemeComponent: 0
 --- !u!114 &8222430452559124476
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,10 +155,10 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 0.87169814, g: 0.87169814, b: 0.87169814, a: 1}
-    m_HighlightedColor: {r: 0.85098046, g: 0.454902, b: 0.050980397, a: 1}
-    m_PressedColor: {r: 0.20392159, g: 0.6666667, b: 0.6666667, a: 1}
-    m_SelectedColor: {r: 1, g: 0.86274517, b: 0.2901961, a: 1}
+    m_NormalColor: {r: 0.9490196, g: 0.9490196, b: 0.9490196, a: 1}
+    m_HighlightedColor: {r: 0.20392159, g: 0.49803925, b: 0.6666667, a: 1}
+    m_PressedColor: {r: 0.11990588, g: 0.29284713, b: 0.39200002, a: 1}
+    m_SelectedColor: {r: 0.20392159, g: 0.6666667, b: 0.6666667, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -191,6 +178,19 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &8920111591594904794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3286816748335296642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2508727637751940b1cc50d451d4be0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ThemeComponent: 0
 --- !u!1 &4919257203394172486
 GameObject:
   m_ObjectHideFlags: 0
@@ -254,7 +254,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.33, g: 0.69, b: 0.76, a: 0.38}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -297,7 +297,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.50980395}
+  m_EffectColor: {r: 0.050980393, g: 0.050980393, b: 0.050980393, a: 1}
   m_EffectDistance: {x: 2, y: -2}
   m_UseGraphicAlpha: 0
 --- !u!114 &933582104569946235
@@ -312,7 +312,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2508727637751940b1cc50d451d4be0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThemeComponent: 11
+  ThemeComponent: 10
 --- !u!1 &6160014847551194035
 GameObject:
   m_ObjectHideFlags: 0
@@ -553,4 +553,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2508727637751940b1cc50d451d4be0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThemeComponent: 10
+  ThemeComponent: 7

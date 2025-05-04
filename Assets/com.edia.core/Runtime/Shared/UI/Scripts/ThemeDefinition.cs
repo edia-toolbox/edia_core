@@ -13,39 +13,30 @@ namespace Edia {
         [Space(15)]
         [Header("Interactive Elements")]
         [Space(5)]
-        [Header("Button colors")]
-        [SerializeField] private ColorBlock _buttonColorBlock = ColorBlock.defaultColorBlock;
-
-        public ColorBlock ButtonColorBlock {
-            get { return _buttonColorBlock; }
-            set { _buttonColorBlock = value; }
-        }
-
-        public Color ButtonTextColor = Edia.Constants.EdiaColors["grey"];
-        public Color ButtonOutlineColor = Edia.Constants.EdiaColors["grey"];
-        
+        [Header("Global Colors")]
         [Space(15)]
-        [Header("Toggle colors")]
-        [SerializeField] private ColorBlock _toggleColorBlock = ColorBlock.defaultColorBlock;
-
-        public ColorBlock ToggleColorBlock {
-            get { return _toggleColorBlock; }
-            set { _toggleColorBlock = value; }
+        [SerializeField] private ColorBlock _globalColorBlock = ColorBlock.defaultColorBlock;
+        
+        public ColorBlock GlobalColorBlock {
+            get { return _globalColorBlock; }
+            set { _globalColorBlock = value; }
         }
         
-        [Space(15)]
-        [Header("Dropdown colors")]
-        [SerializeField] private ColorBlock _dropDownColorBlock = ColorBlock.defaultColorBlock;
-
-        public ColorBlock DropDownColorBlock {
-            get { return _dropDownColorBlock; }
-            set { _dropDownColorBlock = value; }
-        }
+        [Space(5)]
+        public Color PrimaryTextColor = Edia.Constants.EdiaColors["black"];
+        public Color SecundaryTextColor = Edia.Constants.EdiaColors["white"];
+        public Color TertiaryTextColor = Edia.Constants.EdiaColors["white"];
+        
+        [Space(5)]
+        public Color OutlinesColor = Edia.Constants.EdiaColors["black"];
         
         [Space(15)]
         [Header("Progress bar colors")]
+        [Tooltip("Progress bar static background.")]
         public Color progressBarBGColor = Edia.Constants.EdiaColors["grey"];
+        [Tooltip("Animated progress.")]
         public Color progressBarFillColor = Edia.Constants.EdiaColors["blue"];
+        [Tooltip("Color of textual data.")]
         public Color progressBarTextColor = Edia.Constants.EdiaColors["black"];
         
         [Space(15)]
@@ -55,25 +46,17 @@ namespace Edia {
         
 #endregion
 
-#region Panel Colors
+#region Panels
 
         [Space(15)]
-        public Color MainBGColor = new Color(0.39f, 0.39f, 0.39f, 0.6f);
-        public Color MainPanelTextColor = new Color(0.76f, 0.76f, 0.76f);
+        public Color ControllerPanelColor = new Color(0.39f, 0.39f, 0.39f, 0.6f);
+        public Color PanelColor = new Color(0.35f, 0.44f, 0.52f, 0.59f);
+        public Color SubPanelColor = new Color(0.33f, 0.69f, 0.76f, 0.38f);
 
         [Space(15)]
-        public Color PanelBGColor = new Color(0.35f, 0.44f, 0.52f, 0.59f);
-        public Color PanelTextColor = new Color(0.75f, 0.75f, 0.75f);
-        
-        [Space(15)]
-        public Color SubPanelBGColor = new Color(0.33f, 0.69f, 0.76f, 0.38f);
-        public Color SubPanelTextColor = new Color(0.78f, 0.78f, 0.78f);
-
-        [Space(15)]
-        public Color MsgPanelBGColor = new Color(0.33f, 0.69f, 0.76f, 0.38f);
+        public Color MsgPanelColor = new Color(0.33f, 0.69f, 0.76f, 0.38f);
         public Color MsgPanelTextBGColor = new Color(0.78f, 0.78f, 0.78f);
         public Color MsgPanelTextColor = new Color(0.78f, 0.78f, 0.78f);
-        
         
 #endregion
 
