@@ -11,7 +11,12 @@ PrefabInstance:
     - target: {fileID: 1456728402397629344, guid: c37d48099c81b85459ae179f458ff876,
         type: 3}
       propertyPath: m_Name
-      value: Edia-Panel Variant
+      value: Edia-PanelOutlined
+      objectReference: {fileID: 0}
+    - target: {fileID: 6254355700287120372, guid: c37d48099c81b85459ae179f458ff876,
+        type: 3}
+      propertyPath: ThemeComponent
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7210151903029104362, guid: c37d48099c81b85459ae179f458ff876,
         type: 3}
@@ -125,7 +130,11 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1456728402397629344, guid: c37d48099c81b85459ae179f458ff876,
         type: 3}
       insertIndex: 3
-      addedObject: {fileID: 2628231511817294425}
+      addedObject: {fileID: 4446597883646352790}
+    - targetCorrespondingSourceObject: {fileID: 1456728402397629344, guid: c37d48099c81b85459ae179f458ff876,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7664410553713228214}
   m_SourcePrefab: {fileID: 100100000, guid: c37d48099c81b85459ae179f458ff876, type: 3}
 --- !u!1 &5805976755504361453 stripped
 GameObject:
@@ -133,7 +142,20 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 4946553118874739789}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2628231511817294425
+--- !u!114 &4446597883646352790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5805976755504361453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2508727637751940b1cc50d451d4be0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ThemeComponent: 5
+--- !u!114 &7664410553713228214
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -145,6 +167,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
-  m_EffectDistance: {x: 3, y: -3}
-  m_UseGraphicAlpha: 0
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1

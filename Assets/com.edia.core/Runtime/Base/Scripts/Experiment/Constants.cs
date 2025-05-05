@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Edia.Utilities;
 using UnityEditor;
 using UnityEngine;
@@ -82,30 +83,35 @@ namespace Edia {
             HorizontalTimer 
         }
 
-        public const string               THEME_PATH_KEY = "ActiveThemePath";
-        
-        public static event System.Action OnThemeChanged;
-        private static ThemeDefinition DefaultTheme { get; } = null;
-        public static ThemeDefinition     ActiveTheme = DefaultTheme;
-        
-        public static void UpdateTheme() {
-            var loadedTheme = AssetDatabase.LoadAssetAtPath<ThemeDefinition>(PlayerPrefs.GetString(THEME_PATH_KEY));
-        
-            if (loadedTheme is not null) {
-                ActiveTheme = loadedTheme;
-                Debug.Log($"Applying theme: {ActiveTheme}");
-                ApplyTheme();
-            }
-            else {
-                Debug.Log($"{PlayerPrefs.GetString(THEME_PATH_KEY)} not found, using default theme");
-                ActiveTheme = DefaultTheme;
-                ApplyTheme();
-            }
-        }
+#if UNITY_EDITOR
 
-        public static void ApplyTheme() {
-            OnThemeChanged?.Invoke();
+        private const string DefaultThemePath = "DefaultColorTheme";
+        
+        public static ThemeDefinition ActiveTheme { 
+            get {
+                if (_activeTheme is not null) return _activeTheme;
+                _activeTheme = Resources.Load<ThemeDefinition>(DefaultThemePath);
+                if (_activeTheme is null) {
+                    Debug.LogWarning($"Default Theme not found at Resources/{DefaultThemePath}");
+                }
+                return _activeTheme;
+            }
+            private set => _activeTheme = value;
         }
+        
+        private static ThemeDefinition    _activeTheme;
+        private static List<ThemeHandler> _themeHandlers = new();
+         
+        public static void ApplyTheme(string themePath) {
+            _activeTheme = AssetDatabase.LoadAssetAtPath<ThemeDefinition>(themePath);
+            Debug.Log($"Applying theme {ActiveTheme}");
+            
+            _themeHandlers = GameObject.FindObjectsByType<ThemeHandler>(FindObjectsInactive.Include, FindObjectsSortMode.None).ToList();
+            foreach (var handler in _themeHandlers) {
+                handler.ApplyTheme(ActiveTheme);
+            }
+        }
+#endif
         
 #endregion
 

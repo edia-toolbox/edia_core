@@ -22,6 +22,7 @@ namespace Edia.Controller {
 
 			foreach (Transform tr in children) tr.gameObject.SetActive(onOff);
 			
+			GetComponent<VerticalLayoutGroup>().enabled = onOff;
 			GetComponent<Image>().enabled = onOff;
 			GetComponent<Image>().enabled = onOff;
 			ControlPanel.Instance.ShowPanel(transform, onOff);

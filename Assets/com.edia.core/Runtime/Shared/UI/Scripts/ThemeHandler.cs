@@ -4,60 +4,38 @@ using UnityEngine.UI;
 using TType = Edia.Constants.ThemeComponents;
 
 namespace Edia {
+    /// <summary>
+    /// The ThemeHandler class manages the application of a specific theme to a designated UI component.
+    /// </summary>
+    /// <remarks>
+    /// This class works in conjunction with the Constants.ThemeComponents enumeration, providing functionality
+    /// to link a particular UI component type to a theme. It is designed to work in the Unity environment and
+    /// supports execution both during runtime and in edit mode.
+    /// </remarks>
     [ExecuteInEditMode]
     public class ThemeHandler : MonoBehaviour {
 
         public TType ThemeComponent = TType.Button;
 
-#if UNITY_EDITOR
-        private void Awake() {
-            Edia.Constants.OnThemeChanged += ApplyTheme;
+        private void Awake () {
+        // This makes sure the item updates itself when added to the hierarchy
+            ApplyTheme(Constants.ActiveTheme);
+            // Debug.Log($"Apply {Constants.ActiveTheme}");
         }
 
-        private void OnDestroy() {
-            Edia.Constants.OnThemeChanged -= ApplyTheme;
-        }
-#endif
-
-        private void Start () {
-            ApplyTheme();
-        }
-        /*
-            Applies color settings from theme file
-
-            Button,
-            Toggle,
-            Slider,
-            Dropdown,
-            CTRLPanel,
-            Panel,
-            SubPanel,
-            PrimaryText,
-            SecundaryText,
-            ThirdText,
-            Outlines,
-            MgsPanelBG,
-            MsgPanelTextBG,
-            MsgPanelText,
-            ProgressbarBG,
-            ProgressbarFill,
-            ProgressbarText,
-            HorizontalTimer
-
-         */
-
-        public void ApplyTheme() {
-            ThemeDefinition activeTheme = Edia.Constants.ActiveTheme;
+        // Called from constants.cs when a new theme is applied
+        public void ApplyTheme(ThemeDefinition activeTheme) {
             if (activeTheme is null) {
-                Debug.Log($"{this.name} Theme is null");
+                // Debug.Log($"Theme {Constants.ActiveTheme} is null");
                 return;
-            }
+            } 
 
             switch (ThemeComponent) {
                 case TType.Button:
                     var button = GetComponent<Button>();
                     if (button is not null) {
                         button.colors = activeTheme.GlobalColorBlock;
+                        button.targetGraphic?.SetAllDirty();
 #if UNITY_EDITOR
                         UnityEditor.EditorUtility.SetDirty(button);
 #endif
@@ -78,9 +56,13 @@ namespace Edia {
                 case TType.Slider:
                     var slider = GetComponent<Slider>();
                     if (slider is not null) {
-                        slider.colors = activeTheme.GlobalColorBlock;
+                        slider.colors                                                        = activeTheme.GlobalColorBlock;
+                        slider.transform.GetChild(0).GetComponent<Image>().color = activeTheme.SliderBarBGColor;
+                        slider.transform.GetChild(0).GetChild(0).GetComponent<Image>().color = activeTheme.SliderBarFillColor;
 #if UNITY_EDITOR
                         UnityEditor.EditorUtility.SetDirty(slider);
+                        UnityEditor.EditorUtility.SetDirty(slider.transform.GetChild(0).GetComponent<Image>());
+                        UnityEditor.EditorUtility.SetDirty(slider.transform.GetChild(0).GetChild(0).GetComponent<Image>());
 #endif
                     }
 
