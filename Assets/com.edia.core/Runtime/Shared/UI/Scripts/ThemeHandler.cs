@@ -17,11 +17,11 @@ namespace Edia {
 
         public TType ThemeComponent = TType.Button;
 
-        private void Awake () {
-        // This makes sure the item updates itself when added to the hierarchy
-            ApplyTheme(Constants.ActiveTheme);
-            // Debug.Log($"Apply {Constants.ActiveTheme}");
-        }
+        // private void Awake () {
+        // // This makes sure the item updates itself when added to the hierarchy
+        //     ApplyTheme(Constants.ActiveTheme);
+        //     // Debug.Log($"Apply {Constants.ActiveTheme}");
+        // }
 
         // Called from constants.cs when a new theme is applied
         public void ApplyTheme(ThemeDefinition activeTheme) {
