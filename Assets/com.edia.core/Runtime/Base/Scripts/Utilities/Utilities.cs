@@ -91,6 +91,7 @@ namespace Edia.Utilities {
 		}	
 	}
 
+	#if UNITY_EDITOR
 	/// <summary> Provides tools for managing and creating layers in the Unity editor. </summary>
 	public static class LayerTools {
 		static int failed;
@@ -145,5 +146,6 @@ namespace Edia.Utilities {
 			}
 		}
 	}
+	#endif
 
 }
