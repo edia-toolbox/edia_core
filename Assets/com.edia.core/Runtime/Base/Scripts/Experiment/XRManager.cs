@@ -97,8 +97,8 @@ namespace Edia {
 
                 int msgPanelLayer = LayerMask.NameToLayer(Constants.MsgPanelLayerName);
                 if (msgPanelLayer == -1) {
-                    Debug.LogWarning($"Layer '{nameof(msgPanelLayer)}' not found. Generating default Edia layers. ");
-                    LayerTools.SetupLayers();
+                    Debug.LogError($"Layer '{nameof(msgPanelLayer)}' not found. Add this in the Unity editor project with the Edia Configurator");
+                    Experiment.Instance.ShowMessageToExperimenter("MessagePanel layer not found! See log for details. ");
                 }
 
                 farCasterMask  |= 1 << msgPanelLayer;
