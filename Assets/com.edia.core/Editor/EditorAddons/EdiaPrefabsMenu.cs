@@ -66,5 +66,37 @@ namespace Edia.Editor {
             Undo.RegisterCreatedObjectUndo(instance, $"Create {prefabName}");
             Selection.activeObject = instance;
         }
+        
+        // -----
+        
+        [MenuItem("GameObject/testprefab", false, 10)]
+        private static void CreateTestPrefab(MenuCommand menuCommand) {
+            InstantiatePrefabFromGUID("555c3aec1b98f0c4db924b79bd61d2b5", menuCommand);
+        }
+        
+        private static void InstantiatePrefabFromGUID(string prefabGUID, MenuCommand command) {
+            string path = AssetDatabase.GUIDToAssetPath(prefabGUID);
+            if (string.IsNullOrEmpty(path)) {
+                Debug.LogError($"No asset found with GUID: {prefabGUID}");
+                return;
+            }
+    
+            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(path);
+            if (prefab == null) {
+                Debug.LogError($"Asset at path '{path}' is not a GameObject");
+                return;
+            }
+
+            var instance = (GameObject)PrefabUtility.InstantiatePrefab(prefab);
+            GameObjectUtility.SetParentAndAlign(instance, command.context as GameObject);
+            Undo.RegisterCreatedObjectUndo(instance, $"Create {prefab.name}");
+            Selection.activeObject = instance;
+        }
+
+        [MenuItem("GameObject/UI/EDIA/Package Prefab", false, 10)]
+        private static void CreatePackagePrefab(MenuCommand menuCommand) {
+            // The GUID will remain constant even if the asset is moved
+            InstantiatePrefabFromGUID("a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6", menuCommand);
+        }
     }
 }
