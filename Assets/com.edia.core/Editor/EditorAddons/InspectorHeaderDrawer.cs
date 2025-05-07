@@ -8,21 +8,21 @@ namespace Edia.Editor.Utils {
 
         private GUIStyle labelStyle = new GUIStyle {
             fontSize = 36,
-            font     = Resources.Load<Font>("Bahnschrift-BoldSemiCondensed"),
+            font     = Resources.Load<Font>("Fonts/Bahnschrift-BoldSemiCondensed"),
             normal   = { textColor = Constants.EdiaColors["white"] }
         };
 
         private GUIStyle subLabelStyle = new GUIStyle {
             fontSize  = 22,
             alignment = TextAnchor.LowerRight,
-            font      = Resources.Load<Font>("Bahnschrift-Condensed"),
+            font      = Resources.Load<Font>("Fonts/Bahnschrift-Condensed"),
             normal    = { textColor = Constants.EdiaColors["grey"] }
         };
 
         private GUIStyle descriptionStyle = new GUIStyle {
             fontSize = 12,
             wordWrap = true,
-            font     = Resources.Load<Font>("Bahnschrift-Regular"),
+            font     = Resources.Load<Font>("Fonts/Bahnschrift-Regular"),
             normal   = { textColor = Constants.EdiaColors["grey"] }
         };
 
@@ -34,7 +34,7 @@ namespace Edia.Editor.Utils {
             var InspectorHeaderAttribute = attribute as InspectorHeaderAttribute;
             if (InspectorHeaderAttribute == null) return;
 
-            Texture2D headerBG = Resources.Load<Texture2D>("EdiaHeader");
+            Texture2D headerBG = Resources.Load<Texture2D>($"Icons/EdiaHeader");
             GUI.Box(new Rect(0, 0, 1000, 100), GUIContent.none, new GUIStyle { normal = { background = headerBG } });
             GUI.color = Color.clear;
             
@@ -48,7 +48,7 @@ namespace Edia.Editor.Utils {
             else if (InspectorHeaderAttribute.Label.ToUpper().Contains("RCAS"))
                 iconName = "IconRCAS";
                 
-            Texture2D iconTexture = Resources.Load<Texture2D>(iconName);
+            Texture2D iconTexture = Resources.Load<Texture2D>($"Icons/{iconName}");
             EditorGUI.DrawTextureTransparent(new Rect(18, 20, 60, 60), iconTexture, ScaleMode.ScaleToFit);
             GUI.color = Color.white;
 

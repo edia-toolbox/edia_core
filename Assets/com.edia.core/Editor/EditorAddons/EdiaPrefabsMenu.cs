@@ -4,6 +4,11 @@ using UnityEngine;
 namespace Edia.Editor {
 
     public class EdiaPrefabsMenu : MonoBehaviour {
+        [MenuItem("GameObject/UI/EDIA/VR Canvas", false, 10)]
+        private static void CreateVRCanvas(MenuCommand menuCommand) {
+            InstantiatePrefab("Edia-VRCanvas", menuCommand);
+        }
+        
         [MenuItem("GameObject/UI/EDIA/Button Icon", false, 10)]
         private static void CreateButtonIcon(MenuCommand menuCommand) {
             InstantiatePrefab("Edia-ButtonIcon", menuCommand);
@@ -50,7 +55,7 @@ namespace Edia.Editor {
         }
         
         private static void InstantiatePrefab(string prefabName, MenuCommand command) {
-            var prefab = Resources.Load<GameObject>($"{prefabName}");
+            var prefab = Resources.Load<GameObject>($"UI/{prefabName}");
             if (prefab == null) {
                 Debug.LogError($"Prefab '{prefabName}' not found in Resources/");
                 return;
