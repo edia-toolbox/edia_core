@@ -19,7 +19,7 @@ using UnityEngine.UI;
 
 namespace StartersKit {
 
-    public class TaskStart : XBlock {
+    public class TaskStartersKitFinished : XBlock {
 
         [Header("Far condition")]
         public GameObject  PlayAreaFar;

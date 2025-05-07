@@ -6,7 +6,7 @@ namespace StartersKit {
     /// A break block is also a XBlock, as it is part of the total experiment sequence.
     /// Other examples of Xblocks could be: Questionaire, VR Practice, Mini game, etc.
     /// </summary>
-    public class Break : XBlock {
+    public class BreakStartersKitFinished : XBlock {
 
         private void Awake() {
             /*

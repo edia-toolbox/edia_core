@@ -10,7 +10,7 @@ namespace Edia.Utilities.Editor {
         }
 
         private static void OnSceneSaved(UnityEngine.SceneManagement.Scene scene) {
-            CopyConfigsToSamples(scene);
+            // CopyConfigsToSamples(scene);
         }
 
         private static void CopyConfigsToSamples(UnityEngine.SceneManagement.Scene scene) {
