@@ -4,60 +4,92 @@ using UnityEngine;
 namespace Edia.Editor {
 
     public class EdiaPrefabsMenu : MonoBehaviour {
-        [MenuItem("GameObject/UI/EDIA/VR Canvas", false, 10)]
-        private static void CreateVRCanvas(MenuCommand menuCommand) {
-            InstantiatePrefab("Edia-VRCanvas", menuCommand);
+
+#region UI Prefabs
+
+        [MenuItem("GameObject/EDIA/UI/VR Canvas", false, 0)]
+        private static void CreatePrefabVRCanvas(MenuCommand menuCommand) {
+            InstantiatePrefab("UI", "Edia-VRCanvas", menuCommand);
         }
+
+        [MenuItem("GameObject/EDIA/UI/Panel", false, 1)]
+        private static void CreatePrefabPanel(MenuCommand menuCommand) {
+            InstantiatePrefab("UI", "Edia-Panel", menuCommand);
+        }
+
+        [MenuItem("GameObject/EDIA/UI/Panel Outlined", false, 2)]
+        private static void CreatePrefabPanelOutline(MenuCommand menuCommand) {
+            InstantiatePrefab("UI", "Edia-PanelOutlined", menuCommand);
+        }
+
+        [MenuItem("GameObject/EDIA/UI/Button Text", false, 3)]
+        private static void CreatePrefabButtonText(MenuCommand menuCommand) {
+            InstantiatePrefab("UI", "Edia-ButtonText", menuCommand);
+        }
+
+        [MenuItem("GameObject/EDIA/UI/Button Icon", false, 4)]
+        private static void CreatePrefabButtonIcon(MenuCommand menuCommand) {
+            InstantiatePrefab("UI", "Edia-ButtonIcon", menuCommand);
+        }
+
+        [MenuItem("GameObject/EDIA/UI/Dropdown", false, 5)]
+        private static void CreatePrefabDropdown(MenuCommand menuCommand) {
+            InstantiatePrefab("UI", "Edia-Dropdown", menuCommand);
+        }
+
+        [MenuItem("GameObject/EDIA/UI/Slider", false, 6)]
+        private static void CreatePrefabSlider(MenuCommand menuCommand) {
+            InstantiatePrefab("UI", "Edia-Slider", menuCommand);
+        }
+
+        [MenuItem("GameObject/EDIA/UI/Toggle", false, 7)]
+        private static void CreatePrefabToggle(MenuCommand menuCommand) {
+            InstantiatePrefab("UI", "Edia-Toggle", menuCommand);
+        }
+
+        [MenuItem("GameObject/EDIA/UI/Toggle Text", false, 8)]
+        private static void CreatePrefabToggleText(MenuCommand menuCommand) {
+            InstantiatePrefab("UI", "Edia-ToggleText", menuCommand);
+        }
+
+        [MenuItem("GameObject/EDIA/UI/Timer bar", false, 9)]
+        private static void CreatePrefabTimerBar(MenuCommand menuCommand) {
+            InstantiatePrefab("UI", "Edia-TimerBar", menuCommand);
+        }
+
+        [MenuItem("GameObject/EDIA/UI/Progress bar", false, 10)]
+        private static void CreatePrefabProgressBar(MenuCommand menuCommand) {
+            InstantiatePrefab("UI", "Edia-ProgressBar", menuCommand);
+        }
+#endregion
+#region Core prefabs
         
-        [MenuItem("GameObject/UI/EDIA/Button Icon", false, 10)]
-        private static void CreateButtonIcon(MenuCommand menuCommand) {
-            InstantiatePrefab("Edia-ButtonIcon", menuCommand);
+        [MenuItem("GameObject/EDIA/Core/Edia-XRRig", false, 1)]
+        private static void CreatePrefabEdiaXRRig(MenuCommand menuCommand) {
+            InstantiatePrefab("Core", "Edia-XRRig", menuCommand);
         }
 
-        [MenuItem("GameObject/UI/EDIA/Button Text", false, 11)]
-        private static void CreateButtonText(MenuCommand menuCommand) {
-            InstantiatePrefab("Edia-ButtonText", menuCommand);
+        [MenuItem("GameObject/EDIA/Core/Edia-Executor", false, 2)]
+        private static void CreatePrefabEdiaExecutor(MenuCommand menuCommand) {
+            InstantiatePrefab("Core", "Edia-Executor", menuCommand);
         }
 
-        [MenuItem("GameObject/UI/EDIA/Dropdown", false, 10)]
-        private static void CreateDropdown(MenuCommand menuCommand) {
-            InstantiatePrefab("Edia-Dropdown", menuCommand);
+        [MenuItem("GameObject/EDIA/Core/Edia-Controller", false, 3)]
+        private static void CreatePrefabEdiaController(MenuCommand menuCommand) {
+            InstantiatePrefab("Core", "Edia-Controller", menuCommand);
         }
 
-        [MenuItem("GameObject/UI/EDIA/Panel", false, 10)]
-        private static void CreatePanel(MenuCommand menuCommand) {
-            InstantiatePrefab("Edia-Panel", menuCommand);
+        [MenuItem("GameObject/EDIA/Core/Edia-SceneLoader", false, 4)]
+        private static void CreatePrefabEdiaSceneLoader(MenuCommand menuCommand) {
+            InstantiatePrefab("Core", "Edia-SceneLoader", menuCommand);
         }
 
-        [MenuItem("GameObject/UI/EDIA/Panel Outlined", false, 10)]
-        private static void CreatePanelOutline(MenuCommand menuCommand) {
-            InstantiatePrefab("Edia-PanelOutlined", menuCommand);
-        }
+#endregion
 
-        [MenuItem("GameObject/UI/EDIA/Slider", false, 10)]
-        private static void CreateSlider(MenuCommand menuCommand) {
-            InstantiatePrefab("Edia-Slider", menuCommand);
-        }
-
-        [MenuItem("GameObject/UI/EDIA/Toggle", false, 10)]
-        private static void CreateToggle(MenuCommand menuCommand) {
-            InstantiatePrefab("Edia-Toggle", menuCommand);
-        }
-
-        [MenuItem("GameObject/UI/EDIA/Toggle Text", false, 10)]
-        private static void CreateToggleText(MenuCommand menuCommand) {
-            InstantiatePrefab("Edia-ToggleText", menuCommand);
-        }
-
-        [MenuItem("GameObject/UI/EDIA/Timer bar", false, 10)]
-        private static void CreateTimerBar(MenuCommand menuCommand) {
-            InstantiatePrefab("Edia-HorizontalTimer", menuCommand);
-        }
-        
-        private static void InstantiatePrefab(string prefabName, MenuCommand command) {
-            var prefab = Resources.Load<GameObject>($"UI/{prefabName}");
+        private static void InstantiatePrefab(string subFolder, string prefabName, MenuCommand command) {
+            var prefab = Resources.Load<GameObject>($"Prefabs/{subFolder}/{prefabName}");
             if (prefab == null) {
-                Debug.LogError($"Prefab '{prefabName}' not found in Resources/");
+                Debug.LogError($"Prefab '{prefabName}' not found in Resources/{subFolder}");
                 return;
             }
 
@@ -66,37 +98,6 @@ namespace Edia.Editor {
             Undo.RegisterCreatedObjectUndo(instance, $"Create {prefabName}");
             Selection.activeObject = instance;
         }
-        
-        // -----
-        
-        [MenuItem("GameObject/testprefab", false, 10)]
-        private static void CreateTestPrefab(MenuCommand menuCommand) {
-            InstantiatePrefabFromGUID("555c3aec1b98f0c4db924b79bd61d2b5", menuCommand);
-        }
-        
-        private static void InstantiatePrefabFromGUID(string prefabGUID, MenuCommand command) {
-            string path = AssetDatabase.GUIDToAssetPath(prefabGUID);
-            if (string.IsNullOrEmpty(path)) {
-                Debug.LogError($"No asset found with GUID: {prefabGUID}");
-                return;
-            }
-    
-            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(path);
-            if (prefab == null) {
-                Debug.LogError($"Asset at path '{path}' is not a GameObject");
-                return;
-            }
 
-            var instance = (GameObject)PrefabUtility.InstantiatePrefab(prefab);
-            GameObjectUtility.SetParentAndAlign(instance, command.context as GameObject);
-            Undo.RegisterCreatedObjectUndo(instance, $"Create {prefab.name}");
-            Selection.activeObject = instance;
-        }
-
-        [MenuItem("GameObject/UI/EDIA/Package Prefab", false, 10)]
-        private static void CreatePackagePrefab(MenuCommand menuCommand) {
-            // The GUID will remain constant even if the asset is moved
-            InstantiatePrefabFromGUID("a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6", menuCommand);
-        }
     }
 }
