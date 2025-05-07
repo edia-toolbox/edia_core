@@ -20,7 +20,7 @@ namespace Edia.Editor.Utils {
         }
 
         void OnEnable() {
-            EDIAIcon ??= Resources.Load<Texture2D>("IconEdia");
+            EDIAIcon ??= Resources.Load<Texture2D>("Icons/IconEdia");
         }
 
         static Configurator() {

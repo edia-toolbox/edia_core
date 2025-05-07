@@ -8,7 +8,7 @@ namespace Edia.Editor.Utils {
 
         private GUIStyle labelStyle = new GUIStyle {
             fontSize = 22,
-            font     = Resources.Load<Font>("Bahnschrift-BoldSemiCondensed"),
+            font     = Resources.Load<Font>("Fonts/Bahnschrift-BoldSemiCondensed"),
             normal   = { textColor = Constants.EdiaColors["white"] }
         };
 
@@ -24,7 +24,7 @@ namespace Edia.Editor.Utils {
             EditorGUI.DrawRect(new Rect(0, 20, position.width, GetHeight()), backgroundColor);
             
             GUI.color = Color.clear;
-            Texture2D iconTexture = Resources.Load<Texture2D>("IconEdia");
+            Texture2D iconTexture = Resources.Load<Texture2D>("Icons/IconEdia");
             EditorGUI.DrawTextureTransparent(new Rect(20,30, 30, 30), iconTexture, ScaleMode.ScaleToFit);
             GUI.color = Color.white;
 
