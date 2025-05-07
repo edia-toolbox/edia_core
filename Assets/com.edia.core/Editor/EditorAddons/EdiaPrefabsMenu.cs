@@ -50,9 +50,9 @@ namespace Edia.Editor {
         }
         
         private static void InstantiatePrefab(string prefabName, MenuCommand command) {
-            var prefab = Resources.Load<GameObject>($"UI/{prefabName}");
+            var prefab = Resources.Load<GameObject>($"{prefabName}");
             if (prefab == null) {
-                Debug.LogError($"Prefab '{prefabName}' not found in Resources/Prefabs/Edia/");
+                Debug.LogError($"Prefab '{prefabName}' not found in Resources/");
                 return;
             }
 
