@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Edia.Utilities;
 using UnityEngine;
 using UnityEngine.XR.Hands.Samples.VisualizerSample;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
@@ -42,7 +41,7 @@ namespace Edia {
         public bool TrackXrRigWithUxf = false;
 
         [Tooltip("TODO: Use OPENXR handtracking")] // TODO Make functional + How will this work together with i.e. META handtracking
-        public bool AllowHands = false;
+        // public bool AllowHands = false;
 
         [Header("Debug")]
         public bool ShowConsoleMessages = false;
