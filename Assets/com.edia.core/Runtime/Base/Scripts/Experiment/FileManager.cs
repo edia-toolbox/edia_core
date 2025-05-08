@@ -62,6 +62,8 @@ namespace Edia {
             return result;
         }
 
+        
+        
         /// <summary> Retrieves all subfolder names from the specified subfolder. </summary>
         /// <param name="subFolder">The parent folder to scan for subfolders.</param>
         /// <returns>An array of subfolder names within the specified folder, or null if the directory does not exist or contains no subfolders.</returns>
@@ -239,6 +241,21 @@ namespace Edia {
             return File.Exists(path);
         }
 
+        /// <summary> Determines if a folder exists at the specified application path. </summary>
+        /// <param name="folderName">The name of the folder to check for existence.</param>
+        /// <returns>True if the folder exists, otherwise false.</returns>
+        public static bool FolderExists(string folderName) {
+            string path = GetCorrectPath() + "/" + folderName;
+            return Directory.Exists(path);
+        }
+        
+        /// <summary> Determines if the configs folder exists in the application path. </summary>
+        /// <returns>True if the configs folder exists, otherwise false.</returns>
+        public static bool DoesConfigsFolderExist() {
+            return FolderExists("configs");
+        }
+        
+        
         /// <summary>Tries to read the given text-based file.</summary>
         /// <param name="fileName">Path to the file to read</param>
         /// <returns>Content of the file</returns>

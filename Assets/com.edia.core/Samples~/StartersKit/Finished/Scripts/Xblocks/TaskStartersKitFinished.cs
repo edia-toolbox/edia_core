@@ -111,7 +111,7 @@ namespace StartersKit {
              *   - Directly: Experiment.Instance.Proceed();
              *   - Delayed: Experiment.Instance.ProceedWithDelay (seconds as float)
              *   - User dependent: I.e. when a button is pressed in VR -> proceed by calling Experiment.Instance.Proceed() in a callback method.
-             */
+             */ 
 
             if (_currentTaskCondition == "far") {
                 /*

@@ -40,11 +40,21 @@ namespace Edia.Controller {
         public void Init() {
             Reset();
 
-            EventManager.StartListening(Edia.Events.Config.EvFoundLocalConfigFiles, OnEvFoundLocalConfigFiles);
+            if (!FileManager.DoesConfigsFolderExist()) {
+                ControlPanel.Instance.ShowMessage("No `config` folder found!", false);
+                return; 
+            }
 
             string[] tempFolders = FileManager.GetAllSubFolders(PathToParticipantFiles);
             _subFolders.Clear();
 
+            if (tempFolders == null) {
+                ControlPanel.Instance.ShowMessage("No participant folders found!", false);
+                return; // No participant folders found, so we can't continue.'
+            }
+
+            EventManager.StartListening(Edia.Events.Config.EvFoundLocalConfigFiles, OnEvFoundLocalConfigFiles);
+            
             // Remove non valid folder names
             foreach (string subFolder in tempFolders) {
                 if (subFolder.StartsWith("sub-"))
