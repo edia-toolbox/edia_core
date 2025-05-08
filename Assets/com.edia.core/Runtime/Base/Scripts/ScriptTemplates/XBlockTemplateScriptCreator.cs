@@ -53,6 +53,7 @@ public class XBlockTemplate : XBlock {
     // -------------------------------------------------------------------------------------------
     // #1
     /// <summary>Prepare and show stimuli</summary>
+    [ContextMenu(""SetupAndShowStimuli"")]
     void SetupAndShowStimuli() {
         /*
             Some examples:
@@ -70,6 +71,7 @@ public class XBlockTemplate : XBlock {
     // -------------------------------------------------------------------------------------------
     // #2
     /// <summary>Wait on user input</summary>
+    [ContextMenu(""UserInput"")]
     void UserInput() {
         /*
          * Enable user interaction.
@@ -102,6 +104,7 @@ public class XBlockTemplate : XBlock {
     // -------------------------------------------------------------------------------------------
     // #3
     /// <summary>Validate and log data</summary>
+    [ContextMenu(""ValidateAndLogUserInput"")]
     void ValidateAndLogUserInput() {
         // Add results and relevant data to trial results
         Experiment.Instance.AddToTrialResults(""selection"", _selectedStimulus.ToString());
