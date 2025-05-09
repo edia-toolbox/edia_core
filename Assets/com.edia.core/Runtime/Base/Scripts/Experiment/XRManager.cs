@@ -289,9 +289,9 @@ namespace Edia {
             Fade(false, fadeSpeed);
         }
 
-        void Fade(bool _onOff, float _fadeSpeed) {
-            if (_onOff) XRCam.GetComponent<ScreenFader>().StartFadeBlackIn(_fadeSpeed);
-            else XRCam.GetComponent<ScreenFader>().StartFadeBlackOut(_fadeSpeed);
+        void Fade(bool _onOff, float fadeSpeed) {
+            if (_onOff) XRCam.GetComponent<ScreenFader>().StartFadeBlackIn(fadeSpeed);
+            else XRCam.GetComponent<ScreenFader>().StartFadeBlackOut(fadeSpeed);
         }
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------

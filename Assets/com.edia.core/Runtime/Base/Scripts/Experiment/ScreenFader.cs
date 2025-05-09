@@ -9,12 +9,37 @@ namespace Edia {
     /// <summary> Handles fading the camera view </summary>
     public class ScreenFader : MonoBehaviour {
 
+        /// <summary>
+        /// Represents the mesh renderer used for blocking or fading the camera's view.
+        /// </summary>
+        /// <remarks>
+        /// This renderer is utilized in conjunction with the <see cref="ScreenFader"/> component to display
+        /// and manage fade effects such as transitioning in or out of scenes. The material of this object
+        /// is dynamically adjusted during fade operations to manipulate color intensity and transparency.
+        /// Ensure that this reference is set in the inspector or during runtime to avoid null reference issues.
+        /// </remarks>
         [Header("Refs")]
         public MeshRenderer BlockObject = null;
 
+        /// <summary>
+        /// Defines the color used for screen fading effects.
+        /// </summary>
+        /// <remarks>
+        /// This color determines the appearance of the fade effect applied by the <see cref="ScreenFader"/> component.
+        /// The alpha value of the color is dynamically adjusted during fade transitions to create a smooth effect.
+        /// By default, the color is set to black.
+        /// </remarks>
         [Header("Settings")]
         public Color FadeColor = Color.black;
 
+        /// <summary>
+        /// Determines the speed at which the screen fades to and from black.
+        /// </summary>
+        /// <remarks>
+        /// This value is used by the <see cref="ScreenFader"/> methods to control
+        /// the rate of fading transitions. Typically, higher values result in faster fades,
+        /// while lower values create slower transitions. The default value is 1.0f.
+        /// </remarks>
         public float FadeSpeed = 1f;
 
         // Internal

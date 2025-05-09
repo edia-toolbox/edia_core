@@ -5,7 +5,7 @@ using UnityEditor;
 #endif
 
 namespace Edia {
-    [CreateAssetMenu(fileName = "ColorTheme", menuName = "EDIA/UI/Color Theme File")]
+    [CreateAssetMenu(fileName = "ColorTheme", menuName = "EDIA/Color Theme File")]
     public class ThemeDefinition : ScriptableObject {
 
 #region Interactive Elements

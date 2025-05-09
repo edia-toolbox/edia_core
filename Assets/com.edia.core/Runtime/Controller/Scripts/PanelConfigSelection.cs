@@ -224,7 +224,9 @@ namespace Edia.Controller {
                 }
 
                 if (!found) {
-                    ControlPanel.Instance.AddToConsole("No <b>" + s + ".json</b> config file not found in xblock definitions folder", LogType.Error);
+                    var message = "No <b>" + s + ".json</b> config file found in block-definitions/";
+                    ControlPanel.Instance.AddToConsole(message, LogType.Error);
+                    ControlPanel.Instance.ShowMessage(message, false);
                     return false;
                 }
             }
