@@ -64,8 +64,11 @@ public class XBlockTemplate : XBlock {
         */
 
         /*
-         * A step always ends with either a 'PROCEED' or 'WAITONPROCEED'
+         * A step always ends with either a 'PROCEED' and/or 'WAITONPROCEED'
          */
+
+        Experiment.Instance.WaitOnProceed();
+        Experiment.Instance.Proceed();
     }
 
     // -------------------------------------------------------------------------------------------
