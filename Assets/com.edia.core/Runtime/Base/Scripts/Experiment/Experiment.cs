@@ -135,16 +135,14 @@ namespace Edia {
             }
         }
 
-        // \cond \hiderefs
         /// <summary>
-        /// Retuns true/false depending if the gameobject is found belonging to the assetId given
+        /// Determines if an XBlock executor with the given asset ID is listed in the experiment's executors.
         /// </summary>
-        /// <param name="assetId"></param>
-        /// <returns></returns>
+        /// <param name="assetId">The unique identifier of the XBlock executor to check for.</param>
+        /// <returns>True if an executor with the specified asset ID is listed, otherwise false.</returns>
         public bool IsXblockExecuterListed(string assetId) {
             return Executors.Any(go => go.name == assetId);
         }
-        // \endcond
 
         private void Reset() {
             _activeSessionBlockNum = 0;
@@ -213,7 +211,7 @@ namespace Edia {
             MessagePanelInVR.Instance.ShowMessage(msgs);
         }
 
-        /// <summary>Show a message to the VR user in the MessagePanelInVR for a certain duration.</summary>
+        /// <summary>Show a message to the VR user in the MessagePanelInVR for a certain duration. Does NOT auto proceed</summary>
         /// <param name="msg">Message to show</param>
         /// <param name="duration">Time to show the message</param>
         public void ShowMessageToUser(string msg, float duration) {
@@ -239,7 +237,9 @@ namespace Edia {
             EnableEyeCalibrationTrigger(true);
         }
 
-        /// <summary> Hide the MessagePanelInVR menu </summary>
+        /// <summary>
+        /// Hides the message panel menu in the VR environment.
+        /// </summary>
         public void HideMessagePanelMenu() {
             MessagePanelInVR.Instance.HideMenu();
         }
@@ -682,20 +682,6 @@ namespace Edia {
 
             // Save data
             Session.instance.CurrentTrial.SaveDataTable(data, filename);
-        }
-
-        /// <summary>Converts given data to a UXF Table, and stores the data to disk linked to the active trial at the time</summary>
-        /// <param name="headers">Headers of the data</param>
-        /// <param name="values">Data as List<int></param>
-        /// <param name="filename">Name to store the data with</param>
-        public void ConvertAndSaveDataToUXF(string[] headers, List<int> values, string filename) {
-            List<string[]> converted = new List<string[]>();
-
-            for (int i = 0; i < values.Count; i++) {
-                converted.Add(new string[] { (i + 1).ToString(), values[i].ToString() });
-            }
-
-            ConvertAndSaveDataToUXF(headers, converted, filename);
         }
 
         private void AddToExecutionOrderLog(string description) {

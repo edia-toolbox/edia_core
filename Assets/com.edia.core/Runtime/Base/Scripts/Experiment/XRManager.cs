@@ -42,7 +42,6 @@ namespace Edia {
 
         [Tooltip("TODO: Use OPENXR handtracking")] // TODO Make functional + How will this work together with i.e. META handtracking
         // public bool AllowHands = false;
-
         [Header("Debug")]
         public bool ShowConsoleMessages = false;
 
@@ -77,8 +76,6 @@ namespace Edia {
         }
 
         private void Start() {
-            
-            
             InitialiseInteractors(XRLeft.NearFarInteractors);
             InitialiseInteractors(XRRight.NearFarInteractors);
 
@@ -100,7 +97,7 @@ namespace Edia {
                     Experiment.Instance.ShowMessageToExperimenter("MessagePanel layer not found! See log for details. ");
                 }
 
-                farCasterMask  |= 1 << msgPanelLayer;
+                farCasterMask                                                 |= 1 << msgPanelLayer;
                 interactor.GetComponent<CurveInteractionCaster>().raycastMask =  farCasterMask;
             }
         }
@@ -175,18 +172,34 @@ namespace Edia {
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region XR Locomotion
 
+        /// <summary>
+        /// [Not yet implemented] Enables or disables teleportation functionality in the XR environment.
+        /// </summary>
+        /// <param name="onOff">True/False</param>
         public void EnableTeleportation(bool onOff) {
             // TODO implement
         }
 
+        /// <summary>
+        /// [Not yet implemented] Enables or disables climbing functionality within the XR environment.
+        /// </summary>
+        /// <param name="onOff">True/False</param>
         public void EnableClimbing(bool onOff) {
             // TODO implement
         }
 
+        /// <summary>
+        /// [Not yet implemented] Enables or disables the movement functionality for the XR rig.
+        /// </summary>
+        /// <param name="onOff">True/False</param>
         public void EnableMoving(bool onOff) {
             // TODO implement
         }
 
+        /// <summary>
+        /// [Not yet implemented] Toggles the ability to rotate or turn within the XR environment.
+        /// </summary>
+        /// <param name="onOff">True/False</param>
         public void EnableTurning(bool onOff) {
             // TODO implement
         }
@@ -194,26 +207,42 @@ namespace Edia {
 #endregion
 #region Debug
 
+        /// <summary>
+        /// Activates the ray interactor to enable interaction with distant objects
+        /// in the XR environment by utilizing ray interaction functionality.
+        /// </summary>
         [ContextMenu("TurnOnRayInteractor")]
         public void TurnOnRayInteractor() {
             EnableRayInteraction(true);
         }
 
+        /// <summary>
+        /// Activates the Poke Interactor feature in the XR environment, enabling interactions
+        /// through poke-based gestures or tools. 
         [ContextMenu("TurnOnPokeInteractor")]
         public void TurnOnPokeInteractor() {
             EnablePokeInteraction(true);
         }
 
+        /// <summary>
+        /// Activates the visibility of the hand meshes in the XR environment.
+        /// </summary>
         [ContextMenu("ShowHands")]
         public void ShowHands() {
             ShowHands(true);
         }
 
+        /// <summary>
+        /// Hides the hand meshes in the XR environment, disabling their visibility.
+        /// </summary>
         [ContextMenu("HideHands")]
         public void HideHands() {
             ShowHands(false);
         }
 
+        /// <summary>
+        /// Activates the controller models for the left and right controllers in the XR system.
+        /// </summary>
         [ContextMenu("ShowControllers")]
         public void ShowControllers() {
             ShowControllers(true);
@@ -321,10 +350,12 @@ namespace Edia {
             for (int i = 0; i < t.childCount; i++)
                 SetLayerRecursively(t.GetChild(i).gameObject, layer);
         }
- public void AddToConsole(string _msg) {
+
+        public void AddToConsole(string _msg) {
             if (ShowConsoleMessages)
                 Edia.Utilities.Log.AddToConsoleLog(_msg, "XRManager");
         }
+
 #endregion
     }
 }

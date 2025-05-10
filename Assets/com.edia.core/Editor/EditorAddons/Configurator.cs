@@ -149,11 +149,6 @@ namespace Edia.Editor.Utils {
             GUILayout.Label("EDIA provides a customizable UI color theme. The theme is applied to all EDIA UI elements in the project.",boxStyle);
 
             EditorGUILayout.BeginHorizontal(); 
-            GUILayout.Label($"Last applied theme: {(Constants.ActiveTheme is not null ? Constants.ActiveTheme.name : "None")}");
-            if (GUILayout.Button("Apply", GUILayout.Width(80))) {
-                string themePath = AssetDatabase.GetAssetPath(Constants.ActiveTheme);
-                Constants.ApplyTheme(themePath); 
-            }
             if (GUILayout.Button("Create", GUILayout.Width(80))) {
                 CreateNewTheme();
             }
