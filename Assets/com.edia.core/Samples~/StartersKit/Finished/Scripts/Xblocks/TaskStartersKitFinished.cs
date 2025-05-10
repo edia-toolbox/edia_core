@@ -126,7 +126,7 @@ namespace StartersKit {
                     SelectionImages[i].color = _blockColors[i];
                 }
 
-                StimuliHolderFar.transform.GetChild(0).GetComponent<MeshRenderer>().material.SetColor(("_BaseColor"),_currentStimuliColor);            
+                StimuliHolderFar.GetComponent<MeshRenderer>().material.SetColor(("_BaseColor"),_currentStimuliColor);            
                 StimuliHolderFar.SetActive(true);
                 Experiment.Instance.ProceedWithDelay(Session.instance.CurrentBlock.settings.GetFloat("timer_showcube"));
             }
