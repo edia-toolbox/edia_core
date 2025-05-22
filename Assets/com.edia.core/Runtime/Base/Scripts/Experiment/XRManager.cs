@@ -23,6 +23,7 @@ namespace Edia {
         public UXF.Tracker             UXFPoseTracker;
         public List<NearFarInteractor> NearFarInteractors = new();
         public List<XRPokeInteractor>  PokeInteractors    = new();
+        public GameObject              TeleportInteractorObject;
     }
 
     /// <summary>
@@ -37,11 +38,15 @@ namespace Edia {
 
         [Header("Settings")]
         [InspectorHeader("EDIA CORE", "XR Rig", "Manages all XR related calls for the framework")]
+        public bool AllowTeleportation = false;
+        public bool AllowClimbing      = false;
+        public bool AllowMoving        = false;
+        public bool AllowTurning       = false;
+        
+        [Space(10)]
         [Tooltip("Use UXF to track and save XR Rig Position & Rotation data")]
         public bool TrackXrRigWithUxf = false;
-
-        [Tooltip("TODO: Use OPENXR handtracking")] // TODO Make functional + How will this work together with i.e. META handtracking
-        // public bool AllowHands = false;
+        
         [Header("Debug")]
         public bool ShowConsoleMessages = false;
 
@@ -53,6 +58,9 @@ namespace Edia {
 
         public XRController XRLeft;
         public XRController XRRight;
+        public GameObject   TurningLogicObject;
+        public GameObject   MovingLogicObject;
+        public GameObject   ClimbingLogicObject;
 
         // Internals
         bool isInteractive = false;
@@ -78,9 +86,14 @@ namespace Edia {
         private void Start() {
             InitialiseInteractors(XRLeft.NearFarInteractors);
             InitialiseInteractors(XRRight.NearFarInteractors);
-
+            
             DisableAllInteractors(); // Unity enables them by default.
 
+            EnableTeleportation(AllowTeleportation);
+            EnableClimbing(AllowClimbing);
+            EnableMoving(AllowMoving);
+            EnableTurning(AllowTurning);
+            
             if (TrackXrRigWithUxf)
                 AddXRRigToUXFTracking();
         }
@@ -170,14 +183,15 @@ namespace Edia {
         }
 
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
-#region XR Locomotion
+#region XR Locomotion 
 
         /// <summary>
         /// [Not yet implemented] Enables or disables teleportation functionality in the XR environment.
         /// </summary>
         /// <param name="onOff">True/False</param>
         public void EnableTeleportation(bool onOff) {
-            // TODO implement
+            XRLeft.TeleportInteractorObject.SetActive(onOff);
+            XRRight.TeleportInteractorObject.SetActive(onOff);
         }
 
         /// <summary>
@@ -185,7 +199,7 @@ namespace Edia {
         /// </summary>
         /// <param name="onOff">True/False</param>
         public void EnableClimbing(bool onOff) {
-            // TODO implement
+            ClimbingLogicObject.SetActive(onOff);
         }
 
         /// <summary>
@@ -193,7 +207,7 @@ namespace Edia {
         /// </summary>
         /// <param name="onOff">True/False</param>
         public void EnableMoving(bool onOff) {
-            // TODO implement
+            MovingLogicObject.SetActive(onOff);
         }
 
         /// <summary>
@@ -201,7 +215,7 @@ namespace Edia {
         /// </summary>
         /// <param name="onOff">True/False</param>
         public void EnableTurning(bool onOff) {
-            // TODO implement
+            TurningLogicObject.SetActive(onOff);
         }
 
 #endregion
