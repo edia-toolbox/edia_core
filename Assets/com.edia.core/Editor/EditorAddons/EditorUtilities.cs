@@ -21,6 +21,7 @@ namespace Edia.Utilities {
                 AddLayerAt(layers, 3, "Hidden", false);
                 AddLayerAt(layers, 6, "ControlUI", false);
                 AddLayerAt(layers, 7, Constants.MsgPanelLayerName, false);
+                AddLayerAt(layers,8,"GazeCollision", false);
                 AddLayerAt(layers,9,"EyeTrackingViz", false);
                 AddLayerAt(layers, 31, "Teleport", false);
 
