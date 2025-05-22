@@ -68,7 +68,7 @@ namespace Edia {
             // Set panel behaviour
             switch (PanelBehaviour) {
                 case PanelBehaviours.WorldPosition:
-                    this.transform.SetParent(null, true);
+                    this.transform.SetParent(null, false);
                     break;
                 case PanelBehaviours.StuckToHMD:
                     transform.parent        = XRManager.Instance.XRCam.transform;
