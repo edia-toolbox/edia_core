@@ -32,12 +32,12 @@ namespace Edia {
     /// Includes features such as enabling/disabling interaction types, managing XR rig movement,
     /// and controlling the visibility of hands or controllers.
     /// </summary>
+    [EdiaHeader("EDIA CORE", "XR Rig", "Manages all XR related calls for the framework")]
     public class XRManager : Singleton<XRManager> {
 
 #region PROPERTIES
 
         [Header("Settings")]
-        [InspectorHeader("EDIA CORE", "XR Rig", "Manages all XR related calls for the framework")]
         public bool AllowTeleportation = false;
         public bool AllowClimbing      = false;
         public bool AllowMoving        = false;

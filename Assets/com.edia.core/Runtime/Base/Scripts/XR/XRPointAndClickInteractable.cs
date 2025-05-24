@@ -8,11 +8,9 @@ using UnityEngine.XR.Interaction.Toolkit.Interactables;
 namespace Edia.XR {
     [RequireComponent(typeof(XRSimpleInteractable))]
     [AddComponentMenu("EDIA/XR Interactable PointAndClick")]
+    [EdiaHeader("Point and Click", "XR Interactable", "Fires 'Selected' event when the trigger is pressed while hovering over the interactable object.")]
     public class XRPointAndClickInteractable : MonoBehaviour {
 
-        [Header("Settings")]
-        [InspectorHeader("Point and Click", "XR Interactable",
-            "Fires 'Selected' event when the trigger is pressed while hovering over the interactable object.")]
         [Tooltip("Link up all inputactions.")]
         public List<InputActionReference> TriggerPressedInputActionReferences = new();
 

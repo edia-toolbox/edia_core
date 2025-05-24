@@ -4,10 +4,8 @@ using UnityEngine;
 using static Edia.Constants;
 
 namespace Edia.Controller {
+    [EdiaHeader("EDIA CORE","Experiment Controller", "The control panel for the experimenter. State aware panels will show up here")]
     public class ControlPanel : Singleton<ControlPanel> {
-
-        [Header("Settings")]
-        [InspectorHeader("EDIA CORE","Experiment Controller", "The control panel for the experimenter. State aware panels will show up here")]
 
         [Header("Debug")]
         public bool ShowConsoleMessages = false;

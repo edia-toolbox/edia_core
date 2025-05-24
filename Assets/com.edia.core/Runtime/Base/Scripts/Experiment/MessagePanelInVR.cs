@@ -9,6 +9,7 @@ namespace Edia {
     /// <summary>Show the user a message in VR</summary>
     [RequireComponent(typeof(Canvas))]
     [RequireComponent(typeof(TrackedDeviceGraphicRaycaster))]
+    [EdiaHeader("EDIA CORE", "Message panel in VR", "The main VR Canvas panel to inform the VR User.")]
     public class MessagePanelInVR : Singleton<MessagePanelInVR> {
 
         public enum PanelBehaviours {
@@ -18,7 +19,6 @@ namespace Edia {
         }
 
         [Header("Settings")]
-        [InspectorHeader("EDIA CORE", "Message panel in VR", "The main VR Canvas panel to inform the VR User.")]
         [Tooltip("Panel behaviour. World position, stuck to HMD or world orbit. If world orbit, the panel will orbit around the user's head.")]
         public PanelBehaviours PanelBehaviour = PanelBehaviours.WorldPosition;
 

@@ -6,12 +6,12 @@ using UnityEditor;
 
 namespace Edia {
     [CreateAssetMenu(fileName = "ColorTheme", menuName = "EDIA/Color Theme File")]
+    [EdiaHeader("EDIA THEME", "CUSTOM COLOR THEME", "Configure the visual theme colors for your UI here.")]
     public class ThemeDefinition : ScriptableObject {
 
 #region Interactive Elements
 
         [Header("Color Theme ")]
-        [InspectorHeader("EDIA THEME", "CUSTOM COLOR THEME", "Configure the visual theme colors for your UI here.")]
         [Space(15)]
         [Header("Color block applied to interactive elements")]
         public ColorBlock GlobalColorBlock = new ColorBlock {

@@ -15,6 +15,7 @@ namespace Edia {
     /// Handles the statemachine, encapsulating UXF.
     /// Offers developers friendly and easy access to most used functionalities for controlling an experiment.
     /// </summary>
+    [EdiaHeader("EDIA CORE", "Experiment Executor", "This executes the experiment based on the defined XBlock executors ")]
     public class Experiment : Singleton<Experiment> {
 
         private enum States {
@@ -27,8 +28,6 @@ namespace Edia {
         private States State      = States.Idle;
         private States _prevState = States.Idle;
 
-        [Header("Experiment")]
-        [InspectorHeader("EDIA CORE", "Experiment Executor", "This executes the experiment based on the defined XBlock executors ")]
         public List<XBlock> Executors = new();
 
         [Header("Debug")]

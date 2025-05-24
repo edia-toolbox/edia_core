@@ -4,9 +4,9 @@ using UnityEngine.SceneManagement;
 
 namespace Edia {
 
+    [EdiaHeader("EDIA CORE", "Scene Loader", "Loads a additional scene")]
     public class SceneLoader : Singleton<SceneLoader> {
         [Header("Scene Loader")]
-        [InspectorHeader("EDIA CORE", "Scene Loader", "Loads a additional scene")]
         [SerializeField] private Object sceneAsset;
 
         private string _sceneName;
