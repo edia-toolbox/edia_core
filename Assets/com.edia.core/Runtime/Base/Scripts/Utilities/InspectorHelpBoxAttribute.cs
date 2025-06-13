@@ -1,5 +1,8 @@
 using UnityEngine;
+
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 
 /// <summary>
 /// Attribute used to display a help box in the Unity inspector for the associated property.
@@ -11,12 +14,20 @@ using UnityEditor;
 /// </remarks>
 public class InspectorHelpBoxAttribute : PropertyAttribute
 {
-    public          string      message;
-    public          MessageType type;
+    public string message;
+    
+#if UNITY_EDITOR
+    public MessageType type;
 
     public InspectorHelpBoxAttribute(string message, MessageType type = MessageType.None)
     {
-        this.message  = message;
-        this.type     = type;
+        this.message = message;
+        this.type    = type;
     }
+#else
+    public InspectorHelpBoxAttribute(string message)
+    {
+        this.message = message;
+    }
+#endif
 }
