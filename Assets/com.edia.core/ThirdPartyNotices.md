@@ -7,8 +7,8 @@ This project incorporates the following third-party libraries, assets, or code, 
 * [License Information](https://github.com/immersivecognition/unity-experiment-framework/blob/master/LICENSE)
 
 ## [SimpleFileBrowser](https://github.com/yasirkula/UnitySimpleFileBrowser)
-* Copyright (c) Yasir Kula
-* [License Information](https://github.com/yasirkula/UnitySimpleFileBrowser/blob/master/LICENSE)
+* Copyright (c) 2016 Süleyman Yasir KULA
+* [License Information](https://github.com/yasirkula/UnitySimpleFileBrowser/blob/master/LICENSE.txt)
 
 ## [RoundedUICorners](https://github.com/kirevdokimov/Unity-UI-Rounded-Corners)
 * Copyright (c) kirevdokimov
