@@ -87,5 +87,5 @@ If you want to [contribute](./CONTRIBUTOR.md) code, ideally first reach out to u
 ## Citation
 If you are using the `EDIA` toolbox or any of its constituents, please cite this repository as _Software_:
 ```
-Klotzsche, F., & de Mooij, J. (2025). EDIA — A Unity XR toolbox for research (Version X.X) [Computer software]. GitHub. https://github.com/edia-toolbox/edia_core
+Klotzsche, F., & de Mooij, J. EDIA — A Unity XR Toolbox for Research [Computer software]. https://github.com/edia-toolbox/edia_core
 ```
