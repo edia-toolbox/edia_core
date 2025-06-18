@@ -13,7 +13,7 @@ public class InspectorHelpBoxDrawer : PropertyDrawer {
         style                  = new GUIStyle(EditorStyles.wordWrappedLabel);
         style.richText         = true;
         style.alignment        = TextAnchor.MiddleLeft;
-        style.font             = Resources.Load<Font>("Fonts/Bahnschrift-BoldSemiCondensed");
+        style.font             = Resources.Load<Font>("Fonts/Barlow/BarlowSemiCondensed-Bold");
         style.fontSize         = 14;
         style.normal.textColor = Edia.Constants.EdiaColors["white"];
     }

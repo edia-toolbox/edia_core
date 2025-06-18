@@ -10,7 +10,7 @@ namespace Edia.Editor.Utils {
 
         private GUIStyle labelStyle = new GUIStyle {
             fontSize = 22,
-            font     = Resources.Load<Font>("Fonts/Bahnschrift-BoldSemiCondensed"),
+            font     = Resources.Load<Font>("Fonts/Barlow/BarlowSemiCondensed-Bold"),
             normal   = { textColor = Constants.EdiaColors["white"] }
         };
 

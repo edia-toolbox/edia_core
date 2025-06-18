@@ -80,7 +80,8 @@ namespace Edia {
             ProgressbarBG,
             ProgressbarFill,
             ProgressbarText,
-            HorizontalTimer 
+            HorizontalTimer,
+            Scrollbar
         }
 
 #if UNITY_EDITOR

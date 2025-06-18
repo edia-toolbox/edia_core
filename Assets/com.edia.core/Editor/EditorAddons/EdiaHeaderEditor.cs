@@ -37,21 +37,21 @@ public class EdiaHeaderEditor : Editor {
         labelStyle = new GUIStyle {
             fontSize  = 36,
             alignment = TextAnchor.UpperLeft,
-            font      = Resources.Load<Font>("Fonts/Bahnschrift-BoldSemiCondensed"),
+            font      = Resources.Load<Font>("Fonts/Barlow/BarlowSemiCondensed-SemiBold"),
             normal    = { textColor = Edia.Constants.EdiaColors["white"] }
         };
 
         subLabelStyle = new GUIStyle {
             fontSize  = 22,
             alignment = TextAnchor.LowerRight,
-            font      = Resources.Load<Font>("Fonts/Bahnschrift-Condensed"),
+            font      = Resources.Load<Font>("Fonts/Barlow/BarlowSemiCondensed-Medium"),
             normal    = { textColor = Edia.Constants.EdiaColors["grey"] }
         };
 
         descriptionStyle = new GUIStyle {
             fontSize = 12,
             wordWrap = true,
-            font     = Resources.Load<Font>("Fonts/Bahnschrift-Regular"),
+            font     = Resources.Load<Font>("Fonts/Barlow/BarlowSemiCondensed-Regular"),
             normal   = { textColor = Edia.Constants.EdiaColors["grey"] }
         };
     }

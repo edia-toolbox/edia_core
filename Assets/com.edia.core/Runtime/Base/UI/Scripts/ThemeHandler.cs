@@ -238,6 +238,15 @@ namespace Edia {
 #endif
                     }
                     break;
+                case TType.Scrollbar:
+                    var scrollBar = GetComponent<Scrollbar>();
+                    if (scrollBar is not null) {
+                        scrollBar.colors = activeTheme.GlobalColorBlock;
+#if UNITY_EDITOR
+                        UnityEditor.EditorUtility.SetDirty(scrollBar);
+#endif
+                    }
+                    break;
             }
         }
     }
