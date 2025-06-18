@@ -13,7 +13,7 @@ namespace Edia {
 
 	#region Variables
 
-		string ActionMapName = "eDIA"; // Default eDIA XR mapping config
+		string ActionMapName = "EDIA"; // Default eDIA XR mapping config
 		InputActionMap actionmap = null;
 
 		InputAction actionMenu 		= null;
