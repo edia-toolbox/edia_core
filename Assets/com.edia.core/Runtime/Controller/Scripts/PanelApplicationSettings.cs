@@ -9,8 +9,7 @@ using static Edia.Constants;
 namespace Edia.Controller {
     public class PanelApplicationSettings : ExperimenterPanel {
         [Header("Refs")]
-        public Button btnApply = null;
-
+        public Button       btnApply = null;
         public Button          btnClose                = null;
         public Button          btnBrowse               = null;
         public Button          btnQuit                 = null;
@@ -66,11 +65,16 @@ namespace Edia.Controller {
             interactiveSideDropdown.value = GetDropdownOptionIndexByStringValue(localSystemSettingsContainer.InteractiveSide);
             pathToLogfilesField.text      = localSystemSettingsContainer.pathToLogfiles;
 
-            btnApply.interactable = false;
-
             ShowPanel();
 
             panelFilePath.SetActive(ControlPanel.Instance.ControlMode == ControlModes.Local);
+
+            if (ControlPanel.Instance.ControlMode == ControlModes.Local) {
+                if (localSystemSettingsContainer.pathToLogfiles == "./Edia-logfiles") // default value
+                    return;
+                else if (!FileManager.FolderExists(localSystemSettingsContainer.pathToLogfiles))
+                    ControlPanel.Instance.ShowMessage($"Setting path not found! \n{localSystemSettingsContainer.pathToLogfiles}\nOpen settings by clicking on logo.", false);
+            }
         }
 
         private int GetDropdownOptionIndexByStringValue(string value) {
@@ -89,7 +93,7 @@ namespace Edia.Controller {
             interactiveSideDropdown.ClearOptions();
 
             List<TMP_Dropdown.OptionData> options   = new List<TMP_Dropdown.OptionData>();
-            TMP_Dropdown.OptionData newOption = new TMP_Dropdown.OptionData("LEFT");
+            TMP_Dropdown.OptionData       newOption = new TMP_Dropdown.OptionData("LEFT");
             options.Add(newOption);
             newOption = new TMP_Dropdown.OptionData("RIGHT");
             options.Add(newOption);
@@ -100,13 +104,6 @@ namespace Edia.Controller {
 
             interactiveSideDropdown.AddOptions(options);
         }
-
-        private void InteractiveValueChanged() {
-            btnApply.interactable = true;
-        }
-
-        // Something has changed
-
         private void BtnApplyPressed() {
             UpdateLocalSettings();
 

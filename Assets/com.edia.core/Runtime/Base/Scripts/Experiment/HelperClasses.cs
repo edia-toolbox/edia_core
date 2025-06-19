@@ -143,7 +143,7 @@ namespace Edia {
     public class SettingsDeclaration {
 
         public string InteractiveSide = "RIGHT";
-        public string pathToLogfiles = "../logfiles";
+        public string pathToLogfiles = "./Edia-logfiles";
 
         public bool IsRightInteractive => InteractiveSide is "RIGHT" or "BOTH";
         public bool IsLeftInteractive => InteractiveSide is "LEFT" or "BOTH";

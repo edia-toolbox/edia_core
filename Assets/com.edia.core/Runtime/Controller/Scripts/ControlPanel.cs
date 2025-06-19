@@ -4,33 +4,40 @@ using UnityEngine;
 using static Edia.Constants;
 
 namespace Edia.Controller {
-    [EdiaHeader("EDIA CORE","Experiment Controller", "The control panel for the experimenter. State aware panels will show up here")]
+    /// <summary>
+    /// Represents the control panel for the experimenter. It manages and handles various panels, messages, and state-specific functionalities.
+    /// </summary>
+    /// <remarks>
+    /// This class acts as a singleton, ensuring only a single instance exists during runtime. It enables the management of panels that the experimenter interacts with and provides state-aware behavior.
+    /// </remarks>
+    [EdiaHeader("EDIA CORE", "Experiment Controller", "The control panel for the experimenter. State aware panels will show up here")]
     public class ControlPanel : Singleton<ControlPanel> {
 
         [Header("Debug")]
         public bool ShowConsoleMessages = false;
-        public bool ShowEdiaEventMessages   = false;
+
+        public bool ShowEdiaEventMessages = false;
 
         [HideInInspector]
         public ControlModes ControlMode = ControlModes.Local;
-        
+
         [Header("Refs")]
         public Transform NonActivePanelHolder = null;
-        public Transform PanelHolder = null;
-        public  PanelMessageBox          MessageBox          = null;
-        public  PanelConfigSelection     ConfigSelection     = null;
-        public  PanelHeader              Header              = null;
+
+        public Transform            PanelHolder     = null;
+        public PanelMessageBox      MessageBox      = null;
+        public PanelConfigSelection ConfigSelection = null;
+        public PanelHeader          Header          = null;
 
         // Internal
-        private List<Transform>          _currentPanelOrder   = new List<Transform>();
+        private List<Transform> _currentPanelOrder = new List<Transform>();
 
         // Remote
         [HideInInspector] public bool IsConnected = false;
+
         private void Awake() {
             this.transform.SetParent(null);
-
             DontDestroyOnLoad(this);
-
             PreparePanels();
             Invoke("Init", 0.3f); // Delay init for remote situation in which RCAS will set the `ControlMode` value from awake in `RCAS2Controlpanel`
 
@@ -47,8 +54,25 @@ namespace Edia.Controller {
             if (ControlMode is ControlModes.Remote) {
                 EventManager.StartListening(Edia.Events.ControlPanel.EvConnectionEstablished, OnEvConnectionEstablished);
             }
-            else
+            else {
                 InitConfigFileSearch();
+                EventManager.StartListening(Edia.Events.Settings.EvProvideSystemSettings, CheckLogfilesPath); // listen to package 
+                EventManager.TriggerEvent(Edia.Events.Settings.EvRequestSystemSettings); // trigger sending the package
+            }
+        }
+
+        /// <summary>
+        /// Checks the validity of the log file path from the provided system settings and displays a message if the path is not found.
+        /// </summary>
+        /// <param name="obj">The parameter object containing the system settings in JSON format.</param>
+        private void CheckLogfilesPath(eParam obj) {
+            EventManager.StopListening(Edia.Events.Settings.EvProvideSystemSettings, CheckLogfilesPath);
+            SettingsDeclaration settings = UnityEngine.JsonUtility.FromJson<SettingsDeclaration>(obj.GetString());
+
+            if (settings.pathToLogfiles == "./Edia-logfiles") // default value
+                return;
+            else if (!FileManager.FolderExists(settings.pathToLogfiles))
+                ControlPanel.Instance.ShowMessage($"Setting path not found! \n{settings.pathToLogfiles}\nOpen settings by clicking on logo.", false);
         }
 
         private void PreparePanels() {
