@@ -516,6 +516,8 @@ MonoBehaviour:
   InfoField: {fileID: 1628712419042453079}
   SubjectSelectionDropdown: {fileID: 2085774065008648356}
   SessionSelectionDropdown: {fileID: 7691511155020535756}
+  _subject: 
+  _session: 
 --- !u!114 &5947183695040851761
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -584,7 +586,7 @@ PrefabInstance:
     - target: {fileID: 3667715878172135024, guid: 29a100c71f367474eabf21bc8cf61aa6,
         type: 3}
       propertyPath: m_Name
-      value: Edia-Dropdown
+      value: Edia-Dropdown_session
       objectReference: {fileID: 0}
     - target: {fileID: 5772034067947277129, guid: 29a100c71f367474eabf21bc8cf61aa6,
         type: 3}
@@ -675,6 +677,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Colors.m_HighlightedColor.r
       value: 0.36
+      objectReference: {fileID: 0}
+    - target: {fileID: 7808088999592153810, guid: 29a100c71f367474eabf21bc8cf61aa6,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7808088999592153810, guid: 29a100c71f367474eabf21bc8cf61aa6,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 882517095926588678}
+    - target: {fileID: 7808088999592153810, guid: 29a100c71f367474eabf21bc8cf61aa6,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnSessValueChanged
+      objectReference: {fileID: 0}
+    - target: {fileID: 7808088999592153810, guid: 29a100c71f367474eabf21bc8cf61aa6,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Edia.Controller.PanelConfigSelection, Edia.Core
       objectReference: {fileID: 0}
     - target: {fileID: 8132977787679340705, guid: 29a100c71f367474eabf21bc8cf61aa6,
         type: 3}
@@ -1081,7 +1103,7 @@ PrefabInstance:
     - target: {fileID: 3667715878172135024, guid: 29a100c71f367474eabf21bc8cf61aa6,
         type: 3}
       propertyPath: m_Name
-      value: Edia-Dropdown
+      value: Edia-Dropdown_subject
       objectReference: {fileID: 0}
     - target: {fileID: 5772034067947277129, guid: 29a100c71f367474eabf21bc8cf61aa6,
         type: 3}
@@ -1172,6 +1194,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Colors.m_HighlightedColor.r
       value: 0.36
+      objectReference: {fileID: 0}
+    - target: {fileID: 7808088999592153810, guid: 29a100c71f367474eabf21bc8cf61aa6,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7808088999592153810, guid: 29a100c71f367474eabf21bc8cf61aa6,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 882517095926588678}
+    - target: {fileID: 7808088999592153810, guid: 29a100c71f367474eabf21bc8cf61aa6,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnSubjectValueChanged
+      objectReference: {fileID: 0}
+    - target: {fileID: 7808088999592153810, guid: 29a100c71f367474eabf21bc8cf61aa6,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Edia.Controller.PanelConfigSelection, Edia.Core
       objectReference: {fileID: 0}
     - target: {fileID: 8132977787679340705, guid: 29a100c71f367474eabf21bc8cf61aa6,
         type: 3}
