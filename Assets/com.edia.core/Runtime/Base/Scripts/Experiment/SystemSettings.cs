@@ -41,7 +41,6 @@ namespace Edia {
             if (!FileManager.FileExists(Constants.FileNameEdiaSettings)) {
                 Debug.Log("Settings file not found, saving defaults");
                 SaveSettings();
-                return;
             }
 
             string loadedSettings = FileManager.ReadStringFromApplicationPath(Constants.FileNameEdiaSettings);
