@@ -98,6 +98,8 @@ namespace StartersKit {
             ColorUtility.TryParseHtmlString(Session.instance.CurrentTrial.settings.GetString("color_code"), out Color parsedColor);
             _currentStimuliColor  = parsedColor;
 
+            Experiment.Instance.AddTrialInfoToPanel("Current color:", Session.instance.CurrentTrial.settings.GetString("color_code"));
+            
             /*
                 Continue to the next step follows this principle:
                 1. Put experiment statemachine in 'wait' mode

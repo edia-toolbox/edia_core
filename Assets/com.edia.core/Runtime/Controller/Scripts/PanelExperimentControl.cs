@@ -6,9 +6,7 @@ using System;
 using Edia.UI;
 
 namespace Edia.Controller {
-
     public class PanelExperimentControl : ExperimenterPanel {
-
         // Default buttons that are always needed for running a experiment
         [Header("Default buttons")]
         public Button btnExperiment = null;
@@ -33,11 +31,13 @@ namespace Edia.Controller {
         public TextMeshProUGUI          statusText;
 
         [Header("Session info")]
-        public TextMeshProUGUI experimentNameField = null;
+        public GameObject KeyValueInfoPrefab = null;
+        public GameObject KeyValueInfoContainer = null;
 
-        public TextMeshProUGUI experimenterField  = null;
-        public TextMeshProUGUI participantIDField = null;
-        public TextMeshProUGUI sessionNumberField = null;
+        public KeyValueInfo ExperimentNameInfo;
+        public KeyValueInfo experimenterinfo;
+        public KeyValueInfo participantIDinfo;
+        public KeyValueInfo sessionNumberinfo;
 
         public override void Awake() {
             base.Awake();
@@ -98,18 +98,36 @@ namespace Edia.Controller {
 
             GetComponent<VerticalLayoutGroup>().enabled = true;
 
+            EventManager.StartListening(Edia.Events.StateMachine.EvTrialEnd, OnEvTrialEnd);
             EventManager.StartListening(Edia.Events.ControlPanel.EvUpdateTrialProgress, OnEvUpdateTrialProgress);
             EventManager.StartListening(Edia.Events.ControlPanel.EvUpdateStepProgress, OnEvUpdateStepProgress);
+            EventManager.StartListening(Edia.Events.ControlPanel.EvShowTrialInfo, OnEvShowTrialInfo);
             EventManager.StartListening(Edia.Events.StateMachine.EvSessionEnded, OnEvSessionEnded);
+        }
+
+        private void OnEvShowTrialInfo(eParam obj) {
+            if (!KeyValueInfoContainer.activeSelf) 
+                KeyValueInfoContainer.SetActive(true);
+            
+            GameObject   infoObj       = Instantiate(KeyValueInfoPrefab, KeyValueInfoContainer.transform);
+            infoObj.GetComponent<KeyValueInfo>().Set(obj.GetStrings()[0], obj.GetStrings()[1]);
+        }
+
+        private void OnEvTrialEnd(eParam obj) {
+            foreach (Transform child in KeyValueInfoContainer.transform) {
+                Destroy(child.gameObject);
+            }
+            
+            KeyValueInfoContainer.SetActive(false);
         }
 
         private void OnEvUpdateExperimentSummary(eParam e) {
             string[] displayInformation = e.GetStrings();
 
-            experimentNameField.text = displayInformation[0];
-            experimenterField.text   = displayInformation[1];
-            participantIDField.text  = displayInformation[2];
-            sessionNumberField.text  = displayInformation[3];
+            ExperimentNameInfo.SetValue(displayInformation[0]);
+            experimenterinfo.SetValue(displayInformation[1]);
+            participantIDinfo.SetValue(displayInformation[2]);
+            sessionNumberinfo.SetValue(displayInformation[3]);
 
             GetComponent<VerticalLayoutGroup>().enabled = true;
         }
@@ -117,6 +135,7 @@ namespace Edia.Controller {
         private void OnEvSessionEnded(eParam obj) {
             EventManager.StopListening(Edia.Events.StateMachine.EvSessionEnded, OnEvSessionEnded);
             EventManager.StopListening(Edia.Events.ControlPanel.EvUpdateSessionSummary, OnEvUpdateExperimentSummary);
+            EventManager.StopListening(Edia.Events.StateMachine.EvTrialEnd, OnEvTrialEnd);
 
             btnExperiment.transform.GetComponentInChildren<TextMeshProUGUI>().text = "Quit";
             btnExperiment.onClick.AddListener(() => EventManager.TriggerEvent(Edia.Events.Core.EvQuitApplication, null));

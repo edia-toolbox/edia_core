@@ -263,6 +263,16 @@ namespace Edia {
             EventManager.TriggerEvent(Edia.Events.ControlPanel.EvShowMessageBox, new eParam(msg, true));
         }
 
+        /// <summary>
+        /// Adds trial information, represented by a key-value pair, to the control panel.
+        /// It will be auto deleted after trial is done
+        /// </summary>
+        /// <param name="key">The key identifying the trial information.</param>
+        /// <param name="value">The value associated with the key in the trial information.</param>
+        public void AddTrialInfoToPanel(string key, string value) {
+            EventManager.TriggerEvent(Edia.Events.ControlPanel.EvShowTrialInfo, new eParam(new string[] { key, value }));;
+        }
+
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 
 #region EXPERIMENT CONTROL
@@ -534,6 +544,8 @@ namespace Edia {
             AddToExecutionOrderLog("OnTrialEnd");
             SaveCustomDataTables();
 
+            EventManager.TriggerEvent(Edia.Events.StateMachine.EvTrialEnd);
+            
             _activeXBlock.OnEndTrial();
 
             // Are we ending?

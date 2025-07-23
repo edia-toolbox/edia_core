@@ -77,6 +77,9 @@ namespace Edia.Events {
         /// <summary>Fired by ExperimentManager when a trial has begun. Expects null</summary>
         public const string EvTrialBegin = "EvTrialBegin";
 
+        /// <summary>Fired by ExperimentManager when a trial has ended. Expects null</summary>
+        public const string EvTrialEnd = "EvTrialEnd";
+        
         /// <summary>Fired by ExperimentManager when the session had Finialized. Expects null</summary>
         public const string EvSessionEnded = "EvSessionEnded";
 
@@ -141,6 +144,9 @@ namespace Edia.Events {
 
         // Fired when showing multiple messages in the messagepanel
         public const string EvNextMessagePanelMsg = "EvNextMessagePanelMsg";
+        
+        // Fired when request to add an extra info to the control panel
+        public const string EvShowTrialInfo = "EvShowTrialInfo";
     }
 
     //? ========================================================================================================
@@ -163,17 +169,20 @@ namespace Edia.Events {
         public const string NwEvNextMessagepanelMsg     = "NwEvNextMessagepanelMsg";
 
         // * TO CONTROLLER >>
-        public const string NwEvProvideSystemSettings = "NwEvProvideSystemSettings";    
-        public const string NwEvReadyToGo = "NwEvReadyToGo";
-        public const string NwEvEnableButton = "NwEvEnableButton";
-        public const string NwEvUpdateStepProgress = "NwEvUpdateStepProgress";
-        public const string NwEvUpdateTrialProgress = "NwEvUpdateTrialProgress";
-        public const string NwEvUpdateBlockProgress = "NwEvUpdateBlockProgress";
-        public const string NwEvUpdateSessionSummary = "NwEvUpdateSessionSummary";
-        public const string NwEvUpdateProgressInfo = "NwEvUpdateProgressInfo";
-        public const string NwEvStartTimer = "NwEvStartTimer";
-        public const string NwEvStopTimer = "NwEvStopTimer";
+        public const string NwEvProvideSystemSettings       = "NwEvProvideSystemSettings";    
+        public const string NwEvReadyToGo                   = "NwEvReadyToGo";
+        public const string NwEvEnableButton                = "NwEvEnableButton";
+        public const string NwEvUpdateStepProgress          = "NwEvUpdateStepProgress";
+        public const string NwEvUpdateTrialProgress         = "NwEvUpdateTrialProgress";
+        public const string NwEvUpdateBlockProgress         = "NwEvUpdateBlockProgress";
+        public const string NwEvUpdateSessionSummary        = "NwEvUpdateSessionSummary";
+        public const string NwEvUpdateProgressInfo          = "NwEvUpdateProgressInfo";
+        public const string NwEvStartTimer                  = "NwEvStartTimer";
+        public const string NwEvStopTimer                   = "NwEvStopTimer";
         public const string NwEvEnableEyeCalibrationTrigger = "NwEvEnableEyeCalibrationTrigger";
+        public const string NwEvTrialEnd                    = "NwEvTrialEnd"; // TODO: add to rcas
+        public const string NwEvShowTrialInfo               = "NwEvShowTrialInfo"; // TODO: add to rcas
+        
     }
 
     //? ========================================================================================================
