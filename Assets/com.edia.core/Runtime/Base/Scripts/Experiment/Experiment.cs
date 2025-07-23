@@ -616,6 +616,7 @@ namespace Edia {
             if (_currentStep < _activeXBlock.trialSteps.Count) {
                 InBetweenSteps();
                 UpdateStepProgress();
+                AddToExecutionOrderLog(_activeXBlock.trialSteps[_currentStep].Method.Name);
                 _activeXBlock.trialSteps[_currentStep].Invoke();
             }
             else EndTrial();
