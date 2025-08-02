@@ -336,7 +336,7 @@ namespace Edia {
 
 #region STATEMACHINE PROCEED
 
-        private void EnableProceedButton(bool onOff) {
+        public void EnableProceedButton(bool onOff) {
             EventManager.TriggerEvent(Edia.Events.ControlPanel.EvEnableButton, new eParam(new string[] { "PROCEED", onOff ? "true" : "false" }));
         }
 
