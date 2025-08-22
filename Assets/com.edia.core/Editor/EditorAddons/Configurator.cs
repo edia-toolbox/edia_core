@@ -163,6 +163,7 @@ namespace Edia.Editor.Utils {
 
         static void CreateNewTheme() {
             var theme = ScriptableObject.CreateInstance<ThemeDefinition>();
+            FileManager.CreateFolder("Settings");
             AssetDatabase.CreateAsset(theme, "Assets/Settings/ProjectColorTheme.asset");
             AssetDatabase.SaveAssets();
             Selection.activeObject = theme;
