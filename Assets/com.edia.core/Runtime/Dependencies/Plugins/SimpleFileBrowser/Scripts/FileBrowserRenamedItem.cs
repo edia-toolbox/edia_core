@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+using TMPro;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 #if ENABLE_INPUT_SYSTEM && !ENABLE_LEGACY_INPUT_MANAGER
@@ -19,8 +20,8 @@ namespace SimpleFileBrowser
 		private Image icon;
 
 		[SerializeField]
-		private InputField nameInputField;
-		public InputField InputField { get { return nameInputField; } }
+		private TMP_InputField nameInputField;
+		public TMP_InputField InputField { get { return nameInputField; } }
 #pragma warning restore 0649
 
 		private OnRenameCompleted onRenameCompleted;
@@ -35,6 +36,11 @@ namespace SimpleFileBrowser
 
 				return m_transform;
 			}
+		}
+
+		private void Awake()
+		{
+			nameInputField.onEndEdit.AddListener( OnInputFieldEndEdit );
 		}
 
 		public void Show( string initialFilename, Color backgroundColor, Sprite icon, OnRenameCompleted onRenameCompleted )
@@ -63,13 +69,13 @@ namespace SimpleFileBrowser
 		}
 #endif
 
-		public void OnInputFieldEndEdit( string filename )
+		private void OnInputFieldEndEdit( string filename )
 		{
 			gameObject.SetActive( false );
 
 			// If we don't deselect the InputField manually, FileBrowser's keyboard shortcuts
 			// no longer work until user clicks on a UI element and thus, deselects the InputField
-			if( !EventSystem.current.alreadySelecting && EventSystem.current.currentSelectedGameObject == nameInputField.gameObject )
+			if( EventSystem.current && !EventSystem.current.alreadySelecting && EventSystem.current.currentSelectedGameObject == nameInputField.gameObject )
 				EventSystem.current.SetSelectedGameObject( null );
 
 			if( onRenameCompleted != null )

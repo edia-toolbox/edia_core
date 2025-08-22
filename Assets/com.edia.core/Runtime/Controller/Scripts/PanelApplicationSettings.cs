@@ -127,7 +127,7 @@ namespace Edia.Controller {
             if (FileBrowser.Success) {
                 if (FileBrowser.Result[0] != localSystemSettingsContainer.pathToLogfiles) {
                     localSystemSettingsContainer.pathToLogfiles = FileBrowser.Result[0];
-                    Debug.Log(localSystemSettingsContainer.pathToLogfiles);
+                    // Debug.Log(localSystemSettingsContainer.pathToLogfiles);
                     pathToLogfilesField.text = FileBrowser.Result[0];
                 }
             }

@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -36,8 +37,8 @@ namespace SimpleFileBrowser
 #pragma warning disable 0649
 		[Header( "General" )]
 		[SerializeField]
-		private Font m_font;
-		public Font Font
+		private TMP_FontAsset m_font;
+		public TMP_FontAsset Font
 		{
 			get { return m_font; }
 			set { if( m_font != value ) { m_font = value; m_version++; } }
@@ -49,6 +50,22 @@ namespace SimpleFileBrowser
 		{
 			get { return m_fontSize; }
 			set { if( m_fontSize != value ) { m_fontSize = value; m_version++; } }
+		}
+
+		[SerializeField]
+		private float m_rowHeight = 30f;
+		public float RowHeight
+		{
+			get { return m_rowHeight; }
+			set { if( m_rowHeight != value ) { m_rowHeight = value; m_version++; } }
+		}
+
+		[SerializeField]
+		private float m_rowSpacing = 8f;
+		public float RowSpacing
+		{
+			get { return m_rowSpacing; }
+			set { if( m_rowSpacing != value ) { m_rowSpacing = value; m_version++; } }
 		}
 
 		[Header( "File Browser Window" )]
@@ -509,40 +526,40 @@ namespace SimpleFileBrowser
 			set { if( m_contextMenuSeparatorColor != value ) { m_contextMenuSeparatorColor = value; m_version++; } }
 		}
 
-		[Header( "Delete Confirmation Panel" )]
-		[SerializeField]
-		private Color m_deletePanelBackgroundColor = Color.grey;
-		public Color DeletePanelBackgroundColor
+		[Header( "Popup Panels" )]
+		[SerializeField, UnityEngine.Serialization.FormerlySerializedAs( "m_deletePanelBackgroundColor" )]
+		private Color m_popupPanelsBackgroundColor = Color.grey;
+		public Color PopupPanelsBackgroundColor
 		{
-			get { return m_deletePanelBackgroundColor; }
-			set { if( m_deletePanelBackgroundColor != value ) { m_deletePanelBackgroundColor = value; m_version++; } }
+			get { return m_popupPanelsBackgroundColor; }
+			set { if( m_popupPanelsBackgroundColor != value ) { m_popupPanelsBackgroundColor = value; m_version++; } }
 		}
 
-		[SerializeField]
-		private Color m_deletePanelTextColor = Color.black;
-		public Color DeletePanelTextColor
+		[SerializeField, UnityEngine.Serialization.FormerlySerializedAs( "m_deletePanelTextColor" )]
+		private Color m_popupPanelsTextColor = Color.black;
+		public Color PopupPanelsTextColor
 		{
-			get { return m_deletePanelTextColor; }
-			set { if( m_deletePanelTextColor != value ) { m_deletePanelTextColor = value; m_version++; } }
+			get { return m_popupPanelsTextColor; }
+			set { if( m_popupPanelsTextColor != value ) { m_popupPanelsTextColor = value; m_version++; } }
 		}
 
-		[SerializeField]
-		private Sprite m_deletePanelBackground;
-		public Sprite DeletePanelBackground
+		[SerializeField, UnityEngine.Serialization.FormerlySerializedAs( "m_deletePanelBackground" )]
+		private Sprite m_popupPanelsBackground;
+		public Sprite PopupPanelsBackground
 		{
-			get { return m_deletePanelBackground; }
-			set { if( m_deletePanelBackground != value ) { m_deletePanelBackground = value; m_version++; } }
+			get { return m_popupPanelsBackground; }
+			set { if( m_popupPanelsBackground != value ) { m_popupPanelsBackground = value; m_version++; } }
 		}
 #pragma warning restore 0649
 
-		public void ApplyTo( Text text, Color textColor )
+		public void ApplyTo( TMP_Text text, Color textColor )
 		{
 			text.color = textColor;
 			text.font = m_font;
 			text.fontSize = m_fontSize;
 		}
 
-		public void ApplyTo( InputField inputField )
+		public void ApplyTo( TMP_InputField inputField )
 		{
 			inputField.image.color = m_inputFieldNormalBackgroundColor;
 			inputField.image.sprite = m_inputFieldBackground;
@@ -550,8 +567,8 @@ namespace SimpleFileBrowser
 			inputField.caretColor = m_inputFieldCaretColor;
 
 			ApplyTo( inputField.textComponent, m_inputFieldTextColor );
-			if( inputField.placeholder as Text )
-				ApplyTo( (Text) inputField.placeholder, m_inputFieldPlaceholderTextColor );
+			if( inputField.placeholder as TMP_Text )
+				ApplyTo( (TMP_Text) inputField.placeholder, m_inputFieldPlaceholderTextColor );
 		}
 
 		public void ApplyTo( Button button )
@@ -559,10 +576,10 @@ namespace SimpleFileBrowser
 			button.image.color = m_buttonColor;
 			button.image.sprite = m_buttonBackground;
 
-			ApplyTo( button.GetComponentInChildren<Text>(), m_buttonTextColor );
+			ApplyTo( button.GetComponentInChildren<TMP_Text>(), m_buttonTextColor );
 		}
 
-		public void ApplyTo( Dropdown dropdown )
+		public void ApplyTo( TMP_Dropdown dropdown )
 		{
 			dropdown.image.color = m_dropdownColor;
 			dropdown.image.sprite = m_dropdownBackground;
@@ -575,8 +592,12 @@ namespace SimpleFileBrowser
 			ApplyTo( dropdown.captionText, m_dropdownTextColor );
 			ApplyTo( dropdown.itemText, m_dropdownTextColor );
 
-			Transform dropdownItem = dropdown.itemText.transform.parent;
+			RectTransform dropdownItem = (RectTransform) dropdown.itemText.transform.parent;
+			dropdownItem.sizeDelta = new Vector2( dropdownItem.sizeDelta.x, m_rowHeight );
 			dropdownItem.Find( "Item Background" ).GetComponent<Image>().color = m_dropdownColor;
+
+			RectTransform dropdownScrollContent = (RectTransform) dropdownItem.parent;
+			dropdownScrollContent.sizeDelta = new Vector2( dropdownScrollContent.sizeDelta.x, dropdownItem.sizeDelta.y + 2f );
 
 			Image dropdownCheckmark = dropdownItem.Find( "Item Checkmark" ).GetComponent<Image>();
 			dropdownCheckmark.color = m_dropdownCheckmarkColor;
@@ -590,7 +611,7 @@ namespace SimpleFileBrowser
 			toggle.graphic.color = m_toggleCheckmarkColor;
 			( (Image) toggle.graphic ).sprite = m_toggleCheckmark;
 
-			ApplyTo( toggle.GetComponentInChildren<Text>(), m_toggleTextColor );
+			ApplyTo( toggle.GetComponentInChildren<TMP_Text>(), m_toggleTextColor );
 		}
 
 		public void ApplyTo( Scrollbar scrollbar )
@@ -599,7 +620,7 @@ namespace SimpleFileBrowser
 			scrollbar.image.color = m_scrollbarColor;
 		}
 
-		public Sprite GetIconForFileEntry( FileSystemEntry fileInfo, bool extensionMayHaveMultipleSuffixes )
+		public Sprite GetIconForFileEntry( in FileSystemEntry fileInfo, bool extensionMayHaveMultipleSuffixes )
 		{
 			if( !initializedFiletypeIcons )
 				InitializeFiletypeIcons();

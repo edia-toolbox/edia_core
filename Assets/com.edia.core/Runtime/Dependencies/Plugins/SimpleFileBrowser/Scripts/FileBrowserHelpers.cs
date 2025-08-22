@@ -3,14 +3,13 @@ using UnityEngine;
 
 namespace SimpleFileBrowser
 {
-	public struct FileSystemEntry
+	public readonly struct FileSystemEntry
 	{
 		public readonly string Path;
 		public readonly string Name;
 		public readonly string Extension;
 		public readonly FileAttributes Attributes;
-
-		public bool IsDirectory { get { return ( Attributes & FileAttributes.Directory ) == FileAttributes.Directory; } }
+		public readonly bool IsDirectory { get { return ( Attributes & FileAttributes.Directory ) == FileAttributes.Directory; } }
 
 		public FileSystemEntry( string path, string name, string extension, bool isDirectory )
 		{
@@ -25,7 +24,15 @@ namespace SimpleFileBrowser
 			Path = fileInfo.FullName;
 			Name = fileInfo.Name;
 			Extension = extension;
-			Attributes = fileInfo.Attributes;
+			try
+			{
+				Attributes = fileInfo.Attributes;
+			}
+			catch
+			{
+				/// I've encountered UnauthorizedAccessException while accessing <see cref="FileSystemInfo.Attributes"/> on iOS.
+				Attributes = ( fileInfo is DirectoryInfo ) ? FileAttributes.Directory : 0;
+			}
 		}
 	}
 
@@ -140,6 +147,24 @@ namespace SimpleFileBrowser
 			return extension == null || extension.Length <= 1; // extension includes '.'
 		}
 
+		public static bool IsPathDescendantOfAnother( string path, string parentFolderPath )
+		{
+#if !UNITY_EDITOR && UNITY_ANDROID
+			if( ShouldUseSAFForPath( path ) )
+				return AJC.CallStatic<bool>( "IsSAFEntryChildOfAnother", Context, path, parentFolderPath );
+#endif
+			path = Path.GetFullPath( path ).Replace( '\\', '/' );
+			parentFolderPath = Path.GetFullPath( parentFolderPath ).Replace( '\\', '/' );
+
+			if( path == parentFolderPath )
+				return false;
+
+			if( parentFolderPath[parentFolderPath.Length - 1] != '/' )
+				parentFolderPath += "/";
+
+			return path != parentFolderPath && path.StartsWith( parentFolderPath, System.StringComparison.OrdinalIgnoreCase );
+		}
+
 		public static string GetDirectoryName( string path )
 		{
 #if !UNITY_EDITOR && UNITY_ANDROID
@@ -221,14 +246,29 @@ namespace SimpleFileBrowser
 
 			try
 			{
-				FileSystemInfo[] items = new DirectoryInfo( path ).GetFileSystemInfos();
-				FileSystemEntry[] result = new FileSystemEntry[items.Length];
+				string[] files = Directory.GetFiles( path );
+				string[] subDirectories = Directory.GetDirectories( path );
+				FileSystemEntry[] result = new FileSystemEntry[files.Length + subDirectories.Length];
 				int index = 0;
-				for( int i = 0; i < items.Length; i++ )
+				for( int i = 0; i < files.Length; i++ )
 				{
 					try
 					{
-						result[index] = new FileSystemEntry( items[i], FileBrowser.GetExtensionFromFilename( items[i].Name, extractOnlyLastSuffixFromExtensions ) );
+						FileInfo fileInfo = new FileInfo( files[i] );
+						result[index] = new FileSystemEntry( fileInfo, FileBrowser.GetExtensionFromFilename( fileInfo.Name, extractOnlyLastSuffixFromExtensions ) );
+						index++;
+					}
+					catch( System.Exception e )
+					{
+						Debug.LogException( e );
+					}
+				}
+
+				for( int i = 0; i < subDirectories.Length; i++ )
+				{
+					try
+					{
+						result[index] = new FileSystemEntry( new DirectoryInfo( subDirectories[i] ), string.Empty );
 						index++;
 					}
 					catch( System.Exception e )
@@ -242,11 +282,13 @@ namespace SimpleFileBrowser
 
 				return result;
 			}
+			catch( System.UnauthorizedAccessException ) { }
 			catch( System.Exception e )
 			{
 				Debug.LogException( e );
-				return null;
 			}
+
+			return null;
 		}
 
 		public static string CreateFileInDirectory( string directoryPath, string filename )
