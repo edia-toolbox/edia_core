@@ -1,0 +1,48 @@
+{
+  "name": "com.edia.core",
+  "displayName": "EDIA Core",
+  "version": "0.5.0",
+  "unity": "6000.0",
+  "description": "Unity Toolbox for XR Research. EDIA Core module.\nAdditional features are separated packages.\n\nSee Samples for examples\n",
+  "keywords": [
+    "EDIA",
+    "xr",
+    "vr",
+    "experiment"
+  ],
+  "author": {
+    "name": "EDIA"
+  }, 
+  "dependencies": {
+    "com.unity.inputsystem": "1.13.1",
+    "com.unity.xr.interaction.toolkit": "3.0.8",
+    "com.unity.xr.management": "4.5.1",
+    "com.unity.xr.hands": "1.5.1",
+    "com.unity.render-pipelines.universal": "17.0.4",
+    "com.unity.nuget.newtonsoft-json": "3.2.1",
+    "com.unity.textmeshpro": "3.0.8"
+  },
+  "samples": [
+    {
+      "displayName": "Starters Kit",
+      "description": "Our 'Hello world' version\nBasic project setup to get you started.",
+      "path": "Samples~/StartersKit"
+    },
+    {
+      "displayName": "DemoTasks",
+      "description": "Demo project with two VR tasks; 'D2' & 'Stroop'.\nRead the Readme.txt!",
+      "path": "Samples~/DemoTasks"
+    },
+    {
+      "displayName": "URP Materials",
+      "description": "Simple example materials to get you started with URP",
+      "path": "Samples~/URP_Materials"
+    },
+    {
+      "displayName": "Starter room",
+      "description": "VR lab environment to start with in VR.",
+      "path": "Samples~/StarterRoom"
+    }
+  ],
+  "hideInEditor": false
+}
