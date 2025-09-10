@@ -53,7 +53,7 @@ For newcomers to EDIA, we recommend to follow our "[Getting started](https://min
 ### As a package (Unity package manager)
 - In Unity open the package manager window -> **Window** -> **Package manager**
 - Use `install from GIT url` 
-- Enter the URL: [https://github.com/edia-toolbox/edia_core.git](https://github.com/edia-toolbox/edia_core.git)
+- Enter the URL: [https://github.com/edia-toolbox/edia_core.git?path=Assets/com.edia.core](https://github.com/edia-toolbox/edia_core.git?path=Assets/com.edia.core)
 - Hit `ADD`
 
 Unity now starts to download and install the `com.edia.core` package. 
