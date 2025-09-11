@@ -42,3 +42,6 @@ jobs:
       run: |
         gh release create "$RELEASE_NAME" --title "$RELEASE_NAME" --target release-branch
 
+    - name: Delete temporary release branch
+      run: git push origin --delete release-branch
+      continue-on-error: true
