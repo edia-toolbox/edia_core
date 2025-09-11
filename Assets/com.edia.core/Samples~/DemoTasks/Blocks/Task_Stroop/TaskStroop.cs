@@ -4,12 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
-using Edia;
 using UXF;
-using Utils;
 using UnityEngine.UI;
 
-namespace eDia {
+namespace Edia {
     public class TaskStroop : XBlock {
 
         [Space(20)]
@@ -58,16 +56,16 @@ namespace eDia {
 
 
         void WaitForUserInput() {
-			XRManager.Instance.EnableXRRayInteraction(true);
+			XRManager.Instance.EnableRayInteraction(true);
 
 			Experiment.Instance.WaitOnProceed();
         }
 
         public void StimuliSelected (int stimuliIndex) {
-			this.Add2Console($"Stimuli id:{stimuliIndex} pressed");
+			AddToConsoleLog($"Stimuli id:{stimuliIndex} pressed");
 
 			CheckLogResultsProceed(stimuliIndex);
-			XRManager.Instance.EnableXRRayInteraction(false);
+			XRManager.Instance.EnableRayInteraction(false);
 
 			Experiment.Instance.Proceed();
 		}
@@ -85,12 +83,6 @@ namespace eDia {
 
 
         void CheckLogResultsProceed(int stimuliIndex) {
-
-            // Log settings
-            Experiment.Instance.AddToTrialResults("word", Session.instance.CurrentTrial.settings.GetString("word"));
-			Experiment.Instance.AddToTrialResults("color", Session.instance.CurrentTrial.settings.GetString("color"));
-			Experiment.Instance.AddToTrialResults("target", Session.instance.CurrentBlock.settings.GetString("target"));
-
             // Log results
             Experiment.Instance.AddToTrialResults("response", StroopResponseFields[stimuliIndex].GetValue());
             Experiment.Instance.AddToTrialResults("response_correct", StroopResponseFields[stimuliIndex].IsValid.ToString());
@@ -98,6 +90,8 @@ namespace eDia {
 
 		public override void OnBlockEnd() {
 			StroopCanvas.Show(false);
+
+			Experiment.Instance.ShowMessageToExperimenter("Example message OnBlockEnd");
 
 			base.OnBlockEnd();
 		}

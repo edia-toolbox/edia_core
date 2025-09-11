@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Edia;
 using UXF;
-using Utils;
 
 namespace Edia {
 
@@ -16,7 +15,7 @@ namespace Edia {
 			Experiment.Instance.ShowMessageToUser (Session.instance.CurrentBlock.settings.GetStringList("_info"));
 
 			if (Session.instance.CurrentBlock.settings.GetBool("fadetoblack")) {
-				this.Add2Console("fade to black");
+				AddToConsoleLog("fade to black");
 				XRManager.Instance.HideVR();
 			}
 
