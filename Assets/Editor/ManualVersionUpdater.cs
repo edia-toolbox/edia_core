@@ -2,6 +2,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
+/// <summary>
+/// Provides a custom editor window for manually updating version information in the Unity Editor.
+/// </summary>
+/// <remarks>
+/// The ManualVersionUpdater class defines a Unity editor tool accessible through the menu system.
+/// It allows developers to open a specialized window for version updating tasks.
+/// </remarks>
 public class ManualVersionUpdater : EditorWindow {
     private string versionNumber = "";
 
@@ -40,14 +47,22 @@ public class ManualVersionUpdater : EditorWindow {
             if (!string.IsNullOrEmpty(versionNumber)) {
                 PlayerSettings.bundleVersion = versionNumber;
                 UpdatePackageJson(versionNumber);
-                    
+
                 Debug.Log("Version updated to: " + versionNumber);
             }
             else {
                 EditorUtility.DisplayDialog("Error", "Version number cannot be empty", "OK");
             }
+
+            Close();
         }
     }
+
+
+    /// <summary>
+    /// Updates the version field in all package.json files within the project that match specific criteria.
+    /// </summary>
+    /// <param name="newVersion">The new version value to update in the package.json files.</param>
     private void UpdatePackageJson(string newVersion) {
         string[] files = System.IO.Directory.GetFiles(Application.dataPath, "package.json", System.IO.SearchOption.AllDirectories);
 
@@ -62,7 +77,8 @@ public class ManualVersionUpdater : EditorWindow {
                         System.IO.File.WriteAllText(file, updatedJson);
                         Debug.Log($"Updated package.json at {file} to version: {newVersion}");
                     }
-                } catch (System.Exception e) {
+                }
+                catch (System.Exception e) {
                     Debug.LogError($"Failed to update version in package.json at {file}. Error: {e.Message}");
                 }
             }
