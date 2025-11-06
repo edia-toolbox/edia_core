@@ -32,6 +32,7 @@ var annotated_dup =
       [ "SettingsTuple", "class_edia_1_1_settings_tuple.html", null ],
       [ "ValueList", "class_edia_1_1_value_list.html", null ],
       [ "XBlockSequence", "class_edia_1_1_x_block_sequence.html", null ],
+      [ "XBlockBaseSettings", "class_edia_1_1_x_block_base_settings.html", null ],
       [ "XBlockSettings", "class_edia_1_1_x_block_settings.html", null ],
       [ "SessionInfo", "class_edia_1_1_session_info.html", null ],
       [ "TrialStep", "class_edia_1_1_trial_step.html", null ],
