@@ -47,7 +47,7 @@ public class ManualVersionUpdater : EditorWindow {
             if (!string.IsNullOrEmpty(versionNumber)) {
                 PlayerSettings.bundleVersion = versionNumber;
                 UpdatePackageJson(versionNumber);
-
+EditorApplication.ExecuteMenuItem("File/Save Project");
                 Debug.Log("Version updated to: " + versionNumber);
             }
             else {
