@@ -1,0 +1,51 @@
+\doxysection{Edia.\+Events.\+State\+Machine Class Reference}
+\hypertarget{class_edia_1_1_events_1_1_state_machine}{}\label{class_edia_1_1_events_1_1_state_machine}\index{Edia.Events.StateMachine@{Edia.Events.StateMachine}}
+
+
+All event related to controlling the state machine of the experiment.  
+
+
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_edia_1_1_events_1_1_state_machine_a101cc0fa30fec9b1f58bcb62a09536d6}\label{class_edia_1_1_events_1_1_state_machine_a101cc0fa30fec9b1f58bcb62a09536d6} 
+const string {\bfseries Ev\+Start\+Experiment} = "{}Ev\+Start\+Experiment"{}
+\begin{DoxyCompactList}\small\item\em Starts the experiment. Expects null. \end{DoxyCompactList}\item 
+\Hypertarget{class_edia_1_1_events_1_1_state_machine_a9ff5c54547bf661c0fc23e11a44c6c50}\label{class_edia_1_1_events_1_1_state_machine_a9ff5c54547bf661c0fc23e11a44c6c50} 
+const string {\bfseries Ev\+Pause\+Experiment} = "{}Ev\+Pause\+Experiment"{}
+\begin{DoxyCompactList}\small\item\em Injects a break block after current trial. Expects null. \end{DoxyCompactList}\item 
+\Hypertarget{class_edia_1_1_events_1_1_state_machine_af3db0a82e2d89cb21701e4813d5ece9b}\label{class_edia_1_1_events_1_1_state_machine_af3db0a82e2d89cb21701e4813d5ece9b} 
+const string {\bfseries Ev\+Trial\+Begin} = "{}Ev\+Trial\+Begin"{}
+\begin{DoxyCompactList}\small\item\em Fired by Experiment\+Manager when a trial has begun. Expects null. \end{DoxyCompactList}\item 
+\Hypertarget{class_edia_1_1_events_1_1_state_machine_a5bffae1f5b071a4858fab8e9412203b0}\label{class_edia_1_1_events_1_1_state_machine_a5bffae1f5b071a4858fab8e9412203b0} 
+const string {\bfseries Ev\+Trial\+End} = "{}Ev\+Trial\+End"{}
+\begin{DoxyCompactList}\small\item\em Fired by Experiment\+Manager when a trial has ended. Expects null. \end{DoxyCompactList}\item 
+\Hypertarget{class_edia_1_1_events_1_1_state_machine_a75832fee20e2b6a3b7d1ebed3617d7c0}\label{class_edia_1_1_events_1_1_state_machine_a75832fee20e2b6a3b7d1ebed3617d7c0} 
+const string {\bfseries Ev\+Session\+Ended} = "{}Ev\+Session\+Ended"{}
+\begin{DoxyCompactList}\small\item\em Fired by Experiment\+Manager when the session had Finialized. Expects null. \end{DoxyCompactList}\item 
+\Hypertarget{class_edia_1_1_events_1_1_state_machine_aa8e9451dd896af539f155befda6a390f}\label{class_edia_1_1_events_1_1_state_machine_aa8e9451dd896af539f155befda6a390f} 
+const string {\bfseries Ev\+Session\+Break} = "{}Ev\+Session\+Break"{}
+\begin{DoxyCompactList}\small\item\em Fired by Experiment\+Manager when the session starts a break. Expects null. \end{DoxyCompactList}\item 
+\Hypertarget{class_edia_1_1_events_1_1_state_machine_a4c5411d651da0f8921b1f1c180acd6f2}\label{class_edia_1_1_events_1_1_state_machine_a4c5411d651da0f8921b1f1c180acd6f2} 
+const string {\bfseries Ev\+Session\+Resume} = "{}Ev\+Session\+Resume"{}
+\begin{DoxyCompactList}\small\item\em Fired by Experiment\+Manager when the session continues. Expects null. \end{DoxyCompactList}\item 
+\Hypertarget{class_edia_1_1_events_1_1_state_machine_ae725cc0bb65aae07224c4eb065f3ff71}\label{class_edia_1_1_events_1_1_state_machine_ae725cc0bb65aae07224c4eb065f3ff71} 
+const string {\bfseries Ev\+Block\+Introduction} = "{}Ev\+Block\+Introduction"{}
+\begin{DoxyCompactList}\small\item\em Fired by Experiment\+Manager when a blockintroduction is found. Expects null. \end{DoxyCompactList}\item 
+\Hypertarget{class_edia_1_1_events_1_1_state_machine_ad89a5566688b25adeff3c794b1d1016b}\label{class_edia_1_1_events_1_1_state_machine_ad89a5566688b25adeff3c794b1d1016b} 
+const string {\bfseries Ev\+Block\+Resume\+After\+Intro} = "{}Ev\+Block\+Resume\+After\+Intro"{}
+\begin{DoxyCompactList}\small\item\em Fired by Experiment\+Manager when the session resumes after an i.\+e. introduction. Expects null. \end{DoxyCompactList}\item 
+\Hypertarget{class_edia_1_1_events_1_1_state_machine_a66cf4ba6369bc1800f8481f3302f1e01}\label{class_edia_1_1_events_1_1_state_machine_a66cf4ba6369bc1800f8481f3302f1e01} 
+const string {\bfseries Ev\+Proceed} = "{}Ev\+Proceed"{}
+\begin{DoxyCompactList}\small\item\em Event indicating that the system can proceed, useally from experimenter. Expects null. \end{DoxyCompactList}\item 
+\Hypertarget{class_edia_1_1_events_1_1_state_machine_a93b49d1014a3f13a7572e6aafb1a30c9}\label{class_edia_1_1_events_1_1_state_machine_a93b49d1014a3f13a7572e6aafb1a30c9} 
+const string {\bfseries Ev\+Block\+Start} = "{}Ev\+Block\+Start"{}
+\begin{DoxyCompactList}\small\item\em Fired by Experiment\+Manager when a new block is starting. Expects null. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+All event related to controlling the state machine of the experiment. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/jur/\+Documents/projects/edia\+\_\+core/\+Assets/com.\+edia.\+core/\+Runtime/\+Base/\+Scripts/\+Events/Events.\+cs\end{DoxyCompactItemize}

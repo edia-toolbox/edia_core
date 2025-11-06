@@ -1,0 +1,27 @@
+var namespace_edia =
+[
+    [ "Events", "namespace_edia_1_1_events.html", "namespace_edia_1_1_events" ],
+    [ "Utilities", "namespace_edia_1_1_utilities.html", "namespace_edia_1_1_utilities" ],
+    [ "XR", "namespace_edia_1_1_x_r.html", "namespace_edia_1_1_x_r" ],
+    [ "Controller", "namespace_edia_1_1_controller.html", "namespace_edia_1_1_controller" ],
+    [ "eParam", "class_edia_1_1e_param.html", "class_edia_1_1e_param" ],
+    [ "EventManager", "class_edia_1_1_event_manager.html", "class_edia_1_1_event_manager" ],
+    [ "Constants", "class_edia_1_1_constants.html", null ],
+    [ "Experiment", "class_edia_1_1_experiment.html", "class_edia_1_1_experiment" ],
+    [ "FileManager", "class_edia_1_1_file_manager.html", "class_edia_1_1_file_manager" ],
+    [ "SettingsTuple", "class_edia_1_1_settings_tuple.html", null ],
+    [ "ValueList", "class_edia_1_1_value_list.html", null ],
+    [ "XBlockSequence", "class_edia_1_1_x_block_sequence.html", null ],
+    [ "XBlockSettings", "class_edia_1_1_x_block_settings.html", null ],
+    [ "SessionInfo", "class_edia_1_1_session_info.html", null ],
+    [ "TrialStep", "class_edia_1_1_trial_step.html", null ],
+    [ "SettingsDeclaration", "class_edia_1_1_settings_declaration.html", null ],
+    [ "MessagePanelInVR", "class_edia_1_1_message_panel_in_v_r.html", "class_edia_1_1_message_panel_in_v_r" ],
+    [ "ScreenFader", "class_edia_1_1_screen_fader.html", "class_edia_1_1_screen_fader" ],
+    [ "ScreenInVR", "class_edia_1_1_screen_in_v_r.html", "class_edia_1_1_screen_in_v_r" ],
+    [ "SystemSettings", "class_edia_1_1_system_settings.html", "class_edia_1_1_system_settings" ],
+    [ "XRController", "class_edia_1_1_x_r_controller.html", null ],
+    [ "XRManager", "class_edia_1_1_x_r_manager.html", "class_edia_1_1_x_r_manager" ],
+    [ "InputActionHandler", "class_edia_1_1_input_action_handler.html", null ],
+    [ "ILslEyeOutlet", "interface_edia_1_1_i_lsl_eye_outlet.html", "interface_edia_1_1_i_lsl_eye_outlet" ]
+];
