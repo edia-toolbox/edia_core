@@ -1,7 +1,7 @@
 <p align="center">
   <img src="./Assets/com.edia.core/Editor/Resources/Icons/IconEdia.png" width="128" />
 </p>
-
+  
 # EDIA – A Unity XR Toolbox for Research
 
  `EDIA` provides you with a set of modules (Unity packages) to facilitate the design and conduction of experimental research in XR using Unity.  
@@ -39,7 +39,7 @@ flowchart LR
     style n5 fill:#424242,color:#FFFFFF
 ```
 
-# `EDIA` is for you if ...
+# `EDIA` is for you if ....
 - you want to build experiments which use different tasks in the same experimental session.
 - you need high temporal precision to, for example, synchronize your experiment with EEG.
 - you want an easy integration of eye tracking in your experiment.

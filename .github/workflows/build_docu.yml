@@ -1,0 +1,54 @@
+# .github/workflows/build_docu.yml
+name: Deploy Pages (nested folder)
+
+on:
+  push:
+    branches: [ main ]   # runs on every commit pushed to main
+  workflow_dispatch:      # allow manual runs from the Actions tab
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # --- If you have a build step, do it here (uncomment and adapt) ---
+      # - name: Setup Node
+      #   uses: actions/setup-node@v4
+      #   with:
+      #     node-version: 20
+      #     cache: npm
+      # - run: npm ci
+      # - run: npm run build
+      # - name: Upload Pages artifact from subfolder (use your build output)
+      #   uses: actions/upload-pages-artifact@v4
+      #   with:
+      #     path: path/to/nested/docs/build   # e.g. dist, build, site, etc.
+      # ------------------------------------------------------------------
+
+      # --- If your docs are already static files in a subfolder, use this ---
+      - name: Upload Pages artifact from subfolder
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: Assets/com.edia.core/Documentation~
+      # ----------------------------------------------------------------------
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
