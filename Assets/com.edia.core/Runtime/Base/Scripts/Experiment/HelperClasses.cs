@@ -35,15 +35,24 @@ namespace Edia {
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 
 #region UXF SEQUENCE (JSON SERIALIZABLE)
-    /// !!
-    ///     Classes have intentionally lower case field in order to parse from JSON directly. 
-    /// !!
-    
+
+    /// <summary>
+    /// Represents a serialized container for configuring a sequence of experiment blocks.
+    /// </summary>
+    /// <remarks>
+    /// This class contains a list of strings, each representing a block identifier or filename.
+    /// The structure has been intentionally designed with lower case fields for compatibility with JSON serialization.
+    /// </remarks>
     [System.Serializable]
     public class XBlockSequence {
         public List<string> sequence = new();
     }
 
+    /// <summary>
+    /// Base class for representing settings of an XBlock. This class is serializable and designed
+    /// to facilitate deserialization directly from JSON. It acts as the foundational structure for
+    /// defining XBlock configurations, including general settings and messaging parameters.
+    /// </summary>
     [System.Serializable]
     public class XBlockBaseSettings {
         public string              type;
@@ -52,7 +61,10 @@ namespace Edia {
         public List<SettingsTuple> messages = new();
     }
 
-    //! Task list
+    /// <summary>
+    /// Represents settings for a single XBlock. This class is serializable and is intended to be
+    /// initialized directly from JSON. Extends the base settings class XBlockBaseSettings.
+    /// </summary>
     [System.Serializable]
     public class XBlockSettings : XBlockBaseSettings {
         public string        blockId;

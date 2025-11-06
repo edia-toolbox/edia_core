@@ -31,8 +31,10 @@ var hierarchy =
     [ "Edia.SystemSettings", "class_edia_1_1_system_settings.html", null ],
     [ "Edia.TrialStep", "class_edia_1_1_trial_step.html", null ],
     [ "Edia.ValueList", "class_edia_1_1_value_list.html", null ],
+    [ "Edia.XBlockBaseSettings", "class_edia_1_1_x_block_base_settings.html", [
+      [ "Edia.XBlockSettings", "class_edia_1_1_x_block_settings.html", null ]
+    ] ],
     [ "Edia.XBlockSequence", "class_edia_1_1_x_block_sequence.html", null ],
-    [ "Edia.XBlockSettings", "class_edia_1_1_x_block_settings.html", null ],
     [ "Edia.Events.XR", "class_edia_1_1_events_1_1_x_r.html", null ],
     [ "Edia.XRController", "class_edia_1_1_x_r_controller.html", null ],
     [ "Edia.XR.XRControllerInputRemapper", "class_edia_1_1_x_r_1_1_x_r_controller_input_remapper.html", null ],
