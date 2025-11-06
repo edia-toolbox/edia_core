@@ -1,9 +1,9 @@
-# .github/workflows/pages.yml
+# .github/workflows/build_docu.yml
 name: Deploy Pages (nested folder)
 
 on:
   push:
-    branches: [ 18-api-reference-upgrdate ]   # runs on every commit pushed to main
+    branches: [ main ]   # runs on every commit pushed to main
   workflow_dispatch:      # allow manual runs from the Actions tab
 
 permissions:
