@@ -21,6 +21,7 @@ var namespace_edia =
     [ "ScreenFader", "class_edia_1_1_screen_fader.html", "class_edia_1_1_screen_fader" ],
     [ "ScreenInVR", "class_edia_1_1_screen_in_v_r.html", "class_edia_1_1_screen_in_v_r" ],
     [ "SystemSettings", "class_edia_1_1_system_settings.html", "class_edia_1_1_system_settings" ],
+    [ "XBlock", "class_edia_1_1_x_block.html", "class_edia_1_1_x_block" ],
     [ "XRController", "class_edia_1_1_x_r_controller.html", null ],
     [ "XRManager", "class_edia_1_1_x_r_manager.html", "class_edia_1_1_x_r_manager" ],
     [ "InputActionHandler", "class_edia_1_1_input_action_handler.html", null ],

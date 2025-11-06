@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace Edia {
 
+    /// <summary>
+    /// Blueprint class for Task classes. 
+    /// </summary>
     [System.Serializable]
     public class XBlock : MonoBehaviour {
 

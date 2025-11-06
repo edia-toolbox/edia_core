@@ -31,6 +31,7 @@ var hierarchy =
     [ "Edia.SystemSettings", "class_edia_1_1_system_settings.html", null ],
     [ "Edia.TrialStep", "class_edia_1_1_trial_step.html", null ],
     [ "Edia.ValueList", "class_edia_1_1_value_list.html", null ],
+    [ "Edia.XBlock", "class_edia_1_1_x_block.html", null ],
     [ "Edia.XBlockBaseSettings", "class_edia_1_1_x_block_base_settings.html", [
       [ "Edia.XBlockSettings", "class_edia_1_1_x_block_settings.html", null ]
     ] ],
