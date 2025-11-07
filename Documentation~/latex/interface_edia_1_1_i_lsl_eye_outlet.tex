@@ -1,0 +1,56 @@
+\doxysection{Edia.\+ILsl\+Eye\+Outlet Interface Reference}
+\hypertarget{interface_edia_1_1_i_lsl_eye_outlet}{}\label{interface_edia_1_1_i_lsl_eye_outlet}\index{Edia.ILslEyeOutlet@{Edia.ILslEyeOutlet}}
+
+
+Interface for pushing eye tracking data to an LSL (Lab Streaming Layer) stream.  
+
+
+\doxysubsubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+Constants.\+Eye\+Id \mbox{\hyperlink{interface_edia_1_1_i_lsl_eye_outlet_ac7f85a5068c76ee77226717c251ef68c}{Eye\+Id}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Get or set the identifier for the eye (LEFT, RIGHT, CENTER). \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Interface for pushing eye tracking data to an LSL (Lab Streaming Layer) stream. 
+
+Required in order not to need to make EDIA LSL a dependency for EDIA Eye. 
+
+\label{doc-property-members}
+\Hypertarget{interface_edia_1_1_i_lsl_eye_outlet_doc-property-members}
+\doxysubsection{Property Documentation}
+\Hypertarget{interface_edia_1_1_i_lsl_eye_outlet_ac7f85a5068c76ee77226717c251ef68c}\index{Edia.ILslEyeOutlet@{Edia.ILslEyeOutlet}!EyeId@{EyeId}}
+\index{EyeId@{EyeId}!Edia.ILslEyeOutlet@{Edia.ILslEyeOutlet}}
+\doxysubsubsection{\texorpdfstring{EyeId}{EyeId}}
+{\footnotesize\ttfamily \label{interface_edia_1_1_i_lsl_eye_outlet_ac7f85a5068c76ee77226717c251ef68c} 
+Constants.\+Eye\+Id Edia.\+ILsl\+Eye\+Outlet.\+Eye\+Id\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}}
+
+
+
+Get or set the identifier for the eye (LEFT, RIGHT, CENTER). 
+
+summary\texorpdfstring{$>$}{>} Builds and pushes a sample with eye tracking data.
+
+
+\begin{DoxyParams}{Parameters}
+{\em eye\+Position\+Local} & The local eye position.\\
+\hline
+{\em eye\+Rotation\+Local\+Euler} & The local eye rotation in Euler Angles.\\
+\hline
+{\em pupil\+Diameter} & The diameter of the pupil. Default is 0f.\\
+\hline
+{\em openness} & The openness of the eye. Default is 0f.\\
+\hline
+{\em confidence} & The confidence level of the eye tracking data. Default is 0f.\\
+\hline
+{\em timestamp\+Et} & The eye tracker timestamp. Default is 0f.\\
+\hline
+{\em timestamp\+Lsl} & The LSL timestamp. Default is 0 and will timestamp the sample on sending.\\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this interface was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+Felix/\+Projects/\+EDIA/edia\+\_\+core/\+Assets/com.\+edia.\+core/\+Runtime/\+Base/\+Scripts/\+Utilities/Interfaces.\+cs\end{DoxyCompactItemize}

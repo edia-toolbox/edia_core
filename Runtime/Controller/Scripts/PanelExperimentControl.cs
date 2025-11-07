@@ -1,0 +1,236 @@
+using System.Collections;
+using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+using System;
+using Edia.UI;
+
+namespace Edia.Controller {
+    public class PanelExperimentControl : ExperimenterPanel {
+        // Default buttons that are always needed for running a experiment
+        [Header("Default buttons")]
+        public Button btnExperiment = null;
+
+        public Button btnPauseExperiment   = null;
+        public Button btnProceedExperiment = null;
+        public Button btnNextMessage       = null;
+
+        [Header("Statemachine panels")]
+        public GameObject panelIdle = null;
+
+        public GameObject panelRunning = null;
+        public GameObject panelStatus  = null;
+        public GameObject panelInfo    = null;
+
+        [Header("Experiment status")]
+        public ProgressBar stepSlider;
+
+        public ProgressBar              trialSlider;
+        public ProgressBar              blockSlider;
+        public SliderExperimenterStatus timerSlider;
+        public TextMeshProUGUI          statusText;
+
+        [Header("Session info")]
+        public GameObject KeyValueInfoPrefab = null;
+        public GameObject KeyValueInfoContainer = null;
+
+        public KeyValueInfo ExperimentNameInfo;
+        public KeyValueInfo experimenterinfo;
+        public KeyValueInfo participantIDinfo;
+        public KeyValueInfo sessionNumberinfo;
+
+        public override void Awake() {
+            base.Awake();
+
+            EventManager.StartListening(Edia.Events.Config.EvReadyToGo, OnEvReadyToGo);
+            EventManager.StartListening(Edia.Events.ControlPanel.EvEnableButton, OnEvEnableButton);
+        }
+
+        void OnDestroy() {
+            EventManager.StopListening(Edia.Events.ControlPanel.EvStartTimer, OnEvStartTimer);
+            EventManager.StopListening(Edia.Events.ControlPanel.EvStopTimer, OnEvStopTimer);
+            EventManager.StopListening(Edia.Events.Config.EvReadyToGo, OnEvReadyToGo);
+            btnExperiment.onClick.RemoveListener(() => EventManager.TriggerEvent(Edia.Events.StateMachine.EvStartExperiment, null));
+            btnPauseExperiment.onClick.RemoveListener(() => EventManager.TriggerEvent(Edia.Events.StateMachine.EvPauseExperiment, null));
+            btnNextMessage.onClick.RemoveListener(() => EventManager.TriggerEvent(Edia.Events.ControlPanel.EvNextMessagePanelMsg, null));
+        }
+
+        void Start() {
+            HidePanel();
+        }
+
+#region EVENT LISTENERS
+
+        private void OnEvShowNextMsgButton(eParam obj) {
+            throw new NotImplementedException();
+        }
+
+        void OnEvReadyToGo(eParam obj) {
+            EventManager.StopListening(Edia.Events.Config.EvReadyToGo, OnEvReadyToGo);
+            EventManager.StartListening(Edia.Events.ControlPanel.EvUpdateSessionSummary, OnEvUpdateExperimentSummary);
+
+            panelIdle.SetActive(true);
+            panelStatus.SetActive(false);
+
+            SetupButtons();
+            btnExperiment.interactable = true;
+
+            statusText.text = "ready";
+
+            ShowPanel();
+            panelRunning.SetActive(false); // Intentionally after ShowPanel() as that enables all subpanels by default
+
+            EventManager.StartListening(Edia.Events.ControlPanel.EvUpdateProgressStatus, OnEvExperimentProgressUpdate);
+            EventManager.StartListening(Edia.Events.ControlPanel.EvUpdateBlockProgress, OnEvUpdateBlockProgress);
+            EventManager.StartListening(Edia.Events.StateMachine.EvStartExperiment, OnEvStartExperiment);
+        }
+
+        void OnEvStartExperiment(eParam e) {
+            EventManager.StopListening(Edia.Events.StateMachine.EvStartExperiment, OnEvStartExperiment);
+            btnExperiment.onClick.RemoveAllListeners();
+            btnExperiment.interactable = false;
+
+            panelIdle.SetActive(false);
+            panelStatus.SetActive(true);
+            panelRunning.SetActive(true);
+
+            GetComponent<VerticalLayoutGroup>().enabled = true;
+
+            EventManager.StartListening(Edia.Events.ControlPanel.EvStartTimer, OnEvStartTimer);
+            EventManager.StartListening(Edia.Events.StateMachine.EvTrialEnd, OnEvTrialEnd);
+            EventManager.StartListening(Edia.Events.ControlPanel.EvUpdateTrialProgress, OnEvUpdateTrialProgress);
+            EventManager.StartListening(Edia.Events.ControlPanel.EvUpdateStepProgress, OnEvUpdateStepProgress);
+            EventManager.StartListening(Edia.Events.ControlPanel.EvShowTrialInfo, OnEvShowTrialInfo);
+            EventManager.StartListening(Edia.Events.StateMachine.EvSessionEnded, OnEvSessionEnded);
+        }
+
+        private void OnEvShowTrialInfo(eParam obj) {
+            if (!KeyValueInfoContainer.activeSelf) 
+                KeyValueInfoContainer.SetActive(true);
+            
+            GameObject   infoObj       = Instantiate(KeyValueInfoPrefab, KeyValueInfoContainer.transform);
+            infoObj.GetComponent<KeyValueInfo>().Set(obj.GetStrings()[0], obj.GetStrings()[1]);
+        }
+
+        private void OnEvTrialEnd(eParam obj) {
+            foreach (Transform child in KeyValueInfoContainer.transform) {
+                Destroy(child.gameObject);
+            }
+            
+            KeyValueInfoContainer.SetActive(false);
+        }
+
+        private void OnEvUpdateExperimentSummary(eParam e) {
+            string[] displayInformation = e.GetStrings();
+
+            ExperimentNameInfo.SetValue(displayInformation[0]);
+            experimenterinfo.SetValue(displayInformation[1]);
+            participantIDinfo.SetValue(displayInformation[2]);
+            sessionNumberinfo.SetValue(displayInformation[3]);
+
+            GetComponent<VerticalLayoutGroup>().enabled = true;
+        }
+
+        private void OnEvSessionEnded(eParam obj) {
+            EventManager.StopListening(Edia.Events.StateMachine.EvSessionEnded, OnEvSessionEnded);
+            EventManager.StopListening(Edia.Events.ControlPanel.EvUpdateSessionSummary, OnEvUpdateExperimentSummary);
+            EventManager.StopListening(Edia.Events.StateMachine.EvTrialEnd, OnEvTrialEnd);
+
+            btnExperiment.transform.GetComponentInChildren<TextMeshProUGUI>().text = "Quit";
+            btnExperiment.onClick.AddListener(() => EventManager.TriggerEvent(Edia.Events.Core.EvQuitApplication, null));
+            // TODO when in remote mode -> there is no one listening so not quiting.
+
+            btnExperiment.interactable = true;
+
+            panelIdle.SetActive(true);
+            panelRunning.SetActive(false);
+            panelStatus.SetActive(false);
+            GetComponent<VerticalLayoutGroup>().enabled = true;
+        }
+
+        void OnEvExperimentProgressUpdate(eParam e) {
+            statusText.text = e is null ? "" : statusText.text = e.GetString();
+        }
+
+        private void OnEvUpdateBlockProgress(eParam e) {
+            blockSlider.maxValue = e.GetInts()[1];
+            blockSlider.AnimateToValue(e.GetInts()[0] < 0 ? 0 : e.GetInts()[0]);
+            blockSlider.currentValue = e.GetInts()[0] < 0 ? 0 : e.GetInts()[0];
+        }
+
+        private void OnEvUpdateTrialProgress(eParam e) {
+            trialSlider.maxValue = e.GetInts()[1];
+            trialSlider.AnimateToValue(e.GetInts()[0] < 0 ? 0 : e.GetInts()[0]);
+            trialSlider.currentValue = e.GetInts()[0] < 0 ? 0 : e.GetInts()[0];
+        }
+
+        private void OnEvUpdateStepProgress(eParam e) {
+            stepSlider.maxValue = e.GetInts()[1];
+            stepSlider.AnimateToValue(e.GetInts()[0] < 0 ? 0 : e.GetInts()[0]);
+            stepSlider.currentValue = e.GetInts()[0] < 0 ? 0 : e.GetInts()[0];
+        }
+
+        void OnEvEnableButton(eParam e) {
+            bool onOff = e.GetStrings()[1].ToUpper() == "TRUE";
+
+            switch (e.GetStrings()[0].ToUpper()) {
+                case "PAUSE":
+                    SetButtonState(btnPauseExperiment, onOff);
+                    break;
+                case "PROCEED":
+                    SetButtonState(btnProceedExperiment, onOff);
+                    StartCoroutine("ChangeColorOverTime", btnProceedExperiment.GetComponent<Image>());
+                    break;
+                case "NEXT":
+                    SetButtonState(btnNextMessage, onOff);
+                    btnNextMessage.gameObject.SetActive(onOff);
+                    StartCoroutine("ChangeColorOverTime", btnNextMessage.GetComponent<Image>());
+                    break;
+            }
+        }
+
+        IEnumerator ChangeColorOverTime(Image image) {
+            Color endColor    = Color.white;
+            Color flashColor  = new Color(0.2745098f, 0.6352941f, 0.8000001f);
+            float duration    = 0.3f;
+            float elapsedTime = 0f;
+
+            while (elapsedTime < duration) {
+                image.color =  Color.Lerp(flashColor, endColor, elapsedTime / duration);
+                elapsedTime += Time.deltaTime;
+                yield return null; // Wait for the next frame
+            }
+
+            // Ensure the final color is set
+            image.color = endColor;
+        }
+
+        public void ProceedBtnCLicked() {
+            EventManager.TriggerEvent(Edia.Events.StateMachine.EvProceed);
+        }
+
+        void SetButtonState(Button btn, bool state) {
+            btn.interactable = state;
+        }
+
+        void OnEvStartTimer(eParam obj) {
+            EventManager.StartListening(Edia.Events.ControlPanel.EvStopTimer, OnEvStopTimer);
+            timerSlider.gameObject.SetActive(true);
+            timerSlider.StartAnimation(obj.GetFloat());
+        }
+
+        private void OnEvStopTimer(eParam obj) {
+            EventManager.StopListening(Edia.Events.ControlPanel.EvStopTimer, OnEvStopTimer);
+            timerSlider.StopAnimation();
+        }
+
+        void SetupButtons() {
+            btnExperiment.onClick.AddListener(() => EventManager.TriggerEvent(Edia.Events.StateMachine.EvStartExperiment, null));
+            btnPauseExperiment.onClick.AddListener(() => EventManager.TriggerEvent(Edia.Events.StateMachine.EvPauseExperiment, null));
+            btnNextMessage.onClick.AddListener(() => EventManager.TriggerEvent(Edia.Events.ControlPanel.EvNextMessagePanelMsg, null));
+            btnNextMessage.gameObject.SetActive(false);
+        }
+
+#endregion // -------------------------------------------------------------------------------------------------------------------------------
+    }
+}
