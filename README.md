@@ -10,9 +10,9 @@
 🧱 Structure your experiment on multiple levels.    
 🗂️ Manage it using Config Files.  
 👁️ Unified eye tracking integration.  
-🛜 Remotely control mobile XR experiments.     
+📤 Remotely control mobile XR experiments.     
 ✏️ Automatically log relevant data.  
-🟰 Synchronize with external data.  
+🔃 Synchronize with external data.  
 
 ## `EDIA` in a nutshell
 ```mermaid
@@ -68,9 +68,11 @@ Unity now starts to download and install the `com.edia.core` package.
 Clone this repository. 
 
 ## Resources
+🏠 [EDIA Toolbox GitHub Organization](https://github.com/edia-toolbox) (find other `EDIA` submodules here)  
+🖥️ [EDIA Website](https://edia-toolbox.github.io/)  
 📖 [EDIA Manual](https://mind-body-emotion.notion.site/EDIA-Toolbox-710f144129a245debd9b71948084ea95?pvs=4)  
 🐣 [Getting started guide](https://mind-body-emotion.notion.site/EDIA-Tutorial-1cb03dd4773f801285edf12e8b6018bd)  
-⌨️ [HTML API Reference](https://gitlab.gwdg.de/edia/edia_core/-/tree/fix/%2328/doxyGenUpdate/Assets/com.edia.core/Documentation~/index.html)  
+⌨️ [HTML API Reference](https://edia-toolbox.github.io/edia_core/)  
 📝 [GitHub Discussion board](https://github.com/edia-toolbox/edia_core/discussions)  
 
 ## ThirdParty
@@ -93,5 +95,9 @@ If you want to [contribute](./CONTRIBUTOR.md) code, ideally first reach out to u
 ## Citation
 If you are using the `EDIA` toolbox or any of its constituents, please cite this repository as _Software_:
 ```
-Klotzsche, F., & de Mooij, J. EDIA — A Unity XR Toolbox for Research [Computer software]. https://github.com/edia-toolbox/edia_core
+Klotzsche, F. & de Mooij, J. EDIA — A Unity XR Toolbox for Research [Computer software]. https://github.com/edia-toolbox/edia_core
+```
+and this publication  
+``` 
+Klotzsche, F., de Mooij, J., Ohl, S., & Gaebler, M. (2025). EDIA: An open-source toolbox for virtual reality-based eye-tracking research using Unity. Journal of Vision, 25(9), 2485. https://doi.org/10.1167/jov.25.9.2485
 ```
