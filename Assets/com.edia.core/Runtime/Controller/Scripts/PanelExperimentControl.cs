@@ -44,8 +44,6 @@ namespace Edia.Controller {
 
             EventManager.StartListening(Edia.Events.Config.EvReadyToGo, OnEvReadyToGo);
             EventManager.StartListening(Edia.Events.ControlPanel.EvEnableButton, OnEvEnableButton);
-            EventManager.StartListening(Edia.Events.ControlPanel.EvStartTimer, OnEvStartTimer);
-            EventManager.StartListening(Edia.Events.ControlPanel.EvStopTimer, OnEvStopTimer);
         }
 
         void OnDestroy() {
@@ -98,6 +96,7 @@ namespace Edia.Controller {
 
             GetComponent<VerticalLayoutGroup>().enabled = true;
 
+            EventManager.StartListening(Edia.Events.ControlPanel.EvStartTimer, OnEvStartTimer);
             EventManager.StartListening(Edia.Events.StateMachine.EvTrialEnd, OnEvTrialEnd);
             EventManager.StartListening(Edia.Events.ControlPanel.EvUpdateTrialProgress, OnEvUpdateTrialProgress);
             EventManager.StartListening(Edia.Events.ControlPanel.EvUpdateStepProgress, OnEvUpdateStepProgress);

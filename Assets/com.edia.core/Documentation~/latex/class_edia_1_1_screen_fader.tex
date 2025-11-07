@@ -1,0 +1,84 @@
+\doxysection{Edia.\+Screen\+Fader Class Reference}
+\hypertarget{class_edia_1_1_screen_fader}{}\label{class_edia_1_1_screen_fader}\index{Edia.ScreenFader@{Edia.ScreenFader}}
+
+
+Handles fading the camera view.  
+
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+Coroutine \mbox{\hyperlink{class_edia_1_1_screen_fader_a25accd5652a604462a6a45a86a72b0d3}{Start\+Fade\+Black\+In}} (float fade\+Speed)
+\begin{DoxyCompactList}\small\item\em Fade to black with given speed. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+Mesh\+Renderer \mbox{\hyperlink{class_edia_1_1_screen_fader_afd198289b1a073dda33420a7a79cf327}{Block\+Object}} = null
+\begin{DoxyCompactList}\small\item\em Represents the mesh renderer used for blocking or fading the camera\textquotesingle{}s view. \end{DoxyCompactList}\item 
+Color \mbox{\hyperlink{class_edia_1_1_screen_fader_a1a50921d2b2512d27f0c6074abe4cf0f}{Fade\+Color}} = Color.\+black
+\begin{DoxyCompactList}\small\item\em Defines the color used for screen fading effects. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_edia_1_1_screen_fader_a9e8af039d275ec3441d4f30e5b1171d0}{Fade\+Speed}} = 1f
+\begin{DoxyCompactList}\small\item\em Determines the speed at which the screen fades to and from black. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Handles fading the camera view. 
+
+\label{doc-func-members}
+\Hypertarget{class_edia_1_1_screen_fader_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_edia_1_1_screen_fader_a25accd5652a604462a6a45a86a72b0d3}\index{Edia.ScreenFader@{Edia.ScreenFader}!StartFadeBlackIn@{StartFadeBlackIn}}
+\index{StartFadeBlackIn@{StartFadeBlackIn}!Edia.ScreenFader@{Edia.ScreenFader}}
+\doxysubsubsection{\texorpdfstring{StartFadeBlackIn()}{StartFadeBlackIn()}}
+{\footnotesize\ttfamily \label{class_edia_1_1_screen_fader_a25accd5652a604462a6a45a86a72b0d3} 
+Coroutine Edia.\+Screen\+Fader.\+Start\+Fade\+Black\+In (\begin{DoxyParamCaption}\item[{float}]{fade\+Speed}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Fade to black with given speed. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em fade\+Speed} & Default = 1\\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-variable-members}
+\Hypertarget{class_edia_1_1_screen_fader_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_edia_1_1_screen_fader_afd198289b1a073dda33420a7a79cf327}\index{Edia.ScreenFader@{Edia.ScreenFader}!BlockObject@{BlockObject}}
+\index{BlockObject@{BlockObject}!Edia.ScreenFader@{Edia.ScreenFader}}
+\doxysubsubsection{\texorpdfstring{BlockObject}{BlockObject}}
+{\footnotesize\ttfamily \label{class_edia_1_1_screen_fader_afd198289b1a073dda33420a7a79cf327} 
+Mesh\+Renderer Edia.\+Screen\+Fader.\+Block\+Object = null}
+
+
+
+Represents the mesh renderer used for blocking or fading the camera\textquotesingle{}s view. 
+
+This renderer is utilized in conjunction with the \doxylink{class_edia_1_1_screen_fader}{Screen\+Fader} component to display and manage fade effects such as transitioning in or out of scenes. The material of this object is dynamically adjusted during fade operations to manipulate color intensity and transparency. Ensure that this reference is set in the inspector or during runtime to avoid null reference issues. \Hypertarget{class_edia_1_1_screen_fader_a1a50921d2b2512d27f0c6074abe4cf0f}\index{Edia.ScreenFader@{Edia.ScreenFader}!FadeColor@{FadeColor}}
+\index{FadeColor@{FadeColor}!Edia.ScreenFader@{Edia.ScreenFader}}
+\doxysubsubsection{\texorpdfstring{FadeColor}{FadeColor}}
+{\footnotesize\ttfamily \label{class_edia_1_1_screen_fader_a1a50921d2b2512d27f0c6074abe4cf0f} 
+Color Edia.\+Screen\+Fader.\+Fade\+Color = Color.\+black}
+
+
+
+Defines the color used for screen fading effects. 
+
+This color determines the appearance of the fade effect applied by the \doxylink{class_edia_1_1_screen_fader}{Screen\+Fader} component. The alpha value of the color is dynamically adjusted during fade transitions to create a smooth effect. By default, the color is set to black. \Hypertarget{class_edia_1_1_screen_fader_a9e8af039d275ec3441d4f30e5b1171d0}\index{Edia.ScreenFader@{Edia.ScreenFader}!FadeSpeed@{FadeSpeed}}
+\index{FadeSpeed@{FadeSpeed}!Edia.ScreenFader@{Edia.ScreenFader}}
+\doxysubsubsection{\texorpdfstring{FadeSpeed}{FadeSpeed}}
+{\footnotesize\ttfamily \label{class_edia_1_1_screen_fader_a9e8af039d275ec3441d4f30e5b1171d0} 
+float Edia.\+Screen\+Fader.\+Fade\+Speed = 1f}
+
+
+
+Determines the speed at which the screen fades to and from black. 
+
+This value is used by the \doxylink{class_edia_1_1_screen_fader}{Screen\+Fader} methods to control the rate of fading transitions. Typically, higher values result in faster fades, while lower values create slower transitions. The default value is 1.\+0f. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+Felix/\+Projects/\+EDIA/edia\+\_\+core/\+Assets/com.\+edia.\+core/\+Runtime/\+Base/\+Scripts/\+Experiment/Screen\+Fader.\+cs\end{DoxyCompactItemize}

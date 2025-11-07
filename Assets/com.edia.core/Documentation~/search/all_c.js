@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['tooltip_0',['Tooltip',['../d9/d2d/class_edia_1_1_tooltip.html',1,'Edia']]],
-  ['trialstep_1',['TrialStep',['../d4/d11/class_edia_1_1_trial_step.html',1,'Edia']]],
-  ['triggerevent_2',['TriggerEvent',['../d4/db9/class_edia_1_1_event_manager.html#a7658c419050af04502bee0ce20b8679b',1,'Edia::EventManager']]]
+  ['panelconfigmaker_0',['PanelConfigMaker',['../class_edia_1_1_controller_1_1_panel_config_maker.html',1,'Edia::Controller']]],
+  ['panelconfigselection_1',['PanelConfigSelection',['../class_edia_1_1_controller_1_1_panel_config_selection.html',1,'Edia::Controller']]],
+  ['proceed_2',['Proceed',['../class_edia_1_1_experiment.html#a591f2c68e0163aefdd84519a4343a4cc',1,'Edia::Experiment']]],
+  ['proceedwithdelay_3',['ProceedWithDelay',['../class_edia_1_1_experiment.html#a85c556dbf48734f3a1da539cfb407139',1,'Edia::Experiment']]]
 ];

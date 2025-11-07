@@ -1,37 +1,51 @@
 var annotated_dup =
 [
-    [ "Edia", "d0/dd5/namespace_edia.html", [
-      [ "Controller", "df/de5/namespace_edia_1_1_controller.html", [
-        [ "ExperimenterPanel", "d7/d44/class_edia_1_1_controller_1_1_experimenter_panel.html", null ],
-        [ "PanelConfigMaker", "d0/d1d/class_edia_1_1_controller_1_1_panel_config_maker.html", null ],
-        [ "PanelConfigSelection", "d7/d88/class_edia_1_1_controller_1_1_panel_config_selection.html", null ]
+    [ "Edia", "namespace_edia.html", [
+      [ "Events", "namespace_edia_1_1_events.html", [
+        [ "Core", "class_edia_1_1_events_1_1_core.html", "class_edia_1_1_events_1_1_core" ],
+        [ "Settings", "class_edia_1_1_events_1_1_settings.html", "class_edia_1_1_events_1_1_settings" ],
+        [ "Config", "class_edia_1_1_events_1_1_config.html", "class_edia_1_1_events_1_1_config" ],
+        [ "StateMachine", "class_edia_1_1_events_1_1_state_machine.html", "class_edia_1_1_events_1_1_state_machine" ],
+        [ "ControlPanel", "class_edia_1_1_events_1_1_control_panel.html", "class_edia_1_1_events_1_1_control_panel" ],
+        [ "Network", "class_edia_1_1_events_1_1_network.html", null ],
+        [ "Eye", "class_edia_1_1_events_1_1_eye.html", "class_edia_1_1_events_1_1_eye" ],
+        [ "XR", "class_edia_1_1_events_1_1_x_r.html", "class_edia_1_1_events_1_1_x_r" ]
       ] ],
-      [ "Events", "d2/d51/namespace_edia_1_1_events.html", [
-        [ "Config", "d9/dda/class_edia_1_1_events_1_1_config.html", "d9/dda/class_edia_1_1_events_1_1_config" ],
-        [ "ControlPanel", "d0/db1/class_edia_1_1_events_1_1_control_panel.html", "d0/db1/class_edia_1_1_events_1_1_control_panel" ],
-        [ "Core", "d6/d15/class_edia_1_1_events_1_1_core.html", "d6/d15/class_edia_1_1_events_1_1_core" ],
-        [ "Network", "d3/d94/class_edia_1_1_events_1_1_network.html", null ],
-        [ "Settings", "df/dc3/class_edia_1_1_events_1_1_settings.html", "df/dc3/class_edia_1_1_events_1_1_settings" ],
-        [ "StateMachine", "d3/d4c/class_edia_1_1_events_1_1_state_machine.html", "d3/d4c/class_edia_1_1_events_1_1_state_machine" ]
+      [ "Utilities", "namespace_edia_1_1_utilities.html", [
+        [ "ArrayTools", "class_edia_1_1_utilities_1_1_array_tools.html", "class_edia_1_1_utilities_1_1_array_tools" ],
+        [ "StringTools", "class_edia_1_1_utilities_1_1_string_tools.html", "class_edia_1_1_utilities_1_1_string_tools" ]
       ] ],
-      [ "Constants", "da/df7/class_edia_1_1_constants.html", null ],
-      [ "eParam", "dc/d63/class_edia_1_1e_param.html", "dc/d63/class_edia_1_1e_param" ],
-      [ "EventManager", "d4/db9/class_edia_1_1_event_manager.html", "d4/db9/class_edia_1_1_event_manager" ],
-      [ "FileManager", "db/de6/class_edia_1_1_file_manager.html", "db/de6/class_edia_1_1_file_manager" ],
-      [ "InputActionHandler", "d1/dcb/class_edia_1_1_input_action_handler.html", null ],
-      [ "MainMenu", "d0/ddb/class_edia_1_1_main_menu.html", "d0/ddb/class_edia_1_1_main_menu" ],
-      [ "MessagePanelInVR", "dd/d09/class_edia_1_1_message_panel_in_v_r.html", "dd/d09/class_edia_1_1_message_panel_in_v_r" ],
-      [ "ScreenFader", "d5/d3e/class_edia_1_1_screen_fader.html", "d5/d3e/class_edia_1_1_screen_fader" ],
-      [ "ScreenInVR", "d7/d65/class_edia_1_1_screen_in_v_r.html", "d7/d65/class_edia_1_1_screen_in_v_r" ],
-      [ "SessionInfo", "df/ddc/class_edia_1_1_session_info.html", null ],
-      [ "SettingsDeclaration", "d2/dbc/class_edia_1_1_settings_declaration.html", null ],
-      [ "SettingsTuple", "d7/d22/class_edia_1_1_settings_tuple.html", null ],
-      [ "SystemSettings", "d0/dde/class_edia_1_1_system_settings.html", "d0/dde/class_edia_1_1_system_settings" ],
-      [ "Tooltip", "d9/d2d/class_edia_1_1_tooltip.html", null ],
-      [ "TrialStep", "d4/d11/class_edia_1_1_trial_step.html", null ],
-      [ "ValueList", "d4/dad/class_edia_1_1_value_list.html", null ],
-      [ "XBlockSettings", "de/d24/class_edia_1_1_x_block_settings.html", null ],
-      [ "XRControllerInputRemapper", "d3/d55/class_edia_1_1_x_r_controller_input_remapper.html", "d3/d55/class_edia_1_1_x_r_controller_input_remapper" ],
-      [ "XRrigInitialiser", "d9/d20/class_edia_1_1_x_rrig_initialiser.html", null ]
-    ] ]
+      [ "XR", "namespace_edia_1_1_x_r.html", [
+        [ "XRControllerInputRemapper", "class_edia_1_1_x_r_1_1_x_r_controller_input_remapper.html", "class_edia_1_1_x_r_1_1_x_r_controller_input_remapper" ]
+      ] ],
+      [ "Controller", "namespace_edia_1_1_controller.html", [
+        [ "ControlPanel", "class_edia_1_1_controller_1_1_control_panel.html", null ],
+        [ "ExperimenterPanel", "class_edia_1_1_controller_1_1_experimenter_panel.html", null ],
+        [ "PanelConfigMaker", "class_edia_1_1_controller_1_1_panel_config_maker.html", null ],
+        [ "PanelConfigSelection", "class_edia_1_1_controller_1_1_panel_config_selection.html", "class_edia_1_1_controller_1_1_panel_config_selection" ]
+      ] ],
+      [ "eParam", "class_edia_1_1e_param.html", "class_edia_1_1e_param" ],
+      [ "EventManager", "class_edia_1_1_event_manager.html", "class_edia_1_1_event_manager" ],
+      [ "Constants", "class_edia_1_1_constants.html", null ],
+      [ "Experiment", "class_edia_1_1_experiment.html", "class_edia_1_1_experiment" ],
+      [ "FileManager", "class_edia_1_1_file_manager.html", "class_edia_1_1_file_manager" ],
+      [ "SettingsTuple", "class_edia_1_1_settings_tuple.html", null ],
+      [ "ValueList", "class_edia_1_1_value_list.html", null ],
+      [ "XBlockSequence", "class_edia_1_1_x_block_sequence.html", null ],
+      [ "XBlockBaseSettings", "class_edia_1_1_x_block_base_settings.html", null ],
+      [ "XBlockSettings", "class_edia_1_1_x_block_settings.html", null ],
+      [ "SessionInfo", "class_edia_1_1_session_info.html", null ],
+      [ "TrialStep", "class_edia_1_1_trial_step.html", null ],
+      [ "SettingsDeclaration", "class_edia_1_1_settings_declaration.html", null ],
+      [ "MessagePanelInVR", "class_edia_1_1_message_panel_in_v_r.html", "class_edia_1_1_message_panel_in_v_r" ],
+      [ "ScreenFader", "class_edia_1_1_screen_fader.html", "class_edia_1_1_screen_fader" ],
+      [ "ScreenInVR", "class_edia_1_1_screen_in_v_r.html", "class_edia_1_1_screen_in_v_r" ],
+      [ "SystemSettings", "class_edia_1_1_system_settings.html", "class_edia_1_1_system_settings" ],
+      [ "XBlock", "class_edia_1_1_x_block.html", "class_edia_1_1_x_block" ],
+      [ "XRController", "class_edia_1_1_x_r_controller.html", null ],
+      [ "XRManager", "class_edia_1_1_x_r_manager.html", "class_edia_1_1_x_r_manager" ],
+      [ "InputActionHandler", "class_edia_1_1_input_action_handler.html", null ],
+      [ "ILslEyeOutlet", "interface_edia_1_1_i_lsl_eye_outlet.html", "interface_edia_1_1_i_lsl_eye_outlet" ]
+    ] ],
+    [ "InspectorHelpBoxAttribute", "class_inspector_help_box_attribute.html", null ]
 ];

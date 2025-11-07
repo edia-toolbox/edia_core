@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['readstring_0',['ReadString',['../db/de6/class_edia_1_1_file_manager.html#ad2c38e854607ffd3ca5c772421540b41',1,'Edia::FileManager']]]
+  ['network_0',['Network',['../class_edia_1_1_events_1_1_network.html',1,'Edia::Events']]]
 ];

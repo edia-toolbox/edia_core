@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace Edia {
 
+    /// <summary>
+    /// Blueprint class for Task classes. 
+    /// </summary>
     [System.Serializable]
     public class XBlock : MonoBehaviour {
 
@@ -15,6 +18,10 @@ namespace Edia {
         [SerializeField]
         public List<Action> trialSteps = new List<Action>();
 
+        /// <summary>
+        /// Add a method to the sequence of TrialSteps which are executed one after another by the EDIA state-machine. 
+        /// </summary>
+        /// <param name="methodStep"></param>
         public void AddToTrialSequence(Action methodStep) {
             trialSteps.Add(methodStep);
         }
