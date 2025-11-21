@@ -50,6 +50,8 @@ For newcomers to EDIA, we recommend to follow our "[Getting started](https://min
 
 # Installation
 
+Unity version 6000.0.61f1 and up.
+
 ### As a package (Unity package manager)
 - In Unity open the package manager window → **Window** → **Package Manager**  
 - Use `Install from GIT URL`  
