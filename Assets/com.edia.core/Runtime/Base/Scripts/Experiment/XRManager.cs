@@ -1,10 +1,12 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.XR.Hands.Samples.VisualizerSample;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
 using UnityEngine.XR.Interaction.Toolkit.Interactors.Casters;
 using UXF;
+#if XR_SAMPLES_INSTALLED
+using UnityEngine.XR.Hands.Samples.VisualizerSample;
+#endif
 
 namespace Edia {
 
@@ -52,8 +54,10 @@ namespace Edia {
 
         [Space(10f)]
         [Header("References")]
+#if XR_SAMPLES_INSTALLED       
         public HandVisualizer HandVisualizer;
-
+#endif
+        
         public Transform XRCam;
 
         public XRController XRLeft;
@@ -344,7 +348,12 @@ namespace Edia {
         /// <summary>Controls the visibility of hand meshes in the XR environment.</summary>
         /// <param name="onOff">True to display hand meshes, false to hide them.</param>
         public void ShowHands(bool onOff) {
+#if XR_SAMPLES_INSTALLED
             HandVisualizer.drawMeshes = onOff;
+#else
+            Debug.Log("XR Hands sample not installed. Falling back to Controllers.");
+            ShowControllers(onOff);
+#endif
         }
 
         // TODO document this
