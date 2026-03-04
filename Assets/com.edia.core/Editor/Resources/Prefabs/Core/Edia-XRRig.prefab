@@ -211,7 +211,7 @@ MonoBehaviour:
   AllowClimbing: 0
   AllowMoving: 0
   AllowTurning: 0
-  TrackXrRigWithUxf: 1
+  TrackXrRig: 1
   ShowConsoleMessages: 0
   HandVisualizer: {fileID: 7199147265114788691}
   XRCam: {fileID: 6672105821521620850}
@@ -220,7 +220,7 @@ MonoBehaviour:
     Controller: {fileID: 6672105819964067600}
     Hand: {fileID: 293372633492344178}
     ControllerModel: {fileID: 2578484473846659287}
-    UXFPoseTracker: {fileID: 1645312870741906873}
+    PoseTracker: {fileID: 1645312870741906873}
     NearFarInteractors:
     - {fileID: 2858104281685690068}
     - {fileID: 2298618060285118512}
@@ -233,7 +233,7 @@ MonoBehaviour:
     Controller: {fileID: 6672105821616705521}
     Hand: {fileID: 149540692975489777}
     ControllerModel: {fileID: 4778914094238334240}
-    UXFPoseTracker: {fileID: 1696464357636956564}
+    PoseTracker: {fileID: 1696464357636956564}
     NearFarInteractors:
     - {fileID: 5096534406503667787}
     - {fileID: 9030418791160582110}
@@ -497,6 +497,11 @@ PrefabInstance:
       propertyPath: m_InteractionManager
       value: 
       objectReference: {fileID: 4682706231693817916}
+    - target: {fileID: 3945265425289798786, guid: d6878e1999eb4b44a9f5a263af86c185,
+        type: 3}
+      propertyPath: m_CurrentTrackingState
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 4408243531416829440, guid: d6878e1999eb4b44a9f5a263af86c185,
         type: 3}
       propertyPath: m_LineDynamicsMode
@@ -532,6 +537,11 @@ PrefabInstance:
       propertyPath: m_InteractionManager
       value: 
       objectReference: {fileID: 4682706231693817916}
+    - target: {fileID: 6196027600238826984, guid: d6878e1999eb4b44a9f5a263af86c185,
+        type: 3}
+      propertyPath: m_CurrentTrackingState
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 6237049687586235588, guid: d6878e1999eb4b44a9f5a263af86c185,
         type: 3}
       propertyPath: m_InteractionManager
@@ -617,6 +627,11 @@ PrefabInstance:
       propertyPath: m_InteractionManager
       value: 
       objectReference: {fileID: 4682706231693817916}
+    - target: {fileID: 6873022368256633584, guid: d6878e1999eb4b44a9f5a263af86c185,
+        type: 3}
+      propertyPath: m_CurrentTrackingState
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 6888555638565599726, guid: d6878e1999eb4b44a9f5a263af86c185,
         type: 3}
       propertyPath: m_LineDynamicsMode
@@ -796,10 +811,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 6672105819964067599}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13dbc7aef009231419c2e645c8e8579b, type: 3}
+  m_Script: {fileID: 11500000, guid: 88aa149b77e637d408746c2e9445db97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectName: left_controller
+  objectName: Left
   updateType: 0
 --- !u!4 &6672105819964067600 stripped
 Transform:
@@ -872,10 +887,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 6672105821521620849}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13dbc7aef009231419c2e645c8e8579b, type: 3}
+  m_Script: {fileID: 11500000, guid: 88aa149b77e637d408746c2e9445db97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectName: head
+  objectName: HMD
   updateType: 0
 --- !u!114 &6138965340356881340
 MonoBehaviour:
@@ -913,10 +928,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 6672105821616705520}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13dbc7aef009231419c2e645c8e8579b, type: 3}
+  m_Script: {fileID: 11500000, guid: 88aa149b77e637d408746c2e9445db97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectName: right_controller
+  objectName: Right
   updateType: 0
 --- !u!4 &6672105821616705521 stripped
 Transform:

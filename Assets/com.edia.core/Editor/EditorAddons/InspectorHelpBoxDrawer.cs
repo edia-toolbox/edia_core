@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEditor;
 
+namespace Edia.Editor {
+
 [CustomPropertyDrawer(typeof(InspectorHelpBoxAttribute))]
 public class InspectorHelpBoxDrawer : PropertyDrawer {
 
@@ -75,4 +77,5 @@ public class InspectorHelpBoxDrawer : PropertyDrawer {
         var   height  = style.CalcHeight(content, width);
         return height + 30; // padding
     }
+}
 }

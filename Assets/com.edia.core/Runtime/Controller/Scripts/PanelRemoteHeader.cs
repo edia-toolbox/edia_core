@@ -22,6 +22,10 @@ namespace Edia {
 			EventManager.StartListening(Edia.Events.ControlPanel.EvConnectionEstablished, OnEvConnectionEstablished);
 		}
 
+		void OnDisable() {
+			EventManager.StopListening(Edia.Events.ControlPanel.EvConnectionEstablished, OnEvConnectionEstablished);
+		}
+
 		private void OnEvConnectionEstablished(eParam obj)
 		{
 			Debug.Log("OnEvConnectionEstablished:" + obj.GetInt());

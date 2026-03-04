@@ -79,10 +79,11 @@ Clone this repository.
 
 ## ThirdParty
 The following assets and packages are incorporated in edia.core:
-- [UXF — Unity Experiment Framework](https://github.com/immersivecognition/unity-experiment-framework/) (Brookes et al., [2020](https://link.springer.com/article/10.3758/s13428-019-01242-0))  ➡️ Core asset where `EDIA` is heavily inspired by and based upon.
-- [SimpleFileBrowser](https://github.com/yasirkula/UnitySimpleFileBrowser) ➡️ Enabling selecting custom logfile storeage location.
+- [SimpleFileBrowser](https://github.com/yasirkula/UnitySimpleFileBrowser) ➡️ Enabling selecting custom logfile storage location.
 - [RoundedUICorners](https://github.com/kirevdokimov/Unity-UI-Rounded-Corners) ➡️ Enhancement of UI items.
 - `Test Chamber` asset from the [OpenEnvironments repository](https://gitlab.com/eventlabprojects/openenvironments/-/tree/main) ➡️ A simple, clean VR environment for our sample scene.
+
+> **Note:** Earlier versions of EDIA depended on [UXF — Unity Experiment Framework](https://github.com/immersivecognition/unity-experiment-framework/) (Brookes et al., [2020](https://link.springer.com/article/10.3758/s13428-019-01242-0)). As of v0.5.0, UXF functionality (Settings, Block, Trial, Tracker, FileSaver, DataTable) has been absorbed directly into EDIA Core, eliminating the external dependency. The `com.edia.uxf` package is no longer required.
 
 ## About 
 The `EDIA` toolbox was and is developed in the context of the [Mind-Body-Emotion

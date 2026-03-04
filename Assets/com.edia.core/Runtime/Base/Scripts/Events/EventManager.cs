@@ -1,14 +1,13 @@
 ﻿// #####################################################################################################
 /*
- *  Project name  : VReha
+ *  Project name  : EDIA
  *  Author		  : Jeroen
  *  Description	  : Event manager handling global events
- *  Version		  : 0
+ *  Version		  : 1
  */
 // #####################################################################################################
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -91,6 +90,8 @@ namespace Edia {
         }
 
         public int GetIntAt(int _index) {
+            if (intPs == null || (uint)_index >= (uint)intPs.Length)
+                return 0;
             return intPs[_index];
         }
 
@@ -155,19 +156,18 @@ namespace Edia {
             public bool   boolP;
         }
 
-        public StringBool stringBool = new StringBool();
+        public StringBool stringBool;
 
         public eParam(string _string, bool _bool) {
-            stringBool.stringP = _string;
-            stringBool.boolP   = _bool;
+            stringBool = new StringBool { stringP = _string, boolP = _bool };
         }
 
         public string GetStringBool_String() {
-            return stringBool.stringP;
+            return stringBool?.stringP;
         }
 
         public bool GetStringBool_Bool() {
-            return stringBool.boolP;
+            return stringBool?.boolP ?? false;
         }
 
     }
@@ -178,6 +178,7 @@ namespace Edia {
 
     /// <summary>
     /// Provides functionality for managing events using event listeners and event triggers.
+    /// All methods must be called from the Unity main thread only.
     /// </summary>
     /// <remarks>
     /// The EventManager class allows registering listeners to specific events, stopping listeners,
@@ -224,7 +225,10 @@ namespace Edia {
                     UnityEngine.Debug.Log("<color=#FF0000>[ - ]</color> " + eventName);
 
                 thisEvent -= listener;
-                eventDictionary.Remove(eventName);
+                if (thisEvent == null)
+                    eventDictionary.Remove(eventName);
+                else
+                    eventDictionary[eventName] = thisEvent;
             }
         }
 
@@ -234,17 +238,22 @@ namespace Edia {
         /// <param name="eventName">String definition of the event</param>
         /// <param name="eventParam">Parameter package to pass along</param>
         public static void TriggerEvent(string eventName, eParam eventParam) {
-            Action<eParam> thisEvent = null;
-
-            if (eventDictionary.TryGetValue(eventName, out thisEvent)) {
-                if (showLog)
-                    Debug.Log("<color=#00ff00>[]> </color>" + eventName);
-                
-                thisEvent.Invoke(eventParam);
-            }
-            else {
+            if (!eventDictionary.TryGetValue(eventName, out var thisEvent)) {
                 if (showLog)
                     Debug.Log("No listener for:" + eventName);
+                return;
+            }
+
+            if (showLog)
+                Debug.Log("<color=#00ff00>[]> </color>" + eventName);
+
+            foreach (var handler in thisEvent.GetInvocationList()) {
+                try {
+                    ((Action<eParam>)handler)(eventParam);
+                }
+                catch (Exception e) {
+                    Debug.LogException(e);
+                }
             }
         }
 
@@ -252,12 +261,14 @@ namespace Edia {
             TriggerEvent(eventName, null);
         }
 
-        internal static void StartListening(object evPointMode) {
-            throw new NotImplementedException();
+        /// <summary>Returns subscriber count for an event (debugging).</summary>
+        public static int GetListenerCount(string eventName) {
+            return eventDictionary.TryGetValue(eventName, out var e) ? e.GetInvocationList().Length : 0;
         }
 
-        internal static void TriggerEvent(string evProceed, object onEvProceed) {
-            throw new NotImplementedException();
+        /// <summary>Removes all listeners. Use on scene teardown or test cleanup.</summary>
+        public static void RemoveAllListeners() {
+            eventDictionary.Clear();
         }
     }
 }

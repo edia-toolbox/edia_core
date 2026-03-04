@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEditor;
 
-namespace Edia.Utilities {
+namespace Edia.Editor {
 
     /// <summary> Provides tools for managing and creating layers in the Unity editor. </summary>
     public static class LayerTools {

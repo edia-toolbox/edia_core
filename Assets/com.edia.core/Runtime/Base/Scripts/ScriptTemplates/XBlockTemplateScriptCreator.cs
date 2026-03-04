@@ -1,4 +1,6 @@
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using System.IO;
 
 public static class XBlockTemplateScriptCreator {

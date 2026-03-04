@@ -4,6 +4,8 @@ using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
 using Edia;
 
+namespace Edia.Editor {
+
 /// <summary>
 /// Handles post Unity build actions, i.e. copy config files to build directory
 /// </summary>
@@ -45,4 +47,5 @@ public class ConfigMoveProcessor : IPostprocessBuildWithReport {
 
         UnityEngine.Debug.Log("Copied config files to " + outputPath);
     }
+}
 }

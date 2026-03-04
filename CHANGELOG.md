@@ -1,6 +1,52 @@
 
 ## [Unreleased]
--
+
+### Breaking Changes — UXF Dependency Removed
+EDIA Core no longer depends on the `com.edia.uxf` package. All UXF functionality used by EDIA has been absorbed directly into the framework. This is a **breaking change** for existing XBlock code that references UXF types directly.
+
+**Migration guide** (mechanical find-and-replace):
+
+| Before | After |
+|---|---|
+| `using UXF;` | Remove (no replacement needed) |
+| `Session.instance.CurrentTrial` | `Experiment.Instance.CurrentTrial` |
+| `Session.instance.CurrentBlock` | `Experiment.Instance.CurrentBlock` |
+| `Session.instance.CurrentTrial.result["x"]` | `Experiment.Instance.CurrentTrial.result["x"]` |
+| `Session.instance.CurrentTrial.settings.GetString("key")` | `Experiment.Instance.CurrentTrial.settings.GetString("key")` |
+| `UXFDataTable` | `Edia.Data.DataTable` |
+| `UXFDataRow` | `Edia.Data.DataRow` |
+
+The `Settings` API (GetString, GetFloat, GetBool, GetInt, etc.) remains identical — only the access path changes.
+
+### Added
+- `Edia.Data.Settings` — Cascading settings system (previously `UXF.Settings`). Same API, now with `SetParent()` instead of `ISettingsContainer`.
+- `Edia.Data.DataTable` — Tabular data with CSV export (previously `UXF.UXFDataTable`).
+- `Edia.Data.DataRow` — Named-column data row (previously `UXF.UXFDataRow`).
+- `Edia.Data.ResultsDictionary` — Thread-safe results dictionary for trial data.
+- `Edia.Data.BlockingQueue<T>` — Thread-safe producer-consumer queue for async I/O.
+- `Edia.Block` — Block grouping class (previously `UXF.Block`). Plain C# class, not a MonoBehaviour.
+- `Edia.Trial` — Trial lifecycle with worker thread pattern (previously `UXF.Trial`). Fires EDIA `EventManager` events instead of UXF UnityEvents.
+- `Edia.IO.FileSaver` — Async file I/O with worker thread (previously `UXF.FileSaver`). Now a plain C# class (not MonoBehaviour), constructed by `Experiment.BeginSession()`.
+- `Edia.Tracking.Tracker` — Abstract tracker base class (previously `UXF.Tracker`).
+- `Edia.Tracking.PositionRotationTracker` — XR position/rotation tracker (previously `UXF.PositionRotationTracker`).
+- `Experiment.Instance` now exposes session-level state: `blocks`, `settings`, `CurrentTrial`, `CurrentBlock`, `Trials`, `Headers`, `settingsToLog`, `customHeaders`, `trackedObjects`, `fileSaver`.
+- `Experiment.Instance.CreateBlock()` — Creates a new block (previously `Session.instance.CreateBlock()`).
+- `Experiment.Instance.BeginNextTrial()` / `EndCurrentTrial()` — Trial lifecycle management.
+- `Experiment.Instance.SaveDataTable()` — Save arbitrary data tables.
+- Unit test suite: 74 tests covering `Settings`, `DataTable`, `DataRow`, `ResultsDictionary`, and `BlockingQueue`.
+
+### Changed
+- `Experiment.cs` — Major refactor: absorbed all `UXF.Session` state and lifecycle methods. `Experiment.Instance` is now the single API for everything.
+- `SessionGenerator.cs` — Retargeted from `Session.instance` to `Experiment.Instance`. Renamed `GenerateUxfSequence()` to `GenerateSequence()`.
+- `SystemSettings.cs` — Removed `UXF.LocalFileDataHandler` references. Storage path is now managed by `Experiment.BeginSession()`.
+- `XRManager.cs` — Updated tracker type references from `UXF.Tracker` / `UXF.PositionRotationTracker` to `Edia.Tracking.*`.
+- `UXFSessionCheck.cs` — Renamed to `ExperimentSessionCheck`. Now inspects `Experiment` instead of `Session`. Menu item: `EDIA/Show session debugger`.
+- `edia.core.Runtime.asmdef` — Removed UXF assembly reference.
+- All sample XBlocks (`TaskStroop`, `TaskD2`, `Break`, `TaskStartersKitFinished`) updated to use `Experiment.Instance.*` instead of `Session.instance.*`.
+
+### Removed
+- `com.edia.uxf` package dependency. The UXF package is no longer required and can be removed from your project.
+- All `using UXF;` references throughout the codebase.
 
 ## [0.4.0] - 12-04-2024
 This release is based on the configs 2.0 approach and has all related framework logic to support that.

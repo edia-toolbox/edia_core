@@ -9,20 +9,23 @@ namespace Edia.Events {
     /// <summary>Overview of all events in the system. Easier to reference and no typo mistakes by using them.</summary>
     public static class Core {
         /// <summary>Use this to alert the user that something went wrong</summary>
+        [global::System.Obsolete("Unused in edia_core. Remove if not needed by your project.")]
         public const string EvSystemHalt = "EvSystemHalt";
 
         /// <summary>Exit application</summary>
         public const string EvQuitApplication = "EvQuitApplication";
 
         /// <summary>Shows a message to the VR user</summary>
+        [global::System.Obsolete("Unused in edia_core. Remove if not needed by your project.")]
         public const string EvShowMessageToUser = "EvShowMessageToUser";
     }
 
     //? ========================================================================================================
 
-    /// <summary>All event related to controlling the state machine of the experiment </summary>
+    /// <summary>All events related to system settings management</summary>
     public static class Settings {
         /// <summary>Set storagepath systemwide. Expects full path as string</summary>
+        [global::System.Obsolete("Unused in edia_core. Remove if not needed by your project.")]
         public const string EvSetCustomStoragePath = "EvSetCustomStoragePath";
 
         /// <summary>Request to show system settings. Expects null</summary>
@@ -40,7 +43,7 @@ namespace Edia.Events {
 
     //? ========================================================================================================
 
-    /// <summary>All event related to controlling the state machine of the experiment </summary>
+    /// <summary>All events related to experiment configuration loading</summary>
     public static class Config {
         /// <summary>Set session info. Expects JSON string</summary>
         public const string EvSetSessionInfo = "EvSetSessionInfo";
@@ -61,6 +64,7 @@ namespace Edia.Events {
         public const string EvFoundLocalConfigFiles = "EvFoundLocalConfigFiles";
 
         /// <summary>Local config file was submitted. Expects filename as string</summary>
+        [global::System.Obsolete("Unused in edia_core. Remove if not needed by your project.")]
         public const string EvLocalConfigSubmitted = "EvLocalConfigSubmitted";
     }
 
@@ -75,30 +79,36 @@ namespace Edia.Events {
         public const string EvPauseExperiment = "EvPauseExperiment";
 
         /// <summary>Fired by ExperimentManager when a trial has begun. Expects null</summary>
+        [global::System.Obsolete("Unused in edia_core. Remove if not needed by your project.")]
         public const string EvTrialBegin = "EvTrialBegin";
 
         /// <summary>Fired by ExperimentManager when a trial has ended. Expects null</summary>
         public const string EvTrialEnd = "EvTrialEnd";
-        
+
         /// <summary>Fired by ExperimentManager when the session had Finialized. Expects null</summary>
         public const string EvSessionEnded = "EvSessionEnded";
 
         /// <summary>Fired by ExperimentManager when the session starts a break. Expects null</summary>
+        [global::System.Obsolete("Unused in edia_core. Remove if not needed by your project.")]
         public const string EvSessionBreak = "EvSessionBreak";
 
         /// <summary>Fired by ExperimentManager when the session continues. Expects null</summary>
+        [global::System.Obsolete("Unused in edia_core. Remove if not needed by your project.")]
         public const string EvSessionResume = "EvSessionResume";
 
         /// <summary>Fired by ExperimentManager when a blockintroduction is found. Expects null</summary>
+        [global::System.Obsolete("Unused in edia_core. Remove if not needed by your project.")]
         public const string EvBlockIntroduction = "EvBlockIntroduction";
 
         /// <summary>Fired by ExperimentManager when the session resumes after an i.e. introduction. Expects null</summary>
+        [global::System.Obsolete("Unused in edia_core. Remove if not needed by your project.")]
         public const string EvBlockResumeAfterIntro = "EvBlockResumeAfterIntro";
 
         /// <summary>Event indicating that the system can proceed, useally from experimenter. Expects null</summary>
         public const string EvProceed = "EvProceed";
 
         /// <summary>Fired by ExperimentManager when a new block is starting. Expects null</summary>
+        [global::System.Obsolete("Unused in edia_core. Remove if not needed by your project.")]
         public const string EvBlockStart = "EvBlockStart";
     }
 
@@ -116,6 +126,7 @@ namespace Edia.Events {
         public const string EvStopTimer = "EvStopTimer";
 
         /// <summary>Experiment summary as string[]</summary>
+        // NOTE: Constant name differs from value for historical reasons. Do not change the value.
         public const string EvUpdateSessionSummary = "EvUpdateExperimentSummary";
 
         /// <summary>Send progress update (trial/block)</summary>
@@ -134,13 +145,15 @@ namespace Edia.Events {
         public const string EvShowMessageBox = "EvShowMessageBox";
 
         // Fired when mouse hovers over a GUI item that has 'tooltip' script on it. Expects null.
+        [global::System.Obsolete("Unused in edia_core. Remove if not needed by your project.")]
         public const string EvShowTooltip = "EvShowTooltip";
 
         // Fired when mouse hovers over a GUI item that has 'tooltip' script on it. Expects null.
+        [global::System.Obsolete("Unused in edia_core. Remove if not needed by your project.")]
         public const string EvHideTooltip = "EvHideTooltip";
 
         // Fired when pairing panel gets a connection. Expects int as HMD index
-        public const string EvConnectionEstablished = "EvConnectionEstablished ";
+        public const string EvConnectionEstablished = "EvConnectionEstablished";
 
         // Fired when showing multiple messages in the messagepanel
         public const string EvNextMessagePanelMsg = "EvNextMessagePanelMsg";
@@ -151,7 +164,8 @@ namespace Edia.Events {
 
     //? ========================================================================================================
 
-    /// <summary>All event related to controlling the state machine of the experiment </summary>
+    /// <summary>All events related to network/remote communication</summary>
+    [global::System.Obsolete("Unused in edia_core. Remove if not needed by your project.")]
     public static class Network {
         
         // * TO EXECUTER >>
@@ -163,7 +177,7 @@ namespace Edia.Events {
         public const string NwEvSetXBlockDefinitions    = "NwEvSetXBlockDefinitions";
         public const string NwEvStartExperiment         = "NwEvStartExperiment";
         public const string NwEvPauseExperiment         = "NwEvPauseExperiment";
-        public const string NwEvSessionEnded            = "NwEvSessionEnded ";
+        public const string NwEvSessionEnded            = "NwEvSessionEnded";
         public const string NwEvProceed                 = "NwEvProceed";
         public const string NwEvToggleCasting           = "NwEvToggleCasting";
         public const string NwEvNextMessagepanelMsg     = "NwEvNextMessagepanelMsg";
@@ -193,9 +207,11 @@ namespace Edia.Events {
         public const string EvEnableEyeCalibrationTrigger = "EvEnableEyeCalibrationTrigger";
 
         /// <summary>Eye calibration request. Expects null</summary>
+        [global::System.Obsolete("Unused in edia_core. Remove if not needed by your project.")]
         public const string EvEyeCalibrationRequested = "EvEyeCalibrationRequested";
 
         /// <summary>Eye calibration done. Expects null</summary>
+        [global::System.Obsolete("Unused in edia_core. Remove if not needed by your project.")]
         public const string EvEyeCalibrationFinished = "EvEyeCalibrationFinished";
     }
 
@@ -207,15 +223,19 @@ namespace Edia.Events {
         public const string EvUpdateInteractiveSide = "EvUpdateInteractiveSide";
 
         /// <summary>Turn XR hand / controller interaction possibility on or off. Expects boolean</summary>
+        [global::System.Obsolete("Unused in edia_core. Remove if not needed by your project.")]
         public const string EvEnableXRInteraction = "EvEnableXRInteraction";
 
         /// <summary>Shows XR hand / controller on or off. Expects boolean</summary>
+        [global::System.Obsolete("Unused in edia_core. Remove if not needed by your project.")]
         public const string EvShowXRController = "EvShowXRController";
 
         /// <summary>System found XR hands and HMD objects. Expects null</summary>
+        [global::System.Obsolete("Unused in edia_core. Remove if not needed by your project.")]
         public const string EvFoundXRrigReferences = "EvFoundXRrigReferences";
 
         /// <summary>Enable interaction with UI presented on layer 'camoverlay', expects boolean</summary>
+        [global::System.Obsolete("Unused in edia_core. Remove if not needed by your project.")]
         public const string EvEnableXROverlay = "EvEnableXROverlay";
 
 
@@ -223,9 +243,11 @@ namespace Edia.Events {
         //? Hands
 
         /// <summary>Animate the handmodel is this pose, expects string 'idle' 'point' 'fist' ...</summary>
+        [global::System.Obsolete("Unused in edia_core. Remove if not needed by your project.")]
         public const string EvHandPose = "EvHandPose";
 
         /// <summary>Handmodel pose reacts live to controller state, expects bool</summary>
+        [global::System.Obsolete("Unused in edia_core. Remove if not needed by your project.")]
         public const string EvEnableCustomHandPoses = "EvEnableCustomHandPoses";
     }
 
@@ -238,6 +260,7 @@ namespace Edia.Events {
 
     //? ========================================================================================================
 
+    [global::System.Obsolete("Unused in edia_core. Remove if not needed by your project.")]
     public static class Casting {
         /// <summary>Send a marker to the system, any listener can pick it up and handle it. Expects marker as string</summary>
         public const string EvToggleCasting = "EvToggleCasting";

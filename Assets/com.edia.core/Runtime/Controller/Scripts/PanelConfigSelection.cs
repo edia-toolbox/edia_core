@@ -76,6 +76,10 @@ namespace Edia.Controller {
             EventManager.TriggerEvent(Edia.Events.Config.EvFoundLocalConfigFiles);
         }
 
+        private void OnDestroy() {
+            EventManager.StopListening(Edia.Events.Config.EvFoundLocalConfigFiles, OnEvFoundLocalConfigFiles);
+        }
+
         private void OnEvFoundLocalConfigFiles(eParam e) {
             Invoke("ShowPanel", 0.1f); // Small delay to be sure the Awake method collected all child transforms to toggle
         }

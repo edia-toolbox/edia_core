@@ -1,0 +1,483 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="74" result="Passed" total="74" passed="74" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.129568">
+  <test-suite type="TestSuite" id="1000" name="EDIA Core" fullname="EDIA Core" runstate="Runnable" testcasecount="125" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.129568" total="74" passed="74" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1148" name="Edia.Core.Tests.dll" fullname="F:/VibeCode/EdiaPlan/edia_core/Library/ScriptAssemblies/Edia.Core.Tests.dll" runstate="Runnable" testcasecount="74" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.122910" total="74" passed="74" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="39136" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1149" name="Edia" fullname="Edia" runstate="Runnable" testcasecount="74" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.122541" total="74" passed="74" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1150" name="Tests" fullname="Edia.Tests" runstate="Runnable" testcasecount="74" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.122303" total="74" passed="74" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1069" name="TestBlockingQueue" fullname="Edia.Tests.TestBlockingQueue" classname="Edia.Tests.TestBlockingQueue" runstate="Runnable" testcasecount="7" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.081556" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1074" name="DequeueBlocksUntilEnqueue" fullname="Edia.Tests.TestBlockingQueue.DequeueBlocksUntilEnqueue" methodname="DequeueBlocksUntilEnqueue" classname="Edia.Tests.TestBlockingQueue" runstate="Runnable" seed="2123324619" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.065006" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1070" name="EnqueueAndDequeue" fullname="Edia.Tests.TestBlockingQueue.EnqueueAndDequeue" methodname="EnqueueAndDequeue" classname="Edia.Tests.TestBlockingQueue" runstate="Runnable" seed="1682157609" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.000243" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1072" name="EnqueueNullThrows" fullname="Edia.Tests.TestBlockingQueue.EnqueueNullThrows" methodname="EnqueueNullThrows" classname="Edia.Tests.TestBlockingQueue" runstate="Runnable" seed="1658190123" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.002446" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1071" name="FIFOOrder" fullname="Edia.Tests.TestBlockingQueue.FIFOOrder" methodname="FIFOOrder" classname="Edia.Tests.TestBlockingQueue" runstate="Runnable" seed="899432323" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.000333" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1076" name="MultipleProducers" fullname="Edia.Tests.TestBlockingQueue.MultipleProducers" methodname="MultipleProducers" classname="Edia.Tests.TestBlockingQueue" runstate="Runnable" seed="1521399158" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.000752" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1073" name="NumItemsTracksCorrectly" fullname="Edia.Tests.TestBlockingQueue.NumItemsTracksCorrectly" methodname="NumItemsTracksCorrectly" classname="Edia.Tests.TestBlockingQueue" runstate="Runnable" seed="1606215557" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.000194" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1075" name="ProducerConsumerPattern" fullname="Edia.Tests.TestBlockingQueue.ProducerConsumerPattern" methodname="ProducerConsumerPattern" classname="Edia.Tests.TestBlockingQueue" runstate="Runnable" seed="1158259158" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.000544" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1077" name="TestDataRow" fullname="Edia.Tests.TestDataRow" classname="Edia.Tests.TestDataRow" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.003479" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1079" name="AddTuples" fullname="Edia.Tests.TestDataRow.AddTuples" methodname="AddTuples" classname="Edia.Tests.TestDataRow" runstate="Runnable" seed="705726166" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.000684" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1078" name="CreateEmptyRow" fullname="Edia.Tests.TestDataRow.CreateEmptyRow" methodname="CreateEmptyRow" classname="Edia.Tests.TestDataRow" runstate="Runnable" seed="602341654" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.000114" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1080" name="Headers" fullname="Edia.Tests.TestDataRow.Headers" methodname="Headers" classname="Edia.Tests.TestDataRow" runstate="Runnable" seed="423826090" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.001008" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1081" name="NullValue" fullname="Edia.Tests.TestDataRow.NullValue" methodname="NullValue" classname="Edia.Tests.TestDataRow" runstate="Runnable" seed="516455762" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.000335" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1082" name="TestDataTable" fullname="Edia.Tests.TestDataTable" classname="Edia.Tests.TestDataTable" runstate="Runnable" testcasecount="17" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.012664" total="17" passed="17" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1084" name="AddCompleteRow" fullname="Edia.Tests.TestDataTable.AddCompleteRow" methodname="AddCompleteRow" classname="Edia.Tests.TestDataTable" runstate="Runnable" seed="452366168" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.001544" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1085" name="AddMultipleRows" fullname="Edia.Tests.TestDataTable.AddMultipleRows" methodname="AddMultipleRows" classname="Edia.Tests.TestDataTable" runstate="Runnable" seed="1105315796" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.000260" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1088" name="AddNullRowThrows" fullname="Edia.Tests.TestDataTable.AddNullRowThrows" methodname="AddNullRowThrows" classname="Edia.Tests.TestDataTable" runstate="Runnable" seed="1241031210" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.000188" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1087" name="AddRowWithDifferentCountThrows" fullname="Edia.Tests.TestDataTable.AddRowWithDifferentCountThrows" methodname="AddRowWithDifferentCountThrows" classname="Edia.Tests.TestDataTable" runstate="Runnable" seed="12085622" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.000401" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1086" name="AddRowWithWrongColumnsThrows" fullname="Edia.Tests.TestDataTable.AddRowWithWrongColumnsThrows" methodname="AddRowWithWrongColumnsThrows" classname="Edia.Tests.TestDataTable" runstate="Runnable" seed="256930907" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.000305" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1083" name="CreateDataTable" fullname="Edia.Tests.TestDataTable.CreateDataTable" methodname="CreateDataTable" classname="Edia.Tests.TestDataTable" runstate="Runnable" seed="331437720" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.000452" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1098" name="EmptyTableCountRows" fullname="Edia.Tests.TestDataTable.EmptyTableCountRows" methodname="EmptyTableCountRows" classname="Edia.Tests.TestDataTable" runstate="Runnable" seed="169912545" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.000103" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1099" name="EmptyTableNoHeaders" fullname="Edia.Tests.TestDataTable.EmptyTableNoHeaders" methodname="EmptyTableNoHeaders" classname="Edia.Tests.TestDataTable" runstate="Runnable" seed="2115670195" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.000124" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1094" name="FromCSV" fullname="Edia.Tests.TestDataTable.FromCSV" methodname="FromCSV" classname="Edia.Tests.TestDataTable" runstate="Runnable" seed="422910179" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.000520" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1095" name="FromCSV_MismatchedColumnsThrows" fullname="Edia.Tests.TestDataTable.FromCSV_MismatchedColumnsThrows" methodname="FromCSV_MismatchedColumnsThrows" classname="Edia.Tests.TestDataTable" runstate="Runnable" seed="2078344771" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.000180" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1096" name="GetAsDictOfList" fullname="Edia.Tests.TestDataTable.GetAsDictOfList" methodname="GetAsDictOfList" classname="Edia.Tests.TestDataTable" runstate="Runnable" seed="1591635294" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.001464" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1097" name="GetAsListOfDict" fullname="Edia.Tests.TestDataTable.GetAsListOfDict" methodname="GetAsListOfDict" classname="Edia.Tests.TestDataTable" runstate="Runnable" seed="646360245" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.000856" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1091" name="GetCSVLines_CommasReplaced" fullname="Edia.Tests.TestDataTable.GetCSVLines_CommasReplaced" methodname="GetCSVLines_CommasReplaced" classname="Edia.Tests.TestDataTable" runstate="Runnable" seed="1452203529" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.001074" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1093" name="GetCSVLines_FloatFormatting" fullname="Edia.Tests.TestDataTable.GetCSVLines_FloatFormatting" methodname="GetCSVLines_FloatFormatting" classname="Edia.Tests.TestDataTable" runstate="Runnable" seed="313433789" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.002497" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1089" name="GetCSVLines_InvariantCulture" fullname="Edia.Tests.TestDataTable.GetCSVLines_InvariantCulture" methodname="GetCSVLines_InvariantCulture" classname="Edia.Tests.TestDataTable" runstate="Runnable" seed="1239174824" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.000263" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1092" name="GetCSVLines_MultipleRows" fullname="Edia.Tests.TestDataTable.GetCSVLines_MultipleRows" methodname="GetCSVLines_MultipleRows" classname="Edia.Tests.TestDataTable" runstate="Runnable" seed="646029927" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.000299" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1090" name="GetCSVLines_NullValue" fullname="Edia.Tests.TestDataTable.GetCSVLines_NullValue" methodname="GetCSVLines_NullValue" classname="Edia.Tests.TestDataTable" runstate="Runnable" seed="1236379563" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.000239" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1100" name="TestResultsDictionary" fullname="Edia.Tests.TestResultsDictionary" classname="Edia.Tests.TestResultsDictionary" runstate="Runnable" testcasecount="10" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.003106" total="10" passed="10" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1105" name="AdHocAddingDisabled_ThrowsOnNewKey" fullname="Edia.Tests.TestResultsDictionary.AdHocAddingDisabled_ThrowsOnNewKey" methodname="AdHocAddingDisabled_ThrowsOnNewKey" classname="Edia.Tests.TestResultsDictionary" runstate="Runnable" seed="837872224" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.000498" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1106" name="AdHocAddingEnabled_AllowsNewKey" fullname="Edia.Tests.TestResultsDictionary.AdHocAddingEnabled_AllowsNewKey" methodname="AdHocAddingEnabled_AllowsNewKey" classname="Edia.Tests.TestResultsDictionary" runstate="Runnable" seed="1042587143" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.000144" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1108" name="ContainsKey_FalseForMissing" fullname="Edia.Tests.TestResultsDictionary.ContainsKey_FalseForMissing" methodname="ContainsKey_FalseForMissing" classname="Edia.Tests.TestResultsDictionary" runstate="Runnable" seed="1622616092" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.000138" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1101" name="CreateWithInitialKeys" fullname="Edia.Tests.TestResultsDictionary.CreateWithInitialKeys" methodname="CreateWithInitialKeys" classname="Edia.Tests.TestResultsDictionary" runstate="Runnable" seed="590333351" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.000152" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1102" name="InitialValuesAreEmptyString" fullname="Edia.Tests.TestResultsDictionary.InitialValuesAreEmptyString" methodname="InitialValuesAreEmptyString" classname="Edia.Tests.TestResultsDictionary" runstate="Runnable" seed="180741200" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.000101" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1107" name="Keys_ReturnsAllKeys" fullname="Edia.Tests.TestResultsDictionary.Keys_ReturnsAllKeys" methodname="Keys_ReturnsAllKeys" classname="Edia.Tests.TestResultsDictionary" runstate="Runnable" seed="1931852616" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.000199" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1110" name="MultipleAdHocKeys" fullname="Edia.Tests.TestResultsDictionary.MultipleAdHocKeys" methodname="MultipleAdHocKeys" classname="Edia.Tests.TestResultsDictionary" runstate="Runnable" seed="1456638641" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.000224" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1109" name="NullValue" fullname="Edia.Tests.TestResultsDictionary.NullValue" methodname="NullValue" classname="Edia.Tests.TestResultsDictionary" runstate="Runnable" seed="1840768392" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.000099" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1104" name="OverwriteExistingKey" fullname="Edia.Tests.TestResultsDictionary.OverwriteExistingKey" methodname="OverwriteExistingKey" classname="Edia.Tests.TestResultsDictionary" runstate="Runnable" seed="226559915" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.000113" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1103" name="SetAndGetValue" fullname="Edia.Tests.TestResultsDictionary.SetAndGetValue" methodname="SetAndGetValue" classname="Edia.Tests.TestResultsDictionary" runstate="Runnable" seed="1956591581" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.000107" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1111" name="TestSettings" fullname="Edia.Tests.TestSettings" classname="Edia.Tests.TestSettings" runstate="Runnable" testcasecount="36" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.020044" total="36" passed="36" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1128" name="CascadeThreeLevels" fullname="Edia.Tests.TestSettings.CascadeThreeLevels" methodname="CascadeThreeLevels" classname="Edia.Tests.TestSettings" runstate="Runnable" seed="756707041" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.000733" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1129" name="CascadeThrowsWhenNotFoundAnywhere" fullname="Edia.Tests.TestSettings.CascadeThrowsWhenNotFoundAnywhere" methodname="CascadeThrowsWhenNotFoundAnywhere" classname="Edia.Tests.TestSettings" runstate="Runnable" seed="107969543" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.000227" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1126" name="CascadeToParent" fullname="Edia.Tests.TestSettings.CascadeToParent" methodname="CascadeToParent" classname="Edia.Tests.TestSettings" runstate="Runnable" seed="1916780622" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.000142" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1140" name="CastNativeBoolList" fullname="Edia.Tests.TestSettings.CastNativeBoolList" methodname="CastNativeBoolList" classname="Edia.Tests.TestSettings" runstate="Runnable" seed="1336538100" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.000479" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1139" name="CastNativeFloatList" fullname="Edia.Tests.TestSettings.CastNativeFloatList" methodname="CastNativeFloatList" classname="Edia.Tests.TestSettings" runstate="Runnable" seed="2083972857" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.000530" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1138" name="CastNativeIntList" fullname="Edia.Tests.TestSettings.CastNativeIntList" methodname="CastNativeIntList" classname="Edia.Tests.TestSettings" runstate="Runnable" seed="1402762986" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.000323" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1131" name="ChildDoesNotAffectParent" fullname="Edia.Tests.TestSettings.ChildDoesNotAffectParent" methodname="ChildDoesNotAffectParent" classname="Edia.Tests.TestSettings" runstate="Runnable" seed="558902843" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.000206" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1127" name="ChildOverridesParent" fullname="Edia.Tests.TestSettings.ChildOverridesParent" methodname="ChildOverridesParent" classname="Edia.Tests.TestSettings" runstate="Runnable" seed="1117979859" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.000144" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1125" name="ContainsKey" fullname="Edia.Tests.TestSettings.ContainsKey" methodname="ContainsKey" classname="Edia.Tests.TestSettings" runstate="Runnable" seed="1385548440" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.000174" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1130" name="ContainsKeyCascades" fullname="Edia.Tests.TestSettings.ContainsKeyCascades" methodname="ContainsKeyCascades" classname="Edia.Tests.TestSettings" runstate="Runnable" seed="2137885082" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.000131" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1112" name="CreateEmptySettings" fullname="Edia.Tests.TestSettings.CreateEmptySettings" methodname="CreateEmptySettings" classname="Edia.Tests.TestSettings" runstate="Runnable" seed="1008378424" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.001512" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1121" name="DictToSettings" fullname="Edia.Tests.TestSettings.DictToSettings" methodname="DictToSettings" classname="Edia.Tests.TestSettings" runstate="Runnable" seed="1382779445" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.001108" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1137" name="GetBoolListFromObjectList" fullname="Edia.Tests.TestSettings.GetBoolListFromObjectList" methodname="GetBoolListFromObjectList" classname="Edia.Tests.TestSettings" runstate="Runnable" seed="640593121" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.001522" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1145" name="GetBoolWithDefault_KeyMissing" fullname="Edia.Tests.TestSettings.GetBoolWithDefault_KeyMissing" methodname="GetBoolWithDefault_KeyMissing" classname="Edia.Tests.TestSettings" runstate="Runnable" seed="1633612568" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.000207" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1146" name="GetDefaultCascadesToParent" fullname="Edia.Tests.TestSettings.GetDefaultCascadesToParent" methodname="GetDefaultCascadesToParent" classname="Edia.Tests.TestSettings" runstate="Runnable" seed="2057415850" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.000212" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1147" name="GetDefaultUsedWhenNotInParentEither" fullname="Edia.Tests.TestSettings.GetDefaultUsedWhenNotInParentEither" methodname="GetDefaultUsedWhenNotInParentEither" classname="Edia.Tests.TestSettings" runstate="Runnable" seed="286066503" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.000145" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1122" name="GetDict" fullname="Edia.Tests.TestSettings.GetDict" methodname="GetDict" classname="Edia.Tests.TestSettings" runstate="Runnable" seed="1066611233" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.000189" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1135" name="GetDoubleListFromObjectList" fullname="Edia.Tests.TestSettings.GetDoubleListFromObjectList" methodname="GetDoubleListFromObjectList" classname="Edia.Tests.TestSettings" runstate="Runnable" seed="866722823" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.002035" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1134" name="GetFloatListFromObjectList" fullname="Edia.Tests.TestSettings.GetFloatListFromObjectList" methodname="GetFloatListFromObjectList" classname="Edia.Tests.TestSettings" runstate="Runnable" seed="1167655499" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.001394" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1133" name="GetIntListFromObjectList" fullname="Edia.Tests.TestSettings.GetIntListFromObjectList" methodname="GetIntListFromObjectList" classname="Edia.Tests.TestSettings" runstate="Runnable" seed="1924432637" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.000976" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1144" name="GetIntWithDefault_KeyMissing" fullname="Edia.Tests.TestSettings.GetIntWithDefault_KeyMissing" methodname="GetIntWithDefault_KeyMissing" classname="Edia.Tests.TestSettings" runstate="Runnable" seed="1653620416" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.000175" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1120" name="GetMissingKeyThrows" fullname="Edia.Tests.TestSettings.GetMissingKeyThrows" methodname="GetMissingKeyThrows" classname="Edia.Tests.TestSettings" runstate="Runnable" seed="876009325" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.000211" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1132" name="GetObjectList" fullname="Edia.Tests.TestSettings.GetObjectList" methodname="GetObjectList" classname="Edia.Tests.TestSettings" runstate="Runnable" seed="506634522" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.000248" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1143" name="GetObjectWithDefault_KeyMissing" fullname="Edia.Tests.TestSettings.GetObjectWithDefault_KeyMissing" methodname="GetObjectWithDefault_KeyMissing" classname="Edia.Tests.TestSettings" runstate="Runnable" seed="828830478" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.000127" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1136" name="GetStringListFromObjectList" fullname="Edia.Tests.TestSettings.GetStringListFromObjectList" methodname="GetStringListFromObjectList" classname="Edia.Tests.TestSettings" runstate="Runnable" seed="159216093" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.000757" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1141" name="GetStringWithDefault_KeyExists" fullname="Edia.Tests.TestSettings.GetStringWithDefault_KeyExists" methodname="GetStringWithDefault_KeyExists" classname="Edia.Tests.TestSettings" runstate="Runnable" seed="2083453315" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.000135" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1142" name="GetStringWithDefault_KeyMissing" fullname="Edia.Tests.TestSettings.GetStringWithDefault_KeyMissing" methodname="GetStringWithDefault_KeyMissing" classname="Edia.Tests.TestSettings" runstate="Runnable" seed="1124374155" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.000101" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1118" name="SetAndGetBool" fullname="Edia.Tests.TestSettings.SetAndGetBool" methodname="SetAndGetBool" classname="Edia.Tests.TestSettings" runstate="Runnable" seed="1831307748" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.000147" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1116" name="SetAndGetDouble" fullname="Edia.Tests.TestSettings.SetAndGetDouble" methodname="SetAndGetDouble" classname="Edia.Tests.TestSettings" runstate="Runnable" seed="967288531" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.000158" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1115" name="SetAndGetFloat" fullname="Edia.Tests.TestSettings.SetAndGetFloat" methodname="SetAndGetFloat" classname="Edia.Tests.TestSettings" runstate="Runnable" seed="1973679639" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.000130" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1114" name="SetAndGetInt" fullname="Edia.Tests.TestSettings.SetAndGetInt" methodname="SetAndGetInt" classname="Edia.Tests.TestSettings" runstate="Runnable" seed="1998228475" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.000123" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1117" name="SetAndGetLong" fullname="Edia.Tests.TestSettings.SetAndGetLong" methodname="SetAndGetLong" classname="Edia.Tests.TestSettings" runstate="Runnable" seed="933531712" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.000435" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1119" name="SetAndGetNull" fullname="Edia.Tests.TestSettings.SetAndGetNull" methodname="SetAndGetNull" classname="Edia.Tests.TestSettings" runstate="Runnable" seed="221519313" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.000123" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1113" name="SetAndGetString" fullname="Edia.Tests.TestSettings.SetAndGetString" methodname="SetAndGetString" classname="Edia.Tests.TestSettings" runstate="Runnable" seed="1930831651" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.000116" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1123" name="SetValueOverwrites" fullname="Edia.Tests.TestSettings.SetValueOverwrites" methodname="SetValueOverwrites" classname="Edia.Tests.TestSettings" runstate="Runnable" seed="347792498" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.000130" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1124" name="UpdateWithDict" fullname="Edia.Tests.TestSettings.UpdateWithDict" methodname="UpdateWithDict" classname="Edia.Tests.TestSettings" runstate="Runnable" seed="1598047303" result="Passed" start-time="2026-03-04 17:02:58Z" end-time="2026-03-04 17:02:58Z" duration="0.000808" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: C:/Users/jur/AppData/LocalLow/EDIA/EDIA Core\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

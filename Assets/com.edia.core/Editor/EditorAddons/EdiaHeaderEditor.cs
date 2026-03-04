@@ -1,9 +1,11 @@
 using UnityEditor;
 using UnityEngine;
 
+namespace Edia.Editor {
+
 [CanEditMultipleObjects]
 [CustomEditor(typeof(MonoBehaviour), true)]
-public class EdiaHeaderEditor : Editor {
+public class EdiaHeaderEditor : UnityEditor.Editor {
     private EdiaHeaderAttribute headerAttribute;
     private Texture2D           headerBG;
     private Texture2D           iconTexture;
@@ -103,4 +105,5 @@ public class EdiaHeaderEditor : Editor {
         // Description
         EditorGUI.LabelField(new Rect(18, rect.height - 14, rect.width, 22), header.Description, descriptionStyle);
     }
+}
 }
