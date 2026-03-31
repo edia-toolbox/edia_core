@@ -1,0 +1,52 @@
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.Events;
+
+namespace Edia.XR {
+
+	/// <summary>In order to be flexible for each Xblock, the remapping of a controller key to a method is a separate script</summary>
+	[System.Serializable]
+	[AddComponentMenu("EDIA/XR Remap Controller Input")]
+	public class XRControllerInputRemapper : MonoBehaviour {
+
+		// TODO Allow multiple input actions to one ID
+		// TODO Input remapping should take systems 'allowed interaction' into considiration
+
+		[System.Serializable]
+		public class ControllerInputRemap {
+			public string id;
+			public bool isEnabled = false;
+			public InputActionReference inputActionSubmit;
+			public UnityEvent<InputAction.CallbackContext> methodToCall;
+		}
+
+		public List<ControllerInputRemap> Redirectors = new List<ControllerInputRemap>();
+
+		private void Start() {
+			foreach (ControllerInputRemap r in Redirectors) {
+				EnableRemapping(r.id, r.isEnabled);
+			}
+		}
+
+		public List<string> GetControllerRemappings () {
+			
+			List<string> result = new List<string>();
+			foreach (ControllerInputRemap r in Redirectors) {
+				result.Add(r.id);
+			}
+			return result;
+		}
+
+		/// <summary>Enables predefined controller inputaction to custom unity event</summary>
+		/// <param name="id">indentifier</param>
+		/// <param name="onOff">active</param>
+		public void EnableRemapping (string id, bool onOff) {
+			int index = Redirectors.FindIndex(x => x.id == id);
+			
+			if (onOff) Redirectors[index].inputActionSubmit.action.performed += Redirectors[index].methodToCall.Invoke;
+			else Redirectors[index].inputActionSubmit.action.performed -= Redirectors[index].methodToCall.Invoke;
+		}
+
+	}
+}

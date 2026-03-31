@@ -1,0 +1,329 @@
+\doxysection{Edia.\+File\+Manager Class Reference}
+\hypertarget{class_edia_1_1_file_manager}{}\label{class_edia_1_1_file_manager}\index{Edia.FileManager@{Edia.FileManager}}
+
+
+Static class to handle file IO.  
+
+
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static string\mbox{[}$\,$\mbox{]} \mbox{\hyperlink{class_edia_1_1_file_manager_ae0e710bed4c28b28ab83bd4402f9d8d0}{Get\+All\+Filenames\+With\+Extension\+From}} (string sub\+Folder, string extension)
+\begin{DoxyCompactList}\small\item\em Get all filenames with a certain extension from the applications given subfolder. \end{DoxyCompactList}\item 
+static string\mbox{[}$\,$\mbox{]} \mbox{\hyperlink{class_edia_1_1_file_manager_a4f8b89c6362cab29c3af49e165e6480d}{Get\+All\+Filenames\+From}} (string sub\+Folder)
+\begin{DoxyCompactList}\small\item\em Get all filenames with a certain extension from the applications given subfolder. \end{DoxyCompactList}\item 
+static string\mbox{[}$\,$\mbox{]} \mbox{\hyperlink{class_edia_1_1_file_manager_a927e78b5da47cef698d81331d79ce290}{Get\+All\+Sub\+Folders}} (string sub\+Folder)
+\begin{DoxyCompactList}\small\item\em Retrieves all subfolder names from the specified subfolder. \end{DoxyCompactList}\item 
+static bool \mbox{\hyperlink{class_edia_1_1_file_manager_afc940a9b422c1b3164a210e3f34676f5}{Copy\+Directory}} (string source\+Directory, string target\+Directory, string exclude)
+\begin{DoxyCompactList}\small\item\em Copies the contents of a source directory to a target directory. \end{DoxyCompactList}\item 
+static bool \mbox{\hyperlink{class_edia_1_1_file_manager_a2e590f2c43e32afc464542ca63548134}{Copy\+Directory}} (string source\+Directory, string target\+Directory, string exclude, bool clean\+Copy=false)
+\begin{DoxyCompactList}\small\item\em Copies the contents of a source directory to a target directory. \end{DoxyCompactList}\item 
+static bool \mbox{\hyperlink{class_edia_1_1_file_manager_a73fb16c38084370060adf9ea6dc2d163}{Copy\+Directory}} (string source\+Directory, string target\+Directory)
+\begin{DoxyCompactList}\small\item\em Copies all contents from a source directory to a target directory. \end{DoxyCompactList}\item 
+static string \mbox{\hyperlink{class_edia_1_1_file_manager_a73379dd02aa260ee5906853fa2389975}{Read\+String\+From\+Application\+Path\+Subfolder}} (string subfolder, string file\+Name)
+\begin{DoxyCompactList}\small\item\em Reads the content of a file located in a specific subfolder of the application\textquotesingle{}s path. \end{DoxyCompactList}\item 
+static string \mbox{\hyperlink{class_edia_1_1_file_manager_a5e5046623407cd647ce7f186a1b8241a}{Read\+String\+From\+Application\+Path}} (string file\+Name)
+\begin{DoxyCompactList}\small\item\em Reads a string from a file located in the application\textquotesingle{}s root path. \end{DoxyCompactList}\item 
+static bool \mbox{\hyperlink{class_edia_1_1_file_manager_a37e58f336a900a99b37ef189b72c479f}{File\+Exists}} (string file\+Name)
+\begin{DoxyCompactList}\small\item\em Determines if a file exists at the specified application path. \end{DoxyCompactList}\item 
+static bool \mbox{\hyperlink{class_edia_1_1_file_manager_a29a81b4a327fed5a77cfdc62cb5db417}{Folder\+Exists}} (string folder\+Name)
+\begin{DoxyCompactList}\small\item\em Determines if a folder exists at the specified application path. \end{DoxyCompactList}\item 
+static bool \mbox{\hyperlink{class_edia_1_1_file_manager_a68eb732ba7a5d2ef49ed82fc3ec12030}{Does\+Configs\+Folder\+Exist}} ()
+\begin{DoxyCompactList}\small\item\em Determines if the configs folder exists in the application path. \end{DoxyCompactList}\item 
+static string \mbox{\hyperlink{class_edia_1_1_file_manager_a26b204029fd515f2ecbaa10f6021c041}{Read\+String}} (string file\+Name)
+\begin{DoxyCompactList}\small\item\em Tries to read the given text-\/based file. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{class_edia_1_1_file_manager_a200871ffb62d7364f70623d53c6538f8}{Copy\+File\+To}} (string source\+Path, string filename, string destination\+Path)
+\begin{DoxyCompactList}\small\item\em Copies a specified file from a source path to a destination path. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{class_edia_1_1_file_manager_a929e18b0a1d7cd14386f5fe2bf573d22}{Write\+String}} (string file\+Name, string data, bool overwrite)
+\begin{DoxyCompactList}\small\item\em Saves a text file to given filename and containts given data. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{class_edia_1_1_file_manager_afab970937c6f055e45114af6eea67595}{Create\+Folder}} (string folder\+Name)
+\begin{DoxyCompactList}\small\item\em Creates a folder in the application data directory. \end{DoxyCompactList}\item 
+static string \mbox{\hyperlink{class_edia_1_1_file_manager_a1ec1efaba5995dee5747de81f638e5c3}{Get\+Correct\+Path}} ()
+\begin{DoxyCompactList}\small\item\em Determines correct path depending on where the application is running on/in. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Static class to handle file IO. 
+
+\label{doc-func-members}
+\Hypertarget{class_edia_1_1_file_manager_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_edia_1_1_file_manager_a73fb16c38084370060adf9ea6dc2d163}\index{Edia.FileManager@{Edia.FileManager}!CopyDirectory@{CopyDirectory}}
+\index{CopyDirectory@{CopyDirectory}!Edia.FileManager@{Edia.FileManager}}
+\doxysubsubsection{\texorpdfstring{CopyDirectory()}{CopyDirectory()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily \label{class_edia_1_1_file_manager_a73fb16c38084370060adf9ea6dc2d163} 
+bool Edia.\+File\+Manager.\+Copy\+Directory (\begin{DoxyParamCaption}\item[{string}]{source\+Directory}{, }\item[{string}]{target\+Directory}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Copies all contents from a source directory to a target directory. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em source\+Directory} & The path to the source directory.\\
+\hline
+{\em target\+Directory} & The path to the target directory.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the copy operation completes successfully; otherwise, false.
+\end{DoxyReturn}
+\Hypertarget{class_edia_1_1_file_manager_afc940a9b422c1b3164a210e3f34676f5}\index{Edia.FileManager@{Edia.FileManager}!CopyDirectory@{CopyDirectory}}
+\index{CopyDirectory@{CopyDirectory}!Edia.FileManager@{Edia.FileManager}}
+\doxysubsubsection{\texorpdfstring{CopyDirectory()}{CopyDirectory()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily \label{class_edia_1_1_file_manager_afc940a9b422c1b3164a210e3f34676f5} 
+bool Edia.\+File\+Manager.\+Copy\+Directory (\begin{DoxyParamCaption}\item[{string}]{source\+Directory}{, }\item[{string}]{target\+Directory}{, }\item[{string}]{exclude}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Copies the contents of a source directory to a target directory. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em source\+Directory} & The path of the directory to copy from.\\
+\hline
+{\em target\+Directory} & The path of the directory to copy to.\\
+\hline
+{\em exclude} & Specifies a file extension or pattern that should be excluded during the copy process.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns true if the directory was successfully copied; otherwise, false.
+\end{DoxyReturn}
+\Hypertarget{class_edia_1_1_file_manager_a2e590f2c43e32afc464542ca63548134}\index{Edia.FileManager@{Edia.FileManager}!CopyDirectory@{CopyDirectory}}
+\index{CopyDirectory@{CopyDirectory}!Edia.FileManager@{Edia.FileManager}}
+\doxysubsubsection{\texorpdfstring{CopyDirectory()}{CopyDirectory()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily \label{class_edia_1_1_file_manager_a2e590f2c43e32afc464542ca63548134} 
+bool Edia.\+File\+Manager.\+Copy\+Directory (\begin{DoxyParamCaption}\item[{string}]{source\+Directory}{, }\item[{string}]{target\+Directory}{, }\item[{string}]{exclude}{, }\item[{bool}]{clean\+Copy}{ = {\ttfamily false}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Copies the contents of a source directory to a target directory. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em source\+Directory} & The path of the directory to copy from.\\
+\hline
+{\em target\+Directory} & The path of the directory to copy to.\\
+\hline
+{\em exclude} & Specifies a file extension or pattern that should be excluded during the copy process.\\
+\hline
+{\em clean\+Copy} & Indicates whether the target directory should be deleted before copying.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns true if the directory was successfully copied; otherwise, false.
+\end{DoxyReturn}
+\Hypertarget{class_edia_1_1_file_manager_a200871ffb62d7364f70623d53c6538f8}\index{Edia.FileManager@{Edia.FileManager}!CopyFileTo@{CopyFileTo}}
+\index{CopyFileTo@{CopyFileTo}!Edia.FileManager@{Edia.FileManager}}
+\doxysubsubsection{\texorpdfstring{CopyFileTo()}{CopyFileTo()}}
+{\footnotesize\ttfamily \label{class_edia_1_1_file_manager_a200871ffb62d7364f70623d53c6538f8} 
+void Edia.\+File\+Manager.\+Copy\+File\+To (\begin{DoxyParamCaption}\item[{string}]{source\+Path}{, }\item[{string}]{filename}{, }\item[{string}]{destination\+Path}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Copies a specified file from a source path to a destination path. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em source\+Path} & The directory in the source from which the file will be copied.\\
+\hline
+{\em filename} & The name of the file to copy.\\
+\hline
+{\em destination\+Path} & The directory in the destination where the file will be copied to.\\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_edia_1_1_file_manager_afab970937c6f055e45114af6eea67595}\index{Edia.FileManager@{Edia.FileManager}!CreateFolder@{CreateFolder}}
+\index{CreateFolder@{CreateFolder}!Edia.FileManager@{Edia.FileManager}}
+\doxysubsubsection{\texorpdfstring{CreateFolder()}{CreateFolder()}}
+{\footnotesize\ttfamily \label{class_edia_1_1_file_manager_afab970937c6f055e45114af6eea67595} 
+void Edia.\+File\+Manager.\+Create\+Folder (\begin{DoxyParamCaption}\item[{string}]{folder\+Name}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Creates a folder in the application data directory. 
+
+Name of the file\Hypertarget{class_edia_1_1_file_manager_a68eb732ba7a5d2ef49ed82fc3ec12030}\index{Edia.FileManager@{Edia.FileManager}!DoesConfigsFolderExist@{DoesConfigsFolderExist}}
+\index{DoesConfigsFolderExist@{DoesConfigsFolderExist}!Edia.FileManager@{Edia.FileManager}}
+\doxysubsubsection{\texorpdfstring{DoesConfigsFolderExist()}{DoesConfigsFolderExist()}}
+{\footnotesize\ttfamily \label{class_edia_1_1_file_manager_a68eb732ba7a5d2ef49ed82fc3ec12030} 
+bool Edia.\+File\+Manager.\+Does\+Configs\+Folder\+Exist (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Determines if the configs folder exists in the application path. 
+
+\begin{DoxyReturn}{Returns}
+True if the configs folder exists, otherwise false.
+\end{DoxyReturn}
+\Hypertarget{class_edia_1_1_file_manager_a37e58f336a900a99b37ef189b72c479f}\index{Edia.FileManager@{Edia.FileManager}!FileExists@{FileExists}}
+\index{FileExists@{FileExists}!Edia.FileManager@{Edia.FileManager}}
+\doxysubsubsection{\texorpdfstring{FileExists()}{FileExists()}}
+{\footnotesize\ttfamily \label{class_edia_1_1_file_manager_a37e58f336a900a99b37ef189b72c479f} 
+bool Edia.\+File\+Manager.\+File\+Exists (\begin{DoxyParamCaption}\item[{string}]{file\+Name}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Determines if a file exists at the specified application path. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em file\+Name} & The name of the file to check for existence.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the file exists, otherwise false.
+\end{DoxyReturn}
+\Hypertarget{class_edia_1_1_file_manager_a29a81b4a327fed5a77cfdc62cb5db417}\index{Edia.FileManager@{Edia.FileManager}!FolderExists@{FolderExists}}
+\index{FolderExists@{FolderExists}!Edia.FileManager@{Edia.FileManager}}
+\doxysubsubsection{\texorpdfstring{FolderExists()}{FolderExists()}}
+{\footnotesize\ttfamily \label{class_edia_1_1_file_manager_a29a81b4a327fed5a77cfdc62cb5db417} 
+bool Edia.\+File\+Manager.\+Folder\+Exists (\begin{DoxyParamCaption}\item[{string}]{folder\+Name}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Determines if a folder exists at the specified application path. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em folder\+Name} & The name of the folder to check for existence.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the folder exists, otherwise false.
+\end{DoxyReturn}
+\Hypertarget{class_edia_1_1_file_manager_a4f8b89c6362cab29c3af49e165e6480d}\index{Edia.FileManager@{Edia.FileManager}!GetAllFilenamesFrom@{GetAllFilenamesFrom}}
+\index{GetAllFilenamesFrom@{GetAllFilenamesFrom}!Edia.FileManager@{Edia.FileManager}}
+\doxysubsubsection{\texorpdfstring{GetAllFilenamesFrom()}{GetAllFilenamesFrom()}}
+{\footnotesize\ttfamily \label{class_edia_1_1_file_manager_a4f8b89c6362cab29c3af49e165e6480d} 
+string\mbox{[}$\,$\mbox{]} Edia.\+File\+Manager.\+Get\+All\+Filenames\+From (\begin{DoxyParamCaption}\item[{string}]{sub\+Folder}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Get all filenames with a certain extension from the applications given subfolder. 
+
+Folder to scan\Hypertarget{class_edia_1_1_file_manager_ae0e710bed4c28b28ab83bd4402f9d8d0}\index{Edia.FileManager@{Edia.FileManager}!GetAllFilenamesWithExtensionFrom@{GetAllFilenamesWithExtensionFrom}}
+\index{GetAllFilenamesWithExtensionFrom@{GetAllFilenamesWithExtensionFrom}!Edia.FileManager@{Edia.FileManager}}
+\doxysubsubsection{\texorpdfstring{GetAllFilenamesWithExtensionFrom()}{GetAllFilenamesWithExtensionFrom()}}
+{\footnotesize\ttfamily \label{class_edia_1_1_file_manager_ae0e710bed4c28b28ab83bd4402f9d8d0} 
+string\mbox{[}$\,$\mbox{]} Edia.\+File\+Manager.\+Get\+All\+Filenames\+With\+Extension\+From (\begin{DoxyParamCaption}\item[{string}]{sub\+Folder}{, }\item[{string}]{extension}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Get all filenames with a certain extension from the applications given subfolder. 
+
+Folder to scan
+
+filter on specific file type, use \texorpdfstring{$\ast$}{*} for all\Hypertarget{class_edia_1_1_file_manager_a927e78b5da47cef698d81331d79ce290}\index{Edia.FileManager@{Edia.FileManager}!GetAllSubFolders@{GetAllSubFolders}}
+\index{GetAllSubFolders@{GetAllSubFolders}!Edia.FileManager@{Edia.FileManager}}
+\doxysubsubsection{\texorpdfstring{GetAllSubFolders()}{GetAllSubFolders()}}
+{\footnotesize\ttfamily \label{class_edia_1_1_file_manager_a927e78b5da47cef698d81331d79ce290} 
+string\mbox{[}$\,$\mbox{]} Edia.\+File\+Manager.\+Get\+All\+Sub\+Folders (\begin{DoxyParamCaption}\item[{string}]{sub\+Folder}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Retrieves all subfolder names from the specified subfolder. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sub\+Folder} & The parent folder to scan for subfolders.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+An array of subfolder names within the specified folder, or null if the directory does not exist or contains no subfolders.
+\end{DoxyReturn}
+\Hypertarget{class_edia_1_1_file_manager_a1ec1efaba5995dee5747de81f638e5c3}\index{Edia.FileManager@{Edia.FileManager}!GetCorrectPath@{GetCorrectPath}}
+\index{GetCorrectPath@{GetCorrectPath}!Edia.FileManager@{Edia.FileManager}}
+\doxysubsubsection{\texorpdfstring{GetCorrectPath()}{GetCorrectPath()}}
+{\footnotesize\ttfamily \label{class_edia_1_1_file_manager_a1ec1efaba5995dee5747de81f638e5c3} 
+string Edia.\+File\+Manager.\+Get\+Correct\+Path (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Determines correct path depending on where the application is running on/in. 
+
+\begin{DoxyReturn}{Returns}
+Path to data on specific platform
+\end{DoxyReturn}
+\Hypertarget{class_edia_1_1_file_manager_a26b204029fd515f2ecbaa10f6021c041}\index{Edia.FileManager@{Edia.FileManager}!ReadString@{ReadString}}
+\index{ReadString@{ReadString}!Edia.FileManager@{Edia.FileManager}}
+\doxysubsubsection{\texorpdfstring{ReadString()}{ReadString()}}
+{\footnotesize\ttfamily \label{class_edia_1_1_file_manager_a26b204029fd515f2ecbaa10f6021c041} 
+string Edia.\+File\+Manager.\+Read\+String (\begin{DoxyParamCaption}\item[{string}]{file\+Name}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Tries to read the given text-\/based file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em file\+Name} & Path to the file to read\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Content of the file
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Argument\+Null\+Exception} & Thrown when file\+Name is null\\
+\hline
+{\em IOException} & Thrown when an I/O error occurs\\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{class_edia_1_1_file_manager_a5e5046623407cd647ce7f186a1b8241a}\index{Edia.FileManager@{Edia.FileManager}!ReadStringFromApplicationPath@{ReadStringFromApplicationPath}}
+\index{ReadStringFromApplicationPath@{ReadStringFromApplicationPath}!Edia.FileManager@{Edia.FileManager}}
+\doxysubsubsection{\texorpdfstring{ReadStringFromApplicationPath()}{ReadStringFromApplicationPath()}}
+{\footnotesize\ttfamily \label{class_edia_1_1_file_manager_a5e5046623407cd647ce7f186a1b8241a} 
+string Edia.\+File\+Manager.\+Read\+String\+From\+Application\+Path (\begin{DoxyParamCaption}\item[{string}]{file\+Name}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Reads a string from a file located in the application\textquotesingle{}s root path. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em file\+Name} & The name of the file to read from the application\textquotesingle{}s root path.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A string containing the contents of the specified file.
+\end{DoxyReturn}
+\Hypertarget{class_edia_1_1_file_manager_a73379dd02aa260ee5906853fa2389975}\index{Edia.FileManager@{Edia.FileManager}!ReadStringFromApplicationPathSubfolder@{ReadStringFromApplicationPathSubfolder}}
+\index{ReadStringFromApplicationPathSubfolder@{ReadStringFromApplicationPathSubfolder}!Edia.FileManager@{Edia.FileManager}}
+\doxysubsubsection{\texorpdfstring{ReadStringFromApplicationPathSubfolder()}{ReadStringFromApplicationPathSubfolder()}}
+{\footnotesize\ttfamily \label{class_edia_1_1_file_manager_a73379dd02aa260ee5906853fa2389975} 
+string Edia.\+File\+Manager.\+Read\+String\+From\+Application\+Path\+Subfolder (\begin{DoxyParamCaption}\item[{string}]{subfolder}{, }\item[{string}]{file\+Name}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Reads the content of a file located in a specific subfolder of the application\textquotesingle{}s path. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em subfolder} & The subfolder within the application path where the file is located.\\
+\hline
+{\em file\+Name} & The name of the file to be read.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The content of the file as a string.
+\end{DoxyReturn}
+\Hypertarget{class_edia_1_1_file_manager_a929e18b0a1d7cd14386f5fe2bf573d22}\index{Edia.FileManager@{Edia.FileManager}!WriteString@{WriteString}}
+\index{WriteString@{WriteString}!Edia.FileManager@{Edia.FileManager}}
+\doxysubsubsection{\texorpdfstring{WriteString()}{WriteString()}}
+{\footnotesize\ttfamily \label{class_edia_1_1_file_manager_a929e18b0a1d7cd14386f5fe2bf573d22} 
+void Edia.\+File\+Manager.\+Write\+String (\begin{DoxyParamCaption}\item[{string}]{file\+Name}{, }\item[{string}]{data}{, }\item[{bool}]{overwrite}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Saves a text file to given filename and containts given data. 
+
+Name of the file
+
+The data that needs to be written
+
+Overwrite if filename exists.
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+Felix/\+Projects/\+EDIA/edia\+\_\+core/\+Assets/com.\+edia.\+core/\+Runtime/\+Base/\+Scripts/\+Experiment/File\+Manager.\+cs\end{DoxyCompactItemize}

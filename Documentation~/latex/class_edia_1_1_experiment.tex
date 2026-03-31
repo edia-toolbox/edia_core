@@ -1,0 +1,300 @@
+\doxysection{Edia.\+Experiment Class Reference}
+\hypertarget{class_edia_1_1_experiment}{}\label{class_edia_1_1_experiment}\index{Edia.Experiment@{Edia.Experiment}}
+
+
+Main manager for the experiment.  
+
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{class_edia_1_1_experiment_aa8c5271afc3244972dcf98a474fa847a}{Is\+Xblock\+Executer\+Listed}} (string asset\+Id)
+\begin{DoxyCompactList}\small\item\em Determines if an \doxylink{class_edia_1_1_x_block}{XBlock} executor with the given asset ID is listed in the experiment\textquotesingle{}s executors. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_edia_1_1_experiment_aa713cef5dab1fc9ed25ebaaa7fa99bb2}{Show\+Message\+To\+User}} (string msg)
+\begin{DoxyCompactList}\small\item\em Show a message to the VR user in an overlayed panel. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_edia_1_1_experiment_a6a9a75820f71cc6e1213c22f09dc4d84}{Show\+Message\+To\+User}} (List$<$ string $>$ msgs)
+\begin{DoxyCompactList}\small\item\em Show a list of messages to the VR user, one at a time, in the \doxylink{class_edia_1_1_message_panel_in_v_r}{Message\+Panel\+In\+VR}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_edia_1_1_experiment_a41c15a26ada7aa837fdbd23f5815edab}{Show\+Message\+To\+User}} (string msg, float duration)
+\begin{DoxyCompactList}\small\item\em Show a message to the VR user in the \doxylink{class_edia_1_1_message_panel_in_v_r}{Message\+Panel\+In\+VR} for a certain duration. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_edia_1_1_experiment_aceb9db5efc55c72c100abec9dda698ce}{Show\+Message\+To\+User}} (string msg, bool show\+Button)
+\begin{DoxyCompactList}\small\item\em Show a message to the VR user in the \doxylink{class_edia_1_1_message_panel_in_v_r}{Message\+Panel\+In\+VR}. \end{DoxyCompactList}\item 
+\Hypertarget{class_edia_1_1_experiment_ab8249a94482d4bb28f646aeec086f53d}\label{class_edia_1_1_experiment_ab8249a94482d4bb28f646aeec086f53d} 
+void {\bfseries Hide\+Message\+Panel\+Menu} ()
+\begin{DoxyCompactList}\small\item\em Hides the message panel menu in the VR environment. \end{DoxyCompactList}\item 
+\Hypertarget{class_edia_1_1_experiment_a9967ccb546741d9d301153b2ef3f97d2}\label{class_edia_1_1_experiment_a9967ccb546741d9d301153b2ef3f97d2} 
+void {\bfseries Hide\+Message\+Panel\+To\+User} ()
+\begin{DoxyCompactList}\small\item\em Hide the \doxylink{class_edia_1_1_message_panel_in_v_r}{Message\+Panel\+In\+VR} panel. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_edia_1_1_experiment_ab46dddfd58cbfd27292fb43577368f06}{Show\+Message\+To\+Experimenter}} (string msg, bool autohide)
+\begin{DoxyCompactList}\small\item\em Shows a message in the controlpanel. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_edia_1_1_experiment_ad82bd0b655938f3d2bf6a52f565a9e99}{Show\+Message\+To\+Experimenter}} (string msg)
+\begin{DoxyCompactList}\small\item\em Shows a message in the controlpanel. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_edia_1_1_experiment_ad7cfcacef4961b72131b261c7b0a2e76}{Add\+Trial\+Info\+To\+Panel}} (string key, string value)
+\begin{DoxyCompactList}\small\item\em Adds trial information, represented by a key-\/value pair, to the control panel. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_edia_1_1_experiment_afd7e23b34ba2761175542203033f182c}{Enable\+Pause\+Button}} (bool \+\_\+on\+Off)
+\begin{DoxyCompactList}\small\item\em Show/\+Hide Pause button on controller panel. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_edia_1_1_experiment_a90c55db2f4ab65b216f61952c2dd8252}{Enable\+Eye\+Calibration\+Trigger}} (bool \+\_\+on\+Off)
+\begin{DoxyCompactList}\small\item\em Set system open for calibration call from event or button. \end{DoxyCompactList}\item 
+\Hypertarget{class_edia_1_1_experiment_a92875e1b96fbca2afd769e226a40fe6d}\label{class_edia_1_1_experiment_a92875e1b96fbca2afd769e226a40fe6d} 
+void {\bfseries Wait\+On\+Proceed} ()
+\begin{DoxyCompactList}\small\item\em Enables \doxylink{namespace_edia_1_1_controller}{Controller} \textquotesingle{}Proceed\textquotesingle{} button, and waits On\+Ev\+Proceed event. \end{DoxyCompactList}\item 
+\Hypertarget{class_edia_1_1_experiment_a591f2c68e0163aefdd84519a4343a4cc}\label{class_edia_1_1_experiment_a591f2c68e0163aefdd84519a4343a4cc} 
+void {\bfseries Proceed} ()
+\begin{DoxyCompactList}\small\item\em Triggers On\+Ev\+Proceed event. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_edia_1_1_experiment_a85c556dbf48734f3a1da539cfb407139}{Proceed\+With\+Delay}} (float duration)
+\begin{DoxyCompactList}\small\item\em Call next step in the trial with delay. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_edia_1_1_experiment_a87ff6043309b4d45d58b641b5c113f6c}{Convert\+And\+Save\+Data\+To\+UXF}} (string\mbox{[}$\,$\mbox{]} headers, List$<$ string\mbox{[}$\,$\mbox{]}$>$ values, string filename)
+\begin{DoxyCompactList}\small\item\em Converts given data to a UXF Table, and stores the data to disk linked to the active trial at the time. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_edia_1_1_experiment_a1e1e19f05fcd1e01141273db09c9c6cf}{Store\+Marker}} (string annotation)
+\begin{DoxyCompactList}\small\item\em Saves a marker with a timestamp to disk. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_edia_1_1_experiment_a2ef6a70dbdbae5398c53561dcba5d879}{Add\+To\+Trial\+Results}} (string key, string value)
+\begin{DoxyCompactList}\small\item\em Add a $<$key$>$
+
+pain to the trial results table. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Main manager for the experiment. 
+
+Handles the statemachine, encapsulating UXF. Offers developers friendly and easy access to most used functionalities for controlling an experiment. 
+
+\label{doc-func-members}
+\Hypertarget{class_edia_1_1_experiment_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_edia_1_1_experiment_a2ef6a70dbdbae5398c53561dcba5d879}\index{Edia.Experiment@{Edia.Experiment}!AddToTrialResults@{AddToTrialResults}}
+\index{AddToTrialResults@{AddToTrialResults}!Edia.Experiment@{Edia.Experiment}}
+\doxysubsubsection{\texorpdfstring{AddToTrialResults()}{AddToTrialResults()}}
+{\footnotesize\ttfamily \label{class_edia_1_1_experiment_a2ef6a70dbdbae5398c53561dcba5d879} 
+void Edia.\+Experiment.\+Add\+To\+Trial\+Results (\begin{DoxyParamCaption}\item[{string}]{key}{, }\item[{string}]{value}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Add a $<$key$>$
+
+pain to the trial results table. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em key} & Name of the key\\
+\hline
+{\em value} & Value in string format\\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_edia_1_1_experiment_ad7cfcacef4961b72131b261c7b0a2e76}\index{Edia.Experiment@{Edia.Experiment}!AddTrialInfoToPanel@{AddTrialInfoToPanel}}
+\index{AddTrialInfoToPanel@{AddTrialInfoToPanel}!Edia.Experiment@{Edia.Experiment}}
+\doxysubsubsection{\texorpdfstring{AddTrialInfoToPanel()}{AddTrialInfoToPanel()}}
+{\footnotesize\ttfamily \label{class_edia_1_1_experiment_ad7cfcacef4961b72131b261c7b0a2e76} 
+void Edia.\+Experiment.\+Add\+Trial\+Info\+To\+Panel (\begin{DoxyParamCaption}\item[{string}]{key}{, }\item[{string}]{value}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Adds trial information, represented by a key-\/value pair, to the control panel. 
+
+It will be auto deleted after trial is done
+
+
+\begin{DoxyParams}{Parameters}
+{\em key} & The key identifying the trial information.\\
+\hline
+{\em value} & The value associated with the key in the trial information.\\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_edia_1_1_experiment_a87ff6043309b4d45d58b641b5c113f6c}\index{Edia.Experiment@{Edia.Experiment}!ConvertAndSaveDataToUXF@{ConvertAndSaveDataToUXF}}
+\index{ConvertAndSaveDataToUXF@{ConvertAndSaveDataToUXF}!Edia.Experiment@{Edia.Experiment}}
+\doxysubsubsection{\texorpdfstring{ConvertAndSaveDataToUXF()}{ConvertAndSaveDataToUXF()}}
+{\footnotesize\ttfamily \label{class_edia_1_1_experiment_a87ff6043309b4d45d58b641b5c113f6c} 
+void Edia.\+Experiment.\+Convert\+And\+Save\+Data\+To\+UXF (\begin{DoxyParamCaption}\item[{string\mbox{[}$\,$\mbox{]}}]{headers}{, }\item[{List$<$ string\mbox{[}$\,$\mbox{]}$>$}]{values}{, }\item[{string}]{filename}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Converts given data to a UXF Table, and stores the data to disk linked to the active trial at the time. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em headers} & Headers of the data\\
+\hline
+{\em values} & Data as List$<$string$>$\mbox{[}\mbox{]}\\
+\hline
+{\em filename} & Name to store the data with\\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_edia_1_1_experiment_a90c55db2f4ab65b216f61952c2dd8252}\index{Edia.Experiment@{Edia.Experiment}!EnableEyeCalibrationTrigger@{EnableEyeCalibrationTrigger}}
+\index{EnableEyeCalibrationTrigger@{EnableEyeCalibrationTrigger}!Edia.Experiment@{Edia.Experiment}}
+\doxysubsubsection{\texorpdfstring{EnableEyeCalibrationTrigger()}{EnableEyeCalibrationTrigger()}}
+{\footnotesize\ttfamily \label{class_edia_1_1_experiment_a90c55db2f4ab65b216f61952c2dd8252} 
+void Edia.\+Experiment.\+Enable\+Eye\+Calibration\+Trigger (\begin{DoxyParamCaption}\item[{bool}]{\+\_\+on\+Off}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Set system open for calibration call from event or button. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em on\+Off} & \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_edia_1_1_experiment_afd7e23b34ba2761175542203033f182c}\index{Edia.Experiment@{Edia.Experiment}!EnablePauseButton@{EnablePauseButton}}
+\index{EnablePauseButton@{EnablePauseButton}!Edia.Experiment@{Edia.Experiment}}
+\doxysubsubsection{\texorpdfstring{EnablePauseButton()}{EnablePauseButton()}}
+{\footnotesize\ttfamily \label{class_edia_1_1_experiment_afd7e23b34ba2761175542203033f182c} 
+void Edia.\+Experiment.\+Enable\+Pause\+Button (\begin{DoxyParamCaption}\item[{bool}]{\+\_\+on\+Off}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Show/\+Hide Pause button on controller panel. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+on\+Off} & \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_edia_1_1_experiment_aa8c5271afc3244972dcf98a474fa847a}\index{Edia.Experiment@{Edia.Experiment}!IsXblockExecuterListed@{IsXblockExecuterListed}}
+\index{IsXblockExecuterListed@{IsXblockExecuterListed}!Edia.Experiment@{Edia.Experiment}}
+\doxysubsubsection{\texorpdfstring{IsXblockExecuterListed()}{IsXblockExecuterListed()}}
+{\footnotesize\ttfamily \label{class_edia_1_1_experiment_aa8c5271afc3244972dcf98a474fa847a} 
+bool Edia.\+Experiment.\+Is\+Xblock\+Executer\+Listed (\begin{DoxyParamCaption}\item[{string}]{asset\+Id}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Determines if an \doxylink{class_edia_1_1_x_block}{XBlock} executor with the given asset ID is listed in the experiment\textquotesingle{}s executors. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em asset\+Id} & The unique identifier of the \doxylink{class_edia_1_1_x_block}{XBlock} executor to check for.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if an executor with the specified asset ID is listed, otherwise false.
+\end{DoxyReturn}
+\Hypertarget{class_edia_1_1_experiment_a85c556dbf48734f3a1da539cfb407139}\index{Edia.Experiment@{Edia.Experiment}!ProceedWithDelay@{ProceedWithDelay}}
+\index{ProceedWithDelay@{ProceedWithDelay}!Edia.Experiment@{Edia.Experiment}}
+\doxysubsubsection{\texorpdfstring{ProceedWithDelay()}{ProceedWithDelay()}}
+{\footnotesize\ttfamily \label{class_edia_1_1_experiment_a85c556dbf48734f3a1da539cfb407139} 
+void Edia.\+Experiment.\+Proceed\+With\+Delay (\begin{DoxyParamCaption}\item[{float}]{duration}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Call next step in the trial with delay. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em duration} & Time to wait before proceeding. Expects float\\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_edia_1_1_experiment_ad82bd0b655938f3d2bf6a52f565a9e99}\index{Edia.Experiment@{Edia.Experiment}!ShowMessageToExperimenter@{ShowMessageToExperimenter}}
+\index{ShowMessageToExperimenter@{ShowMessageToExperimenter}!Edia.Experiment@{Edia.Experiment}}
+\doxysubsubsection{\texorpdfstring{ShowMessageToExperimenter()}{ShowMessageToExperimenter()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_edia_1_1_experiment_ad82bd0b655938f3d2bf6a52f565a9e99} 
+void Edia.\+Experiment.\+Show\+Message\+To\+Experimenter (\begin{DoxyParamCaption}\item[{string}]{msg}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Shows a message in the controlpanel. 
+
+Autohides the panel. 
+\begin{DoxyParams}{Parameters}
+{\em msg} & Message to show\\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_edia_1_1_experiment_ab46dddfd58cbfd27292fb43577368f06}\index{Edia.Experiment@{Edia.Experiment}!ShowMessageToExperimenter@{ShowMessageToExperimenter}}
+\index{ShowMessageToExperimenter@{ShowMessageToExperimenter}!Edia.Experiment@{Edia.Experiment}}
+\doxysubsubsection{\texorpdfstring{ShowMessageToExperimenter()}{ShowMessageToExperimenter()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_edia_1_1_experiment_ab46dddfd58cbfd27292fb43577368f06} 
+void Edia.\+Experiment.\+Show\+Message\+To\+Experimenter (\begin{DoxyParamCaption}\item[{string}]{msg}{, }\item[{bool}]{autohide}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Shows a message in the controlpanel. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em msg} & Message to show\\
+\hline
+{\em autohide} & Autohide the message\\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_edia_1_1_experiment_a6a9a75820f71cc6e1213c22f09dc4d84}\index{Edia.Experiment@{Edia.Experiment}!ShowMessageToUser@{ShowMessageToUser}}
+\index{ShowMessageToUser@{ShowMessageToUser}!Edia.Experiment@{Edia.Experiment}}
+\doxysubsubsection{\texorpdfstring{ShowMessageToUser()}{ShowMessageToUser()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily \label{class_edia_1_1_experiment_a6a9a75820f71cc6e1213c22f09dc4d84} 
+void Edia.\+Experiment.\+Show\+Message\+To\+User (\begin{DoxyParamCaption}\item[{List$<$ string $>$}]{msgs}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Show a list of messages to the VR user, one at a time, in the \doxylink{class_edia_1_1_message_panel_in_v_r}{Message\+Panel\+In\+VR}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em msg} & Messages to show\\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_edia_1_1_experiment_aa713cef5dab1fc9ed25ebaaa7fa99bb2}\index{Edia.Experiment@{Edia.Experiment}!ShowMessageToUser@{ShowMessageToUser}}
+\index{ShowMessageToUser@{ShowMessageToUser}!Edia.Experiment@{Edia.Experiment}}
+\doxysubsubsection{\texorpdfstring{ShowMessageToUser()}{ShowMessageToUser()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily \label{class_edia_1_1_experiment_aa713cef5dab1fc9ed25ebaaa7fa99bb2} 
+void Edia.\+Experiment.\+Show\+Message\+To\+User (\begin{DoxyParamCaption}\item[{string}]{msg}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Show a message to the VR user in an overlayed panel. 
+
+Default\+: Proceed button ON 
+\begin{DoxyParams}{Parameters}
+{\em msg} & Message to show\\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_edia_1_1_experiment_aceb9db5efc55c72c100abec9dda698ce}\index{Edia.Experiment@{Edia.Experiment}!ShowMessageToUser@{ShowMessageToUser}}
+\index{ShowMessageToUser@{ShowMessageToUser}!Edia.Experiment@{Edia.Experiment}}
+\doxysubsubsection{\texorpdfstring{ShowMessageToUser()}{ShowMessageToUser()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily \label{class_edia_1_1_experiment_aceb9db5efc55c72c100abec9dda698ce} 
+void Edia.\+Experiment.\+Show\+Message\+To\+User (\begin{DoxyParamCaption}\item[{string}]{msg}{, }\item[{bool}]{show\+Button}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Show a message to the VR user in the \doxylink{class_edia_1_1_message_panel_in_v_r}{Message\+Panel\+In\+VR}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em msg} & Message to show\\
+\hline
+{\em show\+Button} & False = no button. To hide use {\ttfamily \doxylink{class_edia_1_1_experiment_a9967ccb546741d9d301153b2ef3f97d2}{Hide\+Message\+Panel\+To\+User}} \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_edia_1_1_experiment_a41c15a26ada7aa837fdbd23f5815edab}\index{Edia.Experiment@{Edia.Experiment}!ShowMessageToUser@{ShowMessageToUser}}
+\index{ShowMessageToUser@{ShowMessageToUser}!Edia.Experiment@{Edia.Experiment}}
+\doxysubsubsection{\texorpdfstring{ShowMessageToUser()}{ShowMessageToUser()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily \label{class_edia_1_1_experiment_a41c15a26ada7aa837fdbd23f5815edab} 
+void Edia.\+Experiment.\+Show\+Message\+To\+User (\begin{DoxyParamCaption}\item[{string}]{msg}{, }\item[{float}]{duration}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Show a message to the VR user in the \doxylink{class_edia_1_1_message_panel_in_v_r}{Message\+Panel\+In\+VR} for a certain duration. 
+
+Does NOT auto proceed 
+\begin{DoxyParams}{Parameters}
+{\em msg} & Message to show\\
+\hline
+{\em duration} & Time to show the message\\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_edia_1_1_experiment_a1e1e19f05fcd1e01141273db09c9c6cf}\index{Edia.Experiment@{Edia.Experiment}!StoreMarker@{StoreMarker}}
+\index{StoreMarker@{StoreMarker}!Edia.Experiment@{Edia.Experiment}}
+\doxysubsubsection{\texorpdfstring{StoreMarker()}{StoreMarker()}}
+{\footnotesize\ttfamily \label{class_edia_1_1_experiment_a1e1e19f05fcd1e01141273db09c9c6cf} 
+void Edia.\+Experiment.\+Store\+Marker (\begin{DoxyParamCaption}\item[{string}]{annotation}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Saves a marker with a timestamp to disk. 
+
+Also fires Ev\+Store\+Marker event with parameter.
+
+
+\begin{DoxyParams}{Parameters}
+{\em annotation} & Annotation to store\\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+Felix/\+Projects/\+EDIA/edia\+\_\+core/\+Assets/com.\+edia.\+core/\+Runtime/\+Base/\+Scripts/\+Experiment/Experiment.\+cs\end{DoxyCompactItemize}

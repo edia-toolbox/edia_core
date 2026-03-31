@@ -1,0 +1,234 @@
+\doxysection{Edia.\+XRManager Class Reference}
+\hypertarget{class_edia_1_1_x_r_manager}{}\label{class_edia_1_1_x_r_manager}\index{Edia.XRManager@{Edia.XRManager}}
+
+
+Manages XR-\/related functionality within the framework, providing tools and settings for interaction, tracking, and visualization in an \doxylink{namespace_edia_1_1_x_r}{XR} environment.  
+
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+async void \mbox{\hyperlink{class_edia_1_1_x_r_manager_ac1485f6cd9efb6da264595b731ebf16d}{Set\+Initial\+Interaction\+State\+Async}} ()
+\begin{DoxyCompactList}\small\item\em \doxylink{namespace_edia_1_1_x_r}{XR} Input Modality Manager seems to enable all interaction by default when hand or controller detected. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_edia_1_1_x_r_manager_af4405fcaa5f4f2feb3b45033bab66cca}{Move\+XRRig\+To\+Overlay\+Layer}} (string layer\+Name)
+\begin{DoxyCompactList}\small\item\em Moves the \doxylink{namespace_edia_1_1_x_r}{XR} Rig\textquotesingle{}s controllers and hands to the specified overlay layer by changing their layer assignments. \end{DoxyCompactList}\item 
+\Hypertarget{class_edia_1_1_x_r_manager_a61b2f01cd0c3f89feda3d673abc6d800}\label{class_edia_1_1_x_r_manager_a61b2f01cd0c3f89feda3d673abc6d800} 
+void {\bfseries Move\+Playarea} (Transform new\+Transform)
+\begin{DoxyCompactList}\small\item\em The pivot of the player will be set on the location of this Injector. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_edia_1_1_x_r_manager_a53cf2e8eff0274ed6a2f15d029eb80c3}{Enable\+Teleportation}} (bool on\+Off)
+\begin{DoxyCompactList}\small\item\em \mbox{[}Not yet implemented\mbox{]} Enables or disables teleportation functionality in the \doxylink{namespace_edia_1_1_x_r}{XR} environment. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_edia_1_1_x_r_manager_aa9ba18330c98d09dc502baee49cb7444}{Enable\+Climbing}} (bool on\+Off)
+\begin{DoxyCompactList}\small\item\em \mbox{[}Not yet implemented\mbox{]} Enables or disables climbing functionality within the \doxylink{namespace_edia_1_1_x_r}{XR} environment. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_edia_1_1_x_r_manager_a719fb77bc61a13efa96d17524c81c463}{Enable\+Moving}} (bool on\+Off)
+\begin{DoxyCompactList}\small\item\em \mbox{[}Not yet implemented\mbox{]} Enables or disables the movement functionality for the \doxylink{namespace_edia_1_1_x_r}{XR} rig. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_edia_1_1_x_r_manager_aeec386fb22b1c902a75dfb369cdaf07f}{Enable\+Turning}} (bool on\+Off)
+\begin{DoxyCompactList}\small\item\em \mbox{[}Not yet implemented\mbox{]} Toggles the ability to rotate or turn within the \doxylink{namespace_edia_1_1_x_r}{XR} environment. \end{DoxyCompactList}\item 
+\Hypertarget{class_edia_1_1_x_r_manager_ac15cb6f6a0f23291229e65d9702db66f}\label{class_edia_1_1_x_r_manager_ac15cb6f6a0f23291229e65d9702db66f} 
+void {\bfseries Turn\+On\+Ray\+Interactor} ()
+\begin{DoxyCompactList}\small\item\em Activates the ray interactor to enable interaction with distant objects in the \doxylink{namespace_edia_1_1_x_r}{XR} environment by utilizing ray interaction functionality. \end{DoxyCompactList}\item 
+\Hypertarget{class_edia_1_1_x_r_manager_abbf08e4b689b9edb9ecc7223b72e4153}\label{class_edia_1_1_x_r_manager_abbf08e4b689b9edb9ecc7223b72e4153} 
+void {\bfseries Turn\+On\+Poke\+Interactor} ()
+\begin{DoxyCompactList}\small\item\em Activates the Poke Interactor feature in the \doxylink{namespace_edia_1_1_x_r}{XR} environment, enabling interactions through poke-\/based gestures or tools. \end{DoxyCompactList}\item 
+\Hypertarget{class_edia_1_1_x_r_manager_a852389295a48ba8b02c82db139f1cce9}\label{class_edia_1_1_x_r_manager_a852389295a48ba8b02c82db139f1cce9} 
+void {\bfseries Show\+Hands} ()
+\begin{DoxyCompactList}\small\item\em Activates the visibility of the hand meshes in the \doxylink{namespace_edia_1_1_x_r}{XR} environment. \end{DoxyCompactList}\item 
+\Hypertarget{class_edia_1_1_x_r_manager_ae62f883c44751596391629c58951890e}\label{class_edia_1_1_x_r_manager_ae62f883c44751596391629c58951890e} 
+void {\bfseries Hide\+Hands} ()
+\begin{DoxyCompactList}\small\item\em Hides the hand meshes in the \doxylink{namespace_edia_1_1_x_r}{XR} environment, disabling their visibility. \end{DoxyCompactList}\item 
+\Hypertarget{class_edia_1_1_x_r_manager_a2803cd132d30ee53467ff6503ef2698d}\label{class_edia_1_1_x_r_manager_a2803cd132d30ee53467ff6503ef2698d} 
+void {\bfseries Show\+Controllers} ()
+\begin{DoxyCompactList}\small\item\em Activates the controller models for the left and right controllers in the \doxylink{namespace_edia_1_1_x_r}{XR} system. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_edia_1_1_x_r_manager_a17e8330e9988a155f43aad8001fbe363}{Enable\+All\+Interaction}} (bool on\+Off)
+\begin{DoxyCompactList}\small\item\em Control all possible interactions. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_edia_1_1_x_r_manager_a82379dfda27ba27e0f20489198f2b5de}{Enable\+Ray\+Interaction}} (bool on\+Off)
+\begin{DoxyCompactList}\small\item\em Control RAY interaction. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_edia_1_1_x_r_manager_accbe25ba9084ce12e427fa73a293f893}{Enable\+Poke\+Interaction}} (bool on\+Off)
+\begin{DoxyCompactList}\small\item\em Control POKE interaction. \end{DoxyCompactList}\item 
+\Hypertarget{class_edia_1_1_x_r_manager_ab3f48b1f5733f62db44cf8d9212af334}\label{class_edia_1_1_x_r_manager_ab3f48b1f5733f62db44cf8d9212af334} 
+void {\bfseries Hide\+VR} ()
+\begin{DoxyCompactList}\small\item\em Fades VR user view to black. \end{DoxyCompactList}\item 
+\Hypertarget{class_edia_1_1_x_r_manager_a6fce41ae1a40ee682b969e2094a0528e}\label{class_edia_1_1_x_r_manager_a6fce41ae1a40ee682b969e2094a0528e} 
+void {\bfseries Show\+VR} ()
+\begin{DoxyCompactList}\small\item\em Fades VR user view from black. \end{DoxyCompactList}\item 
+\Hypertarget{class_edia_1_1_x_r_manager_a8aba039a6a7754552d976faea26fadb3}\label{class_edia_1_1_x_r_manager_a8aba039a6a7754552d976faea26fadb3} 
+void {\bfseries Show\+VRInstantly} ()
+\begin{DoxyCompactList}\small\item\em Instantly shows VR user view. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_edia_1_1_x_r_manager_a2918904e3d137093ecf32b9609a56d54}{Show\+Hands}} (bool on\+Off)
+\begin{DoxyCompactList}\small\item\em Controls the visibility of hand meshes in the \doxylink{namespace_edia_1_1_x_r}{XR} environment. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_edia_1_1_x_r_manager_a6ff25f701d1d4f896aac773ccf6a26e6}{Show\+Controllers}} (bool on\+Off)
+\begin{DoxyCompactList}\small\item\em Toggles the visibility of the controller models associated with the \doxylink{namespace_edia_1_1_x_r}{XR} system. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Manages XR-\/related functionality within the framework, providing tools and settings for interaction, tracking, and visualization in an \doxylink{namespace_edia_1_1_x_r}{XR} environment. 
+
+Includes features such as enabling/disabling interaction types, managing \doxylink{namespace_edia_1_1_x_r}{XR} rig movement, and controlling the visibility of hands or controllers. 
+
+\label{doc-func-members}
+\Hypertarget{class_edia_1_1_x_r_manager_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_edia_1_1_x_r_manager_a17e8330e9988a155f43aad8001fbe363}\index{Edia.XRManager@{Edia.XRManager}!EnableAllInteraction@{EnableAllInteraction}}
+\index{EnableAllInteraction@{EnableAllInteraction}!Edia.XRManager@{Edia.XRManager}}
+\doxysubsubsection{\texorpdfstring{EnableAllInteraction()}{EnableAllInteraction()}}
+{\footnotesize\ttfamily \label{class_edia_1_1_x_r_manager_a17e8330e9988a155f43aad8001fbe363} 
+void Edia.\+XRManager.\+Enable\+All\+Interaction (\begin{DoxyParamCaption}\item[{bool}]{on\+Off}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Control all possible interactions. 
+
+Use this if you have all possible interactive options in your project. 
+\begin{DoxyParams}{Parameters}
+{\em on\+Off} & On or Off\\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_edia_1_1_x_r_manager_aa9ba18330c98d09dc502baee49cb7444}\index{Edia.XRManager@{Edia.XRManager}!EnableClimbing@{EnableClimbing}}
+\index{EnableClimbing@{EnableClimbing}!Edia.XRManager@{Edia.XRManager}}
+\doxysubsubsection{\texorpdfstring{EnableClimbing()}{EnableClimbing()}}
+{\footnotesize\ttfamily \label{class_edia_1_1_x_r_manager_aa9ba18330c98d09dc502baee49cb7444} 
+void Edia.\+XRManager.\+Enable\+Climbing (\begin{DoxyParamCaption}\item[{bool}]{on\+Off}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\mbox{[}Not yet implemented\mbox{]} Enables or disables climbing functionality within the \doxylink{namespace_edia_1_1_x_r}{XR} environment. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em on\+Off} & True/\+False\\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_edia_1_1_x_r_manager_a719fb77bc61a13efa96d17524c81c463}\index{Edia.XRManager@{Edia.XRManager}!EnableMoving@{EnableMoving}}
+\index{EnableMoving@{EnableMoving}!Edia.XRManager@{Edia.XRManager}}
+\doxysubsubsection{\texorpdfstring{EnableMoving()}{EnableMoving()}}
+{\footnotesize\ttfamily \label{class_edia_1_1_x_r_manager_a719fb77bc61a13efa96d17524c81c463} 
+void Edia.\+XRManager.\+Enable\+Moving (\begin{DoxyParamCaption}\item[{bool}]{on\+Off}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\mbox{[}Not yet implemented\mbox{]} Enables or disables the movement functionality for the \doxylink{namespace_edia_1_1_x_r}{XR} rig. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em on\+Off} & True/\+False\\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_edia_1_1_x_r_manager_accbe25ba9084ce12e427fa73a293f893}\index{Edia.XRManager@{Edia.XRManager}!EnablePokeInteraction@{EnablePokeInteraction}}
+\index{EnablePokeInteraction@{EnablePokeInteraction}!Edia.XRManager@{Edia.XRManager}}
+\doxysubsubsection{\texorpdfstring{EnablePokeInteraction()}{EnablePokeInteraction()}}
+{\footnotesize\ttfamily \label{class_edia_1_1_x_r_manager_accbe25ba9084ce12e427fa73a293f893} 
+void Edia.\+XRManager.\+Enable\+Poke\+Interaction (\begin{DoxyParamCaption}\item[{bool}]{on\+Off}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Control POKE interaction. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em on\+Off} & On or Off\\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_edia_1_1_x_r_manager_a82379dfda27ba27e0f20489198f2b5de}\index{Edia.XRManager@{Edia.XRManager}!EnableRayInteraction@{EnableRayInteraction}}
+\index{EnableRayInteraction@{EnableRayInteraction}!Edia.XRManager@{Edia.XRManager}}
+\doxysubsubsection{\texorpdfstring{EnableRayInteraction()}{EnableRayInteraction()}}
+{\footnotesize\ttfamily \label{class_edia_1_1_x_r_manager_a82379dfda27ba27e0f20489198f2b5de} 
+void Edia.\+XRManager.\+Enable\+Ray\+Interaction (\begin{DoxyParamCaption}\item[{bool}]{on\+Off}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Control RAY interaction. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em on\+Off} & On or Off\\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_edia_1_1_x_r_manager_a53cf2e8eff0274ed6a2f15d029eb80c3}\index{Edia.XRManager@{Edia.XRManager}!EnableTeleportation@{EnableTeleportation}}
+\index{EnableTeleportation@{EnableTeleportation}!Edia.XRManager@{Edia.XRManager}}
+\doxysubsubsection{\texorpdfstring{EnableTeleportation()}{EnableTeleportation()}}
+{\footnotesize\ttfamily \label{class_edia_1_1_x_r_manager_a53cf2e8eff0274ed6a2f15d029eb80c3} 
+void Edia.\+XRManager.\+Enable\+Teleportation (\begin{DoxyParamCaption}\item[{bool}]{on\+Off}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\mbox{[}Not yet implemented\mbox{]} Enables or disables teleportation functionality in the \doxylink{namespace_edia_1_1_x_r}{XR} environment. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em on\+Off} & True/\+False\\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_edia_1_1_x_r_manager_aeec386fb22b1c902a75dfb369cdaf07f}\index{Edia.XRManager@{Edia.XRManager}!EnableTurning@{EnableTurning}}
+\index{EnableTurning@{EnableTurning}!Edia.XRManager@{Edia.XRManager}}
+\doxysubsubsection{\texorpdfstring{EnableTurning()}{EnableTurning()}}
+{\footnotesize\ttfamily \label{class_edia_1_1_x_r_manager_aeec386fb22b1c902a75dfb369cdaf07f} 
+void Edia.\+XRManager.\+Enable\+Turning (\begin{DoxyParamCaption}\item[{bool}]{on\+Off}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\mbox{[}Not yet implemented\mbox{]} Toggles the ability to rotate or turn within the \doxylink{namespace_edia_1_1_x_r}{XR} environment. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em on\+Off} & True/\+False\\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_edia_1_1_x_r_manager_af4405fcaa5f4f2feb3b45033bab66cca}\index{Edia.XRManager@{Edia.XRManager}!MoveXRRigToOverlayLayer@{MoveXRRigToOverlayLayer}}
+\index{MoveXRRigToOverlayLayer@{MoveXRRigToOverlayLayer}!Edia.XRManager@{Edia.XRManager}}
+\doxysubsubsection{\texorpdfstring{MoveXRRigToOverlayLayer()}{MoveXRRigToOverlayLayer()}}
+{\footnotesize\ttfamily \label{class_edia_1_1_x_r_manager_af4405fcaa5f4f2feb3b45033bab66cca} 
+void Edia.\+XRManager.\+Move\+XRRig\+To\+Overlay\+Layer (\begin{DoxyParamCaption}\item[{string}]{layer\+Name}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Moves the \doxylink{namespace_edia_1_1_x_r}{XR} Rig\textquotesingle{}s controllers and hands to the specified overlay layer by changing their layer assignments. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em layer\+Name} & The name of the layer to which the \doxylink{namespace_edia_1_1_x_r}{XR} Rig components should be moved.\\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_edia_1_1_x_r_manager_ac1485f6cd9efb6da264595b731ebf16d}\index{Edia.XRManager@{Edia.XRManager}!SetInitialInteractionStateAsync@{SetInitialInteractionStateAsync}}
+\index{SetInitialInteractionStateAsync@{SetInitialInteractionStateAsync}!Edia.XRManager@{Edia.XRManager}}
+\doxysubsubsection{\texorpdfstring{SetInitialInteractionStateAsync()}{SetInitialInteractionStateAsync()}}
+{\footnotesize\ttfamily \label{class_edia_1_1_x_r_manager_ac1485f6cd9efb6da264595b731ebf16d} 
+async void Edia.\+XRManager.\+Set\+Initial\+Interaction\+State\+Async (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\doxylink{namespace_edia_1_1_x_r}{XR} Input Modality Manager seems to enable all interaction by default when hand or controller detected. 
+
+This method fires on \textquotesingle{}Tracked\+Hand\+Mode\+Started\textquotesingle{} and \textquotesingle{}Motion\+Controller\+Mode\+Started\textquotesingle{} (set in inspector) \Hypertarget{class_edia_1_1_x_r_manager_a6ff25f701d1d4f896aac773ccf6a26e6}\index{Edia.XRManager@{Edia.XRManager}!ShowControllers@{ShowControllers}}
+\index{ShowControllers@{ShowControllers}!Edia.XRManager@{Edia.XRManager}}
+\doxysubsubsection{\texorpdfstring{ShowControllers()}{ShowControllers()}}
+{\footnotesize\ttfamily \label{class_edia_1_1_x_r_manager_a6ff25f701d1d4f896aac773ccf6a26e6} 
+void Edia.\+XRManager.\+Show\+Controllers (\begin{DoxyParamCaption}\item[{bool}]{on\+Off}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Toggles the visibility of the controller models associated with the \doxylink{namespace_edia_1_1_x_r}{XR} system. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em on\+Off} & A boolean value indicating whether to show the controllers (true) or hide them (false).\\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_edia_1_1_x_r_manager_a2918904e3d137093ecf32b9609a56d54}\index{Edia.XRManager@{Edia.XRManager}!ShowHands@{ShowHands}}
+\index{ShowHands@{ShowHands}!Edia.XRManager@{Edia.XRManager}}
+\doxysubsubsection{\texorpdfstring{ShowHands()}{ShowHands()}}
+{\footnotesize\ttfamily \label{class_edia_1_1_x_r_manager_a2918904e3d137093ecf32b9609a56d54} 
+void Edia.\+XRManager.\+Show\+Hands (\begin{DoxyParamCaption}\item[{bool}]{on\+Off}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Controls the visibility of hand meshes in the \doxylink{namespace_edia_1_1_x_r}{XR} environment. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em on\+Off} & True to display hand meshes, false to hide them.\\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+Felix/\+Projects/\+EDIA/edia\+\_\+core/\+Assets/com.\+edia.\+core/\+Runtime/\+Base/\+Scripts/\+Experiment/XRManager.\+cs\end{DoxyCompactItemize}

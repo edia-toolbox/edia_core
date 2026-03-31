@@ -1,0 +1,60 @@
+using System;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace Edia {
+
+    /// <summary>
+    /// Blueprint class for Task classes. 
+    /// </summary>
+    [System.Serializable]
+    public class XBlock : MonoBehaviour {
+
+        [Header("Debug")]
+        [XblockHeader("Xblock")]
+        public bool ShowConsoleMessages = false;
+
+        [HideInInspector]
+        [SerializeField]
+        public List<Action> trialSteps = new List<Action>();
+
+        /// <summary>
+        /// Add a method to the sequence of TrialSteps which are executed one after another by the EDIA state-machine. 
+        /// </summary>
+        /// <param name="methodStep"></param>
+        public void AddToTrialSequence(Action methodStep) {
+            trialSteps.Add(methodStep);
+        }
+
+        /// <summary>
+        /// Adds labeled and colored message to console if `ShowConsoleMessages` is enabled. Handy for debugging.
+        /// </summary>
+        /// <param name="_msg">Message to show</param>
+        public void AddToConsoleLog(string _msg) {
+            if (ShowConsoleMessages)
+                Edia.Utilities.Log.AddToConsoleLog(_msg, this.name);
+        }
+
+#region ---- EVENT HOOKS
+
+        public virtual void OnBlockStart() {
+        }
+
+        public virtual void OnStartTrial() {
+        }
+
+        public virtual void OnEndTrial() {
+        }
+
+        public virtual void OnBetweenSteps() {
+        }
+
+        public virtual void OnBlockEnd() {
+        }
+
+        public virtual void OnBlockOutro() {
+        }
+
+#endregion
+    }
+}

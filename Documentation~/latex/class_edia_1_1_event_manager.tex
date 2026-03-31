@@ -1,0 +1,82 @@
+\doxysection{Edia.\+Event\+Manager Class Reference}
+\hypertarget{class_edia_1_1_event_manager}{}\label{class_edia_1_1_event_manager}\index{Edia.EventManager@{Edia.EventManager}}
+
+
+Provides functionality for managing events using event listeners and event triggers.  
+
+
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{class_edia_1_1_event_manager_ae432c46eafe6741b496caf4bd63ffa0b}{Start\+Listening}} (string event\+Name, Action$<$ \mbox{\hyperlink{class_edia_1_1e_param}{e\+Param}} $>$ listener)
+\begin{DoxyCompactList}\small\item\em Starts a listener to the given {\ttfamily event\+Name} string. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{class_edia_1_1_event_manager_ac4419981f2f446c72a17395a324f462e}{Stop\+Listening}} (string event\+Name, Action$<$ \mbox{\hyperlink{class_edia_1_1e_param}{e\+Param}} $>$ listener)
+\begin{DoxyCompactList}\small\item\em Stops the listener, if any, to the given {\ttfamily event\+Name} string. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{class_edia_1_1_event_manager_a7658c419050af04502bee0ce20b8679b}{Trigger\+Event}} (string event\+Name, \mbox{\hyperlink{class_edia_1_1e_param}{e\+Param}} event\+Param)
+\begin{DoxyCompactList}\small\item\em Triggers the event with the given eventname. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Provides functionality for managing events using event listeners and event triggers. 
+
+The \doxylink{class_edia_1_1_event_manager}{Event\+Manager} class allows registering listeners to specific events, stopping listeners, and triggering events with or without parameterized data. 
+
+\label{doc-func-members}
+\Hypertarget{class_edia_1_1_event_manager_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_edia_1_1_event_manager_ae432c46eafe6741b496caf4bd63ffa0b}\index{Edia.EventManager@{Edia.EventManager}!StartListening@{StartListening}}
+\index{StartListening@{StartListening}!Edia.EventManager@{Edia.EventManager}}
+\doxysubsubsection{\texorpdfstring{StartListening()}{StartListening()}}
+{\footnotesize\ttfamily \label{class_edia_1_1_event_manager_ae432c46eafe6741b496caf4bd63ffa0b} 
+void Edia.\+Event\+Manager.\+Start\+Listening (\begin{DoxyParamCaption}\item[{string}]{event\+Name}{, }\item[{Action$<$ \mbox{\hyperlink{class_edia_1_1e_param}{e\+Param}} $>$}]{listener}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Starts a listener to the given {\ttfamily event\+Name} string. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em event\+Name} & String definition of the event\\
+\hline
+{\em listener} & Method to trigger when event is fired\\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_edia_1_1_event_manager_ac4419981f2f446c72a17395a324f462e}\index{Edia.EventManager@{Edia.EventManager}!StopListening@{StopListening}}
+\index{StopListening@{StopListening}!Edia.EventManager@{Edia.EventManager}}
+\doxysubsubsection{\texorpdfstring{StopListening()}{StopListening()}}
+{\footnotesize\ttfamily \label{class_edia_1_1_event_manager_ac4419981f2f446c72a17395a324f462e} 
+void Edia.\+Event\+Manager.\+Stop\+Listening (\begin{DoxyParamCaption}\item[{string}]{event\+Name}{, }\item[{Action$<$ \mbox{\hyperlink{class_edia_1_1e_param}{e\+Param}} $>$}]{listener}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Stops the listener, if any, to the given {\ttfamily event\+Name} string. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em event\+Name} & String definition of the event\\
+\hline
+{\em listener} & Method to trigger when event is fired\\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_edia_1_1_event_manager_a7658c419050af04502bee0ce20b8679b}\index{Edia.EventManager@{Edia.EventManager}!TriggerEvent@{TriggerEvent}}
+\index{TriggerEvent@{TriggerEvent}!Edia.EventManager@{Edia.EventManager}}
+\doxysubsubsection{\texorpdfstring{TriggerEvent()}{TriggerEvent()}}
+{\footnotesize\ttfamily \label{class_edia_1_1_event_manager_a7658c419050af04502bee0ce20b8679b} 
+void Edia.\+Event\+Manager.\+Trigger\+Event (\begin{DoxyParamCaption}\item[{string}]{event\+Name}{, }\item[{\mbox{\hyperlink{class_edia_1_1e_param}{e\+Param}}}]{event\+Param}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Triggers the event with the given eventname. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em event\+Name} & String definition of the event\\
+\hline
+{\em event\+Param} & Parameter package to pass along\\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+Felix/\+Projects/\+EDIA/edia\+\_\+core/\+Assets/com.\+edia.\+core/\+Runtime/\+Base/\+Scripts/\+Events/Event\+Manager.\+cs\end{DoxyCompactItemize}
