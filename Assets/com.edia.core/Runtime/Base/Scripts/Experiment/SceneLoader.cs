@@ -16,7 +16,7 @@ namespace Edia {
         [SerializeField] private SceneAsset sceneAsset;
 #endif
 
-        [SerializeField, HideInInspector] string _sceneName;
+        [SerializeField, HideInInspector] private string _sceneName;
 
 #if UNITY_EDITOR
         private void OnValidate() {
