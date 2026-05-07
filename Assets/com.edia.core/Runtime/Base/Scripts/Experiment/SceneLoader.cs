@@ -37,7 +37,7 @@ namespace Edia {
         /// <summary>
         /// Loads a specified scene.
         /// </summary>
-        /// <param name="sceneName"></param>Name of the scene to be loaded.
+        /// <param name="sceneName">Name of the scene to be loaded.</param>
         public void LoadScene(string sceneName) {
             // Load the scene asynchronously
             if (string.IsNullOrWhiteSpace(sceneName)) {
