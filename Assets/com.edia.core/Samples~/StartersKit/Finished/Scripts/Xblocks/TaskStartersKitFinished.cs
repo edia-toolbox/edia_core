@@ -20,11 +20,9 @@ using UnityEngine.UI;
 namespace StartersKit {
 
     public class TaskStartersKitFinished : XBlock {
-
-        [Header("Far condition")]
-        public GameObject  PlayAreaFar;
-        public GameObject  StimuliHolderFar;
-        public GameObject  FLoatingCanvasPanel;
+        [Header("Far condition")] public GameObject PlayAreaFar;
+        public GameObject StimuliHolderFar;
+        public GameObject FLoatingCanvasPanel;
         public List<Image> SelectionImages = new();
 
         [Space(10)]
@@ -39,14 +37,15 @@ namespace StartersKit {
 
         // Trial related properties
         private readonly List<Color> _blockColors = new();
-        private          Color       _selectedColor;
-        private          Color       _currentStimuliColor;
-        private          string      _currentTaskCondition;
-        private          Vector3     _stimuliHolderNearInitialPosition;
+        private Color _currentStimuliColor;
+        private string _currentTaskCondition;
+        private Vector3 _stimuliHolderNearInitialPosition;
 
         // Trial data to collect 
-        private float UserResponseTime          = 0f;
-        private float UserInputEnabledTimestamp = 0;
+        private bool _validResponse = false;
+        private float _userResponseTime = 0f;
+        private float _userInputEnabledTimestamp = 0;
+        private Color _selectedColor;
 
         private void Awake() {
             /*
@@ -105,7 +104,10 @@ namespace StartersKit {
                 1. Put experiment statemachine in 'wait' mode
                 2. Proceed experiment statemachine with a 'proceed' call from somewhere (script/button/timer/etc)
             */
-
+    
+            // Instantiate a check whether the user proceeded.
+            _validResponse = false;
+            
             Experiment.Instance.WaitOnProceed();
 
             /*
@@ -173,7 +175,7 @@ namespace StartersKit {
             XRManager.Instance.EnableRayInteraction(true); // This enabled a XR ray to interact FAR and NEAR, including grabbing
 
             // Remember the time when the user started inputting.
-            UserInputEnabledTimestamp = Time.time;
+            _userInputEnabledTimestamp = Time.time;
 
             // Tell the system to wait on button press. This will also enable the 'proceed' button on the experimenter controllerpanel 
             Experiment.Instance.WaitOnProceed();
@@ -186,12 +188,14 @@ namespace StartersKit {
              * !! If the experimenter uses the 'proceed' button on the controllerpanel, this method is skipped.
              * Therefore be very aware of where to put essential parts of code.
              */
+            
+            _validResponse = true;
 
             // Get the selected color
             _selectedColor = _blockColors[selectedColorIdx];
 
             // Store the time 
-            UserResponseTime = Time.time - UserInputEnabledTimestamp;
+            _userResponseTime = Time.time - _userInputEnabledTimestamp;
 
             // As we already have put the system in 'wait' mode in the previous step, we can proceed.
             Experiment.Instance.Proceed();
@@ -209,12 +213,19 @@ namespace StartersKit {
                 slot.gameObject.SetActive(false);
             }
 
-            // Check if the user selected the correct color.
-            bool isCorrect = _selectedColor == _currentStimuliColor;
-
-            // Add results and relevant data to trial results
-            Experiment.Instance.AddToTrialResults("correct", isCorrect.ToString());
-            Experiment.Instance.AddToTrialResults("response_time", UserResponseTime.ToString());
+            bool isCorrect = false;
+            
+            if (_validResponse) {
+                // Check if the user selected the correct color.
+                isCorrect = _selectedColor == _currentStimuliColor;
+                // Add results and relevant data to trial results
+                Experiment.Instance.AddToTrialResults("correct", isCorrect.ToString());
+                Experiment.Instance.AddToTrialResults("response_time", _userResponseTime.ToString());
+            }
+            else {
+                Experiment.Instance.AddToTrialResults("correct", "");
+                Experiment.Instance.AddToTrialResults("response_time", "-1");
+            }
 
             /*
              * Continue to next step
