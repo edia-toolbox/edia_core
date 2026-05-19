@@ -56,7 +56,9 @@ namespace Edia.XR {
 			if (index < 0) return;
 
 			Redirectors[index].isEnabled = onOff;
-			
+
+			if (!isActiveAndEnabled) return;
+
 			if (onOff) Subscribe(Redirectors[index]);
 			else Unsubscribe(Redirectors[index]);
 		}
