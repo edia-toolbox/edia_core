@@ -8,7 +8,7 @@ namespace Edia.XR {
 	/// <summary>In order to be flexible for each Xblock, the remapping of a controller key to a method is a separate script</summary>
 	[System.Serializable]
 	[AddComponentMenu("EDIA/XR Remap Controller Input")]
-	public class XRControllerInputRemapperNew : MonoBehaviour {
+	public class XRControllerInputRemapper : MonoBehaviour {
 
 		// TODO Allow multiple input actions to one ID
 		// TODO Input remapping should take systems 'allowed interaction' into considiration
