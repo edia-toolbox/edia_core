@@ -31,6 +31,7 @@ namespace Edia.Controller
 		void OnDestroy()
 		{
 			EventManager.StopListening(Edia.Events.ControlPanel.EvShowMessageBox, OnEvShowMessageBox);
+			EventManager.StopListening(Edia.Events.StateMachine.EvProceed, OnEvProceed);
 		}
 
 #region MESSAGE PANEL
@@ -38,13 +39,13 @@ namespace Edia.Controller
 		public void ShowMessage(string msg, bool autoHide)
 		{
 			messageField.text = msg;
+			EventManager.StartListening(Edia.Events.StateMachine.EvProceed, OnEvProceed);
 
 			if (autoHide is true) {
 				StartCoroutine(AutoHide());
 			} else panelButton.gameObject.SetActive(true);
 
 			Invoke("ShowPanel", 0.01f); //! Intentionally delayed as on startup the panellayoutmanager is too quick
-			
 		}
 
 		/// <summary> Shows the message box. Expects string[], param[0] = message, param[1] = autohide true/false </summary>
@@ -53,12 +54,17 @@ namespace Edia.Controller
 			ShowMessage(obj.GetStringBool_String(), obj.GetStringBool_Bool());
 		}
 
+		private void OnEvProceed(eParam obj) {
+			// Hide panel when proceed is called
+			EventManager.StopListening(Edia.Events.StateMachine.EvProceed, OnEvProceed);
+			HidePanel();
+			panelButton.gameObject.SetActive(false);
+		}
 #endregion // -------------------------------------------------------------------------------------------------------------------------------
 #region HELPERS
 
 		IEnumerator AutoHide()
 		{
-			//yield return new WaitForSecondsRealtime(0.011f);
 			panelButton.gameObject.SetActive(false);
 			yield return new WaitForSecondsRealtime(autoHideTimer);
 			HidePanel();
