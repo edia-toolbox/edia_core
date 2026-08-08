@@ -55,7 +55,21 @@ namespace Nobi.UiRoundedCorners {
 
 		public void Validate() {
 			if (material == null) {
-				material = new Material(Shader.Find("UI/RoundedCorners/RoundedCorners"));
+				/*
+				 * EDIA patch: guard against Shader.Find returning null.
+				 * Shader.Find cannot resolve project/package shaders while an asset is being imported, and
+				 * [ExecuteInEditMode] makes OnValidate run in exactly that context for every prefab shipped
+				 * inside the EDIA package. Constructing a Material from the null shader threw
+				 * "ArgumentNullException: ... Parameter name: shader" once per component on a fresh install.
+				 * Bailing out here is safe: OnEnable/OnValidate run again outside import context, where the
+				 * shader does resolve and the material is created as usual.
+				 */
+				var shader = Shader.Find("UI/RoundedCorners/RoundedCorners");
+				if (shader == null) {
+					return;
+				}
+
+				material = new Material(shader);
 				// material = Resources.Load<Material>("RoundedCorners");
 			}
 
@@ -73,6 +87,12 @@ namespace Nobi.UiRoundedCorners {
 		}
 
 		public void Refresh() {
+			// EDIA patch: Validate() can leave the material null when the shader is not resolvable yet
+			// (see the note there); without this guard that turns the old exception into a NullReferenceException.
+			if (material == null) {
+				return;
+			}
+
 			var rect = ((RectTransform)transform).rect;
 
 			//Multiply radius value by 2 to make the radius value appear consistent with ImageWithIndependentRoundedCorners script.
