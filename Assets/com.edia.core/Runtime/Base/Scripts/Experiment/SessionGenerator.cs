@@ -294,7 +294,20 @@ namespace Edia {
                             AddToConsole($"No trial settings found for XBlock <b>{currentXBlock.subType}</b>. Adding an empty trial.");
                         }
                         else {
-                            foreach (ValueList row in currentXBlock.trialSettings.valueList) {
+                            var trialKeys = currentXBlock.trialSettings.keys;
+
+                            for (var r = 0; r < currentXBlock.trialSettings.valueList.Count; r++) {
+                                ValueList row = currentXBlock.trialSettings.valueList[r];
+
+                                // Every row must hold exactly one value per key: the loop below looks up
+                                // trialKeys[i] by value position, so a longer row would index past the key list.
+                                if (row.values.Count != trialKeys.Count) {
+                                    AddToConsole(
+                                        $"XBlock <b>{currentXBlock.subType}</b>: row {r + 1} of 'valueList' holds {row.values.Count} value(s), but {trialKeys.Count} key(s) are defined ({string.Join(", ", trialKeys)}). Give every row exactly one value per key in {blockId}.json.",
+                                        LogType.Error);
+                                    return false;
+                                }
+
                                 Trial trial = newBlock.CreateTrial();
 
                                 for (var i = 0; i < row.values.Count; i++) {
