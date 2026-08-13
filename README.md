@@ -52,6 +52,9 @@ For newcomers to EDIA, we recommend to follow our "[Getting started](https://min
 
 Unity version 6000.0.61f1 and up.
 
+### Via the installer << Recommended !!
+- Download the latest EDIA installer package from [Latest release](https://github.com/edia-toolbox/edia_installer/releases/latest/download/EdiaInstaller.unitypackage) and import it in Unity via `Assets>Import Package>Custom Package`. A wizard will pop up and guide you through the setup.
+
 ### As a package (Unity package manager)
 - In Unity open the package manager window → **Window** → **Package Manager**  
 - Use `Install from GIT URL`  
