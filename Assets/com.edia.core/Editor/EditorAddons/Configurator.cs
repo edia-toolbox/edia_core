@@ -122,8 +122,10 @@ namespace Edia.Editor.Utils {
             GUILayout.Label("Each EDIA module comes with samples. \nConsult the `samples` area the package manager.", labelContent);
 
             if (GUILayout.Button("Open Package Manager")) {
-                if (!EditorApplication.ExecuteMenuItem("Window/Package Management"))
-                    EditorApplication.ExecuteMenuItem("Window/Package Manager");
+                // Use the Package Manager API rather than a menu path: the menu moved from
+                // "Window/Package Manager" to "Window/Package Management/Package Manager" in
+                // newer Unity versions, and ExecuteMenuItem logs an error for unknown paths.
+                UnityEditor.PackageManager.UI.Window.Open("com.edia.core");
             }
 
             // Project settings ------------------------------------------------------
