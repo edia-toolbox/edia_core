@@ -121,8 +121,10 @@ namespace Edia.Editor.Utils {
             EditorGUILayout.Separator();
             GUILayout.Label("Each EDIA module comes with samples. \nConsult the `samples` area the package manager.", labelContent);
 
-            if (GUILayout.Button("Open Package Manager"))
-                EditorApplication.ExecuteMenuItem("Window/Package Management");
+            if (GUILayout.Button("Open Package Manager")) {
+                if (!EditorApplication.ExecuteMenuItem("Window/Package Management"))
+                    EditorApplication.ExecuteMenuItem("Window/Package Manager");
+            }
 
             // Project settings ------------------------------------------------------
             GUILayout.Space(10);
