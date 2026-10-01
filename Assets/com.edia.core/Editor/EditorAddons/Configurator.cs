@@ -121,12 +121,8 @@ namespace Edia.Editor.Utils {
             EditorGUILayout.Separator();
             GUILayout.Label("Each EDIA module comes with samples. \nConsult the `samples` area the package manager.", labelContent);
 
-            if (GUILayout.Button("Open Package Manager")) {
-                // Use the Package Manager API rather than a menu path: the menu moved from
-                // "Window/Package Manager" to "Window/Package Management/Package Manager" in
-                // newer Unity versions, and ExecuteMenuItem logs an error for unknown paths.
-                UnityEditor.PackageManager.UI.Window.Open("com.edia.core");
-            }
+            if (GUILayout.Button("Open Package Manager"))
+                OpenPackageManager();
 
             // Project settings ------------------------------------------------------
             GUILayout.Space(10);
@@ -163,6 +159,32 @@ namespace Edia.Editor.Utils {
             EditorGUILayout.EndHorizontal();
             EditorGUILayout.EndScrollView();
             GUILayout.Space(30);
+        }
+
+        /// <summary> Opens the Package Manager, on the EDIA page when EDIA is installed as a package </summary>
+        static void OpenPackageManager() {
+            const string packageName = "com.edia.core";
+
+            // Only target the package page when EDIA lives in Packages/; when it sits under
+            // Assets/ the Package Manager cannot resolve it and logs an error instead.
+            if (UnityEditor.PackageManager.PackageInfo.FindForPackageName(packageName) != null) {
+                UnityEditor.PackageManager.UI.Window.Open(packageName);
+                return;
+            }
+
+            // The menu moved into a "Package Management" submenu during the Unity 6 cycle:
+            // 6000.0 only has the old path, 6000.3+ only the new one. Probe with Menu.GetEnabled,
+            // which stays silent on unknown paths, so ExecuteMenuItem is never handed a path
+            // that does not exist (that is what logs an error in the console).
+            const string menuPath       = "Window/Package Management/Package Manager";
+            const string legacyMenuPath = "Window/Package Manager";
+
+            if (Menu.GetEnabled(menuPath))
+                EditorApplication.ExecuteMenuItem(menuPath);
+            else if (Menu.GetEnabled(legacyMenuPath))
+                EditorApplication.ExecuteMenuItem(legacyMenuPath);
+            else
+                Debug.LogWarning("EDIA: could not locate the Package Manager menu item. Please open it from Unity's Window menu.");
         }
 
         static void CreateNewTheme() {
