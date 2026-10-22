@@ -1,82 +1,46 @@
-using UnityEngine;
-using UnityEditor;
+using System;
 using System.IO;
+using Edia.Utilities;
+using UnityEditor;
+using UnityEditor.PackageManager.UI;
+using UnityEngine;
 
 namespace Edia.Editor.Utils {
     [InitializeOnLoad]
     public class Configurator : EditorWindow {
-
         // Public
         public static Texture2D EDIAIcon;
+        private static ThemeDefinition _selectedTheme;
+        private static string _version;
 
         // Internal
-        private                  Vector2         _scrollPos;
-        private static           ThemeDefinition _selectedTheme;
-        private static           string          _version;
-
-        [System.Serializable]
-        private class PackageJson {
-            public string version;
-        }
-
-        void OnEnable() {
-            EDIAIcon ??= Resources.Load<Texture2D>("Icons/IconEdia");
-        }
+        private Vector2 _scrollPos;
 
         static Configurator() {
             EditorApplication.projectChanged += OnProjectChanged;
         }
 
-        /// <summary> Automatically show configurator if it has not been shown already </summary>
-        private static void OnProjectChanged() {
-            if (!EditorPrefs.HasKey("Initalized")) {
-                EditorPrefs.SetBool("Initalized", true);
-                ShowConfigurator();
-            }
-        }
-
-        public static void UnsubscribeFromEvents() {
-            EditorApplication.projectChanged -= OnProjectChanged;
-        }
-
-        [MenuItem("EDIA/Configurator", false, 0)]
-        static void ShowConfigurator() {
-            var window = (Configurator)EditorWindow.GetWindow(typeof(Configurator), false, "Configurator");
-            window.minSize      = new Vector2(300, 400);
-            window.titleContent = new GUIContent("Configurator");
-
-            // Find version of package
-            string scriptPath  = AssetDatabase.GetAssetPath(MonoScript.FromScriptableObject(window));
-            string packagePath = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(scriptPath), "../../../com.edia.core/package.json"));
-            if (File.Exists(packagePath)) {
-                string jsonContent = File.ReadAllText(packagePath);
-                var    packageData = JsonUtility.FromJson<PackageJson>(jsonContent);
-                _version = packageData.version;
-            }
-            else {
-                _version = "?.?.?";
-            }
-
-            window.Show();
+        private void OnEnable() {
+            EDIAIcon ??= Resources.Load<Texture2D>("Icons/IconEdia");
         }
 
 
         private void OnGUI() {
             // Styles
-            GUIStyle labelContent = new GUIStyle(EditorStyles.label);
+            var labelContent = new GUIStyle(EditorStyles.label);
             labelContent.fontSize = 13;
             labelContent.wordWrap = true;
-            
-            GUIStyle labelHeader = new GUIStyle(EditorStyles.label);
+
+            var labelHeader = new GUIStyle(EditorStyles.label);
             labelHeader.wordWrap = true;
-            labelHeader.font     = Resources.Load<Font>("bahnschrift");
+            labelHeader.font = Resources.Load<Font>("bahnschrift");
             labelHeader.fontSize = 22;
 
-            GUIStyle centeredStyle = new GUIStyle(GUI.skin.label);
+            var centeredStyle = new GUIStyle(GUI.skin.label);
             centeredStyle.alignment = TextAnchor.MiddleCenter;
-            centeredStyle.font      = Resources.Load<Font>("bahnschrift");
+            centeredStyle.font = Resources.Load<Font>("bahnschrift");
 
-            GUIStyle boxStyle = new GUIStyle(GUI.skin.box);
+            var boxStyle = new GUIStyle(GUI.skin.box);
             boxStyle.wordWrap = true;
             boxStyle.font = Resources.Load<Font>("bahnschrift");
             boxStyle.alignment = TextAnchor.MiddleCenter;
@@ -104,7 +68,7 @@ namespace Edia.Editor.Utils {
             EditorGUILayout.BeginHorizontal();
             GUILayout.Space(20);
             EditorGUILayout.BeginVertical();
-            
+
             GUILayout.Space(20);
             EditorGUILayout.Separator();
             GUILayout.Label("Documentation", labelHeader);
@@ -119,10 +83,11 @@ namespace Edia.Editor.Utils {
             EditorGUILayout.Separator();
             GUILayout.Label("Examples", labelHeader);
             EditorGUILayout.Separator();
-            GUILayout.Label("Each EDIA module comes with samples. \nConsult the `samples` area the package manager.", labelContent);
+            GUILayout.Label("Each EDIA module comes with samples. \nConsult the `samples` area the package manager.",
+                labelContent);
 
             if (GUILayout.Button("Open Package Manager"))
-                OpenPackageManager();
+                Window.Open("com.edia.core");
 
             // Project settings ------------------------------------------------------
             GUILayout.Space(10);
@@ -131,28 +96,28 @@ namespace Edia.Editor.Utils {
 
             GUILayout.Space(10);
             GUILayout.Label("Layer setup.", labelContent);
-            GUILayout.Label("EDIA components depend on mandatory layers in order to function properly.\nEDIA will auto-create&overwrite necessary layers on runtime.", boxStyle);
-            if (GUILayout.Button("Create layers")) {
-                Edia.Utilities.LayerTools.SetupLayers();
-            }
+            GUILayout.Label(
+                "EDIA components depend on mandatory layers in order to function properly.\nEDIA will auto-create&overwrite necessary layers on runtime.",
+                boxStyle);
+            if (GUILayout.Button("Create layers")) LayerTools.SetupLayers();
 
             GUILayout.Space(10);
             EditorGUILayout.Separator();
             GUILayout.Label("Folder structure guide.", labelContent);
-            GUILayout.Label("To keep your project organised from the start we provide a suggestion for a folder structure", boxStyle);
-            if (GUILayout.Button("Create folder structure")) {
-                CreateFolderStructure("ProjectName");
-            }
+            GUILayout.Label(
+                "To keep your project organised from the start we provide a suggestion for a folder structure",
+                boxStyle);
+            if (GUILayout.Button("Create folder structure")) CreateFolderStructure("ProjectName");
 
             GUILayout.Space(10);
             GUILayout.Label("UI color theme.");
-            GUILayout.Label("EDIA provides a customizable UI color theme. The theme is applied to all EDIA UI elements in the project.",boxStyle);
+            GUILayout.Label(
+                "EDIA provides a customizable UI color theme. The theme is applied to all EDIA UI elements in the project.",
+                boxStyle);
 
-            EditorGUILayout.BeginHorizontal(); 
-            if (GUILayout.Button("Create", GUILayout.Width(80))) {
-                CreateNewTheme();
-            }
-            
+            EditorGUILayout.BeginHorizontal();
+            if (GUILayout.Button("Create", GUILayout.Width(80))) CreateNewTheme();
+
             GUILayout.Space(30);
             EditorGUILayout.EndHorizontal();
             EditorGUILayout.EndVertical();
@@ -161,15 +126,49 @@ namespace Edia.Editor.Utils {
             GUILayout.Space(30);
         }
 
-        static void CreateNewTheme() {
-            var theme = ScriptableObject.CreateInstance<ThemeDefinition>();
+        /// <summary> Automatically show configurator if it has not been shown already </summary>
+        private static void OnProjectChanged() {
+            if (!EditorPrefs.HasKey("Initalized")) {
+                EditorPrefs.SetBool("Initalized", true);
+                ShowConfigurator();
+            }
+        }
+
+        public static void UnsubscribeFromEvents() {
+            EditorApplication.projectChanged -= OnProjectChanged;
+        }
+
+        [MenuItem("EDIA/Configurator", false, 0)]
+        private static void ShowConfigurator() {
+            var window = (Configurator)GetWindow(typeof(Configurator), false, "Configurator");
+            window.minSize = new Vector2(300, 400);
+            window.titleContent = new GUIContent("Configurator");
+
+            // Find version of package
+            var scriptPath = AssetDatabase.GetAssetPath(MonoScript.FromScriptableObject(window));
+            var packagePath = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(scriptPath),
+                "../../../com.edia.core/package.json"));
+            if (File.Exists(packagePath)) {
+                var jsonContent = File.ReadAllText(packagePath);
+                var packageData = JsonUtility.FromJson<PackageJson>(jsonContent);
+                _version = packageData.version;
+            }
+            else {
+                _version = "?.?.?";
+            }
+
+            window.Show();
+        }
+
+        private static void CreateNewTheme() {
+            var theme = CreateInstance<ThemeDefinition>();
             FileManager.CreateFolder("Settings");
             AssetDatabase.CreateAsset(theme, "Assets/Settings/ProjectColorTheme.asset");
             AssetDatabase.SaveAssets();
             Selection.activeObject = theme;
         }
-        
-        static void CreateFolderStructure(string projectName) {
+
+        private static void CreateFolderStructure(string projectName) {
             FileManager.CreateFolder(projectName);
             FileManager.CreateFolder(projectName + "/Assets2D");
             FileManager.CreateFolder(projectName + "/Assets2D/Textures");
@@ -187,5 +186,9 @@ namespace Edia.Editor.Utils {
             AssetDatabase.Refresh();
         }
 
+        [Serializable]
+        private class PackageJson {
+            public string version;
+        }
     }
 }
