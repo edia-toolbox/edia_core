@@ -122,7 +122,7 @@ namespace Edia.Editor.Utils {
             GUILayout.Label("Each EDIA module comes with samples. \nConsult the `samples` area the package manager.", labelContent);
 
             if (GUILayout.Button("Open Package Manager"))
-                OpenPackageManager();
+                UnityEditor.PackageManager.UI.Window.Open("com.edia.core");
 
             // Project settings ------------------------------------------------------
             GUILayout.Space(10);
